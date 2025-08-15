@@ -1,0 +1,45 @@
+# File: openapi-v1.yaml
+# Purpose: Minimal OpenAPI v1 snapshot for discovery and health endpoints.
+# All Rights Reserved. Arodi Emmanuel
+openapi: 3.0.3
+info:
+  title: Poetry API
+  version: 1.0.0
+paths:
+  /api:
+    get:
+      summary: API discovery index
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  v1: { type: string, example: "/api/v1" }
+                  docs: { type: string, example: "/v3/api-docs" }
+                  swagger: { type: string, example: "/swagger-ui.html" }
+  /api/v1/health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: "ok" }
+components:
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type: { type: string, format: uri }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string }
+        errors: { type: object }

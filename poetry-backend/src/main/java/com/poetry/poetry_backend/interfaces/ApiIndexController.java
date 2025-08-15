@@ -1,7 +1,7 @@
 /*
  File: ApiIndexController.java
  Purpose: API discovery index controller exposing API root links.
- All Rights Reserved. Emmanuel
+ All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces;
 

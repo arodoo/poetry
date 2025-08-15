@@ -1,7 +1,7 @@
 <!--
 File: openapi-readme.md
 Purpose: Notes to manage and publish OpenAPI contracts and SDK generation.
-All Rights Reserved. Emmanuel
+All Rights Reserved. Arodi Emmanuel
 -->
 # OpenAPI Contracts
 

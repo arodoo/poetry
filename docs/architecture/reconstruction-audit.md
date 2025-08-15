@@ -1,7 +1,7 @@
 <!--
 File: reconstruction-audit.md
 Purpose: Step 1 audit inventory and alignment notes for repository reconstruction.
-All Rights Reserved. Emmanuel
+All Rights Reserved. Arodi Emmanuel
 -->
 # Step 1 — Audit and Alignment
 

@@ -1,0 +1,34 @@
+/*
+ File: UserControllerTest.java
+ Purpose: Integration test for /api/v1/users controller using MockMvc.
+ All Rights Reserved. Arodi Emmanuel
+*/
+package com.poetry.poetry_backend.interfaces.v1.user;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class UserControllerTest {
+    @Autowired MockMvc mvc;
+
+    @Test void crud_flow() throws Exception {
+        String body = "{\"firstName\":\"A\",\"lastName\":\"B\",\"email\":\"a@b.com\",\"username\":\"ab\",\"password\":\"secret\"}";
+        String resp = mvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(body))
+            .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String id = resp.replaceAll(".*\\\"id\\\":(\\d+).*", "$1");
+        mvc.perform(get("/api/v1/users")).andExpect(status().isOk());
+        mvc.perform(get("/api/v1/users/"+id)).andExpect(status().isOk());
+        String up = "{\"firstName\":\"A2\",\"lastName\":\"B2\",\"email\":\"a2@b.com\",\"roles\":[\"USER\"],\"active\":true}";
+        mvc.perform(put("/api/v1/users/"+id).contentType(MediaType.APPLICATION_JSON).content(up)).andExpect(status().isOk()).andExpect(jsonPath("$.firstName").value("A2"));
+        mvc.perform(delete("/api/v1/users/"+id)).andExpect(status().isNoContent());
+    }
+}

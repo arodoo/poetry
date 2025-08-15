@@ -1,7 +1,7 @@
 /*
  File: ApiIndexControllerTest.java
  Purpose: MockMvc test for API discovery index endpoint.
- All Rights Reserved. Emmanuel
+ All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces;
 

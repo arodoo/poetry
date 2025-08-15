@@ -1,7 +1,7 @@
 /*
  File: VersionedPlaceholderController.java
  Purpose: Versioned v1 placeholder endpoint for health checks.
- All Rights Reserved. Emmanuel
+ All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.v1;
 

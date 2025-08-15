@@ -1,7 +1,7 @@
 /*
  File: GlobalProblemHandler.java
  Purpose: Global RFC 7807 ProblemDetail exception handling.
- All Rights Reserved. Emmanuel
+ All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.error;
 

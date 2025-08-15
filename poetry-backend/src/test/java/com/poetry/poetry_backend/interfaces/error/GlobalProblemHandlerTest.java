@@ -1,7 +1,7 @@
 /*
  File: GlobalProblemHandlerTest.java
  Purpose: Tests for RFC 7807 ProblemDetail handler using MockMvc.
- All Rights Reserved. Emmanuel
+ All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.error;
 

@@ -1,7 +1,7 @@
 <!--
 File: toDo.md
 Purpose: Actionable ToDo plan to reconstruct oldRepo under new conventions.
-All Rights Reserved. Emmanuel
+All Rights Reserved. Arodi Emmanuel
 -->
 # ToDo — Reconstruction of oldRepo under new convention
 
