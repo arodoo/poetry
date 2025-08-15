@@ -1,2 +1,19 @@
 # Ignorar repo antiguo
 oldRepo/
+
+# Build outputs
+**/target/
+**/dist/
+**/build/
+**/node_modules/
+
+# IDE and temp files
+**/.vscode/
+**/.idea/
+**/tmp/
+**/*.log
+**/*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
