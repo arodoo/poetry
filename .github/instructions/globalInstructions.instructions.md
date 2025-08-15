@@ -26,6 +26,7 @@ Frontend
 - API endpoints must be idempotent where applicable.
 - @heroicons/react for icons.
 - Tailwind CSS for styling.
+- respect rules at poetry-frontend\tsconfig.app.json and poetry-frontend\eslint.config.js.
 
 Backend
 
