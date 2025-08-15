@@ -1,4 +1,3 @@
-```markdown
 # docs/ — Single Source of Truth
 
 All product & engineering docs live here and change via Pull Requests.  
@@ -52,4 +51,9 @@ If it’s not here, it’s not done.
 - **Domain**: [`domains/_template.md`](domains/_template.md)
 - **ADR**: [`architecture/adr/0000-template.md`](architecture/adr/0000-template.md)
 - **Runbook**: [`operations/runbooks/_template.md`](operations/runbooks/_template.md)
-```
+
+---
+
+## Tasks Log
+
+- Overview: [`tasks/readme.md`](tasks/readme.md)

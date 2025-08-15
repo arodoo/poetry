@@ -9,6 +9,10 @@ applyTo: '**'
 - All code must be documented in /docs following the standard folder structure (overview, architecture, domains, api, standards, operations, security).
 - Each module must have its own file in /docs/domains/ including: scope, RFs, data model, API references, permissions, and acceptance criteria.
 - API contracts (OpenAPI) must live in /docs/api/ and be referenced from domain docs.
+- Vars, comments and code must be in English.
+- Every file must have a header comment with the file name, detailed purpose, and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
+- Give each task a .md file in 'docs/' with the task description, the expected result, and the actual result and update after every modification.
+- 
 
 
 Frontend

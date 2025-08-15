@@ -1,49 +1,54 @@
-# ToDo — Reconstrucción oldRepo bajo nueva convención
+<!--
+File: toDo.md
+Purpose: Actionable ToDo plan to reconstruct oldRepo under new conventions.
+All Rights Reserved. Emmanuel
+-->
+# ToDo — Reconstruction of oldRepo under new convention
 
-1) Auditoría y alineación
-- Revisar oldRepo/boops-site/api y app: endpoints, modelos, validaciones, errores, config.
-- Mapear a DDD (back: domain/application/infrastructure/interfaces; front: domain/features/shared/ui).
-- Inventario de incongruencias (nombres, rutas, contratos, validaciones, estados HTTP, mensajes).
+1) Audit and alignment
+- Review oldRepo/boops-site/api and app: endpoints, models, validations, errors, config.
+- Map to DDD (back: domain/application/infrastructure/interfaces; front: domain/features/shared/ui).
+- Inventory of inconsistencies (names, routes, contracts, validations, HTTP statuses, messages).
 
 2) Backend (poetry-backend)
-- Estructura DDD: domain (entities, VOs, repos), application (use cases, DTOs), infrastructure (JPA/HTTP/config), interfaces (REST).
-- Rutas bajo /api/v1; índice /api; Actuator y logs JSON; restringir /actuator/mappings.
-- RFC7807 handler global; soft delete; no silent catch.
-- Timeouts y retries en HTTP/DB; validación tipada de env vars al startup.
-- OpenAPI en /v3/api-docs + Swagger UI.
-- ETag/If-Match e Idempotency-Key donde aplique.
+- DDD structure: domain (entities, VOs, repos), application (use cases, DTOs), infrastructure (JPA/HTTP/config), interfaces (REST).
+- Routes under /api/v1; /api index; Actuator and JSON logs; restrict /actuator/mappings.
+- RFC7807 global handler; soft delete; no silent catch.
+- Timeouts and retries in HTTP/DB; typed env var validation at startup.
+- OpenAPI at /v3/api-docs + Swagger UI.
+- ETag/If-Match and Idempotency-Key where applicable.
 
 3) OpenAPI ↔ SDK
-- Exportar contratos a /docs/api; validar esquema en CI.
-- Generar SDK TS desde OpenAPI; publicar/inyectar en frontend; sin fetch directo.
+- Export contracts to /docs/api; validate schema in CI.
+- Generate TS SDK from OpenAPI; inject in frontend; no direct fetch.
 
 4) Frontend (poetry-frontend)
-- Rutas "/:locale/..."; 100% i18n sin textos hardcodeados; slugs localizados por feature.
-- Features con carpeta locales; UI accesible (WCAG), Tailwind, @heroicons.
-- Datos con TanStack Query (claves estables/invalidación); validación Zod.
-- Lógica en hooks/services; util central de fecha/hora; headers ETag/Idempotency.
+- Routes "/:locale/..."; 100% i18n without hardcoded texts; localized slugs per feature.
+- Features with locales dir; accessible UI (WCAG), Tailwind, @heroicons.
+- Data with TanStack Query (stable keys/invalidation); Zod validation.
+- Logic in hooks/services; central date/time util; ETag/Idempotency headers.
 
-5) Tests y calidad
-- Back: unit (domain/app), integración (REST/repos), contratos (OpenAPI).
-- Front: unit (hooks/utils), integración (componentes con MSW), e2e mínimos.
-- Anti-drift: comparar SDK↔OpenAPI y Zod↔tipos en CI.
-- Límite 60 líneas/archivo; refactor donde exceda.
+5) Tests and quality
+- Back: unit (domain/app), integration (REST/repos), contract (OpenAPI).
+- Front: unit (hooks/utils), integration (components with MSW), minimal e2e.
+- Anti-drift: compare SDK↔OpenAPI and Zod↔types in CI.
+- 60-line limit per file; refactor where exceeded.
 
-6) CI y ganchos
+6) CI and hooks
 - Husky: pre-commit (lint+format+max-lines), pre-push (test+typecheck+build).
-- Commitlint; pipeline falla en lint/tests/build, OpenAPI inválido, SDK/tipos desalineados.
+- Commitlint; pipeline fails on lint/tests/build, invalid OpenAPI, SDK/type drift.
 
-7) Documentación (/docs)
-- Estructura: overview, architecture, domains, api, standards, operations, security.
-- Un archivo por dominio en /docs/domains: alcance, RFs, modelo, API refs, permisos, criterios de aceptación.
-- Documentar env vars y referenciar OpenAPI.
+7) Documentation (/docs)
+- Structure: overview, architecture, domains, api, standards, operations, security.
+- One file per domain in /docs/domains: scope, RFs, data model, API refs, permissions, acceptance criteria.
+- Document env vars and reference OpenAPI.
 
-8) Resolución de incongruencias
-- Alinear nombres, status codes, modelos, validaciones y mensajes.
-- Mapear errores a mensajes amigables en UI (no texto crudo del backend).
+8) Resolve inconsistencies
+- Align names, status codes, models, validations, and messages.
+- Map backend errors to friendly UI messages (no raw backend text).
 
 9) Definition of Done
-- OpenAPI en /v3/api-docs y /docs/api; SDK consumido en frontend.
-- Páginas esperadas listas, i18n y rutas localizadas.
-- Tests verdes y ganchos activos; Actuator+logs OK.
-- Sin archivos >60 líneas; docs completas.
+- OpenAPI at /v3/api-docs and /docs/api; SDK consumed in frontend.
+- Expected pages ready, i18n and localized routes.
+- Green tests and active hooks; Actuator+logs OK.
+- No files >60 lines; docs complete.

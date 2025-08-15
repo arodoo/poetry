@@ -11,3 +11,4 @@ Expected pages defined at '.github\instructions\expectedPages.instructions.md'.
 - Incongruencies must be detected and fixed.
 - Tests must be added and passed in every integration.
 - (Most part of the logic is already implemented in 'oldRepo', just needs to be adapted to the new conventions.)
+

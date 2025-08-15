@@ -1,0 +1,30 @@
+/*
+ File: ApiIndexControllerTest.java
+ Purpose: MockMvc test for API discovery index endpoint.
+ All Rights Reserved. Emmanuel
+*/
+package com.poetry.poetry_backend.interfaces;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class ApiIndexControllerTest {
+    @Autowired MockMvc mvc;
+
+    @Test
+    void index_shouldExposeApiDiscovery() throws Exception {
+        mvc.perform(get("/api"))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$.v1").value("/api/v1"))
+           .andExpect(jsonPath("$.docs").value("/v3/api-docs"))
+           .andExpect(jsonPath("$.swagger").value("/swagger-ui.html"));
+    }
+}
