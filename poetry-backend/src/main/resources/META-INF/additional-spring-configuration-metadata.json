@@ -1,0 +1,52 @@
+{
+  "properties": [
+    {
+      "name": "app.api-base-path",
+      "type": "java.lang.String",
+      "description": "Base path for API (e.g. /api/v1)",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    },
+    {
+      "name": "app.cors-allowed-origins",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Allowed CORS origins (comma separated)",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    },
+    {
+      "name": "app.idempotency-ttl-seconds",
+      "type": "java.lang.Integer",
+      "description": "Idempotency key TTL in seconds",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    },
+    {
+      "name": "app.log-json",
+      "type": "java.lang.Boolean",
+      "description": "Enable compact JSON console logging",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    },
+    {
+      "name": "app.http-connect-timeout-ms",
+      "type": "java.lang.Integer",
+      "description": "HTTP client connect timeout in ms",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    },
+    {
+      "name": "app.http-read-timeout-ms",
+      "type": "java.lang.Integer",
+      "description": "HTTP client read timeout in ms",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    },
+    {
+      "name": "app.http-retry-max-attempts",
+      "type": "java.lang.Integer",
+      "description": "Max retry attempts for transient HTTP errors",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    },
+    {
+      "name": "app.http-retry-backoff-ms",
+      "type": "java.lang.Integer",
+      "description": "Backoff delay between HTTP retries in ms",
+      "sourceType": "com.poetry.poetry_backend.infrastructure.config.AppProperties"
+    }
+  ]
+}
