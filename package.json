@@ -4,11 +4,33 @@
   "version": "0.1.0",
   "description": "Repository-wide tooling for formatting and checks",
   "scripts": {
+    "prepare": "husky install",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "npm run lint:frontend",
+    "lint:frontend": "npm --prefix poetry-frontend run lint",
+    "typecheck": "npm --prefix poetry-frontend run typecheck",
+    "test": "npm --prefix poetry-frontend run test && poetry-backend/mvnw -q test",
+    "build": "npm --prefix poetry-frontend run build && poetry-backend/mvnw -q -DskipTests package",
+    "openapi:validate": "redocly lint docs/api/openapi-v1.yaml",
+    "sdk:check": "node tools/ci/check-openapi-hash.mjs",
+    "sdk:sync": "node tools/ci/update-openapi-hash.mjs",
+    "max-lines:check": "node tools/ci/check-lines.mjs"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}": [
+      "prettier --write"
+    ],
+    "poetry-frontend/**/*.{js,jsx,ts,tsx}": [
+      "npm --prefix poetry-frontend run lint -- --max-warnings=0"
+    ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@redocly/cli": "^1.28.3",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3"
-  },
-  "packageManager": "npm@11.5.2+sha512.aac1241cfc3f41dc38780d64295c6c6b917a41e24288b33519a7b11adfc5a54a5f881c642d7557215b6c70e01e55655ed7ba666300fd0238bc75fb17478afaf3"
+  }
 }

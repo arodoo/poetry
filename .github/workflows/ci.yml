@@ -1,0 +1,39 @@
+# File: .github/workflows/ci.yml
+# Purpose: Run lint, typecheck, tests, OpenAPI validation,
+# and builds for frontend and backend. Ensures contracts are
+# not drifted and quality gates block merges. Designed to be
+# fast and explicit to aid reviews.
+# All Rights Reserved. Arodi Emmanuel
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci
+      - run: npm ci
+        working-directory: poetry-frontend
+      - run: npm run max-lines:check
+        if: ${{ github.event_name == 'pull_request' }}
+      - run: npm run lint
+      - run: npm run typecheck && npm run test
+      - run: npm run openapi:validate
+      - run: npm run sdk:check
+      - run: npm run build
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+      - run: mvn -q -f poetry-backend/pom.xml test
+      - run: mvn -q -f poetry-backend/pom.xml -DskipTests package

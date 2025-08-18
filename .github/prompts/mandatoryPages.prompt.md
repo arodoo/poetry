@@ -1,15 +1,21 @@
 ---
 mode: agent
 ---
+
 ## Roles
 
 **Public:** Accessible without authentication.
 
 **Authenticated:** Requires a logged-in user.
 
-**Manager:** Operational manager at the organization level. Can manage content and functional data (themes, zones, seller codes, memberships, subscriptions, imports/exports, and organization-specific views). Cannot access global configuration, users, billing, global integrations, API keys/webhooks, or platform-wide dashboards.
+**Manager:** Operational manager at the organization level. Can manage content
+and functional data (themes, zones, seller codes, memberships, subscriptions,
+imports/exports, and organization-specific views). Cannot access global
+configuration, users, billing, global integrations, API keys/webhooks, or
+platform-wide dashboards.
 
-**Admin:** Full access to global and platform-level features (users, configuration, billing, integrations, API keys/webhooks, health/jobs).
+**Admin:** Full access to global and platform-level features (users,
+configuration, billing, integrations, API keys/webhooks, health/jobs).
 
 ---
 
@@ -46,10 +52,13 @@ mode: agent
 - `/admin` (Operational home)
 - **Themes:** `/themes`, `/themes/new`, `/themes/edit/:id`
 - **Zones:** `/zones`, `/zones/new`, `/zones/edit/:id`
-- **Seller Codes:** `/seller-codes`, `/seller-codes/new`, `/seller-codes/:id`, `/seller-codes/edit/:id`
+- **Seller Codes:** `/seller-codes`, `/seller-codes/new`, `/seller-codes/:id`,
+  `/seller-codes/edit/:id`
 - **Memberships:** `/memberships`, `/memberships/new`, `/memberships/edit/:id`
-- **Subscriptions:** `/subscriptions`, `/subscriptions/new`, `/subscriptions/manage`
-- **Organizations (scoped):** `/orgs`, `/orgs/:orgId`, `/orgs/:orgId/members`, `/orgs/:orgId/audit-log`
+- **Subscriptions:** `/subscriptions`, `/subscriptions/new`,
+  `/subscriptions/manage`
+- **Organizations (scoped):** `/orgs`, `/orgs/:orgId`, `/orgs/:orgId/members`,
+  `/orgs/:orgId/audit-log`
 - **Data Ops:** `/imports`, `/exports`
 
 ### Admin Only

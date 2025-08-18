@@ -17,6 +17,7 @@ export default tseslint.config([
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
+    ignores: ['**/*.test.ts', '**/__tests__/**/*.{ts,tsx}', 'vitest.config.ts'],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
@@ -30,6 +31,7 @@ export default tseslint.config([
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
+        allowDefaultProject: true,
       },
     },
     rules: {
@@ -75,19 +77,28 @@ export default tseslint.config([
       '@typescript-eslint/no-inferrable-types': 'off',
 
       // Enforce 80-character max line length
-      'max-len': [
-        'error',
-        {
-          code: 80,
-          tabWidth: 2,
-          ignoreStrings: false,
-          ignoreTemplateLiterals: false,
-          ignoreComments: false,
-          ignoreUrls: true,
-        },
-      ],
+      'max-len': ['error', { code: 80, tabWidth: 2, ignoreUrls: true }],
 
       // Enforce maximum 80 lines per file for TS/TSX
+      'max-lines': [
+        'error',
+        { max: 80, skipBlankLines: true, skipComments: true },
+      ],
+    },
+  },
+  {
+    files: ['**/*.test.ts', '**/__tests__/**/*.{ts,tsx}', 'vitest.config.ts'],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: { ...globals.node, ...globals.browser },
+      parserOptions: {
+        projectService: false,
+        allowDefaultProject: true,
+      },
+    },
+    rules: {
+      'max-len': ['error', { code: 80, tabWidth: 2, ignoreUrls: true }],
       'max-lines': [
         'error',
         { max: 80, skipBlankLines: true, skipComments: true },

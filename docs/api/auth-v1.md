@@ -8,5 +8,8 @@
   - POST /register: body { user: object } -> 200 user object (stub)
 
 Notes:
-- Temporary in-memory adapter provides fake tokens until security is implemented.
-- All responses conform to structured JSON and global error handler (RFC7807) on failures.
+
+- Temporary in-memory adapter provides fake tokens until security is
+  implemented.
+- All responses conform to structured JSON and global error handler (RFC7807) on
+  failures.

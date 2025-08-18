@@ -8,12 +8,14 @@ If it’s not here, it’s not done.
 ## Start Here
 
 - **Overview**: [`overview/product-vision.md`](overview/product-vision.md)
-- **Roles & Permissions**: [`overview/roles-and-permissions.md`](overview/roles-and-permissions.md)
+- **Roles & Permissions**:
+  [`overview/roles-and-permissions.md`](overview/roles-and-permissions.md)
 - **Domains (bounded contexts)**: [`domains/`](domains/)
 - **API (OpenAPI)**: [`api/openapi.yaml`](api/openapi.yaml)
 - **Architecture & ADRs**: [`architecture/`](architecture/)
 - **Standards (engineering/UI)**: [`standards/`](standards/)
-- **Operations & Security**: [`operations/`](operations/) · [`security/`](security/)
+- **Operations & Security**: [`operations/`](operations/) ·
+  [`security/`](security/)
 
 ---
 
@@ -40,7 +42,8 @@ If it’s not here, it’s not done.
 
 ## Definition of Done (Docs)
 
-- Domain doc includes: Scope · RFs · Data Model · API refs · Permissions · Acceptance.
+- Domain doc includes: Scope · RFs · Data Model · API refs · Permissions ·
+  Acceptance.
 - OpenAPI paths reflect implemented behavior + RFC7807 errors.
 - ADR added/updated if a significant decision changed the design.
 
@@ -49,8 +52,10 @@ If it’s not here, it’s not done.
 ## Templates
 
 - **Domain**: [`domains/_template.md`](domains/_template.md)
-- **ADR**: [`architecture/adr/0000-template.md`](architecture/adr/0000-template.md)
-- **Runbook**: [`operations/runbooks/_template.md`](operations/runbooks/_template.md)
+- **ADR**:
+  [`architecture/adr/0000-template.md`](architecture/adr/0000-template.md)
+- **Runbook**:
+  [`operations/runbooks/_template.md`](operations/runbooks/_template.md)
 
 ---
 

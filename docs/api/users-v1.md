@@ -3,6 +3,7 @@ File: users-v1.md
 Purpose: Users API documentation for v1 with ETag/If-Match and Idempotency-Key notes.
 All Rights Reserved. Arodi Emmanuel
 -->
+
 # Users API v1
 
 - Base path: /api/v1/users
@@ -14,6 +15,7 @@ All Rights Reserved. Arodi Emmanuel
   - DELETE /{id}: soft-delete user (requires If-Match of current ETag)
 
 Headers
+
 - ETag: Strong hash of response body added by server.
 - If-Match: Must equal current ETag for PUT/DELETE; otherwise 428/412.
 - Idempotency-Key: Optional for POST/PUT/DELETE; if reused -> 409.

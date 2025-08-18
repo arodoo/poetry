@@ -5,13 +5,16 @@ variables available, default values, and validation behavior. This page
 covers injection patterns and references to OpenAPI paths.
 All Rights Reserved. Arodi Emmanuel
 -->
+
 # Configuration — Typed and Validated
 
 Overview
+
 - Backend uses Spring Configuration Properties bound to `app.*` keys.
 - Frontend validates `import.meta.env` using Zod at startup.
 
 Backend variables (prefix `app.`)
+
 - `api-base-path` (string, required) — Base path of API (e.g. `/api/v1`).
 - `cors-allowed-origins` (csv, optional) — Allowed CORS origins.
 - `idempotency-ttl-seconds` (int>=1) — TTL for Idempotency keys.
@@ -22,6 +25,7 @@ Backend variables (prefix `app.`)
 - `http-retry-backoff-ms` (int>=0) — Fixed backoff between attempts.
 
 Frontend variables (Vite)
+
 - `VITE_API_BASE_URL` (url, required) — Backend base URL.
 - `VITE_LOG_LEVEL` (enum) — `debug|info|warn|error`.
 - `VITE_FEATURE_AUTH` (boolean-string) — Feature flag for auth.
@@ -30,15 +34,18 @@ Frontend variables (Vite)
 - `VITE_HTTP_RETRY_BACKOFF_MS` (int>=0, default `200`) — Backoff.
 
 Validation behavior
+
 - Backend: Application fails to start on invalid configuration.
 - Frontend: App throws at boot preventing undefined behavior.
 
 Injection patterns
-- Backend: `AppConfigPort` is injected into beans that need HTTP
-  client settings; `RetryTemplate` and `RestClient` are configured
-  centrally in `AppConfigComposition`.
-- Frontend: Import `env` from `src/shared/config/env.ts` and
-  `fetchJson` from `src/shared/http/fetchClient.ts` to reuse settings.
+
+- Backend: `AppConfigPort` is injected into beans that need HTTP client
+  settings; `RetryTemplate` and `RestClient` are configured centrally in
+  `AppConfigComposition`.
+- Frontend: Import `env` from `src/shared/config/env.ts` and `fetchJson` from
+  `src/shared/http/fetchClient.ts` to reuse settings.
 
 References
+
 - API base path: `/api/v1` — see `docs/api/openapi-v1.yaml`.

@@ -7,17 +7,18 @@ Reserved. Arodi Emmanuel
 ---
 
 Overview
-- We enforce a strict 60-char max line length and
-  <= 60 lines per file.
+
+- We enforce a strict 60-char max line length and <= 60 lines per file.
 - Frontend uses Prettier + ESLint with max-len.
-- Backend uses Spotless (Eclipse formatter) and
-  Checkstyle LineLength.
+- Backend uses Spotless (Eclipse formatter) and Checkstyle LineLength.
 
 Architecture
-- Standards are applied across DDD layers without
-  mixing UI concerns with domain logic.
+
+- Standards are applied across DDD layers without mixing UI concerns with domain
+  logic.
 
 Operations
+
 - Frontend
   - npm run format
   - npm run lint
@@ -26,8 +27,7 @@ Operations
   - ./mvnw clean verify
 
 Standards
-- .editorconfig and .prettierrc are the sources
-  of truth for formatting.
-- Backend formatter profile is in
-  .eclipse-formatter.xml.
+
+- .editorconfig and .prettierrc are the sources of truth for formatting.
+- Backend formatter profile is in .eclipse-formatter.xml.
 - Checkstyle rules in checkstyle.xml.

@@ -17,7 +17,7 @@ export type Env = Readonly<{
   VITE_HTTP_RETRY_BACKOFF_MS: number
 }>
 
-const schema = z
+const schema: z.ZodTypeAny = z
   .object({
     VITE_API_BASE_URL: z.string().url(),
     VITE_LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
@@ -43,12 +43,14 @@ const schema = z
   })
   .readonly()
 
-export const parseEnv = (e: Record<string, unknown>): Env => {
+export const parseEnv: (e: Record<string, unknown>) => Env = (
+  e: Record<string, unknown>
+): Env => {
   return schema.parse(e) as Env
 }
 
 let cachedEnv: Env | null = null
-export const getEnv = (): Env => {
-  if (!cachedEnv) cachedEnv = parseEnv(import.meta.env)
+export const getEnv: () => Env = (): Env => {
+  cachedEnv ??= parseEnv(import.meta.env)
   return cachedEnv
 }

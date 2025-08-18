@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# File: .husky/pre-commit
+# Purpose: Run fast checks before committing changes.
+# All Rights Reserved. Arodi Emmanuel
+
+npx --no lint-staged || exit 1
+node tools/ci/check-lines.mjs || exit 1
