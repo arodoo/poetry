@@ -1,0 +1,22 @@
+# Users collection path
+/api/v1/users:
+  get:
+    summary: List users
+    tags: [users]
+    security: [{ bearerAuth: [] }]
+    responses:
+      '200':
+        description: OK
+        headers:
+          ETag:
+            description: Strong ETag of response
+            schema: { type: string }
+  post:
+    summary: Create user
+    tags: [users]
+    security: [{ bearerAuth: [] }]
+    parameters:
+      - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
+    responses:
+      '201': { description: Created }
+      '409': { description: Conflict (duplicate Idempotency-Key) }

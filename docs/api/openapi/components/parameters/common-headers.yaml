@@ -1,0 +1,19 @@
+# Common headers parameters
+ETag:
+  name: ETag
+  in: header
+  required: false
+  schema: { type: string }
+  description: Strong ETag of the resource
+IfMatch:
+  name: If-Match
+  in: header
+  required: true
+  schema: { type: string }
+  description: Required for updates/deletes
+IdempotencyKey:
+  name: Idempotency-Key
+  in: header
+  required: false
+  schema: { type: string }
+  description: Idempotency key per RFC

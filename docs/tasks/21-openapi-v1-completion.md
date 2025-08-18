@@ -21,9 +21,18 @@ Blocks
 - 08 — SDK baseline sample usage.
 
 Actual Result
-- Pending.
+- Root spec refactored to modular structure with $refs.
+- Added components: security, headers, paging, error (RFC7807).
+- Added paths: discovery, health, users (CRUD headers, security).
+- Added tags scaffold for domains.
 
-Status: Pending
+Next Steps
+- Add auth, organizations, configuration, and account paths.
+- Add common error responses using components.schemas.Error.
+- Add pagination envelopes and examples on list endpoints.
+- Ensure all domain docs reference concrete paths and tags.
+
+Status: In Progress
 Last updated: 2025-08-18
 Links
 - OpenAPI: ../api/openapi-v1.yaml

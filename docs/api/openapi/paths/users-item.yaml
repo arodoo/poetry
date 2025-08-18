@@ -1,0 +1,47 @@
+# Users item path
+/api/v1/users/{id}:
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema: { type: string }
+  get:
+    summary: Get user by id
+    tags: [users]
+    security: [{ bearerAuth: [] }]
+    responses:
+      '200':
+        description: OK
+        headers:
+          ETag:
+            description: Strong ETag of response
+            schema: { type: string }
+  put:
+    summary: Update user
+    tags: [users]
+    security: [{ bearerAuth: [] }]
+    parameters:
+      - $ref: ../components/parameters/common-headers.yaml#/IfMatch
+      - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
+    responses:
+      '200':
+        description: Updated
+        headers:
+          ETag:
+            description: Strong ETag of response
+            schema: { type: string }
+      '409': { description: Conflict (duplicate Idempotency-Key) }
+      '412': { description: Precondition Failed }
+      '428': { description: Precondition Required }
+  delete:
+    summary: Soft delete user
+    tags: [users]
+    security: [{ bearerAuth: [] }]
+    parameters:
+      - $ref: ../components/parameters/common-headers.yaml#/IfMatch
+      - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
+    responses:
+      '204': { description: No Content }
+      '409': { description: Conflict (duplicate Idempotency-Key) }
+      '412': { description: Precondition Failed }
+      '428': { description: Precondition Required }

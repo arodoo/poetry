@@ -1,0 +1,11 @@
+# Problem Details schema (RFC 7807)
+title: Problem
+type: object
+properties:
+  type: { type: string, format: uri }
+  title: { type: string }
+  status: { type: integer }
+  detail: { type: string }
+  instance: { type: string, format: uri }
+  traceId: { type: string, description: Correlates logs }
+required: [title, status]

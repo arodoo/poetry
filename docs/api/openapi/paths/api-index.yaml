@@ -1,0 +1,15 @@
+# Path Item: /api
+get:
+  summary: API discovery index
+  tags: [system]
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              v1: { type: string }
+              docs: { type: string }
+              swagger: { type: string }

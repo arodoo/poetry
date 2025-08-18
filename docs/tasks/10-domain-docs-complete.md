@@ -13,10 +13,11 @@ Expected Result
 - Comprehensive domain docs linking to /docs/api OpenAPI contracts.
 
 Actual Result
-- Created initial domain docs: themes.md, zones.md, seller-codes.md,
-  memberships.md, subscriptions.md. Linked to OpenAPI v1 file.
-- Pending: complete auth.md and user.md refinements and add orgs,
-  billing, integrations, api/webhooks, imports/exports, health/jobs.
+- Completed domain docs: auth.md, user.md, themes.md, zones.md,
+  seller-codes.md, memberships.md, subscriptions.md, organizations.md,
+  billing.md, integrations.md, api-webhooks.md, imports-exports.md,
+  platform-health-jobs.md, configuration.md. Each links to
+  ../api/openapi-v1.yaml.
 
-Status: In progress
+Status: Completed
 Last updated: 2025-08-18
