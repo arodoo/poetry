@@ -6,5 +6,4 @@
 # All Rights Reserved. Arodi Emmanuel
 
 MSG_FILE="${1:-.git/COMMIT_EDITMSG}"
-# Use `--` so npx forwards args to the binary; ensure message file is passed.
 npx --no -- commitlint --edit "$MSG_FILE"

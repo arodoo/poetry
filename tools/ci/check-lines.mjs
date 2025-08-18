@@ -36,8 +36,13 @@ const norm = (f) => f.replace(/\\/g,'/')
 const inRoots = (f)=>ROOTS.some((r)=>norm(f).startsWith(`${r}/`))
 let files = changed.filter((f)=>EXT.has(path.extname(f)))
 files = files.length ? files.filter(inRoots) : []
-if(!files.length) for(const r of ROOTS) for(const f of walk(r))
-  if(EXT.has(path.extname(f))) files.push(f)
+const wantFb = process.env.MAXLINES_FALLBACK==='1'
+  || (process.env.CI==='true'
+    && process.env.GITHUB_EVENT_NAME==='pull_request')
+if(!files.length){ if(!wantFb) process.exit(0)
+  for(const r of ROOTS) for(const f of walk(r))
+    if(EXT.has(path.extname(f))) files.push(f)
+}
 let failed = false
 for (const f of files){ if(!fs.existsSync(f)) continue
   const lines = fs.readFileSync(f,'utf8').split(/\r?\n/)
