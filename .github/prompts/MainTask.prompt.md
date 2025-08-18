@@ -1,7 +1,6 @@
 Main task:
 - Re-construction of 'oldRepo' inside 'poetry-backend' & 'poetry-frontend', but this
 time following the new structure and conventions.
-- toDo defined at '.github/prompts\toDo.md'.
 
 Structure and conventions defined at '.github\instructions\globalInstructions.instructions.md'.
 Expected pages defined at '.github\instructions\expectedPages.instructions.md'.
