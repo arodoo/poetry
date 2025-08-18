@@ -1,0 +1,30 @@
+<!--
+File: 13-frontend-routing-and-guards.md
+Purpose: Plan and track frontend routing, layouts, and guards.
+This task creates Public, Authenticated, and Admin shells with
+role-based guards. It wires the minimal navigation map to unblock
+feature pages. Full locale-prefixed routing lands in Task 19.
+All Rights Reserved. Arodi Emmanuel
+-->
+# Task 13 — Frontend Routing and Guards
+
+Description
+- Define router with lazy pages and three layout shells (public, auth,
+  admin). Add role guards and redirects. Implement /404 and /status.
+- Map mandatory routes as placeholders where backend is not ready.
+
+Expected Result
+- Routes exist and render. Guards redirect unauthorized users.
+- 404 and status pages work. Unit tests cover guards and redirects.
+
+Prerequisites
+- 08 — SDK baseline and i18n scaffold.
+
+Actual Result
+- Pending.
+
+Status: Pending
+Last updated: 2025-08-18
+Links
+- Frontend src: ../../poetry-frontend/src
+- Mandatory pages: ../../.github/prompts/mandatoryPages.prompt.md

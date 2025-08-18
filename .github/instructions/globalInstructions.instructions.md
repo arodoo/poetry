@@ -8,6 +8,7 @@ applyTo: '**'
 - No file should exceed 60 lines; if longer, split.
 - No line should exceed 80 characters, if a line exceeds this limit, it must be split.
 - Code must be well formated and readable .
+- If you ever consider I'm wrong, I order you to correct me.
 - Every variable, parameter, or attribute must have a descriptive name that clearly expresses its purpose in context.
 - Check file sizes by reading them (no shell commands).
 - All code must be documented in /docs following the standard folder structure (overview, architecture, domains, api, standards, operations, security).

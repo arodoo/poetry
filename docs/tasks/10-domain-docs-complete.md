@@ -6,13 +6,17 @@ All Rights Reserved. Arodi Emmanuel
 # Task 10 — Complete Domain Docs
 
 Description
-- Create docs/domains/* with scope, RFs, data model, API refs, permissions, acceptance criteria.
+- Create docs/domains/* with scope, RFs, data model, API refs, permissions,
+  acceptance criteria.
 
 Expected Result
 - Comprehensive domain docs linking to /docs/api OpenAPI contracts.
 
 Actual Result
-- Pending.
+- Created initial domain docs: themes.md, zones.md, seller-codes.md,
+  memberships.md, subscriptions.md. Linked to OpenAPI v1 file.
+- Pending: complete auth.md and user.md refinements and add orgs,
+  billing, integrations, api/webhooks, imports/exports, health/jobs.
 
-Status: Pending
-Last updated: 2025-08-15
+Status: In progress
+Last updated: 2025-08-18

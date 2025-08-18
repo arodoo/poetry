@@ -10,6 +10,7 @@ import { StrictMode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { I18nProvider } from './shared/i18n'
 
 // Fail-fast: validate env at startup
 getEnv()
@@ -20,7 +21,9 @@ if (rootElement !== null) {
   const root: Root = createRoot(rootElement)
   root.render(
     <StrictMode>
-      <App />
+      <I18nProvider>
+        <App />
+      </I18nProvider>
     </StrictMode>
   )
 }
