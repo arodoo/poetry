@@ -1,8 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: AppProperties.java
+ Purpose: Binds and validates externalized application settings under the
+   'app' prefix. Values are typed for safe injection and documented via
+   bean validation constraints to fail-fast on misconfiguration.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.config;

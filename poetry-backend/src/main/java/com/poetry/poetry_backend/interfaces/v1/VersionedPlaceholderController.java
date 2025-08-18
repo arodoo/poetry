@@ -1,9 +1,10 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Simple versioned controller that exposes a health probe under /api/v1.
+ It returns a minimal JSON payload that clients and monitors can use to
+ verify service availability. This controller is intentionally small and
+ independent from domain logic to avoid coupling presentation and core
+ layers, following Clean Architecture. All Rights Reserved. Arodi
+ Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.v1;
 

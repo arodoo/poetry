@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Infrastructure adapter that implements ETagPort via a SHA‑256 digest of
+ a canonical representation. It delegates hashing to ETagUtil to centralize
+ the algorithm. This keeps HTTP concerns outside application code while
+ remaining deterministic across nodes. All Rights Reserved. Arodi
+ Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.http;
 

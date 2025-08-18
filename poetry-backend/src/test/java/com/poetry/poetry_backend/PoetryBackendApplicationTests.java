@@ -1,9 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Smoke test that verifies the Spring Boot application context starts.
+ It exercises component scanning and bean wiring without touching
+ business logic. This acts as a guard against configuration regressions
+ in the composition root. All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend;
 

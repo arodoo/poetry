@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This header template must be replaced per file with a
-   detailed, file-specific description (at least 3 sentences) that
-   explains the class/module responsibilities, key operations, and how
-   it interacts with collaborators. Keep lines ≤80 chars.
+ File: LoginUseCase.java
+ Purpose: Executes the login flow in the Application layer. It accepts
+   raw credentials and delegates authentication and token issuance to the
+   AuthPort. The class enforces separation of concerns by avoiding any
+   transport or storage details, keeping the business rule portable.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.application.auth.usecase;

@@ -1,9 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Composition root for the user module. It wires adapters that implement
+ ports and provides use case beans for queries and commands. Keeping this
+ setup in configuration decouples the application layer from Spring and
+ follows DDD boundaries. All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.config;
 

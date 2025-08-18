@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: GlobalProblemHandler.java
+ Purpose: Centralizes RFC 7807 problem responses for controllers. It
+   maps validation, illegal argument, and generic errors to structured
+   ProblemDetail payloads. This advice avoids leaking internals and
+   promotes consistent error semantics across the API.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.error;

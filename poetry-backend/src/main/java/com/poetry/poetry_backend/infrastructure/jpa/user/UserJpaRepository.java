@@ -1,9 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Spring Data repository for the user aggregate persisted as UserEntity.
+ Custom queries are scoped to active users to filter out soft‑deleted
+ records. The repository belongs to infrastructure and is injected via
+ ports into application services. All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 

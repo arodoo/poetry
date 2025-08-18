@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: RegisterUseCase.java
+ Purpose: Coordinates user registration in the Application layer. It
+   forwards validated input to AuthPort for account creation and token
+   issuance. The use case models a single unit of behavior and remains
+   independent of HTTP, persistence, and frameworks.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.application.auth.usecase;

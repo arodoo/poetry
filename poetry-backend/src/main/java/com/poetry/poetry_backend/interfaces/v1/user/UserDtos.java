@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ HTTP DTOs for the user endpoints and mappers from domain to response.
+ Records define request and response shapes independent of the domain
+ model. The toResponse method converts the aggregate to a stable API
+ view, keeping presentation concerns isolated. All Rights Reserved.
+ Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.v1.user;
 

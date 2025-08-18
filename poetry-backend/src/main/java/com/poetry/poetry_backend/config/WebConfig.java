@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Web configuration that provides a CORS source based on application
+ settings. Allowed origins, methods, and headers are read from the
+ AppConfigPort to keep policy centralized. This module stays thin and
+ avoids leaking framework code into the core. All Rights Reserved. Arodi
+ Emmanuel
 */
 package com.poetry.poetry_backend.config;
 

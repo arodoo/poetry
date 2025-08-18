@@ -1,9 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Verifies that the API index endpoint exposes discovery links. The test
+ exercises the controller through MockMvc and checks the JSON structure
+ for v1, docs, and swagger entries. It provides coverage for routing and
+ serialization. All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces;
 

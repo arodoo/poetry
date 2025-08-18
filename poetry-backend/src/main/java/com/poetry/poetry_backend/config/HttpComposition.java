@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Composition that assembles HTTP‑level infrastructure components. It
+ exposes an ETagPort based on SHA‑256 and an idempotency adapter backed
+ by JPA. These beans are consumed by filters and controllers at the
+ interface layer, keeping concerns separated. All Rights Reserved. Arodi
+ Emmanuel
 */
 package com.poetry.poetry_backend.config;
 

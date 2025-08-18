@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: AuthDtos.java
+ Purpose: Declares request and response DTOs for auth endpoints. These
+   records shape the external API and keep controllers free from map
+   manipulation. Conversion helpers centralize mapping to reduce reuse
+   and drift from OpenAPI contracts.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.v1.auth;

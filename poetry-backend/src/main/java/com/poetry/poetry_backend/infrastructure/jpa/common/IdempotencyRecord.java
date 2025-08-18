@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ JPA entity that stores a single idempotency key per processed request.
+ The table enforces a unique constraint on keyValue to guarantee that a
+ given request is accepted at most once. Only the minimal fields are
+ modeled to keep the concern isolated in infrastructure. All Rights
+ Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.jpa.common;
 

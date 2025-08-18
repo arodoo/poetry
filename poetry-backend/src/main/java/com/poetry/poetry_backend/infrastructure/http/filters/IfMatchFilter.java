@@ -1,9 +1,11 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Servlet filter that enforces HTTP If‑Match preconditions on user
+ resources. For PUT and DELETE over /api/v1/users/{id}, it compares the
+ provided ETag with the current representation computed from the user
+ view. When the header is missing it returns 428, and on mismatch 412.
+ This prevents lost updates and keeps concurrency control at the HTTP
+ boundary per REST and Clean Architecture. All Rights Reserved. Arodi
+ Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.http.filters;
 
@@ -47,8 +49,7 @@ public class IfMatchFilter implements Filter {
     HttpServletResponse res = (HttpServletResponse) response;
     String m = req.getMethod();
     String uri = req.getRequestURI();
-    boolean mutating =
-        "PUT".equals(m) ||
+    boolean mutating = "PUT".equals(m) ||
         "DELETE".equals(m);
     if (mutating && uri.matches("/api/v1/users/\\d+")) {
       String ifMatch = req.getHeader(HttpHeaders.IF_MATCH);

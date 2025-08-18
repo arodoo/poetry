@@ -1,8 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ Configuration module that wires application‑wide infrastructure. It
+ adapts strongly typed properties into the AppConfigPort and exposes
+ beans for HTTP client timeouts and retry policy. The wiring stays in
+ the outer layer to keep the application core free from framework code.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.config;

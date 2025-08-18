@@ -14,7 +14,7 @@ applyTo: '**'
 - Each module must have its own file in /docs/domains/ including: scope, RFs, data model, API references, permissions, and acceptance criteria.
 - API contracts (OpenAPI) must live in /docs/api/ and be referenced from domain docs.
 - Vars, comments and code must be in English.
-- Every file must have a header comment with the file name, detailed purpose (at least 3 sentences, all related to the logic and functionality), and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
+- Every file must have a header comment with the file name, file-specific purpose (at least 3 sentences, all related to the logic and functionality), and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
 - Give each task a .md file in 'docs/' with the task description, the expected result, and the actual result and update after every modification. Check status of the files before start planning/coding.
 
 

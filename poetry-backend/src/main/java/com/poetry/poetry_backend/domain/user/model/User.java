@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: User.java
+ Purpose: Domain model representing a user aggregate root. It captures
+   identity, profile attributes, activation state, and roles used for
+   authorization decisions. The class is persistence-agnostic and keeps
+   only business-relevant data in a cohesive structure.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.domain.user.model;

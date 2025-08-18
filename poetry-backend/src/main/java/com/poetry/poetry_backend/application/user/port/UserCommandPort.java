@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: UserCommandPort.java
+ Purpose: Defines write-side operations for the User aggregate. It
+   exposes commands to create, update, and soft-delete users while
+   hiding persistence details. Infrastructure adapters implement this
+   port to provide storage-specific behavior.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.application.user.port;

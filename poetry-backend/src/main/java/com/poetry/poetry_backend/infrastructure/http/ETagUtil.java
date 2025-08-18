@@ -1,8 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ Utility that computes strong ETags from a canonical JSON string using
+ SHA‑256. The method returns a lower‑case hex digest without quotes so
+ callers can add HTTP header quoting as needed. This class is stateless
+ and pure to ease testing and reuse across infrastructure components.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.http;

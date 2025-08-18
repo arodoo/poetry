@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Integration tests that verify strong ETag generation and If‑Match
+ enforcement. The flow covers creating a user, reading the ETag, and
+ updating or deleting with and without correct preconditions. It also
+ asserts idempotency key conflicts return 409. All Rights Reserved.
+ Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.http;
 

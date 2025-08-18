@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: UserController.java
+ Purpose: Exposes versioned user endpoints under /api/v1/users. It maps
+   HTTP requests to user use cases and serializes responses using DTOs.
+   Business rules are delegated to the Application layer to keep the
+   controller thin and framework-focused.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.v1.user;
@@ -41,9 +42,7 @@ public class UserController {
   @GetMapping
   public ResponseEntity<List<UserResponse>> all() {
     return ResponseEntity.ok(
-        getAll.execute().stream()
-            .map(UserDtos::toResponse)
-            .toList());
+        getAll.execute().stream().map(UserDtos::toResponse).toList());
   }
 
   @GetMapping("/{id}")
@@ -54,12 +53,8 @@ public class UserController {
   @PostMapping
   public ResponseEntity<UserResponse> create(@RequestBody UserCreateRequest r) {
     var u = create.execute(
-        r.firstName(),
-        r.lastName(),
-        r.email(),
-        r.username(),
-        r.password(),
-        r.roles());
+        r.firstName(), r.lastName(), r.email(), r.username(),
+        r.password(), r.roles());
     return ResponseEntity.ok(UserDtos.toResponse(u));
   }
 
@@ -67,12 +62,7 @@ public class UserController {
   public ResponseEntity<UserResponse> update(
       @PathVariable Long id, @RequestBody UserUpdateRequest r) {
     var u = update.execute(
-        id,
-        r.firstName(),
-        r.lastName(),
-        r.email(),
-        r.roles(),
-        r.active());
+        id, r.firstName(), r.lastName(), r.email(), r.roles(), r.active());
     return ResponseEntity.ok(UserDtos.toResponse(u));
   }
 

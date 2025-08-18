@@ -1,9 +1,9 @@
 /*
- File: ${file}
- Purpose: This header template must be replaced per file with a
-   detailed, file-specific description (at least 3 sentences) that
-   explains the class/module responsibilities, key operations, and how
-   it interacts with collaborators. Keep lines ≤80 chars.
+ File: AuthPort.java
+ Purpose: Defines the authentication boundary for the Application layer.
+   Implementations provide credential verification, token lifecycle
+   management, and user registration. Adapters in Infrastructure must
+   honor these contracts, enabling tests to mock this port easily.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.application.auth.port;

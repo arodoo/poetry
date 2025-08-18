@@ -1,8 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: ETagResponseAdvice.java
+ Purpose: Adds strong ETag headers for GET and PUT responses. It
+   serializes the body to a canonical JSON, computes a tag via ETagPort,
+   and sets the header so clients can cache and validate preconditions.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.http;

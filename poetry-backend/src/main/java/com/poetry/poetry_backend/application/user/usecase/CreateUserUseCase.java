@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: CreateUserUseCase.java
+ Purpose: Coordinates creation of a new user in the Application layer.
+   It forwards validated attributes to UserCommandPort and returns the
+   created domain model. No transport, hashing, or persistence details
+   live here to keep the behavior testable and framework-agnostic.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.application.user.usecase;

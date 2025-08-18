@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: LogoutUseCase.java
+ Purpose: Orchestrates user logout in the Application layer. It delegates
+   token revocation to the AuthPort, ensuring the refresh token is
+   invalidated and subsequent use is rejected. This use case contains no
+   HTTP or persistence logic and is framework-agnostic by design.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.application.auth.usecase;

@@ -1,8 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: InMemoryUserAdapter.java
+ Purpose: In-memory adapter implementing UserQueryPort and UserCommandPort
+   for local development and tests. It stores users in a HashMap with an
+   atomic sequence and applies soft-delete semantics.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.memory.user;

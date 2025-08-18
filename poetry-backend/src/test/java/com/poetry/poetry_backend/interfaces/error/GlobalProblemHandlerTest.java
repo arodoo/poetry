@@ -1,9 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
- All Rights Reserved. Arodi Emmanuel
+ Ensures that the global error handler returns RFC 7807 problem details.
+ A demo controller throws an exception which the advice maps to a JSON
+ response. The test asserts title and type fields to validate the
+ contract. All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces.error;
 

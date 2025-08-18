@@ -1,8 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: AppConfigAdapter.java
+ Purpose: Adapts typed properties into the AppConfigPort boundary for
+   the Application layer. It centralizes access to cross-cutting config
+   like API base paths, CORS, and HTTP client policies.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.config;

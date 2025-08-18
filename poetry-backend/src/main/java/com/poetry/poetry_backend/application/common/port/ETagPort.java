@@ -1,8 +1,9 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: ETagPort.java
+ Purpose: Abstraction to compute ETag values from canonical payloads. It
+   defines a single operation that takes a normalized representation and
+   returns a deterministic tag. Implementations choose the hashing
+   strategy so callers stay decoupled from cryptographic details.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.application.common.port;

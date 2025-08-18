@@ -1,8 +1,8 @@
 /*
- File: ${file}
- Purpose: This source file is part of Poetry.
- It follows DDD and Clean Architecture. Lines
- are wrapped to 80 characters for readability.
+ File: UserJpaAdapter.java
+ Purpose: JPA-backed adapter implementing UserQueryPort and
+   UserCommandPort. It maps between UserEntity and the User domain model
+   and enforces soft-delete by filtering inactive records.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.jpa.user;
@@ -25,15 +25,11 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
   }
 
   public List<User> findAll() {
-    return repo.findAllActive().stream()
-        .map(UserJpaAdapter::toDomain)
-        .toList();
+    return repo.findAllActive().stream().map(UserJpaAdapter::toDomain).toList();
   }
 
   public User findById(Long id) {
-    return repo.findActiveById(id)
-        .map(UserJpaAdapter::toDomain)
-        .orElseThrow();
+    return repo.findActiveById(id).map(UserJpaAdapter::toDomain).orElseThrow();
   }
 
   public User create(
@@ -77,12 +73,7 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
 
   private static User toDomain(UserEntity e) {
     return new User(
-        e.getId(),
-        e.getFirstName(),
-        e.getLastName(),
-        e.getEmail(),
-        e.getUsername(),
-        e.isActive(),
-        e.getRoles());
+        e.getId(), e.getFirstName(), e.getLastName(), e.getEmail(),
+        e.getUsername(), e.isActive(), e.getRoles());
   }
 }
