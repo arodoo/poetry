@@ -17,17 +17,20 @@ const env: Env = parseEnv({
 })
 
 const g = globalThis as unknown as { fetch: typeof fetch }
+const onRej = (e: PromiseRejectionEvent): void => e.preventDefault()
 
 describe('fetchClient timeout', () => {
   const realFetch = g.fetch
   const fetchJson = createFetchClient(env)
 
   beforeEach(() => {
+    addEventListener('unhandledrejection', onRej)
     vi.useFakeTimers()
   })
 
   afterEach(() => {
     vi.useRealTimers()
+    removeEventListener('unhandledrejection', onRej)
     g.fetch = realFetch
     vi.restoreAllMocks()
   })
