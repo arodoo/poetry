@@ -12,5 +12,5 @@ public final class UserDtos {
     public record UserResponse(Long id, String firstName, String lastName, String email, String username, boolean active, Set<String> roles) {}
     public record UserUpdateRequest(String firstName, String lastName, String email, Set<String> roles, boolean active) {}
     public record UserCreateRequest(String firstName, String lastName, String email, String username, String password, Set<String> roles) {}
-    static UserResponse toResponse(User u){ return new UserResponse(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getUsername(), u.isActive(), u.getRoles()); }
+    public static UserResponse toResponse(User u){ return new UserResponse(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getUsername(), u.isActive(), u.getRoles()); }
 }

@@ -2,17 +2,20 @@
 applyTo: '**'
 ---
 
+-   Before starting code changes Provide a brief step-by-step plan.
 - Must follow DDD, SOLID, Clean Architecture.
 - Folder structure must follow DDD.
 - No file should exceed 60 lines; if longer, split.
+- No line should exceed 60 characters, if a line exceeds this limit, it must be split.
+- Code must be well formated and readable.
 - Check file sizes by reading them (no shell commands).
 - All code must be documented in /docs following the standard folder structure (overview, architecture, domains, api, standards, operations, security).
 - Each module must have its own file in /docs/domains/ including: scope, RFs, data model, API references, permissions, and acceptance criteria.
 - API contracts (OpenAPI) must live in /docs/api/ and be referenced from domain docs.
 - Vars, comments and code must be in English.
-- Every file must have a header comment with the file name, detailed purpose, and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
-- Give each task a .md file in 'docs/' with the task description, the expected result, and the actual result and update after every modification.
-- 
+- Every file must have a header comment with the file name, detailed purpose (at least 3 sentences), and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
+- Give each task a .md file in 'docs/' with the task description, the expected result, and the actual result and update after every modification. Check status of the files before start planning/coding.
+
 
 
 Frontend
@@ -44,6 +47,10 @@ Backend
 - Soft delete for entities; no hard deletes.
 - No silent catches; all errors must be logged or reported.
 - All external calls (HTTP/DB/Queue) must have timeouts and retries configured
+- Lombok for boilerplate reduction.
+- Java 21+.
+- hashCode and equals for entities.
+- @Deprecated files must be migrated and removed instantly.
 
 Front/Back anti-drift
 
@@ -71,8 +78,6 @@ CI
   - No direct imports of 3rd-party libs (HTTP/DB/SDK) outside Infrastructure.
   - Wiring only in a composition root via constructor injection.
 - Use design patterns and follow international standards.
-  Before starting code changes
-- Provide a brief step-by-step plan.
 
 Limits
 

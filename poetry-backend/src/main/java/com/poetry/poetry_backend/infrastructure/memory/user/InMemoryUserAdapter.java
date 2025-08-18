@@ -28,5 +28,9 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
         User up = new User(ex.getId(), f, l, e, ex.getUsername(), a, r!=null? r: ex.getRoles());
         store.put(id, up); return up;
     }
-    public void softDelete(Long id){ store.remove(id); }
+    public void softDelete(Long id){
+        User ex = findById(id);
+        User up = new User(ex.getId(), ex.getFirstName(), ex.getLastName(), ex.getEmail(), ex.getUsername(), false, ex.getRoles());
+        store.put(id, up);
+    }
 }

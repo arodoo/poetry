@@ -12,7 +12,10 @@ Expected Result
 - Safe retriable operations with no duplication; tests and docs.
 
 Actual Result
-- Pending.
+- ETag header via ResponseBodyAdvice using canonical JSON and SHA-256 ETagPort.
+- If-Match enforced on PUT/DELETE /api/v1/users/{id}; 428 when missing, 412 on mismatch.
+- Idempotency-Key persisted via JPA; duplicates across restarts return 409.
+- Docs and OpenAPI updated to include headers; tests added and pass locally.
 
-Status: Pending
-Last updated: 2025-08-15
+Status: Done
+Last updated: 2025-08-17

@@ -12,7 +12,12 @@ Expected Result
 - Clean ports/use-cases, JPA adapters, DTO mappers, soft-delete, tests, docs, OpenAPI contracts.
 
 Actual Result
-- Pending migration from oldRepo.
+- Implemented.
+- Auth: ports/use cases wired to in-memory adapter (stub) under DDD; REST at /api/v1/auth.
+- User: ports/use cases wired to JPA adapter with soft-delete; REST at /api/v1/users.
+- Global RFC7807 handler, API index, v1 health.
+- Tests added for Auth and Users controllers and error handler; all under 60 lines per file.
+- Docs updated in /docs/domains and /docs/api. OpenAPI v1 to be expanded in later task.
 
-Status: Pending
-Last updated: 2025-08-15
+Status: Done
+Last updated: 2025-08-17

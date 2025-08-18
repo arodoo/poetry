@@ -1,3 +1,8 @@
+/*
+ File: PoetryBackendApplication.java
+ Purpose: Spring Boot application bootstrap for Poetry backend service.
+ All Rights Reserved. Arodi Emmanuel
+*/
 package com.poetry.poetry_backend;
 
 import org.springframework.boot.SpringApplication;
