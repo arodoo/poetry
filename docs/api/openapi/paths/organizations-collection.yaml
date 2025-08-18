@@ -1,8 +1,11 @@
-# Users collection path
-/api/v1/users:
+# File: organizations-collection.yaml
+# Purpose: Organizations collection for list/create with paging and
+# idempotency. Adds standard error handling. All Rights Reserved. Arodi
+# Emmanuel
+/api/v1/organizations:
   get:
-    summary: List users
-    tags: [users]
+    summary: List organizations
+    tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:
       - $ref: ../components/parameters/common-headers.yaml#/Page
@@ -16,14 +19,14 @@
             schema: { type: string }
         content:
           application/json:
-            schema: { $ref: ../components/schemas/page-user.yaml }
+            schema: { $ref: ../components/schemas/page-organization.yaml }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
       '429': { $ref: ../components/responses/common.yaml#/TooManyRequests }
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   post:
-    summary: Create user
-    tags: [users]
+    summary: Create organization
+    tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:
       - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
@@ -31,13 +34,9 @@
       required: true
       content:
         application/json:
-          schema: { $ref: ../components/schemas/user-create.yaml }
+          schema: { $ref: ../components/schemas/organization.yaml }
     responses:
-      '201':
-        description: Created
-        content:
-          application/json:
-            schema: { $ref: ../components/schemas/user.yaml }
+      '201': { description: Created }
       '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }

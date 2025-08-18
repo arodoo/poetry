@@ -1,0 +1,27 @@
+# File: auth-refresh.yaml
+# Purpose: Refresh endpoint exchanges a valid refresh token for a new
+# access token. This is additive and does not break existing clients.
+# All Rights Reserved. Arodi Emmanuel
+/api/v1/auth/refresh:
+  post:
+    summary: Refresh access token
+    tags: [auth]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              refreshToken: { type: string }
+            required: [refreshToken]
+    responses:
+      '200':
+        description: Tokens refreshed
+        content:
+          application/json:
+            schema: { $ref: ../components/schemas/auth-tokens.yaml }
+      '400': { $ref: ../components/responses/common.yaml#/BadRequest }
+      '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
+      '429': { $ref: ../components/responses/common.yaml#/TooManyRequests }
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }

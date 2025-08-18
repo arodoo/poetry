@@ -1,0 +1,14 @@
+# File: page-user.yaml
+# Purpose: Page envelope for users listing. Conforms to the Page schema
+# structure while specializing the items to User objects to aid SDK
+# generation. All Rights Reserved. Arodi Emmanuel
+title: PageUser
+type: object
+properties:
+  items:
+    type: array
+    items: { $ref: ./user.yaml }
+  page: { type: integer, minimum: 1 }
+  size: { type: integer, minimum: 1, maximum: 200 }
+  total: { type: integer, minimum: 0 }
+required: [items, page, size, total]

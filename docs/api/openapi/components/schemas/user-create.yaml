@@ -1,0 +1,12 @@
+# File: user-create.yaml
+# Purpose: Payload to create a user. Includes required fields and keeps
+# optional profile fields additive. Password handling follows security
+# rules and is not returned from reads. All Rights Reserved. Arodi
+# Emmanuel
+title: UserCreate
+type: object
+properties:
+  email: { type: string, format: email }
+  name: { type: string }
+  password: { type: string, minLength: 8 }
+required: [email, password]

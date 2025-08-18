@@ -1,0 +1,15 @@
+# File: auth-logout.yaml
+# Purpose: Logout endpoint to invalidate the current refresh token. This
+# supports optional Idempotency-Key for safe retries. All Rights
+# Reserved. Arodi Emmanuel
+/api/v1/auth/logout:
+  post:
+    summary: Logout current session
+    tags: [auth]
+    security: [{ bearerAuth: [] }]
+    parameters:
+      - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
+    responses:
+      '204': { description: No Content }
+      '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
+      '409': { $ref: ../components/responses/common.yaml#/Conflict }

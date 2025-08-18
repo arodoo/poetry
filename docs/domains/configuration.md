@@ -16,7 +16,8 @@ Data Model
 - ConfigEntry(key, value, type, version, updatedAt, updatedBy).
 
 API References
-- See ../api/openapi-v1.yaml (paths: /configuration).
+- See ../api/openapi-v1.yaml (configuration tag).
+- Paths: /api/v1/configuration and /api/v1/configuration/{key}.
 
 Permissions
 - Admin only.

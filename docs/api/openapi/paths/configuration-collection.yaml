@@ -1,12 +1,12 @@
-# Users collection path
-/api/v1/users:
+# File: configuration-collection.yaml
+# Purpose: Collection resource for listing configuration entries and
+# creating new keys where allowed. Enforces typed values and paging to
+# keep responses small. All Rights Reserved. Arodi Emmanuel
+/api/v1/configuration:
   get:
-    summary: List users
-    tags: [users]
+    summary: List configuration entries
+    tags: [configuration]
     security: [{ bearerAuth: [] }]
-    parameters:
-      - $ref: ../components/parameters/common-headers.yaml#/Page
-      - $ref: ../components/parameters/common-headers.yaml#/Size
     responses:
       '200':
         description: OK
@@ -14,16 +14,11 @@
           ETag:
             description: Strong ETag of response
             schema: { type: string }
-        content:
-          application/json:
-            schema: { $ref: ../components/schemas/page-user.yaml }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
-      '429': { $ref: ../components/responses/common.yaml#/TooManyRequests }
-      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   post:
-    summary: Create user
-    tags: [users]
+    summary: Create configuration entry
+    tags: [configuration]
     security: [{ bearerAuth: [] }]
     parameters:
       - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
@@ -31,15 +26,10 @@
       required: true
       content:
         application/json:
-          schema: { $ref: ../components/schemas/user-create.yaml }
+          schema: { $ref: ../components/schemas/config-entry.yaml }
     responses:
-      '201':
-        description: Created
-        content:
-          application/json:
-            schema: { $ref: ../components/schemas/user.yaml }
+      '201': { description: Created }
       '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
       '409': { $ref: ../components/responses/common.yaml#/Conflict }
-      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }

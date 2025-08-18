@@ -17,10 +17,26 @@ paths:
     $ref: ./openapi/paths/api-index.yaml
   /v1/health:
     $ref: ./openapi/paths/api.yaml#/api/v1/health
+  /v1/auth/login:
+    $ref: ./openapi/paths/auth-login.yaml#/api/v1/auth/login
+  /v1/auth/refresh:
+    $ref: ./openapi/paths/auth-refresh.yaml#/api/v1/auth/refresh
+  /v1/auth/me:
+    $ref: ./openapi/paths/auth-me.yaml#/api/v1/auth/me
+  /v1/auth/logout:
+    $ref: ./openapi/paths/auth-logout.yaml#/api/v1/auth/logout
   /v1/users:
     $ref: ./openapi/paths/users-collection.yaml#/api/v1/users
   /v1/users/{id}:
     $ref: ./openapi/paths/users-item.yaml#/api/v1/users/{id}
+  /v1/configuration:
+    $ref: ./openapi/paths/configuration-collection.yaml#/api/v1/configuration
+  /v1/configuration/{key}:
+    $ref: ./openapi/paths/configuration-item.yaml#/api/v1/configuration/{key}
+  /v1/organizations:
+    $ref: ./openapi/paths/organizations-collection.yaml#/api/v1/organizations
+  /v1/organizations/{id}:
+    $ref: ./openapi/paths/organizations-item.yaml#/api/v1/organizations/{id}
 components:
   securitySchemes:
     $ref: ./openapi/components/securitySchemes.yaml
@@ -31,5 +47,23 @@ components:
       $ref: ./openapi/components/schemas/error.yaml
     Page:
       $ref: ./openapi/components/schemas/paging.yaml
+    ConfigEntry:
+      $ref: ./openapi/components/schemas/config-entry.yaml
+    ConfigUpdate:
+      $ref: ./openapi/components/schemas/config-update.yaml
+    Organization:
+      $ref: ./openapi/components/schemas/organization.yaml
+    PageOrganization:
+      $ref: ./openapi/components/schemas/page-organization.yaml
+    User:
+      $ref: ./openapi/components/schemas/user.yaml
+    UserCreate:
+      $ref: ./openapi/components/schemas/user-create.yaml
+    UserUpdate:
+      $ref: ./openapi/components/schemas/user-update.yaml
+    PageUser:
+      $ref: ./openapi/components/schemas/page-user.yaml
+  responses:
+    $ref: ./openapi/components/responses/common.yaml
 security:
   - bearerAuth: []

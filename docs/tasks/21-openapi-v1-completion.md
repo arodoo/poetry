@@ -21,18 +21,14 @@ Blocks
 - 08 — SDK baseline sample usage.
 
 Actual Result
-- Root spec refactored to modular structure with $refs.
-- Added components: security, headers, paging, error (RFC7807).
-- Added paths: discovery, health, users (CRUD headers, security).
-- Added tags scaffold for domains.
+- Modular OpenAPI v1 with $refs, tags, and server.
+- Global components: security, headers, responses, and schemas.
+- Domains covered: system, auth, users, configuration, organizations.
+- Users/organizations support paging; auth/me returns User.
+- Errors standardized (401,403,404,409,412,428,429,500) via components.
+- Domain docs updated where relevant (configuration links).
 
-Next Steps
-- Add auth, organizations, configuration, and account paths.
-- Add common error responses using components.schemas.Error.
-- Add pagination envelopes and examples on list endpoints.
-- Ensure all domain docs reference concrete paths and tags.
-
-Status: In Progress
+Status: Completed
 Last updated: 2025-08-18
 Links
 - OpenAPI: ../api/openapi-v1.yaml

@@ -1,4 +1,8 @@
-# Common headers parameters
+# File: common-headers.yaml
+# Purpose: Common reusable parameters for headers and queries. It
+# centralizes ETag, If-Match, and Idempotency-Key along with paging
+# controls to ensure consistency across endpoints. All Rights Reserved.
+# Arodi Emmanuel
 ETag:
   name: ETag
   in: header
@@ -17,3 +21,15 @@ IdempotencyKey:
   required: false
   schema: { type: string }
   description: Idempotency key per RFC
+Page:
+  name: page
+  in: query
+  required: false
+  schema: { type: integer, minimum: 1 }
+  description: Page number starting from 1
+Size:
+  name: size
+  in: query
+  required: false
+  schema: { type: integer, minimum: 1, maximum: 200 }
+  description: Page size with sensible limits

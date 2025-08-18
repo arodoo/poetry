@@ -1,0 +1,11 @@
+# File: config-update.yaml
+# Purpose: Payload for updating a configuration entry while maintaining
+# typed validation and optimistic concurrency via ETag. This schema keeps
+# updates explicit and controlled in v1. All Rights Reserved. Arodi
+# Emmanuel
+title: ConfigUpdate
+type: object
+properties:
+  value: { type: string }
+  type: { type: string, enum: [string, number, boolean, json] }
+required: [value]

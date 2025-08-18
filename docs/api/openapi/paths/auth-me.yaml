@@ -1,0 +1,23 @@
+# File: auth-me.yaml
+# Purpose: Returns current user profile for session bootstrap. Uses
+# standard bearer auth and ETag for caching. All Rights Reserved. Arodi
+# Emmanuel
+/api/v1/auth/me:
+  get:
+    summary: Current user profile
+    tags: [auth]
+    security: [{ bearerAuth: [] }]
+    responses:
+      '200':
+        description: OK
+        headers:
+          ETag:
+            description: Strong ETag of response
+            schema: { type: string }
+        content:
+          application/json:
+            schema: { $ref: ../components/schemas/user.yaml }
+      '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
+      '403': { $ref: ../components/responses/common.yaml#/Forbidden }
+      '429': { $ref: ../components/responses/common.yaml#/TooManyRequests }
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }

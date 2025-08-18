@@ -1,13 +1,15 @@
-# Users item path
-/api/v1/users/{id}:
+# File: organizations-item.yaml
+# Purpose: Organization item with optimistic concurrency and idempotency.
+# Returns Organization payloads. All Rights Reserved. Arodi Emmanuel
+/api/v1/organizations/{id}:
   parameters:
     - name: id
       in: path
       required: true
       schema: { type: string }
   get:
-    summary: Get user by id
-    tags: [users]
+    summary: Get organization
+    tags: [organizations]
     security: [{ bearerAuth: [] }]
     responses:
       '200':
@@ -18,14 +20,14 @@
             schema: { type: string }
         content:
           application/json:
-            schema: { $ref: ../components/schemas/user.yaml }
+            schema: { $ref: ../components/schemas/organization.yaml }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
       '404': { $ref: ../components/responses/common.yaml#/NotFound }
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   put:
-    summary: Update user
-    tags: [users]
+    summary: Update organization
+    tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:
       - $ref: ../components/parameters/common-headers.yaml#/IfMatch
@@ -34,7 +36,7 @@
       required: true
       content:
         application/json:
-          schema: { $ref: ../components/schemas/user-update.yaml }
+          schema: { $ref: ../components/schemas/organization.yaml }
     responses:
       '200':
         description: Updated
@@ -44,15 +46,18 @@
             schema: { type: string }
         content:
           application/json:
-            schema: { $ref: ../components/schemas/user.yaml }
+            schema: { $ref: ../components/schemas/organization.yaml }
       '400': { $ref: ../components/responses/common.yaml#/BadRequest }
+      '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
+      '403': { $ref: ../components/responses/common.yaml#/Forbidden }
+      '404': { $ref: ../components/responses/common.yaml#/NotFound }
       '409': { $ref: ../components/responses/common.yaml#/Conflict }
       '412': { $ref: ../components/responses/common.yaml#/PreconditionFailed }
       '428': { $ref: ../components/responses/common.yaml#/PreconditionRequired }
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   delete:
-    summary: Soft delete user
-    tags: [users]
+    summary: Delete organization
+    tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:
       - $ref: ../components/parameters/common-headers.yaml#/IfMatch

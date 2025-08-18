@@ -1,0 +1,51 @@
+# File: common.yaml
+# Purpose: Shared HTTP error responses mapping to RFC7807 Problem schema.
+# This file centralizes reusable response objects for typical API errors
+# to avoid duplication across paths. Each entry references the Error
+# schema and provides a concise description. All Rights Reserved. Arodi
+# Emmanuel
+Unauthorized:
+  description: Unauthorized
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+Forbidden:
+  description: Forbidden
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+NotFound:
+  description: Not Found
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+BadRequest:
+  description: Bad Request
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+Conflict:
+  description: Conflict
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+PreconditionFailed:
+  description: Precondition Failed
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+PreconditionRequired:
+  description: Precondition Required
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+TooManyRequests:
+  description: Too Many Requests
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+InternalServerError:
+  description: Internal Server Error
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
