@@ -1,26 +1,28 @@
 /*
- File: ApiIndexController.java
- Purpose: API discovery index controller exposing API root links.
+ File: ${file}
+ Purpose: This source file is part of Poetry.
+ It follows DDD and Clean Architecture. Lines
+ are wrapped to 80 characters for readability.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.interfaces;
+
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api")
 public class ApiIndexController {
-    @GetMapping
-    public ResponseEntity<Map<String, String>> index() {
-        return ResponseEntity.ok(Map.of(
-                "v1", "/api/v1",
-                "docs", "/v3/api-docs",
-                "swagger", "/swagger-ui.html"
-        ));
-    }
+  @GetMapping
+  public ResponseEntity<Map<String, String>> index() {
+    return ResponseEntity.ok(
+        Map.of(
+            "v1", "/api/v1",
+            "docs", "/v3/api-docs",
+            "swagger", "/swagger-ui.html"));
+  }
 }

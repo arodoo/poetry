@@ -1,10 +1,24 @@
-import { useState, type Dispatch, type SetStateAction, type ReactElement } from 'react'
+/*
+ File: App.tsx
+ Purpose: Root UI for the frontend sample.
+ Demonstrates basic state handling and links for
+ the Vite + React template. Lines are wrapped to
+ 60 characters. All Rights Reserved. Arodi
+ Emmanuel
+*/
+import {
+  useState,
+  type Dispatch,
+  type SetStateAction,
+  type ReactElement,
+} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App(): ReactElement {
-  const [count, setCount]: [number, Dispatch<SetStateAction<number>>] = useState<number>(0)
+  const [count, setCount]: [number, Dispatch<SetStateAction<number>>] =
+    useState<number>(0)
 
   return (
     <>
@@ -18,7 +32,11 @@ function App(): ReactElement {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={(): void => { setCount((prev: number): number => prev + 1) }}>
+        <button
+          onClick={(): void => {
+            setCount((prev: number): number => prev + 1)
+          }}
+        >
           count is {count}
         </button>
         <p>

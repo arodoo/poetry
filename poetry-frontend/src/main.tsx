@@ -1,3 +1,10 @@
+/*
+ File: main.tsx
+ Purpose: Application entry point. Creates root
+ and renders the App component. Lines are limited
+ to 60 characters for readability. All Rights
+ Reserved. Arodi Emmanuel
+*/
 import { StrictMode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import './index.css'
@@ -10,6 +17,6 @@ if (rootElement !== null) {
   root.render(
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   )
 }

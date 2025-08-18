@@ -1,0 +1,23 @@
+# File: .editorconfig
+# Purpose: Define formatting rules for the
+# entire repository to enforce consistent
+# indentation, line endings, and a strict
+# max line length of 80 characters.
+# All Rights Reserved. Arodi Emmanuel
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 80
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml,json,xml,ts,tsx,js,jsx,java}]
+indent_size = 2

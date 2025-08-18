@@ -2,18 +2,19 @@
 applyTo: '**'
 ---
 
--   Before starting code changes Provide a brief step-by-step plan.
+-  Before starting code changes Provide a brief step-by-step plan.
 - Must follow DDD, SOLID, Clean Architecture.
 - Folder structure must follow DDD.
 - No file should exceed 60 lines; if longer, split.
-- No line should exceed 60 characters, if a line exceeds this limit, it must be split.
-- Code must be well formated and readable.
+- No line should exceed 80 characters, if a line exceeds this limit, it must be split.
+- Code must be well formated and readable .
+- Every variable, parameter, or attribute must have a descriptive name that clearly expresses its purpose in context.
 - Check file sizes by reading them (no shell commands).
 - All code must be documented in /docs following the standard folder structure (overview, architecture, domains, api, standards, operations, security).
 - Each module must have its own file in /docs/domains/ including: scope, RFs, data model, API references, permissions, and acceptance criteria.
 - API contracts (OpenAPI) must live in /docs/api/ and be referenced from domain docs.
 - Vars, comments and code must be in English.
-- Every file must have a header comment with the file name, detailed purpose (at least 3 sentences), and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
+- Every file must have a header comment with the file name, detailed purpose (at least 3 sentences, all related to the logic and functionality), and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
 - Give each task a .md file in 'docs/' with the task description, the expected result, and the actual result and update after every modification. Check status of the files before start planning/coding.
 
 

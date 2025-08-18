@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- File: .eclipse-formatter.xml
+Purpose: Eclipse Java formatter settings to limit
+line width to 60 characters and enforce consistent
+formatting across backend. All Rights Reserved.
+Arodi Emmanuel -->
+<profiles version="22">
+  <profile kind="CodeFormatterProfile"
+    name="Poetry-60col" version="22">
+    <setting id="org.eclipse.jdt.core.formatter.lineSplit"
+      value="80"/>
+    <setting id="org.eclipse.jdt.core.formatter.tabulation.char"
+      value="space"/>
+    <setting id="org.eclipse.jdt.core.formatter.tabulation.size"
+      value="2"/>
+    <setting id="org.eclipse.jdt.core.formatter.indentation.size"
+      value="2"/>
+    <setting id="org.eclipse.jdt.core.formatter.comment.line_length"
+      value="80"/>
+  </profile>
+</profiles>
