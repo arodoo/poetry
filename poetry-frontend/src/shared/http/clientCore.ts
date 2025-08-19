@@ -14,15 +14,17 @@ export async function fetchJsonInternal<T>(
   path: string,
   options: HttpOptions
 ): Promise<T> {
-  const base: string = cfg.VITE_API_BASE_URL.replace(/\/$/, '')
-  const url: string = `${base}${path}`
-
+  const url: string = `${cfg.VITE_API_BASE_URL.replace(/\/$/, '')}${path}`
   const timeout: number = options.timeoutMs ?? cfg.VITE_HTTP_TIMEOUT_MS
   const retryCfg: Required<NonNullable<HttpOptions['retry']>> =
     options.retry ?? {
       maxAttempts: cfg.VITE_HTTP_RETRY_MAX_ATTEMPTS,
       backoffMs: cfg.VITE_HTTP_RETRY_BACKOFF_MS,
     }
+  const body: BodyInit | null =
+    options.body !== undefined
+      ? (JSON.stringify(options.body) as BodyInit)
+      : null
 
   let lastErr: Error | null = null
   for (let attempt: number = 1; attempt <= retryCfg.maxAttempts; attempt++) {
@@ -34,13 +36,9 @@ export async function fetchJsonInternal<T>(
           'Content-Type': 'application/json',
           ...(options.headers ?? {}),
         },
-        body:
-          options.body !== undefined
-            ? (JSON.stringify(options.body) as BodyInit)
-            : null,
+        body,
         signal,
       })
-
       if (!res.ok) {
         if (res.status >= 500 && res.status < 600) {
           throw new Error(`HTTP ${String(res.status)}`)

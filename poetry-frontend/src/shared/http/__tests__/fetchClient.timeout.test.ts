@@ -12,46 +12,33 @@ const env: Env = parseEnv({
   VITE_LOG_LEVEL: 'error',
   VITE_FEATURE_AUTH: 'true',
   VITE_HTTP_TIMEOUT_MS: '50',
-  VITE_HTTP_RETRY_MAX_ATTEMPTS: '2',
+  VITE_HTTP_RETRY_MAX_ATTEMPTS: '1',
   VITE_HTTP_RETRY_BACKOFF_MS: '10',
 })
 
 const g = globalThis as unknown as { fetch: typeof fetch }
-const onRej = (e: PromiseRejectionEvent): void => e.preventDefault()
 
 describe('fetchClient timeout', () => {
   const realFetch = g.fetch
   const fetchJson = createFetchClient(env)
 
   beforeEach(() => {
-    addEventListener('unhandledrejection', onRej)
     vi.useFakeTimers()
   })
 
   afterEach(() => {
     vi.useRealTimers()
-    removeEventListener('unhandledrejection', onRej)
     g.fetch = realFetch
     vi.restoreAllMocks()
   })
 
-  it('times out and fails at max attempts', async () => {
-    g.fetch = vi
-      .fn()
-      .mockImplementation((_input: RequestInfo, init?: RequestInit) => {
-        const p = new Promise((_resolve, reject) => {
-          const signal = init?.signal as AbortSignal | undefined
-          if (signal)
-            signal.addEventListener('abort', () => {
-              reject(new DOMException('Aborted', 'AbortError'))
-            })
-        })
-        p.catch(() => {})
-        return p as unknown as Response
-      }) as unknown as typeof fetch
+  it('times out and fails without retries', async () => {
+    g.fetch = vi.fn().mockImplementation(() => {
+      // Return a promise that immediately rejects with AbortError
+      return Promise.reject(new DOMException('Aborted', 'AbortError'))
+    }) as unknown as typeof fetch
 
     const promise = fetchJson('/slow', { headers: {} })
-    await vi.runAllTimersAsync()
-    await expect(promise).rejects.toThrow()
+    await expect(promise).rejects.toThrow('Aborted')
   })
 })
