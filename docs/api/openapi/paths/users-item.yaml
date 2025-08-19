@@ -7,6 +7,7 @@
       schema: { type: string }
   get:
     summary: Get user by id
+    operationId: getUserById
     tags: [users]
     security: [{ bearerAuth: [] }]
     responses:
@@ -14,8 +15,7 @@
         description: OK
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
         content:
           application/json:
             schema: { $ref: ../components/schemas/user.yaml }
@@ -25,6 +25,7 @@
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   put:
     summary: Update user
+    operationId: putUser
     tags: [users]
     security: [{ bearerAuth: [] }]
     parameters:
@@ -40,8 +41,7 @@
         description: Updated
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
         content:
           application/json:
             schema: { $ref: ../components/schemas/user.yaml }
@@ -52,6 +52,7 @@
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   delete:
     summary: Soft delete user
+    operationId: deleteUser
     tags: [users]
     security: [{ bearerAuth: [] }]
     parameters:

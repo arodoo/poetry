@@ -5,6 +5,7 @@
 /api/v1/auth/me:
   get:
     summary: Current user profile
+    operationId: getAuthMe
     tags: [auth]
     security: [{ bearerAuth: [] }]
     responses:
@@ -12,11 +13,11 @@
         description: OK
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
         content:
           application/json:
             schema: { $ref: ../components/schemas/user.yaml }
+      '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
       '429': { $ref: ../components/responses/common.yaml#/TooManyRequests }

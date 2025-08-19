@@ -2,6 +2,7 @@
 /api:
   get:
     summary: API discovery index
+    operationId: getApiIndexViaApiYaml
     tags: [system]
     responses:
       '200':
@@ -14,9 +15,12 @@
                 v1: { type: string }
                 docs: { type: string }
                 swagger: { type: string }
+      '400': { $ref: ../components/responses/common.yaml#/BadRequest }
 /api/v1/health:
   get:
     summary: Health check
+    operationId: getHealth
     tags: [system]
     responses:
       '200': { description: OK }
+      '400': { $ref: ../components/responses/common.yaml#/BadRequest }

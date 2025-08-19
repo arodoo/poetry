@@ -1,6 +1,7 @@
 # Path Item: /api
 get:
   summary: API discovery index
+  operationId: getApiIndex
   tags: [system]
   responses:
     '200':
@@ -13,3 +14,4 @@ get:
               v1: { type: string }
               docs: { type: string }
               swagger: { type: string }
+    '400': { $ref: ../components/responses/common.yaml#/BadRequest }

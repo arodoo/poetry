@@ -3,12 +3,6 @@
 # centralizes ETag, If-Match, and Idempotency-Key along with paging
 # controls to ensure consistency across endpoints. All Rights Reserved.
 # Arodi Emmanuel
-ETag:
-  name: ETag
-  in: header
-  required: false
-  schema: { type: string }
-  description: Strong ETag of the resource
 IfMatch:
   name: If-Match
   in: header

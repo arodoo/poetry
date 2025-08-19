@@ -5,6 +5,7 @@
 /api/v1/organizations:
   get:
     summary: List organizations
+    operationId: getOrganizations
     tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:
@@ -15,8 +16,7 @@
         description: OK
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
         content:
           application/json:
             schema: { $ref: ../components/schemas/page-organization.yaml }
@@ -26,6 +26,7 @@
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   post:
     summary: Create organization
+    operationId: postOrganizations
     tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:

@@ -5,6 +5,7 @@
 /api/v1/auth/refresh:
   post:
     summary: Refresh access token
+    operationId: postAuthRefresh
     tags: [auth]
     requestBody:
       required: true

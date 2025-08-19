@@ -10,6 +10,7 @@
       schema: { type: string }
   get:
     summary: Get configuration entry
+    operationId: getConfigurationKey
     tags: [configuration]
     security: [{ bearerAuth: [] }]
     responses:
@@ -17,13 +18,13 @@
         description: OK
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
       '404': { $ref: ../components/responses/common.yaml#/NotFound }
   put:
     summary: Update configuration entry
+    operationId: putConfigurationKey
     tags: [configuration]
     security: [{ bearerAuth: [] }]
     parameters:
@@ -39,8 +40,7 @@
         description: Updated
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
       '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
@@ -49,6 +49,7 @@
       '428': { $ref: ../components/responses/common.yaml#/PreconditionRequired }
   delete:
     summary: Delete configuration entry
+    operationId: deleteConfigurationKey
     tags: [configuration]
     security: [{ bearerAuth: [] }]
     parameters:

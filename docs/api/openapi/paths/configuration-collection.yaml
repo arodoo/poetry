@@ -5,6 +5,7 @@
 /api/v1/configuration:
   get:
     summary: List configuration entries
+    operationId: getConfiguration
     tags: [configuration]
     security: [{ bearerAuth: [] }]
     responses:
@@ -12,12 +13,12 @@
         description: OK
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '403': { $ref: ../components/responses/common.yaml#/Forbidden }
   post:
     summary: Create configuration entry
+    operationId: postConfiguration
     tags: [configuration]
     security: [{ bearerAuth: [] }]
     parameters:

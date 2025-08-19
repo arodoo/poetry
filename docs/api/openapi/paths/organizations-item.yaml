@@ -9,6 +9,7 @@
       schema: { type: string }
   get:
     summary: Get organization
+    operationId: getOrganizationById
     tags: [organizations]
     security: [{ bearerAuth: [] }]
     responses:
@@ -16,8 +17,7 @@
         description: OK
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
         content:
           application/json:
             schema: { $ref: ../components/schemas/organization.yaml }
@@ -27,6 +27,7 @@
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   put:
     summary: Update organization
+    operationId: putOrganization
     tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:
@@ -42,8 +43,7 @@
         description: Updated
         headers:
           ETag:
-            description: Strong ETag of response
-            schema: { type: string }
+            $ref: ../components/headers.yaml#/ETag
         content:
           application/json:
             schema: { $ref: ../components/schemas/organization.yaml }
@@ -57,6 +57,7 @@
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   delete:
     summary: Delete organization
+    operationId: deleteOrganization
     tags: [organizations]
     security: [{ bearerAuth: [] }]
     parameters:

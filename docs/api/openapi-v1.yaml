@@ -6,6 +6,7 @@ info:
   version: 1.0.0
   license:
     name: Proprietary
+    url: https://example.com/license
 servers:
   - url: /api
 tags:
@@ -49,6 +50,8 @@ components:
     $ref: ./openapi/components/securitySchemes.yaml
   parameters:
     $ref: ./openapi/components/parameters/common-headers.yaml
+  headers:
+    $ref: ./openapi/components/headers.yaml
   schemas:
     Error:
       $ref: ./openapi/components/schemas/error.yaml
