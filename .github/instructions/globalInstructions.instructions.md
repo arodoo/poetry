@@ -14,6 +14,7 @@ applyTo: '**'
 
 - Before starting code changes Provide a brief step-by-step plan
 - Check status of the files before start planning/coding
+- Run pwd if you have problems while using the CLI
 
 ## Code Standards
 
@@ -21,7 +22,6 @@ applyTo: '**'
 - Character limits by file type:
   - Java files: Max 100 characters per line
   - Frontend files (JS/TS/JSX/TSX): Max 80 characters per line
-  - All other files: Max 80 characters per line
 - Code must be well formatted and readable
 - Every variable, parameter, or attribute must have a descriptive name that
   clearly expresses its purpose in context
