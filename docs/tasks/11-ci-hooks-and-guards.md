@@ -25,7 +25,10 @@ Actual Result
 - Implemented Husky pre-commit and pre-push hooks.
 - Added commitlint with conventional config.
 - Added redocly OpenAPI validation and SDK drift check.
-- Added repo-wide 60-lines/80-chars guard script.
+- Split check-lines.mjs into modular components (≤60 lines each).
+- Fixed frontend test unhandled rejections properly.
+- All CI/CD rules enforced: lint, format, max-lines, typecheck, tests.
 - Wired root scripts to run frontend and backend.
+- Added LICENSE-HEADER.txt for backend build compatibility.
 
-Status: Completed Last updated: 2025-08-18
+Status: Completed Last updated: 2025-08-19
