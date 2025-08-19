@@ -4,39 +4,46 @@ openapi: 3.0.3
 info:
   title: Poetry API
   version: 1.0.0
+  license:
+    name: Proprietary
 servers:
   - url: /api
 tags:
   - name: system
+    description: System and health endpoints
   - name: users
+    description: User management endpoints
   - name: auth
+    description: Authentication endpoints
   - name: organizations
+    description: Organization management endpoints
   - name: configuration
+    description: System configuration endpoints
 paths:
   /:
     $ref: ./openapi/paths/api-index.yaml
   /v1/health:
-    $ref: ./openapi/paths/api.yaml#/api/v1/health
+    $ref: ./openapi/paths/api.yaml#/~1api~1v1~1health
   /v1/auth/login:
-    $ref: ./openapi/paths/auth-login.yaml#/api/v1/auth/login
+    $ref: ./openapi/paths/auth-login.yaml#/~1api~1v1~1auth~1login
   /v1/auth/refresh:
-    $ref: ./openapi/paths/auth-refresh.yaml#/api/v1/auth/refresh
+    $ref: ./openapi/paths/auth-refresh.yaml#/~1api~1v1~1auth~1refresh
   /v1/auth/me:
-    $ref: ./openapi/paths/auth-me.yaml#/api/v1/auth/me
+    $ref: ./openapi/paths/auth-me.yaml#/~1api~1v1~1auth~1me
   /v1/auth/logout:
-    $ref: ./openapi/paths/auth-logout.yaml#/api/v1/auth/logout
+    $ref: ./openapi/paths/auth-logout.yaml#/~1api~1v1~1auth~1logout
   /v1/users:
-    $ref: ./openapi/paths/users-collection.yaml#/api/v1/users
+    $ref: ./openapi/paths/users-collection.yaml#/~1api~1v1~1users
   /v1/users/{id}:
-    $ref: ./openapi/paths/users-item.yaml#/api/v1/users/{id}
+    $ref: ./openapi/paths/users-item.yaml#/~1api~1v1~1users~1{id}
   /v1/configuration:
-    $ref: ./openapi/paths/configuration-collection.yaml#/api/v1/configuration
+    $ref: ./openapi/paths/configuration-collection.yaml#/~1api~1v1~1configuration
   /v1/configuration/{key}:
-    $ref: ./openapi/paths/configuration-item.yaml#/api/v1/configuration/{key}
+    $ref: ./openapi/paths/configuration-item.yaml#/~1api~1v1~1configuration~1{key}
   /v1/organizations:
-    $ref: ./openapi/paths/organizations-collection.yaml#/api/v1/organizations
+    $ref: ./openapi/paths/organizations-collection.yaml#/~1api~1v1~1organizations
   /v1/organizations/{id}:
-    $ref: ./openapi/paths/organizations-item.yaml#/api/v1/organizations/{id}
+    $ref: ./openapi/paths/organizations-item.yaml#/~1api~1v1~1organizations~1{id}
 components:
   securitySchemes:
     $ref: ./openapi/components/securitySchemes.yaml
