@@ -1,11 +1,6 @@
 /*
- Persistence adapter that implements idempotency using a JPA repository.
- It stores a unique key per request and rejects duplicates by returning
- false when the key already exists. The operation is transactional and
- optimized for the common case. This keeps write de‑duplication outside
- the domain while honoring the IdempotencyPort contract. All Rights
- Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.jpa.common;
 
 import org.slf4j.Logger;

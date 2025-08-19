@@ -1,11 +1,6 @@
 /*
- File: GlobalProblemHandler.java
- Purpose: Centralizes RFC 7807 problem responses for controllers. It
-   maps validation, illegal argument, and generic errors to structured
-   ProblemDetail payloads. This advice avoids leaking internals and
-   promotes consistent error semantics across the API.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.error;
 
 import java.net.URI;

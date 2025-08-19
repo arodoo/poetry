@@ -1,10 +1,6 @@
 /*
- Utility that computes strong ETags from a canonical JSON string using
- SHA‑256. The method returns a lower‑case hex digest without quotes so
- callers can add HTTP header quoting as needed. This class is stateless
- and pure to ease testing and reuse across infrastructure components.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.http;
 
 import java.nio.charset.StandardCharsets;

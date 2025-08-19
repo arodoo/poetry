@@ -1,11 +1,6 @@
 /*
- Servlet filter that enforces request idempotency for mutating methods.
- For POST, PUT, and DELETE it checks the Idempotency‑Key header and
- registers the key through the IdempotencyPort. When a duplicate is
- detected it returns 409 without invoking downstream handlers. This
- places de‑duplication at the HTTP edge per Clean Architecture. All
- Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.http.filters;
 
 import java.io.IOException;

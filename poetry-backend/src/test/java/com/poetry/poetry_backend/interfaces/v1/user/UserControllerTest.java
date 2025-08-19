@@ -1,9 +1,6 @@
 /*
- Tests the CRUD flow of the user controller including ETag usage. It
- creates a user, lists, updates with If‑Match, re‑reads a new ETag, and
- then deletes using the latest precondition. Assertions ensure correct
- status codes and payloads. All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.v1.user;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

@@ -1,10 +1,6 @@
 /*
- File: ETagResponseAdvice.java
- Purpose: Adds strong ETag headers for GET and PUT responses. It
-   serializes the body to a canonical JSON, computes a tag via ETagPort,
-   and sets the header so clients can cache and validate preconditions.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.http;
 
 import org.springframework.core.MethodParameter;

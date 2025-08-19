@@ -1,10 +1,6 @@
 /*
- HTTP DTOs for the user endpoints and mappers from domain to response.
- Records define request and response shapes independent of the domain
- model. The toResponse method converts the aggregate to a stable API
- view, keeping presentation concerns isolated. All Rights Reserved.
- Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.v1.user;
 
 import java.util.Set;

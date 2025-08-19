@@ -2,11 +2,6 @@
 applyTo: '**'
 ---
 
-## Workflow Requirements
-
-- Before starting code changes Provide a brief step-by-step plan
-- Check status of the files before start planning/coding
-
 ## Core Principles
 
 - Must follow DDD, SOLID, Clean Architecture
@@ -15,11 +10,18 @@ applyTo: '**'
 - No over-engineering
 - No premature optimization
 
+## Workflow Requirements
+
+- Before starting code changes Provide a brief step-by-step plan
+- Check status of the files before start planning/coding
+
 ## Code Standards
 
 - No file should exceed 60 lines; if longer, split
-- No line should exceed 80 characters, if a line exceeds this limit, it must be
-  split
+- Character limits by file type:
+  - Java files: Max 100 characters per line
+  - Frontend files (JS/TS/JSX/TSX): Max 80 characters per line
+  - All other files: Max 80 characters per line
 - Code must be well formatted and readable
 - Every variable, parameter, or attribute must have a descriptive name that
   clearly expresses its purpose in context

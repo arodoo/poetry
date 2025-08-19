@@ -9,7 +9,10 @@
 import path from 'node:path'
 import { getChangedFiles, shouldUseFallback } from './git-utils.mjs'
 import {
-  ROOTS, EXTENSIONS, walkDirectory, isInAllowedRoots
+  ROOTS,
+  EXTENSIONS,
+  walkDirectory,
+  isInAllowedRoots,
 } from './file-utils.mjs'
 import { validateFiles } from './validator.mjs'
 

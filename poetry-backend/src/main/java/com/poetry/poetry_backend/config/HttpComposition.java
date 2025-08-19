@@ -1,10 +1,6 @@
 /*
- Composition that assembles HTTP‑level infrastructure components. It
- exposes an ETagPort based on SHA‑256 and an idempotency adapter backed
- by JPA. These beans are consumed by filters and controllers at the
- interface layer, keeping concerns separated. All Rights Reserved. Arodi
- Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.config;
 
 import org.springframework.context.annotation.Bean;

@@ -1,11 +1,6 @@
 /*
- File: CreateUserUseCase.java
- Purpose: Coordinates creation of a new user in the Application layer.
-   It forwards validated attributes to UserCommandPort and returns the
-   created domain model. No transport, hashing, or persistence details
-   live here to keep the behavior testable and framework-agnostic.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.application.user.usecase;
 
 import java.util.Set;

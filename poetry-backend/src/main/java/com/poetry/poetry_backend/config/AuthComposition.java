@@ -1,10 +1,6 @@
 /*
- Wiring configuration for authentication use cases and ports. It exposes
- a single AuthPort backed by an in‑memory adapter to keep samples
- deterministic. Each use case is constructed with the port dependency,
- honoring explicit dependencies and SOLID principles. All Rights
- Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.config;
 
 import org.springframework.context.annotation.Bean;

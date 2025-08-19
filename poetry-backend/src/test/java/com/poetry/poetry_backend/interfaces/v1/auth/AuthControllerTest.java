@@ -1,9 +1,6 @@
 /*
- Tests for the authentication REST endpoints. They verify login and
- refresh produce tokens, logout returns 204, and register echoes the
- stubbed payload. The suite focuses on HTTP contracts rather than domain
- logic. All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.v1.auth;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

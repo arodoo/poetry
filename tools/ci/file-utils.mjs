@@ -10,7 +10,14 @@ import path from 'node:path'
 
 export const ROOTS = ['poetry-frontend/src', 'poetry-backend/src', 'tools/ci']
 export const EXTENSIONS = new Set([
-  '.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx', '.json', '.java',
+  '.js',
+  '.mjs',
+  '.cjs',
+  '.ts',
+  '.tsx',
+  '.jsx',
+  '.json',
+  '.java',
 ])
 
 /**

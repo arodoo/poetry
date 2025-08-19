@@ -1,10 +1,6 @@
 /*
- File: UserEntity.java
- Purpose: JPA entity for persisting users with soft-delete and roles.
-   Maps to table 'users' and maintains a separate collection table for
-   roles. Equality is based on the unique username to avoid proxy issues.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.util.Set;

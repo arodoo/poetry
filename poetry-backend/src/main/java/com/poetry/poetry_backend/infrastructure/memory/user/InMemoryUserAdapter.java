@@ -1,10 +1,6 @@
 /*
- File: InMemoryUserAdapter.java
- Purpose: In-memory adapter implementing UserQueryPort and UserCommandPort
-   for local development and tests. It stores users in a HashMap with an
-   atomic sequence and applies soft-delete semantics.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.memory.user;
 
 import java.util.*;

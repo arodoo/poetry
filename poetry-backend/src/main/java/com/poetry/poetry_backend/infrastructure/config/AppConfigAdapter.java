@@ -1,10 +1,6 @@
 /*
- File: AppConfigAdapter.java
- Purpose: Adapts typed properties into the AppConfigPort boundary for
-   the Application layer. It centralizes access to cross-cutting config
-   like API base paths, CORS, and HTTP client policies.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.config;
 
 import java.util.List;

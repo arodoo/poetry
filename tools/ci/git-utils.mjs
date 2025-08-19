@@ -17,7 +17,8 @@ export function getChangedFiles() {
     const range = base ? `origin/${base}...HEAD` : '--cached'
     const cmd = `git diff --name-only ${range}`
     const out = execSync(cmd, { stdio: ['ignore', 'pipe', 'ignore'] })
-      .toString().trim()
+      .toString()
+      .trim()
     return out ? out.split(/\r?\n/) : []
   } catch {
     return []
@@ -29,7 +30,9 @@ export function getChangedFiles() {
  * @returns {boolean} True if should scan all files as fallback
  */
 export function shouldUseFallback() {
-  return process.env.MAXLINES_FALLBACK === '1'
-    || (process.env.CI === 'true' 
-      && process.env.GITHUB_EVENT_NAME === 'pull_request')
+  return (
+    process.env.MAXLINES_FALLBACK === '1' ||
+    (process.env.CI === 'true' &&
+      process.env.GITHUB_EVENT_NAME === 'pull_request')
+  )
 }

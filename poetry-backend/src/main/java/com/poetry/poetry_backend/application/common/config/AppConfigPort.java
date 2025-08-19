@@ -1,11 +1,6 @@
 /*
- File: AppConfigPort.java
- Purpose: Application-level configuration boundary. It exposes typed and
-   validated settings required by use cases and infrastructure adapters.
-   Values include base paths, CORS, ETag/idempotency TTLs, and HTTP
-   client timeouts/retries.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.application.common.config;
 
 import java.util.List;

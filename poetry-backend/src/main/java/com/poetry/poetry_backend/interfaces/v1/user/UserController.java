@@ -1,11 +1,6 @@
 /*
- File: UserController.java
- Purpose: Exposes versioned user endpoints under /api/v1/users. It maps
-   HTTP requests to user use cases and serializes responses using DTOs.
-   Business rules are delegated to the Application layer to keep the
-   controller thin and framework-focused.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.v1.user;
 
 import static com.poetry.poetry_backend.interfaces.v1.user.UserDtos.*;

@@ -1,10 +1,6 @@
 /*
- File: ApiIndexController.java
- Purpose: Provides an API discovery index under /api. It lists versions
-   and documentation endpoints to help clients navigate the service.
-   The controller is stateless and returns a simple map response.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces;
 
 import java.util.Map;

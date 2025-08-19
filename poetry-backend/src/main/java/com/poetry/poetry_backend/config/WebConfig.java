@@ -1,10 +1,6 @@
 /*
- Web configuration that provides a CORS source based on application
- settings. Allowed origins, methods, and headers are read from the
- AppConfigPort to keep policy centralized. This module stays thin and
- avoids leaking framework code into the core. All Rights Reserved. Arodi
- Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.config;
 
 import java.util.List;

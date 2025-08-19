@@ -1,11 +1,6 @@
 /*
- File: RefreshTokenUseCase.java
- Purpose: Handles token renewal in the Application layer. It receives a
-   refresh token and delegates validation and new token creation to the
-   AuthPort. The class is pure orchestration with no infrastructure
-   concerns, supporting testability and portability.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.application.auth.usecase;
 
 import java.util.Map;

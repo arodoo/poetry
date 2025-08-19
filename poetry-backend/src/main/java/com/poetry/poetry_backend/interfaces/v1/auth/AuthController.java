@@ -1,11 +1,6 @@
 /*
- File: AuthController.java
- Purpose: Exposes versioned authentication endpoints under /api/v1/auth.
-   It maps HTTP requests to application use cases and returns DTOs that
-   follow the API contract. This controller contains no business logic,
-   delegating to Login, Refresh, Logout, and Register use cases.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.v1.auth;
 
 import static com.poetry.poetry_backend.interfaces.v1.auth.AuthDtos.*;

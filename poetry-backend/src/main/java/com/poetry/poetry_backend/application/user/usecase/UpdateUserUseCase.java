@@ -1,11 +1,6 @@
 /*
- File: UpdateUserUseCase.java
- Purpose: Applies user profile updates in the Application layer. It
-   delegates to UserCommandPort, ensuring the change operation is a
-   cohesive unit without HTTP or DB concerns. The method returns the
-   updated domain model with new attributes and activation state.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.application.user.usecase;
 
 import java.util.Set;

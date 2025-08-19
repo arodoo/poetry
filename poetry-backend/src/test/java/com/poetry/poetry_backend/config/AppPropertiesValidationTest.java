@@ -1,10 +1,6 @@
 /*
- Tests that application properties bind correctly and validate required
- fields. A positive case confirms values are mapped, and a negative case
- asserts the context fails to start when a property is blank. These
- checks protect the config adapter contract. All Rights Reserved. Arodi
- Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.config;
 
 import static org.assertj.core.api.Assertions.assertThat;

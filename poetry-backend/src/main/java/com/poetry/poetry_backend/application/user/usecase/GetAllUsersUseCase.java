@@ -1,11 +1,6 @@
 /*
- File: GetAllUsersUseCase.java
- Purpose: Lists all active users in the Application layer. It delegates
-   to UserQueryPort to retrieve domain models, keeping transport and
-   storage concerns out of the use case. The behavior is thin by design
-   to support composability and testing.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.application.user.usecase;
 
 import java.util.List;

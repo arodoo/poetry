@@ -1,9 +1,6 @@
 /*
- Spring Data repository for the user aggregate persisted as UserEntity.
- Custom queries are scoped to active users to filter out soft‑deleted
- records. The repository belongs to infrastructure and is injected via
- ports into application services. All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.util.List;

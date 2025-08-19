@@ -1,9 +1,6 @@
 /*
- Verifies that the API index endpoint exposes discovery links. The test
- exercises the controller through MockMvc and checks the JSON structure
- for v1, docs, and swagger entries. It provides coverage for routing and
- serialization. All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

@@ -1,9 +1,6 @@
 /*
- Composition root for the user module. It wires adapters that implement
- ports and provides use case beans for queries and commands. Keeping this
- setup in configuration decouples the application layer from Spring and
- follows DDD boundaries. All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.config;
 
 import org.springframework.context.annotation.Bean;

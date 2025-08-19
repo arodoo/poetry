@@ -1,10 +1,6 @@
 /*
- Integration tests that verify strong ETag generation and If‑Match
- enforcement. The flow covers creating a user, reading the ETag, and
- updating or deleting with and without correct preconditions. It also
- asserts idempotency key conflicts return 409. All Rights Reserved.
- Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.interfaces.http;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

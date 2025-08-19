@@ -1,10 +1,6 @@
 /*
- File: UserJpaAdapter.java
- Purpose: JPA-backed adapter implementing UserQueryPort and
-   UserCommandPort. It maps between UserEntity and the User domain model
-   and enforces soft-delete by filtering inactive records.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.util.List;

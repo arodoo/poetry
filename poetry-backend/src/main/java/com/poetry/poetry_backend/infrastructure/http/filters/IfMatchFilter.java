@@ -1,12 +1,6 @@
 /*
- Servlet filter that enforces HTTP If‑Match preconditions on user
- resources. For PUT and DELETE over /api/v1/users/{id}, it compares the
- provided ETag with the current representation computed from the user
- view. When the header is missing it returns 428, and on mismatch 412.
- This prevents lost updates and keeps concurrency control at the HTTP
- boundary per REST and Clean Architecture. All Rights Reserved. Arodi
- Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.http.filters;
 
 import java.io.IOException;

@@ -1,10 +1,6 @@
 /*
- File: InMemoryAuthAdapter.java
- Purpose: Simplified in-memory implementation of AuthPort for testing
-   and development. It returns mock tokens and performs no persistence
-   or security checks. Replace with a secure adapter in production.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.infrastructure.memory.auth;
 
 import java.util.Map;

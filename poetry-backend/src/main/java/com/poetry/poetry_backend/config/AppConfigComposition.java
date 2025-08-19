@@ -1,10 +1,6 @@
 /*
- Configuration module that wires application‑wide infrastructure. It
- adapts strongly typed properties into the AppConfigPort and exposes
- beans for HTTP client timeouts and retry policy. The wiring stays in
- the outer layer to keep the application core free from framework code.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * All Rights Reserved. Arodi Emmanuel
+ */
 package com.poetry.poetry_backend.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -6,9 +6,9 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import fs from 'node:fs'
+import { getCharLimit } from './char-limits.mjs'
 
 const MAX_LINES = 60
-const MAX_CHARS = 80
 
 /**
  * Validate a single file for line and character limits
@@ -21,6 +21,7 @@ export function validateFile(filePath) {
   }
 
   const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/)
+  const charLimit = getCharLimit(filePath)
   const errors = []
 
   if (lines.length > MAX_LINES) {
@@ -28,15 +29,17 @@ export function validateFile(filePath) {
   }
 
   lines.forEach((line, index) => {
-    if (line.length > MAX_CHARS) {
+    if (line.length > charLimit) {
       const lineNum = index + 1
-      errors.push(`Max-chars ${line.length} in ${filePath}:${lineNum}`)
+      const msg = `Max-chars ${line.length}/${charLimit} in ` +
+        `${filePath}:${lineNum}`
+      errors.push(msg)
     }
   })
 
   return {
     valid: errors.length === 0,
-    errors
+    errors,
   }
 }
 
@@ -54,6 +57,6 @@ export function validateFiles(filePaths) {
   }
   return {
     valid: allErrors.length === 0,
-    errors: allErrors
+    errors: allErrors,
   }
 }
