@@ -82,7 +82,7 @@ export default tseslint.config([
       // Enforce maximum 80 lines per file for TS/TSX
       'max-lines': [
         'error',
-        { max: 80, skipBlankLines: true, skipComments: true },
+        { max: 60, skipBlankLines: true, skipComments: true },
       ],
     },
   },
@@ -101,7 +101,7 @@ export default tseslint.config([
       'max-len': ['error', { code: 80, tabWidth: 2, ignoreUrls: true }],
       'max-lines': [
         'error',
-        { max: 80, skipBlankLines: true, skipComments: true },
+        { max: 60, skipBlankLines: true, skipComments: true },
       ],
     },
   },

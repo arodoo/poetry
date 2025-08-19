@@ -1,11 +1,20 @@
 /*
  File: tools/ci/char-limits.mjs
- Purpose: Character limit configuration per file type. Centralizes the
- rules for different file extensions to enable consistent validation
- across the repository and easy maintenance of standards.
+ Purpose: Character limit configuration per file type.
+ Uses the centralized code-standards.config.json to keep a single
+ source of truth for validation rules across the repository.
  All Rights Reserved. Arodi Emmanuel
 */
 import path from 'node:path'
+import fs from 'node:fs'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const configPath = path.resolve(
+  __dirname,
+  '../../code-standards.config.json'
+)
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
 
 /**
  * Get character limit based on file extension
@@ -14,17 +23,20 @@ import path from 'node:path'
  */
 export function getCharLimit(filePath) {
   const ext = path.extname(filePath).toLowerCase()
-  
-  // Java files get 100 characters
-  if (ext === '.java') {
-    return 100
+
+  // Backend files
+  if (config.fileExtensions.backend.includes(ext)) {
+    if (ext === '.java') {
+      return config.characterLimits.backend.java
+    }
   }
-  
-  // Frontend files get 80 characters
-  if (['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'].includes(ext)) {
-    return 80
+
+  // Frontend files (same limit for JS/TS variants)
+  if (config.fileExtensions.frontend.includes(ext)) {
+    const limits = config.characterLimits.frontend
+    return limits.typescript
   }
-  
-  // All other files get 80 characters
-  return 80
+
+  // Default limit for other files
+  return config.characterLimits.default
 }

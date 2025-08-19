@@ -1,12 +1,54 @@
 <!--
 File: configuration.md
-Purpose: Documents typed configuration for frontend and backend, the
-variables available, default values, and validation behavior. This page
-covers injection patterns and references to OpenAPI paths.
+Purpose: Documents typed configuration for frontend and backend, including
+the centralized code standards configuration system that ensures single
+source of truth for validation rules, character limits, and line limits.
 All Rights Reserved. Arodi Emmanuel
 -->
 
 # Configuration — Typed and Validated
+
+## Code Standards Configuration (New!)
+
+The repository now uses a centralized configuration system to maintain
+consistent code quality standards across all tools and environments. All line
+limits, character limits, and file rules are defined in a single source of
+truth: `code-standards.config.json`.
+
+### Single Source of Truth
+
+- **Location**: `code-standards.config.json` (repository root)
+- **Purpose**: Centralized definition of all code quality rules
+- **Benefits**: No configuration drift, easy maintenance, consistent enforcement
+
+### Current Standards
+
+- **File Line Limit**: 60 lines maximum
+- **Backend (Java)**: 100 characters per line
+- **Frontend (JS/TS)**: 80 characters per line
+- **Default**: 80 characters per line
+
+### Management Commands
+
+```bash
+# Synchronize all tool configurations
+npm run config:sync
+
+# Validate synchronization
+npm run config:validate
+
+# Check code standards compliance
+npm run max-lines:check
+```
+
+### Tools Integration
+
+- **Checkstyle**: Automatically uses Java character limits
+- **ESLint**: Automatically uses frontend character and line limits
+- **CI Validator**: Uses centralized file and character limits
+- **Husky Hooks**: Validates using centralized configuration
+
+---
 
 Overview
 

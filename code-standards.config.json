@@ -1,0 +1,43 @@
+{
+  "fileLineLimit": 60,
+  "characterLimits": {
+    "backend": {
+      "java": 100
+    },
+    "frontend": {
+      "javascript": 80,
+      "typescript": 80,
+      "jsx": 80,
+      "tsx": 80
+    },
+    "default": 80
+  },
+  "fileExtensions": {
+    "backend": [".java"],
+    "frontend": [".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs"],
+    "config": [".json", ".xml", ".yaml", ".yml", ".md", ".txt"],
+    "ignore": [
+      ".svg",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".ico",
+      ".woff",
+      ".woff2",
+      ".ttf",
+      ".eot"
+    ]
+  },
+  "excludePatterns": [
+    "**/node_modules/**",
+    "**/target/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.git/**",
+    "**/package-lock.json",
+    "**/*.lock",
+    "**/*.min.js",
+    "**/*.min.css"
+  ]
+}

@@ -19,7 +19,9 @@
     "openapi:validate": "redocly lint docs/api/openapi-v1.yaml",
     "sdk:check": "node tools/ci/check-openapi-hash.mjs",
     "sdk:sync": "node tools/ci/update-openapi-hash.mjs",
-    "max-lines:check": "node tools/ci/check-lines.mjs"
+    "max-lines:check": "node tools/ci/check-lines.mjs",
+    "config:sync": "node tools/ci/config-sync.mjs",
+    "config:validate": "node tools/ci/validate-config-sync.mjs"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}": [
