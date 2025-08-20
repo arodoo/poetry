@@ -2,7 +2,7 @@
  File: httpTypes.ts
  Purpose: Shared HTTP client types for request options and retry config.
  Centralizes type contracts consumed by fetch client and tests to keep
- files small and cohesive per the 60-line rule. All Rights Reserved.
+ files small and cohesive per the 80-line rule. All Rights Reserved.
  Arodi Emmanuel
 */
 

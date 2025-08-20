@@ -1,6 +1,7 @@
 /*
  * All Rights Reserved. Arodi Emmanuel
  */
+
 package com.poetry.poetry_backend.interfaces.v1.user;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,9 +22,13 @@ class UserControllerTest {
   @Test
   void crud_flow() throws Exception {
     String body =
-        "{\"firstName\":\"A\",\"lastName\":\"B\",\"email\":\"a@b.com\",\"username\":\"ab-1\",\"password\":\"secret\"}";
+        "{\"firstName\":\"A\",\"lastName\":\"B\",\"email\":\"a@b.com\","
+            + "\"username\":\"ab-1\",\"password\":\"secret\"}";
     String resp =
-        mvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(body))
+        mvc.perform(
+                post("/api/v1/users")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(body))
             .andExpect(status().isOk())
             .andReturn()
             .getResponse()
@@ -37,7 +42,8 @@ class UserControllerTest {
     String etag = getRes.getHeader("ETag");
     mvc.perform(get("/api/v1/users")).andExpect(status().isOk());
     String up =
-        "{\"firstName\":\"A2\",\"lastName\":\"B2\",\"email\":\"a2@b.com\",\"roles\":[\"USER\"],\"active\":true}";
+        "{\"firstName\":\"A2\",\"lastName\":\"B2\",\"email\":\"a2@b.com\","
+            + "\"roles\":[\"USER\"],\"active\":true}";
     mvc.perform(
             put("/api/v1/users/" + id)
                 .header("If-Match", etag)

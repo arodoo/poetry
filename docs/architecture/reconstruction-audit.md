@@ -55,7 +55,7 @@ Inconsistencies with new conventions
 - Frontend: axios direct; must migrate to generated SDK
 - Routes: missing `/:locale/...` and localized slugs
 - Anti-drift (OpenAPI↔SDK, Zod↔Types): no tests
-- 60-line limit: large files exceed (UserService ~241, AuthController ~194,
+- 80-line limit: large files exceed (UserService ~241, AuthController ~194,
   OpenApiConfig ~138, axiosConfig.ts ~170)
 
 DDD mapping (target)

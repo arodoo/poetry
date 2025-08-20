@@ -26,7 +26,7 @@ status.
 - 08 — Frontend SDK and i18n — Pending —
   [08-frontend-sdk-and-i18n.md](08-frontend-sdk-and-i18n.md)
 - 09 — Enforce 80-line Limit — Completed —
-  [09-enforce-60-lines.md](09-enforce-60-lines.md)
+  [09-enforce-80-lines.md](09-enforce-80-lines.md)
 - 10 — Complete Domain Docs — Pending —
   [10-domain-docs-complete.md](10-domain-docs-complete.md)
 - 11 — CI Hooks and Guards — Pending —

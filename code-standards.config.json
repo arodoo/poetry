@@ -1,5 +1,5 @@
 {
-  "fileLineLimit": 60,
+  "fileLineLimit": 80,
   "characterLimits": {
     "backend": {
       "java": 100

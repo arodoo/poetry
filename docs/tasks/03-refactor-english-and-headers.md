@@ -13,7 +13,7 @@ Description
 
 Expected Result
 
-- Entire codebase in English with consistent headers; files <= 60 lines.
+- Entire codebase in English with consistent headers; files <= 80 lines.
 
 Actual Result
 

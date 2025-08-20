@@ -23,7 +23,7 @@ truth: `code-standards.config.json`.
 
 ### Current Standards
 
-- **File Line Limit**: 60 lines maximum
+- **File Line Limit**: 80 lines maximum
 - **Backend (Java)**: 100 characters per line
 - **Frontend (JS/TS)**: 80 characters per line
 - **Default**: 80 characters per line

@@ -8,7 +8,7 @@ Reserved. Arodi Emmanuel
 
 Overview
 
-- We enforce a strict 60-char max line length and <= 60 lines per file.
+- We enforce a strict character max line length and <= 80 lines per file.
 - Frontend uses Prettier + ESLint with max-len.
 - Backend uses Spotless (Eclipse formatter) and Checkstyle LineLength.
 

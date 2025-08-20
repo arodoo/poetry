@@ -1,6 +1,7 @@
 /*
  * All Rights Reserved. Arodi Emmanuel
  */
+
 package com.poetry.poetry_backend.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,6 +15,7 @@ import org.springframework.retry.support.RetryTemplate;
 import org.springframework.web.client.RestClient;
 
 import com.poetry.poetry_backend.application.common.config.AppConfigPort;
+import com.poetry.poetry_backend.application.common.http.NonRetryableException;
 import com.poetry.poetry_backend.infrastructure.config.AppConfigAdapter;
 import com.poetry.poetry_backend.infrastructure.config.AppProperties;
 
@@ -43,7 +45,9 @@ public class AppConfigComposition {
   @Bean
   RetryTemplate httpRetryTemplate(AppConfigPort cfg) {
     var t = new RetryTemplate();
-    var p = new SimpleRetryPolicy(cfg.httpRetryMaxAttempts());
+    var map = new java.util.HashMap<Class<? extends Throwable>, Boolean>();
+    map.put(NonRetryableException.class, Boolean.FALSE);
+    var p = new SimpleRetryPolicy(cfg.httpRetryMaxAttempts(), map, true);
     var b = new FixedBackOffPolicy();
     b.setBackOffPeriod(cfg.httpRetryBackoffMs());
     t.setRetryPolicy(p);

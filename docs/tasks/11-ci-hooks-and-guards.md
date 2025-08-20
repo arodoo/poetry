@@ -9,7 +9,7 @@ All Rights Reserved. Arodi Emmanuel
 Description
 
 - Set up Husky hooks, commitlint, and checks for OpenAPI validity and SDK/type
-  parity. Enforce max 60 lines and 80 chars per line.
+  parity. Enforce max 80 lines and 80 chars per line.
 
 Expected Result
 
@@ -25,7 +25,7 @@ Actual Result
 - Implemented Husky pre-commit and pre-push hooks.
 - Added commitlint with conventional config.
 - Added redocly OpenAPI validation and SDK drift check.
-- Split check-lines.mjs into modular components (≤60 lines each).
+- Split check-lines.mjs into modular components (≤80 lines each).
 - Fixed frontend test unhandled rejections properly.
 - All CI/CD rules enforced: lint, format, max-lines, typecheck, tests.
 - Wired root scripts to run frontend and backend.

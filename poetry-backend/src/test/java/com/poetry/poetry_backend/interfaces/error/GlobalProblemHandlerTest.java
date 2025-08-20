@@ -1,6 +1,7 @@
 /*
  * All Rights Reserved. Arodi Emmanuel
  */
+
 package com.poetry.poetry_backend.interfaces.error;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

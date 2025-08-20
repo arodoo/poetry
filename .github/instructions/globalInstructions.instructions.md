@@ -5,14 +5,12 @@ applyTo: '**'
 - Before starting code changes Provide a brief step-by-step plan.
 - Must follow DDD, SOLID, Clean Architecture.
 - Folder structure must follow DDD.
-- No file should exceed 60 lines; if longer, split.
+- No file should exceed 80 lines; if longer, split into dedicated smaller files,
+  never remove logic.
 - In frontEnd no line should exceed 80 characters, in backend is 100, if a line
-  exceeds this limit, it must be split.
+  exceeds this limit, it must be split into dedicated smaller files, never
+  remove logic.
 - Code must be well formated and readable.
-- If you ever consider I'm wrong, I order you to correct me.
-- Every variable, parameter, or attribute must have a descriptive name that
-  clearly expresses its purpose in context.
-- Check file sizes by reading them (no shell commands).
 - All code must be documented in /docs following the standard folder structure
   (overview, architecture, domains, api, standards, operations, security).
 - Each module must have its own file in /docs/domains/ including: scope, RFs,
@@ -21,12 +19,17 @@ applyTo: '**'
   docs.
 - Vars, comments and code must be in English.
 - Every file must have a header comment with the file name, file-specific
-  purpose (at least 3 sentences, all related to the logic and functionality),
-  and a brief legend: 'All Rights Reserved. Arodi Emmanuel'.
+  purpose (at least 3 sentences related to the logic and functionality), and a
+  brief legend: 'All Rights Reserved. Arodi Emmanuel'. Example at
+  LICENSE-HEADER.txt.
 - Give each task a .md file in 'docs/' with the task description, the expected
   result, and the actual result and update after every modification. Check
   status of the files before start planning/coding.
 - Commit changes after every task completion.
+- Every variable, parameter, or attribute must have a descriptive name that
+  clearly expresses its purpose in context (e.g. `response` instead of `r`, if
+  you find a bad example, fix it).
+- Check file sizes by reading them (no shell commands).
 
 BackEnd rules defined at '.github/chatmodes/backend.chatmode.md' (Must be read
 if you will interact with backend).
@@ -60,8 +63,6 @@ Testing & CI
   - No direct imports of 3rd-party libs (HTTP/DB/SDK) outside Infrastructure.
   - Wiring only in a composition root via constructor injection.
 - Use design patterns and follow international standards.
-- All errors should be explicitly handled or resolved in the code or tests.
-  Errors should never be suppressed, hidden, or ignored to reduce visibility.
 
   ## Error Handling
 

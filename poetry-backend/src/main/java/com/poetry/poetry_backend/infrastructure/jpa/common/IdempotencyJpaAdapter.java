@@ -1,6 +1,7 @@
 /*
  * All Rights Reserved. Arodi Emmanuel
  */
+
 package com.poetry.poetry_backend.infrastructure.jpa.common;
 
 import org.slf4j.Logger;

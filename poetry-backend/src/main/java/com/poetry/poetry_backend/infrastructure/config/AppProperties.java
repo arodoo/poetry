@@ -1,6 +1,7 @@
 /*
  * All Rights Reserved. Arodi Emmanuel
  */
+
 package com.poetry.poetry_backend.infrastructure.config;
 
 import java.util.List;
@@ -22,4 +23,4 @@ public record AppProperties(
     @Min(1) int httpConnectTimeoutMs,
     @Min(1) int httpReadTimeoutMs,
     @Min(1) int httpRetryMaxAttempts,
-    @Min(0) int httpRetryBackoffMs) {}
+    @Min(0) int httpRetryBackoffMs) { }

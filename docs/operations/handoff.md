@@ -30,12 +30,12 @@ Next Steps (brief plan)
 5. Configure timeouts/retries for DB/HTTP (Task 07).
 6. Generate SDK from OpenAPI and migrate frontend; enforce i18n routes (Task
    08).
-7. Enforce 60-line limit and split large files (Task 09).
+7. Enforce 80-line limit and split large files (Task 09).
 8. Complete domain docs and CI hooks/guards (Tasks 10–11).
 
 Conventions
 
-- DDD structure; English-only; header in every file; <= 60 lines per file.
+- DDD structure; English-only; header in every file; <= 80 lines per file.
 - RFC7807 errors; OpenAPI in docs/api; no hardcoded URLs; centralized date/time.
 
 References
