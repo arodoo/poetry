@@ -1,4 +1,8 @@
 /*
+ * File: ETagAndIfMatchTest.java
+ * Purpose: Integration tests for ETag and If-Match semantics to ensure
+ * optimistic concurrency and cache validation work as expected. Tests
+ * simulate request flows and verify server-side ETag handling.
  * All Rights Reserved. Arodi Emmanuel
  */
 

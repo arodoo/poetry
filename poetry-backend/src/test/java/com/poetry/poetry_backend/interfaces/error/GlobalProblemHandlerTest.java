@@ -1,4 +1,8 @@
 /*
+ * File: GlobalProblemHandlerTest.java
+ * Purpose: Tests for the global problem handler to assert consistent
+ * error mapping and HTTP response codes across exception types. These
+ * tests help prevent regressions in error handling behavior.
  * All Rights Reserved. Arodi Emmanuel
  */
 

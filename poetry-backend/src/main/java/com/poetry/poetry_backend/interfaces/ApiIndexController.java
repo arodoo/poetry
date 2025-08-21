@@ -1,4 +1,9 @@
 /*
+ * File: ApiIndexController.java
+ * Purpose: Exposes index endpoint for the API and provides basic
+ * health and discovery information for clients and tooling. The
+ * controller aggregates version and availability details to aid
+ * monitoring and reduce coupling with downstream services.
  * All Rights Reserved. Arodi Emmanuel
  */
 

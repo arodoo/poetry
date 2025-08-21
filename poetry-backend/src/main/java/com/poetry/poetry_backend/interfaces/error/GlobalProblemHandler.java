@@ -1,4 +1,9 @@
 /*
+ * File: GlobalProblemHandler.java
+ * Purpose: Centralized exception handler to map internal exceptions
+ * to standardized API problem responses. This handler provides
+ * consistent error shapes, logging, and mapping to HTTP statuses
+ * so that controllers remain thin and error handling is unified.
  * All Rights Reserved. Arodi Emmanuel
  */
 

@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /*
- File: tools/ci/check-lines.mjs
- Purpose: Orchestrates line/char limit enforcement. It validates config,
- discovers candidate files, and delegates validation. Ensures repo code
- adheres to central standards. All Rights Reserved. Arodi Emmanuel
-*/
+ * File: check-lines.mjs
+ * Purpose: Checks files for maximum line length violations and reports
+ * offending lines to guide developers in splitting or refactoring long
+ * lines to follow project formatting rules.
+ * All Rights Reserved. Arodi Emmanuel
+ */
+
 import path from 'node:path'
 import { execSync } from 'node:child_process'
 import { getChangedFiles, shouldUseFallback } from './git-utils.mjs'

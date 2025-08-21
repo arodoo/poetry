@@ -1,4 +1,8 @@
 /*
+ * File: UserControllerTest.java
+ * Purpose: Unit tests for user controller endpoints to assert request
+ * validation and response mapping. Tests verify controller interactions
+ * with application ports remain correct under various inputs.
  * All Rights Reserved. Arodi Emmanuel
  */
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /*
- File: tools/ci/validate-config-sync.mjs
- Purpose: Validate ESLint and Checkstyle against the central config.
- Ensures a single source of truth for limits across the repository.
- Fails fast in CI when drift is detected to stop configuration issues.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * File: validate-config-sync.mjs
+ * Purpose: Validation utility to ensure configuration files are
+ * synchronized between local and CI environments and report mismatches.
+ * It helps maintain consistent developer experience and CI results.
+ * All Rights Reserved. Arodi Emmanuel
+ */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'

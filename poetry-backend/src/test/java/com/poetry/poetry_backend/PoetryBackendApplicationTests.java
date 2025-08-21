@@ -1,4 +1,8 @@
 /*
+ * File: PoetryBackendApplicationTests.java
+ * Purpose: Integration tests bootstrapping the application context to
+ * verify fundamental wiring and startup validation. These tests ensure
+ * core components initialize correctly and configuration is valid.
  * All Rights Reserved. Arodi Emmanuel
  */
 

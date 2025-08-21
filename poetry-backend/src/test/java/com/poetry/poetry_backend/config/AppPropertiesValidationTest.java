@@ -1,4 +1,8 @@
 /*
+ * File: AppPropertiesValidationTest.java
+ * Purpose: Unit test to validate application properties binding and
+ * validation at startup. Ensures configuration constraints are
+ * enforced and provides early feedback for misconfigurations.
  * All Rights Reserved. Arodi Emmanuel
  */
 

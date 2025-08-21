@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /*
- File: tools/ci/config-sync.mjs
- Purpose: Sync ESLint and Checkstyle with centralized
- code-standards.config.json for a single source of truth.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * File: config-sync.mjs
+ * Purpose: Validates that configuration files across the repo are
+ * synchronized and keeps developer tooling consistent with CI expectations.
+ * This script aids in maintaining shared standards between local and CI.
+ * All Rights Reserved. Arodi Emmanuel
+ */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'

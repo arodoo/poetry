@@ -1,4 +1,8 @@
 /*
+ * File: ApiIndexControllerTest.java
+ * Purpose: Unit tests for the API index controller to validate
+ * response shapes and routing behavior. Tests ensure index
+ * endpoints remain stable and adhere to expected contracts.
  * All Rights Reserved. Arodi Emmanuel
  */
 

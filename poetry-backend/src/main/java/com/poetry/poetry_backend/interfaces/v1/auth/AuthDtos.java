@@ -1,4 +1,9 @@
 /*
+ * File: AuthDtos.java
+ * Purpose: Data transfer objects used by authentication endpoints
+ * to decouple transport from domain models and provide validation
+ * contracts. DTOs centralize request and response shapes for auth
+ * flows and reduce coupling between layers.
  * All Rights Reserved. Arodi Emmanuel
  */
 

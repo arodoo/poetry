@@ -1,4 +1,10 @@
 /*
+ * File: InMemoryAuthAdapter.java
+ * Purpose: In-memory implementation of authentication adapter used for
+ * testing and local development. This adapter provides simple auth
+ * operations without external dependencies and is intended for fast
+ * iterations and CI tests. It centralizes transient authentication
+ * behavior and keeps production adapters decoupled.
  * All Rights Reserved. Arodi Emmanuel
  */
 

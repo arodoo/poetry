@@ -10,20 +10,19 @@
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import com.poetry.poetry_backend.domain.user.model.User;
-
 public final class UserJpaMapper {
-  private UserJpaMapper() {
-    // utility
-  }
+    private UserJpaMapper() {
+        // utility
+    }
 
-  public static User toDomain(UserEntity e) {
-    return new User(
-        e.getId(),
-        e.getFirstName(),
-        e.getLastName(),
-        e.getEmail(),
-        e.getUsername(),
-        e.isActive(),
-        e.getRoles());
-  }
+    public static User toDomain(UserEntity e) {
+        return new User(
+                e.getId(),
+                e.getFirstName(),
+                e.getLastName(),
+                e.getEmail(),
+                e.getUsername(),
+                e.isActive(),
+                e.getRoles());
+    }
 }

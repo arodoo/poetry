@@ -1,4 +1,9 @@
 /*
+ * File: ETagResponseAdvice.java
+ * Purpose: Adds ETag headers to HTTP responses and manages cache
+ * validation semantics for responses. The advice centralizes ETag
+ * calculation and header population ensuring consistent caching
+ * behavior across controllers.
  * All Rights Reserved. Arodi Emmanuel
  */
 

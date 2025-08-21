@@ -1,10 +1,10 @@
 /*
- File: tools/ci/char-limits.mjs
- Purpose: Character limit configuration per file type.
- Uses the centralized code-standards.config.json to keep a single
- source of truth for validation rules across the repository.
- All Rights Reserved. Arodi Emmanuel
-*/
+ * File: char-limits.mjs
+ * Purpose: Enforces per-line character limits across source files
+ * and assists CI in keeping code within configured width constraints.
+ * The script is used by pre-commit hooks to avoid long-line violations.
+ * All Rights Reserved. Arodi Emmanuel
+ */
 import path from 'node:path'
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'

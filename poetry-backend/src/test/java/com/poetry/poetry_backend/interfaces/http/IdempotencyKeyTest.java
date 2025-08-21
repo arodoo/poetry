@@ -1,4 +1,8 @@
 /*
+ * File: IdempotencyKeyTest.java
+ * Purpose: Tests idempotency key handling to ensure operations are
+ * safely retried or deduplicated according to contract expectations.
+ * These tests validate server behavior for repeated requests.
  * All Rights Reserved. Arodi Emmanuel
  */
 

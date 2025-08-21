@@ -1,4 +1,9 @@
 /*
+ * File: UserDtos.java
+ * Purpose: DTO classes used by user endpoints to represent request
+ * and response payloads independently from the domain model. Using
+ * DTOs ensures clear API contracts and enables versioning and
+ * validation at the boundary.
  * All Rights Reserved. Arodi Emmanuel
  */
 

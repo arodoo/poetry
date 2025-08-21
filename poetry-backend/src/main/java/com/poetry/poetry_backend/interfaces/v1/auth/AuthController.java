@@ -1,4 +1,8 @@
 /*
+ * File: AuthController.java
+ * Purpose: Exposes authentication endpoints for versioned API v1.
+ * This controller handles login, token issuance, and related auth
+ * flows while delegating business logic to application services.
  * All Rights Reserved. Arodi Emmanuel
  */
 

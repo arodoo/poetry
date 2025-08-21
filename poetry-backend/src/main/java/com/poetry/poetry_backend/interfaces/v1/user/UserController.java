@@ -1,4 +1,9 @@
 /*
+ * File: UserController.java
+ * Purpose: Exposes user management endpoints for API v1, including
+ * creating, updating, listing, and soft-deleting users. Controller
+ * methods delegate to application ports and map domain responses to
+ * transport DTOs.
  * All Rights Reserved. Arodi Emmanuel
  */
 

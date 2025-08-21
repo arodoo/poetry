@@ -1,4 +1,8 @@
 /*
+ * File: AuthControllerTest.java
+ * Purpose: Unit tests for the authentication controller verifying token
+ * issuance, validation, and error paths. These tests ensure auth flows
+ * remain stable and adhere to security expectations.
  * All Rights Reserved. Arodi Emmanuel
  */
 
