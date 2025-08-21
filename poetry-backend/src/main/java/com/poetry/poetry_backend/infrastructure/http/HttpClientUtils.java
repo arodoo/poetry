@@ -1,15 +1,15 @@
 /*
+ * File: HttpClientUtils.java
+ * Purpose: Utilities for HTTP client operations such as request body
+ * conversion, response handling and error mapping. These utilities centralize
+ * common client concerns used by RestClient adapters to keep adapter code
+ * concise and consistent across the infrastructure. The helpers provide a
+ * single place to apply retry logic and to translate HTTP errors into the
+ * application's domain exceptions.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.http;
-
-/* File: HttpClientUtils.java
- * Purpose: Utility class that provides common HTTP client operations for
- * RestClientAdapter. This class handles retry logic and error handling to
- * keep the main adapter focused on interface implementation.
- * All Rights Reserved. Arodi Emmanuel
- */
 
 import java.util.function.Supplier;
 

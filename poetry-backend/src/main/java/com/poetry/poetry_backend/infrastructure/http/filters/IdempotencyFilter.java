@@ -1,4 +1,10 @@
 /*
+ * File: IdempotencyFilter.java
+ * Purpose: Servlet filter that enforces idempotency semantics for HTTP
+ * endpoints. It validates idempotency keys, stores metadata and prevents
+ * duplicate side-effectful operations when configured. This filter keeps
+ * idempotency orchestration out of business code and centralizes storage
+ * and validation behavior.
  * All Rights Reserved. Arodi Emmanuel
  */
 

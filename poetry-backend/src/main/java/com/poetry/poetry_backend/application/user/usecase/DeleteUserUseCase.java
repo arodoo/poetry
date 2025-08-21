@@ -1,4 +1,9 @@
 /*
+ * File: DeleteUserUseCase.java
+ * Purpose: Encapsulate the logic to soft-delete users by delegating to command
+ * ports and ensuring domain rules (such as permissions and audit) are
+ * respected. The use case isolates deletion semantics from controllers and
+ * provides a central place to apply business rules consistently.
  * All Rights Reserved. Arodi Emmanuel
  */
 

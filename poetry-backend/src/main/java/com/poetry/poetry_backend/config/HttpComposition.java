@@ -1,4 +1,10 @@
 /*
+ * File: HttpComposition.java
+ * Purpose: Composition and wiring for HTTP client adapters and helpers.
+ * It configures RestClient-related beans and utilities such as retry
+ * templates and request factories to be used across infrastructure. This
+ * isolates HTTP concerns from application logic and keeps integrations
+ * configurable and testable.
  * All Rights Reserved. Arodi Emmanuel
  */
 

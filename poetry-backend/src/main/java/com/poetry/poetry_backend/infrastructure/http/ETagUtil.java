@@ -1,6 +1,12 @@
 /*
- * All Rights Reserved. Arodi Emmanuel
- */
+ File: ETagUtil.java
+ Purpose: Utility to compute ETag values using SHA-256 hashing. This class
+ encapsulates the low-level digest computation and formatting needed by
+ adapters and response advice to generate stable ETag strings. Keeping the
+ algorithm here centralizes changes and avoids scattering cryptographic
+ details across the codebase.
+ All Rights Reserved. Arodi Emmanuel
+*/
 
 package com.poetry.poetry_backend.infrastructure.http;
 

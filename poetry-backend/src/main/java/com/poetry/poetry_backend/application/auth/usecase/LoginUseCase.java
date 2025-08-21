@@ -1,4 +1,11 @@
 /*
+ * File: LoginUseCase.java
+ * Purpose: Execute the login flow for users by validating credentials and
+ * issuing authentication tokens or session artifacts. This use case coordinates
+ * between domain validation, authentication ports and token management. It
+ * keeps application logic decoupled from transport and persistence details
+ * and encapsulates side-effects while returning application-level DTOs or
+ * domain objects as required by calling controllers.
  * All Rights Reserved. Arodi Emmanuel
  */
 

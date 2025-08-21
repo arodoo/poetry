@@ -1,4 +1,11 @@
 /*
+ * File: AppConfigPort.java
+ * Purpose: Provide an abstraction for accessing application configuration
+ * values (typed) required by the application layer. Implementations read
+ * from environment, properties or remote config providers and must expose a
+ * stable contract so the application remains decoupled from configuration
+ * sources. This port improves testability by allowing fake configurations in
+ * tests.
  * All Rights Reserved. Arodi Emmanuel
  */
 

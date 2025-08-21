@@ -1,4 +1,9 @@
 /*
+ * File: IdempotencyJpaAdapter.java
+ * Purpose: JPA adapter responsible for storing and retrieving idempotency
+ * records used by idempotent endpoints. This adapter maps domain operations
+ * to database entities and provides a persistence-backed implementation
+ * of idempotency storage to ensure correctness across restarts.
  * All Rights Reserved. Arodi Emmanuel
  */
 

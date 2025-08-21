@@ -1,5 +1,11 @@
 /*
- * All Rights Reserved. Arodi Emmanuel
+ File: AppConfigComposition.java
+ Purpose: Composition root for application configuration wiring. This
+ class provides beans and adapters that configure HTTP clients, retry
+ policies and application configuration binding for the backend. It
+ keeps wiring explicit and isolated from business logic to respect
+ separation of concerns and make testing wiring simpler.
+ All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.config;

@@ -1,4 +1,10 @@
 /*
+ * File: RegisterUseCase.java
+ * Purpose: Orchestrate new user registration including validation, user
+ * creation and any post-registration side-effects required by the
+ * application. The use case depends on user command ports and domain model
+ * factories to ensure registrations conform to business rules and remain
+ * testable in isolation from external systems.
  * All Rights Reserved. Arodi Emmanuel
  */
 

@@ -1,4 +1,9 @@
 /*
+ * File: GetAllUsersUseCase.java
+ * Purpose: Retrieve all users via the user query port and apply any
+ * application-level mapping, filtering or sorting necessary for the caller.
+ * This use case centralizes read logic so controllers can remain thin and
+ * mapping logic is testable.
  * All Rights Reserved. Arodi Emmanuel
  */
 

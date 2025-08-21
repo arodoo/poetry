@@ -1,4 +1,10 @@
 /*
+ * File: InMemoryUserAdapter.java
+ * Purpose: In-memory implementation of user ports used for development and
+ * testing. This adapter stores User domain objects in a local Map and provides
+ * simple create, read, update and soft-delete operations conforming to the
+ * UserCommandPort and UserQueryPort contracts without introducing persistence
+ * concerns.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -30,17 +36,8 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
       String u,
       String p,
       Set<String> r) {
-    Long id = seq.getAndIncrement();
-    User user = new User(
-        id,
-        f,
-        l,
-        e,
-        u,
-        true,
+    return InMemoryUserStore.create(store, seq, f, l, e, u, true,
         r != null ? r : Set.of("USER"));
-    store.put(id, user);
-    return user;
   }
 
   public User update(
@@ -50,29 +47,11 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
       String e,
       Set<String> r,
       boolean a) {
-    User ex = findById(id);
-    User up = new User(
-        ex.getId(),
-        f,
-        l,
-        e,
-        ex.getUsername(),
-        a,
-        r != null ? r : ex.getRoles());
-    store.put(id, up);
-    return up;
+    return InMemoryUserStore.update(store, id, f, l, e,
+        r != null ? r : null, a);
   }
 
   public void softDelete(Long id) {
-    User ex = findById(id);
-    User up = new User(
-        ex.getId(),
-        ex.getFirstName(),
-        ex.getLastName(),
-        ex.getEmail(),
-        ex.getUsername(),
-        false,
-        ex.getRoles());
-    store.put(id, up);
+    InMemoryUserStore.softDelete(store, id);
   }
 }

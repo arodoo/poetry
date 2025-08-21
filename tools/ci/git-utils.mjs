@@ -1,9 +1,9 @@
 /*
- File: tools/ci/git-utils.mjs
- Purpose: Git operations to detect changed files for line limit checks.
- Provides functionality to get staged or diff files from VCS, with
- fallback logic for CI environments. All Rights Reserved. Arodi
- Emmanuel
+ File: git-utils.mjs
+ Purpose: Git helper utilities to detect changed files and control
+ fallback behavior for CI scanning. Exposes functions that abstract git
+ commands to make them testable and reusable by other CI scripts.
+ All Rights Reserved. Arodi Emmanuel
 */
 import { execSync } from 'node:child_process'
 

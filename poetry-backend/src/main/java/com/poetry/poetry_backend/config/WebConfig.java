@@ -1,4 +1,9 @@
 /*
+ * File: WebConfig.java
+ * Purpose: Web and MVC related configuration for controllers, CORS and
+ * response advice such as ETag handling. Provides common web-related
+ * beans and mappings used by the HTTP layer to ensure consistent behavior
+ * across controllers and exception handling components.
  * All Rights Reserved. Arodi Emmanuel
  */
 

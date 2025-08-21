@@ -1,6 +1,12 @@
 /*
- * All Rights Reserved. Arodi Emmanuel
- */
+ File: AppProperties.java
+ Purpose: Strongly-typed record for application configuration properties.
+ This record maps configuration properties from the environment or
+ configuration files into a validated structure used by adapters and
+ composition classes. Centralizing config shapes improves discoverability
+ and ensures validation of runtime values early in application startup.
+ All Rights Reserved. Arodi Emmanuel
+*/
 
 package com.poetry.poetry_backend.infrastructure.config;
 

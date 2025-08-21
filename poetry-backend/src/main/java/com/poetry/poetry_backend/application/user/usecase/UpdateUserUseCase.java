@@ -1,4 +1,9 @@
 /*
+ * File: UpdateUserUseCase.java
+ * Purpose: Coordinate user updates by validating input, applying changes via
+ * user command ports and returning the updated domain object. The use case
+ * enforces business rules while keeping controllers and infrastructure
+ * decoupled for testability.
  * All Rights Reserved. Arodi Emmanuel
  */
 

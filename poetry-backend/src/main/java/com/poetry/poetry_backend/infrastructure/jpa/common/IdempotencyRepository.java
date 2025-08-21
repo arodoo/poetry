@@ -1,4 +1,10 @@
 /*
+ * File: IdempotencyRepository.java
+ * Purpose: Repository interface for idempotency record persistence. It
+ * defines the operations needed by adapters to persist and retrieve
+ * idempotency records used by filters and use cases. Abstracting the
+ * repository allows switching JPA implementations without affecting
+ * higher-level code.
  * All Rights Reserved. Arodi Emmanuel
  */
 

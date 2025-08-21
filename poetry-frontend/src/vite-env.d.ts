@@ -1,3 +1,10 @@
+/*
+ File: vite-env.d.ts
+ Purpose: Type declarations for Vite's environment variables used by the
+ frontend application. Declares the ImportMetaEnv and ImportMeta interfaces
+ consumed across the codebase to provide typed access to runtime env vars.
+ All Rights Reserved. Arodi Emmanuel
+*/
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {

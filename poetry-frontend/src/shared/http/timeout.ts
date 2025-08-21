@@ -1,9 +1,10 @@
 /*
  File: timeout.ts
- Purpose: Small utilities for time control in HTTP flows. Provides an
- AbortSignal with a timeout and a delay helper used by retry logic.
- Keeps concerns isolated from the client to respect SRP. All Rights
- Reserved. Arodi Emmanuel
+ Purpose: Small utilities for time control in HTTP flows providing an
+ AbortSignal with a timeout and a delay helper used by retry logic. These
+ helpers keep retry and timeout concerns separated from networking logic
+ to respect SRP and ease testing across modules.
+ All Rights Reserved. Arodi Emmanuel
 */
 
 export function createTimeout(

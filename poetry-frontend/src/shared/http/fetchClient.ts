@@ -1,8 +1,10 @@
 /*
  File: fetchClient.ts
- Purpose: Factory and default export for JSON HTTP client using env.
- Delegates execution to clientCore to keep this file minimal. All
- Rights Reserved. Arodi Emmanuel
+ Purpose: Factory and default export for a JSON HTTP client using the
+ application environment. This module delegates actual network execution to
+ clientCore and keeps a small surface for easier testing and DI. It exists
+ to centralize client creation and provide a single import for callers.
+ All Rights Reserved. Arodi Emmanuel
 */
 import { getEnv, type Env } from '../config/env'
 import { type HttpOptions } from './httpTypes'

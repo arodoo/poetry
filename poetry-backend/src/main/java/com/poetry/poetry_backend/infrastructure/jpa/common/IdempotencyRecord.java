@@ -1,4 +1,9 @@
 /*
+ * File: IdempotencyRecord.java
+ * Purpose: JPA entity representing idempotency metadata for requests.
+ * This record maps stored keys, creation timestamps and result references
+ * to allow detection and reuse of previous responses for identical keys.
+ * It supports the idempotency adapter and filters in the infrastructure.
  * All Rights Reserved. Arodi Emmanuel
  */
 

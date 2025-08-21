@@ -1,17 +1,15 @@
 /*
+ * File: HttpClientPort.java
+ * Purpose: Declare an abstraction over HTTP clients used by application code
+ * to perform outbound HTTP requests. Implementations live in the
+ * infrastructure layer and must adapt third-party HTTP libraries to this
+ * port's interface, preserving application testability and avoiding direct
+ * framework imports in application code. The port simplifies mocking in
+ * unit tests.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.common.http;
-
-/* File: HttpClientPort.java
- * Purpose: Defines a framework-agnostic HTTP client abstraction used by
- * application services to perform outbound calls without depending on
- * Infrastructure details. Centralizes timeouts and retries behind a stable
- * API to ensure consistent policies. Enables unit testing by mocking the port
- * while real behavior is provided by Infrastructure adapters.
- * All Rights Reserved. Arodi Emmanuel
- */
 
 import java.util.Map;
 

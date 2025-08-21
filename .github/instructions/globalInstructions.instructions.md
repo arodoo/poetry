@@ -20,8 +20,7 @@ applyTo: '**'
 - Vars, comments and code must be in English.
 - Every file must have a header comment with the file name, file-specific
   purpose (at least 3 sentences related to the logic and functionality), and a
-  brief legend: 'All Rights Reserved. Arodi Emmanuel'. Example at
-  LICENSE-HEADER.txt.
+  brief legend: 'All Rights Reserved. Arodi Emmanuel'.
 - Give each task a .md file in 'docs/' with the task description, the expected
   result, and the actual result and update after every modification. Check
   status of the files before start planning/coding.

@@ -1,4 +1,9 @@
 /*
+ * File: UserEntity.java
+ * Purpose: JPA entity representing a user for persistence. It maps domain
+ * user attributes to database columns and provides conversion helpers used
+ * by JPA adapters. Centralizing the entity keeps persistence concerns
+ * separate from domain models and adapters.
  * All Rights Reserved. Arodi Emmanuel
  */
 

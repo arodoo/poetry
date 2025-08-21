@@ -1,4 +1,10 @@
 /*
+ * File: UserCommandPort.java
+ * Purpose: Define commands related to user lifecycle and mutations used by the
+ * application layer. This port exposes operations for creating, updating and
+ * soft-deleting users while shielding application logic from persistence
+ * details. Implementations must honor the declared method signatures and
+ * preserve domain invariants when applying changes.
  * All Rights Reserved. Arodi Emmanuel
  */
 

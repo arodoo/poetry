@@ -1,4 +1,10 @@
 /*
+ * File: UserComposition.java
+ * Purpose: Composition for user-related beans and adapters used by the
+ * application layer. This class wires user ports to JPA or in-memory
+ * adapters and exposes use-cases as beans for controllers to consume.
+ * Separating composition improves maintainability and supports DI-based
+ * testing.
  * All Rights Reserved. Arodi Emmanuel
  */
 

@@ -1,16 +1,15 @@
 /*
+ * File: AuthPort.java
+ * Purpose: Defines the authentication-related ports used by the application
+ * layer to authenticate users, refresh tokens, and manage authentication
+ * state. This interface abstracts authentication operations so application
+ * services and use-cases can depend on a stable contract rather than
+ * concrete implementations. Implementations are provided in the
+ * infrastructure layer and must preserve the method signatures defined here.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.auth.port;
-
-/**
- * File: AuthPort.java
- * Purpose: Application-level authentication port with operations for
- * login, token refresh, logout, and registration. This abstraction decouples
- * use cases from infrastructure and enables testing via mocks.
- * All Rights Reserved. Arodi Emmanuel
- */
 
 import java.util.Map;
 

@@ -1,4 +1,8 @@
 /*
+ * File: GetUserByIdUseCase.java
+ * Purpose: Retrieve a single user by identifier and apply application-level
+ * validations or mapping. This use case hides persistence and lookup details
+ * from controllers and coordinates error handling for missing users.
  * All Rights Reserved. Arodi Emmanuel
  */
 

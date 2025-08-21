@@ -1,8 +1,10 @@
 /*
- File: tools/ci/validator.mjs
- Purpose: Validate line count and character limits
- using code-standards.config.json. Ensures consistent
- rules across the repo. All Rights Reserved. Arodi Emmanuel
+ File: validator.mjs
+ Purpose: Validate line count and character limits using the central
+ code-standards.config.json and provide utilities to validate single or
+ multiple files against those rules. Keeps validation logic isolated for
+ reuse by CI tasks and scripts.
+ All Rights Reserved. Arodi Emmanuel
 */
 import fs from 'node:fs'
 import path from 'node:path'

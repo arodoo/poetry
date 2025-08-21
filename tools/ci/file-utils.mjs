@@ -1,9 +1,9 @@
 /*
- File: tools/ci/file-utils.mjs
+ File: file-utils.mjs
  Purpose: File system operations for directory traversal and file
  filtering. Provides recursive walking and path normalization utilities
- needed for line limit validation across the repository. All Rights
- Reserved. Arodi Emmanuel
+ needed for line limit validation across the repository.
+ All Rights Reserved. Arodi Emmanuel
 */
 import fs from 'node:fs'
 import path from 'node:path'

@@ -25,6 +25,7 @@ jobs:
         working-directory: poetry-frontend
       - run: npm run max-lines:check
         if: ${{ github.event_name == 'pull_request' }}
+      - run: npm run headers:check
       - run: npm run lint
       - run: npm run typecheck && npm run test
       - run: npm run openapi:validate

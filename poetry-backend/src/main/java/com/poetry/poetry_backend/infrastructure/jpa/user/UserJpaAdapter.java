@@ -1,17 +1,21 @@
 /*
+ * File: UserJpaAdapter.java
+ * Purpose: JPA adapter implementing user persistence and retrieval
+ * operations required by application ports. This adapter maps between
+ * UserEntity and domain models and ensures repository interactions are
+ * encapsulated within infrastructure, adhering to DIP and separation of
+ * concerns.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
-import com.poetry.poetry_backend.domain.user.model.User;
 
 @Transactional
 public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
@@ -21,21 +25,23 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     this.repo = repo;
   }
 
-  public List<User> findAll() {
-    return repo.findAllActive().stream().map(UserJpaAdapter::toDomain).toList();
+  public List<com.poetry.poetry_backend.domain.user.model.User> findAll() {
+    return repo.findAllActive().stream()
+        .map(UserJpaMapper::toDomain)
+        .toList();
   }
 
-  public User findById(Long id) {
-    return repo.findActiveById(id).map(UserJpaAdapter::toDomain).orElseThrow();
+  public com.poetry.poetry_backend.domain.user.model.User findById(Long id) {
+    return repo.findActiveById(id).map(UserJpaMapper::toDomain).orElseThrow();
   }
 
-  public User create(
+  public com.poetry.poetry_backend.domain.user.model.User create(
       String f,
       String l,
       String e,
       String u,
       String p,
-      Set<String> r) {
+      java.util.Set<String> r) {
     UserEntity en = new UserEntity();
     en.setFirstName(f);
     en.setLastName(l);
@@ -43,15 +49,15 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     en.setUsername(u);
     en.setRoles(r);
     en.setActive(true);
-    return toDomain(repo.save(en));
+    return UserJpaMapper.toDomain(repo.save(en));
   }
 
-  public User update(
+  public com.poetry.poetry_backend.domain.user.model.User update(
       Long id,
       String f,
       String l,
       String e,
-      Set<String> r,
+      java.util.Set<String> r,
       boolean a) {
     UserEntity en = repo.findById(id).orElseThrow();
     en.setFirstName(f);
@@ -59,18 +65,12 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     en.setEmail(e);
     en.setRoles(r);
     en.setActive(a);
-    return toDomain(repo.save(en));
+    return UserJpaMapper.toDomain(repo.save(en));
   }
 
   public void softDelete(Long id) {
     UserEntity en = repo.findById(id).orElseThrow();
     en.setActive(false);
     repo.save(en);
-  }
-
-  private static User toDomain(UserEntity e) {
-    return new User(
-        e.getId(), e.getFirstName(), e.getLastName(), e.getEmail(),
-        e.getUsername(), e.isActive(), e.getRoles());
   }
 }

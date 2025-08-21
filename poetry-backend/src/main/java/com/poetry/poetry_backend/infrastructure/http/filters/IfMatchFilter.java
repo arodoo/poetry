@@ -1,5 +1,11 @@
 /*
- * All Rights Reserved. Arodi Emmanuel
+ File: IfMatchFilter.java
+ Purpose: Servlet filter to enforce ETag If-Match preconditions on
+ modifying requests. It inspects incoming If-Match headers and compares
+ them with current resource ETags to prevent lost updates and ensure
+ optimistic concurrency. The filter centralizes conditional request
+ handling outside controllers.
+ All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.http.filters;

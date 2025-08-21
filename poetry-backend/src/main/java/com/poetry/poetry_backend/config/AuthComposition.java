@@ -1,6 +1,12 @@
 /*
- * All Rights Reserved. Arodi Emmanuel
- */
+ File: AuthComposition.java
+ Purpose: Composition root for authentication related wiring and beans.
+ This class exposes beans and adapters necessary to connect the
+ authentication application ports with infrastructure implementations.
+ Keeping composition isolated helps maintain clear dependency direction
+ and simplifies testing of authentication flows.
+ All Rights Reserved. Arodi Emmanuel
+*/
 
 package com.poetry.poetry_backend.config;
 

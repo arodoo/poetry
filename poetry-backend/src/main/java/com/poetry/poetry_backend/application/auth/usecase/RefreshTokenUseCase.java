@@ -1,4 +1,10 @@
 /*
+ * File: RefreshTokenUseCase.java
+ * Purpose: Refresh authentication tokens using a valid refresh token and
+ * create fresh access tokens while enforcing security checks and rotation
+ * policies. This use case abstracts token refresh mechanics away from
+ * controllers and relies on authentication ports to perform token issuance.
+ * It centralizes refresh behavior for testability and consistency.
  * All Rights Reserved. Arodi Emmanuel
  */
 

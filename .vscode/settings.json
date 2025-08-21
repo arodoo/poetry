@@ -1,4 +1,8 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "files.autoSave": "off",
+    "files.hotExit": "off",
+    "workbench.editor.restoreViewState": false,
+    "files.useExperimentalFileWatcher": false
 }

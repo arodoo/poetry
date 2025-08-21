@@ -1,7 +1,11 @@
 /*
- * All Rights Reserved. Arodi Emmanuel
- */
-
+ File: UserJpaRepository.java
+ Purpose: Repository interface for user persistence used by the JPA
+ adapter. It defines CRUD operations required by the application ports
+ while keeping actual JPA implementation details hidden inside
+ infrastructure.
+ All Rights Reserved. Arodi Emmanuel
+*/
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.util.List;

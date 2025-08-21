@@ -1,16 +1,14 @@
 /*
+ * File: RestClientAdapter.java
+ * Purpose: Adapter implementing HTTP client interactions for the
+ * infrastructure layer. It provides a thin wrapper around RestClient
+ * usage and translates responses and errors into application-friendly
+ * types. Keeping adapters focused allows for easy replacement in tests
+ * and respects the dependency inversion rule.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.http;
-
-/* File: RestClientAdapter.java
- * Purpose: Infrastructure adapter that implements HttpClientPort using
- * Spring's RestClient. It applies central timeout and retry policies via a
- * configured ClientHttpRequestFactory and RetryTemplate. Delegates retry
- * execution to HttpClientUtils to maintain file size limits.
- * All Rights Reserved. Arodi Emmanuel
- */
 
 import java.util.Map;
 

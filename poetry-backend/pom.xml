@@ -89,9 +89,7 @@ All Rights Reserved. Arodi Emmanuel -->
 						<importOrder>
 							<order>java,javax,org,com</order>
 						</importOrder>
-						<licenseHeader>
-							<file>${project.basedir}/../LICENSE-HEADER.txt</file>
-						</licenseHeader>
+						<!-- licenseHeader removed; per-file headers enforced by CI rule -->
 					</java>
 				</configuration>
 				<executions>
