@@ -8,6 +8,7 @@
 
 package com.poetry.poetry_backend.interfaces.http;
 
+import static com.poetry.poetry_backend.interfaces.v1.user.UserTestConstants.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,13 +26,14 @@ class ETagAndIfMatchTest {
 
   @Test
   void etag_on_get_and_if_match_required_and_checked() throws Exception {
+    String createBody = createUserJson(
+        ETAG_FIRST_NAME, ETAG_LAST_NAME, ETAG_EMAIL, ETAG_USERNAME, ETAG_PASSWORD);
+
     String resp =
         mvc.perform(
                 post("/api/v1/users")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"firstName\":\"A\",\"lastName\":\"B\"," +
-                        "\"email\":\"a@b.com\",\"username\":\"ab\"," +
-                        "\"password\":\"secret\"}"))
+                    .content(createBody))
             .andExpect(status().isOk())
             .andReturn().getResponse().getContentAsString();
 
@@ -42,8 +44,8 @@ class ETagAndIfMatchTest {
             .andExpect(status().isOk())
             .andReturn().getResponse().getHeader("ETag");
 
-    String updateBody = "{\"firstName\":\"A2\",\"lastName\":\"B2\"," +
-        "\"email\":\"a2@b.com\",\"roles\":[\"USER\"],\"active\":true}";
+    String updateBody = updateUserJson(
+        "UpdatedFirst", "UpdatedLast", "updated-etag@test.com");
 
     mvc.perform(
             put("/api/v1/users/" + id)

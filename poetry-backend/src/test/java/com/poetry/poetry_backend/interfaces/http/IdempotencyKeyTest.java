@@ -8,6 +8,7 @@
 
 package com.poetry.poetry_backend.interfaces.http;
 
+import static com.poetry.poetry_backend.interfaces.v1.user.UserTestConstants.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -26,10 +27,9 @@ class IdempotencyKeyTest {
   @Test
   void idempotency_key_conflict_on_duplicate() throws Exception {
     String key = "k1";
-    String body =
-        "{\"firstName\":\"A\",\"lastName\":\"B\"," +
-            "\"email\":\"a@b.com\",\"username\":\"ac\"," +
-            "\"password\":\"secret\"}";
+    String body = createUserJson(
+        IDEMPOTENCY_FIRST_NAME, IDEMPOTENCY_LAST_NAME, IDEMPOTENCY_EMAIL,
+        IDEMPOTENCY_USERNAME, IDEMPOTENCY_PASSWORD);
 
     mvc.perform(
             post("/api/v1/users")

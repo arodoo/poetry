@@ -8,6 +8,7 @@
 
 package com.poetry.poetry_backend.interfaces.v1.user;
 
+import static com.poetry.poetry_backend.interfaces.v1.user.UserTestConstants.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,9 +26,8 @@ class UserControllerTest {
 
   @Test
   void crud_flow() throws Exception {
-    String body =
-        "{\"firstName\":\"A\",\"lastName\":\"B\",\"email\":\"a@b.com\","
-            + "\"username\":\"ab-1\",\"password\":\"secret\"}";
+    String body = createUserJson(
+        CRUD_FIRST_NAME, CRUD_LAST_NAME, CRUD_EMAIL, CRUD_USERNAME, CRUD_PASSWORD);
     String resp =
         mvc.perform(
                 post("/api/v1/users")
@@ -45,16 +45,15 @@ class UserControllerTest {
             .getResponse();
     String etag = getRes.getHeader("ETag");
     mvc.perform(get("/api/v1/users")).andExpect(status().isOk());
-    String up =
-        "{\"firstName\":\"A2\",\"lastName\":\"B2\",\"email\":\"a2@b.com\","
-            + "\"roles\":[\"USER\"],\"active\":true}";
+    String up = updateUserJson(
+        CRUD_UPDATED_FIRST_NAME, CRUD_UPDATED_LAST_NAME, CRUD_UPDATED_EMAIL);
     mvc.perform(
             put("/api/v1/users/" + id)
                 .header("If-Match", etag)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(up))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.firstName").value("A2"));
+        .andExpect(jsonPath("$.firstName").value(CRUD_UPDATED_FIRST_NAME));
     var get2 =
         mvc.perform(get("/api/v1/users/" + id))
             .andExpect(status().isOk())
