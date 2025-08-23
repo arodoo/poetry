@@ -11,12 +11,16 @@ package com.poetry.poetry_backend.interfaces.v1.auth;
 import static com.poetry.poetry_backend.interfaces.v1.auth.AuthDtos.*;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.poetry.poetry_backend.application.auth.usecase.*;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/auth")
+@Validated
 public class AuthController {
   private final LoginUseCase login;
   private final RefreshTokenUseCase refresh;
@@ -35,26 +39,28 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest r) {
+  public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginRequest r) {
     var m = login.execute(r.username(), r.password());
     return ResponseEntity.ok(AuthDtos.toTokenResponse(m));
   }
 
   @PostMapping("/refresh")
-  public ResponseEntity<TokenResponse> refresh(@RequestBody RefreshRequest r) {
+  public ResponseEntity<TokenResponse> refresh(@Valid @RequestBody RefreshRequest r) {
     var m = refresh.execute(r.refreshToken());
     return ResponseEntity.ok(AuthDtos.toTokenResponse(m));
   }
 
   @PostMapping("/logout")
-  public ResponseEntity<Void> logout(@RequestBody RefreshRequest r) {
+  public ResponseEntity<Void> logout(@Valid @RequestBody RefreshRequest r) {
     logout.execute(r.refreshToken());
     return ResponseEntity.noContent().build();
   }
 
   @PostMapping("/register")
-  public ResponseEntity<Object> register(@RequestBody RegisterRequest r) {
-    var m = register.execute(r.user());
+  public ResponseEntity<Object> register(
+      @RequestHeader(value = "Idempotency-Key", required = false) String key,
+      @Valid @RequestBody RegisterRequest r) {
+    var m = key == null ? register.execute(r.user()) : register.execute(r.user(), key);
     return ResponseEntity.ok(m);
   }
 }

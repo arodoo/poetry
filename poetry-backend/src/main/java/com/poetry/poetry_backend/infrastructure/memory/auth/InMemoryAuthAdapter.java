@@ -1,32 +1,79 @@
 /*
  * File: InMemoryAuthAdapter.java
  * Purpose: In-memory implementation of authentication adapter used for
- * testing and local development. This adapter provides simple auth
- * operations without external dependencies and is intended for fast
- * iterations and CI tests. It centralizes transient authentication
- * behavior and keeps production adapters decoupled.
+ * testing and local development. Provides simple auth operations without
+ * external dependencies for fast iterations and CI tests. Returns
+ * accessToken, refreshToken, expiresIn (OpenAPI) plus username when present.
  * All Rights Reserved. Arodi Emmanuel
  */
-
 package com.poetry.poetry_backend.infrastructure.memory.auth;
 
-import java.util.Map;
+import java.util.*;
 
-import com.poetry.poetry_backend.application.auth.port.AuthPort;
+import com.poetry.poetry_backend.application.auth.exception.*;
+import com.poetry.poetry_backend.application.auth.port.*;
+import com.poetry.poetry_backend.config.AuthProperties;
 
 public class InMemoryAuthAdapter implements AuthPort {
+  private final TokenGeneratorPort tokens;
+  private final AuditLoggerPort audit;
+  private final RateLimiterPort rateLimiter;
+  private final InMemoryTokenResponseBuilder responseBuilder;
+  private final InMemoryUserStore userStore;
+  private final InMemoryRegistrationHandler registrationHandler;
+  private final Set<String> refreshTokens = Collections.synchronizedSet(new HashSet<>());
+
+  public InMemoryAuthAdapter(
+      PasswordHasherPort hasher,
+      TokenGeneratorPort tokens,
+      ClockPort clock,
+      AuditLoggerPort audit,
+      RateLimiterPort rateLimiter,
+      AuthProperties props) {
+    this.tokens = tokens;
+    this.audit = audit;
+    this.rateLimiter = rateLimiter;
+    this.responseBuilder = new InMemoryTokenResponseBuilder(clock, props);
+    this.userStore = new InMemoryUserStore(hasher, audit);
+    var idempotencyStore = new InMemoryIdempotencyStore();
+    this.registrationHandler = new InMemoryRegistrationHandler(userStore, idempotencyStore);
+  }
+
   public Map<String, Object> login(String u, String p) {
-    return Map.of("token", "fake-jwt", "username", u);
+    rateLimiter.acquire("login:" + u);
+    if (!userStore.validateCredentials(u, p)) {
+      audit.record("login.fail", u, "invalid_credentials");
+      throw new InvalidCredentialsException("Invalid credentials");
+    }
+    var at = tokens.newAccessToken(u);
+    var rt = tokens.newRefreshToken(u);
+    refreshTokens.add(rt);
+    var response = responseBuilder.build(u, at, rt);
+    audit.record("login.success", u, "issued_tokens");
+    return response;
   }
 
   public Map<String, Object> refresh(String t) {
-    return Map.of("token", "fake-jwt-refreshed");
+    if (!refreshTokens.contains(t)) {
+      audit.record("refresh.fail", "?", "invalid_refresh");
+      throw new InvalidRefreshTokenException("Invalid refresh token");
+    }
+    var at = tokens.newAccessToken("subject");
+    var response = responseBuilder.build(null, at, t);
+    audit.record("refresh.success", "?", "refreshed");
+    return response;
   }
 
   public void logout(String t) {
-    /* no-op */ }
+    refreshTokens.remove(t);
+    audit.record("logout", "?", "revoked");
+  }
 
   public Map<String, Object> register(Map<String, Object> user) {
-    return user;
+    return register(user, null);
+  }
+
+  public Map<String, Object> register(Map<String, Object> user, String key) {
+    return registrationHandler.register(user, key);
   }
 }

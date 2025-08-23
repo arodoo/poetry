@@ -1,7 +1,7 @@
 # File: auth-refresh.yaml
-# Purpose: Refresh endpoint exchanges a valid refresh token for a new
-# access token. This is additive and does not break existing clients.
-# All Rights Reserved. Arodi Emmanuel
+# Purpose: Exchanges a valid single-use refresh token for a new JWT
+# access token and next refresh token. Reuse or expired token triggers
+# revocation of active chain (401). All Rights Reserved. Arodi Emmanuel
 /api/v1/auth/refresh:
   post:
     summary: Refresh access token

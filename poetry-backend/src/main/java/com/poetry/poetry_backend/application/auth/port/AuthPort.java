@@ -6,6 +6,7 @@
  * services and use-cases can depend on a stable contract rather than
  * concrete implementations. Implementations are provided in the
  * infrastructure layer and must preserve the method signatures defined here.
+ * Extended to support idempotent registrations via optional idempotency key.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -21,4 +22,7 @@ public interface AuthPort {
   void logout(String refreshToken);
 
   Map<String, Object> register(Map<String, Object> userPayload);
+
+  // Idempotent variant (Idempotency-Key header) returns same response if key repeats
+  Map<String, Object> register(Map<String, Object> userPayload, String idempotencyKey);
 }

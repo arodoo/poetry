@@ -8,4 +8,6 @@ properties:
   accessToken: { type: string }
   refreshToken: { type: string }
   expiresIn: { type: integer }
+  username: { type: string, description: Present on login responses }
+  issuedAt: { type: string, format: date-time }
 required: [accessToken, refreshToken]

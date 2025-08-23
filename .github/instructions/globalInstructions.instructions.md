@@ -2,6 +2,8 @@
 applyTo: '**'
 ---
 
+- All code contributions must be production-ready; partial, unfinished, or
+  placeholder implementations are not allowed
 - Before starting code changes Provide a brief step-by-step plan.
 - Must follow DDD, SOLID, Clean Architecture.
 - Folder structure must follow DDD.
@@ -10,7 +12,9 @@ applyTo: '**'
 - In frontEnd no line should exceed 80 characters, in backend is 100, if a line
   exceeds this limit, it must be split into dedicated smaller files, never
   remove logic.
-- Code must be well formated and readable.
+- Code must follow international formatting standards: ESLint + Prettier for
+  TypeScript, and Google Java Style Guide (enforced with Checkstyle/Spotless)
+  for Java.
 - All code must be documented in /docs following the standard folder structure
   (overview, architecture, domains, api, standards, operations, security).
 - Each module must have its own file in /docs/domains/ including: scope, RFs,

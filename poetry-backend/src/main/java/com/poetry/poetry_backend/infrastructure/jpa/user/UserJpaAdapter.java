@@ -47,6 +47,7 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     en.setLastName(l);
     en.setEmail(e);
     en.setUsername(u);
+    en.setPasswordHash(p);
     en.setRoles(r);
     en.setActive(true);
     return UserJpaMapper.toDomain(repo.save(en));

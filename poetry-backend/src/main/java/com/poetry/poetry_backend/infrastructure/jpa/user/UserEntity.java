@@ -3,7 +3,8 @@
  * Purpose: JPA entity representing a user for persistence. It maps domain
  * user attributes to database columns and provides conversion helpers used
  * by JPA adapters. Centralizing the entity keeps persistence concerns
- * separate from domain models and adapters.
+ * separate from domain models and adapters. Extended with password hash
+ * storage and unique constraints for production auth flows.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -17,7 +18,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+    @Index(name = "idx_user_username", columnList = "username", unique = true),
+    @Index(name = "idx_user_email", columnList = "email", unique = true) })
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -28,11 +31,16 @@ public class UserEntity {
 
   private String firstName;
   private String lastName;
+
+  @Column(nullable = false)
   private String email;
 
   @EqualsAndHashCode.Include
-  @Column(unique = true)
+  @Column(nullable = false, unique = true)
   private String username;
+
+  @Column(nullable = false, length = 72)
+  private String passwordHash;
 
   private boolean active = true;
 

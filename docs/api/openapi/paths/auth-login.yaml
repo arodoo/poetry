@@ -1,15 +1,12 @@
 # File: auth-login.yaml
-# Purpose: Login endpoint issuing tokens. Accepts user credentials and
-# returns JWT tokens per security scheme. Optional Idempotency-Key is
-# supported for at-least-once clients. All Rights Reserved. Arodi
-# Emmanuel
+# Purpose: Login endpoint issuing JWT access token and opaque refresh
+# token. Supports Idempotency-Key header for safe retries (no side
+# effects beyond rate limit). All Rights Reserved. Arodi Emmanuel
 /api/v1/auth/login:
   post:
     summary: Login with credentials
     operationId: postAuthLogin
     tags: [auth]
-    parameters:
-      - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
     requestBody:
       required: true
       content:

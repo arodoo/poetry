@@ -1,62 +1,38 @@
 /*
  * File: GlobalProblemHandler.java
- * Purpose: Centralized exception handler to map internal exceptions
- * to standardized API problem responses. This handler provides
- * consistent error shapes, logging, and mapping to HTTP statuses
- * so that controllers remain thin and error handling is unified.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Generic fallback exception handlers (illegal argument and
+ * uncaught runtime) producing RFC7807 problems. Specific domain and
+ * validation handlers are split into dedicated advice classes to keep
+ * files small and focused. All Rights Reserved. Arodi Emmanuel
  */
-
 package com.poetry.poetry_backend.interfaces.error;
 
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalProblemHandler {
-
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  ProblemDetail onValidation(MethodArgumentNotValidException ex) {
-    ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-    pd.setTitle("Validation failed");
-    Map<String, String> errors = new HashMap<>();
-    for (var err : ex.getBindingResult().getAllErrors()) {
-      String field = err instanceof FieldError fe
-          ? fe.getField()
-          : err.getObjectName();
-      errors.put(field, err.getDefaultMessage());
-    }
-    pd.setProperty("errors", errors);
-    pd.setType(URI.create("https://datatracker.ietf.org/doc/html/rfc7807"));
-    return pd;
-  }
+  private static final URI TYPE = URI.create("https://datatracker.ietf.org/doc/html/rfc7807");
 
   @ExceptionHandler(IllegalArgumentException.class)
-  ProblemDetail onIllegalArgument(IllegalArgumentException ex) {
-    ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+  ProblemDetail onIllegal(IllegalArgumentException ex) {
+    var pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
     pd.setTitle("Invalid argument");
     pd.setDetail(ex.getMessage());
-    pd.setType(
-        URI.create("https://datatracker.ietf.org/doc/html/rfc7807"));
+    pd.setType(TYPE);
     return pd;
   }
 
   @ExceptionHandler(RuntimeException.class)
   ProblemDetail onGeneric(RuntimeException ex) {
-    ProblemDetail pd = ProblemDetail.forStatus(
-        HttpStatus.INTERNAL_SERVER_ERROR);
+    var pd = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     pd.setTitle("Unexpected error");
     pd.setDetail("Please contact support.");
-    pd.setType(
-        URI.create("https://datatracker.ietf.org/doc/html/rfc7807"));
+    pd.setType(TYPE);
     return pd;
   }
 }

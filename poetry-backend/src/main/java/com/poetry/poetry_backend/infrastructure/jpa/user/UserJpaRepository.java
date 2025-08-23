@@ -3,7 +3,7 @@
  Purpose: Repository interface for user persistence used by the JPA
  adapter. It defines CRUD operations required by the application ports
  while keeping actual JPA implementation details hidden inside
- infrastructure.
+ infrastructure. Extended with username lookup helpers for auth.
  All Rights Reserved. Arodi Emmanuel
 */
 package com.poetry.poetry_backend.infrastructure.jpa.user;
@@ -17,7 +17,10 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
   @Query("select u from UserEntity u where u.active = true")
   List<UserEntity> findAllActive();
-
   @Query("select u from UserEntity u where u.id = :id and u.active = true")
   Optional<UserEntity> findActiveById(Long id);
+  @Query("select u from UserEntity u where u.username = :u and u.active = true")
+  Optional<UserEntity> findActiveByUsername(String u);
+  boolean existsByUsername(String username);
+  boolean existsByEmail(String email);
 }
