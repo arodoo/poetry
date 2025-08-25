@@ -3,8 +3,9 @@ applyTo: '**'
 ---
 
 - All code contributions must be production-ready; partial, unfinished, or
-  placeholder implementations are not allowed
+  placeholder implementations are not allowed.
 - Before starting code changes Provide a brief step-by-step plan.
+- Don't stop coding until the task is fully complete if the plan is clear.
 - Must follow DDD, SOLID, Clean Architecture.
 - Folder structure must follow DDD.
 - No file should exceed 80 lines; if longer, split into dedicated smaller files,

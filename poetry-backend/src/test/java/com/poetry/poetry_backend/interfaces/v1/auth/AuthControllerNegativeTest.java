@@ -44,15 +44,15 @@ class AuthControllerNegativeTest {
     // First register the user
     mvc.perform(post("/api/v1/auth/register").contentType(MediaType.APPLICATION_JSON)
             .content(String.format(
-                "{\"user\":{\"username\":\"%s\",\"password\":\"%s\"}}",
-                DUPLICATE_USERNAME, DUPLICATE_PASSWORD)))
+                "{\"user\":{\"username\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}}",
+                DUPLICATE_USERNAME, DUPLICATE_EMAIL, DUPLICATE_PASSWORD)))
         .andExpect(status().isOk());
     
-    // Then try to register same username again
+    // Then try to register same username again (different password still strong but irrelevant)
     mvc.perform(post("/api/v1/auth/register").contentType(MediaType.APPLICATION_JSON)
             .content(String.format(
-                "{\"user\":{\"username\":\"%s\",\"password\":\"%s\"}}",
-                DUPLICATE_USERNAME, "different_password")))
+                "{\"user\":{\"username\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}}",
+                DUPLICATE_USERNAME, DUPLICATE_EMAIL, DUPLICATE_PASSWORD)))
         .andExpect(status().isConflict())
         .andExpect(jsonPath("$.code").value("auth.duplicate_user"));
   }

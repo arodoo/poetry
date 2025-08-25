@@ -7,6 +7,8 @@
     summary: Login with credentials
     operationId: postAuthLogin
     tags: [auth]
+    parameters:
+      - $ref: ../components/parameters/common-headers.yaml#/CorrelationId
     requestBody:
       required: true
       content:
@@ -20,11 +22,14 @@
     responses:
       '200':
         description: Tokens issued
+        headers:
+          Correlation-Id:
+            { description: Echoed correlation id, schema: { type: string } }
         content:
           application/json:
             schema: { $ref: ../components/schemas/auth-tokens.yaml }
       '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
-      '409': { $ref: ../components/responses/common.yaml#/Conflict }
+      '423': { $ref: ../components/responses/common.yaml#/Locked }
       '429': { $ref: ../components/responses/common.yaml#/TooManyRequests }
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }

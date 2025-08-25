@@ -4,8 +4,9 @@
  * endpoints. It validates idempotency keys, stores metadata and prevents
  * duplicate side-effectful operations when configured. This filter keeps
  * idempotency orchestration out of business code and centralizes storage
- * and validation behavior.
- * All Rights Reserved. Arodi Emmanuel
+ * and validation behavior. Updated to allow replay semantics for specific
+ * endpoints (auth register) that implement full response replay instead of
+ * returning 409 on duplicate keys. All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.http.filters;
@@ -40,13 +41,21 @@ public class IdempotencyFilter implements Filter {
     String m = req.getMethod();
     if ("POST".equals(m) || "PUT".equals(m) || "DELETE".equals(m)) {
       String key = req.getHeader("Idempotency-Key");
-      if (key != null &&
-          !key.isBlank() &&
-          !idempotency.register(key)) {
-        res.setStatus(HttpStatus.CONFLICT.value());
-        return;
+      if (key != null && !key.isBlank()) {
+        if (allowsReplay(req)) {
+          // Register key if first time; ignore duplicate so application layer can replay response
+            idempotency.register(key); // intentionally ignore boolean
+        } else if (!idempotency.register(key)) {
+          res.setStatus(HttpStatus.CONFLICT.value());
+          return;
+        }
       }
     }
     chain.doFilter(request, response);
+  }
+
+  private boolean allowsReplay(HttpServletRequest req) {
+    // Currently only auth registration supports exact response replay
+    return "POST".equals(req.getMethod()) && "/api/v1/auth/register".equals(req.getRequestURI());
   }
 }

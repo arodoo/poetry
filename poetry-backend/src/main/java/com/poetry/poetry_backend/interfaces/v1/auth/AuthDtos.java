@@ -13,6 +13,7 @@ package com.poetry.poetry_backend.interfaces.v1.auth;
 
 import java.util.Map;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 public final class AuthDtos {
@@ -26,7 +27,20 @@ public final class AuthDtos {
 
   public record RefreshRequest(@NotBlank String refreshToken) { }
 
-  public record RegisterRequest(@NotNull Map<String, Object> user) { }
+  public record RegisterRequest(
+      @NotBlank String username,
+      @Email @NotBlank String email,
+      @NotBlank String password) {
+    public Map<String, Object> asMap() {
+      return Map.of(
+          "username", username,
+          "email", email,
+          "password", password);
+    }
+  }
+
+  // Wrapper to match incoming JSON shape {"user": {"username":..., "email":..., "password":...}}
+  public record RegisterEnvelope(@Valid RegisterRequest user) { }
 
   static TokenResponse toTokenResponse(Map<String, Object> m) {
     return new TokenResponse(

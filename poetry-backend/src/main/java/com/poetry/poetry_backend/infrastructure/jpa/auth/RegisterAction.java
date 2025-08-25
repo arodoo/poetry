@@ -1,60 +1,68 @@
 /*
  * File: RegisterAction.java
- * Purpose: Handles user registration: rate limit, uniqueness checks,
- * password hashing, persistence, initial token issuance and audit.
- * Supports optional idempotency key (currently not persisted) with
- * future extension via adapter. All Rights Reserved. Arodi Emmanuel
+ * Purpose: Orchestrates user registration delegating validation, rate limiting,
+ * uniqueness checking, persistence, token issuance and idempotent replay to
+ * focused support components. Keeps constructor wiring compact while preserving
+ * behavioral parity with prior monolithic version. All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.infrastructure.jpa.auth;
 
 import java.util.Map;
 
-import com.poetry.poetry_backend.application.auth.exception.DuplicateUserException;
 import com.poetry.poetry_backend.application.auth.port.*;
-import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
+import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
-class RegisterAction {
-    private final UserJpaRepository users;
-    private final PasswordHasherPort hasher;
-    private final TokenGeneratorPort tokens;
-    private final RefreshTokenManager manager;
-    private final AuditLoggerPort audit;
-    private final RateLimiterPort limiter;
-    private final TokenResponseFactory factory;
+class RegisterAction { // Orchestrator only (thin facade over dedicated steps).
+  private final RateLimiterPort limiter;
+  private final PasswordPolicyPort passwordPolicy;
+  private final EmailNormalizerPort emailNormalizer;
 
-    RegisterAction(UserJpaRepository users, PasswordHasherPort hasher, TokenGeneratorPort tokens,
-            RefreshTokenManager manager, AuditLoggerPort audit, RateLimiterPort limiter,
-            TokenResponseFactory factory) {
-        this.users = users;
-        this.hasher = hasher;
-        this.tokens = tokens;
-        this.manager = manager;
-        this.audit = audit;
-        this.limiter = limiter;
-        this.factory = factory;
-    }
+  private final RegisterIdempotencySupport idem;
+  private final RegisterActionSupport support;
+  private final RegisterUniquenessSupport uniqueness;
+  private final RegisterPersistenceSupport persistence;
+  private final RegisterTokenIssuanceSupport issuance;
 
-    Map<String, Object> execute(Map<String, Object> payload, String key) {
-        limiter.acquire("register:" + key);
-        String username = (String) payload.get("username");
-        String email = (String) payload.getOrDefault("email", username + "@local");
-        String password = (String) payload.getOrDefault("password", "temp");
-        if (username == null || username.isBlank()) {
-            throw new IllegalArgumentException("username");
-        }
-        if (users.existsByUsername(username) || users.existsByEmail(email)) {
-            audit.record("register.fail", username, "duplicate");
-            throw new DuplicateUserException("duplicate");
-        }
-        UserEntity u = new UserEntity();
-        u.setUsername(username);
-        u.setEmail(email);
-        u.setPasswordHash(hasher.hash(password));
-        u = users.save(u);
-        String access = tokens.newAccessToken(username);
-        String refresh = manager.issue(u.getId(), null);
-        audit.record("register", username, "created");
-        return factory.register(username, email, u.getId(), access, refresh);
-    }
+  RegisterAction(
+      UserJpaRepository users,
+      PasswordHasherPort hasher,
+      TokenGeneratorPort tokens,
+      RefreshTokenManager manager,
+      AuditLoggerPort audit,
+      RateLimiterPort limiter,
+      TokenResponseFactory factory,
+      IdempotencyPort idempotency,
+      PasswordPolicyPort policy,
+      EmailNormalizerPort emailNormalizer) {
+    this.limiter = limiter;
+    this.passwordPolicy = policy;
+    this.emailNormalizer = emailNormalizer;
+    this.idem = new RegisterIdempotencySupport(idempotency, audit);
+    this.support = new RegisterActionSupport();
+    this.uniqueness = new RegisterUniquenessSupport(users, audit);
+    this.persistence = new RegisterPersistenceSupport(users, hasher);
+    this.issuance = new RegisterTokenIssuanceSupport(tokens, manager, audit, factory);
+  }
+
+  Map<String, Object> execute(Map<String, Object> payload, String key) {
+    String username = (String) payload.get("username");
+    String email = (String) payload.get("email");
+    String password = (String) payload.get("password");
+    support.validateInputs(username, email, password, passwordPolicy);
+
+    limiter.acquire("register:" + username);
+    String normEmail = emailNormalizer.normalize(email);
+
+    String requestHash =
+        support.hash(username + "|" + normEmail + "|" + password.length());
+    var replay = idem.replay(key, requestHash);
+    if (replay.isPresent()) return replay.get();
+
+    uniqueness.ensureUnique(username, normEmail);
+    var user = persistence.persistUser(username, normEmail, password);
+    var response = issuance.issue(username, normEmail, user);
+    idem.persist(key, requestHash, response);
+    return response;
+  }
 }

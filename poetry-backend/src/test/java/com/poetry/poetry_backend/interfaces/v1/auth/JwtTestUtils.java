@@ -23,22 +23,24 @@ public final class JwtTestUtils {
   // Prevent instantiation of utility class
   private JwtTestUtils() {}
 
+  private static final String STRONG = "StrongPass1!X";
+
   public static MvcResult performLogin(MockMvc mvc, String username, String password) 
       throws Exception {
-    // First register user
+    // First register user (ignore provided password; use strong to satisfy policy)
     mvc.perform(post("/api/v1/auth/register")
         .contentType(MediaType.APPLICATION_JSON)
         .content(String.format(
-            "{\"user\":{\"username\":\"%s\",\"password\":\"%s\"}}", 
-            username, password)))
+            "{\"user\":{\"username\":\"%s\",\"email\":\"%s@test.com\",\"password\":\"%s\"}}", 
+            username, username, STRONG)))
         .andExpect(status().isOk());
     
-    // Then login
+    // Then login (use strong password)
     return mvc.perform(post("/api/v1/auth/login")
         .contentType(MediaType.APPLICATION_JSON)
         .content(String.format(
             "{\"username\":\"%s\",\"password\":\"%s\"}", 
-            username, password)))
+            username, STRONG)))
         .andExpect(status().isOk())
         .andReturn();
   }

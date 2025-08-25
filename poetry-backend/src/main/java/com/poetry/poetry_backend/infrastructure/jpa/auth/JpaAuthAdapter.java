@@ -12,12 +12,8 @@ import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
-import com.poetry.poetry_backend.application.auth.port.AuthPort;
-import com.poetry.poetry_backend.application.auth.port.ClockPort;
-import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
-import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
-import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
+import com.poetry.poetry_backend.application.auth.port.*;
+import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
 import com.poetry.poetry_backend.config.AuthProperties;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
@@ -36,15 +32,19 @@ public class JpaAuthAdapter implements AuthPort {
       ClockPort clock,
       AuditLoggerPort audit,
       RateLimiterPort limiter,
-      AuthProperties props) {
+      AuthProperties props,
+      IdempotencyPort idempotency,
+      PasswordPolicyPort policy,
+      EmailNormalizerPort emailNormalizer,
+      AccountLockoutPort lockout) {
     var manager = new RefreshTokenManager(refreshRepo, clock, tokens, props, audit);
     var tokenFactory = new TokenResponseFactory(clock, props);
     this.loginAction = new LoginAction(
-        users, hasher, tokens, manager, audit, limiter, tokenFactory);
+        users, hasher, tokens, manager, audit, limiter, tokenFactory, lockout);
     this.registerAction = new RegisterAction(
-        users, hasher, tokens, manager, audit, limiter, tokenFactory);
-    this.refreshAction = new RefreshAction(
-        manager, tokens, users, tokenFactory, limiter);
+        users, hasher, tokens, manager, audit, limiter, tokenFactory,
+        idempotency, policy, emailNormalizer);
+    this.refreshAction = new RefreshAction(manager, tokens, users, tokenFactory, limiter);
     this.logoutAction = new LogoutAction(manager, limiter);
   }
 
@@ -54,10 +54,14 @@ public class JpaAuthAdapter implements AuthPort {
   }
 
   @Override
-  public Map<String, Object> refresh(String r) { return refreshAction.execute(r); }
+  public Map<String, Object> refresh(String r) {
+    return refreshAction.execute(r);
+  }
 
   @Override
-  public void logout(String r) { logoutAction.execute(r); }
+  public void logout(String r) {
+    logoutAction.execute(r);
+  }
 
   @Override
   public Map<String, Object> register(Map<String, Object> p) {

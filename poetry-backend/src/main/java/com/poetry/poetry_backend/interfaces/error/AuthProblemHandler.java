@@ -44,6 +44,20 @@ class AuthProblemHandler {
     return pd;
   }
 
+  @ExceptionHandler(AccountLockedException.class)
+  ProblemDetail locked(AccountLockedException ex) {
+    var pd = authProblem(HttpStatus.LOCKED, "auth.account_locked");
+    pd.setDetail("Account temporarily locked due to failures.");
+    return pd;
+  }
+
+  @ExceptionHandler(PasswordPolicyViolationException.class)
+  ProblemDetail passwordViolation(PasswordPolicyViolationException ex) {
+    var pd = authProblem(HttpStatus.BAD_REQUEST, "auth.password_policy");
+    pd.setDetail(ex.getMessage());
+    return pd;
+  }
+
   private ProblemDetail authProblem(HttpStatus status, String code) {
     var pd = ProblemDetail.forStatus(status);
     pd.setTitle("Authentication error");

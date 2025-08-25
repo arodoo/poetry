@@ -11,12 +11,14 @@ public final class UserTestConstants {
   // Prevent instantiation of utility class
   private UserTestConstants() {}
 
+  private static final String STRONG = "StrongPass1!X";
+
   // User for UserControllerTest.crud_flow
   public static final String CRUD_USERNAME = "crud-user";
   public static final String CRUD_EMAIL = "crud-user@test.com";
   public static final String CRUD_FIRST_NAME = "CrudFirstName";
   public static final String CRUD_LAST_NAME = "CrudLastName";
-  public static final String CRUD_PASSWORD = "crud-secret";
+  public static final String CRUD_PASSWORD = STRONG;
 
   // Updated user data for UserControllerTest.crud_flow
   public static final String CRUD_UPDATED_FIRST_NAME = "CrudUpdatedFirst";
@@ -28,14 +30,14 @@ public final class UserTestConstants {
   public static final String IDEMPOTENCY_EMAIL = "idempotency-user@test.com";
   public static final String IDEMPOTENCY_FIRST_NAME = "IdempotencyFirst";
   public static final String IDEMPOTENCY_LAST_NAME = "IdempotencyLast";
-  public static final String IDEMPOTENCY_PASSWORD = "idempotency-secret";
+  public static final String IDEMPOTENCY_PASSWORD = STRONG;
 
   // User for ETagAndIfMatchTest
   public static final String ETAG_USERNAME = "etag-user";
   public static final String ETAG_EMAIL = "etag-user@test.com";
   public static final String ETAG_FIRST_NAME = "EtagFirst";
   public static final String ETAG_LAST_NAME = "EtagLast";
-  public static final String ETAG_PASSWORD = "etag-secret";
+  public static final String ETAG_PASSWORD = STRONG;
 
   // Helper method to generate unique usernames for tests that need isolation
   public static String uniqueUsername(String prefix) {

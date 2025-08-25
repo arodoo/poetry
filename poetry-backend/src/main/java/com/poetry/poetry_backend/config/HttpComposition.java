@@ -4,7 +4,8 @@
  * It configures RestClient-related beans and utilities such as retry
  * templates and request factories to be used across infrastructure. This
  * isolates HTTP concerns from application logic and keeps integrations
- * configurable and testable.
+ * configurable and testable. All idempotency wiring lives in
+ * AuthSupportCoreConfig to avoid duplicate beans.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -19,19 +20,12 @@ import com.poetry.poetry_backend.application.common.http.HttpClientPort;
 import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.infrastructure.http.ETagSha256Adapter;
 import com.poetry.poetry_backend.infrastructure.http.RestClientAdapter;
-import com.poetry.poetry_backend.infrastructure.jpa.common.IdempotencyJpaAdapter;
-import com.poetry.poetry_backend.infrastructure.jpa.common.IdempotencyRepository;
 
 @Configuration
 public class HttpComposition {
   @Bean
   ETagPort eTagPort() {
     return new ETagSha256Adapter();
-  }
-
-  @Bean
-  IdempotencyJpaAdapter idempotencyJpaAdapter(IdempotencyRepository repo) {
-    return new IdempotencyJpaAdapter(repo);
   }
 
   @Bean

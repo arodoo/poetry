@@ -22,12 +22,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 public class JwtTokenGeneratorAdapter implements TokenGeneratorPort {
-  private final SecretKey key;
+  private final SecretKey currentKey;
+  private final SecretKey previousKey; // optional
   private final AuthProperties props;
+
   public JwtTokenGeneratorAdapter(AuthProperties props) {
     this.props = props;
-    this.key = Keys.hmacShaKeyFor(props.getSecretKey().getBytes(StandardCharsets.UTF_8));
+    this.currentKey = Keys.hmacShaKeyFor(props.getSecretKey().getBytes(StandardCharsets.UTF_8));
+    this.previousKey = props.getPreviousSecretKey() == null ? null
+        : Keys.hmacShaKeyFor(props.getPreviousSecretKey().getBytes(StandardCharsets.UTF_8));
   }
+
   public String newAccessToken(String subject) {
     Instant now = Instant.now();
     Instant exp = now.plusSeconds(props.getAccessTokenTtlSeconds());
@@ -37,8 +42,15 @@ public class JwtTokenGeneratorAdapter implements TokenGeneratorPort {
         .setExpiration(Date.from(exp))
         .setIssuer(props.getIssuer())
         .setId(UUID.randomUUID().toString())
-        .signWith(key)
+        .signWith(currentKey)
         .compact();
   }
-  public String newRefreshToken(String subject) { return UUID.randomUUID().toString(); }
+
+  public String newRefreshToken(String subject) {
+    return UUID.randomUUID().toString();
+  }
+
+  public boolean canVerifyWithPrevious() {
+    return previousKey != null && props.getRotationOverlapSeconds() > 0;
+  }
 }

@@ -1,15 +1,24 @@
 # File: auth-register.yaml
 # Purpose: Register endpoint creates a new user (unique username) and
 # returns initial JWT access + refresh tokens. Supports Idempotency-Key
-# for safe retries without duplicate user creation. All Rights Reserved.
+# for safe retries without duplicate user creation. Emits audit events:
+# register (success), register.fail (duplicate), register.idempotent_replay
+# (safe replay). Internal orchestration refactored into granular supports.
+# All Rights Reserved.
 # Arodi Emmanuel
 /api/v1/auth/register:
   post:
     summary: Register new user
+    description: >-
+      Creates a new user (unique username/email). Idempotent when an
+      Idempotency-Key header is supplied: the first successful 200 response
+      (including issued tokens) is replayed verbatim on subsequent identical
+      requests with the same key and stable payload hash.
     operationId: postAuthRegister
     tags: [auth]
     parameters:
       - $ref: ../components/parameters/common-headers.yaml#/IdempotencyKey
+      - $ref: ../components/parameters/common-headers.yaml#/CorrelationId
     requestBody:
       required: true
       content:
@@ -28,6 +37,14 @@
     responses:
       '200':
         description: User registered
+        headers:
+          Correlation-Id:
+            { description: Echoed correlation id, schema: { type: string } }
+          Idempotency-Key:
+            {
+              description: Original idempotency key if provided,
+              schema: { type: string },
+            }
         content:
           application/json:
             schema:
@@ -41,4 +58,5 @@
       '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '401': { $ref: ../components/responses/common.yaml#/Unauthorized }
       '409': { $ref: ../components/responses/common.yaml#/Conflict }
+      '429': { $ref: ../components/responses/common.yaml#/TooManyRequests }
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }

@@ -9,6 +9,21 @@ Unauthorized:
   content:
     application/json:
       schema: { $ref: ../schemas/error.yaml }
+      examples:
+        invalidCredentials:
+          summary: Invalid credentials
+          value:
+            title: Authentication error
+            status: 401
+            detail: Request could not be authorized
+            code: auth.invalid_credentials
+        invalidRefresh:
+          summary: Invalid refresh token
+          value:
+            title: Authentication error
+            status: 401
+            detail: Request could not be authorized
+            code: auth.invalid_refresh_token
 Forbidden:
   description: Forbidden
   content:
@@ -24,11 +39,27 @@ BadRequest:
   content:
     application/json:
       schema: { $ref: ../schemas/error.yaml }
+      examples:
+        passwordPolicy:
+          summary: Password policy violation
+          value:
+            title: Authentication error
+            status: 400
+            detail: Password must meet complexity policy.
+            code: auth.password_policy
 Conflict:
   description: Conflict
   content:
     application/json:
       schema: { $ref: ../schemas/error.yaml }
+      examples:
+        duplicateUser:
+          summary: Duplicate user
+          value:
+            title: Authentication error
+            status: 409
+            detail: Request could not be authorized
+            code: auth.duplicate_user
 PreconditionFailed:
   description: Precondition Failed
   content:
@@ -44,6 +75,27 @@ TooManyRequests:
   content:
     application/json:
       schema: { $ref: ../schemas/error.yaml }
+      examples:
+        rateLimit:
+          summary: Rate limit exceeded
+          value:
+            title: Authentication error
+            status: 429
+            detail: Too many attempts. Slow down.
+            code: rate_limit.exceeded
+Locked:
+  description: Account Locked
+  content:
+    application/json:
+      schema: { $ref: ../schemas/error.yaml }
+      examples:
+        accountLocked:
+          summary: Account temporarily locked
+          value:
+            title: Authentication error
+            status: 423
+            detail: Account temporarily locked due to failures.
+            code: auth.account_locked
 InternalServerError:
   description: Internal Server Error
   content:

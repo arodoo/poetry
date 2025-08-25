@@ -15,6 +15,12 @@ IdempotencyKey:
   required: false
   schema: { type: string }
   description: Idempotency key per RFC
+CorrelationId:
+  name: Correlation-Id
+  in: header
+  required: false
+  schema: { type: string }
+  description: Client provided correlation id echoed for tracing
 Page:
   name: page
   in: query

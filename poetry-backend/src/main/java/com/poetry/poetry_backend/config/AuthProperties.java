@@ -13,30 +13,24 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Validated
 @ConfigurationProperties(prefix = "auth")
-public class AuthProperties {
+@Getter
+@Setter
+public class AuthProperties { // Reduced via Lombok to satisfy max-lines rule.
   @NotBlank
   @Size(min = 32, message = "secretKey must be at least 32 chars")
-  private String secretKey =
-      "change-me-please-change-me-secret-32chars"; // strong dev default
-
+  private String secretKey = "change-me-please-change-me-secret-32chars";
+  private String previousSecretKey; // may be null
+  @PositiveOrZero @Max(86400) private int rotationOverlapSeconds = 0; // 0 means disabled
+  @Positive @Max(7776000) private int maxSecretAgeSeconds = 2592000; // 30d
+  private String secretIssuedAt; // optional metadata
   @NotBlank private String issuer = "poetry-backend";
-
   @Positive @Max(86400) private int accessTokenTtlSeconds = 900; // 15m
   @Positive @Max(2592000) private int refreshTokenTtlSeconds = 1209600; // 14d
-
   @Min(4) @Max(16) private int bcryptStrength = 10;
-
-  public String getSecretKey() { return secretKey; }
-  public void setSecretKey(String secretKey) { this.secretKey = secretKey; }
-  public String getIssuer() { return issuer; }
-  public void setIssuer(String issuer) { this.issuer = issuer; }
-  public int getAccessTokenTtlSeconds() { return accessTokenTtlSeconds; }
-  public void setAccessTokenTtlSeconds(int v) { this.accessTokenTtlSeconds = v; }
-  public int getRefreshTokenTtlSeconds() { return refreshTokenTtlSeconds; }
-  public void setRefreshTokenTtlSeconds(int v) { this.refreshTokenTtlSeconds = v; }
-  public int getBcryptStrength() { return bcryptStrength; }
-  public void setBcryptStrength(int bcryptStrength) { this.bcryptStrength = bcryptStrength; }
+  // Validation of secret-related policies handled by AuthPropertiesValidator.
 }

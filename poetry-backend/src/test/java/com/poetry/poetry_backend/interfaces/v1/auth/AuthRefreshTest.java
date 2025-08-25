@@ -38,8 +38,8 @@ class AuthRefreshTest {
     mvc.perform(post("/api/v1/auth/register")
             .contentType(MediaType.APPLICATION_JSON)
             .content(String.format(
-                "{\"user\":{\"username\":\"%s\",\"password\":\"%s\"}}",
-                REFRESH_USERNAME, REFRESH_PASSWORD)))
+                "{\"user\":{\"username\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}}",
+                REFRESH_USERNAME, REFRESH_EMAIL, REFRESH_PASSWORD)))
         .andExpect(status().isOk());
 
     MvcResult loginResult = mvc.perform(post("/api/v1/auth/login")

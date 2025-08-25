@@ -33,8 +33,8 @@ class AuthControllerTest {
     mvc.perform(post("/api/v1/auth/register")
             .contentType(MediaType.APPLICATION_JSON)
             .content(String.format(
-                "{\"user\":{\"username\":\"%s\",\"password\":\"%s\"}}",
-                REGISTER_USERNAME, REGISTER_PASSWORD)))
+                "{\"user\":{\"username\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}}",
+                REGISTER_USERNAME, REGISTER_EMAIL, REGISTER_PASSWORD)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.accessToken").isNotEmpty())
         .andExpect(jsonPath("$.refreshToken").isNotEmpty())
@@ -49,8 +49,8 @@ class AuthControllerTest {
     mvc.perform(post("/api/v1/auth/register")
             .contentType(MediaType.APPLICATION_JSON)
             .content(String.format(
-                "{\"user\":{\"username\":\"%s\",\"password\":\"%s\"}}",
-                LOGIN_USERNAME, LOGIN_PASSWORD)))
+                "{\"user\":{\"username\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}}",
+                LOGIN_USERNAME, LOGIN_EMAIL, LOGIN_PASSWORD)))
         .andExpect(status().isOk());
 
     // Then login

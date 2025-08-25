@@ -59,8 +59,10 @@ public class AuthController {
   @PostMapping("/register")
   public ResponseEntity<Object> register(
       @RequestHeader(value = "Idempotency-Key", required = false) String key,
-      @Valid @RequestBody RegisterRequest r) {
-    var m = key == null ? register.execute(r.user()) : register.execute(r.user(), key);
+      @Valid @RequestBody RegisterEnvelope body) {
+    var user = body.user();
+    var payload = user.asMap();
+    var m = key == null ? register.execute(payload) : register.execute(payload, key);
     return ResponseEntity.ok(m);
   }
 }

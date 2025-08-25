@@ -1,60 +1,61 @@
 <!--
 File: 12-auth-endpoints.md
-Purpose: Condensed status for Auth Endpoints production hardening. Summarizes what is fully implemented vs remaining gaps for rapid review. Replaces verbose planning content while preserving audit intent and next actionable focus. All Rights Reserved. Arodi Emmanuel
+Purpose: Status ledger for Auth endpoints. Summarizes implemented capabilities and gaps to guide secure, incremental hardening while preserving DDD layering and additive v1 stability. Captures expected vs actual to evidence completion state and remaining scope for Phase A. All Rights Reserved. Arodi Emmanuel
 -->
 
-# Task 12: Auth Endpoints (/api/v1/auth) – Condensed Status
+# Task 12: Auth Endpoints (/api/v1/auth)
 
-Status: **Phase 2 UNBLOCKED - Basic tests now pass with single source of truth**
+## Task Description
 
-## ✅ Currently Working (All Tests Pass)
+Implement baseline auth (login, register, refresh, logout) with secure token
+model, rotation, auditing, error mapping, configuration, and hardening
+primitives (rate limiting, lockout, idempotency, key rotation) following DDD +
+Clean Architecture.
 
-- JWT token generation with proper claims (iss, sub, exp, jti)
-- Production user registration and password hashing (BCrypt)
-- Database entities and repositories with proper transactions
-- Input validation and structured error handling (ProblemDetail)
-- File size compliance (<80 lines) across all modules
-- **Single source of truth test data in `AuthTestConstants.java`**
-- **Test data isolation resolved - no more conflicts between test runs**
+## Expected Result
 
-## ✅ Test Results Summary
+Production-ready v1 auth surface: stable endpoints, JWT + refresh rotation,
+persistent audit, configurable security properties, idempotent registration,
+adaptive protections (rate limit + lockout), secret rotation support, documented
+OpenAPI with reusable error responses and operational guidance.
 
-All authentication tests now pass consistently:
+## Actual Result (Current)
 
-- `AuthControllerTest` (3 tests): ✅ PASS - Register, Login, Refresh
-- `AuthControllerNegativeTest` (3 tests): ✅ PASS - Invalid credentials,
-  Duplicate user, Invalid refresh token
-- `AuthAdvancedTest` (1 test): ✅ PASS - JWT claims validation
-- **Total: 7/7 tests passing**
+All core + advanced protections implemented; OpenAPI & docs enriched; Micrometer
+metrics + secret age job live; advanced tests now cover JWT claims, refresh
+rotation, idempotent replay, lockout timing, adaptive penalty trigger, and
+rotation overlap boundary.
 
-## ✅ Major Achievement: Single Source of Truth
+## Completed
 
-Created `AuthTestConstants.java` with:
+- Endpoints: /login /refresh /logout /register
+- Ports & use cases (AuthPort + action classes)
+- JWT HS256 (iss, sub, exp, jti) + refresh rotation & misuse revocation
+- Logout bulk revocation (idempotent)
+- BCrypt hashing + password policy adapter
+- AuthProperties (TTLs, issuer, secrets, overlap, age policy)
+- Signing key rotation (prev/current + overlap & age validation)
+- Persistent audit events (correlation id)
+- Registration idempotency (persistent replay)
+- Email normalization
+- Token bucket + adaptive rate limiter (penalty windows) + metrics wrapper
+- Account lockout (exponential backoff) + metrics wrapper
+- Problem+JSON error mapping (401/409/423/429)
+- OpenAPI reusable responses + headers (Correlation-Id, Idempotency-Key)
+- Operations + domain docs updated (metrics, rotation procedure)
+- Micrometer AuthMetricsPublisher exporting counters
+- SecretAgeRotationJob (5m) emits secret age gauges & audit events
+- Advanced tests: JWT claims, refresh lifecycle, idempotent replay, lockout
+  timing, adaptive penalty, rotation overlap
 
-- Unique test usernames per scenario (no conflicts)
-- Consistent password and email patterns
-- Centralized test data management
-- Helper methods for dynamic data generation
-- Complete elimination of test data isolation issues
+## Remaining Gaps (Phase A Close-Out)
 
-## 🚀 Ready for Advanced Development
+- Password breach/complexity expansion (future enhancement)
+- Distributed (Redis) rate limiter & lockout adapters (scalability)
+- Future gauges: active lockouts, active penalties (expose via adapter polling)
 
-With basic functionality now stable and tested, we can proceed with:
+## Status
 
-- Advanced test scenarios (token rotation misuse, expiry, audit events)
-- Correlation-Id header support
-- OpenAPI enhancements (429 responses, examples)
-- Extended documentation (lifecycle diagrams, security details)
-- Idempotency store implementation
-
-## Next Steps Priority
-
-1. **Add advanced tests** - Token rotation chain integrity, misuse detection
-2. **Correlation-Id support** - Header propagation through audit and events
-3. **OpenAPI completion** - Rate limiting responses, comprehensive examples
-4. **Security hardening** - Additional validation, audit event sequencing
-
-## Phase 2 Status: ✅ COMPLETE
-
-**Basic authentication functionality is now production-ready with comprehensive
-test coverage and no failing tests.**
+Phase A core hardening: 100% core + advanced test objectives complete. Only
+future enhancements (scalability, complexity, gauges) remain for subsequent
+tasks.

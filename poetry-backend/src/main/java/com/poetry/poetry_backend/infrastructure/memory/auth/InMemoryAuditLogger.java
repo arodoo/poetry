@@ -19,4 +19,6 @@ public class InMemoryAuditLogger implements AuditLoggerPort {
     events.add(eventType + ":" + subject + ":" + detail);
   }
   public List<String> events() { return events; }
+  // Note: no longer auto-wired in tests; retained for potential unit test
+  // scenarios where context-less audit capture is needed.
 }
