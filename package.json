@@ -23,7 +23,8 @@
     "config:sync": "node tools/ci/config-sync.mjs",
     "config:validate": "node tools/ci/validate-config-sync.mjs",
     "headers:check": "node tools/ci/check-headers.mjs",
-    "ci": "npm run max-lines:check && npm run headers:check && npm run lint && npm run typecheck && npm run test && npm run openapi:validate && npm run sdk:check && npm run build"
+    "i18n:scan": "node tools/ci/i18n-scan.mjs",
+    "ci": "npm run max-lines:check && npm run headers:check && npm run i18n:scan && npm run lint && npm run typecheck && npm run test && npm run openapi:validate && npm run sdk:check && npm run build"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}": [
