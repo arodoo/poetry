@@ -19,6 +19,8 @@ class AppPropertiesValidationTest {
   private final ApplicationContextRunner ctx = new ApplicationContextRunner()
       .withUserConfiguration(AppConfigComposition.class)
       .withPropertyValues(
+          "app.default-locale=en",
+          "app.supported-locales=en,es",
           "app.api-base-path=/api/v1",
           "app.cors-allowed-origins=http://localhost:5173",
           "app.idempotency-ttl-seconds=60",

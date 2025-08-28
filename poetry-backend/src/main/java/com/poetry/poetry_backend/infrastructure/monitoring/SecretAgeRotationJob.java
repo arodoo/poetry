@@ -48,12 +48,12 @@ public class SecretAgeRotationJob {
             reg.gauge("auth_secret_age_pct", pct);
             if (pct >= 1.0) {
                 reg.counter("auth_secret_overdue_total").increment();
-                audit.record("auth.secret.overdue", null, "Secret exceeded max age");
+                audit.record("auth.secret.overdue", null, "auth.secret.overdue");
                 log.warn("Authentication secret exceeded max age: age={} max={} issuedAt={}",
                         age, maxAge, issuedAtRaw);
             } else if (pct >= 0.9) {
                 reg.counter("auth_secret_rotation_due_total").increment();
-                audit.record("auth.secret.rotation_due", null, "Secret age >=90% of max");
+                audit.record("auth.secret.rotation_due", null, "auth.secret.rotation_due");
             }
         } catch (DateTimeParseException ex) {
             log.warn("Invalid secretIssuedAt format: {}", issuedAtRaw);

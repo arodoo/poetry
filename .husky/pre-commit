@@ -7,3 +7,4 @@
 npx --no lint-staged || exit 1
 node tools/ci/check-lines.mjs || exit 1
 node tools/ci/check-headers.mjs || exit 1
+node tools/ci/i18n-scan.mjs || exit 1

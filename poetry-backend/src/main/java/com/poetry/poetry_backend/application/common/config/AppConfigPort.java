@@ -5,8 +5,8 @@
  * from environment, properties or remote config providers and must expose a
  * stable contract so the application remains decoupled from configuration
  * sources. This port improves testability by allowing fake configurations in
- * tests.
- * All Rights Reserved. Arodi Emmanuel
+ * tests. Extended to expose i18n locale settings so domain services can
+ * reason about supported locales without coupling to Spring. All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.common.config;
@@ -23,4 +23,7 @@ public interface AppConfigPort {
   int httpReadTimeoutMs();
   int httpRetryMaxAttempts();
   int httpRetryBackoffMs();
+  // i18n
+  String defaultLocale();
+  List<String> supportedLocales();
 }

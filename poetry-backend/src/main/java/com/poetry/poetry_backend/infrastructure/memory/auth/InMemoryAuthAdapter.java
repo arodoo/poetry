@@ -43,7 +43,7 @@ public class InMemoryAuthAdapter implements AuthPort {
     rateLimiter.acquire("login:" + u);
     if (!userStore.validateCredentials(u, p)) {
       audit.record("login.fail", u, "invalid_credentials");
-      throw new InvalidCredentialsException("Invalid credentials");
+      throw new InvalidCredentialsException("auth.login.invalid");
     }
     var at = tokens.newAccessToken(u);
     var rt = tokens.newRefreshToken(u);
@@ -56,7 +56,7 @@ public class InMemoryAuthAdapter implements AuthPort {
   public Map<String, Object> refresh(String t) {
     if (!refreshTokens.contains(t)) {
       audit.record("refresh.fail", "?", "invalid_refresh");
-      throw new InvalidRefreshTokenException("Invalid refresh token");
+      throw new InvalidRefreshTokenException("auth.refresh.invalid");
     }
     var at = tokens.newAccessToken("subject");
     var response = responseBuilder.build(null, at, t);

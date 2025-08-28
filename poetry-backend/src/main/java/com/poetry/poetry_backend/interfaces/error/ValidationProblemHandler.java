@@ -26,7 +26,7 @@ class ValidationProblemHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   ProblemDetail onValidation(MethodArgumentNotValidException ex) {
     var pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-    pd.setTitle("Validation failed");
+    pd.setTitle("validation.failed");
     Map<String, String> errors = new HashMap<>();
     for (var err : ex.getBindingResult().getAllErrors()) {
       String f = err instanceof FieldError fe ? fe.getField() : err.getObjectName();

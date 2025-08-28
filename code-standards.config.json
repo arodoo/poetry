@@ -39,5 +39,20 @@
     "**/*.lock",
     "**/*.min.js",
     "**/*.min.css"
-  ]
+  ],
+  "i18n": {
+    "defaultLocale": "es",
+    "supportedLocales": ["es", "en"],
+    "bundleSegments": [
+      "common",
+      "auth",
+      "security",
+      "validation",
+      "error",
+      "infra"
+    ],
+    "keyPattern": "^[a-z0-9_.-]+$",
+    "suppressionComment": "// i18n-ignore",
+    "scannerEnabled": true
+  }
 }

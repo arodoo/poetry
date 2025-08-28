@@ -5,7 +5,8 @@
  provide typed values for configuration such as timeouts, retries and
  CORS settings. Keeping this adapter small allows swapping implementations
  during tests and keeps the boundary between infrastructure and domain
- explicit.
+ explicit. Extended to expose i18n locale settings used by presentation
+ and validation layers while keeping domain decoupled from Spring.
  All Rights Reserved. Arodi Emmanuel
 */
 
@@ -47,4 +48,10 @@ public class AppConfigAdapter implements AppConfigPort {
 
   @Override
   public int httpRetryBackoffMs() { return props.httpRetryBackoffMs(); }
+
+  @Override
+  public String defaultLocale() { return props.defaultLocale(); }
+
+  @Override
+  public List<String> supportedLocales() { return props.supportedLocales(); }
 }

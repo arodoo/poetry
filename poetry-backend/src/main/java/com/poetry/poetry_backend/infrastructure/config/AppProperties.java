@@ -5,7 +5,9 @@
  configuration files into a validated structure used by adapters and
  composition classes. Centralizing config shapes improves discoverability
  and ensures validation of runtime values early in application startup.
- All Rights Reserved. Arodi Emmanuel
+ Includes i18n locale defaults and supported locale list to drive
+ MessageSource resolution while keeping application layer decoupled
+ from underlying Spring infrastructure. All Rights Reserved. Arodi Emmanuel
 */
 
 package com.poetry.poetry_backend.infrastructure.config;
@@ -17,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Validated
 @ConfigurationProperties(prefix = "app")
@@ -29,4 +32,7 @@ public record AppProperties(
     @Min(1) int httpConnectTimeoutMs,
     @Min(1) int httpReadTimeoutMs,
     @Min(1) int httpRetryMaxAttempts,
-    @Min(0) int httpRetryBackoffMs) { }
+    @Min(0) int httpRetryBackoffMs,
+    // i18n configuration
+    @NotBlank @Pattern(regexp = "^[a-z]{2}(-[A-Z]{2})?$") String defaultLocale,
+    List<@Pattern(regexp = "^[a-z]{2}(-[A-Z]{2})?$") String> supportedLocales) { }

@@ -21,7 +21,7 @@ public class GlobalProblemHandler {
   @ExceptionHandler(IllegalArgumentException.class)
   ProblemDetail onIllegal(IllegalArgumentException ex) {
     var pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-    pd.setTitle("Invalid argument");
+    pd.setTitle("error.invalid-argument");
     pd.setDetail(ex.getMessage());
     pd.setType(TYPE);
     return pd;
@@ -30,8 +30,8 @@ public class GlobalProblemHandler {
   @ExceptionHandler(RuntimeException.class)
   ProblemDetail onGeneric(RuntimeException ex) {
     var pd = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-    pd.setTitle("Unexpected error");
-    pd.setDetail("Please contact support.");
+    pd.setTitle("error.unexpected");
+    pd.setDetail("error.support-contact");
     pd.setType(TYPE);
     return pd;
   }

@@ -55,5 +55,6 @@ export async function fetchJsonInternal<T>(
       clear()
     }
   }
+  // i18n-ignore: internal fallback error, not user-facing
   throw lastErr ?? new Error('Unknown HTTP error')
 }

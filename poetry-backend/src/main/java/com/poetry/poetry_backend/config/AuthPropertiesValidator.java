@@ -33,18 +33,15 @@ public class AuthPropertiesValidator {
     if (s.matches(".*[^a-zA-Z0-9].*"))
       classes++;
     if (classes < 3) {
-      throw new IllegalStateException(
-          "auth.secretKey must contain at least 3 character classes");
+      throw new IllegalStateException("cfg.auth.secret.complexity");
     }
     if (props.getPreviousSecretKey() != null &&
         props.getPreviousSecretKey().equals(props.getSecretKey())) {
-      throw new IllegalStateException(
-          "previousSecretKey must differ from secretKey");
+      throw new IllegalStateException("cfg.auth.secret.rotation.different");
     }
     if (props.getRotationOverlapSeconds() > 0 &&
         props.getPreviousSecretKey() == null) {
-      throw new IllegalStateException(
-          "rotationOverlapSeconds > 0 requires previousSecretKey");
+      throw new IllegalStateException("cfg.auth.secret.rotation.previous-required");
     }
   }
 }

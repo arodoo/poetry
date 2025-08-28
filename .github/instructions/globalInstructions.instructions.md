@@ -2,6 +2,7 @@
 applyTo: '**'
 ---
 
+- Only Summarized conversation history if completly necessary.
 - All code contributions must be production-ready; partial, unfinished, or
   placeholder implementations are not allowed.
 - Before starting code changes Provide a brief step-by-step plan.
@@ -23,9 +24,7 @@ applyTo: '**'
 - API contracts (OpenAPI) must live in /docs/api/ and be referenced from domain
   docs.
 - Vars, comments and code must be in English.
-- Every file must have a header comment with the file name, file-specific
-  purpose (at least 3 sentences related to the logic and functionality), and a
-  brief legend: 'All Rights Reserved. Arodi Emmanuel'.
+- Every file must have a header comment, check 'tools\ci\check-headers.mjs'.
 - Give each task a .md file in 'docs/' with the task description, the expected
   result, and the actual result and update after every modification. Check
   status of the files before start planning/coding.

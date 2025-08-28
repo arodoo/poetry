@@ -33,7 +33,7 @@ class InMemoryUserStore {
   void registerUser(String username, String password) {
     if (users.containsKey(username)) {
       audit.record("register.fail", username, "duplicate");
-      throw new DuplicateUserException("duplicate username");
+      throw new DuplicateUserException("auth.user.duplicate");
     }
     users.put(username, hasher.hash(password));
     audit.record("register", username, "created");

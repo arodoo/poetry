@@ -23,9 +23,11 @@ function App(): ReactElement {
   return (
     <>
       <div>
+        {/* i18n-ignore: rel attribute, non-user-facing */}
         <a href="https://vite.dev" target="_blank" rel="noreferrer noopener">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
+        {/* i18n-ignore: rel attribute, non-user-facing */}
         <a href="https://react.dev" target="_blank" rel="noreferrer noopener">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>

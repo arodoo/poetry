@@ -36,18 +36,27 @@ class AuthProblemHandler {
     return authProblem(HttpStatus.CONFLICT, "auth.duplicate_user");
   }
 
+  private ProblemDetail authProblem(HttpStatus status, String code) {
+    var pd = ProblemDetail.forStatus(status);
+    pd.setTitle("auth.error.generic");
+    pd.setDetail("auth.error.unauthorized");
+    pd.setProperty("code", code);
+    pd.setType(TYPE);
+    return pd;
+  }
+
   @ExceptionHandler(RateLimitExceededException.class)
   ProblemDetail rateLimit(RateLimitExceededException ex) {
     var pd = authProblem(
         HttpStatus.TOO_MANY_REQUESTS, "rate_limit.exceeded");
-    pd.setDetail("Too many attempts. Slow down.");
+    pd.setDetail("auth.rate.limit");
     return pd;
   }
 
   @ExceptionHandler(AccountLockedException.class)
   ProblemDetail locked(AccountLockedException ex) {
     var pd = authProblem(HttpStatus.LOCKED, "auth.account_locked");
-    pd.setDetail("Account temporarily locked due to failures.");
+    pd.setDetail("auth.account.locked");
     return pd;
   }
 
@@ -55,15 +64,6 @@ class AuthProblemHandler {
   ProblemDetail passwordViolation(PasswordPolicyViolationException ex) {
     var pd = authProblem(HttpStatus.BAD_REQUEST, "auth.password_policy");
     pd.setDetail(ex.getMessage());
-    return pd;
-  }
-
-  private ProblemDetail authProblem(HttpStatus status, String code) {
-    var pd = ProblemDetail.forStatus(status);
-    pd.setTitle("Authentication error");
-    pd.setDetail("Request could not be authorized");
-    pd.setProperty("code", code);
-    pd.setType(TYPE);
     return pd;
   }
 }

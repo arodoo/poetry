@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 
 public final class ETagUtil {
   private ETagUtil() { }
+  public static final String MSG_ETAG_FAILURE = "infra.http.etag.compute-failure";
 
   public static String compute(String canonical) {
     try {
@@ -26,7 +27,7 @@ public final class ETagUtil {
       }
       return sb.toString();
     } catch (Exception e) {
-      throw new IllegalStateException("ETag compute failure", e);
+      throw new IllegalStateException(MSG_ETAG_FAILURE, e);
     }
   }
 }

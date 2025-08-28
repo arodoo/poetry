@@ -21,14 +21,19 @@ public interface RefreshTokenRepository
     Optional<RefreshTokenEntity> findByTokenValue(String tokenValue);
 
     @Query(
+        // i18n-ignore: JPQL query, not user-facing
         "select t from RefreshTokenEntity t " +
+        // i18n-ignore: JPQL query, not user-facing
         "where t.userId = :uid and t.status = 'ACTIVE'")
     List<RefreshTokenEntity> findActiveByUserId(Long uid);
 
     @Modifying
     @Query(
+        // i18n-ignore: JPQL update statement, not user-facing
         "update RefreshTokenEntity t set t.status='REVOKED', " +
+        // i18n-ignore: JPQL update statement, not user-facing
         "t.revokedAt=:now, t.revokeReason=:r " +
+        // i18n-ignore: JPQL update statement, not user-facing
         "where t.userId=:uid and t.status='ACTIVE'")
     int revokeAllActive(Long uid, Instant now, String r);
 }

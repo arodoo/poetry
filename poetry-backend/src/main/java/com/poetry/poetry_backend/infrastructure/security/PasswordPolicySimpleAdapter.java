@@ -24,25 +24,25 @@ public class PasswordPolicySimpleAdapter implements PasswordPolicyPort {
 
   public void validate(String raw, String username, String email) {
     if (raw == null || raw.length() < 12)
-      throw fail("Password must be at least 12 characters");
+      throw fail("auth.password.min_length");
     if (!UPPER.matcher(raw).matches())
-      throw fail("Missing uppercase letter");
+      throw fail("auth.password.missing_uppercase");
     if (!LOWER.matcher(raw).matches())
-      throw fail("Missing lowercase letter");
+      throw fail("auth.password.missing_lowercase");
     if (!DIGIT.matcher(raw).matches())
-      throw fail("Missing digit");
+      throw fail("auth.password.missing_digit");
     if (!SYMBOL.matcher(raw).matches())
-      throw fail("Missing symbol");
+      throw fail("auth.password.missing_symbol");
     if (REPEAT4.matcher(raw).find())
-      throw fail("Too many repeating characters");
+      throw fail("auth.password.repeat_chars");
     if (BLACKLIST.contains(raw))
-      throw fail("Common insecure password");
+      throw fail("auth.password.common_insecure");
     if (username != null && raw.toLowerCase().contains(username.toLowerCase()))
-      throw fail("Password must not contain username");
+      throw fail("auth.password.contains_username");
     if (email != null) {
       String local = email.split("@")[0];
       if (raw.toLowerCase().contains(local.toLowerCase()))
-        throw fail("Password must not contain email local part");
+        throw fail("auth.password.contains_email_local");
     }
   }
 

@@ -26,7 +26,7 @@ class InMemoryRegistrationHandler {
     }
     String username = (String) user.get("username");
     if (username == null || username.isBlank()) {
-      throw new IllegalArgumentException("username required");
+      throw new IllegalArgumentException("auth.register.username.required");
     }
     String password = (String) user.getOrDefault("password", "temp");
     userStore.registerUser(username, password);

@@ -21,6 +21,8 @@ final class HttpClientUtils {
   
   private HttpClientUtils() { }
 
+  static final String MSG_NON_RETRYABLE_4XX = "infra.http.client.non-retryable-4xx";
+
   static <T> T executeWithRetry(RetryTemplate retryTemplate, Supplier<T> action) {
     return retryTemplate.execute(ctx -> {
       try {
@@ -28,7 +30,7 @@ final class HttpClientUtils {
       } catch (org.springframework.web.client.RestClientResponseException ex) {
         int code = ex.getStatusCode().value();
         if (code >= 400 && code < 500) {
-          throw new NonRetryableException("Non-retryable 4xx", ex);
+          throw new NonRetryableException(MSG_NON_RETRYABLE_4XX, ex);
         }
         throw ex;
       }

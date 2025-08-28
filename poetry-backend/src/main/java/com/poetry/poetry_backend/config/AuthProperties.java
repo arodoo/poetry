@@ -22,15 +22,26 @@ import lombok.Setter;
 @Setter
 public class AuthProperties { // Reduced via Lombok to satisfy max-lines rule.
   @NotBlank
-  @Size(min = 32, message = "secretKey must be at least 32 chars")
+  @Size(min = 32, message = "{cfg.auth.secret.min-length}")
   private String secretKey = "change-me-please-change-me-secret-32chars";
   private String previousSecretKey; // may be null
-  @PositiveOrZero @Max(86400) private int rotationOverlapSeconds = 0; // 0 means disabled
-  @Positive @Max(7776000) private int maxSecretAgeSeconds = 2592000; // 30d
+  @PositiveOrZero
+  @Max(86400)
+  private int rotationOverlapSeconds = 0; // 0 means disabled
+  @Positive
+  @Max(7776000)
+  private int maxSecretAgeSeconds = 2592000; // 30d
   private String secretIssuedAt; // optional metadata
-  @NotBlank private String issuer = "poetry-backend";
-  @Positive @Max(86400) private int accessTokenTtlSeconds = 900; // 15m
-  @Positive @Max(2592000) private int refreshTokenTtlSeconds = 1209600; // 14d
-  @Min(4) @Max(16) private int bcryptStrength = 10;
+  @NotBlank
+  private String issuer = "poetry-backend";
+  @Positive
+  @Max(86400)
+  private int accessTokenTtlSeconds = 900; // 15m
+  @Positive
+  @Max(2592000)
+  private int refreshTokenTtlSeconds = 1209600; // 14d
+  @Min(4)
+  @Max(16)
+  private int bcryptStrength = 10;
   // Validation of secret-related policies handled by AuthPropertiesValidator.
 }
