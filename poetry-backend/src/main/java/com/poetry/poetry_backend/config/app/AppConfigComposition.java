@@ -8,7 +8,7 @@
  All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.config;
+package com.poetry.poetry_backend.config.app;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

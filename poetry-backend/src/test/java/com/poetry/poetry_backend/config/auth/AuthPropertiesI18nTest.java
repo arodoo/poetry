@@ -5,6 +5,6 @@
  * history without executing redundant assertions. All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.config;
+package com.poetry.poetry_backend.config.auth;
 
 class AuthPropertiesI18nTest { }

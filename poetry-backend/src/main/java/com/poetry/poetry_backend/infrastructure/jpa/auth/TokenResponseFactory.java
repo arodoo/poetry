@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.poetry.poetry_backend.application.auth.port.ClockPort;
-import com.poetry.poetry_backend.config.AuthProperties;
+import com.poetry.poetry_backend.config.auth.AuthProperties;
 
 class TokenResponseFactory {
   private final ClockPort clock;

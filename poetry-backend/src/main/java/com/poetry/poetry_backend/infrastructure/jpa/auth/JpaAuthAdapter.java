@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.auth.port.*;
 import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
-import com.poetry.poetry_backend.config.AuthProperties;
+import com.poetry.poetry_backend.config.auth.AuthProperties;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 @Transactional

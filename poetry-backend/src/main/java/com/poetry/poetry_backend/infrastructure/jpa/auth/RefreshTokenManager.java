@@ -14,7 +14,7 @@ import com.poetry.poetry_backend.application.auth.exception.InvalidRefreshTokenE
 import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
 import com.poetry.poetry_backend.application.auth.port.ClockPort;
 import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
-import com.poetry.poetry_backend.config.AuthProperties;
+import com.poetry.poetry_backend.config.auth.AuthProperties;
 
 class RefreshTokenManager {
 

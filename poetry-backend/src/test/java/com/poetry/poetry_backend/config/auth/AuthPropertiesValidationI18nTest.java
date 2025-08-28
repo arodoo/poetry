@@ -6,7 +6,7 @@
  * specified and English resolved when requested. All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.config;
+package com.poetry.poetry_backend.config.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

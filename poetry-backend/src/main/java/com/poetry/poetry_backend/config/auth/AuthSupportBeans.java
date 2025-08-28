@@ -6,7 +6,7 @@
  * Provides only marker enabling scheduling. All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.config;
+package com.poetry.poetry_backend.config.auth;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

@@ -12,7 +12,7 @@ import java.util.*;
 
 import com.poetry.poetry_backend.application.auth.exception.*;
 import com.poetry.poetry_backend.application.auth.port.*;
-import com.poetry.poetry_backend.config.AuthProperties;
+import com.poetry.poetry_backend.config.auth.AuthProperties;
 
 public class InMemoryAuthAdapter implements AuthPort {
   private final TokenGeneratorPort tokens;

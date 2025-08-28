@@ -6,7 +6,7 @@
  * All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.config;
+package com.poetry.poetry_backend.config.auth;
 
 import org.springframework.stereotype.Component;
 

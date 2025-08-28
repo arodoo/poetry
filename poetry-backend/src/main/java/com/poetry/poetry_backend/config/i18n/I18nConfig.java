@@ -7,7 +7,7 @@
  * LocalValidatorFactoryBean so Bean Validation uses the same message
  * bundles. All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.config;
+package com.poetry.poetry_backend.config.i18n;
 
 import java.util.List;
 import java.util.Locale;
