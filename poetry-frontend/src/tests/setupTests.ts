@@ -37,7 +37,7 @@ try {
   // Fallback: don't throw during test environment setup if matchers
   // couldn't be resolved. This avoids CI failing on environment/type
   // mismatches for third-party packages.
-  // eslint-disable-next-line no-console
+
   // i18n-ignore
   const warnMsg: string = '[setupTests] jest-dom matchers not available;'
   const warnSuffix: string = ' skipping'
