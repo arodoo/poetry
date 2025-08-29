@@ -33,7 +33,7 @@ status.
   [11-ci-hooks-and-guards.md](11-ci-hooks-and-guards.md)
 - 12 — Auth Endpoints — Done — [12-auth-endpoints.md](12-auth-endpoints.md)
 - 13 — Frontend Routing and Guards — Pending —
-  [13-frontend-routing-and-guards.md](13-frontend-routing-and-guards.md)
+  [13-frontend-routing-and-guards.md](13.2-frontend-routing-and-guards.md)
 - 14 — Frontend Auth Flows — Pending —
   [14-frontend-auth-flows.md](14-frontend-auth-flows.md)
 - 15 — Account Pages — Pending —

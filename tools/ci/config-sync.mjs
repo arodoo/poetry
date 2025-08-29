@@ -21,13 +21,18 @@ function updateEslint() {
   const p = path.resolve(__dirname, '../../poetry-frontend/eslint.config.js')
   if (!fs.existsSync(p)) return console.log('ESLint config not found, skip.')
   let s = read(p)
-  const limit = cfg.characterLimits.frontend.typescript
-  s = s.replace(/'max-len': \['error', \{ code: \d+,/g,
-    `'max-len': ['error', { code: ${limit},`)
+  
+  // Remove max-len if present (Prettier handles formatting)
+  s = s.replace(/'max-len': \['error', \{ code: \d+,.*?\],\s*/g, '')
+  s = s.replace(/\s+'max-len': \['error', \{ code: \d+,.*?\],/g, '')
+  
+  // Update max-lines rule
   s = s.replace(/\{ max: \d+, skipBlankLines:/g,
     `{ max: ${cfg.fileLineLimit}, skipBlankLines:`)
+
   write(p, s)
-  console.log(`✓ ESLint: ${limit} chars, ${cfg.fileLineLimit} lines`)
+  console.log(`✓ ESLint: max-len removed (Prettier handles), ${
+    cfg.fileLineLimit} lines`)
 }
 
 function updateCheckstyle() {

@@ -29,9 +29,6 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}": [
       "prettier --write"
-    ],
-    "poetry-frontend/**/*.{js,jsx,ts,tsx}": [
-      "npm --prefix poetry-frontend run lint -- --max-warnings=0"
     ]
   },
   "devDependencies": {

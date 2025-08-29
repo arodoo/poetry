@@ -10,7 +10,7 @@ applyTo: '**'
 - Must follow DDD, SOLID, Clean Architecture.
 - Folder structure must follow DDD.
 - No file should exceed 80 lines; if longer, split into dedicated smaller files,
-  never remove logic.
+  never remove logic (test files < 40 lines>).
 - In frontEnd no line should exceed 80 characters, in backend is 100, if a line
   exceeds this limit, it must be split into dedicated smaller files, never
   remove logic.

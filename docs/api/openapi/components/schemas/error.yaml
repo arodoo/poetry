@@ -8,4 +8,5 @@ properties:
   detail: { type: string }
   instance: { type: string, format: uri }
   traceId: { type: string, description: Correlates logs }
+  code: { type: string, description: Application-specific error code }
 required: [title, status]

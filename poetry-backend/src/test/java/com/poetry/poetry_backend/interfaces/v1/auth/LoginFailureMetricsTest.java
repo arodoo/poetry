@@ -1,6 +1,7 @@
 /*
- * File: AuthLoginFailureMetricsTest.java
- * Purpose: Tests login failure metrics emission for invalid credentials.
+ * File: LoginFailureMetricsTest.java
+ * Purpose: Tests for login failure metrics emission and counter increments.
+ * Ensures observability works correctly for authentication failures.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.interfaces.v1.auth;
@@ -24,7 +25,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class AuthLoginFailureMetricsTest {
+class LoginFailureMetricsTest {
   @Autowired MockMvc mvc;
   @Autowired MeterRegistry registry;
 

@@ -16,11 +16,16 @@ const EXCLUDE_PATTERNS = [
   '/assets/',
   'i18n/messages',
   'node_modules',
-  '.git'
+  '.git',
+  '/shared/i18n/',
+  // also ignore package-relative paths and src-prefixed layouts
+  'src/shared/i18n/',
+  'poetry-frontend/src/shared/i18n/',
 ]
 
 export function isExcluded(file) {
-  const normal = file.replace(/\\\\/g, '/');
+  // Normalize Windows backslashes and ensure forward-slash based matching
+  const normal = file.replace(/\\/g, '/');
   return EXCLUDE_PATTERNS.some((p) => normal.includes(p));
 }
 

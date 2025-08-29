@@ -1,18 +1,19 @@
 /*
  File: useT.ts
- Purpose: Hook to expose a translate function derived from I18n context.
- Separating this from the provider keeps fast-refresh happy and the
- file sizes small per repository rules. All Rights Reserved. Arodi
- Emmanuel
+ Purpose: Hook exposing strict translate function from i18n context.
+ Throws if context missing. All Rights Reserved. Arodi Emmanuel
 */
 import { useContext } from 'react'
 import { I18nCtx } from './context'
 import type { I18nState } from './index'
+import type { I18nKey } from './generated/keys'
 
-export function useT(): (key: string) => string {
+export function useT(): (
+  key: I18nKey,
+  vars?: Record<string, unknown>
+) => string {
   const ctx: I18nState | null = useContext(I18nCtx)
-  return (key: string): string => {
-    if (!ctx) return key
-    return ctx.messages[key] ?? key
-  }
+  if (!ctx) throw new Error('i18n.context.missing')
+  return (key: I18nKey, vars?: Record<string, unknown>): string =>
+    ctx.t(key, vars)
 }

@@ -1,10 +1,38 @@
 #!/usr/bin/env sh
 
 # File: .husky/pre-commit
-# Purpose: Run fast checks before committing changes.
+# Purpose: Run full quality gates before committing changes (tests & CI checks).
 # All Rights Reserved. Arodi Emmanuel
 
+# i18n fast-fail (generate + verify catalogs & keys) - BEFORE formatting
+npm --prefix poetry-frontend run i18n:gen || exit 1
+npm --prefix poetry-frontend run i18n:verify || exit 1
+
+# Format first
 npx --no lint-staged || exit 1
+
+# Then lint separately (after format, avoiding conflicts)
+npm --prefix poetry-frontend run lint:fix -- --max-warnings=0 || exit 1
+
+# Fast repo-level checks
 node tools/ci/check-lines.mjs || exit 1
 node tools/ci/check-headers.mjs || exit 1
 node tools/ci/i18n-scan.mjs || exit 1
+
+# Type safety
+npm run typecheck || exit 1
+
+# Tests (explicit: frontend then backend)
+npm run test:frontend || exit 1
+npm run test:backend || exit 1
+
+# API contract & SDK integrity
+npm run openapi:validate || exit 1
+npm run sdk:check || exit 1
+
+# Explicit builds to fail fast on build errors
+# Frontend build (uses package in poetry-frontend)
+npm --prefix poetry-frontend run build || exit 1
+
+# Backend build (Maven package; skip tests for speed)
+(cd poetry-backend && mvn -q -DskipTests package) || exit 1

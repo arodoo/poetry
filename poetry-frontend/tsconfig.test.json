@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
+  },
+  "include": [
+    "src/tests/**/*",
+    "src/tests/setupTests.ts",
+    "src/shared/http/__tests__/**/*",
+    "tools/vite/i18nKeyGen.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": []
+}

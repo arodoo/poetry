@@ -1,6 +1,7 @@
 /*
- * File: AuthRateLimiterMetricsTest.java
- * Purpose: Tests rate limiter metrics emission for acquire operations.
+ * File: RateLimiterMetricsTest.java
+ * Purpose: Tests for rate limiter metrics emission and counter increments.
+ * Ensures observability works correctly for rate limiting operations.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.interfaces.v1.auth;
@@ -24,7 +25,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class AuthRateLimiterMetricsTest {
+class RateLimiterMetricsTest {
   @Autowired MockMvc mvc;
   @Autowired MeterRegistry registry;
 

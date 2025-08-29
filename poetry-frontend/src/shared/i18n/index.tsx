@@ -1,31 +1,65 @@
 /*
  File: index.tsx
- Purpose: Minimal i18n provider scaffold. Supplies a translate function
- and current locale via React context. Messages are simple key-value
- maps. Full locale-prefixed routing and complete translations are
- handled in Task 19. All Rights Reserved. Arodi Emmanuel
+ Purpose: Clean i18n provider using dedicated services and hooks for locale
+ management. The provider centralizes message resolution, locale switching and
+ strict missing key handling for safety. It is designed to be minimal, testable
+ and suitable for production use in the frontend.
+ All Rights Reserved. Arodi Emmanuel
 */
 import { useMemo, type ReactNode, type ReactElement } from 'react'
 import { I18nCtx } from './context'
+import { esCatalog } from './catalog/es'
+import { enCatalog } from './catalog/en'
+import { useLocale } from './hooks/useLocale'
+import { localeService } from './services/localeService'
+import type { I18nKey } from './generated/keys'
 
 export type Messages = Record<string, string>
 
 export type I18nState = Readonly<{
   locale: string
   messages: Messages
+  t: (k: I18nKey, vars?: Record<string, unknown>) => string
+  setLocale: (l: string) => void
 }>
 
-export function I18nProvider(props: {
-  children: ReactNode
-  locale?: string
-  messages?: Messages
-}): ReactElement {
-  const value: I18nState = useMemo<I18nState>((): I18nState => {
-    return {
-      locale: props.locale ?? 'en',
-      messages: props.messages ?? { hello: 'Hello' },
+function format(tpl: string, vars?: Record<string, unknown>): string {
+  if (!vars) return tpl
+  return tpl.replace(/{{(.*?)}}/g, (_: string, k: string): string => {
+    const key: string = k.trim()
+    const value: unknown = vars[key]
+    if (typeof value === 'string' || typeof value === 'number') {
+      return String(value)
+    } else {
+      return ''
     }
-  }, [props.locale, props.messages])
+  })
+}
+
+const catalogs: Record<string, Messages> = { es: esCatalog, en: enCatalog }
+
+function ensureMessages(loc: string, fallback: string): Messages {
+  return catalogs[loc] ?? catalogs[fallback] ?? {}
+}
+
+export function I18nProvider(props: { children: ReactNode }): ReactElement {
+  const { locale, setLocale } = useLocale()
+
+  const value: I18nState = useMemo((): I18nState => {
+    const messages: Messages = ensureMessages(
+      locale,
+      localeService.getDefaultLocale()
+    )
+    const t: (k: I18nKey, vars?: Record<string, unknown>) => string = (
+      k: I18nKey,
+      vars?: Record<string, unknown>
+    ): string => {
+      const msg: string | undefined = messages[k]
+      if (msg === undefined) throw new Error(`i18n.missing:${k}`)
+      return format(msg, vars)
+    }
+    return { locale, messages, t, setLocale }
+  }, [locale, setLocale])
 
   return <I18nCtx.Provider value={value}>{props.children}</I18nCtx.Provider>
 }

@@ -9,6 +9,16 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     environment: 'jsdom',
+    env: {
+      VITE_API_BASE_URL: 'https://example.com',
+      VITE_LOG_LEVEL: 'info',
+      VITE_FEATURE_AUTH: 'true',
+      VITE_HTTP_TIMEOUT_MS: '5000',
+      VITE_HTTP_RETRY_MAX_ATTEMPTS: '3',
+      VITE_HTTP_RETRY_BACKOFF_MS: '200',
+      VITE_DEFAULT_LOCALE: 'es',
+    },
+    setupFiles: ['src/tests/setupTests.ts'],
     coverage: {
       reporter: ['text', 'html'],
     },

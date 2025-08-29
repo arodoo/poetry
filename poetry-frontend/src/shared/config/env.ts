@@ -2,8 +2,8 @@
  File: env.ts
  Purpose: Centralized frontend environment schema using Zod. Validates
  Vite's import.meta.env at startup and exports a typed, read-only
- configuration object to be injected in services and hooks.
- All Rights Reserved. Arodi Emmanuel
+ configuration object to be injected in services and hooks. Added
+ default locale validation. All Rights Reserved. Arodi Emmanuel
 */
 import { z } from 'zod'
 
@@ -11,10 +11,10 @@ export type Env = Readonly<{
   VITE_API_BASE_URL: string
   VITE_LOG_LEVEL: 'debug' | 'info' | 'warn' | 'error'
   VITE_FEATURE_AUTH: boolean
-  // http client configuration
   VITE_HTTP_TIMEOUT_MS: number
   VITE_HTTP_RETRY_MAX_ATTEMPTS: number
   VITE_HTTP_RETRY_BACKOFF_MS: number
+  VITE_DEFAULT_LOCALE: 'es' | 'en'
 }>
 
 const schema: z.ZodTypeAny = z
@@ -40,6 +40,7 @@ const schema: z.ZodTypeAny = z
       .default('200')
       .transform((v: string): number => Number.parseInt(v, 10))
       .pipe(z.number().int().min(0)),
+    VITE_DEFAULT_LOCALE: z.enum(['es', 'en']).default('es'),
   })
   .readonly()
 

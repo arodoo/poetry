@@ -19,18 +19,31 @@ function validateEslint() {
   const p = path.resolve(__dirname, '../../poetry-frontend/eslint.config.js')
   if (!fs.existsSync(p)) return console.log('⚠️  ESLint config not found')
   const s = fs.readFileSync(p, 'utf8')
-  const limit = cfg.characterLimits.frontend.typescript
+  
+  // Check that max-len is NOT present (Prettier handles line length)
   const mLen = /'max-len': \['error', \{ code: (\d+),/.exec(s)
-  const mLines = /\{ max: (\d+), skipBlankLines:/.exec(s)
-  if (!mLen || parseInt(mLen[1]) !== limit) {
-    console.log(`❌ ESLint max-len: expected ${limit}, found ${mLen?.[1]}`)
+  if (mLen) {
+    const msg = 'ESLint max-len found: should be removed (Prettier handles)'
+    console.log(`❌ ${msg}`)
     hasErrors = true
   }
+  
+  // Check max-lines is present
+  const mLines = /\{ max: (\d+), skipBlankLines:/.exec(s)
   const exp = cfg.fileLineLimit
   if (!mLines || parseInt(mLines[1]) !== exp) {
     console.log(`❌ ESLint max-lines: expected ${exp}, found ${mLines?.[1]}`)
     hasErrors = true
   }
+  
+  // Check prettier is configured in extends
+  const hasPrettier = s.includes('eslint-config-prettier') || 
+                      s.includes('prettierConfig')
+  if (!hasPrettier) {
+    console.log('❌ ESLint should extend Prettier config to avoid conflicts')
+    hasErrors = true
+  }
+  
   if (!hasErrors) console.log('✓ ESLint config is synchronized')
 }
 

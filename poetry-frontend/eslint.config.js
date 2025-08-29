@@ -3,7 +3,7 @@ import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
-import { globalIgnores } from 'eslint/config'
+import prettierConfig from 'eslint-config-prettier'
 
 // File: eslint.config.js
 // Purpose: ESLint configuration for the
@@ -14,16 +14,21 @@ import { globalIgnores } from 'eslint/config'
 // Arodi Emmanuel
 
 export default tseslint.config([
-  globalIgnores(['dist']),
+  { ignores: ['dist'] },
   {
     files: ['**/*.{ts,tsx}'],
-    ignores: ['**/*.test.ts', '**/__tests__/**/*.{ts,tsx}', 'vitest.config.ts'],
+    ignores: [
+      '**/*.test.{ts,tsx}',
+      '**/__tests__/**/*.{ts,tsx}',
+      'vitest.config.ts',
+    ],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
+      prettierConfig,
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -76,9 +81,6 @@ export default tseslint.config([
       '@typescript-eslint/no-unsafe-argument': 'error',
       '@typescript-eslint/no-inferrable-types': 'off',
 
-      // Enforce 80-character max line length
-      'max-len': ['error', { code: 80, tabWidth: 2, ignoreUrls: true }],
-
       // Enforce maximum 80 lines per file for TS/TSX
       'max-lines': [
         'error',
@@ -87,18 +89,27 @@ export default tseslint.config([
     },
   },
   {
-    files: ['**/*.test.ts', '**/__tests__/**/*.{ts,tsx}', 'vitest.config.ts'],
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: [
+      '**/*.test.{ts,tsx}',
+      'src/tests/**/*.{ts,tsx}',
+      '**/__tests__/**/*.{ts,tsx}',
+      'vitest.config.ts',
+    ],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      prettierConfig,
+    ],
     languageOptions: {
       ecmaVersion: 2020,
       globals: { ...globals.node, ...globals.browser },
       parserOptions: {
-        projectService: false,
-        allowDefaultProject: true,
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+        allowDefaultProject: false,
       },
     },
     rules: {
-      'max-len': ['error', { code: 80, tabWidth: 2, ignoreUrls: true }],
       'max-lines': [
         'error',
         { max: 80, skipBlankLines: true, skipComments: true },

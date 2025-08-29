@@ -5,14 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predev": "npm run i18n:gen && npm run i18n:verify",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
-    "build": "npm run format && eslint . --max-warnings=0 && npm run typecheck && vite build",
+    "i18n:gen": "node ../tools/ci/i18n-generate-keys.mjs",
+    "i18n:verify": "node ../tools/ci/i18n-verify.mjs",
+    "typecheck": "npm run i18n:gen && npm run i18n:verify && tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
+    "build": "npm run i18n:gen && npm run i18n:verify && npm run format && npm run lint -- --max-warnings=0 && npm run typecheck && vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "npm run i18n:gen && npm run i18n:verify && vitest run",
+    "test:watch": "npm run i18n:gen && npm run i18n:verify && vitest"
   },
   "dependencies": {
     "react": "^19.1.1",
@@ -21,19 +25,22 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^24.2.1",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react-swc": "^4.0.0",
     "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "jsdom": "^25.0.1",
     "prettier": "^3.3.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2",
-    "vitest": "^2.1.4",
-    "jsdom": "^25.0.1"
+    "vitest": "^2.1.4"
   }
 }
