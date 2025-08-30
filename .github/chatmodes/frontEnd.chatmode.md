@@ -17,7 +17,9 @@ tools: ['tanstack-query', 'zod', 'heroicons', 'tailwindcss', 'i18next']
   (e.g., Button.tsx, Table.tsx) so visual changes are made in one place and
   apply across the app.
 - All UI must be fully accessible (WCAG 2.1 AA).
-- No business logic inside UI components; keep logic in hooks/services.
+- No business logic inside UI components.
 - API endpoints must be idempotent where applicable.
 - @heroicons/react for icons.
 - Tailwind CSS for styling.
+- Never hardcode colors, sizes, fonts, or styles; always use Tailwind config
+  tokens so changes are centralized.
