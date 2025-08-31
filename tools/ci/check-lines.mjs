@@ -54,6 +54,10 @@ if (!filesToCheck.length) process.exit(0)
 // Validate files and report
 const result = validateFiles(filesToCheck)
 if (!result.valid) {
-  result.errors.forEach((e) => console.error(e))
+  console.error('❌ Line limit violations found:')
+  result.errors.forEach((e) => console.error(`  ${e}`))
+  console.error('\n💡 Fix these violations by splitting long lines or files.')
   process.exit(1)
 }
+
+console.log('✅ All files pass line limit checks')

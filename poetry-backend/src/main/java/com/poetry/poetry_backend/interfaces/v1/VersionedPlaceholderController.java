@@ -3,7 +3,8 @@
  * Purpose: Versioned placeholder controller to support API v1 routing
  * and provide compatibility for future versioned endpoints. It acts
  * as a simple index to group versioned controllers and reduce routing
- * complexity.
+ * complexity. Legacy locale preference dependency removed after i18n
+ * module refactor. Adds localized health status using i18n use case.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -14,41 +15,26 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poetry.poetry_backend.application.locale.LocalePreferenceService;
+import com.poetry.poetry_backend.application.i18n.usecase.ResolveMessageUseCase;
 
 @RestController
 @RequestMapping("/api/v1")
 public class VersionedPlaceholderController {
-  private final LocalePreferenceService localeService;
-
-  public VersionedPlaceholderController(LocalePreferenceService localeService) {
-    this.localeService = localeService;
+  private final ResolveMessageUseCase resolveMessage;
+  public VersionedPlaceholderController(ResolveMessageUseCase resolveMessage) {
+    this.resolveMessage = resolveMessage;
   }
-
   @GetMapping("/health")
-  public ResponseEntity<Map<String, Object>> health() {
+  public ResponseEntity<Map<String, Object>> health(
+      @RequestHeader(name = "Accept-Language", required = false)
+      String locale) {
     Map<String, Object> health = new LinkedHashMap<>();
-    health.put("status", "ok");
+    health.put("status", resolveMessage.execute("common.ok", locale));
     health.put("timestamp", System.currentTimeMillis());
-
-    // Check locale service health
-    try {
-      String testLocale = localeService.resolveLocaleForUser("health-check", null);
-      health.put("localeService", Map.of(
-        "status", "ok",
-        "defaultLocale", testLocale
-      ));
-    } catch (Exception e) {
-      health.put("localeService", Map.of(
-        "status", "error",
-        "error", e.getMessage()
-      ));
-      health.put("status", "degraded");
-    }
-
     return ResponseEntity.ok(health);
   }
 }

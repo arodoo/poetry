@@ -1,0 +1,28 @@
+# File: i18n-locales.yaml
+# Purpose: OpenAPI path spec for listing supported locales.
+openapi: 3.0.3
+info:
+  title: I18n API
+  version: v1
+paths:
+  /v1/i18n/locales:
+    get:
+      summary: List supported locales
+      operationId: listSupportedLocales
+      tags: [i18n]
+      responses:
+        '200':
+          description: Supported locales
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locales:
+                    type: array
+                    items:
+                      type: string
+                      description: BCP47 locale tag
+                required: [locales]
+        '500':
+          description: Server error

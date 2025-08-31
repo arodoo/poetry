@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "version": "1.1",
+    "description": "Canonical backend feature file & folder structure (structure-only). Semantic rules enforced by dedicated CI scripts."
+  },
+  "structure": {
+    "domain": {
+      "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain",
+      "files": [
+        {
+          "path": "<feature>/model/Feature.java",
+          "required": true,
+          "description": "Aggregate root"
+        },
+        {
+          "path": "<feature>/model/value/*",
+          "required": false,
+          "description": "Value objects",
+          "pattern": true
+        }
+      ]
+    },
+    "application": {
+      "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application",
+      "files": [
+        {
+          "path": "<feature>/port/FeatureQueryPort.java",
+          "required": true,
+          "description": "Query port"
+        },
+        {
+          "path": "<feature>/port/FeatureCommandPort.java",
+          "required": true,
+          "description": "Command port"
+        },
+        {
+          "path": "<feature>/usecase/GetAllFeaturesUseCase.java",
+          "required": true,
+          "description": "List use case"
+        },
+        {
+          "path": "<feature>/usecase/GetFeatureByIdUseCase.java",
+          "required": true,
+          "description": "Get by id use case"
+        },
+        {
+          "path": "<feature>/usecase/CreateFeatureUseCase.java",
+          "required": true,
+          "description": "Create use case"
+        },
+        {
+          "path": "<feature>/usecase/UpdateFeatureUseCase.java",
+          "required": true,
+          "description": "Update use case"
+        },
+        {
+          "path": "<feature>/usecase/DeleteFeatureUseCase.java",
+          "required": true,
+          "description": "Delete use case"
+        }
+      ]
+    },
+    "infrastructure": {
+      "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure",
+      "files": [
+        {
+          "path": "jpa/<feature>/FeatureEntity.java",
+          "required": true,
+          "description": "JPA entity"
+        },
+        {
+          "path": "jpa/<feature>/FeatureJpaRepository.java",
+          "required": true,
+          "description": "Repository"
+        },
+        {
+          "path": "jpa/<feature>/FeatureJpaMapper.java",
+          "required": true,
+          "description": "Mapper"
+        },
+        {
+          "path": "jpa/<feature>/FeatureJpaAdapter.java",
+          "required": true,
+          "description": "Adapter"
+        },
+        {
+          "path": "memory/<feature>/InMemoryFeatureAdapter.java",
+          "required": false,
+          "description": "In-memory adapter"
+        },
+        {
+          "path": "memory/<feature>/InMemoryFeatureStore.java",
+          "required": false,
+          "description": "In-memory store"
+        },
+        {
+          "path": "memory/<feature>/InMemoryFeatureFactory.java",
+          "required": false,
+          "description": "In-memory factory"
+        }
+      ]
+    },
+    "interfaces": {
+      "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces",
+      "files": [
+        {
+          "path": "v1/<feature>/FeatureController.java",
+          "required": true,
+          "description": "Controller"
+        },
+        {
+          "path": "v1/<feature>/FeatureDtos.java",
+          "required": true,
+          "description": "DTOs"
+        }
+      ]
+    },
+    "config": {
+      "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/config",
+      "files": [
+        {
+          "path": "<feature>/FeatureComposition.java",
+          "required": true,
+          "description": "Composition root"
+        }
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "files": [
+        {
+          "path": "domains/<feature>.md",
+          "required": true,
+          "description": "Domain doc"
+        },
+        {
+          "path": "api/openapi/paths/<feature>-*.yaml",
+          "required": true,
+          "description": "OpenAPI paths",
+          "pattern": true
+        }
+      ]
+    },
+    "tests": {
+      "path": "poetry-backend/src/test/java/com/poetry/poetry_backend",
+      "files": [
+        {
+          "path": "domain/<feature>/model/FeatureTest.java",
+          "required": true,
+          "description": "Domain test"
+        },
+        {
+          "path": "application/<feature>/usecase/CreateFeatureUseCaseTest.java",
+          "required": true,
+          "description": "Create UC test"
+        },
+        {
+          "path": "application/<feature>/usecase/GetAllFeaturesUseCaseTest.java",
+          "required": true,
+          "description": "List UC test"
+        },
+        {
+          "path": "application/<feature>/usecase/GetFeatureByIdUseCaseTest.java",
+          "required": true,
+          "description": "Get UC test"
+        },
+        {
+          "path": "application/<feature>/usecase/UpdateFeatureUseCaseTest.java",
+          "required": true,
+          "description": "Update UC test"
+        },
+        {
+          "path": "application/<feature>/usecase/DeleteFeatureUseCaseTest.java",
+          "required": true,
+          "description": "Delete UC test"
+        },
+        {
+          "path": "interfaces/v1/<feature>/FeatureControllerTest.java",
+          "required": true,
+          "description": "Controller test"
+        }
+      ]
+    }
+  }
+}

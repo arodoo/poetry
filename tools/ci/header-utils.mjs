@@ -31,6 +31,7 @@ export function countSentences(text) {
 }
 
 export function validateFileHeader(filePath) {
+  if (!fs.existsSync(filePath)) return [] // Skip deleted files
   const src = fs.readFileSync(filePath, 'utf8')
   const header = parseHeader(src)
   const errors = []

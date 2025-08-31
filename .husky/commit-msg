@@ -1,6 +1,28 @@
+#!/usr/bin/env sh
 # File: .husky/commit-msg
 # Purpose: Enforce Conventional Commits on messages.
 # All Rights Reserved. Arodi Emmanuel
 
 MSG_FILE="${1:-.git/COMMIT_EDITMSG}"
-npx --no -- commitlint --edit "$MSG_FILE"
+echo "📝 Validating commit message format..."
+npx --no -- commitlint --edit "$MSG_FILE" || {
+  echo ""
+  echo "❌ Commit message format is invalid!"
+  echo ""
+  echo "💡 Use conventional commit format:"
+  echo "   feat(scope): description"
+  echo "   fix(scope): description"
+  echo "   docs(scope): description"
+  echo "   style(scope): description"
+  echo "   refactor(scope): description"
+  echo "   test(scope): description"
+  echo "   chore(scope): description"
+  echo ""
+  echo "Examples:"
+  echo "   feat(ui): add button component"
+  echo "   fix(auth): resolve login validation"
+  echo "   docs(api): update openapi schema"
+  echo ""
+  exit 1
+}
+echo "✅ Commit message format is valid"
