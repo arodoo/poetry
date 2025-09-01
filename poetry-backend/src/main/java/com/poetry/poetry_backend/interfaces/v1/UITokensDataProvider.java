@@ -1,18 +1,24 @@
 /*
  * File: UITokensDataProvider.java
- * Purpose: Data provider for UI tokens, supplying hardcoded themes,
- * fonts, and customization sets for frontend UI library config.
- * Supports decoupled customization options.
+ * Purpose: Data provider for UI tokens, delegating theme list to
+ * dynamic theme service via injected strategy bean.
  * All Rights Reserved. Arodi Emmanuel
  */
-
 package com.poetry.poetry_backend.interfaces.v1;
 
-public class UITokensDataProvider {
+import org.springframework.stereotype.Component;
 
-  public static UITokensDto getTokens() {
+@Component
+public class UITokensDataProvider {
+  private final UITokensThemesDynamicProvider themesProvider;
+
+  public UITokensDataProvider(UITokensThemesDynamicProvider themesProvider) {
+    this.themesProvider = themesProvider;
+  }
+
+  public UITokensDto getTokens() {
     UITokensDto tokens = new UITokensDto();
-    tokens.themes = UITokensThemesProvider.getThemes();
+    tokens.themes = themesProvider.getThemes();
     tokens.fonts = UITokensFontsProvider.getFonts();
     tokens.fontSizes = UITokensFontSizesProvider.getFontSizes();
     tokens.spacings = UITokensSpacingsProvider.getSpacings();

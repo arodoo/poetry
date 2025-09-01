@@ -2,11 +2,11 @@
 applyTo: '**'
 ---
 
+- Don't stop coding until the task is fully complete if the plan is clear
 - All code contributions must be production-ready, no TODO, FIXME, or
   refactor-later code.
 - Always give proper naming
 - Before starting code changes Provide a brief step-by-step plan
-- Don't stop coding until the task is fully complete if the plan is clear
 - Must follow DDD, SOLID, Clean Architecture
 - No file should exceed 80 lines; if longer, split into dedicated smaller files,
   never remove logic (test files < 40 lines>)
