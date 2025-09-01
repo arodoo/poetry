@@ -9,10 +9,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { getCharLimit } from './char-limits.mjs'
+import { getCharLimit } from '../limits/char-limits.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const cfgPath = path.resolve(__dirname, '../../code-standards.config.json')
+const cfgPath = path.resolve(__dirname, '../../../code-standards.config.json')
 const cfg = JSON.parse(fs.readFileSync(cfgPath, 'utf8'))
 const MAX_LINES = cfg.fileLineLimit
 

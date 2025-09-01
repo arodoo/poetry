@@ -35,19 +35,19 @@ npm --prefix poetry-frontend run lint:fix -- --max-warnings=0 || {
 
 # Fast repo-level checks
 echo "📏 Checking line limits..."
-node tools/ci/check-lines.mjs || {
+node tools/ci/limits/check-lines.mjs || {
   echo "❌ Line limit check failed! Check the output above for specific file and line violations."
   exit 1
 }
 
 echo "📋 Checking file headers..."
-node tools/ci/check-headers.mjs || {
+node tools/ci/headers/check-headers.mjs || {
   echo "❌ Header check failed! Check the output above for files missing headers."
   exit 1
 }
 
 echo "🌐 Scanning i18n usage..."
-node tools/ci/i18n-scan.mjs || {
+node tools/ci/i18n/i18n-scan.mjs || {
   echo "❌ i18n scan failed! Check the output above for hardcoded strings."
   exit 1
 }

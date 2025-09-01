@@ -38,7 +38,9 @@ public class I18nComposition {
     ms.setAlwaysUseMessageFormat(true); return ms; }
 
   @Bean AcceptHeaderLocaleResolver localeResolver(AppConfigPort cfg) {
-    return new SupportedLocaleResolver(cfg.defaultLocale(), cfg.supportedLocales()); }
+    var base = new PathAwareLocaleResolver();
+    base.setDefaultLocale(java.util.Locale.forLanguageTag(cfg.defaultLocale()));
+    return base; }
 
   @Bean LocalValidatorFactoryBean validator(MessageSource ms) {
     var f = new LocalValidatorFactoryBean(); f.setValidationMessageSource(ms); return f; }

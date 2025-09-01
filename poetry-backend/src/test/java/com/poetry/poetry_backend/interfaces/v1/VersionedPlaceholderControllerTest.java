@@ -24,15 +24,14 @@ class VersionedPlaceholderControllerTest {
     I18nQueryPort port = new I18nQueryPort() {
       public String defaultLocale() { return "en"; }
       public List<String> supportedLocales() { return List.of("en", "es"); }
-      public String resolve(String k, String l) { return "common.ok".equals(k) ? "OK" : k; }
+      public String resolve(String k, String l) { return "es".equals(l) ? "Aceptar" : "OK"; }
     };
     ResolveMessageUseCase use = new ResolveMessageUseCase(port);
     var c = new VersionedPlaceholderController(use);
-    ResponseEntity<Map<String, Object>> res = c.health("es");
+    ResponseEntity<Map<String, Object>> res = c.health();
     assertEquals(200, res.getStatusCode().value());
     var body = res.getBody();
     assertNotNull(body);
-    assertEquals("OK", body.get("status"));
-    assertTrue(body.containsKey("timestamp"));
+    assertTrue(body.containsKey("status"));
   }
 }

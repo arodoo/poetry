@@ -9,8 +9,8 @@
  All Rights Reserved. Arodi Emmanuel
  */
 import path from 'node:path'
-import { getChangedFiles, shouldUseFallback } from './git-utils.mjs'
-import { ROOTS, walkDirectory, isInAllowedRoots } from './file-utils.mjs'
+import { getChangedFiles, shouldUseFallback } from '../utils/git-utils.mjs'
+import { ROOTS, walkDirectory, isInAllowedRoots } from '../utils/file-utils.mjs'
 import { validateFileHeader } from './header-utils.mjs'
 
 const CODE_EXTS = new Set([

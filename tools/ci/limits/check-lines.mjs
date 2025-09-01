@@ -9,25 +9,25 @@
 
 import path from 'node:path'
 import { execSync } from 'node:child_process'
-import { getChangedFiles, shouldUseFallback } from './git-utils.mjs'
+import { getChangedFiles, shouldUseFallback } from '../utils/git-utils.mjs'
 import {
   ROOTS,
   EXTENSIONS,
   walkDirectory,
   isInAllowedRoots,
-} from './file-utils.mjs'
-import { validateFiles } from './validator.mjs'
+} from '../utils/file-utils.mjs'
+import { validateFiles } from '../utils/validator.mjs'
 
 // Validate configuration files are synchronized
 console.log('🔍 Validating configuration synchronization...')
 try {
-  execSync('node tools/ci/validate-config-sync.mjs', {
+  execSync('node tools/ci/config/validate-config-sync.mjs', {
     stdio: 'inherit',
     cwd: process.cwd(),
   })
 } catch (error) {
   console.error('❌ Configuration files are not synchronized!')
-  console.error('💡 Run "node tools/ci/config-sync.mjs" to fix.')
+  console.error('💡 Run "node tools/ci/config/config-sync.mjs" to fix.')
   process.exit(1)
 }
 console.log('')

@@ -13,9 +13,9 @@ package com.poetry.poetry_backend.interfaces.v1;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,11 +29,10 @@ public class VersionedPlaceholderController {
     this.resolveMessage = resolveMessage;
   }
   @GetMapping("/health")
-  public ResponseEntity<Map<String, Object>> health(
-      @RequestHeader(name = "Accept-Language", required = false)
-      String locale) {
+  public ResponseEntity<Map<String, Object>> health() {
     Map<String, Object> health = new LinkedHashMap<>();
-    health.put("status", resolveMessage.execute("common.ok", locale));
+    String tag = LocaleContextHolder.getLocale().toLanguageTag();
+    health.put("status", resolveMessage.execute("common.ok", tag));
     health.put("timestamp", System.currentTimeMillis());
     return ResponseEntity.ok(health);
   }
