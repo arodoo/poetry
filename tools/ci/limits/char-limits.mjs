@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const configPath = path.resolve(
   __dirname,
-  '../../code-standards.config.json'
+  '../../../code-standards.config.json'
 )
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
 

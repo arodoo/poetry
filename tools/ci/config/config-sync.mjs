@@ -11,14 +11,14 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const cfgPath = path.resolve(__dirname, '../../code-standards.config.json')
+const cfgPath = path.resolve(__dirname, '../../../code-standards.config.json')
 const cfg = JSON.parse(fs.readFileSync(cfgPath, 'utf8'))
 
 function read(p) { return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '' }
 function write(p, c) { fs.writeFileSync(p, c) }
 
 function updateEslint() {
-  const p = path.resolve(__dirname, '../../poetry-frontend/eslint.config.js')
+  const p = path.resolve(__dirname, '../../../poetry-frontend/eslint.config.js')
   if (!fs.existsSync(p)) return console.log('ESLint config not found, skip.')
   let s = read(p)
   
@@ -36,7 +36,7 @@ function updateEslint() {
 }
 
 function updateCheckstyle() {
-  const p = path.resolve(__dirname, '../../checkstyle.xml')
+  const p = path.resolve(__dirname, '../../../checkstyle.xml')
   if (!fs.existsSync(p)) return console.log('Checkstyle not found, skip.')
   let s = read(p)
   const limit = cfg.characterLimits.backend.java

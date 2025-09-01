@@ -11,12 +11,12 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const cfgPath = path.resolve(__dirname, '../../code-standards.config.json')
+const cfgPath = path.resolve(__dirname, '../../../code-standards.config.json')
 const cfg = JSON.parse(fs.readFileSync(cfgPath, 'utf8'))
 let hasErrors = false
 
 function validateEslint() {
-  const p = path.resolve(__dirname, '../../poetry-frontend/eslint.config.js')
+  const p = path.resolve(__dirname, '../../../poetry-frontend/eslint.config.js')
   if (!fs.existsSync(p)) return console.log('⚠️  ESLint config not found')
   const s = fs.readFileSync(p, 'utf8')
   
@@ -48,7 +48,7 @@ function validateEslint() {
 }
 
 function validateCheckstyle() {
-  const p = path.resolve(__dirname, '../../checkstyle.xml')
+  const p = path.resolve(__dirname, '../../../checkstyle.xml')
   if (!fs.existsSync(p)) return console.log('⚠️  Checkstyle config not found')
   const s = fs.readFileSync(p, 'utf8')
   const limit = cfg.characterLimits.backend.java
@@ -65,7 +65,7 @@ validateEslint()
 validateCheckstyle()
 if (hasErrors) {
   console.log('\n❌ Config files are NOT synchronized!')
-  console.log('💡 Run "node tools/ci/config-sync.mjs" to fix.')
+  console.log('💡 Run "node tools/ci/config/config-sync.mjs" to fix.')
   process.exit(1)
 }
 console.log('\n✅ All configuration files are synchronized!')
