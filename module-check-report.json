@@ -1,8 +1,8 @@
 {
-  "ok": false,
+  "ok": true,
   "summary": {
-    "features": 4,
-    "missing": 51
+    "features": 3,
+    "missing": 0
   },
   "details": [
     {
@@ -26,52 +26,52 @@
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/port/I18nCommandPort.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/GetAllI18nsUseCase.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/GetI18nByIdUseCase.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/CreateI18nUseCase.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/UpdateI18nUseCase.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/DeleteI18nUseCase.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nEntity.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaRepository.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaMapper.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaAdapter.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/i18n/InMemoryI18nAdapter.java",
@@ -121,27 +121,27 @@
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/CreateI18nUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/GetAllI18nsUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/GetI18nByIdUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/UpdateI18nUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/DeleteI18nUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nControllerTest.java",
@@ -149,193 +149,7 @@
           "exists": true
         }
       ],
-      "missing": [
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/port/I18nCommandPort.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/GetAllI18nsUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/GetI18nByIdUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/CreateI18nUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/UpdateI18nUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/DeleteI18nUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nEntity.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaRepository.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaMapper.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaAdapter.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/CreateI18nUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/GetAllI18nsUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/GetI18nByIdUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/UpdateI18nUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/DeleteI18nUseCaseTest.java"
-      ]
-    },
-    {
-      "feature": "shared",
-      "expected": [
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/shared/model/Shared.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/shared/model/value/*",
-          "optional": true,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/port/SharedQueryPort.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/port/SharedCommandPort.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/GetAllSharedsUseCase.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/GetSharedByIdUseCase.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/CreateSharedUseCase.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/UpdateSharedUseCase.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/DeleteSharedUseCase.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedEntity.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedJpaRepository.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedJpaMapper.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedJpaAdapter.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/shared/InMemorySharedAdapter.java",
-          "optional": true,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/shared/InMemorySharedStore.java",
-          "optional": true,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/shared/InMemorySharedFactory.java",
-          "optional": true,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/shared/SharedController.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/shared/SharedDtos.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/config/shared/SharedComposition.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "docs/domains/shared.md",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "docs/api/openapi/paths/shared-*.yaml",
-          "optional": false,
-          "exists": true
-        },
-        {
-          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/shared/model/SharedTest.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/CreateSharedUseCaseTest.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/GetAllSharedsUseCaseTest.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/GetSharedByIdUseCaseTest.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/UpdateSharedUseCaseTest.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/DeleteSharedUseCaseTest.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/shared/SharedControllerTest.java",
-          "optional": false,
-          "exists": false
-        }
-      ],
-      "missing": [
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/shared/model/Shared.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/port/SharedQueryPort.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/port/SharedCommandPort.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/GetAllSharedsUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/GetSharedByIdUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/CreateSharedUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/UpdateSharedUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/shared/usecase/DeleteSharedUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedEntity.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedJpaRepository.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedJpaMapper.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/shared/SharedJpaAdapter.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/shared/SharedController.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/shared/SharedDtos.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/config/shared/SharedComposition.java",
-        "docs/domains/shared.md",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/shared/model/SharedTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/CreateSharedUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/GetAllSharedsUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/GetSharedByIdUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/UpdateSharedUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/shared/usecase/DeleteSharedUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/shared/SharedControllerTest.java"
-      ]
+      "missing": []
     },
     {
       "feature": "theme",
@@ -438,7 +252,7 @@
         {
           "path": "docs/domains/theme.md",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "docs/api/openapi/paths/theme-*.yaml",
@@ -448,32 +262,32 @@
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/theme/model/ThemeTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/CreateThemeUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/GetAllThemesUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/GetThemeByIdUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/UpdateThemeUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/DeleteThemeUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemeControllerTest.java",
@@ -481,15 +295,7 @@
           "exists": true
         }
       ],
-      "missing": [
-        "docs/domains/theme.md",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/theme/model/ThemeTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/CreateThemeUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/GetAllThemesUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/GetThemeByIdUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/UpdateThemeUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/DeleteThemeUseCaseTest.java"
-      ]
+      "missing": []
     },
     {
       "feature": "user",
@@ -602,32 +408,32 @@
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/user/model/UserTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/CreateUserUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/GetAllUsersUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/GetUserByIdUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/UpdateUserUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/DeleteUserUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/user/UserControllerTest.java",
@@ -635,14 +441,7 @@
           "exists": true
         }
       ],
-      "missing": [
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/user/model/UserTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/CreateUserUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/GetAllUsersUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/GetUserByIdUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/UpdateUserUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/DeleteUserUseCaseTest.java"
-      ]
+      "missing": []
     }
   ]
 }

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class ThemeTest {
   @Test
   void createNew_valid() {
-    var t = Theme.createNew("Name", Map.of("primary","#fff"));
+  var t = Theme.createNew("name", "Name", Map.of("primary","#fff"));
     assertNull(t.getId());
     assertEquals("Name", t.getName());
     assertFalse(t.isActive());

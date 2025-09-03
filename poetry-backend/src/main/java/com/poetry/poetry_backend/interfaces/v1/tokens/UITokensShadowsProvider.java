@@ -10,16 +10,20 @@ package com.poetry.poetry_backend.interfaces.v1.tokens;
 import java.util.List;
 import java.util.Map;
 
-public class UITokensShadowsProvider {
+import org.springframework.stereotype.Component;
 
-  public static List<UITokensDto.ShadowSet> getShadows() {
-    return List.of(
-      createShadowSet("default", "Default", Map.of(
+import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ShadowsProviderPort;
+
+@Component
+public class UITokensShadowsProvider implements ShadowsProviderPort {
+
+  @Override
+  public List<UITokensDto.ShadowSet> getShadows() {
+    return List.of(createShadowSet("default", "Default", Map.of(
         "sm", "0 1px 2px 0 rgb(0 0 0 / 0.05)", // i18n-ignore
         "md", "0 4px 6px -1px rgb(0 0 0 / 0.1)", // i18n-ignore
         "lg", "0 10px 15px -3px rgb(0 0 0 / 0.1)" // i18n-ignore
-      ))
-    );
+    )));
   }
 
   private static UITokensDto.ShadowSet createShadowSet(String key,

@@ -9,17 +9,22 @@ package com.poetry.poetry_backend.interfaces.v1.tokens;
 
 import java.util.List;
 
-public class UITokensFontsProvider {
+import org.springframework.stereotype.Component;
 
-  public static List<UITokensDto.Font> getFonts() {
+import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontsProviderPort;
+
+@Component
+public class UITokensFontsProvider implements FontsProviderPort {
+
+  @Override
+  public List<UITokensDto.Font> getFonts() {
     return List.of(
-      createFont("Inter", "Inter",
-        "https://cdn.myapp.com/fonts/inter.woff2",
-        List.of(400, 500, 700), "sha256-abc123"),
-      createFont("Roboto", "Roboto",
-        "https://cdn.myapp.com/fonts/roboto.woff2",
-        List.of(400, 500, 700), "sha256-def456")
-    );
+        createFont("inter", "Inter", // normalized key
+            "https://cdn.myapp.com/fonts/inter.woff2",
+            List.of(400, 500, 700), "sha256-abc123"),
+        createFont("roboto", "Roboto",
+            "https://cdn.myapp.com/fonts/roboto.woff2",
+            List.of(400, 500, 700), "sha256-def456"));
   }
 
   private static UITokensDto.Font createFont(String key, String label,

@@ -15,6 +15,7 @@ public class ThemeDtos {
     public Map<String, String> colors;
   }
   public static class CreateRequest {
+    public String key; // stable semantic key (lowercase kebab)
     public String name;
     public Map<String, String> colors;
   }

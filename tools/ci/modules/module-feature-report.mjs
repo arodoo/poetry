@@ -16,9 +16,11 @@ const DOMAIN_DIR = `${JAVA_BASE}/domain`
 
 export function listFeatures(){
   if(!fs.existsSync(DOMAIN_DIR)) return []
+  const ignore = new Set(['shared','common'])
   return fs.readdirSync(DOMAIN_DIR,{withFileTypes:true})
     .filter(d=>d.isDirectory())
     .map(d=>d.name)
+    .filter(name => !ignore.has(name)) // ignored features
 }
 
 function hasAnyYaml(dir, feature){

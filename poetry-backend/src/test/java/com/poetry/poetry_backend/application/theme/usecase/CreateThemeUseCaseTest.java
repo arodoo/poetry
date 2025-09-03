@@ -25,7 +25,7 @@ class CreateThemeUseCaseTest {
       public long count() { return 0; }
     };
     var uc = new CreateThemeUseCase(cmd);
-    var created = uc.execute("New", Map.of("primary","#000"));
+  var created = uc.execute("new","New", Map.of("primary","#000"));
     assertNotNull(created.getId());
   }
 }

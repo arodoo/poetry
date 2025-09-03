@@ -20,7 +20,7 @@ class GetAllThemesUseCaseTest {
     ThemeQueryPort query = new ThemeQueryPort() {
       public List<Theme> findAll() {
         return List.of(
-            Theme.createNew("A", java.util.Map.of("p", "#fff"))
+            Theme.createNew("a","A", java.util.Map.of("p", "#fff"))
         );
       }
 

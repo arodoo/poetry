@@ -13,15 +13,17 @@ import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.theme.usecase.GetAllThemesUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
+import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
 
 @Component
-public class UITokensThemesDynamicProvider {
+public class UITokensThemesDynamicProvider implements ThemesProviderPort {
   private final GetAllThemesUseCase getAllThemesUseCase;
 
   public UITokensThemesDynamicProvider(GetAllThemesUseCase getAllThemesUseCase) {
     this.getAllThemesUseCase = getAllThemesUseCase;
   }
 
+  @Override
   public List<UITokensDto.Theme> getThemes() {
     return getAllThemesUseCase.execute().stream().map(this::map)
         .collect(Collectors.toList());
@@ -29,7 +31,7 @@ public class UITokensThemesDynamicProvider {
 
   private UITokensDto.Theme map(Theme theme) {
     UITokensDto.Theme dto = new UITokensDto.Theme();
-    dto.key = String.valueOf(theme.getId());
+    dto.key = theme.getKey();
     dto.label = theme.getName();
     dto.colors = theme.getColors();
     return dto;

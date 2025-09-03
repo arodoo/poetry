@@ -10,15 +10,18 @@ package com.poetry.poetry_backend.interfaces.v1.tokens;
 import java.util.List;
 import java.util.Map;
 
-public class UITokensSpacingsProvider {
+import org.springframework.stereotype.Component;
 
-  public static List<UITokensDto.SpacingSet> getSpacings() {
-    return List.of(
-      createSpacingSet("default", "Default", Map.of(
-        "xs", "0.25rem", "sm", "0.5rem", "md", "1rem",
-        "lg", "1.5rem", "xl", "2rem"
-      ))
-    );
+import com.poetry.poetry_backend.interfaces.v1.tokens.ports.SpacingsProviderPort;
+
+@Component
+public class UITokensSpacingsProvider implements SpacingsProviderPort {
+
+  @Override
+  public List<UITokensDto.SpacingSet> getSpacings() {
+    return List.of(createSpacingSet("default", "Default", Map.of("xs",
+        "0.25rem", "sm", "0.5rem", "md", "1rem", "lg", "1.5rem",
+        "xl", "2rem")));
   }
 
   private static UITokensDto.SpacingSet createSpacingSet(String key,

@@ -24,7 +24,7 @@ class ThemeAdditionalValidationTest {
   void name_too_long() throws Exception {
     String name = "N".repeat(51);
     mvc.perform(post("/api/v1/themes").contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"" + name + "\",\"colors\":{\"p\":\"#abc123\"}}"))
+      .content("{\"key\":\"ok\",\"name\":\"" + name + "\",\"colors\":{\"p\":\"#abc123\"}}"))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.detail").value("theme.name.invalid")); }
 
@@ -32,7 +32,7 @@ class ThemeAdditionalValidationTest {
   void color_key_too_long() throws Exception {
     String key = "k".repeat(31);
     mvc.perform(post("/api/v1/themes").contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"Ok\",\"colors\":{\"" + key + "\":\"#abc123\"}}"))
+      .content("{\"key\":\"ok\",\"name\":\"Ok\",\"colors\":{\"" + key + "\":\"#abc123\"}}"))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.detail").value("theme.color.key.invalid")); }
 
@@ -40,7 +40,7 @@ class ThemeAdditionalValidationTest {
   void color_value_too_long() throws Exception {
     String val = "#" + "a".repeat(41);
     mvc.perform(post("/api/v1/themes").contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"Ok\",\"colors\":{\"p\":\"" + val + "\"}}"))
+      .content("{\"key\":\"ok\",\"name\":\"Ok\",\"colors\":{\"p\":\"" + val + "\"}}"))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.detail").value("theme.color.value.invalid")); }
 }

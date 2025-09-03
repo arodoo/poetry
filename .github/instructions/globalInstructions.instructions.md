@@ -38,7 +38,7 @@ modules or features in the backend)
 FrontEnd rules defined at '.github/chatmodes/frontEnd.chatmode.md' (Must be read
 if you will interact with frontend)
 
-Front/Back anti-drift
+## Front/Back anti-drift
 
 - OpenAPI → SDK (no direct fetch/axios)
 - Zod at runtime
@@ -48,8 +48,9 @@ Front/Back anti-drift
 - No hardcoded URLs
 - No direct date/time manipulation; use a centralized date/time utility
 
-Testing & CI
+  ## Testing & CI
 
+- Test must reflect correct application behavior and not only simulate it.
 - Husky.
 - Abstractions over implementations:
   - Define ports/interfaces in Domain/Application and depend only on them (DIP)
@@ -63,7 +64,11 @@ Testing & CI
 - Errors should never be suppressed, hidden, or ignored to reduce visibility
 - No hardcoded error messages; use i18n keys for localization
 
-Limits
+## Commit musts
+
+- Check .husky\commit-msg for commit message rules
+
+## Limits
 
 - No over-engineering
 - No premature optimization

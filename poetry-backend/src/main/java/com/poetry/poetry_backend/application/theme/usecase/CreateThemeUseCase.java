@@ -13,7 +13,7 @@ import com.poetry.poetry_backend.domain.theme.model.Theme;
 public class CreateThemeUseCase {
   private final ThemeCommandPort command;
   public CreateThemeUseCase(ThemeCommandPort c) { this.command = c; }
-  public Theme execute(String name, Map<String, String> colors) {
-    return command.save(Theme.createNew(name, colors));
+  public Theme execute(String key, String name, Map<String, String> colors) {
+    return command.save(Theme.createNew(key, name, colors));
   }
 }

@@ -15,6 +15,7 @@ class ThemeFactory {
   Theme fromPersistence(ThemeEntity e) {
     return new ThemeBuilder()
         .id(e.getId())
+        .key(e.getKey())
         .name(e.getName())
         .active(e.isActive())
         .deleted(e.getDeletedAt() != null)
@@ -24,9 +25,14 @@ class ThemeFactory {
 }
 
 class ThemeBuilder {
-  private Long id; private String name; private boolean active; private boolean deleted;
+  private Long id;
+  private String key;
+  private String name;
+  private boolean active;
+  private boolean deleted;
   private java.util.Map<String, String> colors = new java.util.HashMap<>();
   ThemeBuilder id(Long v) { this.id = v; return this; }
+  ThemeBuilder key(String v) { this.key = v; return this; }
   ThemeBuilder name(String v) { this.name = v; return this; }
   ThemeBuilder active(boolean v) { this.active = v; return this; }
   ThemeBuilder deleted(boolean v) { this.deleted = v; return this; }
@@ -35,9 +41,10 @@ class ThemeBuilder {
     // bypass validation when rebuilding
     try {
       java.lang.reflect.Constructor<Theme> c = Theme.class.getDeclaredConstructor(
-          Long.class, String.class, boolean.class, java.util.Map.class, boolean.class);
+          Long.class, String.class, String.class, boolean.class,
+          java.util.Map.class, boolean.class);
       c.setAccessible(true);
-      return c.newInstance(id, name, active, colors, deleted);
+      return c.newInstance(id, key, name, active, colors, deleted);
     } catch (Exception ex) { throw new IllegalStateException(ex); }
   }
 }

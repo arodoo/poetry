@@ -14,6 +14,7 @@ import java.util.Map;
 public class UITokensDto {
   public List<Theme> themes;
   public List<Font> fonts;
+  public List<String> fontWeights;
   public List<FontSizeSet> fontSizes;
   public List<SpacingSet> spacings;
   public List<RadiusSet> radius;

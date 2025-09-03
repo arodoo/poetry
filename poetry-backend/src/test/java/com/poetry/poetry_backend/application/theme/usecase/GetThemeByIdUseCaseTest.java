@@ -23,7 +23,7 @@ class GetThemeByIdUseCaseTest {
 
       public java.util.Optional<Theme> findById(Long id) {
         return java.util.Optional
-            .of(Theme.createNew("X", java.util.Map.of("p", "#000")))
+            .of(Theme.createNew("x","X", java.util.Map.of("p", "#000")))
             .map(t -> t.withId(id));
       }
 

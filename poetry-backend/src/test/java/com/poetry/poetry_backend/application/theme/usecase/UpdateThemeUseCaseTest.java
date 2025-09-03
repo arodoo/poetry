@@ -18,7 +18,7 @@ import com.poetry.poetry_backend.domain.theme.model.Theme;
 class UpdateThemeUseCaseTest {
   @Test
   void updatesTheme() {
-  final Theme existing = Theme.createNew("Old", Map.of("p","#111")).withId(5L);
+  final Theme existing = Theme.createNew("old","Old", Map.of("p","#111")).withId(5L);
     ThemeQueryPort query = new ThemeQueryPort() {
       public java.util.List<Theme> findAll() { return java.util.List.of(); }
       public java.util.Optional<Theme> findById(Long id) { return java.util.Optional.of(existing); }

@@ -17,6 +17,7 @@ public final class ThemeJpaMapper {
   public static ThemeEntity toEntity(Theme d) {
     ThemeEntity e = new ThemeEntity();
     e.setId(d.getId());
+    e.setKey(d.getKey());
     e.setName(d.getName());
     e.setActive(d.isActive());
     e.setColors(new HashMap<>(d.getColors()));

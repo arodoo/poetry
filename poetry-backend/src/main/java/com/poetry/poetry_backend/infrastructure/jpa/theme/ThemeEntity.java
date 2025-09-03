@@ -16,6 +16,8 @@ import jakarta.persistence.*;
 public class ThemeEntity {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(name = "theme_key", nullable = false, length = 50, unique = true)
+  private String key;
   @Column(nullable = false, length = 50)
   private String name;
   @Column(name = "is_active")
@@ -28,11 +30,13 @@ public class ThemeEntity {
   private Instant deletedAt;
 
   public Long getId() { return id; }
+  public String getKey() { return key; }
   public String getName() { return name; }
   public boolean isActive() { return active; }
   public Map<String, String> getColors() { return colors; }
   public Instant getDeletedAt() { return deletedAt; }
   public void setId(Long id) { this.id = id; }
+  public void setKey(String k) { this.key = k; }
   public void setName(String n) { this.name = n; }
   public void setActive(boolean a) { this.active = a; }
   public void setColors(Map<String, String> c) { this.colors = c; }

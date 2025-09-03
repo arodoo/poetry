@@ -10,15 +10,18 @@ package com.poetry.poetry_backend.interfaces.v1.tokens;
 import java.util.List;
 import java.util.Map;
 
-public class UITokensFontSizesProvider {
+import org.springframework.stereotype.Component;
 
-  public static List<UITokensDto.FontSizeSet> getFontSizes() {
-    return List.of(
-      createFontSizeSet("default", "Default", Map.of(
-        "xs", "0.75rem", "sm", "0.875rem", "base", "1rem",
-        "lg", "1.125rem", "xl", "1.25rem"
-      ))
-    );
+import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontSizesProviderPort;
+
+@Component
+public class UITokensFontSizesProvider implements FontSizesProviderPort {
+
+  @Override
+  public List<UITokensDto.FontSizeSet> getFontSizes() {
+    return List.of(createFontSizeSet("default", "Default", Map.of(
+        "xs", "0.75rem", "sm", "0.875rem", "base", "1rem", "lg",
+        "1.125rem", "xl", "1.25rem")));
   }
 
   private static UITokensDto.FontSizeSet createFontSizeSet(String key,

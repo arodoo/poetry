@@ -10,14 +10,17 @@ package com.poetry.poetry_backend.interfaces.v1.tokens;
 import java.util.List;
 import java.util.Map;
 
-public class UITokensRadiusProvider {
+import org.springframework.stereotype.Component;
 
-  public static List<UITokensDto.RadiusSet> getRadius() {
-    return List.of(
-      createRadiusSet("default", "Default", Map.of(
-        "sm", "0.125rem", "md", "0.375rem", "lg", "0.5rem"
-      ))
-    );
+import com.poetry.poetry_backend.interfaces.v1.tokens.ports.RadiusProviderPort;
+
+@Component
+public class UITokensRadiusProvider implements RadiusProviderPort {
+
+  @Override
+  public List<UITokensDto.RadiusSet> getRadius() {
+    return List.of(createRadiusSet("default", "Default",
+        Map.of("sm", "0.125rem", "md", "0.375rem", "lg", "0.5rem")));
   }
 
   private static UITokensDto.RadiusSet createRadiusSet(String key,

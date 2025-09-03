@@ -41,7 +41,16 @@ public class ThemeWriteController {
   @PostMapping
   public ResponseEntity<ThemeDtos.ThemeResponse> create(
       @RequestBody ThemeDtos.CreateRequest request) {
-    Theme theme = create.execute(request.name, request.colors);
+    String key = request.key;
+    if (key == null || key.isBlank()) {
+      // Backward compatibility: derive key from name (lowercase kebab) if not provided.
+      key = request.name == null
+          ? "auto"
+          : request.name.toLowerCase()
+              .replaceAll("[^a-z0-9]+", "-")
+              .replaceAll("^-|-$", "");
+    }
+    Theme theme = create.execute(key, request.name, request.colors);
     return ResponseEntity
         .created(URI.create("/api/v1/themes/" + theme.getId()))
         .body(mapper.map(theme));
