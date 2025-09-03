@@ -1,7 +1,6 @@
 /*
  * File: UITokensCurrentProvider.java
- * Purpose: Component resolving current UI token selections dynamically using
- * active theme and default first-item fallbacks for other groups. It integrates with selection ports for future extensibility.
+ * Purpose: Component resolving current UI token selections dynamically.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.interfaces.v1.tokens;

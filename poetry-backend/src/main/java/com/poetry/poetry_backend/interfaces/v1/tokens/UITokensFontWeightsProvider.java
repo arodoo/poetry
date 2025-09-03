@@ -1,6 +1,6 @@
 /*
  * File: UITokensFontWeightsProvider.java
- * Purpose: Data provider for font weights list (numeric values only). It supplies standard CSS font weight tokens. Frontend maps these to semantic labels locally.
+ * Purpose: Data provider for font weights list (numeric values).
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.interfaces.v1.tokens;

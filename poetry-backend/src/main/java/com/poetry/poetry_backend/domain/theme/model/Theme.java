@@ -1,6 +1,6 @@
 /*
  * File: Theme.java
- * Purpose: Domain model for a UI theme aggregate (id, stable key, name, active flag, colors, soft delete).
+ * Purpose: Domain model for UI theme aggregate with stable keys.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.domain.theme.model;

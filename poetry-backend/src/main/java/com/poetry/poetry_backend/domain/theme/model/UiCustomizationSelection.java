@@ -1,6 +1,6 @@
 /*
  * File: UiCustomizationSelection.java
- * Purpose: Value object representing current UI customization selections. It encapsulates the active theme key and default keys for other token groups. This ensures consistent selection resolution across the application.
+ * Purpose: Value object for current UI customization selections.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.domain.theme.model;
