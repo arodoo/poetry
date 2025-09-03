@@ -1,0 +1,16 @@
+# File: theme.yaml
+# Purpose: Theme schema representing UI theme aggregate. All Rights Reserved.
+title: Theme
+type: object
+description:
+  UI theme with modern HSL color values (hsl(H S% L%)) or hex/var() fallback.
+properties:
+  id: { type: integer, format: int64 }
+  name: { type: string, maxLength: 50 }
+  active: { type: boolean }
+  colors:
+    type: object
+    additionalProperties:
+      type: string
+      description: HSL (e.g. "hsl(210 40% 96%)"), hex (#fff / #ffffff) or CSS var()
+required: [id, name, active, colors]

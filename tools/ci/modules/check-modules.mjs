@@ -9,32 +9,38 @@ import { listFeatures, buildFeatureReport } from './module-feature-report.mjs'
 
 function run(){
   try {
-    const features = listFeatures()
-    console.log(`Found ${features.length} features: ${features.join(', ')}`)
+    const featureNames = listFeatures()
+    console.log(`Found ${featureNames.length} features: ` +
+      `${featureNames.join(', ')}`)
 
-    const reports = features.map(buildFeatureReport)
-    const missing = reports.flatMap(r=>r.missing.map(m=>`${r.feature}:${m}`))
-    const ok = missing.length===0
+    const reports = featureNames.map(buildFeatureReport)
+    const missing = reports.flatMap(featureReport =>
+      featureReport.missing.map(missingPath =>
+        `${featureReport.feature}:${missingPath}`))
+    const isStructureOk = missing.length === 0
 
     const lines = ['Module Structure Check']
-    for(const r of reports){
-      lines.push(`\nFeature: ${r.feature}`)
-      if(r.missing.length){
-        lines.push('  Missing:');
-        for(const m of r.missing) lines.push(`    - ${m}`)
+    for(const featureReport of reports){
+      lines.push(`\nFeature: ${featureReport.feature}`)
+      if(featureReport.missing.length){
+        lines.push('  Missing:')
+        for(const missingPath of featureReport.missing) {
+          lines.push(`    - ${missingPath}`)
+        }
       } else {
         lines.push('  ✓ OK')
       }
     }
 
-    fs.writeFileSync('module-check-report.json', JSON.stringify({
-      ok,
-      summary:{features:features.length,missing:missing.length},
+    fs.writeFileSync('module-check-report.json',
+      JSON.stringify({
+        ok: isStructureOk,
+      summary:{features:featureNames.length,missing:missing.length},
       details:reports
     }, null, 2))
     console.log(lines.join('\n'))
     console.log('\nJSON report: module-check-report.json')
-    if(!ok) {
+    if(!isStructureOk) {
       console.error('\nFAIL: missing required structure')
       process.exit(1)
     } else {

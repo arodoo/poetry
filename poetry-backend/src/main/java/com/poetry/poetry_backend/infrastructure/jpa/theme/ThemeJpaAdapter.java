@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
+import com.poetry.poetry_backend.domain.theme.exception.ThemeNotFoundException;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 @Transactional
@@ -44,13 +45,13 @@ public class ThemeJpaAdapter implements ThemeQueryPort, ThemeCommandPort {
   }
 
   public void deleteSoft(Long id) {
-    ThemeEntity e = repo.findById(id).orElseThrow();
+    ThemeEntity e = repo.findById(id).orElseThrow(() -> new ThemeNotFoundException(id));
     e.setDeletedAt(Instant.now());
     repo.save(e);
   }
 
   public void restore(Long id) {
-    ThemeEntity e = repo.findById(id).orElseThrow();
+    ThemeEntity e = repo.findById(id).orElseThrow(() -> new ThemeNotFoundException(id));
     e.setDeletedAt(null);
     repo.save(e);
   }

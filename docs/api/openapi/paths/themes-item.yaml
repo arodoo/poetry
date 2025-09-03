@@ -1,0 +1,52 @@
+# Theme item path
+/api/v1/themes/{id}:
+  get:
+    summary: Get theme by id
+    operationId: getTheme
+    tags: [themes]
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer, format: int64 }
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema: { $ref: ../components/schemas/theme.yaml }
+      '404': { $ref: ../components/responses/common.yaml#/NotFound }
+  put:
+    summary: Update theme
+    operationId: putTheme
+    tags: [themes]
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer, format: int64 }
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema: { $ref: ../components/schemas/theme-update.yaml }
+    responses:
+      '200':
+        description: Updated
+        content:
+          application/json:
+            schema: { $ref: ../components/schemas/theme.yaml }
+      '400': { $ref: ../components/responses/common.yaml#/BadRequest }
+      '404': { $ref: ../components/responses/common.yaml#/NotFound }
+  delete:
+    summary: Delete theme
+    operationId: deleteTheme
+    tags: [themes]
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer, format: int64 }
+    responses:
+      '204': { description: No Content }
+      '404': { $ref: ../components/responses/common.yaml#/NotFound }

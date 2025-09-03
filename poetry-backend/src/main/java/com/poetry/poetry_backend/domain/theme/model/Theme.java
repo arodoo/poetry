@@ -53,8 +53,12 @@ public class Theme {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Theme)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Theme)) {
+      return false;
+    }
     Theme theme = (Theme) o;
     return Objects.equals(id, theme.id);
   }

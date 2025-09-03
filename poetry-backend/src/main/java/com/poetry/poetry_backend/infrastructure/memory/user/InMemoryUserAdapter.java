@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
+import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
 import com.poetry.poetry_backend.domain.user.model.User;
 
 public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
@@ -26,7 +27,7 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
   }
 
   public User findById(Long id) {
-    return Optional.ofNullable(store.get(id)).orElseThrow();
+    return Optional.ofNullable(store.get(id)).orElseThrow(() -> new UserNotFoundException(id));
   }
 
   public User create(
@@ -47,11 +48,15 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
       String e,
       Set<String> r,
       boolean a) {
-    return InMemoryUserStore.update(store, id, f, l, e,
-        r != null ? r : null, a);
+  return Optional.ofNullable(InMemoryUserStore.update(store, id, f, l, e,
+    r != null ? r : null, a)).orElseThrow(() -> new UserNotFoundException(id));
   }
 
   public void softDelete(Long id) {
-    InMemoryUserStore.softDelete(store, id);
+    if (store.containsKey(id)) {
+      InMemoryUserStore.softDelete(store, id);
+    } else {
+      throw new UserNotFoundException(id);
+    }
   }
 }

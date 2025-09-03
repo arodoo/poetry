@@ -26,7 +26,9 @@ final class SupportedLocaleResolver extends AcceptHeaderLocaleResolver {
   @Override
   public @NonNull Locale resolveLocale(@NonNull jakarta.servlet.http.HttpServletRequest req) {
     Locale cand = super.resolveLocale(req);
-    if (supported.isEmpty()) return cand;
+    if (supported.isEmpty()) {
+      return cand;
+    }
     String tag = cand.toLanguageTag();
     boolean match = supported.stream().anyMatch(tag::equalsIgnoreCase);
     return match ? cand : def;

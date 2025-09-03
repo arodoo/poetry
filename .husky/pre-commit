@@ -6,43 +6,18 @@
 
 echo "🚀 Pre-commit checks starting..."
 
-# i18n fast-fail (generate + verify catalogs & keys) - BEFORE formatting
-echo "📋 Generating i18n keys..."
-npm --prefix poetry-frontend run i18n:gen || {
-  echo "❌ i18n key generation failed!"
-  exit 1
-}
-
-echo "✅ Verifying i18n catalogs..."
-npm --prefix poetry-frontend run i18n:verify || {
-  echo "❌ i18n catalog verification failed!"
-  exit 1
-}
-
-# Format first
-echo "🎨 Formatting files..."
-npx --no lint-staged || {
-  echo "❌ File formatting failed!"
-  exit 1
-}
-
-# Then lint separately (after format, avoiding conflicts)
-echo "🔍 Linting code..."
-npm --prefix poetry-frontend run lint:fix -- --max-warnings=0 || {
-  echo "❌ Linting failed! Check the output above for specific file errors."
-  exit 1
-}
-
-# Fast repo-level checks
-echo "📏 Checking line limits..."
-node tools/ci/limits/check-lines.mjs || {
-  echo "❌ Line limit check failed! Check the output above for specific file and line violations."
-  exit 1
-}
+# === FASTEST CHECKS FIRST (< 2 seconds) ===
+# These checks analyze existing files without compilation/transformation
 
 echo "📋 Checking file headers..."
 node tools/ci/headers/check-headers.mjs || {
   echo "❌ Header check failed! Check the output above for files missing headers."
+  exit 1
+}
+
+echo "📏 Checking line limits..."
+node tools/ci/limits/check-lines.mjs || {
+  echo "❌ Line limit check failed! Check the output above for specific file and line violations."
   exit 1
 }
 
@@ -52,27 +27,6 @@ node tools/ci/i18n/i18n-scan.mjs || {
   exit 1
 }
 
-# Type safety
-echo "🔤 Type checking..."
-npm run typecheck || {
-  echo "❌ Type check failed! Check the output above for specific type errors in files."
-  exit 1
-}
-
-# Tests (explicit: frontend then backend)
-echo "🧪 Running frontend tests..."
-npm run test:frontend || {
-  echo "❌ Frontend tests failed! Check the output above for specific test failures."
-  exit 1
-}
-
-echo "🧪 Running backend tests..."
-npm run test:backend || {
-  echo "❌ Backend tests failed! Check the output above for specific test failures."
-  exit 1
-}
-
-# API contract & SDK integrity
 echo "📋 Validating OpenAPI contract..."
 npm run openapi:validate || {
   echo "❌ OpenAPI validation failed! Check the output above for contract errors."
@@ -85,27 +39,79 @@ npm run sdk:check || {
   exit 1
 }
 
-# Explicit builds to fail fast on build errors
-# Frontend build (uses package in poetry-frontend)
+echo "🏗️ Validating module structure..."
+npm run modules:check || {
+  echo "❌ Module structure check failed! Check the output above for missing files/folders."
+  echo "   Run 'npm run modules:check' to see detailed report."
+  echo "   This ensures all features follow the required DDD module structure."
+  echo "   Implement missing files/folders as needed."
+  exit 1
+}
+
+# === MEDIUM SPEED TASKS (2-10 seconds) ===
+# These tasks process and transform files
+
+echo "📋 Generating i18n keys..."
+npm --prefix poetry-frontend run i18n:gen || {
+  echo "❌ i18n key generation failed!"
+  exit 1
+}
+
+echo "✅ Verifying i18n catalogs..."
+npm --prefix poetry-frontend run i18n:verify || {
+  echo "❌ i18n catalog verification failed!"
+  exit 1
+}
+
+echo "🎨 Formatting files..."
+npx lint-staged || {
+  echo "❌ File formatting failed!"
+  exit 1
+}
+
+echo "🎨 Linting frontend code..."
+npm --prefix poetry-frontend run lint:fix -- --max-warnings=0 || {
+  echo "❌ Frontend linting failed! Check the output above for specific file errors."
+  exit 1
+}
+
+echo "🎨 Linting backend code..."
+npm run lint:backend || {
+  echo "❌ Backend linting failed! Check the output above for specific file errors."
+  exit 1
+}
+
+# === SLOWEST TASKS LAST (10+ seconds) ===
+# These tasks require compilation, type analysis, or full execution
+
+echo "⚡ Type checking..."
+npm run typecheck || {
+  echo "❌ Type check failed! Check the output above for specific type errors in files."
+  exit 1
+}
+
+echo "🧪 Running frontend tests..."
+npm run test:frontend || {
+  echo "❌ Frontend tests failed! Check the output above for specific test failures."
+  exit 1
+}
+
+echo "🧪 Running backend tests..."
+npm run test:backend || {
+  echo "❌ Backend tests failed! Check the output above for specific test failures."
+  exit 1
+}
+
 echo "🏗️ Building frontend..."
 npm --prefix poetry-frontend run build || {
   echo "❌ Frontend build failed! Check the output above for build errors."
   exit 1
 }
 
-# Backend build (Maven package; skip tests for speed)
 echo "🏗️ Building backend..."
 (cd poetry-backend && mvn -q -DskipTests package) || {
   echo "❌ Backend build failed! Check the output above for compilation errors."
   exit 1
 }
-
-# Module structure validation
-# echo "🏗️ Validating module structure..."
-# npm run modules:check || {
-#   echo "❌ Module structure check failed! Check the output above for missing files/folders."
-#   echo "   Run 'npm run modules:check' to see detailed report."
-#   exit 1
-# }
 
 echo "✅ All pre-commit checks passed!"

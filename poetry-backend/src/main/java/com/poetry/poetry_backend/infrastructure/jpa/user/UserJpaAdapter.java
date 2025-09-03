@@ -1,10 +1,6 @@
 /*
  * File: UserJpaAdapter.java
- * Purpose: JPA adapter implementing user persistence and retrieval
- * operations required by application ports. This adapter maps between
- * UserEntity and domain models and ensures repository interactions are
- * encapsulated within infrastructure, adhering to DIP and separation of
- * concerns.
+ * Purpose: Main adapter delegating to query and command adapters.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -19,20 +15,20 @@ import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 
 @Transactional
 public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
-  private final UserJpaRepository repo;
+  private final UserJpaQueryAdapter queryAdapter;
+  private final UserJpaCommandAdapter commandAdapter;
 
   public UserJpaAdapter(UserJpaRepository repo) {
-    this.repo = repo;
+    this.queryAdapter = new UserJpaQueryAdapter(repo);
+    this.commandAdapter = new UserJpaCommandAdapter(repo);
   }
 
   public List<com.poetry.poetry_backend.domain.user.model.User> findAll() {
-    return repo.findAllActive().stream()
-        .map(UserJpaMapper::toDomain)
-        .toList();
+    return queryAdapter.findAll();
   }
 
   public com.poetry.poetry_backend.domain.user.model.User findById(Long id) {
-    return repo.findActiveById(id).map(UserJpaMapper::toDomain).orElseThrow();
+    return queryAdapter.findById(id);
   }
 
   public com.poetry.poetry_backend.domain.user.model.User create(
@@ -42,15 +38,7 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
       String u,
       String p,
       java.util.Set<String> r) {
-    UserEntity en = new UserEntity();
-    en.setFirstName(f);
-    en.setLastName(l);
-    en.setEmail(e);
-    en.setUsername(u);
-    en.setPasswordHash(p);
-    en.setRoles(r);
-    en.setActive(true);
-    return UserJpaMapper.toDomain(repo.save(en));
+    return commandAdapter.create(f, l, e, u, p, r);
   }
 
   public com.poetry.poetry_backend.domain.user.model.User update(
@@ -60,18 +48,10 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
       String e,
       java.util.Set<String> r,
       boolean a) {
-    UserEntity en = repo.findById(id).orElseThrow();
-    en.setFirstName(f);
-    en.setLastName(l);
-    en.setEmail(e);
-    en.setRoles(r);
-    en.setActive(a);
-    return UserJpaMapper.toDomain(repo.save(en));
+    return commandAdapter.update(id, f, l, e, r, a);
   }
 
   public void softDelete(Long id) {
-    UserEntity en = repo.findById(id).orElseThrow();
-    en.setActive(false);
-    repo.save(en);
+    commandAdapter.softDelete(id);
   }
 }

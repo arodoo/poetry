@@ -25,7 +25,9 @@ class RegisterIdempotencySupport {
   }
 
   Optional<Map<String, Object>> replay(String key, String requestHash) {
-    if (key == null) return Optional.empty();
+    if (key == null) {
+      return Optional.empty();
+    }
     var stored = idempotency.find(key, requestHash);
     if (stored.isPresent()) {
       audit.record("register.idempotent_replay", "-", key);
@@ -35,7 +37,9 @@ class RegisterIdempotencySupport {
   }
 
   void persist(String key, String requestHash, Map<String, Object> body) {
-    if (key == null) return;
+    if (key == null) {
+      return;
+    }
     idempotency.store(key, requestHash, 200, "application/json", JsonHelper.write(body));
   }
 }

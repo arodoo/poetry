@@ -36,8 +36,9 @@ public class SecretAgeRotationJob {
     @Scheduled(fixedDelayString = "PT5M")
     public void checkAge() {
         String issuedAtRaw = props.getSecretIssuedAt();
-        if (issuedAtRaw == null || issuedAtRaw.isBlank())
+        if (issuedAtRaw == null || issuedAtRaw.isBlank()) {
             return; // nothing to evaluate
+        }
         try {
             long issuedEpoch = OffsetDateTime.parse(issuedAtRaw)
                     .toInstant().getEpochSecond();

@@ -6,10 +6,13 @@
 package com.poetry.poetry_backend.application.theme.usecase;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
+import com.poetry.poetry_backend.domain.theme.exception.ThemeNotFoundException;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 public class GetThemeByIdUseCase {
   private final ThemeQueryPort query;
   public GetThemeByIdUseCase(ThemeQueryPort q) { this.query = q; }
-  public Theme execute(Long id) { return query.findById(id).orElseThrow(); }
+  public Theme execute(Long id) {
+    return query.findById(id).orElseThrow(() -> new ThemeNotFoundException(id));
+  }
 }

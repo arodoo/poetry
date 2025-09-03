@@ -1,0 +1,10 @@
+# File: theme-create.yaml
+# Purpose: Payload schema for creating a theme. All Rights Reserved.
+title: ThemeCreate
+type: object
+properties:
+  name: { type: string, maxLength: 50 }
+  colors:
+    type: object
+    additionalProperties: { type: string }
+required: [name, colors]

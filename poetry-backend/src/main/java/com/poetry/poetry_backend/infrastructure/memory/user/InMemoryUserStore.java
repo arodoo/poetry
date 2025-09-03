@@ -11,6 +11,7 @@ package com.poetry.poetry_backend.infrastructure.memory.user;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
 import com.poetry.poetry_backend.domain.user.model.User;
 
 public final class InMemoryUserStore {
@@ -37,7 +38,7 @@ public final class InMemoryUserStore {
   public static User update(Map<Long, User> store, Long id,
       String firstName, String lastName, String email,
       Set<String> roles, boolean active) {
-    User ex = Optional.ofNullable(store.get(id)).orElseThrow();
+  User ex = Optional.ofNullable(store.get(id)).orElseThrow(() -> new UserNotFoundException(id));
     User up = InMemoryUserFactory.createNew(
         ex.getId(),
         firstName,
@@ -51,7 +52,7 @@ public final class InMemoryUserStore {
   }
 
   public static void softDelete(Map<Long, User> store, Long id) {
-    User ex = Optional.ofNullable(store.get(id)).orElseThrow();
+  User ex = Optional.ofNullable(store.get(id)).orElseThrow(() -> new UserNotFoundException(id));
     User up = InMemoryUserFactory.createNew(
         ex.getId(),
         ex.getFirstName(),

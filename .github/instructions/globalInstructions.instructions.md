@@ -8,6 +8,9 @@ applyTo: '**'
 - Always give proper naming
 - Before starting code changes Provide a brief step-by-step plan
 - Must follow DDD, SOLID, Clean Architecture
+- Every variable, parameter, or attribute must have a descriptive name that
+  clearly expresses its purpose in context (e.g. `response` instead of `r`, if
+  you find a bad example, fix it)
 - No file should exceed 80 lines; if longer, split into dedicated smaller files,
   never remove logic (test files < 40 lines>)
 - In frontEnd no line should exceed 80 characters, in backend is 100
@@ -24,9 +27,6 @@ applyTo: '**'
 - Give each task a .md file in 'docs/' with the task description, the expected
   result, and the actual result and update after every modification. Check
   status of the files before start planning/coding
-- Every variable, parameter, or attribute must have a descriptive name that
-  clearly expresses its purpose in context (e.g. `response` instead of `r`, if
-  you find a bad example, fix it)
 - Check file sizes by reading them (no shell commands)
 - Use design patterns and follow international standards
 

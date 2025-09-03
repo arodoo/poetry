@@ -57,7 +57,9 @@ class RegisterAction { // Orchestrator only (thin facade over dedicated steps).
     String requestHash =
         support.hash(username + "|" + normEmail + "|" + password.length());
     var replay = idem.replay(key, requestHash);
-    if (replay.isPresent()) return replay.get();
+    if (replay.isPresent()) {
+      return replay.get();
+    }
 
     uniqueness.ensureUnique(username, normEmail);
     var user = persistence.persistUser(username, normEmail, password);

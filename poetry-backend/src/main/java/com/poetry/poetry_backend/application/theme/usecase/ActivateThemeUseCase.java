@@ -8,6 +8,7 @@ package com.poetry.poetry_backend.application.theme.usecase;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
+import com.poetry.poetry_backend.domain.theme.exception.ThemeNotFoundException;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 public class ActivateThemeUseCase {
@@ -16,7 +17,7 @@ public class ActivateThemeUseCase {
     this.query = q; this.command = c; }
   public Theme execute(Long id) {
     command.deactivateAll();
-    Theme t = query.findById(id).orElseThrow();
+    Theme t = query.findById(id).orElseThrow(() -> new ThemeNotFoundException(id));
     return command.save(t.withActivated(true));
   }
 }

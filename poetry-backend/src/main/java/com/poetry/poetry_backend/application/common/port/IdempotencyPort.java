@@ -20,5 +20,5 @@ public interface IdempotencyPort {
 
   void store(String key, String requestHash, int status, String contentType, String bodyJson);
 
-  record StoredResponse(String requestHash, int status, String contentType, String bodyJson) {}
+  record StoredResponse(String requestHash, int status, String contentType, String bodyJson) { }
 }

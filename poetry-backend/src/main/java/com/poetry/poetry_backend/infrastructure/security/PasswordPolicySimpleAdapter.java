@@ -23,26 +23,35 @@ public class PasswordPolicySimpleAdapter implements PasswordPolicyPort {
       "Password123!", "Welcome2024!", "ChangeMe!1");
 
   public void validate(String raw, String username, String email) {
-    if (raw == null || raw.length() < 12)
+    if (raw == null || raw.length() < 12) {
       throw fail("auth.password.min_length");
-    if (!UPPER.matcher(raw).matches())
+    }
+    if (!UPPER.matcher(raw).matches()) {
       throw fail("auth.password.missing_uppercase");
-    if (!LOWER.matcher(raw).matches())
+    }
+    if (!LOWER.matcher(raw).matches()) {
       throw fail("auth.password.missing_lowercase");
-    if (!DIGIT.matcher(raw).matches())
+    }
+    if (!DIGIT.matcher(raw).matches()) {
       throw fail("auth.password.missing_digit");
-    if (!SYMBOL.matcher(raw).matches())
+    }
+    if (!SYMBOL.matcher(raw).matches()) {
       throw fail("auth.password.missing_symbol");
-    if (REPEAT4.matcher(raw).find())
+    }
+    if (REPEAT4.matcher(raw).find()) {
       throw fail("auth.password.repeat_chars");
-    if (BLACKLIST.contains(raw))
+    }
+    if (BLACKLIST.contains(raw)) {
       throw fail("auth.password.common_insecure");
-    if (username != null && raw.toLowerCase().contains(username.toLowerCase()))
+    }
+    if (username != null && raw.toLowerCase().contains(username.toLowerCase())) {
       throw fail("auth.password.contains_username");
+    }
     if (email != null) {
       String local = email.split("@")[0];
-      if (raw.toLowerCase().contains(local.toLowerCase()))
+      if (raw.toLowerCase().contains(local.toLowerCase())) {
         throw fail("auth.password.contains_email_local");
+      }
     }
   }
 

@@ -24,14 +24,18 @@ public class AuthPropertiesValidator {
   void validate() {
     String s = props.getSecretKey() == null ? "" : props.getSecretKey();
     int classes = 0;
-    if (s.matches(".*[a-z].*"))
+    if (s.matches(".*[a-z].*")) {
       classes++;
-    if (s.matches(".*[A-Z].*"))
+    }
+    if (s.matches(".*[A-Z].*")) {
       classes++;
-    if (s.matches(".*[0-9].*"))
+    }
+    if (s.matches(".*[0-9].*")) {
       classes++;
-    if (s.matches(".*[^a-zA-Z0-9].*"))
+    }
+    if (s.matches(".*[^a-zA-Z0-9].*")) {
       classes++;
+    }
     if (classes < 3) {
       throw new IllegalStateException("cfg.auth.secret.complexity");
     }

@@ -9,10 +9,13 @@ package com.poetry.poetry_backend.interfaces.error;
 
 import java.net.URI;
 
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @ControllerAdvice
 public class GlobalProblemHandler {
@@ -27,8 +30,17 @@ public class GlobalProblemHandler {
     return pd;
   }
 
+  // Specific not-found handling now delegated to @ResponseStatus on ThemeNotFoundException.
+
   @ExceptionHandler(RuntimeException.class)
   ProblemDetail onGeneric(RuntimeException ex) {
+    if (ex instanceof ResponseStatusException rse) {
+      throw rse; // already carries status
+    }
+    ResponseStatus rs = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
+    if (rs != null) {
+      throw ex; // let Spring translate the annotation (e.g., 404 for ThemeNotFoundException)
+    }
     var pd = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     pd.setTitle("error.unexpected");
     pd.setDetail("error.support-contact");

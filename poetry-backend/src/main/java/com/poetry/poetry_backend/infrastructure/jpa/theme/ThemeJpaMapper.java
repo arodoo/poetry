@@ -10,7 +10,7 @@ import java.util.HashMap;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 public final class ThemeJpaMapper {
-  private ThemeJpaMapper() {}
+  private ThemeJpaMapper() { }
   public static Theme toDomain(ThemeEntity e) {
     return new ThemeFactory().fromPersistence(e);
   }

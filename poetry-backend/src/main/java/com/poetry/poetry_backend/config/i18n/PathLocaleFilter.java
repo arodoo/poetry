@@ -41,10 +41,16 @@ final class PathLocaleFilter extends OncePerRequestFilter {
       @NonNull HttpServletResponse res,
       @NonNull FilterChain chain) throws ServletException, IOException {
     String uri = req.getRequestURI();
-    if (uri == null || uri.length() < 4) { chain.doFilter(req, res); return; }
+    if (uri == null || uri.length() < 4) {
+      chain.doFilter(req, res);
+      return;
+    }
     String[] parts = uri.substring(1).split("/", 2);
     String first = parts[0];
-    if (!pat.matcher(first).matches()) { chain.doFilter(req, res); return; }
+    if (!pat.matcher(first).matches()) {
+      chain.doFilter(req, res);
+      return;
+    }
     boolean supportedLocale = supported == null || supported.isEmpty() || supported.stream()
         .anyMatch(s -> s.equalsIgnoreCase(first));
     // Always strip candidate segment so routing works; only set attribute if supported.
@@ -54,7 +60,9 @@ final class PathLocaleFilter extends OncePerRequestFilter {
       @Override public String getRequestURI() { return stripped; }
       @Override public String getServletPath() { return stripped; }
     };
-    if (loc != null) wrap.setAttribute(ATTR, loc.toLanguageTag());
+    if (loc != null) {
+      wrap.setAttribute(ATTR, loc.toLanguageTag());
+    }
     chain.doFilter(wrap, res);
   }
 }

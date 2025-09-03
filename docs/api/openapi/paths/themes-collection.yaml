@@ -1,0 +1,32 @@
+# Themes collection path
+/api/v1/themes:
+  get:
+    summary: List themes
+    operationId: getThemes
+    tags: [themes]
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items: { $ref: ../components/schemas/theme.yaml }
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
+  post:
+    summary: Create theme
+    operationId: postThemes
+    tags: [themes]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema: { $ref: ../components/schemas/theme-create.yaml }
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema: { $ref: ../components/schemas/theme.yaml }
+      '400': { $ref: ../components/responses/common.yaml#/BadRequest }
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }

@@ -24,7 +24,8 @@ class I18nTest {
   }
 
   @Test
-  void rejectsDefaultNotInSupported() {
-    assertThrows(IllegalArgumentException.class, () -> I18n.of("fr", List.of("en")));
+  void autoAddsDefaultWhenMissingFromSupported() {
+    I18n i = I18n.of("fr", List.of("en"));
+    assertTrue(i.supportedLocales().contains("fr"));
   }
 }

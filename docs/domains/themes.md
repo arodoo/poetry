@@ -9,24 +9,29 @@ criteria. All Rights Reserved. Arodi Emmanuel
 
 Scope
 
-- Manage UI themes available to organizations.
+- Manage UI themes available globally (future: per org override).
 
 Functional Requirements
 
-- CRUD themes, preview, activate per org, version history.
+- CRUD themes, activate exactly one global active theme, list for UI tokens.
 
 Data Model
 
-- Theme(id, name, variables, version, createdAt, updatedAt).
+- Theme(id, name, active, colors map, deletedAt).
+- Color values stored as HSL strings (e.g. hsl(210 40% 96%)) or hex fallback.
 
 API References
 
-- See ../api/openapi-v1.yaml (paths: /themes, /themes/{id}).
+- Paths: /api/v1/themes, /api/v1/themes/{id}, /api/v1/themes/{id}/activate,
+  /api/v1/themes/active.
 
 Permissions
 
-- Admin, Manager within org scope.
+- Admin/Manager (authorization integration pending).
 
 Acceptance Criteria
 
-- CRUD operations documented and tested. ETag/Idempotency applied.
+- Endpoints implemented and returning ProblemDetails on validation errors.
+- Single active theme invariant enforced by ActivateThemeUseCase.
+- Soft deleted themes excluded from queries.
+- Seeder provides initial 10 themes using HSL values.

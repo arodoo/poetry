@@ -144,7 +144,7 @@ All Rights Reserved. Arodi Emmanuel -->
 				</configuration>
 				<executions>
 					<execution>
-						<phase>verify</phase>
+						<phase>validate</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>

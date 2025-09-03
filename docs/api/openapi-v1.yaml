@@ -20,6 +20,8 @@ tags:
     description: Organization management endpoints
   - name: configuration
     description: System configuration endpoints
+  - name: themes
+    description: UI theme management endpoints
 paths:
   /:
     $ref: ./openapi/paths/api-index.yaml
@@ -45,6 +47,14 @@ paths:
     $ref: ./openapi/paths/organizations-collection.yaml#/~1api~1v1~1organizations
   /v1/organizations/{id}:
     $ref: ./openapi/paths/organizations-item.yaml#/~1api~1v1~1organizations~1{id}
+  /v1/themes:
+    $ref: ./openapi/paths/themes-collection.yaml#/~1api~1v1~1themes
+  /v1/themes/{id}:
+    $ref: ./openapi/paths/themes-item.yaml#/~1api~1v1~1themes~1{id}
+  /v1/themes/{id}/activate:
+    $ref: ./openapi/paths/themes-activate.yaml#/~1api~1v1~1themes~1{id}~1activate
+  /v1/themes/active:
+    $ref: ./openapi/paths/themes-active.yaml#/~1api~1v1~1themes~1active
 components:
   securitySchemes:
     $ref: ./openapi/components/securitySchemes.yaml
@@ -73,6 +83,12 @@ components:
       $ref: ./openapi/components/schemas/user-update.yaml
     PageUser:
       $ref: ./openapi/components/schemas/page-user.yaml
+    Theme:
+      $ref: ./openapi/components/schemas/theme.yaml
+    ThemeCreate:
+      $ref: ./openapi/components/schemas/theme-create.yaml
+    ThemeUpdate:
+      $ref: ./openapi/components/schemas/theme-update.yaml
   responses:
     $ref: ./openapi/components/responses/common.yaml
 security:

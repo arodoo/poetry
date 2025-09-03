@@ -12,12 +12,14 @@ import com.poetry.poetry_backend.application.auth.port.EmailNormalizerPort;
 
 public class EmailNormalizerSimpleAdapter implements EmailNormalizerPort {
   public String normalize(String rawEmail) {
-    if (rawEmail == null)
+    if (rawEmail == null) {
       return null;
+    }
     String e = rawEmail.trim();
     int at = e.indexOf('@');
-    if (at < 1 || at == e.length() - 1)
+    if (at < 1 || at == e.length() - 1) {
       return e.toLowerCase();
+    }
     String local = e.substring(0, at);
     String domain = e.substring(at + 1);
     String ld = domain.toLowerCase();
@@ -27,8 +29,9 @@ public class EmailNormalizerSimpleAdapter implements EmailNormalizerPort {
         ld.equals("outlook.com") ||
         ld.equals("hotmail.com")) {
       int plus = local.indexOf('+');
-      if (plus >= 0)
+      if (plus >= 0) {
         ll = local.substring(0, plus);
+      }
       ll = ll.replace(".", "");
       ll = ll.toLowerCase();
     } else {

@@ -1,0 +1,10 @@
+# File: theme-update.yaml
+# Purpose: Payload schema for updating a theme. All Rights Reserved.
+title: ThemeUpdate
+type: object
+properties:
+  name: { type: string, maxLength: 50 }
+  colors:
+    type: object
+    additionalProperties: { type: string }
+required: [name, colors]

@@ -9,6 +9,7 @@
 package com.poetry.poetry_backend.application.user.usecase;
 
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
+import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
 import com.poetry.poetry_backend.domain.user.model.User;
 
 public class GetUserByIdUseCase {
@@ -19,6 +20,11 @@ public class GetUserByIdUseCase {
   }
 
   public User execute(Long id) {
-    return query.findById(id);
+    // Adapter already throws UserNotFoundException; defensive in case of legacy implementation.
+    User u = query.findById(id);
+    if (u == null) {
+      throw new UserNotFoundException(id);
+    }
+    return u;
   }
 }

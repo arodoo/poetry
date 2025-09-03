@@ -12,10 +12,15 @@ import com.poetry.poetry_backend.application.auth.port.PasswordPolicyPort;
 final class RegisterActionSupport {
   void validateInputs(
       String username, String email, String password, PasswordPolicyPort passwordPolicy) {
-    if (username == null || username.isBlank())
+    if (username == null || username.isBlank()) {
       throw new IllegalArgumentException("username");
-    if (email == null || email.isBlank()) throw new IllegalArgumentException("email");
-    if (password == null) throw new IllegalArgumentException("password");
+    }
+    if (email == null || email.isBlank()) {
+      throw new IllegalArgumentException("email");
+    }
+    if (password == null) {
+      throw new IllegalArgumentException("password");
+    }
     passwordPolicy.validate(password, username, email);
   }
 

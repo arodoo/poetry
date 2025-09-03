@@ -59,8 +59,8 @@ config/<feature>/              (FeatureComposition wiring)
 ## 6. Error & i18n Strategy
 
 - Domain validation throws IllegalArgumentException with i18n key.
-- Not found: <Feature>NotFoundException("feature.not_found").
-- Global exception handler (once) maps keys → problem+json (future task).
+- Not found: Define `<Feature>NotFoundException` extending
+  `AbstractNotFoundException` (shared base in `domain.shared.exception`).
 
 ## 7. Caching / ETag (Read Collections)
 
