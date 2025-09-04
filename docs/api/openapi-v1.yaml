@@ -55,6 +55,10 @@ paths:
     $ref: ./openapi/paths/themes-activate.yaml#/~1api~1v1~1themes~1{id}~1activate
   /v1/themes/active:
     $ref: ./openapi/paths/themes-active.yaml#/~1api~1v1~1themes~1active
+  /v1/tokens:
+    $ref: ./openapi/paths/tokens-collection.yaml
+  /v1/tokens/selection:
+    $ref: ./openapi/paths/tokens-selection.yaml
 components:
   securitySchemes:
     $ref: ./openapi/components/securitySchemes.yaml
@@ -89,6 +93,64 @@ components:
       $ref: ./openapi/components/schemas/theme-create.yaml
     ThemeUpdate:
       $ref: ./openapi/components/schemas/theme-update.yaml
+    UITokens:
+      type: object
+      description: Aggregate UI tokens payload.
+      properties:
+        themes: { type: array, items: { $ref: '#/components/schemas/Theme' } }
+        fonts:
+          type: array
+          description: Available font assets for UI configuration.
+          items:
+            type: object
+            properties:
+              key: { type: string }
+              label: { type: string }
+              woff2Url: { type: string, format: uri }
+              weights:
+                type: array
+                items: { type: integer }
+              hash:
+                { type: string, description: Stable hash of font file contents }
+              preloadDefault:
+                type: boolean
+                description:
+                  Indicates the single baseline font guaranteed to be preloaded
+                  offline.
+              integrity:
+                type: string
+                description:
+                  Optional integrity value (sha256-...) for future strict
+                  verification.
+            required: [key, label, woff2Url, weights, hash]
+        fontSizes:
+          { type: array, items: { type: object, additionalProperties: true } }
+        fontWeights: { type: array, items: { type: string } }
+        spacings:
+          { type: array, items: { type: object, additionalProperties: true } }
+        radius:
+          { type: array, items: { type: object, additionalProperties: true } }
+        shadows:
+          { type: array, items: { type: object, additionalProperties: true } }
+        current:
+          type: object
+          properties:
+            theme: { type: string }
+            font: { type: string }
+            fontSize: { type: string }
+            spacing: { type: string }
+            radius: { type: string }
+            shadow: { type: string }
+    UpdateSelectionRequest:
+      type: object
+      required: [theme, font, fontSize, spacing, radius, shadow]
+      properties:
+        theme: { type: string }
+        font: { type: string }
+        fontSize: { type: string }
+        spacing: { type: string }
+        radius: { type: string }
+        shadow: { type: string }
   responses:
     $ref: ./openapi/components/responses/common.yaml
 security:

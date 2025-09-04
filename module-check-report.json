@@ -1,10 +1,179 @@
 {
-  "ok": true,
+  "ok": false,
   "summary": {
-    "features": 3,
-    "missing": 0
+    "features": 4,
+    "missing": 22
   },
   "details": [
+    {
+      "feature": "font",
+      "expected": [
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/font/model/Font.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/font/model/value/*",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/port/FontQueryPort.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/port/FontCommandPort.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/GetAllFontsUseCase.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/GetFontByIdUseCase.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/CreateFontUseCase.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/UpdateFontUseCase.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/DeleteFontUseCase.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontEntity.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaRepository.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaMapper.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaAdapter.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/font/InMemoryFontAdapter.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/font/InMemoryFontStore.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/font/InMemoryFontFactory.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontController.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontDtos.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/config/font/FontComposition.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/font.md",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "docs/api/openapi/paths/font-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/font/model/FontTest.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/CreateFontUseCaseTest.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/GetAllFontsUseCaseTest.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/GetFontByIdUseCaseTest.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/UpdateFontUseCaseTest.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/DeleteFontUseCaseTest.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/font/FontControllerTest.java",
+          "optional": false,
+          "exists": false
+        }
+      ],
+      "missing": [
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/font/model/Font.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/port/FontQueryPort.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/port/FontCommandPort.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/GetAllFontsUseCase.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/GetFontByIdUseCase.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/CreateFontUseCase.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/UpdateFontUseCase.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/DeleteFontUseCase.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontEntity.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaRepository.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaMapper.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaAdapter.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontController.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontDtos.java",
+        "docs/domains/font.md",
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/font/model/FontTest.java",
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/CreateFontUseCaseTest.java",
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/GetAllFontsUseCaseTest.java",
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/GetFontByIdUseCaseTest.java",
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/UpdateFontUseCaseTest.java",
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/DeleteFontUseCaseTest.java",
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/font/FontControllerTest.java"
+      ]
+    },
     {
       "feature": "i18n",
       "expected": [

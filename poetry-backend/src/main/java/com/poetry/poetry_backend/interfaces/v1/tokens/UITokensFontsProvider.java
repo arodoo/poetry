@@ -9,11 +9,8 @@ package com.poetry.poetry_backend.interfaces.v1.tokens;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontsProviderPort;
 
-@Component
 public class UITokensFontsProvider implements FontsProviderPort {
 
   @Override

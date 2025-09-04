@@ -33,3 +33,9 @@ Size:
   required: false
   schema: { type: integer, minimum: 1, maximum: 200 }
   description: Page size with sensible limits
+IfNoneMatch:
+  name: If-None-Match
+  in: header
+  required: false
+  schema: { type: string }
+  description: Conditional GET ETag value

@@ -6,6 +6,7 @@
  */
 package com.poetry.poetry_backend.interfaces.v1.tokens;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,9 @@ public class UITokensThemesDynamicProvider implements ThemesProviderPort {
 
   @Override
   public List<UITokensDto.Theme> getThemes() {
-    return getAllThemesUseCase.execute().stream().map(this::map)
+    return getAllThemesUseCase.execute().stream()
+        .sorted(Comparator.comparing(Theme::getKey))
+        .map(this::map)
         .collect(Collectors.toList());
   }
 

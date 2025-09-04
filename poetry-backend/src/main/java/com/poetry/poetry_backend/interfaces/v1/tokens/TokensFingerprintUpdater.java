@@ -29,7 +29,9 @@ public class TokensFingerprintUpdater {
     }
     dto.fonts.stream().sorted(Comparator.comparing(f -> f.key))
         .forEach(f -> {
-          TokensFingerprintHelpers.put(d, "ft:" + f.key + ":" + f.label + ":" + TokensFingerprintHelpers.safe(f.hash));
+          String fontKey = "ft:" + f.key + ":" +
+              TokensFingerprintHelpers.safe(f.hash) + ":pd=" + (f.preloadDefault ? "1" : "0");
+          TokensFingerprintHelpers.put(d, fontKey);
           if (f.weights != null) {
             TokensFingerprintHelpers.put(d, f.weights.stream().sorted().map(Object::toString)
                 .collect(Collectors.joining(",")));
@@ -41,8 +43,12 @@ public class TokensFingerprintUpdater {
     if (dto.current == null) {
       return;
     }
-    TokensFingerprintHelpers.put(d, "cur:" + TokensFingerprintHelpers.safe(dto.current.theme) + ":" + TokensFingerprintHelpers.safe(dto.current.font)
-        + ":" + TokensFingerprintHelpers.safe(dto.current.fontSize) + ":" + TokensFingerprintHelpers.safe(dto.current.spacing)
-        + ":" + TokensFingerprintHelpers.safe(dto.current.radius) + ":" + TokensFingerprintHelpers.safe(dto.current.shadow));
+    String currentKey = "cur:" + TokensFingerprintHelpers.safe(dto.current.theme) + ":" +
+        TokensFingerprintHelpers.safe(dto.current.font) + ":" +
+        TokensFingerprintHelpers.safe(dto.current.fontSize) + ":" +
+        TokensFingerprintHelpers.safe(dto.current.spacing) + ":" +
+        TokensFingerprintHelpers.safe(dto.current.radius) + ":" +
+        TokensFingerprintHelpers.safe(dto.current.shadow);
+    TokensFingerprintHelpers.put(d, currentKey);
   }
 }

@@ -12,6 +12,7 @@
             schema:
               type: array
               items: { $ref: ../components/schemas/theme.yaml }
+      '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   post:
     summary: Create theme

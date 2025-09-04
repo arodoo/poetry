@@ -33,6 +33,9 @@ public class UITokensDto {
     public String woff2Url;
     public List<Integer> weights;
     public String hash;
+    // New additive fields for offline strategy
+    public boolean preloadDefault; // exactly one true
+    public String integrity; // optional (may mirror hash initially)
   }
 
   public static class FontSizeSet {

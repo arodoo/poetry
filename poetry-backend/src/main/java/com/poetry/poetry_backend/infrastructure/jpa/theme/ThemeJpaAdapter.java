@@ -57,7 +57,8 @@ public class ThemeJpaAdapter implements ThemeQueryPort, ThemeCommandPort {
   }
 
   public void deactivateAll() {
-    repo.findAll().forEach(e -> { e.setActive(false); repo.save(e); });
+    // Internal invariant enforcement: bulk deactivate prior to activating one
+    repo.bulkDeactivateAllActive();
   }
 
   public long count() { return repo.count(); }

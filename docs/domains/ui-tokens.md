@@ -59,6 +59,29 @@ Response Shape (JSON):
 }
 ```
 
+`PUT /api/v1/tokens/selection`
+
+- Purpose: Update system-level (global) UI customization selection.
+- Request Body:
+
+```
+{
+  "theme": "default",
+  "font": "inter",
+  "fontSize": "base-scale",
+  "spacing": "base",
+  "radius": "rounded",
+  "shadow": "elevation"
+}
+```
+
+- Responses:
+  - 204 No Content on success
+  - 400 Validation errors (i18n keys) if fields missing/invalid
+
+Per-user selection (future): Scaffold entity `user_customization_selection`
+added; no endpoints yet.
+
 ## Caching & Fingerprint Strategy
 
 - Weak ETag built via SHA-256 over canonical ordered serialization of: theme
@@ -82,6 +105,14 @@ Response Shape (JSON):
 3. Other groups: first item key of each corresponding list.
 4. All selection logic encapsulated in `UITokensCurrentProvider` for future
    persistence extension.
+
+## Deterministic Ordering Guarantees
+
+- Themes list is sorted ascending by `key` before response assembly ensuring
+  stable ordering and fingerprint consistency.
+- Fonts and all token sets are hashed in sorted order (by key) for ETag
+  determinism; map entries within color and values maps are also sorted by key
+  prior to hashing.
 
 ## Security & Integrity
 
@@ -119,6 +150,8 @@ Response Shape (JSON):
 - Per-theme overrides path A (inline overrides object) vs path B (association to
   variant set) — decision deferred until first real override need surfaces.
 - Potential CDN edge caching if token size remains stable (<10KB gzip).
+- System-level selection is now persisted (single row) enabling future evolution
+  to per-user selections (will add user scoping + precedence rules).
 
 ## Change Log
 

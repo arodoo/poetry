@@ -25,7 +25,10 @@ public class TokensFingerprintBuilder {
       TokensFingerprintHelpers.updateSets(digest, "sh", dto.shadows, s -> s.key, s -> s.values);
       TokensFingerprintUpdater.updateCurrent(digest, dto);
       String hex = HexFormat.of().formatHex(digest.digest());
-      return "W\"" + hex + "\"";
+      // Return a proper weak ETag token. Spring's ResponseEntity#eTag expects the value
+      // *without* adding quotes if they are already present. Providing W/"hash" is the
+      // canonical weak form per RFC 7232.
+      return "W/\"" + hex + "\"";
     } catch (NoSuchAlgorithmException e) {
       throw new IllegalStateException("Missing SHA-256 algorithm", e);
     }

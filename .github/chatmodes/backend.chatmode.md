@@ -16,6 +16,7 @@ tools:
 - Error responses must follow RFC 7807 (Problem Details).
 - Soft delete for entities; no hard deletes.
 - No silent catches; all errors must be logged or reported.
+- All DB operations must be handled by Hibernate/JPA. No direct SQL migrations.
 - All external calls (HTTP/DB/Queue) must have timeouts and retries configured
 - Lombok for boilerplate reduction.
 - Java 21+.

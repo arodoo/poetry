@@ -20,6 +20,7 @@ public class ThemeMapper {
   public ThemeDtos.ThemeResponse map(Theme theme) {
     ThemeDtos.ThemeResponse dto = new ThemeDtos.ThemeResponse();
     dto.id = theme.getId();
+    dto.key = theme.getKey();
     dto.name = theme.getName();
     dto.active = theme.isActive();
     dto.colors = theme.getColors();

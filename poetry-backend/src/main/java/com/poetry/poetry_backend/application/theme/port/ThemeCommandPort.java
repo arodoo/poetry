@@ -11,6 +11,11 @@ public interface ThemeCommandPort {
   Theme save(Theme theme);
   void deleteSoft(Long id);
   void restore(Long id);
+  /**
+   * Internal invariant operation: ensures no theme remains active.
+   * Not exposed externally; used only during a controlled activation flow
+   * to guarantee single-active-theme constraint.
+   */
   void deactivateAll();
   long count();
 }

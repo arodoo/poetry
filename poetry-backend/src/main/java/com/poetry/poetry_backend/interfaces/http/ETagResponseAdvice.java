@@ -56,6 +56,10 @@ public class ETagResponseAdvice implements ResponseBodyAdvice<Object> {
     if (m == null || (m != HttpMethod.GET && m != HttpMethod.PUT)) {
       return body;
     }
+    // Skip if controller already set an ETag (e.g., tokens endpoint custom logic)
+    if (res.getHeaders().containsKey(HttpHeaders.ETAG)) {
+      return body;
+    }
     try {
       String canonical = mapper.writeValueAsString(body);
       String tag = etag.compute(canonical);

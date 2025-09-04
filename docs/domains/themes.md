@@ -35,3 +35,17 @@ Acceptance Criteria
 - Single active theme invariant enforced by ActivateThemeUseCase.
 - Soft deleted themes excluded from queries.
 - Seeder provides initial 10 themes using HSL values.
+
+Fallback Strategy (Selection Resolution)
+
+Order applied when resolving current UI customization selection:
+
+1. Stored system selection if present and its theme still exists.
+2. Stored selection with substituted theme (first available or "default") if
+   original theme removed.
+3. Active theme from domain if no stored selection.
+4. First available theme key or literal fallback "default" when none active.
+
+Rationale: Guarantees deterministic frontend configuration while preserving
+user/system intent when possible and avoiding errors during theme removal or
+early bootstrap phases.

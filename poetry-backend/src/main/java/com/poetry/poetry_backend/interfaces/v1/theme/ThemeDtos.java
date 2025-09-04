@@ -10,6 +10,7 @@ import java.util.Map;
 public class ThemeDtos {
   public static class ThemeResponse {
     public Long id;
+    public String key; // stable semantic key (e.g. "default", "dark")
     public String name;
     public boolean active;
     public Map<String, String> colors;
