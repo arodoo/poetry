@@ -4,11 +4,13 @@ Purpose: Task log for completing domain documentation and OpenAPI references.
 All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 10 — Complete Domain Docs
 
 Description
 
-- Create docs/domains/\* with scope, RFs, data model, API refs, permissions,
+- Create docs/domains/* with scope, RFs, data model, API refs, permissions,
   acceptance criteria.
 
 Expected Result

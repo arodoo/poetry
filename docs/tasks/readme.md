@@ -68,3 +68,26 @@ status.
   [29-authenticated-core-pages.md](29-authenticated-core-pages.md)
 - 30 — Public Home Page — Pending —
   [30-public-home-page.md](30-public-home-page.md)
+
+# Tasks Index
+
+> NOTE: This file lists tasks and their status. Completed tasks are now marked
+> with a visible header in their task files.
+
+- 01 — Audit and Alignment — Completed —
+- 02 — Backend Foundation Alignment — Completed —
+- 03 — Refactor English and Headers — In progress —
+- 04 — Port Auth and User DDD — In progress —
+- 05 — Idempotency and ETag — In progress —
+- 06 — Env Vars Typed Validation — Completed —
+- 07 — Timeouts and Retries — Completed —
+- 08 — Frontend SDK and i18n — Completed —
+- 09 — Enforce 80-line Limit — Completed —
+- 10 — Domain Docs Complete — Completed —
+- 11 — CI Hooks and Guards — Completed —
+- 12 — Auth Endpoints — Completed —
+- 12.0.1 — Backend i18n Goals — Completed —
+- 12.1 — Test Auth Endpoints — Completed —
+- 12.2 — Refactor i18n Impl Backend — In progress —
+- 13.1 — Frontend i18n Impl — Completed —
+- 13.2 — Frontend Twaling Library Config — In progress —

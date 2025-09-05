@@ -5,6 +5,8 @@ an i18n provider scaffold. Locale-prefixed routes and full translations
 are deferred to Task 19. All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 08 — Frontend SDK baseline and i18n scaffold
 
 Description

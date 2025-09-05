@@ -3,6 +3,8 @@ File: 12-auth-endpoints.md
 Purpose: Status ledger for Auth endpoints. Summarizes implemented capabilities and gaps to guide secure, incremental hardening while preserving DDD layering and additive v1 stability. Captures expected vs actual to evidence completion state and remaining scope for Phase A. All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 12: Auth Endpoints (/api/v1/auth)
 
 ## Task Description
@@ -33,7 +35,7 @@ rotation overlap boundary.
 - JWT HS256 (iss, sub, exp, jti) + refresh rotation & misuse revocation
 - Logout bulk revocation (idempotent)
 - BCrypt hashing + password policy adapter
-- AuthProperties (TTLs, issuer, secrets, overlap, age policy)
+- AuthProperties (TTLs, issuer, secrets, overlap & age validation)
 - Signing key rotation (prev/current + overlap & age validation)
 - Persistent audit events (correlation id)
 - Registration idempotency (persistent replay)

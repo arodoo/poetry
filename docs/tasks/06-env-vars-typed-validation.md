@@ -4,6 +4,8 @@ Purpose: Task log for typed and validated environment variables at startup.
 All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 06 — Env Vars Typed Validation
 
 Description
