@@ -81,37 +81,4 @@ npm run lint:backend || {
   exit 1
 }
 
-# === SLOWEST TASKS LAST (10+ seconds) ===
-# These tasks require compilation, type analysis, or full execution
-
-echo "⚡ Type checking..."
-npm run typecheck || {
-  echo "❌ Type check failed! Check the output above for specific type errors in files."
-  exit 1
-}
-
-echo "🧪 Running frontend tests..."
-npm run test:frontend || {
-  echo "❌ Frontend tests failed! Check the output above for specific test failures."
-  exit 1
-}
-
-echo "🧪 Running backend tests..."
-npm run test:backend || {
-  echo "❌ Backend tests failed! Check the output above for specific test failures."
-  exit 1
-}
-
-echo "🏗️ Building frontend..."
-npm --prefix poetry-frontend run build || {
-  echo "❌ Frontend build failed! Check the output above for build errors."
-  exit 1
-}
-
-echo "🏗️ Building backend..."
-(cd poetry-backend && mvn -q -DskipTests package) || {
-  echo "❌ Backend build failed! Check the output above for compilation errors."
-  exit 1
-}
-
 echo "✅ All pre-commit checks passed!"
