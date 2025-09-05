@@ -16,6 +16,7 @@
           application/json:
             schema: { $ref: ../components/schemas/font.yaml }
       '404': { $ref: ../components/responses/common.yaml#/NotFound }
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   put:
     summary: Update font
     operationId: putFont
@@ -38,6 +39,7 @@
             schema: { $ref: ../components/schemas/font.yaml }
       '400': { $ref: ../components/responses/common.yaml#/BadRequest }
       '404': { $ref: ../components/responses/common.yaml#/NotFound }
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
   delete:
     summary: Delete font
     operationId: deleteFont
@@ -50,3 +52,4 @@
     responses:
       '204': { description: No Content }
       '404': { $ref: ../components/responses/common.yaml#/NotFound }
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }
