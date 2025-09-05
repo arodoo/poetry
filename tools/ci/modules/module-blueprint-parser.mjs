@@ -6,7 +6,7 @@
  */
 import fs from 'node:fs'
 
-const BP = 'docs/architecture/module-blueprint.json'
+const BP = 'docs/architecture/backend-module-blueprint.json'
 
 function loadBlueprint(){
   if(!fs.existsSync(BP)) return null

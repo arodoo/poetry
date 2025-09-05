@@ -119,7 +119,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/font/model/FontValidationTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/CreateFontUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/CreateFontUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -134,7 +144,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/GetFontByIdUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/UpdateFontUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/UpdateFontUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -144,7 +164,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/font/usecase/DeleteFontUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/font/FontControllerTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/font/FontControllerNegativeTest.java",
           "optional": false,
           "exists": true
         }
@@ -265,7 +295,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/i18n/model/I18nValidationTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/CreateI18nUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/CreateI18nUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -280,7 +320,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/GetI18nByIdUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/UpdateI18nUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/UpdateI18nUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -290,7 +340,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/i18n/usecase/DeleteI18nUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nControllerTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nControllerNegativeTest.java",
           "optional": false,
           "exists": true
         }
@@ -411,7 +471,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/theme/model/ThemeValidationTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/CreateThemeUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/CreateThemeUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -426,7 +496,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/GetThemeByIdUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/UpdateThemeUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/UpdateThemeUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -436,7 +516,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/theme/usecase/DeleteThemeUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemeControllerTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemeControllerNegativeTest.java",
           "optional": false,
           "exists": true
         }
@@ -557,7 +647,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/user/model/UserValidationTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/CreateUserUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/CreateUserUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -572,7 +672,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/GetUserByIdUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/UpdateUserUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/UpdateUserUseCaseNegativeTest.java",
           "optional": false,
           "exists": true
         },
@@ -582,7 +692,17 @@
           "exists": true
         },
         {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/user/usecase/DeleteUserUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/user/UserControllerTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/user/UserControllerNegativeTest.java",
           "optional": false,
           "exists": true
         }

@@ -94,10 +94,57 @@ TokensQueryUseCase, TokensDtos, TokensController using typed records only.
 11. No dynamic Maps crossing layers
 12. i18n keys only in messages / errors
 
+### 10.1 Test Coverage Requirements (Negative Paths Mandatory)
+
+Every feature MUST include explicit negative (error-path) tests in addition to
+happy-path tests. Minimum matrix:
+
+- Domain:
+  - Each validation rule has a failing test asserting the i18n error key (e.g.
+    `font.name.blank`).
+  - Construction of valid aggregate (happy path) covered separately.
+- Use Cases:
+  - Not found for get/update/delete -> `<Feature>NotFoundException`.
+  - Conflict (duplicate / uniqueness) if the feature defines a unique natural
+    key.
+  - Validation error propagation (bad inputs rejected pre or in domain).
+  - Idempotent create (same external key / Idempotency-Key returns same result)
+    if idempotency applies.
+  - Soft delete: deleted entity excluded from list and subsequent get -> 404.
+- Infrastructure (Adapter):
+  - Persistence constraint violation mapped (e.g. unique constraint -> conflict
+    exception) and never surfaces as generic 500 in tests.
+  - Soft-delete flag prevents retrieval.
+- Controller (HTTP Integration):
+  - 400 validation error with standardized error payload (`errorCode`).
+  - 404 not found for non-existent id.
+  - 409 conflict (where uniqueness enforced).
+  - 412 precondition failed (when ETag / If-Match introduced in the feature).
+  - 422 semantic validation (if later adopted – additive, optional now).
+  - 500 only for unexpected server errors (no test required to trigger, but
+    absence of mapping leaks watched via logs).
+- i18n: All domain/application exceptions asserted by key (not raw message).
+
+Naming Convention:
+
+- Negative test method names SHOULD start with `when`, `givenInvalid`, or end
+  with `ShouldFail` / `ShouldReturn404` / `ShouldReturn400` for CI pattern
+  detection.
+
+Reporting (future CI enhancement): ratio of negative to positive tests per
+feature target >= 0.5 (warning below threshold, fail < 0.25).
+
 ## 11. Governance & Enforcement
 
 - Add ArchUnit rules: forbid interfaces layer depending on infrastructure.
 - CI script scans for Map<String,Object> in application/ & interfaces/.
 - PR template references this file; deviations require ADR.
+- CI (future enhancement): scan test sources to verify at least one negative
+  test per use case (pattern: `when.*` / `.*ShouldFail` / `.*ShouldReturn(4..)`)
+  and presence of `<Feature>NotFoundException` tests for read/update/delete.
+- Static scan: domain `throw new` statements' exception types must appear in at
+  least one test file referencing that type name.
+- ArchUnit extension: ensure `<Feature>NotFoundException` extends shared
+  `AbstractNotFoundException` base.
 
 End of blueprint.

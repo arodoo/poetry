@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "1.1",
-    "description": "Canonical backend feature file & folder structure (structure-only). Semantic rules enforced by dedicated CI scripts."
+    "version": "1.2",
+    "description": "Canonical backend feature file & folder structure (structure-only). Now includes negative test file expectations. Semantic rules enforced by dedicated CI scripts."
   },
   "structure": {
     "domain": {
@@ -147,37 +147,67 @@
         {
           "path": "domain/<feature>/model/FeatureTest.java",
           "required": true,
-          "description": "Domain test"
+          "description": "Domain happy-path test"
+        },
+        {
+          "path": "domain/<feature>/model/FeatureValidationTest.java",
+          "required": true,
+          "description": "Domain negative validation tests (each rule)"
         },
         {
           "path": "application/<feature>/usecase/CreateFeatureUseCaseTest.java",
           "required": true,
-          "description": "Create UC test"
+          "description": "Create UC happy-path test"
+        },
+        {
+          "path": "application/<feature>/usecase/CreateFeatureUseCaseNegativeTest.java",
+          "required": true,
+          "description": "Create UC negative tests (validation/conflict/idempotency)"
         },
         {
           "path": "application/<feature>/usecase/GetAllFeaturesUseCaseTest.java",
           "required": true,
-          "description": "List UC test"
+          "description": "List UC happy-path test"
         },
         {
           "path": "application/<feature>/usecase/GetFeatureByIdUseCaseTest.java",
           "required": true,
-          "description": "Get UC test"
+          "description": "Get UC happy-path test"
+        },
+        {
+          "path": "application/<feature>/usecase/GetFeatureByIdUseCaseNegativeTest.java",
+          "required": true,
+          "description": "Get UC not-found / invalid id tests"
         },
         {
           "path": "application/<feature>/usecase/UpdateFeatureUseCaseTest.java",
           "required": true,
-          "description": "Update UC test"
+          "description": "Update UC happy-path test"
+        },
+        {
+          "path": "application/<feature>/usecase/UpdateFeatureUseCaseNegativeTest.java",
+          "required": true,
+          "description": "Update UC not-found / validation tests"
         },
         {
           "path": "application/<feature>/usecase/DeleteFeatureUseCaseTest.java",
           "required": true,
-          "description": "Delete UC test"
+          "description": "Delete UC happy-path test"
+        },
+        {
+          "path": "application/<feature>/usecase/DeleteFeatureUseCaseNegativeTest.java",
+          "required": true,
+          "description": "Delete UC not-found / soft-delete visibility tests"
         },
         {
           "path": "interfaces/v1/<feature>/FeatureControllerTest.java",
           "required": true,
-          "description": "Controller test"
+          "description": "Controller happy-path tests"
+        },
+        {
+          "path": "interfaces/v1/<feature>/FeatureControllerNegativeTest.java",
+          "required": true,
+          "description": "Controller negative tests (400/404/409/412)"
         }
       ]
     }
