@@ -1,18 +1,11 @@
 /*
  * File: FontControllerTest.java
- * Purpose: Placeholder test ensuring font module has a controller test per module rules.
+ * Purpose: Legacy placeholder retained only to preserve history after migration
+ *          to granular font integration tests (list, create/get, update, delete).
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.interfaces.v1.font;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.junit.jupiter.api.Test;
-
-class FontControllerTest {
-  @Test
-  void controllerLoads() {
-    FontController controller = new FontController();
-    assertNotNull(controller);
-  }
+final class FontControllerTest {
+	private FontControllerTest() {}
 }

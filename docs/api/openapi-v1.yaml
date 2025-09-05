@@ -22,6 +22,8 @@ tags:
     description: System configuration endpoints
   - name: themes
     description: UI theme management endpoints
+  - name: fonts
+    description: Font asset management endpoints
 paths:
   /:
     $ref: ./openapi/paths/api-index.yaml
@@ -59,6 +61,10 @@ paths:
     $ref: ./openapi/paths/tokens-collection.yaml
   /v1/tokens/selection:
     $ref: ./openapi/paths/tokens-selection.yaml
+  /v1/fonts:
+    $ref: ./openapi/paths/fonts-collection.yaml#/~1api~1v1~1fonts
+  /v1/fonts/{key}:
+    $ref: ./openapi/paths/fonts-item.yaml#/~1api~1v1~1fonts~1{key}
 components:
   securitySchemes:
     $ref: ./openapi/components/securitySchemes.yaml
@@ -93,6 +99,12 @@ components:
       $ref: ./openapi/components/schemas/theme-create.yaml
     ThemeUpdate:
       $ref: ./openapi/components/schemas/theme-update.yaml
+    Font:
+      $ref: ./openapi/components/schemas/font.yaml
+    FontCreate:
+      $ref: ./openapi/components/schemas/font-create.yaml
+    FontUpdate:
+      $ref: ./openapi/components/schemas/font-update.yaml
     UITokens:
       type: object
       description: Aggregate UI tokens payload.

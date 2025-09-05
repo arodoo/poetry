@@ -42,6 +42,7 @@ function run(){
     console.log('\nJSON report: module-check-report.json')
     if(!isStructureOk) {
       console.error('\nFAIL: missing required structure')
+      console.error('See module-check-report.json for details')
       process.exit(1)
     } else {
       console.log('\n✓ PASS: All modules have required structure')

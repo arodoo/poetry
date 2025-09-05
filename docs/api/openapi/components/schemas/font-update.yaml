@@ -1,0 +1,12 @@
+# Font update request
+type: object
+required: [label, woff2Url, weights]
+properties:
+  label: { type: string }
+  woff2Url: { type: string, format: uri }
+  weights:
+    type: array
+    items: { type: integer }
+  preloadDefault: { type: boolean }
+  active: { type: boolean }
+  integrity: { type: string }
