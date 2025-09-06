@@ -4,6 +4,8 @@ Purpose: Task log for ETag/If-Match and Idempotency-Key on idempotent endpoints.
 All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 05 — Idempotency and ETag
 
 Description

@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Canonical frontend feature folder & file structure (existence-only). Semantic rules (headers, query keys, i18n) enforced by other CI scripts."
+  },
+  "structure": {
+    "features": {
+      "path": "poetry-frontend/src/features",
+      "files": [
+        {
+          "path": "<feature>/model/<Feature>Schemas.ts",
+          "required": true,
+          "description": "Zod schemas + model types (split allowed)"
+        },
+        {
+          "path": "<feature>/api/<feature>Api.ts",
+          "required": true,
+          "description": "API wrapper functions calling generated sdk"
+        },
+        {
+          "path": "<feature>/hooks/use<Feature>Queries.ts",
+          "required": true,
+          "description": "React Query hooks for queries"
+        },
+        {
+          "path": "<feature>/hooks/use<Feature>Mutations.ts",
+          "required": false,
+          "description": "React Query hooks for mutations (optional if read-only)"
+        },
+        {
+          "path": "<feature>/components",
+          "required": true,
+          "description": "Presentational components folder"
+        },
+        {
+          "path": "<feature>/pages",
+          "required": true,
+          "description": "Route-level pages folder"
+        },
+        {
+          "path": "<feature>/routing/<feature>Routes.ts",
+          "required": true,
+          "description": "RouteObject export with locale-prefixed paths"
+        },
+        {
+          "path": "<feature>/locales/en.json",
+          "required": true,
+          "description": "English i18n namespace"
+        },
+        {
+          "path": "<feature>/locales/es.json",
+          "required": true,
+          "description": "Spanish i18n namespace"
+        },
+        {
+          "path": "<feature>/index.ts",
+          "required": true,
+          "description": "Public re-exports (types, hooks, routes)"
+        }
+      ]
+    },
+    "shared": {
+      "path": "poetry-frontend/src/shared",
+      "files": [
+        {
+          "path": "config/env.ts",
+          "required": true,
+          "description": "Environment schema"
+        },
+        {
+          "path": "http/fetchClient.ts",
+          "required": true,
+          "description": "Fetch client factory"
+        },
+        {
+          "path": "http/clientCore.ts",
+          "required": true,
+          "description": "Core HTTP implementation"
+        },
+        {
+          "path": "i18n",
+          "required": true,
+          "description": "i18n bootstrap folder"
+        },
+        {
+          "path": "routing",
+          "required": true,
+          "description": "Global routing helpers"
+        }
+      ]
+    },
+    "sdk": {
+      "path": "poetry-frontend/src/sdk",
+      "files": [
+        {
+          "path": ".openapi.hash",
+          "required": true,
+          "description": "Hash of current OpenAPI codegen"
+        }
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "files": [
+        {
+          "path": "domains/<feature>.md",
+          "required": true,
+          "description": "Domain doc (shared backend/frontend)"
+        },
+        {
+          "path": "api/openapi/paths/<feature>-*.yaml",
+          "required": true,
+          "description": "OpenAPI path file (pattern)",
+          "pattern": true
+        }
+      ]
+    },
+    "tests": {
+      "path": "poetry-frontend/src/tests/features",
+      "files": [
+        {
+          "path": "<feature>/model/<Feature>Schemas.test.ts",
+          "required": true,
+          "description": "Model schema tests (happy + negative)"
+        },
+        {
+          "path": "<feature>/api/<feature>Api.test.ts",
+          "required": true,
+          "description": "API wrapper tests (headers + mapping)"
+        },
+        {
+          "path": "<feature>/hooks/<feature>Queries.test.ts",
+          "required": true,
+          "description": "Hooks query tests (keys)"
+        },
+        {
+          "path": "<feature>/hooks/<feature>Mutations.test.ts",
+          "required": false,
+          "description": "Mutation hooks tests (if mutations exist)"
+        },
+        {
+          "path": "<feature>/pages/<Feature>Page.test.ts",
+          "required": true,
+          "description": "Page integration test"
+        }
+      ]
+    }
+  }
+}

@@ -7,6 +7,8 @@ tools: ['tanstack-query', 'zod', 'heroicons', 'tailwindcss', 'i18next']
 
 - No hardcoded text (routes, breadcrumbs, content).
 - 100% i18n with localized slugs.
+- Typos, interfaces, enums, etc, should be imported from backend, never declared
+  manually.
 - Prefix all routes with "/:locale/...".
 - Use TanStack Query for data.
 - Use Zod for runtime validation.

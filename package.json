@@ -26,7 +26,8 @@
     "headers:check": "node tools/ci/headers/check-headers.mjs",
     "i18n:scan": "node tools/ci/i18n/i18n-scan.mjs",
     "modules:check": "node tools/ci/modules/check-modules.mjs",
-    "ci": "npm run max-lines:check && npm run headers:check && npm run i18n:scan && npm run lint && npm run typecheck && npm run test && npm run openapi:validate && npm run sdk:check && npm run build && npm run modules:check"
+    "frontend:modules:check": "node tools/ci/modules/check-frontend-modules.mjs",
+    "ci": "npm run max-lines:check && npm run headers:check && npm run i18n:scan && npm run lint && npm run typecheck && npm run test && npm run openapi:validate && npm run sdk:check && npm run build && npm run modules:check && npm run frontend:modules:check"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}": [

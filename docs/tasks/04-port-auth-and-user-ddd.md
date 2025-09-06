@@ -4,6 +4,8 @@ Purpose: Task log for porting Auth and User modules to DDD structure under /api/
 All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 04 — Port Auth and User to DDD
 
 Description

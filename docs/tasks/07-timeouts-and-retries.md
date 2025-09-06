@@ -4,6 +4,8 @@ Purpose: Task log for configuring timeouts and retries for DB/HTTP.
 All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 07 — Timeouts and Retries
 
 Description

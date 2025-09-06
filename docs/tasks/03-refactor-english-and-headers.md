@@ -4,6 +4,8 @@
  adding file headers. All Rights Reserved. Arodi Emmanuel
 -->
 
+> ### COMPLETED
+
 # Task 03 — Refactor to English and Add Headers
 
 Description
