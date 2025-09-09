@@ -9,5 +9,5 @@ All Rights Reserved. Arodi Emmanuel
 */
 
 // UI module entrypoint. Exports rendering helpers and shared UI utilities.
-
-export {}
+export { TokensProvider } from '../shared/tokens/TokensProvider'
+export { tokensVarNames } from './theme/tokens'

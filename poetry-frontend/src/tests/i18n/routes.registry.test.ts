@@ -8,12 +8,16 @@ import { routesList, routesById } from '../../shared/routing/routes'
 
 describe('routes.registry', () => {
   it('contains home and demo with expected paths', () => {
-    expect(routesById.home.path).toBe('/')
-    expect(routesById.demo.path).toBe('/demo')
+    expect(routesById['home']).toBeTruthy()
+    expect(routesById['demo']).toBeTruthy()
+    expect(routesById['home']!.path).toBe('/')
+    expect(routesById['demo']!.path).toBe('/demo')
   })
-  it('list has matching i18n keys', () => {
-    const ids = routesList.map((r) => r.id).sort()
-    expect(ids).toEqual(['demo', 'home'])
+  it('list includes required route ids and i18n key prefixes', () => {
+    const ids = routesList.map((r) => r.id)
+    ;['home', 'demo', 'adminTokens', 'unauthorized'].forEach((id) =>
+      expect(ids).toContain(id)
+    )
     routesList.forEach((r) => {
       expect(r.titleKey.startsWith('ui.route.')).toBe(true)
       expect(r.slugKey.startsWith('ui.route.')).toBe(true)

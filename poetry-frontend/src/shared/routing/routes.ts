@@ -18,6 +18,18 @@ const routesList: RouteDefinition[] = [
     titleKey: 'ui.route.demo.title',
     slugKey: 'ui.route.demo.slug',
   },
+  {
+    id: 'adminTokens',
+    path: '/admin/tokens',
+    titleKey: 'ui.route.admin.tokens.title',
+    slugKey: 'ui.route.admin.tokens.slug',
+  },
+  {
+    id: 'unauthorized',
+    path: '/unauthorized',
+    titleKey: 'ui.route.unauthorized.title',
+    slugKey: 'ui.route.unauthorized.slug',
+  },
 ]
 
 const routesById: RouteLookupMap = routesList.reduce<RouteLookupMap>(

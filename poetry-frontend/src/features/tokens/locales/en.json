@@ -1,0 +1,8 @@
+{
+  "ui": {
+    "tokens": {
+      "loading": "Loading theme…",
+      "error": "Could not load theme"
+    }
+  }
+}

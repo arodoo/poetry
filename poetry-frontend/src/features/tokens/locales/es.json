@@ -1,0 +1,8 @@
+{
+  "ui": {
+    "tokens": {
+      "loading": "Cargando tema…",
+      "error": "No se pudo cargar el tema"
+    }
+  }
+}

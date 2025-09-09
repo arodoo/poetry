@@ -5,7 +5,7 @@
 */
 import type { I18nKey } from '../i18n/generated/keys'
 
-export type RouteId = 'home' | 'demo'
+export type RouteId = 'home' | 'demo' | 'adminTokens' | 'unauthorized'
 
 export interface RouteDefinition {
   id: RouteId

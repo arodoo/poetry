@@ -8,5 +8,16 @@ export const routeEn: Record<string, string> = {
   'ui.route.demo.title': 'Demo',
   'ui.route.home.slug': '', // root slug intentionally empty
   'ui.route.demo.slug': 'demo',
+  'ui.route.admin.tokens.title': 'Admin Tokens',
+  'ui.route.admin.tokens.slug': 'admin/tokens',
+  'ui.route.unauthorized.title': 'Unauthorized',
+  'ui.route.unauthorized.slug': 'unauthorized',
+  'ui.admin.tokens.title': 'Tokens Administration',
+  'ui.admin.tokens.loading': 'Loading tokens…',
+  'ui.admin.tokens.error': 'Failed to load tokens',
+  'ui.admin.tokens.empty': 'No tokens returned',
+  'ui.auth.unauthorized.title': 'Access denied',
+  'ui.auth.unauthorized.message':
+    'You do not have permission to view this page.',
   // breadcrumb labels reuse title keys
 }

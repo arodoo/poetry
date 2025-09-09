@@ -2,9 +2,12 @@
 applyTo: '**'
 ---
 
+Application will sooner or later be PWA, consider this in your designs.
+
 - Don't stop coding until the task is fully complete if the plan is clear
-- All code contributions must be fully implemented, no TODO, FIXME, or
-  refactor-later code.
+- All code contributions must be production ready: fully implemented, no TODO,
+  FIXME, or commented-out code, but app is in a fresh/initial state of
+  development
 - The app is in a fresh/initial state of development backward compatibility
   issues.
 - Before starting code changes Provide a brief step-by-step plan (in the chat
