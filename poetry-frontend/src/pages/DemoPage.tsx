@@ -11,7 +11,7 @@ import viteLogo from '/vite.svg'
 import { useT } from '../shared/i18n/useT'
 
 export function DemoPage(): ReactElement {
-  const t: (key: string) => string = useT()
+  const t: ReturnType<typeof useT> = useT()
   const [count, setCount] = useState<number>(0)
   const viteAlt: string = t('ui.layout.logo.vite.alt')
   const reactAlt: string = t('ui.layout.logo.react.alt')
