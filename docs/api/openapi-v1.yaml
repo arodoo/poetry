@@ -29,6 +29,8 @@ paths:
     $ref: ./openapi/paths/api-index.yaml
   /v1/health:
     $ref: ./openapi/paths/api.yaml#/~1api~1v1~1health
+  /v1/admin/echo:
+    $ref: ./openapi/paths/admin-echo.yaml#/paths/~1api~1v1~1admin~1echo
   /v1/auth/login:
     $ref: ./openapi/paths/auth-login.yaml#/~1api~1v1~1auth~1login
   /v1/auth/refresh:
@@ -37,6 +39,8 @@ paths:
     $ref: ./openapi/paths/auth-me.yaml#/~1api~1v1~1auth~1me
   /v1/auth/logout:
     $ref: ./openapi/paths/auth-logout.yaml#/~1api~1v1~1auth~1logout
+  /v1/auth/status:
+    $ref: ./openapi/paths/auth-status.yaml#/paths/~1api~1v1~1auth~1status
   /v1/users:
     $ref: ./openapi/paths/users-collection.yaml#/~1api~1v1~1users
   /v1/users/{id}:

@@ -1,11 +1,13 @@
 /*
  * File: authApi.ts
- * Purpose: Placeholder API wrapper for auth feature. Provides a typed
- * status check to satisfy structure until real endpoints are wired.
- * All Rights Reserved. Arodi Emmanuel TODO
+ * Purpose: Auth API wrapper. Uses shared HTTP client and Zod parsing.
+ * All Rights Reserved. Arodi Emmanuel
  */
-import type { AuthStatus } from '../model/AuthSchemas'
+import { fetchJson } from '../../../shared/http/fetchClient'
+import { AuthStatusSchema, type AuthStatus } from '../model/AuthSchemas'
 
 export async function getAuthStatus(): Promise<AuthStatus> {
-  return Promise.resolve({ authenticated: false })
+  return AuthStatusSchema.parse(
+    await fetchJson<unknown>('/api/v1/auth/status', { method: 'GET' })
+  )
 }

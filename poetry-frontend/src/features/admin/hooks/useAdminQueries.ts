@@ -1,8 +1,8 @@
 /*
  * File: useAdminQueries.ts
  * Purpose: React Query hooks for the admin feature. Exposes a typed
- * echo query to keep structure consistent while endpoints are added.
- * All Rights Reserved. Arodi Emmanuel TODO
+ * echo query backed by the real API endpoint `/api/v1/admin/echo`.
+ * All Rights Reserved. Arodi Emmanuel
  */
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { adminEcho } from '../api/adminApi'

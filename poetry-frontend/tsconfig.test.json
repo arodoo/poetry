@@ -10,6 +10,8 @@
     "src/tests/setupTests.ts",
     "src/features/**/__tests__/**/*",
     "src/shared/http/__tests__/**/*",
+    "src/features/**/*.test.ts",
+    "src/features/**/*.test.tsx",
     "tools/vite/i18nKeyGen.ts",
     "vitest.config.ts"
   ],

@@ -1,7 +1,7 @@
 /*
  * File: adminQueries.test.ts
  * Purpose: Smoke test for admin query hook keys.
- * All Rights Reserved. Arodi Emmanuel TODO
+ * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect } from 'vitest'
 import { adminQueryKeys } from '../../../../features/admin'

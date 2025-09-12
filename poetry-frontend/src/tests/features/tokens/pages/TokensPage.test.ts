@@ -1,12 +1,13 @@
 /*
  * File: TokensPage.test.ts
- * Purpose: Placeholder to satisfy page test presence for tokens feature.
- * All Rights Reserved. Arodi Emmanuel TODO
+ * Purpose: Non-JSX placeholder test to keep .ts file valid alongside the
+ * TSX version which performs the UI rendering assertions.
+ * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect } from 'vitest'
 
-describe('Tokens pages', () => {
-  it('placeholder', () => {
+describe('Tokens pages (ts placeholder)', () => {
+  it('runs', () => {
     expect(true).toBe(true)
   })
 })
