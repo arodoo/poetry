@@ -26,9 +26,10 @@ Git executes relevant hooks in this order during a commit/push lifecycle:
 
 ## Responsibilities by Hook
 
-### pre-commit (FAST ONLY)
+### pre-commit (FAST + TS typecheck)
 
-Static + structural validations under ~10s total:
+Static validations under ~15s total, plus lightweight TypeScript typecheck to
+surface IDE errors during the commit attempt:
 
 - File headers present
 - Line length / file length limits
@@ -37,11 +38,10 @@ Static + structural validations under ~10s total:
 - SDK drift check
 - Module structure check (DDD compliance)
 - Frontend i18n key generation + verification
+- TypeScript typecheck (frontend only, `tsc --noEmit`)
 - Lint-staged formatting
 - Frontend lint (strict, autofix where safe)
 - Backend lint
-
-No type checking, test execution, or builds occur here anymore.
 
 ### commit-msg
 
@@ -53,7 +53,7 @@ No type checking, test execution, or builds occur here anymore.
 
 Runs only when code is about to leave the workstation:
 
-- Type checking (workspace)
+- Type checking (workspace; redundantly ensures no drift since commit time)
 - Frontend tests
 - Backend tests
 - Frontend production build
@@ -97,9 +97,10 @@ Follow-up: fix issues before pushing (pre-push will still enforce heavy gates).
 ## Acceptance Criteria
 
 - Commit with bad message: blocked before heavy tasks.
-- Commit with good message but lint error: blocked in pre-commit.
+- Commit with TS errors: blocked in pre-commit with clear file/line output.
+- Commit with lint error: blocked in pre-commit.
 - Push with failing tests: blocked in pre-push.
-- No heavy tasks run in pre-commit.
+- No builds run in pre-commit.
 
 ## Security & Integrity
 

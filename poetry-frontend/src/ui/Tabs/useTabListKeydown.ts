@@ -3,14 +3,14 @@
  Purpose: Hook providing onKeyDown handler for horizontal tab lists.
  All Rights Reserved. Arodi Emmanuel
 */
-import { useCallback, type RefObject } from 'react'
+import { useCallback, type RefObject, type KeyboardEvent } from 'react'
 import { queryTabs } from './tabUtils'
 
 export function useTabListKeydown(
   listRef: RefObject<HTMLDivElement | null>,
   activeIndex: number,
   setActiveIndex: (i: number) => void
-): (e: React.KeyboardEvent<HTMLDivElement>) => void {
+): (e: KeyboardEvent<HTMLDivElement>) => void {
   const move: (dir: 1 | -1) => void = useCallback(
     (dir: 1 | -1): void => {
       const node: HTMLDivElement | null = listRef.current
@@ -24,7 +24,7 @@ export function useTabListKeydown(
     [activeIndex, setActiveIndex, listRef]
   )
   return useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>): void => {
+    (e: KeyboardEvent<HTMLDivElement>): void => {
       if (e.key === 'ArrowRight') {
         move(1)
         e.preventDefault()

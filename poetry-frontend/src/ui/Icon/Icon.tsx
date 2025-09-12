@@ -5,13 +5,13 @@
  a render function returning SVG. Keeps implementation minimal.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement, type SVGProps } from 'react'
+import { type ReactElement, type SVGProps, type ReactNode } from 'react'
 import clsx from 'clsx'
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
   size?: 'xs' | 'sm' | 'md' | 'lg'
   tone?: 'inherit' | 'primary' | 'danger' | 'success'
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 export function Icon({

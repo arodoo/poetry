@@ -6,6 +6,7 @@
 import {
   type ReactElement,
   type ReactNode,
+  type KeyboardEvent,
   useRef,
   Children,
   isValidElement,
@@ -23,11 +24,14 @@ export function TabList({ children, className }: TabListProps): ReactElement {
   const { activeIndex, setActiveIndex } = useTabsContext()
   const listRef: React.RefObject<HTMLDivElement | null> =
     useRef<HTMLDivElement | null>(null)
-  const onKey: (e: React.KeyboardEvent<HTMLDivElement>) => void =
-    useTabListKeydown(listRef, activeIndex, setActiveIndex)
+  const onKey: (e: KeyboardEvent<HTMLDivElement>) => void = useTabListKeydown(
+    listRef,
+    activeIndex,
+    setActiveIndex
+  )
 
   const finalChildren: ReactElement[] = Children.toArray(children).filter(
-    (c: React.ReactNode): c is ReactElement => isValidElement(c)
+    (c: ReactNode): c is ReactElement => isValidElement(c)
   )
   if (finalChildren.length === 0)
     return (

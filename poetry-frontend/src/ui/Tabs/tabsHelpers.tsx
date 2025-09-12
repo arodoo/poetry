@@ -5,13 +5,6 @@
  selected and disabled states. This reduces duplication across tab buttons.
  All Rights Reserved. Arodi Emmanuel
 */
-/*
- File: tabsHelpers.tsx
- Purpose: Helpers for TabsRoot (tabClass, panelProps). The helpers keep
- complex class composition out of JSX to reduce file length and improve
- readability. They also provide deterministic id wiring for a11y attrs.
- All Rights Reserved. Arodi Emmanuel
-*/
 export function tabClass(selected: boolean, disabled?: boolean): string {
   const parts: string[] = [
     'text-xs',

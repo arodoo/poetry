@@ -6,6 +6,7 @@
 import {
   type ReactElement,
   type ReactNode,
+  type RefObject,
   useEffect,
   useId,
   useRef,
@@ -29,17 +30,12 @@ export function Tab({
   const { activeIndex, setActiveIndex, registerTab, getTabId, getPanelId } =
     useTabsContext()
   const reactId: string = useId()
-  const internalIndexRef: React.RefObject<number | null> = useRef<
-    number | null
-  >(null)
+  const internalIndexRef: RefObject<number | null> = useRef<number | null>(null)
   useEffect((): void => {
     const assigned: number = registerTab(reactId)
-    ;(internalIndexRef as unknown as { current: number }).current = assigned
+    internalIndexRef.current = assigned
   }, [reactId, registerTab])
-  const i: number =
-    index ??
-    (internalIndexRef as unknown as { current: number | undefined }).current ??
-    0
+  const i: number = index ?? internalIndexRef.current ?? 0
   const selected: boolean = i === activeIndex
   const ring: string =
     'focus:outline-none focus:ring-[var(--focus-ring-color)] ' +
@@ -48,7 +44,7 @@ export function Tab({
     <button
       role="tab"
       id={getTabId(i)}
-      aria-selected={selected ? 'true' : 'false'}
+      aria-selected={selected}
       aria-controls={getPanelId(i)}
       tabIndex={selected ? 0 : -1}
       disabled={disabled}

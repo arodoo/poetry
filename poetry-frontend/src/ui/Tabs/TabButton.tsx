@@ -3,7 +3,7 @@
  Purpose: Individual Tab button element with ARIA attributes.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement } from 'react'
+import { type ReactElement, type ReactNode } from 'react'
 import { tabClass } from './tabsHelpers'
 
 export interface TabButtonProps {
@@ -13,7 +13,7 @@ export interface TabButtonProps {
   disabled?: boolean
   index: number
   onSelect: (i: number) => void
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function TabButton({
@@ -30,7 +30,7 @@ export function TabButton({
       key={index}
       id={id}
       role="tab"
-      aria-selected={selected ? 'true' : 'false'}
+      aria-selected={selected}
       aria-controls={panelId}
       tabIndex={selected ? 0 : -1}
       disabled={disabled}

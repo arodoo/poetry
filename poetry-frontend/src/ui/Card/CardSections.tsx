@@ -5,11 +5,11 @@
  styling behind small components. They accept className to extend styles.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement } from 'react'
+import { type ReactElement, type ReactNode } from 'react'
 import clsx from 'clsx'
 
 export interface CardSectionProps {
-  children?: React.ReactNode
+  children?: ReactNode
   className?: string
 }
 

@@ -3,16 +3,16 @@
  Purpose: Extracted keyboard handler hook for TabsRoot to keep file short.
  All Rights Reserved. Arodi Emmanuel
 */
-import { useCallback } from 'react'
+import { useCallback, type KeyboardEvent } from 'react'
 
 export function useTabsKeyHandler(
   count: number,
   activeIndex: number,
   select: (i: number) => void,
   getTabId: (i: number) => string
-): (e: React.KeyboardEvent<HTMLDivElement>) => void {
+): (e: KeyboardEvent<HTMLDivElement>) => void {
   return useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>): void => {
+    (e: KeyboardEvent<HTMLDivElement>): void => {
       const max: number = count
       if (!max) return
       let next: number = activeIndex

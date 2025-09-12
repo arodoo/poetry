@@ -1,13 +1,14 @@
 /*
  File: TabsRoot.tsx
- Purpose: Accessible Tabs (items + panels) with keyboard navigation.
+ Purpose: Accessible Tabs root, manages state and keyboard navigation.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement, type ReactNode, useId, useState } from 'react'
-import { tabClass } from './tabsHelpers'
+import { type ReactElement, type ReactNode, type KeyboardEvent } from 'react'
+import { useState } from 'react'
 import { useTabsKeyHandler } from './useTabsKeyHandler'
 import { makeGetPanelId, makeGetTabId } from './useTabsIds'
 import { TabsPanelsView } from './TabsPanelsView'
+import { TabsHeader } from './TabsHeader'
 
 export interface TabItem {
   label: ReactNode
@@ -31,7 +32,7 @@ export function Tabs({
   className,
 }: TabsProps): ReactElement {
   const [activeIndex, setActiveIndex] = useState<number>(defaultIndex)
-  const baseId: string = useId() || idBase
+  const baseId: string = idBase
   const getTabId: (i: number) => string = makeGetTabId(baseId)
   const getPanelId: (i: number) => string = makeGetPanelId(baseId)
   const select: (i: number) => void = (i: number): void => {
@@ -39,39 +40,23 @@ export function Tabs({
     setActiveIndex(i)
     if (onChange) onChange(i)
   }
-  const onKey: (e: React.KeyboardEvent<HTMLDivElement>) => void =
-    useTabsKeyHandler(items.length, activeIndex, select, getTabId)
+  const onKey: (e: KeyboardEvent<HTMLDivElement>) => void = useTabsKeyHandler(
+    items.length,
+    activeIndex,
+    select,
+    getTabId
+  )
 
   return (
     <div data-tabs-root className={className}>
-      <div
-        role="tablist"
-        aria-orientation="horizontal"
+      <TabsHeader
+        items={items}
+        activeIndex={activeIndex}
+        onSelect={select}
         onKeyDown={onKey}
-        className="flex gap-2 border-b pb-1"
-      >
-        {items.map((it: TabItem, i: number): ReactElement => {
-          const isSelected: boolean = i === activeIndex
-          return (
-            <button
-              key={i}
-              id={getTabId(i)}
-              role="tab"
-              aria-selected={isSelected ? 'true' : 'false'}
-              aria-controls={getPanelId(i)}
-              tabIndex={i === activeIndex ? 0 : -1}
-              disabled={it.disabled}
-              type="button"
-              onClick={(): void => {
-                select(i)
-              }}
-              className={tabClass(i === activeIndex, it.disabled)}
-            >
-              {it.label}
-            </button>
-          )
-        })}
-      </div>
+        getTabId={getTabId}
+        getPanelId={getPanelId}
+      />
       <TabsPanelsView baseId={baseId} items={items} activeIndex={activeIndex} />
     </div>
   )

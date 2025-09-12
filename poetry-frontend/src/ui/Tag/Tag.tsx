@@ -4,12 +4,12 @@
  button emitting onRemove. Focus ring tokens applied.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement } from 'react'
+import { type ReactElement, type ReactNode } from 'react'
 import clsx from 'clsx'
 import { Badge } from '../Badge/Badge'
 
 export interface TagProps {
-  children?: React.ReactNode
+  children?: ReactNode
   onRemove?: () => void
   className?: string
   tone?: 'primary' | 'neutral' | 'danger' | 'success'

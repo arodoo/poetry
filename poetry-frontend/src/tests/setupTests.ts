@@ -17,22 +17,22 @@ function getDefault(mod: unknown): unknown {
 }
 
 // Support both `export default` and named exports from the module
-type Matcher = (this: unknown, ...args: unknown[]) => unknown
-type MatcherRecord = Record<string, Matcher> | undefined
+type Matcher = (
+  this: unknown,
+  ...args: unknown[]
+) => { pass: boolean; message: () => string }
+type MatcherRecord = Record<string, Matcher>
 
+const modDefault: MatcherRecord | undefined = getDefault(jestDomMatchers) as
+  | MatcherRecord
+  | undefined
 const matchers: MatcherRecord =
-  (getDefault(jestDomMatchers) as MatcherRecord) ??
-  (jestDomMatchers as unknown as MatcherRecord)
+  modDefault ?? (jestDomMatchers as Record<string, Matcher>)
 
 try {
   // Attempt to extend expect with matchers. If matchers is undefined or the
   // shape is unexpected, expect.extend will throw and be handled below.
-  if (matchers && Object.keys(matchers).length > 0) {
-    const extendFn: (m: MatcherRecord) => void = expect.extend as unknown as (
-      m: MatcherRecord
-    ) => void
-    extendFn(matchers)
-  }
+  if (Object.keys(matchers).length > 0) expect.extend(matchers)
 } catch {
   // Fallback: don't throw during test environment setup if matchers
   // couldn't be resolved. This avoids CI failing on environment/type

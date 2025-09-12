@@ -15,9 +15,9 @@ Application will sooner or later be PWA, consider this in your designs.
   clearly expresses its purpose in context (e.g. `response` instead of `r`, if
   you find a bad example, fix it)
 - Code must be in first place LOGIC in relation to the environment
-- No file should exceed 60 lines; (test files < 40 lines>), in frontEnd no line
-  should exceed 80 characters, in backend is 100, if longer split into smaller
-  dedicated files (fixtures/helpers/components, etc)
+- IMPORTANT: No file should exceed 60 lines; (test files < 40 lines>), in
+  frontEnd no line should exceed 80 characters, in backend is 100, if longer
+  split into smaller dedicated files (fixtures/helpers/components, etc)
 - Code must follow international formatting standards: ESLint + Prettier for
   TypeScript, and Google Java Style Guide
 - All features must be documented in /docs following the standard folder

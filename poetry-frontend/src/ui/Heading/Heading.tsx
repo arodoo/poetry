@@ -5,7 +5,7 @@
  The component keeps the API minimal while covering common cases.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement, type ElementType } from 'react'
+import { type ReactElement, type ElementType, type ReactNode } from 'react'
 import clsx from 'clsx'
 
 export interface HeadingProps {
@@ -13,7 +13,7 @@ export interface HeadingProps {
   size?: 'xs' | 'sm' | 'md' | 'lg'
   weight?: 'medium' | 'bold'
   className?: string
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 export function Heading({

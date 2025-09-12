@@ -6,14 +6,6 @@
  exceeding line limits in CI scripts.
  All Rights Reserved. Arodi Emmanuel
 */
-/*
- File: char-limits.mjs
- Purpose: Provide getCharLimit() used by the CI validator to enforce
- per-line character limits depending on file type. This module reads the
- central code-standards configuration so limits stay consistent across
- tools. It is imported by the validator and other scripts.
- All Rights Reserved. Arodi Emmanuel
-*/
 import path from 'node:path'
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'

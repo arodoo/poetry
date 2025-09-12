@@ -3,13 +3,13 @@
  Purpose: Render a single accordion item.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement } from 'react'
+import { type ReactElement, type ReactNode } from 'react'
 import clsx from 'clsx'
 
 export interface AccordionItem {
   id: string
-  header: React.ReactNode
-  content: React.ReactNode
+  header: ReactNode
+  content: ReactNode
   disabled?: boolean
 }
 
@@ -28,7 +28,7 @@ export function AccordionItemView({ it, open, toggle }: Props): ReactElement {
       <h3 className="m-0">
         <button
           type="button"
-          aria-expanded={open ? 'true' : 'false'}
+          aria-expanded={open}
           aria-controls={`${it.id}-panel`}
           id={`${it.id}-header`}
           disabled={it.disabled}
