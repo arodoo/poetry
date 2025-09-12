@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 /*
  * File: check-lines.mjs
- * Purpose: Checks files for maximum line length violations and reports
- * offending lines to guide developers in splitting or refactoring long
- * lines to follow project formatting rules.
+ * Purpose: Check files for maximum line length violations and report
+ * offending lines so developers can split or refactor them. It
+ * integrates with repository config to ensure consistent limits across
+ * tools and environments. It also prints guidance to help developers
+ * resolve issues quickly.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -19,15 +21,17 @@ import {
 import { validateFiles } from '../utils/validator.mjs'
 
 // Validate configuration files are synchronized
-console.log('🔍 Validating configuration synchronization...')
+console.log('🔍 Validating configuration sync...')
 try {
   execSync('node tools/ci/config/validate-config-sync.mjs', {
     stdio: 'inherit',
     cwd: process.cwd(),
   })
 } catch (error) {
-  console.error('❌ Configuration files are not synchronized!')
-  console.error('💡 Run "node tools/ci/config/config-sync.mjs" to fix.')
+  console.error('❌ Configuration files are not synchronized')
+  console.error(
+    '💡 Run `node tools/ci/config/config-sync.mjs` to fix.'
+  )
   process.exit(1)
 }
 console.log('')
@@ -57,7 +61,7 @@ if (!result.valid) {
   console.error('❌ Line limit violations found:')
   result.errors.forEach((e) => console.error(`  ${e}`))
   console.error('\n💡 Files must be split into smaller dedicated files.')
-  console.error('\n💡 No logic should be removed to accommodate line limits.')
+  console.error('\n💡 Do not remove logic to satisfy line limits.')
   process.exit(1)
 }
 

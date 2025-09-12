@@ -20,6 +20,7 @@ export interface TokenFont {
   readonly label: string
   readonly weights: readonly (number | string)[]
   readonly hash?: string | undefined
+  readonly woff2Url?: string | undefined
 }
 export const TokenFontSchema: z.ZodType<TokenFont> = z
   .object({
@@ -27,7 +28,17 @@ export const TokenFontSchema: z.ZodType<TokenFont> = z
     label: z.string(),
     weights: z.array(z.union([z.number(), z.string()])),
     hash: z.string().optional(),
+    woff2Url: z.string().url().optional(),
   })
+  .readonly()
+
+export interface TokenFontFamily {
+  readonly key: string
+  readonly label: string
+  readonly family: string
+}
+export const TokenFontFamilySchema: z.ZodType<TokenFontFamily> = z
+  .object({ key: z.string(), label: z.string(), family: z.string() })
   .readonly()
 
 export interface KeyedValues {

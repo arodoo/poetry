@@ -11,6 +11,7 @@ import type { PropsWithChildren, ReactNode } from 'react'
 import { createContext, useEffect, useMemo } from 'react'
 import { useTokensQuery } from '../../features/tokens/hooks/useTokensQueries'
 import { mapBundleToCssVars } from '../../ui/theme/tokens'
+import { loadFontOffline } from '../fonts/loadFontOffline'
 
 interface TokensContextValue {
   readonly isLoading: boolean
@@ -38,6 +39,15 @@ export function TokensProvider({ children }: TokensProviderProps): ReactNode {
       root.style.setProperty(k, v)
     })
   }, [cssVars])
+
+  // Trigger offline font load when bundle present.
+  useEffect((): void => {
+    if (data) {
+      loadFontOffline(
+        data.bundle as unknown as import('../fonts/loadFontTypes').TokenBundle
+      )
+    }
+  }, [data])
 
   const value: TokensContextValue = useMemo((): TokensContextValue => {
     const safeError: Error | null = error instanceof Error ? error : null

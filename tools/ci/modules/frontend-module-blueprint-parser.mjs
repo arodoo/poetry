@@ -44,7 +44,12 @@ export function expandFrontendFeature(entries, feature){
   return entries.map(e => ({
     optional: e.optional,
     path: e.pattern
+      // Replace angle-bracketed placeholders first to avoid
+      // leaving dangling brackets in paths like "<Tokens>".
+      .replace(/<Features>/g, PL)
+      .replace(/<Feature>/g, P)
       .replace(/<feature>/g, feature)
+      // Back-compat: also replace bare words if present.
       .replace(/Features/g, PL)
       .replace(/Feature/g, P),
     isPattern: e.isPattern,

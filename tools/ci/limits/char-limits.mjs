@@ -1,10 +1,19 @@
 /*
- * File: char-limits.mjs
- * Purpose: Enforces per-line character limits across source files
- * and assists CI in keeping code within configured width constraints.
- * The script is used by pre-commit hooks to avoid long-line violations.
- * All Rights Reserved. Arodi Emmanuel
- */
+ File: char-limits.mjs
+ Purpose: Provide getCharLimit() used by the validator to enforce per-line
+ character limits. The function reads the central config to decide limits
+ per extension and is shared by file validators. Keeping it small avoids
+ exceeding line limits in CI scripts.
+ All Rights Reserved. Arodi Emmanuel
+*/
+/*
+ File: char-limits.mjs
+ Purpose: Provide getCharLimit() used by the CI validator to enforce
+ per-line character limits depending on file type. This module reads the
+ central code-standards configuration so limits stay consistent across
+ tools. It is imported by the validator and other scripts.
+ All Rights Reserved. Arodi Emmanuel
+*/
 import path from 'node:path'
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -23,20 +32,11 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
  */
 export function getCharLimit(filePath) {
   const ext = path.extname(filePath).toLowerCase()
-
-  // Backend files
   if (config.fileExtensions.backend.includes(ext)) {
-    if (ext === '.java') {
-      return config.characterLimits.backend.java
-    }
+    if (ext === '.java') return config.characterLimits.backend.java
   }
-
-  // Frontend files (same limit for JS/TS variants)
   if (config.fileExtensions.frontend.includes(ext)) {
-    const limits = config.characterLimits.frontend
-    return limits.typescript
+    return config.characterLimits.frontend.typescript
   }
-
-  // Default limit for other files
   return config.characterLimits.default
 }

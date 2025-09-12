@@ -31,9 +31,12 @@ export function Text(props: TextProps): ReactElement {
     medium: 'font-medium',
     bold: 'font-bold',
   }
+  const ring: string =
+    'focus:outline-none focus:ring-[var(--focus-ring-color)] ' +
+    'focus:ring-offset-1 focus:ring-[length:var(--focus-ring-width)]'
   return (
     <Tag
-      className={clsx(sizeMap[size], weightMap[weight], className)}
+      className={clsx(sizeMap[size], weightMap[weight], ring, className)}
       {...rest}
     />
   )

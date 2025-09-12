@@ -8,17 +8,16 @@ Application will sooner or later be PWA, consider this in your designs.
 - All code contributions must be production ready: fully implemented, no TODO,
   FIXME, or commented-out code, but app is in a fresh/initial state of
   development
-- The app is in a fresh/initial state of development backward compatibility
-  issues.
 - Before starting code changes Provide a brief step-by-step plan (in the chat
   only)
 - Must follow DDD, SOLID, Clean Architecture
 - Every variable, parameter, or attribute must have a descriptive name that
   clearly expresses its purpose in context (e.g. `response` instead of `r`, if
   you find a bad example, fix it)
-- No file should exceed 80 lines; if longer, split into dedicated smaller files,
-  never remove logic (test files < 40 lines>)
-- In frontEnd no line should exceed 80 characters, in backend is 100
+- Code must be in first place LOGIC in relation to the environment
+- No file should exceed 60 lines; (test files < 40 lines>), in frontEnd no line
+  should exceed 80 characters, in backend is 100, if longer split into smaller
+  dedicated files (fixtures/helpers/components, etc)
 - Code must follow international formatting standards: ESLint + Prettier for
   TypeScript, and Google Java Style Guide
 - All features must be documented in /docs following the standard folder

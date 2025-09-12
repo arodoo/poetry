@@ -1,0 +1,11 @@
+# File: admin-index.yaml
+# Purpose: Placeholder OpenAPI path file for admin endpoints. It allows
+# the frontend modules checker to detect admin path presence until the
+# real endpoints are defined. All Rights Reserved. Arodi Emmanuel TODO
+/admin:
+  get:
+    summary: Admin index (placeholder)
+    operationId: getAdminIndex
+    tags: [admin]
+    responses:
+      '204': { description: No Content }

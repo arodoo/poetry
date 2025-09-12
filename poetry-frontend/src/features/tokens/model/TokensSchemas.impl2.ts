@@ -8,12 +8,14 @@ import { z } from 'zod'
 import type {
   TokenTheme,
   TokenFont,
+  TokenFontFamily,
   KeyedValues,
   TokenFontSizes,
 } from './TokensSchemas.impl1'
 import {
   TokenThemeSchema,
   TokenFontSchema,
+  TokenFontFamilySchema,
   KeyedValuesSchema,
   TokenFontSizesSchema,
 } from './TokensSchemas.impl1'
@@ -30,6 +32,7 @@ export interface TokenBundleCurrent {
 export interface TokenBundle {
   readonly themes: readonly TokenTheme[]
   readonly fonts: readonly TokenFont[]
+  readonly fontFamilies: readonly TokenFontFamily[]
   readonly fontWeights: readonly string[]
   readonly fontSizes: readonly TokenFontSizes[]
   readonly spacings: readonly KeyedValues[]
@@ -42,6 +45,7 @@ export const TokenBundleSchema: z.ZodType<TokenBundle> = z
   .object({
     themes: z.array(TokenThemeSchema),
     fonts: z.array(TokenFontSchema),
+    fontFamilies: z.array(TokenFontFamilySchema),
     fontWeights: z.array(z.string()),
     fontSizes: z.array(TokenFontSizesSchema),
     spacings: z.array(KeyedValuesSchema),

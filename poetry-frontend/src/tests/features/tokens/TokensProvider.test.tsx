@@ -23,6 +23,9 @@ vi.mock('../../../features/tokens/hooks/useTokensQueries', async () => {
             },
           ],
           fonts: [],
+          fontFamilies: [
+            { key: 'inter', label: 'Inter', family: 'Inter, sans-serif' },
+          ],
           fontWeights: ['400', '500', '700'],
           fontSizes: [
             { key: 'default', label: 'Default', sizes: { base: '1rem' } },
@@ -67,6 +70,9 @@ describe('TokensProvider', () => {
     const root = document.documentElement
     expect(getComputedStyle(root).getPropertyValue('--color-primary')).toBe(
       'hsl(34 65% 37%)'
+    )
+    expect(getComputedStyle(root).getPropertyValue('--font-family-base')).toBe(
+      'Inter, sans-serif'
     )
   })
 })

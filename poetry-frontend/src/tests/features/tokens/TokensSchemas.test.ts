@@ -18,6 +18,7 @@ const valid = {
     },
   ],
   fonts: [{ key: 'inter', label: 'Inter', weights: [400] }],
+  fontFamilies: [{ key: 'inter', label: 'Inter', family: 'Inter, sans-serif' }],
   fontWeights: ['400'],
   fontSizes: [
     {

@@ -16,7 +16,9 @@ export function Button(props: ButtonProps): ReactElement {
   const { className, variant = 'primary', size = 'md', ...rest } = props
   const base: string =
     'inline-flex items-center font-medium rounded ' +
-    'focus:outline-none focus:ring'
+    'focus:outline-none focus:ring' +
+    ' focus:ring-[var(--focus-ring-color)] focus:ring-offset-1 ' +
+    'focus:ring-[length:var(--focus-ring-width)]'
   const variantClasses: Record<string, string> = {
     primary:
       'bg-[var(--color-primary)] text-[var(--color-text,#1a1a1a)] ' +

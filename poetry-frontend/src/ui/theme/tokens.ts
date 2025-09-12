@@ -7,5 +7,6 @@
  All Rights Reserved. Arodi Emmanuel
 */
 
-export { mapBundleToCssVars, tokensVarNames } from './tokens.generated'
-export type { CssVars } from './tokens.generated'
+export { mapBundleToCssVars } from './tokens.generated.part2'
+export { tokensVarNames } from './tokens.generated.part1'
+export type { CssVars } from './tokens.generated.part1'
