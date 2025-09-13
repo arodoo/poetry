@@ -14,7 +14,9 @@ export async function fetchJsonInternal<T>(
   path: string,
   options: HttpOptions
 ): Promise<T> {
-  const url: string = `${cfg.VITE_API_BASE_URL.replace(/\/$/, '')}${path}`
+  const base: string = cfg.VITE_API_BASE_URL.replace(/\/$/, '')
+  const p: string = path.startsWith('/') ? path : `/${path}`
+  const url: string = `${base}${p}`
   const timeout: number = options.timeoutMs ?? cfg.VITE_HTTP_TIMEOUT_MS
   const retryCfg: Required<NonNullable<HttpOptions['retry']>> =
     options.retry ?? {

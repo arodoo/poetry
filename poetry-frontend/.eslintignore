@@ -1,0 +1,2 @@
+# Ignore local ambient types or placeholders
+types/dev-logger-plugin.d.ts

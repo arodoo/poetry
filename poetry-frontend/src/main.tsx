@@ -14,8 +14,43 @@ import { I18nProvider } from './shared/i18n'
 import { TokensProvider } from './shared/tokens/TokensProvider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-// Fail-fast: validate env at startup
-getEnv()
+// Dev-only: install client error bridge BEFORE any code that may throw
+if (import.meta.env.DEV) {
+  await import('./shared/dev/clientErrorReporter')
+}
+
+// Fail-fast: validate env at startup (bridge errors explicitly in dev)
+if (import.meta.env.DEV) {
+  try {
+    getEnv()
+  } catch (e: unknown) {
+    const err: Error = e instanceof Error ? e : new Error(String(e))
+    const body: string = JSON.stringify({
+      type: 'startup-throw',
+      name: err.name,
+      message: err.message,
+      stack: err.stack,
+    })
+    try {
+      navigator.sendBeacon(
+        '/__client-errors',
+        new Blob([body], { type: 'application/json' })
+      )
+    } catch {
+      void fetch('/__client-errors', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true,
+      }).catch((): void => {
+        /* noop */
+      })
+    }
+    throw e
+  }
+} else {
+  getEnv()
+}
 
 const rootElement: HTMLElement | null = document.getElementById('root')
 

@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node ../tools/logs/frontend/dev-with-log.mjs",
+    "dev:raw": "vite",
+    "dev:log": "node ../tools/logs/frontend/dev-with-log.mjs",
     "predev": "npm run i18n:gen && npm run i18n:verify",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

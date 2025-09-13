@@ -1,3 +1,45 @@
+# Node
+node_modules/
+**/node_modules/
+
+# Frontend build artifacts
+poetry-frontend/dist/
+**/dist/
+poetry-frontend/.vite/
+
+# Backend build artifacts
+poetry-backend/target/
+**/target/
+
+# Logs
+logs/
+**/*.log
+
+# Coverage / reports
+coverage/
+**/coverage/
+*.lcov
+
+# TypeScript
+**/*.tsbuildinfo
+
+# Env files (keep example files committed separately)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env.local
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Misc
+*.tmp
+*.swp
+*.swo
 # Ignorar repo antiguo
 oldRepo/
 

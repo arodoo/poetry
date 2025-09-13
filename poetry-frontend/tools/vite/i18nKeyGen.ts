@@ -21,8 +21,10 @@ export function i18nKeyGen(): Plugin {
   let lastHash: string = ''
 
   function generate(): void {
-    execSync('node ../tools/ci/i18n-generate-keys.mjs', { stdio: 'inherit' })
-    execSync('node ../tools/ci/i18n-verify.mjs', { stdio: 'inherit' })
+    execSync('node ../tools/ci/i18n/i18n-generate-keys.mjs', {
+      stdio: 'inherit',
+    })
+    execSync('node ../tools/ci/i18n/i18n-verify.mjs', { stdio: 'inherit' })
   }
 
   return {

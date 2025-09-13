@@ -16,8 +16,8 @@ Application will sooner or later be PWA, consider this in your designs.
   you find a bad example, fix it)
 - Code must be in first place LOGIC in relation to the environment
 - IMPORTANT: No file should exceed 60 lines; (test files < 40 lines>), in
-  frontEnd no line should exceed 80 characters, in backend is 100, if longer
-  split into smaller dedicated files (fixtures/helpers/components, etc)
+  frontEnd no line should exceed 80 characters, in backend is 100,
+  (fixtures/helpers/components, etc)
 - Code must follow international formatting standards: ESLint + Prettier for
   TypeScript, and Google Java Style Guide
 - All features must be documented in /docs following the standard folder
@@ -79,7 +79,11 @@ create new modules or features in the frontend)
 
 ## Commit musts
 
-- Check .husky\commit-msg for commit message rules
+- For any git commit you propose or run: use exactly one -m with plain ASCII
+  text in double quotes, formatted as type: subject (no scope), and NEVER
+  include parentheses, semicolons, pipes, ampersands, backticks,
+  dollar-substitution, or any other shell operators.
+- Check .husky\commit-msg for commit message must
 
 ## Limits
 

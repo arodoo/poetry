@@ -14,7 +14,7 @@ import prettierConfig from 'eslint-config-prettier'
 // Arodi Emmanuel
 
 export default tseslint.config([
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'types/dev-logger-plugin.d.ts'] },
   {
     files: ['**/*.{ts,tsx}'],
     ignores: [

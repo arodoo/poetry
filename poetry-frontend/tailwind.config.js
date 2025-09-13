@@ -21,14 +21,7 @@ export default {
         error: 'var(--color-error)',
         info: 'var(--color-info)',
       },
-      spacing: ({ theme }) => ({
-        ...theme('spacing'),
-        xs: 'var(--spacing-xs)',
-        sm: 'var(--spacing-sm)',
-        md: 'var(--spacing-md)',
-        lg: 'var(--spacing-lg)',
-        xl: 'var(--spacing-xl)',
-      }),
+      // spacing scale customized via CSS variables directly in components
       fontSize: {
         xs: 'var(--font-size-xs)',
         sm: 'var(--font-size-sm)',

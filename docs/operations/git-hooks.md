@@ -21,7 +21,7 @@ Git executes relevant hooks in this order during a commit/push lifecycle:
 
 1. `pre-commit`
 2. `prepare-commit-msg` (not used here)
-3. `commit-msg`
+3. `commit-msg` (disabled in this repo)
 4. (Later) `pre-push`
 
 ## Responsibilities by Hook
@@ -45,9 +45,8 @@ surface IDE errors during the commit attempt:
 
 ### commit-msg
 
-- Enforces Conventional Commit format via `commitlint`.
-- Fails immediately if the commit message is invalid. This ensures we do not run
-  heavy tasks for commits that would be rejected in review / automation.
+- Disabled: no commit message validation is enforced locally. Any message is
+  accepted (e.g., `a`).
 
 ### pre-push (HEAVY)
 
@@ -63,11 +62,11 @@ If any step fails, the push is blocked.
 
 ## Rationale
 
-| Concern              | Placement  | Reason                                                |
-| -------------------- | ---------- | ----------------------------------------------------- |
-| Commit format        | commit-msg | Semantic correctness tied to the commit object itself |
-| Fast static checks   | pre-commit | Immediate feedback; low cost                          |
-| Expensive validation | pre-push   | Avoid re-running on every amend / small fix           |
+| Concern              | Placement             | Reason                                      |
+| -------------------- | --------------------- | ------------------------------------------- |
+| Commit format        | commit-msg (disabled) | Not enforced locally                        |
+| Fast static checks   | pre-commit            | Immediate feedback; low cost                |
+| Expensive validation | pre-push              | Avoid re-running on every amend / small fix |
 
 ## Developer Workflow Impact
 
@@ -86,6 +85,9 @@ git commit --no-verify
 ```
 
 Follow-up: fix issues before pushing (pre-push will still enforce heavy gates).
+
+Note: Commit message validation is currently disabled; CI may still apply
+policies in the future.
 
 ## Future Enhancements (Optional)
 
