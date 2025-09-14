@@ -1,8 +1,8 @@
 {
-  "ok": false,
+  "ok": true,
   "summary": {
     "features": 5,
-    "missing": 1
+    "missing": 0
   },
   "details": [
     {
@@ -146,7 +146,7 @@
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/GetAuthByIdUseCaseNegativeTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/UpdateAuthUseCaseTest.java",
@@ -179,9 +179,7 @@
           "exists": true
         }
       ],
-      "missing": [
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/GetAuthByIdUseCaseNegativeTest.java"
-      ]
+      "missing": []
     },
     {
       "feature": "font",

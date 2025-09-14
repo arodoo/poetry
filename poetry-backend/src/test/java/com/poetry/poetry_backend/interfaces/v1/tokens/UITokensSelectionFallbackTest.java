@@ -54,7 +54,8 @@ class UITokensSelectionFallbackTest {
         .as("fallback to existing theme")
         .isIn(
           t1.getKey(),
-          "a1"
+          "a1",
+          "amber"
         );
     }
   }

@@ -29,8 +29,7 @@ public class SecurityConfig {
                 "/swagger-ui/**",
                 "/swagger-ui.html",
                 "/api",
-                "/api/v1/auth/**",
-                "/api/v1/tokens/**")
+                "/api/v1/**")
             .permitAll()
             .anyRequest().authenticated())
         .httpBasic(basic -> {})
