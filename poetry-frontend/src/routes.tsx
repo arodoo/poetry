@@ -5,10 +5,8 @@
  */
 import type { ReactElement } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import HomePage from './features/public/pages/HomePage'
-import { UnauthorizedPage } from './features/auth/pages/UnauthorizedPage'
-import { AdminTokensPage } from './features/tokens/pages/AdminTokensPage'
-import { RequireRole } from './shared/routing/RequireRole'
+import { PublicRoutes } from './routesPublic'
+import { AdminRoutes } from './routesAdmin'
 
 export function AppRouteTree(): ReactElement {
   return (
@@ -16,22 +14,9 @@ export function AppRouteTree(): ReactElement {
       {/* default locale redirect to en */}
       <Route path="/" element={<Navigate to="/en" replace />} />
 
-      {/* public scope */}
-      <Route path=":locale/" element={<HomePage />} />
-      <Route path=":locale/unauthorized" element={<UnauthorizedPage />} />
+      <PublicRoutes />
 
-      {/* admin */}
-      <Route
-        path=":locale/admin/tokens"
-        element={
-          <RequireRole role="admin">
-            <AdminTokensPage />
-          </RequireRole>
-        }
-      />
-
-      {/* 404 */}
-      <Route path="*" element={<Navigate to="/en/unauthorized" replace />} />
+      <AdminRoutes />
     </Routes>
   )
 }

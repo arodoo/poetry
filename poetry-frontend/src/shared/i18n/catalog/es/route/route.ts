@@ -12,6 +12,8 @@ export const routeEs: Record<string, string> = {
   'ui.route.admin.tokens.slug': 'admin/tokens',
   'ui.route.unauthorized.title': 'No Autorizado',
   'ui.route.unauthorized.slug': 'unauthorized',
+  'ui.route.404.title': 'Página no encontrada',
+  'ui.route.404.message': 'La página solicitada no existe.',
   'ui.public.home.intro': 'Bienvenido a Poetry — una app modular de demo.',
   'ui.public.home.cta.login': 'Iniciar sesión',
   'ui.public.home.cta.register': 'Registrarse',

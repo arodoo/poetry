@@ -1,3 +1,5 @@
+#COMPLETED
+
 # File: 201-frontend-auth-sdk-hooks.md
 
 # Purpose: Implement SDK client and auth hooks (login/refresh/me/logout).

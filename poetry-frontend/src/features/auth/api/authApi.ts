@@ -4,6 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { fetchJson } from '../../../shared/http/fetchClient'
+import { createIdempotencyKey } from '../../../shared/http/idempotency'
 import { AuthStatusSchema, type AuthStatus } from '../model/AuthSchemas'
 import {
   AuthTokensSchema,
@@ -25,8 +26,11 @@ export async function postLogin(
   return AuthTokensSchema.parse(
     await fetchJson<unknown>('/api/v1/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
-      headers: { 'Content-Type': 'application/json' },
+      body: { username, password },
+      headers: {
+        'Content-Type': 'application/json',
+        'Idempotency-Key': createIdempotencyKey(),
+      },
     })
   )
 }
@@ -35,8 +39,11 @@ export async function postRefresh(refreshToken: string): Promise<AuthTokens> {
   return AuthTokensSchema.parse(
     await fetchJson<unknown>('/api/v1/auth/refresh', {
       method: 'POST',
-      body: JSON.stringify({ refreshToken }),
-      headers: { 'Content-Type': 'application/json' },
+      body: { refreshToken },
+      headers: {
+        'Content-Type': 'application/json',
+        'Idempotency-Key': createIdempotencyKey(),
+      },
     })
   )
 }
@@ -44,8 +51,11 @@ export async function postRefresh(refreshToken: string): Promise<AuthTokens> {
 export async function postLogout(refreshToken: string): Promise<void> {
   await fetchJson<unknown>('/api/v1/auth/logout', {
     method: 'POST',
-    body: JSON.stringify({ refreshToken }),
-    headers: { 'Content-Type': 'application/json' },
+    body: { refreshToken },
+    headers: {
+      'Content-Type': 'application/json',
+      'Idempotency-Key': createIdempotencyKey(),
+    },
   })
 }
 
