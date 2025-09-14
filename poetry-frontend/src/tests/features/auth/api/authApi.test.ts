@@ -22,7 +22,12 @@ describe('authApi', () => {
 describe('authApi headers', () => {
   it('sends Idempotency-Key on login', async () => {
     const mocked = vi.mocked(fetchJson)
-    mocked.mockResolvedValueOnce({ accessToken: 'a', refreshToken: 'r' })
+    mocked.mockResolvedValueOnce({
+      accessToken: 'a',
+      refreshToken: 'r',
+      tokenType: 'Bearer',
+      expiresIn: 3600,
+    })
     await postLogin('u', 'p')
     const call = mocked.mock.calls.at(-1)
     const options = call?.[1] as { headers?: Record<string, string> }
