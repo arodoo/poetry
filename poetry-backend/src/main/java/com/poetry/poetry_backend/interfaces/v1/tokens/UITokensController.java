@@ -7,6 +7,7 @@
 package com.poetry.poetry_backend.interfaces.v1.tokens;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,7 @@ public class UITokensController {
   }
 
   @PutMapping("/tokens/selection")
+  @PreAuthorize("hasAuthority('admin')")
   public ResponseEntity<Void> updateSelection(@RequestBody @Validated UpdateSelectionRequest body) {
     // Basic construction, validation of non-empty handled by record constructor & annotations
     UiCustomizationSelection sel = new UiCustomizationSelection(

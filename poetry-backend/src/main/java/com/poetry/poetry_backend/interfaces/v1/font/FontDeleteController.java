@@ -6,6 +6,7 @@
 package com.poetry.poetry_backend.interfaces.v1.font;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class FontDeleteController {
   private final GetFontByIdUseCase getByKey;
   public FontDeleteController(DeleteFontUseCase delete, GetFontByIdUseCase getByKey) {
     this.delete = delete;this.getByKey = getByKey;}
+  @PreAuthorize("hasAuthority('admin')")
   @DeleteMapping("/{key}")
   public ResponseEntity<?> delete(@PathVariable String key) {
     return getByKey.execute(key)

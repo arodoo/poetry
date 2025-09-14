@@ -6,6 +6,7 @@
 package com.poetry.poetry_backend.interfaces.v1.font;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public class FontUpdateController {
   private final GetFontByIdUseCase getByKey;
   public FontUpdateController(UpdateFontUseCase update, GetFontByIdUseCase getByKey) {
     this.update = update;this.getByKey = getByKey;}
+  @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{key}")
   public ResponseEntity<FontDtos.FontResponse> update(
       @PathVariable String key,

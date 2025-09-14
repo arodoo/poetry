@@ -11,7 +11,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(basePackageClasses = {ThemeReadController.class, ThemeWriteController.class})
+@RestControllerAdvice(basePackageClasses = {
+  ThemeReadController.class,
+  ThemeCreateController.class,
+  ThemeUpdateController.class,
+  ThemeActivateController.class,
+  ThemeDeleteController.class
+})
 public class ThemeExceptionHandler {
 
   @ResponseStatus(HttpStatus.NOT_FOUND)

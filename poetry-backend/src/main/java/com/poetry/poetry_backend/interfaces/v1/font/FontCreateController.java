@@ -8,6 +8,7 @@ package com.poetry.poetry_backend.interfaces.v1.font;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.poetry.poetry_backend.domain.font.model.FontAsset;
 public class FontCreateController {
   private final CreateFontUseCase create;
   public FontCreateController(CreateFontUseCase create) {this.create = create;}
+  @PreAuthorize("hasAuthority('admin')")
   @PostMapping
   public ResponseEntity<FontDtos.FontResponse> create(@RequestBody FontDtos.CreateFontRequest req) {
     FontAsset saved = create.execute(
