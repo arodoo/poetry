@@ -6,7 +6,6 @@
 package com.poetry.poetry_backend.interfaces.v1.user;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +21,6 @@ public class UsersUpdateController {
   public UsersUpdateController(UpdateUserUseCase update) { this.update = update; }
 
   @PutMapping("/{id}")
-  @PreAuthorize("hasAnyAuthority('admin','manager')")
   public ResponseEntity<UserDtos.UserResponse> update(
       @PathVariable Long id,
       @RequestBody UserDtos.UserUpdateRequest r) {

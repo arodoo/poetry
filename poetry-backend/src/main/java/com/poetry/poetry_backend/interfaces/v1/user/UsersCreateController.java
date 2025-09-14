@@ -7,7 +7,6 @@
 package com.poetry.poetry_backend.interfaces.v1.user;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ public class UsersCreateController {
   public UsersCreateController(CreateUserUseCase create) { this.create = create; }
 
   @PostMapping
-  @PreAuthorize("hasAnyAuthority('admin','manager')")
   public ResponseEntity<UserDtos.UserResponse> create(
       @RequestBody UserDtos.UserCreateRequest r) {
     var u = create.execute(
