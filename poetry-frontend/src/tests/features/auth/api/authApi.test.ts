@@ -5,13 +5,12 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 
-const fetchJsonMock = vi.fn().mockResolvedValue({ authenticated: false })
 vi.mock('../../../../shared/http/fetchClient', () => ({
-  fetchJson: fetchJsonMock,
+  fetchJson: vi.fn().mockResolvedValue({ authenticated: false }),
 }))
 
-import { getAuthStatus } from '../../../../features/auth'
-import { postLogin } from '../../../../features/auth'
+import { fetchJson } from '../../../../shared/http/fetchClient'
+import { getAuthStatus, postLogin } from '../../../../features/auth'
 
 describe('authApi', () => {
   it('returns status', async () => {
@@ -22,9 +21,10 @@ describe('authApi', () => {
 
 describe('authApi headers', () => {
   it('sends Idempotency-Key on login', async () => {
-    fetchJsonMock.mockResolvedValueOnce({ accessToken: 'a', refreshToken: 'r' })
+    const mocked = vi.mocked(fetchJson)
+    mocked.mockResolvedValueOnce({ accessToken: 'a', refreshToken: 'r' })
     await postLogin('u', 'p')
-    const call = fetchJsonMock.mock.calls.at(-1)
+    const call = mocked.mock.calls.at(-1)
     const options = call?.[1] as { headers?: Record<string, string> }
     expect(options?.headers?.['Idempotency-Key']).toMatch(/^idem-/)
   })
