@@ -1,3 +1,5 @@
+#FINISHED
+
 # File: 100-backend-rbac.md
 
 # Purpose: Apply RBAC to controllers with method security and tests.

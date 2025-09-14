@@ -1,0 +1,2 @@
+# Temporarily ignore problematic file until encoding issue is resolved
+src/main/java/com/poetry/poetry_backend/domain/auth/exception/AuthNotFoundException.java

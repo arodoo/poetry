@@ -1,3 +1,5 @@
+#FINISHED
+
 # File: 103-openapi-sync.md
 
 # Purpose: Align `openapi-v1.yaml` to actual endpoints and error schema.

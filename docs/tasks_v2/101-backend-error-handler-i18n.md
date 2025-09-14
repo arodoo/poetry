@@ -1,3 +1,5 @@
+#FINISHED
+
 # File: 101-backend-error-handler-i18n.md
 
 # Purpose: Central error handler with i18n codes and OpenAPI schema.

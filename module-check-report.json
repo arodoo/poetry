@@ -1,10 +1,188 @@
 {
-  "ok": true,
+  "ok": false,
   "summary": {
-    "features": 4,
-    "missing": 0
+    "features": 5,
+    "missing": 1
   },
   "details": [
+    {
+      "feature": "auth",
+      "expected": [
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/auth/model/Auth.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/auth/model/value/*",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/port/AuthQueryPort.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/port/AuthCommandPort.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/GetAllAuthsUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/GetAuthByIdUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/CreateAuthUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/UpdateAuthUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/DeleteAuthUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthEntity.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaRepository.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaMapper.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaAdapter.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/auth/InMemoryAuthAdapter.java",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/auth/InMemoryAuthStore.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/auth/InMemoryAuthFactory.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthController.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthDtos.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/config/auth/AuthComposition.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/auth.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/auth-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/auth/model/AuthTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/auth/model/AuthValidationTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/CreateAuthUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/CreateAuthUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/GetAllAuthsUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/GetAuthByIdUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/GetAuthByIdUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/UpdateAuthUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/UpdateAuthUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/DeleteAuthUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/DeleteAuthUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthControllerTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthControllerNegativeTest.java",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": [
+        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/auth/usecase/GetAuthByIdUseCaseNegativeTest.java"
+      ]
+    },
     {
       "feature": "font",
       "expected": [

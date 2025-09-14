@@ -1,3 +1,5 @@
+#FINISHED
+
 # File: 102-backend-idempotency-etag.md
 
 # Purpose: Implement Idempotency-Key and ETag/If-Match filters.

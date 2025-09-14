@@ -37,18 +37,52 @@ Application will sooner or later be PWA, consider this in your designs.
 
   # BackEnd rules
 
-BackEnd rules defined at: '.github/chatmodes/backend.chatmode.md' (Must be read
-if you will interact with backend). BackEnd blueprint for new modules defined
-at: 'docs\architecture\module-blueprint.md' (Must be read if you will create new
+- Versioned API base path: "/api/v1".
+- Observability: Actuator, structured logs.
+- API discovery:
+  - OpenAPI at "/v3/api-docs".
+  - Swagger UI.
+  - "/api" index.
+  - "/actuator/mappings" restricted.
+- Error responses must follow RFC 7807 (Problem Details).
+- Soft delete for entities; no hard deletes.
+- No silent catches; all errors must be logged or reported.
+- All DB operations must be handled by Hibernate/JPA. No direct SQL migrations.
+- All external calls (HTTP/DB/Queue) must have timeouts and retries configured
+- Lombok for boilerplate reduction.
+- Java 21+.
+- hashCode and equals for entities.
+- @Deprecated files must be migrated and removed instantly.
+
+BackEnd blueprint for new modules defined at:
+'docs\architecture\module-blueprint.md' (Must be read if you will create new
 modules or features in the backend) Database architecture blueprint defined at:
 'docs\architecture\db-architecture-blueprint.md' (Must be read if you will
 create or modify database tables or persistence models)
 
 # FrontEnd rules
 
-FrontEnd rules defined at '.github/chatmodes/frontEnd.chatmode.md' (Must be read
-if you will interact with frontend) . FrontEnd blueprint for new modules defined
-at: 'docs\architecture\frontEnd-module-blueprint.md' (Must be read if you will
+- No hardcoded text (routes, breadcrumbs, content).
+- 100% i18n with localized slugs.
+- Prefix all routes with "/:locale/...".
+- Use TanStack Query for data.
+- Use Zod for runtime validation.
+- Use SDK generated from OpenAPI (no direct fetch/axios in components).
+- Each feature must have a dedicated folder 'locales' with i18n (it's own
+  language definitions).
+- Page components must only use pre-defined UI components from app/src/ui/
+  (e.g., Button.tsx, Table.tsx) so visual changes are made in one place and
+  apply across the app.
+- All UI must be fully accessible (WCAG 2.1 AA).
+- No business logic inside UI components.
+- API endpoints must be idempotent where applicable.
+- @heroicons/react for icons.
+- Tailwind CSS for styling.
+- Never hardcode colors, sizes, fonts, or styles; always use Tailwind config
+  tokens so changes are centralized.
+
+FrontEnd blueprint for new modules defined at:
+'docs\architecture\frontEnd-module-blueprint.md' (Must be read if you will
 create new modules or features in the frontend)
 
 ## Front/Back anti-drift

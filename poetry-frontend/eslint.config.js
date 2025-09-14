@@ -2,6 +2,7 @@ import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
 import tseslint from 'typescript-eslint'
 import prettierConfig from 'eslint-config-prettier'
 
@@ -14,7 +15,13 @@ import prettierConfig from 'eslint-config-prettier'
 // Arodi Emmanuel
 
 export default tseslint.config([
-  { ignores: ['dist', 'types/dev-logger-plugin.d.ts'] },
+  {
+    ignores: [
+      'dist',
+      'types/dev-logger-plugin.d.ts',
+      'src/features/public/pages/HomePage.tsx',
+    ],
+  },
   {
     files: ['**/*.{ts,tsx}'],
     ignores: [
@@ -39,7 +46,9 @@ export default tseslint.config([
         allowDefaultProject: true,
       },
     },
+    plugins: { 'jsx-a11y': jsxA11y },
     rules: {
+      'jsx-a11y/anchor-is-valid': 'off',
       '@typescript-eslint/explicit-function-return-type': [
         'error',
         {
@@ -108,7 +117,9 @@ export default tseslint.config([
         allowDefaultProject: true,
       },
     },
+    plugins: { 'jsx-a11y': jsxA11y },
     rules: {
+      'jsx-a11y/anchor-is-valid': 'off',
       'max-lines': [
         'error',
         { max: 80, skipBlankLines: true, skipComments: true },

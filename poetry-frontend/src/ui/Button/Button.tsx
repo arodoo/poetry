@@ -4,13 +4,33 @@
  and Tailwind utility classes. Internationalization is delegated to caller.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ButtonHTMLAttributes, type ReactElement } from 'react'
+import {
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type ReactElement,
+} from 'react'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary'
-  size?: 'sm' | 'md'
-}
+export type ButtonProps =
+  | (ButtonHTMLAttributes<HTMLButtonElement> & {
+      variant?: 'primary' | 'secondary'
+      size?: 'sm' | 'md'
+      href?: undefined
+      to?: undefined
+    })
+  | (AnchorHTMLAttributes<HTMLAnchorElement> & {
+      variant?: 'primary' | 'secondary'
+      size?: 'sm' | 'md'
+      href: string
+      to?: undefined
+    })
+  | ({
+      variant?: 'primary' | 'secondary'
+      size?: 'sm' | 'md'
+      to: string
+      href?: undefined
+    } & Record<string, unknown>)
 
 export function Button(props: ButtonProps): ReactElement {
   const { className, variant = 'primary', size = 'md', ...rest } = props
@@ -33,15 +53,24 @@ export function Button(props: ButtonProps): ReactElement {
     sm: 'text-xs px-2 py-1',
     md: 'text-sm px-3 py-2',
   }
-  return (
-    <button
-      className={clsx(
-        base,
-        variantClasses[variant],
-        sizeClasses[size],
-        className
-      )}
-      {...rest}
-    />
+  const classNames: string = clsx(
+    base,
+    variantClasses[variant],
+    sizeClasses[size],
+    className as string | undefined
   )
+  if ('to' in rest && typeof (rest as { to?: unknown }).to === 'string') {
+    const to: string = (rest as { to: string }).to
+    const linkProps: Record<string, unknown> = { ...rest }
+    delete (linkProps as { to?: string }).to
+    return <Link className={classNames} to={to} {...linkProps} />
+  }
+  if ('href' in rest && typeof (rest as { href?: unknown }).href === 'string') {
+    const anchorProps: AnchorHTMLAttributes<HTMLAnchorElement> =
+      rest as AnchorHTMLAttributes<HTMLAnchorElement>
+    return <a className={classNames} {...anchorProps} />
+  }
+  const buttonProps: ButtonHTMLAttributes<HTMLButtonElement> =
+    rest as ButtonHTMLAttributes<HTMLButtonElement>
+  return <button className={classNames} {...buttonProps} />
 }

@@ -9,12 +9,12 @@
 import { type ReactElement } from 'react'
 import './App.css'
 import { BrowserRouter } from 'react-router-dom'
-import AppRoutes from './AppRoutes'
+import { AppRouteTree } from './routes'
 
 function App(): ReactElement {
   return (
     <BrowserRouter>
-      <AppRoutes />
+      <AppRouteTree />
     </BrowserRouter>
   )
 }

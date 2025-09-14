@@ -8,6 +8,7 @@
 package com.poetry.poetry_backend.interfaces.v1.admin;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class AdminEchoController {
   public record EchoResponse(String message) {}
 
   @PostMapping("/echo")
+  @PreAuthorize("hasAuthority('admin')")
   public ResponseEntity<EchoResponse> echo(@Valid @RequestBody EchoRequest req) {
     String msg = echo.execute(req.message());
     return ResponseEntity.ok(new EchoResponse(msg));
