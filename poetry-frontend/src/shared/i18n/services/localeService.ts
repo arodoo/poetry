@@ -22,8 +22,12 @@ export class LocaleService {
     userId: string = 'demo'
   ): Promise<LocaleServiceResult> {
     try {
-      const response: Response = await fetch('/v1/me/locale', {
-        headers: { 'X-User-Id': userId },
+      // Align with backend versioned base path "/api/v1"
+      const response: Response = await fetch('/api/v1/me/locale', {
+        headers: {
+          'X-User-Id': userId,
+          Accept: 'application/json',
+        },
       })
 
       if (!response.ok) {
