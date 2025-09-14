@@ -70,6 +70,8 @@ create new modules or features in the frontend)
   - Adapters live in Infrastructure
   - No direct imports of 3rd-party libs (HTTP/DB/SDK) outside Infrastructure
   - Wiring only in a composition root via constructor injection
+  - In frontend test go at 'poetry-frontend\src\tests\<feature\>'
+  - Backend test go at 'poetry-backend\src\test\<feature\>'
 
   ## Error Handling
 
