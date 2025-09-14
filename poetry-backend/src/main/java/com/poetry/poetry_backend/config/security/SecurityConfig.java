@@ -27,7 +27,10 @@ public class SecurityConfig {
                 "/swagger-ui/**",
                 "/swagger-ui.html",
                 "/api",
-                "/api/v1/**")
+        "/api/v1/**",
+        // Test-only controllers live under /test/** (e.g., GlobalProblemHandlerTest)
+        // Including this matcher ensures tests exercise validation instead of 401 auth.
+        "/test/**")
             .permitAll()
             .anyRequest().authenticated())
         .httpBasic(basic -> {})
