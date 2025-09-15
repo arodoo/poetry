@@ -39,6 +39,7 @@
     "@commitlint/config-conventional": "^19.5.0",
     "@redocly/cli": "^1.28.3",
     "husky": "^9.1.6",
+    "jsdom": "^27.0.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3"
   }

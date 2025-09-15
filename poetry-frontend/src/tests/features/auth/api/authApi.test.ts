@@ -5,11 +5,14 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 
-vi.mock('../../../../shared/http/fetchClient', () => ({
-  fetchJson: vi.fn().mockResolvedValue({ authenticated: false }),
-}))
-
-import { fetchJson } from '../../../../shared/http/fetchClient'
+import * as Fetch from '../../../../shared/http/fetchClient'
+vi.mock('../../../../shared/http/fetchClient', async () => {
+  const mod = await vi.importActual('../../../../shared/http/fetchClient')
+  return {
+    ...mod,
+    fetchJson: vi.fn().mockResolvedValue({ authenticated: false }),
+  }
+})
 import { getAuthStatus, postLogin } from '../../../../features/auth'
 
 describe('authApi', () => {
@@ -21,7 +24,7 @@ describe('authApi', () => {
 
 describe('authApi headers', () => {
   it('sends Idempotency-Key on login', async () => {
-    const mocked = vi.mocked(fetchJson)
+    const mocked = vi.mocked(Fetch.fetchJson)
     mocked.mockResolvedValueOnce({
       accessToken: 'a',
       refreshToken: 'r',

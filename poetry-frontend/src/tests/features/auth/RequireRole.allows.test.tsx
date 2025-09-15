@@ -10,13 +10,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { RequireRole } from '../../../shared/routing/RequireRole'
 import { render } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import * as session from '../../../shared/security/useSession'
-
-vi.mock('react-router-dom', async () => {
-  const real =
-    await vi.importActual<typeof import('react-router-dom')>('react-router-dom')
-  return { ...real, useNavigate: (): (() => void) => vi.fn() }
-})
 
 describe('RequireRole (allow)', () => {
   it('renders children with role', () => {
@@ -25,9 +20,11 @@ describe('RequireRole (allow)', () => {
       roles: ['admin'],
     })
     const { getByText } = render(
-      <RequireRole role="admin">
-        <div>secret</div>
-      </RequireRole>
+      <MemoryRouter>
+        <RequireRole role="admin">
+          <div>secret</div>
+        </RequireRole>
+      </MemoryRouter>
     )
     expect(getByText('secret')).toBeTruthy()
   })

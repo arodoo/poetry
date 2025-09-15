@@ -9,6 +9,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { RequireRole } from '../../../shared/routing/RequireRole'
 import { render } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import * as session from '../../../shared/security/useSession'
 
 vi.mock('react-router-dom', async () => {
@@ -24,9 +25,11 @@ describe('RequireRole (deny)', () => {
       roles: [],
     })
     const { queryByText } = render(
-      <RequireRole role="admin">
-        <div>secret</div>
-      </RequireRole>
+      <MemoryRouter>
+        <RequireRole role="admin">
+          <div>secret</div>
+        </RequireRole>
+      </MemoryRouter>
     )
     expect(queryByText('secret')).toBeNull()
   })

@@ -7,17 +7,19 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 
-vi.mock('src/shared/http/fetchClient', () => ({
+vi.mock('../../../../shared/http/fetchClient', () => ({
   fetchJson: vi.fn().mockResolvedValue({ success: true }),
 }))
 
-import * as Fetch from 'src/shared/http/fetchClient'
-import * as RegApi from 'src/features/public-register/api/publicRegisterApi'
+import * as Fetch from '../../../../shared/http/fetchClient'
 
 describe('publicRegisterApi', () => {
   it('sends Idempotency-Key header', async () => {
     const mocked = vi.mocked(Fetch.fetchJson)
     mocked.mockResolvedValueOnce({ success: true })
+    const RegApi = await import(
+      '../../../../features/public-register/api/publicRegisterApi'
+    )
     await RegApi.registerRequest({
       username: 'u',
       email: 'e@e.com',
