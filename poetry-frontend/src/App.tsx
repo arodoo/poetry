@@ -10,11 +10,14 @@ import { type ReactElement } from 'react'
 import './App.css'
 import { BrowserRouter } from 'react-router-dom'
 import { AppRouteTree } from './routes'
+import { ToastProvider } from './shared/toast/ToastProvider'
 
 function App(): ReactElement {
   return (
     <BrowserRouter>
-      <AppRouteTree />
+      <ToastProvider>
+        <AppRouteTree />
+      </ToastProvider>
     </BrowserRouter>
   )
 }

@@ -60,8 +60,9 @@ const result = validateFiles(filesToCheck)
 if (!result.valid) {
   console.error('❌ Line limit violations found:')
   result.errors.forEach((e) => console.error(`  ${e}`))
-  console.error('\n💡 Files must be split into smaller dedicated files.')
-  console.error('\n💡 Do not remove logic to satisfy line limits.')
+  console.error('\n💡 Lines should be read and organized')
+  console.error('   Split if too long, use helpers, etc.')
+
   process.exit(1)
 }
 

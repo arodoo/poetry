@@ -7,10 +7,12 @@ import { commonEn } from './common/common'
 import { layoutEn } from './layout/layout'
 import { demoEn } from './demo/demo'
 import { routeEn } from './route/route'
+import publicAuth from './public-auth.json'
 
 export const enCatalog: Record<string, string> = {
   ...commonEn,
   ...layoutEn,
   ...demoEn,
   ...routeEn,
+  ...publicAuth,
 }

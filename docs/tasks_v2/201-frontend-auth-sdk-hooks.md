@@ -1,4 +1,4 @@
-#COMPLETED
+# DONE
 
 # File: 201-frontend-auth-sdk-hooks.md
 

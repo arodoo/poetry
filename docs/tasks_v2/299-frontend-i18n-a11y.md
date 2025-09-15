@@ -1,3 +1,5 @@
+# DONE
+
 # File: 299-frontend-i18n-a11y.md
 
 # Purpose: Ensure i18n coverage and a11y checks across pages.

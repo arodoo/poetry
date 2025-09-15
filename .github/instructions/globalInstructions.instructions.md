@@ -2,12 +2,30 @@
 applyTo: '**'
 ---
 
+IMPORTANT: Check which section applies to the current task; aviable sections
+are:
+
+# Global rules
+
+# Commit musts
+
+# BackEnd rules
+
+# FrontEnd rules
+
+# Front/Back anti-drift
+
+# Testing & CI
+
+# Error Handling
+
+# Limits
+
 Application will sooner or later be PWA, consider this in your designs.
 
 - Don't stop coding until the task is fully complete if the plan is clear
 - All code contributions must be production ready: fully implemented, no TODO,
-  FIXME, or commented-out code, but app is in a fresh/initial state of
-  development
+  FIXME, or commented-out code.
 - Before starting code changes Provide a brief step-by-step plan (in the chat
   only)
 - Must follow DDD, SOLID, Clean Architecture
@@ -34,6 +52,17 @@ Application will sooner or later be PWA, consider this in your designs.
   Check status of the files before start planning/coding
 - Check file sizes by reading them (no shell commands)
 - Use design patterns and follow international standards
+
+## Commit musts
+
+When commit:  
+Use exactly one `-m` with plain ASCII in double quotes, formatted as
+`type: subject` (no scope).  
+Never include any chaining, substitution, redirection, or line-break symbols
+(e.g. `; | & $ < > ( ) \` LF CR \n \r backticks or any shell operator).
+
+- Run git add and git commit as separate commands
+- Check .husky\commit-msg for commit message must
 
   # BackEnd rules
 
@@ -112,14 +141,6 @@ create new modules or features in the frontend)
 - All errors should be explicitly handled or resolved in the code or tests
 - Errors should never be suppressed, hidden, or ignored to reduce visibility
 - No hardcoded error messages; use i18n keys for localization
-
-## Commit musts
-
-- For any git commit you propose or run: use exactly one -m with plain ASCII
-  text in double quotes, formatted as type: subject (no scope), and NEVER
-  include parentheses, semicolons, pipes, ampersands, backticks,
-  dollar-substitution, or any other shell operators.
-- Check .husky\commit-msg for commit message must
 
 ## Limits
 

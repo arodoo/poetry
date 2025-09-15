@@ -1,0 +1,12 @@
+{
+  "login.title": "Sign in",
+  "login.username": "Username",
+  "login.password": "Password",
+  "login.submit": "Sign in",
+  "register.title": "Create account",
+  "register.submit": "Create account",
+  "forgot.title": "Forgot your password",
+  "forgot.submit": "Send reset email",
+  "auth.register.success": "Account created. Please sign in.",
+  "auth.forgot.success": "If an account exists, a reset email was sent."
+}

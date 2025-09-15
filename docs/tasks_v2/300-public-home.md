@@ -1,4 +1,4 @@
-#FINISHED
+# DONE
 
 # File: 300-public-home.md
 

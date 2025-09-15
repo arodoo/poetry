@@ -1,4 +1,4 @@
-#FINISHED
+# DONE
 
 # File: 103-openapi-sync.md
 

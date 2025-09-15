@@ -1,0 +1,12 @@
+{
+  "login.title": "Iniciar sesión",
+  "login.username": "Usuario",
+  "login.password": "Contraseña",
+  "login.submit": "Iniciar sesión",
+  "register.title": "Crear cuenta",
+  "register.submit": "Crear cuenta",
+  "forgot.title": "Olvidó su contraseña",
+  "forgot.submit": "Enviar correo de restablecimiento",
+  "auth.register.success": "Cuenta creada. Inicie sesión.",
+  "auth.forgot.success": "Solicitud enviada. Revisa tu correo si existe cuenta."
+}
