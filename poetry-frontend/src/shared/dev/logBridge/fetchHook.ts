@@ -24,16 +24,19 @@ export function hookFetch(): void {
         init?.method ?? (i instanceof Request ? i.method : 'GET')
       return f(i, init)
         .then((r: Response): Response => {
-          if (!r.ok) {
-            post({
-              type: 'fetch-http',
-              url,
-              method,
-              status: r.status,
-              statusText: r.statusText,
-              ts: Date.now(),
-            })
-          }
+          if (r.ok) return r
+          // Downgrade some expected dev-only 404s to warnings by tagging
+          const isLocale404: boolean =
+            r.status === 404 && url.includes('/api/v1/me/locale')
+          post({
+            type: 'fetch-http',
+            url,
+            method,
+            status: r.status,
+            statusText: r.statusText,
+            level: isLocale404 ? 'warn' : 'error',
+            ts: Date.now(),
+          })
           return r
         })
         .catch((e: unknown): never => {

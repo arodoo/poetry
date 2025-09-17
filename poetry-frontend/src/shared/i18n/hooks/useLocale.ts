@@ -3,7 +3,7 @@
  Purpose: Custom hook for managing user locale state with backend
  integration and fallback logic. All Rights Reserved. Arodi Emmanuel
 */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { localeService } from '../services/localeService'
 import { loadUserLocale, type LocaleLoadResult } from '../utils/localeLoader'
 
@@ -20,6 +20,7 @@ export function useLocale(): UseLocaleResult {
   )
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
+  const initDoneRef: React.RefObject<boolean> = useRef<boolean>(false)
 
   useEffect((): void => {
     async function initializeLocale(): Promise<void> {
@@ -31,8 +32,10 @@ export function useLocale(): UseLocaleResult {
       setError(result.error)
       setIsLoading(false)
     }
-
-    void initializeLocale()
+    if (!initDoneRef.current) {
+      initDoneRef.current = true
+      void initializeLocale()
+    }
   }, [])
 
   const setLocale: (newLocale: string) => void = (newLocale: string): void => {

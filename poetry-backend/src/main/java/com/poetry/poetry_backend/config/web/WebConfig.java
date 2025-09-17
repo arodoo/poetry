@@ -27,8 +27,10 @@ public class WebConfig {
     var c = new CorsConfiguration();
     List<String> o = cfg.corsAllowedOrigins();
     c.setAllowedOrigins(o);
-    c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+    c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     c.setAllowedHeaders(List.of("*"));
+    c.setExposedHeaders(List.of("ETag", "Content-Type"));
+    c.setAllowCredentials(true);
     return request -> c;
   }
 }

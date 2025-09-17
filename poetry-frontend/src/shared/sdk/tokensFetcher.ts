@@ -25,7 +25,16 @@ export function createTokensFetcher(
   return async function fetchTokens(): Promise<TokensRawResult<unknown>> {
     const rawBase: string = env.VITE_API_BASE_URL
     const base: string = rawBase.replace(/\/$/, '')
-    const url: string = base + '/api/v1/tokens'
+    let url: string = base + '/api/v1/tokens'
+    try {
+      const b: URL = new URL(rawBase)
+      const w: Location | undefined = (
+        globalThis as unknown as { location?: Location }
+      ).location
+      if (w?.host && b.host && w.host !== b.host) url = '/api/v1/tokens'
+    } catch {
+      /* keep absolute url */
+    }
     const timeoutMs: number = env.VITE_HTTP_TIMEOUT_MS
     const { signal, clear } = createTimeout(timeoutMs)
     try {
