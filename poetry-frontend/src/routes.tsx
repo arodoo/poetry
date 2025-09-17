@@ -7,13 +7,26 @@ import type { ReactElement } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { PublicRoutes } from './routesPublic'
 import { AdminRoutes } from './routesAdmin'
+import { PublicAuthRoutes } from './routesAuthPublic'
+import { getEnv } from './shared/config/env'
 
 export function AppRouteTree(): ReactElement {
+  const defaultLocale: string = getEnv().VITE_DEFAULT_LOCALE
   return (
     <Routes>
       {/* default locale redirect to en */}
-      <Route path="/" element={<Navigate to="/en" replace />} />
+      <Route path="/" element={<Navigate to={`/${defaultLocale}`} replace />} />
+      {/* redirect non-locale auth paths to default locale */}
+      <Route
+        path="/login"
+        element={<Navigate to={`/${defaultLocale}/login`} replace />}
+      />
+      <Route
+        path="/register"
+        element={<Navigate to={`/${defaultLocale}/register`} replace />}
+      />
 
+      {PublicAuthRoutes()}
       {PublicRoutes()}
 
       {AdminRoutes()}
