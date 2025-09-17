@@ -1,20 +1,17 @@
 /*
  File: TokensProvider.test.tsx
- Purpose: Minimal smoke test to verify TokensProvider applies CSS variables
- derived from the token bundle to the document root. The test stubs the
- tokens query to provide a deterministic bundle and asserts the CSS
- variable value is reflected, ensuring runtime token mapping works.
+ Purpose: Verifies TokensProvider applies CSS vars.
+ Ensures token bundle data is correctly transformed into CSS custom properties.
+ Tests integration with React Query for data fetching.
  All Rights Reserved. Arodi Emmanuel
 */
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { render } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { TokensProvider } from '../../../shared/tokens/TokensProvider'
-import { makeTokensMock } from '../../helpers/makeTokensMock'
 
-vi.mock('../../../features/tokens/hooks/useTokensQueries', async () =>
-  makeTokensMock()
-)
+import './mockTokens'
+
+import { TokensProvider } from '../../../shared/tokens/TokensProvider'
 
 describe('TokensProvider', () => {
   it('applies CSS variables from token bundle', () => {

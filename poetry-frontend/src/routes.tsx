@@ -14,9 +14,9 @@ export function AppRouteTree(): ReactElement {
       {/* default locale redirect to en */}
       <Route path="/" element={<Navigate to="/en" replace />} />
 
-      <PublicRoutes />
+      {PublicRoutes()}
 
-      <AdminRoutes />
+      {AdminRoutes()}
     </Routes>
   )
 }

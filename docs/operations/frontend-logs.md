@@ -3,30 +3,47 @@
 This document describes how frontend dev logs are captured and where to find
 them.
 
-- Location: `logs/frontend/frontend-dev.log`
-- Runner: `tools/logs/frontend/dev-with-log.mjs` (spawn helper that runs
-  `npm run dev:raw` and tees output)
-- Vite plugin: `tools/logs/frontend/devClientErrorLogger.mjs` exposes:
-  - `POST /__client-errors` (JSON body) → logs `[client-error]` with payload
-  - `POST /__clear-log` → truncates the log file on navigation/reload (dev-only)
+`npm run dev:raw` and tees output)
+
+- `POST /__client-errors` (JSON body) → logs `[client-error]` with payload
+- `POST /__clear-log` → truncates the log file on navigation/reload (dev-only)
 
 ## Usage
-
-- Start dev server from repo root:
 
 ```
 npm --prefix poetry-frontend run dev
 ```
 
-- Open the app at `http://localhost:5173/` (or the alternate port if 5173 is
-  busy).
-- On each full reload, the log is truncated. Client runtime errors (e.g., Zod
-  validation) are forwarded to the dev server and appear in the log.
+busy). validation) are forwarded to the dev server and appear in the log.
 
 ## Notes
 
-- The plugin is dev-only (active during `vite serve`).
-- If you edit `vite.config.ts` or the plugin files, restart the dev server for
-  changes to take effect.
-- The client error reporter is loaded at startup before env validation to
-  capture early throws.
+changes to take effect. capture early throws.
+
+# Frontend Dev Logs
+
+- File: `logs/frontend/frontend-dev.log`
+- Runner: `tools/logs/frontend/dev-with-log.mjs` (tees Vite output)
+- Vite plugin: `tools/logs/frontend/devClientErrorLogger.mjs`
+  - `POST /__client-errors` → appends NDJSON entries in real time
+  - `POST /__clear-log` → manual truncate when needed
+
+## Start
+
+```bash
+npm --prefix poetry-frontend run dev
+```
+
+- If `5173` is taken, Vite uses another port (shown in terminal).
+- App logs and client errors are written immediately to the file.
+
+## Verify quickly
+
+1. Load the app and open any page.
+2. Intentional warning/error in the browser (or console log) occurs.
+3. Check `frontend-dev.log`; new lines appear as soon as they happen.
+
+Notes
+
+- Dev-only; restart if you change the plugin or Vite config.
+- The client error bridge loads at startup to capture early failures.

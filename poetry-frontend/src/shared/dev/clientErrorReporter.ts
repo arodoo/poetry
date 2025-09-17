@@ -8,12 +8,16 @@
 */
 import { post, clearLog } from './logBridge/post'
 import { wrapConsole } from './logBridge/consoleWrap'
+import { hookNetwork } from './logBridge/network'
+import { hookResourceErrors } from './logBridge/resource'
 
 clearLog()
 wrapConsole('log')
 wrapConsole('info')
 wrapConsole('warn')
 wrapConsole('error')
+hookNetwork()
+hookResourceErrors()
 
 window.addEventListener('error', (e: ErrorEvent): void => {
   const stack: string | undefined = ((): string | undefined => {
