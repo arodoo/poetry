@@ -3,20 +3,11 @@
  * Purpose: ApplicationReady listener triggering theme seeding.
  * All Rights Reserved. Arodi Emmanuel
  */
+/*
+ * Deprecated duplicate seeder. The active ThemeStartupSeeder has been moved to
+ * `com.poetry.poetry_backend.infrastructure.startup.ThemeStartupSeeder` to
+ * centralize startup components. Keep this file as placeholder for history.
+ */
 package com.poetry.poetry_backend.infrastructure.jpa.theme;
 
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-
-public class ThemeStartupSeeder {
-  private final ThemeSeeder themeSeeder;
-
-  public ThemeStartupSeeder(ThemeSeeder themeSeeder) {
-    this.themeSeeder = themeSeeder;
-  }
-
-  @EventListener(ApplicationReadyEvent.class)
-  public void onReady() {
-    themeSeeder.seed();
-  }
-}
+public final class ThemeStartupSeeder { private ThemeStartupSeeder() {} }

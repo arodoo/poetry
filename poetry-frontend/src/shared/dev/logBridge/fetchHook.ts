@@ -6,9 +6,10 @@
 import { post } from './post'
 
 export function hookFetch(): void {
-  const w: { __fetchHook?: boolean } = window as unknown as {
+  interface FetchHookWindow {
     __fetchHook?: boolean
   }
+  const w: FetchHookWindow = window as unknown as FetchHookWindow
   if (w.__fetchHook) return
   w.__fetchHook = true
 
@@ -25,16 +26,23 @@ export function hookFetch(): void {
       return f(i, init)
         .then((r: Response): Response => {
           if (r.ok) return r
-          // Downgrade some expected dev-only 404s to warnings by tagging
+          // Treat some expected non-OK statuses as non-errors in dev.
+          // - 304 Not Modified is a normal cache response and should not
+          //   be logged as an error.
+          // - Specific 404 for locale loading can be expected in some dev
+          //   flows and is downgraded to 'warn'.
           const isLocale404: boolean =
             r.status === 404 && url.includes('/api/v1/me/locale')
+          const isNotModified: boolean = r.status === 304
+
           post({
             type: 'fetch-http',
             url,
             method,
             status: r.status,
             statusText: r.statusText,
-            level: isLocale404 ? 'warn' : 'error',
+            // map expected statuses to lower-severity levels
+            level: isNotModified ? 'info' : isLocale404 ? 'warn' : 'error',
             ts: Date.now(),
           })
           return r
