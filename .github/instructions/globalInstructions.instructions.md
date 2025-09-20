@@ -2,28 +2,9 @@
 applyTo: '**'
 ---
 
-IMPORTANT: Check which section applies to the current task; aviable sections
-are:
-
-# Global rules
-
-# Commit musts
-
-# BackEnd rules
-
-# FrontEnd rules
-
-# Front/Back anti-drift
-
-# Testing & CI
-
-# Error Handling
-
-# Limits
-
-Application will sooner or later be PWA, consider this in your designs.
-
+- Before starting a new work, give a brief explanation of the task
 - Don't stop coding until the task is fully complete if the plan is clear
+- If you add debugging code mark it with '// DEBUG' so i can remove it later
 - All code contributions must be production ready: fully implemented, no TODO,
   FIXME, or commented-out code.
 - Before starting code changes Provide a brief step-by-step plan (in the chat
@@ -55,7 +36,14 @@ Application will sooner or later be PWA, consider this in your designs.
 
 ## Commit musts
 
-- Commit rules defined at '.github\chatmodes\commit.chatmode.md'
+When commit:  
+Use exactly one `-m` with plain ASCII in double quotes, formatted as
+`type: subject` (no scope).  
+Never include any chaining, substitution, redirection, or line-break symbols
+(e.g. `; | & $ < > ( ) \` LF CR \n \r backticks or any shell operator).
+
+- Run git add and git commit as separate commands
+- Check .husky\commit-msg for commit message must
 
   # BackEnd rules
 
@@ -90,6 +78,8 @@ create new modules or features in the frontend)
   ## Testing & CI
 
 - Test must reflect correct application behavior and not only simulate it.
+- If test discover an issue, fix the issue and re-run the test. If issue is well
+  implemented and test is wrong, fix the test.
 - Husky.
 - Abstractions over implementations:
   - Define ports/interfaces in Domain/Application and depend only on them (DIP)
@@ -111,3 +101,7 @@ create new modules or features in the frontend)
 - No premature optimization
 - Avoid static singletons; prefer dependency injection
 - All env vars must be typed, validated at startup, and documented
+
+## Extra notes
+
+- Application will sooner or later be PWA, consider this in your designs.

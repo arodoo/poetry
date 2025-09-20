@@ -33,6 +33,6 @@
     "allowUnusedLabels": false,
     "allowUnreachableCode": false
   },
-  "include": ["vite.config.ts"],
+  "include": ["vite.config.ts", "playwright.config.ts"],
   "exclude": ["vitest.config.ts"]
 }
