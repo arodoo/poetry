@@ -19,19 +19,12 @@ applyTo: '**'
   (fixtures/helpers/components, etc)
 - Code must follow international formatting standards: ESLint + Prettier for
   TypeScript, and Google Java Style Guide
-- All features must be documented in /docs following the standard folder
-  structure (overview, architecture, domains, api, standards, operations,
-  security)
 - Each module must have its own file in /docs/domains/ including: scope, RFs,
   data model, API references, permissions, and acceptance criteria
 - API contracts (OpenAPI) must live in /docs/api/ and be referenced from domain
   docs.
 - Vars, comments and code must be in English
 - Every file must have a header comment, check 'tools\ci\check-headers.mjs'
-- Give each feature a .md file in 'docs/' with the task description, the
-  expected result, and the actual result and update after every modification.
-  Check status of the files before start planning/coding
-- Check file sizes by reading them (no shell commands)
 - Use design patterns and follow international standards
 
 ## Commit musts
@@ -40,7 +33,10 @@ When commit:
 Use exactly one `-m` with plain ASCII in double quotes, formatted as
 `type: subject` (no scope).  
 Never include any chaining, substitution, redirection, or line-break symbols
-(e.g. `; | & $ < > ( ) \` LF CR \n \r backticks or any shell operator).
+(e.g. `; | & $ < > ( ) \` LF CR \n \r backticks or any shell operator). When
+line/length limit violation occurs, split big files into smaller dedicated ones.
+Never remove, modify, compact existing logic to fit the line/length limit. I'll
+always prefer more files than refactoring or compacting existing logic.
 
 - Run git add and git commit as separate commands
 - Check .husky\commit-msg for commit message must

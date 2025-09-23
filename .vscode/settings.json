@@ -112,5 +112,5 @@
         "Invoke-Expression": false,
         "iex": false
     },
-    "chat.agent.maxRequests": 100
+    "chat.agent.maxRequests": 300
 }

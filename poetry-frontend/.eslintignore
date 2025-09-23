@@ -1,2 +1,5 @@
 # Ignore local ambient types or placeholders
 types/dev-logger-plugin.d.ts
+
+# Ignore e2e tests from strict lint
+tests/e2e/

@@ -5,8 +5,10 @@
 */
 export const routeEs: Record<string, string> = {
   'ui.route.home.title': 'Inicio',
+  'ui.route.dashboard.title': 'Panel',
   'ui.route.demo.title': 'Demostración',
   'ui.route.home.slug': '',
+  'ui.route.dashboard.slug': 'panel',
   'ui.route.demo.slug': 'demo',
   'ui.route.admin.tokens.title': 'Tokens Admin',
   'ui.route.admin.tokens.slug': 'admin/tokens',

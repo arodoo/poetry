@@ -9,14 +9,14 @@ export const AuthTokensSchema: z.ZodType<Readonly<AuthTokens>> = z
   .object({
     accessToken: z.string().min(1),
     refreshToken: z.string().min(1),
-    tokenType: z.literal('Bearer'),
+    username: z.string().min(1),
     expiresIn: z.number().positive(),
   })
   .readonly()
 export interface AuthTokens {
   accessToken: string
   refreshToken: string
-  tokenType: 'Bearer'
+  username: string
   expiresIn: number
 }
 

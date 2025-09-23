@@ -5,3 +5,4 @@
  */
 export * from './publicAdapters'
 export * from './unauthorizedAdapter'
+export * from './dashboardAdapter'

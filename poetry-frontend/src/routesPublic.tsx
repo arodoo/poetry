@@ -11,6 +11,7 @@ import {
   HomePageLazy,
   NotFoundPageLazy,
   UnauthorizedLazy,
+  DashboardPageLazy,
 } from './shared/routing/lazyAdapters'
 
 export function PublicRoutes(): ReactElement {
@@ -23,6 +24,14 @@ export function PublicRoutes(): ReactElement {
           <Suspense fallback={null}>
             <HomePageLazy />
             {/* Lazy loading HomePage */}
+          </Suspense>
+        }
+      />
+      <Route
+        path=":locale/dashboard"
+        element={
+          <Suspense fallback={null}>
+            <DashboardPageLazy />
           </Suspense>
         }
       />

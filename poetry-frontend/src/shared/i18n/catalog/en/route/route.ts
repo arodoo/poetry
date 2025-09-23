@@ -5,8 +5,10 @@
 */
 export const routeEn: Record<string, string> = {
   'ui.route.home.title': 'Home',
+  'ui.route.dashboard.title': 'Dashboard',
   'ui.route.demo.title': 'Demo',
   'ui.route.home.slug': '', // root slug intentionally empty
+  'ui.route.dashboard.slug': 'dashboard',
   'ui.route.demo.slug': 'demo',
   'ui.route.admin.tokens.title': 'Admin Tokens',
   'ui.route.admin.tokens.slug': 'admin/tokens',

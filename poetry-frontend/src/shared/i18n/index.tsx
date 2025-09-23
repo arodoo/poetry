@@ -50,11 +50,15 @@ export function I18nProvider(props: { children: ReactNode }): ReactElement {
       locale,
       localeService.getDefaultLocale()
     )
-    const t: (k: I18nKey, vars?: Record<string, unknown>) => string = (
-      k: I18nKey,
+    const typedMessages: Record<string, string> = messages as Record<
+      string,
+      string
+    >
+    const t: (k: string, vars?: Record<string, unknown>) => string = (
+      k: string,
       vars?: Record<string, unknown>
     ): string => {
-      const msg: string | undefined = messages[k]
+      const msg: string | undefined = typedMessages[k]
       if (msg === undefined) throw new Error(`i18n.missing:${k}`)
       return format(msg, vars)
     }

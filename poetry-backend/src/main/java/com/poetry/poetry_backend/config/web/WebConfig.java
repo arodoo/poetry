@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.poetry.poetry_backend.application.common.config.AppConfigPort;
 
@@ -25,12 +26,19 @@ public class WebConfig {
   @Bean
   CorsConfigurationSource corsSource(AppConfigPort cfg) {
     var c = new CorsConfiguration();
-    List<String> o = cfg.corsAllowedOrigins();
-    c.setAllowedOrigins(o);
+    List<String> origins = cfg.corsAllowedOrigins();
+    // Explicit origins + patterns to satisfy dev localhost variants.
+    c.setAllowedOrigins(origins);
+    c.setAllowedOriginPatterns(origins);
     c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     c.setAllowedHeaders(List.of("*"));
     c.setExposedHeaders(List.of("ETag", "Content-Type"));
-    c.setAllowCredentials(true);
-    return request -> c;
+    // We use bearer tokens, no cookies required.
+    c.setAllowCredentials(false);
+    c.setMaxAge(3600L);
+    
+    var source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/api/**", c);
+    return source;
   }
 }

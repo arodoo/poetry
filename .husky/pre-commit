@@ -15,12 +15,6 @@ node tools/ci/headers/check-headers.mjs || {
   exit 1
 }
 
-echo "📏 Checking line limits..."
-node tools/ci/limits/check-lines.mjs || {
-  echo "❌ Line limit check failed! Check the output above for specific file and line violations."
-  exit 1
-}
-
 echo "🌐 Scanning i18n usage..."
 node tools/ci/i18n/i18n-scan.mjs || {
   echo "❌ i18n scan failed! Check the output above for hardcoded strings."
@@ -78,6 +72,13 @@ npm --prefix poetry-frontend run lint:fix -- --max-warnings=0 || {
 echo "🎨 Linting backend code..."
 npm run lint:backend || {
   echo "❌ Backend linting failed! Check the output above for specific file errors."
+  exit 1
+}
+
+# Moved to end to reduce refactor churn during iterative typing changes
+echo "📏 Checking line limits..."
+node tools/ci/limits/check-lines.mjs || {
+  echo "❌ Apply necesary line limits! "
   exit 1
 }
 

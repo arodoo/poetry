@@ -3,14 +3,14 @@
  Purpose: Map internal error codes to frontend i18n keys without
  altering backend localized messages. All Rights Reserved. Arodi Emmanuel
 */
-import type { I18nKey } from './generated/keys'
 
-const codeToKey: Record<string, I18nKey> = {
+const codeToKey: Record<string, string> = {
   // example mappings (extend in future tasks)
   'auth.invalid.credentials': 'ui.common.close', // placeholder reuse
 }
 
-export function mapErrorCodeToKey(code?: string): I18nKey | null {
+export function mapErrorCodeToKey(code?: string): string | null {
   if (!code) return null
-  return codeToKey[code] ?? null
+  const val: string | undefined = codeToKey[code]
+  return val ?? null
 }

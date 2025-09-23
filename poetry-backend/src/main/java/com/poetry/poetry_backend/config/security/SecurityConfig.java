@@ -12,12 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -25,27 +26,35 @@ import org.springframework.security.web.SecurityFilterChain;
 @Profile("!test")
 public class SecurityConfig {
   @Bean
-  SecurityFilterChain api(HttpSecurity http) throws Exception {
-    http
-    .cors(Customizer.withDefaults())
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(reg -> reg
-  .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
-            .requestMatchers(
-                "/actuator/**",
-                "/v3/api-docs/**",
-                "/swagger-ui/**",
-                "/swagger-ui.html",
-        "/api")
-            .permitAll()
+  SecurityFilterChain api(HttpSecurity http, CorsConfigurationSource corsSource) throws Exception {
+  http
+    .cors(cors -> cors.configurationSource(corsSource))
+    .csrf(csrf -> csrf.disable())
+    .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    .authorizeHttpRequests(reg -> reg
+      .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
+      .requestMatchers(
+        "/actuator/**",
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/api",
+        // Newly whitelisted public API endpoints necessary for obtaining tokens or health checks
+        "/api/v1/health",
+        "/api/v1/auth/login",
+        "/api/v1/auth/register",
+        "/api/v1/auth/refresh",
+        "/api/v1/auth/logout",
+        "/api/v1/auth/status")
+      .permitAll()
       .requestMatchers(HttpMethod.GET,
         "/api/v1/tokens",
         "/api/v1/me/locale")
       .permitAll()
-            .anyRequest().authenticated())
+      .anyRequest().authenticated())
     // Disable browser basic auth prompt; login is handled by frontend.
     .httpBasic(AbstractHttpConfigurer::disable)
-        .formLogin(form -> form.disable());
+    .formLogin(form -> form.disable());
     return http.build();
   }
 }

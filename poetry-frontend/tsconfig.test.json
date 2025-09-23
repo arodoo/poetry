@@ -12,6 +12,7 @@
     "src/shared/http/__tests__/**/*",
     "src/features/**/*.test.ts",
     "src/features/**/*.test.tsx",
+    "tests/e2e/**/*.ts",
     "tools/vite/i18nKeyGen.ts",
     "vitest.config.ts"
   ],

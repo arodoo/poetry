@@ -13,6 +13,12 @@ const routesList: RouteDefinition[] = [
     slugKey: 'ui.route.home.slug',
   },
   {
+    id: 'dashboard',
+    path: '/dashboard',
+    titleKey: 'ui.route.dashboard.title',
+    slugKey: 'ui.route.dashboard.slug',
+  },
+  {
     id: 'demo',
     path: '/demo',
     titleKey: 'ui.route.demo.title',

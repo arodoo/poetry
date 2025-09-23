@@ -9,4 +9,8 @@ export const commonEn: Record<string, string> = {
   'ui.common.close': 'Close',
   'ui.common.save': 'Save',
   'ui.common.loading': 'Loading…',
+  'ui.common.error': 'Error',
+  'ui.common.retry': 'Try again',
+  'ui.dashboard.welcome.title': 'Welcome to Dashboard',
+  'ui.dashboard.welcome.message': 'You have successfully logged in.',
 }

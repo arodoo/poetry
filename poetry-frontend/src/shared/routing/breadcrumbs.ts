@@ -22,10 +22,15 @@ export function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   for (const seg of segments) {
     currentPath += '/' + seg
     const match: RouteDefinition | undefined = routesList.find(
-      (r: RouteDefinition): boolean => r.path === (currentPath || '/')
+      (r: RouteDefinition): boolean => r.path === currentPath
     )
     if (match) {
-      crumbs.push({ id: match.id, href: match.path, titleKey: match.titleKey })
+      const item: BreadcrumbItem = {
+        id: match.id,
+        href: match.path,
+        titleKey: match.titleKey,
+      }
+      crumbs.push(item)
     }
   }
 
