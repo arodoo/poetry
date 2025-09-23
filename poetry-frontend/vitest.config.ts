@@ -9,6 +9,20 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     environment: 'jsdom',
+    exclude: [
+      'tests/e2e/**',
+      'node_modules/**',
+      'dist/**',
+      '.git/**',
+      '.idea/**',
+      '.cache/**',
+    ],
+    include: [
+      'src/tests/**/*.test.{ts,tsx}',
+      'src/tests/**/*.spec.{ts,tsx}',
+      'tests/**/*.test.{ts,tsx}',
+      'tests/**/*.spec.{ts,tsx}',
+    ],
     env: {
       VITE_API_BASE_URL: 'https://example.com',
       VITE_LOG_LEVEL: 'info',

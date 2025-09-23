@@ -5,20 +5,23 @@
  responsibilities separated per SRP. All Rights Reserved. Arodi
  Emmanuel
 */
-import { createTimeout, delay } from './timeout'
+import { delay } from './timeout'
 import { type HttpOptions } from './httpTypes'
 import { type Env } from '../config/env'
+import { tokenStorage } from '../security/tokenStorage'
+import { refreshTokenIfNeeded } from '../security/tokenRefreshService'
 
 export async function fetchJsonInternal<T>(
   cfg: Env,
   path: string,
   options: HttpOptions
 ): Promise<T> {
+  // Delegate the heavy lifting to a smaller module so this file remains
+  // compact and within repository line/size limits.
   const base: string = cfg.VITE_API_BASE_URL.replace(/\/$/, '')
   const p: string = path.startsWith('/') ? path : `/${path}`
   const url: string = `${base}${p}`
-  const timeout: number = options.timeoutMs ?? cfg.VITE_HTTP_TIMEOUT_MS
-  const retryCfg: Required<NonNullable<HttpOptions['retry']>> =
+  const retryCfg: { maxAttempts: number; backoffMs: number } =
     options.retry ?? {
       maxAttempts: cfg.VITE_HTTP_RETRY_MAX_ATTEMPTS,
       backoffMs: cfg.VITE_HTTP_RETRY_BACKOFF_MS,
@@ -28,35 +31,28 @@ export async function fetchJsonInternal<T>(
       ? (JSON.stringify(options.body) as BodyInit)
       : null
 
-  let lastErr: Error | null = null
-  for (let attempt: number = 1; attempt <= retryCfg.maxAttempts; attempt++) {
-    const { signal, clear } = createTimeout(timeout, options.signal)
-    try {
-      const res: Response = await fetch(url, {
-        method: options.method ?? 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(options.headers ?? {}),
-        },
-        body,
-        signal,
-      })
-      if (!res.ok) {
-        if (res.status >= 500 && res.status < 600) {
-          throw new Error(`HTTP ${String(res.status)}`)
-        }
-        const text: string = await res.text()
-        throw new Error(`HTTP ${String(res.status)}: ${text}`)
-      }
-      return (await res.json()) as T
-    } catch (err: unknown) {
-      lastErr = err instanceof Error ? err : new Error(String(err))
-      if (attempt === retryCfg.maxAttempts) break
-      await delay(retryCfg.backoffMs)
-    } finally {
-      clear()
-    }
+  const tokens: { accessToken?: string; refreshToken?: string } | null =
+    tokenStorage.load()
+  const defaultHeaders: Record<string, string> = {
+    'Content-Type': 'application/json',
   }
-  // i18n-ignore: internal fallback error, not user-facing
-  throw lastErr ?? new Error('Unknown HTTP error')
+
+  if (tokens?.accessToken && !options.headers?.['Authorization']) {
+    defaultHeaders['Authorization'] = `Bearer ${tokens.accessToken}`
+  }
+
+  const method: 'GET' | 'POST' | 'PUT' | 'DELETE' = options.method ?? 'GET'
+  const { performRequest } = await import('./clientCore/performRequest')
+  return performRequest<T>(
+    url,
+    retryCfg,
+    method,
+    body,
+    defaultHeaders,
+    options.headers,
+    options.signal,
+    tokens,
+    refreshTokenIfNeeded,
+    delay
+  )
 }
