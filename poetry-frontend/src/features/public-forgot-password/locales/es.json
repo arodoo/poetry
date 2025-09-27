@@ -1,0 +1,11 @@
+{
+  "ui.publicForgotPassword.title": "Restablece tu contraseña",
+  "ui.publicForgotPassword.description": "Ingresa el correo que usas en Poetry y enviaremos instrucciones para restablecerla.",
+  "ui.publicForgotPassword.email.label": "Correo electrónico",
+  "ui.publicForgotPassword.submit.label": "Enviar enlace",
+  "ui.publicForgotPassword.submit.pending": "Enviando…",
+  "ui.publicForgotPassword.backToLogin": "Volver a iniciar sesión",
+  "ui.publicForgotPassword.error": "No pudimos procesar tu solicitud. Intenta más tarde.",
+  "ui.publicForgotPassword.success": "Revisa tu bandeja para el enlace de restablecimiento.",
+  "ui.publicForgotPassword.errors.email": "Ingresa un correo válido."
+}

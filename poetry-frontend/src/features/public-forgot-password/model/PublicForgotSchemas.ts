@@ -1,13 +1,6 @@
 /*
  * File: PublicForgotSchemas.ts
- * Purpose: Zod schemas for public forgot-password forms.
+ * Purpose: Maintain backward compatibility with renamed schema module.
  * All Rights Reserved. Arodi Emmanuel
  */
-
-import { z } from 'zod'
-
-export const ForgotFormSchema: z.ZodSchema = z.object({
-  email: z.string().email('forgot.email.invalid'),
-})
-
-export type ForgotForm = z.infer<typeof ForgotFormSchema>
+export * from './PublicForgotPasswordSchemas'

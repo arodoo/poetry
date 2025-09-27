@@ -1,23 +1,11 @@
 /*
  * File: index.ts
- * Purpose: Re-exports public forgot-password feature symbols for
- *          shorter imports used by tests and other modules.
+ * Purpose: Public exports for the forgot-password feature.
  * All Rights Reserved. Arodi Emmanuel
  */
-
-export * from './model/PublicForgotSchemas'
-/*
- * File: index.ts
- * Purpose: Public forgot-password feature exports. This module exposes the
- *          typed forgot-password mutation hook, routes and model schemas so
- *          the application can wire the feature into the public route tree.
- *          Keeping the export surface minimal improves testability and
- *          discoverability.
- * All Rights Reserved. Arodi Emmanuel
- */
-
-export * from './hooks/useForgot'
-export * from './routing/publicForgotRoutes'
-export * from './model/PublicForgotSchemas'
-export * from './routing/publicForgotRoutes'
-export * from './model/PublicForgotSchemas'
+export * from './model/PublicForgotPasswordSchemas'
+export * from './api/public-forgot-passwordApi'
+export * from './hooks/usePublicForgotPasswordQueries'
+export * from './routing/public-forgot-passwordRoutes'
+export { default as PublicForgotPasswordPage } from './pages/PublicForgotPasswordPage'
+export { PublicForgotPasswordForm } from './components/PublicForgotPasswordForm'

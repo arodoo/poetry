@@ -3,10 +3,20 @@
  Purpose: Vertical layout stack applying token-based spacing between children.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement, type ReactNode, type ElementType } from 'react'
+import {
+  type ReactElement,
+  type ReactNode,
+  type ElementType,
+  type HTMLAttributes,
+} from 'react'
 import clsx from 'clsx'
 
-export interface StackProps {
+type BaseAttributes = Omit<
+  HTMLAttributes<HTMLElement>,
+  'children' | 'className'
+>
+
+export interface StackProps extends BaseAttributes {
   children?: ReactNode
   gap?: 'xs' | 'sm' | 'md' | 'lg'
   as?: 'div' | 'section' | 'ul' | 'nav'
@@ -25,10 +35,11 @@ export function Stack({
   gap = 'md',
   as = 'div',
   className,
+  ...rest
 }: StackProps): ReactElement {
   const Comp: ElementType = as
   return (
-    <Comp className={clsx('flex flex-col', gapMap[gap], className)}>
+    <Comp className={clsx('flex flex-col', gapMap[gap], className)} {...rest}>
       {children}
     </Comp>
   )

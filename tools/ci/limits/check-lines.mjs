@@ -29,9 +29,7 @@ try {
   })
 } catch (error) {
   console.error('❌ Configuration files are not synchronized')
-  console.error(
-    '💡 Run `node tools/ci/config/config-sync.mjs` to fix.'
-  )
+  console.error('💡 Run `node tools/ci/config/config-sync.mjs` to fix.')
   process.exit(1)
 }
 console.log('')

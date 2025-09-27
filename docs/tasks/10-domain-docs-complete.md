@@ -10,7 +10,7 @@ All Rights Reserved. Arodi Emmanuel
 
 Description
 
-- Create docs/domains/* with scope, RFs, data model, API refs, permissions,
+- Create docs/domains/\* with scope, RFs, data model, API refs, permissions,
   acceptance criteria.
 
 Expected Result

@@ -19,9 +19,7 @@ export function writeParts(genDir, sorted) {
     ' */',
     '',
   ]
-  const body = [
-    'export const I18N_KEYS: readonly string[] = [',
-  ]
+  const body = ['export const I18N_KEYS: readonly string[] = [']
   for (const k of sorted) body.push("  '" + k + "',")
   body.push('] as const')
   body.push('')

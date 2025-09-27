@@ -9,4 +9,4 @@
 export { useLogin } from './useLogin'
 export { useRefresh } from './useRefresh'
 export { useLogout } from './useLogout'
-export { useMe } from './useMe'
+export { useMeQuery as useMe } from './useMe'

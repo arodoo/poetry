@@ -6,4 +6,4 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-export * from './PublicForgotSchemas'
+export * from './PublicForgotPasswordSchemas'

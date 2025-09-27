@@ -11,7 +11,6 @@ import {
   HomePageLazy,
   NotFoundPageLazy,
   UnauthorizedLazy,
-  DashboardPageLazy,
 } from './shared/routing/lazyAdapters'
 
 export function PublicRoutes(): ReactElement {
@@ -27,14 +26,7 @@ export function PublicRoutes(): ReactElement {
           </Suspense>
         }
       />
-      <Route
-        path=":locale/dashboard"
-        element={
-          <Suspense fallback={null}>
-            <DashboardPageLazy />
-          </Suspense>
-        }
-      />
+      {/* dashboard moved to AuthenticatedRoutes */}
       <Route
         path=":locale/unauthorized"
         element={

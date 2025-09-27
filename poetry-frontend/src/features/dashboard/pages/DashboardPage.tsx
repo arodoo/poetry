@@ -1,20 +1,44 @@
 /*
  * File: DashboardPage.tsx
- * Purpose: Main dashboard page shown after successful login.
+ * Purpose: Dashboard entry point orchestrating overview data and layout.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { useT } from '../../../shared/i18n/useT'
 import type { ReactElement } from 'react'
+import { Heading } from '../../../ui/Heading/Heading'
+import { Text } from '../../../ui/Text/Text'
+import { useT } from '../../../shared/i18n/useT'
+import { DashboardOverviewPanel } from '../components/DashboardOverviewPanel'
+import { useDashboardOverviewQuery } from '../hooks/useDashboardQueries'
 
 export default function DashboardPage(): ReactElement {
   const t: ReturnType<typeof useT> = useT()
-
+  const overviewQuery: ReturnType<typeof useDashboardOverviewQuery> =
+    useDashboardOverviewQuery()
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">
-        {t('ui.dashboard.welcome.title')}
-      </h1>
-      <p className="text-gray-600">{t('ui.dashboard.welcome.message')}</p>
+    <main className="mx-auto flex max-w-5xl flex-col gap-6 p-6">
+      <header className="flex flex-col gap-2">
+        <Heading level={1} size="lg">
+          {t('ui.dashboard.page.title')}
+        </Heading>
+        <Text size="sm">{t('ui.dashboard.page.subtitle')}</Text>
+      </header>
+      {overviewQuery.isLoading ? (
+        <section
+          aria-busy="true"
+          data-testid="dashboard-loading"
+          className="h-48 animate-pulse rounded bg-slate-100"
+        />
+      ) : overviewQuery.isError ? (
+        <Text role="alert" data-testid="dashboard-error">
+          {t('ui.dashboard.overview.error')}
+        </Text>
+      ) : overviewQuery.data ? (
+        <DashboardOverviewPanel overview={overviewQuery.data} t={t} />
+      ) : (
+        <Text data-testid="dashboard-empty">
+          {t('ui.dashboard.overview.empty')}
+        </Text>
+      )}
     </main>
   )
 }

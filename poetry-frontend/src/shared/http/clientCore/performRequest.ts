@@ -1,71 +1,70 @@
 /*
  * File: performRequest.ts
- * Purpose: Low-level HTTP request performer extracted to keep the parent
- * file small and under repository line/size thresholds.
+ * Purpose: Execute HTTP requests using retry, refresh, and parsing helpers
+ * composed from dedicated modules to respect repository constraints.
  * All Rights Reserved. Arodi Emmanuel
  */
-type Tokens = { accessToken?: string; refreshToken?: string } | null
-type RefreshFn = () => Promise<{ accessToken: string } | null>
-type DelayFn = (ms: number) => Promise<void>
+import { HttpError } from './httpErrors'
+import { parseJsonResponse } from './responseParser'
+import { tryRefreshAuthorization } from './tokenRefresh'
+import { shouldRetryRequest } from './retryPolicy'
+import { type RequestExecution } from './requestTypes'
+
+function resolveBody(method: string, body: BodyInit | null): BodyInit | null {
+  const isGet: boolean = method === 'GET'
+  return isGet ? null : body
+}
+
+function normalizeError(error: unknown): Error {
+  return error instanceof Error ? error : new Error(String(error))
+}
 
 export async function performRequest<T>(
-  url: string,
-  retryCfg: { maxAttempts: number; backoffMs: number },
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
-  body: BodyInit | null,
-  defaultHeaders: Record<string, string>,
-  optionsHeaders: Record<string, string> | undefined,
-  signal: AbortSignal | undefined,
-  tokens: Tokens,
-  refreshTokenIfNeeded: RefreshFn,
-  delay: DelayFn
+  execution: RequestExecution
 ): Promise<T> {
-  let lastErr: Error | null = null
-  const headersBase: Record<string, string> = {
-    ...defaultHeaders,
-    ...(optionsHeaders ?? {}),
-  }
-  for (let attempt: number = 1; attempt <= retryCfg.maxAttempts; attempt++) {
+  let lastError: Error | null = null
+  const headers: Record<string, string> = { ...execution.headers }
+  for (
+    let attempt: number = 1;
+    attempt <= execution.retryCfg.maxAttempts;
+    attempt++
+  ) {
     const controller: AbortController = new AbortController()
-    const combinedSignal: AbortSignal = signal ?? controller.signal
+    const activeSignal: AbortSignal = execution.signal ?? controller.signal
     try {
-      const useBody: BodyInit | null =
-        method === 'GET' || body === null ? null : body
-      const res: Response = await fetch(url, {
-        method,
-        headers: headersBase,
-        body: useBody,
-        signal: combinedSignal,
+      const response: Response = await fetch(execution.url, {
+        method: execution.method,
+        headers,
+        body: resolveBody(execution.method, execution.body),
+        signal: activeSignal,
       })
-      if (!res.ok) {
-        if (res.status === 401 && tokens?.refreshToken && attempt === 1) {
-          try {
-            const newTokens: { accessToken: string } | null =
-              await refreshTokenIfNeeded()
-            if (newTokens) {
-              headersBase['Authorization'] = `Bearer ${newTokens.accessToken}`
-              continue
-            }
-          } catch (_err: unknown) {
-            // ignore refresh errors and continue to error handling
-            void _err
-          }
+      if (!response.ok) {
+        const refreshed: boolean = await tryRefreshAuthorization(
+          response,
+          attempt,
+          execution.tokens,
+          execution.refreshTokenIfNeeded,
+          headers
+        )
+        if (refreshed) {
+          continue
         }
-        if (res.status >= 500 && res.status < 600) {
-          const statusText: string = String(res.status)
-          throw new Error(`HTTP ${statusText}`)
-        }
-        const text: string = await res.text()
-        const errMsg: string = `HTTP ${String(res.status)}: ${text}`
-        throw new Error(errMsg)
+        const bodyText: string = await response.text()
+        throw new HttpError(response.status, bodyText)
       }
-      const json: T = (await res.json()) as T
-      return json
-    } catch (err: unknown) {
-      lastErr = err instanceof Error ? err : new Error(String(err))
-      if (attempt === retryCfg.maxAttempts) break
-      await delay(retryCfg.backoffMs)
+      return await parseJsonResponse<T>(response)
+    } catch (error: unknown) {
+      lastError = normalizeError(error)
+      const shouldRetry: boolean = shouldRetryRequest(
+        attempt,
+        lastError,
+        execution.retryCfg
+      )
+      if (!shouldRetry) {
+        break
+      }
+      await execution.delay(execution.retryCfg.backoffMs)
     }
   }
-  throw lastErr ?? new Error('Unknown HTTP error')
+  throw lastError ?? new Error('Unknown HTTP error')
 }

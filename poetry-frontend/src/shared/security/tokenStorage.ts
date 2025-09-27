@@ -8,7 +8,7 @@ export interface TokenBundle {
   refreshToken: string
 }
 
-const KEY: string = 'poetry.auth.tokens'
+export const TOKEN_STORAGE_KEY: string = 'poetry.auth.tokens'
 
 export const tokenStorage: {
   save: (tokens: TokenBundle) => void
@@ -16,10 +16,10 @@ export const tokenStorage: {
   clear: () => void
 } = {
   save(tokens: TokenBundle): void {
-    localStorage.setItem(KEY, JSON.stringify(tokens))
+    localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens))
   },
   load(): TokenBundle | null {
-    const raw: string | null = localStorage.getItem(KEY)
+    const raw: string | null = localStorage.getItem(TOKEN_STORAGE_KEY)
     if (!raw) return null
     try {
       return JSON.parse(raw) as TokenBundle
@@ -28,6 +28,6 @@ export const tokenStorage: {
     }
   },
   clear(): void {
-    localStorage.removeItem(KEY)
+    localStorage.removeItem(TOKEN_STORAGE_KEY)
   },
 } as const

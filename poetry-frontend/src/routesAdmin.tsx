@@ -9,6 +9,7 @@ import { Route } from 'react-router-dom'
 import { RequireAuth } from './shared/routing/RequireAuth'
 import { RequireRoles } from './shared/routing/RequireRoles'
 import { RequireRole } from './shared/routing/RequireRole'
+import { AppShell } from './shared/layout/AppShell'
 
 interface AdminTokensModule {
   default?: () => ReactElement
@@ -35,11 +36,13 @@ export function AdminRoutes(): ReactElement {
         element={
           <RequireAuth>
             <RequireRoles roles={['admin', 'manager']}>
-              <Suspense fallback={null}>
-                <RequireRole role="admin">
-                  <AdminTokensPageLazy />
-                </RequireRole>
-              </Suspense>
+              <AppShell>
+                <Suspense fallback={null}>
+                  <RequireRole role="admin">
+                    <AdminTokensPageLazy />
+                  </RequireRole>
+                </Suspense>
+              </AppShell>
             </RequireRoles>
           </RequireAuth>
         }

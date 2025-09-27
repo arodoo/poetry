@@ -9,6 +9,7 @@ import { PublicRoutes } from './routesPublic'
 import { AdminRoutes } from './routesAdmin'
 import { PublicAuthRoutes } from './routesAuthPublic'
 import { getEnv } from './shared/config/env'
+import { AuthenticatedRoutes } from './routesAuthenticated'
 
 export function AppRouteTree(): ReactElement {
   const defaultLocale: string = getEnv().VITE_DEFAULT_LOCALE
@@ -28,6 +29,7 @@ export function AppRouteTree(): ReactElement {
 
       {PublicAuthRoutes()}
       {PublicRoutes()}
+      {AuthenticatedRoutes()}
 
       {AdminRoutes()}
     </Routes>

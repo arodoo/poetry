@@ -10,6 +10,12 @@ import { type HttpOptions } from './httpTypes'
 import { type Env } from '../config/env'
 import { tokenStorage } from '../security/tokenStorage'
 import { refreshTokenIfNeeded } from '../security/tokenRefreshService'
+import {
+  type RequestExecution,
+  type RetryConfig,
+  type HttpMethod,
+  type Tokens,
+} from './clientCore/requestTypes'
 
 export async function fetchJsonInternal<T>(
   cfg: Env,
@@ -21,18 +27,16 @@ export async function fetchJsonInternal<T>(
   const base: string = cfg.VITE_API_BASE_URL.replace(/\/$/, '')
   const p: string = path.startsWith('/') ? path : `/${path}`
   const url: string = `${base}${p}`
-  const retryCfg: { maxAttempts: number; backoffMs: number } =
-    options.retry ?? {
-      maxAttempts: cfg.VITE_HTTP_RETRY_MAX_ATTEMPTS,
-      backoffMs: cfg.VITE_HTTP_RETRY_BACKOFF_MS,
-    }
+  const retryCfg: RetryConfig = options.retry ?? {
+    maxAttempts: cfg.VITE_HTTP_RETRY_MAX_ATTEMPTS,
+    backoffMs: cfg.VITE_HTTP_RETRY_BACKOFF_MS,
+  }
   const body: BodyInit | null =
     options.body !== undefined
       ? (JSON.stringify(options.body) as BodyInit)
       : null
 
-  const tokens: { accessToken?: string; refreshToken?: string } | null =
-    tokenStorage.load()
+  const tokens: Tokens = tokenStorage.load()
   const defaultHeaders: Record<string, string> = {
     'Content-Type': 'application/json',
   }
@@ -41,18 +45,26 @@ export async function fetchJsonInternal<T>(
     defaultHeaders['Authorization'] = `Bearer ${tokens.accessToken}`
   }
 
-  const method: 'GET' | 'POST' | 'PUT' | 'DELETE' = options.method ?? 'GET'
+  const headers: Record<string, string> = {
+    ...defaultHeaders,
+    ...(options.headers ?? {}),
+  }
+
+  const method: HttpMethod = options.method ?? 'GET'
   const { performRequest } = await import('./clientCore/performRequest')
-  return performRequest<T>(
+  const baseExecution: Omit<RequestExecution, 'signal'> = {
     url,
     retryCfg,
     method,
     body,
-    defaultHeaders,
-    options.headers,
-    options.signal,
+    headers,
     tokens,
     refreshTokenIfNeeded,
-    delay
-  )
+    delay,
+  }
+  const execution: RequestExecution =
+    options.signal !== undefined
+      ? { ...baseExecution, signal: options.signal }
+      : baseExecution
+  return performRequest<T>(execution)
 }

@@ -7,24 +7,27 @@
 import fs from 'node:fs'
 import { listFeatures, buildFeatureReport } from './module-feature-report.mjs'
 
-function run(){
+function run() {
   try {
     const featureNames = listFeatures()
-    console.log(`Found ${featureNames.length} features: ` +
-      `${featureNames.join(', ')}`)
+    console.log(
+      `Found ${featureNames.length} features: ` + `${featureNames.join(', ')}`
+    )
 
     const reports = featureNames.map(buildFeatureReport)
-    const missing = reports.flatMap(featureReport =>
-      featureReport.missing.map(missingPath =>
-        `${featureReport.feature}:${missingPath}`))
+    const missing = reports.flatMap((featureReport) =>
+      featureReport.missing.map(
+        (missingPath) => `${featureReport.feature}:${missingPath}`
+      )
+    )
     const isStructureOk = missing.length === 0
 
     const lines = ['Module Structure Check']
-    for(const featureReport of reports){
+    for (const featureReport of reports) {
       lines.push(`\nFeature: ${featureReport.feature}`)
-      if(featureReport.missing.length){
+      if (featureReport.missing.length) {
         lines.push('  Missing:')
-        for(const missingPath of featureReport.missing) {
+        for (const missingPath of featureReport.missing) {
           lines.push(`    - ${missingPath}`)
         }
       } else {
@@ -32,15 +35,21 @@ function run(){
       }
     }
 
-    fs.writeFileSync('module-check-report.json',
-      JSON.stringify({
-        ok: isStructureOk,
-      summary:{features:featureNames.length,missing:missing.length},
-      details:reports
-    }, null, 2))
+    fs.writeFileSync(
+      'module-check-report.json',
+      JSON.stringify(
+        {
+          ok: isStructureOk,
+          summary: { features: featureNames.length, missing: missing.length },
+          details: reports,
+        },
+        null,
+        2
+      )
+    )
     console.log(lines.join('\n'))
     console.log('\nJSON report: module-check-report.json')
-    if(!isStructureOk) {
+    if (!isStructureOk) {
       console.error('\nFAIL: missing required structure')
       console.error('See module-check-report.json for details')
       process.exit(1)

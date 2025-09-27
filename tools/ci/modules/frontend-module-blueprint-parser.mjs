@@ -8,14 +8,18 @@ import fs from 'node:fs'
 
 const BP = 'docs/architecture/frontend-module-blueprint.json'
 
-function loadBlueprint(){
-  if(!fs.existsSync(BP)) return null
-  try { return JSON.parse(fs.readFileSync(BP, 'utf8')) } catch { return null }
+function loadBlueprint() {
+  if (!fs.existsSync(BP)) return null
+  try {
+    return JSON.parse(fs.readFileSync(BP, 'utf8'))
+  } catch {
+    return null
+  }
 }
 
-export function parseFrontendBlueprintPaths(){
+export function parseFrontendBlueprintPaths() {
   const blueprint = loadBlueprint()
-  if(!blueprint?.structure) return []
+  if (!blueprint?.structure) return []
   const out = []
   for (const [sectionName, section] of Object.entries(blueprint.structure)) {
     const basePath = section.path
@@ -25,23 +29,24 @@ export function parseFrontendBlueprintPaths(){
         optional: !file.required,
         description: file.description,
         section: sectionName,
-        isPattern: file.pattern || false
+        isPattern: file.pattern || false,
       })
     }
   }
   return out
 }
 
-function pascal(n){
-  return n.split(/[-_]/)
-    .map(s => s ? s[0].toUpperCase() + s.slice(1) : '')
+function pascal(n) {
+  return n
+    .split(/[-_]/)
+    .map((s) => (s ? s[0].toUpperCase() + s.slice(1) : ''))
     .join('')
 }
 
-export function expandFrontendFeature(entries, feature){
+export function expandFrontendFeature(entries, feature) {
   const P = pascal(feature)
   const PL = P.endsWith('s') ? P : P + 's'
-  return entries.map(e => ({
+  return entries.map((e) => ({
     optional: e.optional,
     path: e.pattern
       // Replace angle-bracketed placeholders first to avoid
@@ -53,6 +58,6 @@ export function expandFrontendFeature(entries, feature){
       .replace(/Features/g, PL)
       .replace(/Feature/g, P),
     isPattern: e.isPattern,
-    description: e.description
+    description: e.description,
   }))
 }
