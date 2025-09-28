@@ -6,6 +6,9 @@ tools:
 
 # Backend
 
+First thing you have to do before an implementation is to create blueprint
+schema/structure/files
+
 - Versioned API base path: "/api/v1".
 - Observability: Actuator, structured logs.
 - API discovery:

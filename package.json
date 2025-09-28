@@ -27,7 +27,7 @@
     "i18n:scan": "node tools/ci/i18n/i18n-scan.mjs",
     "modules:check": "node tools/ci/modules/check-modules.mjs",
     "frontend:modules:check": "node tools/ci/modules/check-frontend-modules.mjs",
-    "ci": "npm run max-lines:check && npm run headers:check && npm run i18n:scan && npm run modules:check && npm run frontend:modules:check && npm run lint && npm run typecheck && npm run test && npm run openapi:validate && npm run sdk:check && npm run build",
+    "ci": "npm run max-lines:check && npm run headers:check && npm run i18n:scan && npm run modules:check && npm run frontend:modules:check && npm run lint && npm run typecheck && npm run build && npm run test && npm run openapi:validate && npm run sdk:check",
     "dev:backend": "node tools/logs/backend/dev-with-log.mjs",
     "build:backend:log": "node tools/logs/backend/build-with-log.mjs"
   },

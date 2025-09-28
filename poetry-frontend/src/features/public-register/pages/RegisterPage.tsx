@@ -6,9 +6,7 @@
 
 import React, { useState } from 'react'
 import { useRegister } from '../hooks/useRegister'
-import { RegisterFormSchema } from '../model/PublicRegisterSchemas'
-import type { RegisterForm } from '../model/PublicRegisterSchemas'
-import { z } from 'zod'
+import { PublicRegisterRequestSchema } from '../model/PublicRegisterSchemas'
 import { useT } from '../../../shared/i18n/useT'
 import { Input } from '../../../ui/Input/Input'
 import { Button } from '../../../ui/Button/Button'
@@ -28,13 +26,11 @@ export default function RegisterPage(): React.ReactElement {
 
   async function onSubmit(e: React.FormEvent): Promise<void> {
     e.preventDefault()
-    const parsed: z.SafeParseReturnType<RegisterForm, unknown> =
-      RegisterFormSchema.safeParse(form)
+    const parsed: ReturnType<typeof PublicRegisterRequestSchema.safeParse> =
+      PublicRegisterRequestSchema.safeParse(form)
     if (!parsed.success) return
     await mutation.mutateAsync(parsed.data)
-    void navigate(`/${locale}/login?registered=1`, {
-      replace: true,
-    })
+    void navigate(`/${locale}/login?registered=1`, { replace: true })
   }
 
   return (

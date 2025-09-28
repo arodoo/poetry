@@ -1,8 +1,8 @@
 {
-  "ok": false,
+  "ok": true,
   "summary": {
     "features": 10,
-    "missing": 12
+    "missing": 0
   },
   "details": [
     {
@@ -968,12 +968,10 @@
         {
           "path": "poetry-frontend/src/tests/features/public-login/pages/PublicLoginPage.test.ts",
           "optional": false,
-          "exists": false
+          "exists": true
         }
       ],
-      "missing": [
-        "poetry-frontend/src/tests/features/public-login/pages/PublicLoginPage.test.ts"
-      ]
+      "missing": []
     },
     {
       "feature": "public-register",
@@ -986,12 +984,12 @@
         {
           "path": "poetry-frontend/src/features/public-register/api/public-registerApi.ts",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/public-register/hooks/usePublicRegisterQueries.ts",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/public-register/hooks/usePublicRegisterMutations.ts",
@@ -1001,7 +999,7 @@
         {
           "path": "poetry-frontend/src/features/public-register/components",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/public-register/pages",
@@ -1011,17 +1009,17 @@
         {
           "path": "poetry-frontend/src/features/public-register/routing/public-registerRoutes.ts",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/public-register/locales/en.json",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/public-register/locales/es.json",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/public-register/index.ts",
@@ -1061,12 +1059,12 @@
         {
           "path": "docs/domains/public-register.md",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "docs/api/openapi/paths/public-register-*.yaml",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/tests/features/public-register/model/PublicRegisterSchemas.test.ts",
@@ -1076,12 +1074,12 @@
         {
           "path": "poetry-frontend/src/tests/features/public-register/api/public-registerApi.test.ts",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/tests/features/public-register/hooks/public-registerQueries.test.ts",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/tests/features/public-register/hooks/public-registerMutations.test.ts",
@@ -1091,22 +1089,10 @@
         {
           "path": "poetry-frontend/src/tests/features/public-register/pages/PublicRegisterPage.test.ts",
           "optional": false,
-          "exists": false
+          "exists": true
         }
       ],
-      "missing": [
-        "poetry-frontend/src/features/public-register/api/public-registerApi.ts",
-        "poetry-frontend/src/features/public-register/hooks/usePublicRegisterQueries.ts",
-        "poetry-frontend/src/features/public-register/components",
-        "poetry-frontend/src/features/public-register/routing/public-registerRoutes.ts",
-        "poetry-frontend/src/features/public-register/locales/en.json",
-        "poetry-frontend/src/features/public-register/locales/es.json",
-        "docs/domains/public-register.md",
-        "docs/api/openapi/paths/public-register-*.yaml",
-        "poetry-frontend/src/tests/features/public-register/api/public-registerApi.test.ts",
-        "poetry-frontend/src/tests/features/public-register/hooks/public-registerQueries.test.ts",
-        "poetry-frontend/src/tests/features/public-register/pages/PublicRegisterPage.test.ts"
-      ]
+      "missing": []
     },
     {
       "feature": "tokens",

@@ -1,0 +1,13 @@
+{
+  "ui": {
+    "public": {
+      "register": {
+        "title": "Registrarse",
+        "username": "Nombre de usuario",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "submit": "Registrarse"
+      }
+    }
+  }
+}

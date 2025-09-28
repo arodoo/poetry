@@ -6,15 +6,18 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import type { RegisterForm } from '../model/PublicRegisterSchemas'
+import type {
+  PublicRegisterRequest,
+  PublicRegisterResult,
+} from '../model/PublicRegisterSchemas'
 import { fetchJson } from '../../../shared/http/fetchClient'
 import type { HttpOptions } from '../../../shared/http/httpTypes'
 
 export async function registerRequest(
-  payload: RegisterForm,
+  payload: PublicRegisterRequest,
   idempotencyKey?: string,
   signal?: AbortSignal
-): Promise<unknown> {
+): Promise<PublicRegisterResult> {
   const key: string =
     idempotencyKey ?? 'idem-' + Math.random().toString(36).slice(2, 10)
   const baseHeaders: Record<string, string> = {
@@ -29,7 +32,7 @@ export async function registerRequest(
   }
 
   const options: HttpOptions = signal ? { ...base, signal } : base
-  const res: unknown = await fetchJson<unknown>(
+  const res: PublicRegisterResult = await fetchJson<PublicRegisterResult>(
     '/api/v1/auth/register',
     options
   )

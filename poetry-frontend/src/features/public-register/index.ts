@@ -6,6 +6,6 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-export * from './hooks/useRegister'
-export * from './routing/publicRegisterRoutes'
+export * from './hooks/usePublicRegisterQueries'
+export * from './routing/public-registerRoutes'
 export * from './model/PublicRegisterSchemas'
