@@ -47,7 +47,8 @@ public class SecurityConfig {
         "/swagger-ui/**",
         "/swagger-ui.html",
         "/api",
-        // Newly whitelisted public API endpoints necessary for obtaining tokens or health checks
+        // Newly whitelisted public API endpoints necessary for obtaining tokens
+        // or health checks
         "/api/v1/health",
         "/api/v1/auth/login",
         "/api/v1/auth/register",

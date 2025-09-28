@@ -28,7 +28,7 @@ export function createPublicLoginSdk(env: Env = getEnv()): PublicLoginSdk {
   ) => Promise<T> = createFetchClient(env)
   return {
     authenticate(body: PublicLoginRequestDto): Promise<PublicLoginResponseDto> {
-      return fetchJson<PublicLoginResponseDto>('/api/v1/public/login', {
+      return fetchJson<PublicLoginResponseDto>('/api/v1/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

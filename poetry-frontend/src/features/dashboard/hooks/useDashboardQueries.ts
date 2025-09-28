@@ -4,6 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
+import { tokenStorage } from '../../../shared/security/tokenStorage'
 import { fetchDashboardOverview } from '../api/dashboardApi'
 import { type DashboardOverview } from '../model/DashboardSchemas'
 
@@ -18,9 +19,20 @@ export const dashboardQueryKeys: {
 }
 
 export function useDashboardOverviewQuery(): UseQueryResult<DashboardOverview> {
-  return useQuery({
+  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  return useQuery<DashboardOverview>({
     queryKey: dashboardQueryKeys.overview(),
     queryFn: fetchDashboardOverview,
     staleTime: 1000 * 60,
+    enabled: hasAccessToken,
+    retry(failureCount: number, error: unknown): boolean {
+      if (
+        error instanceof Error &&
+        (error.message.includes('HTTP 401') ||
+          error.message.includes('HTTP 403'))
+      )
+        return false
+      return failureCount < 2
+    },
   })
 }

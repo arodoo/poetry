@@ -1,7 +1,7 @@
 {
   "ok": true,
   "summary": {
-    "features": 5,
+    "features": 6,
     "missing": 0
   },
   "details": [
@@ -175,6 +175,182 @@
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthControllerNegativeTest.java",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "dashboard",
+      "expected": [
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/dashboard/model/Dashboard.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/dashboard/model/value/*",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/port/DashboardQueryPort.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/port/DashboardCommandPort.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/GetAllDashboardsUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/GetDashboardByIdUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/CreateDashboardUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/UpdateDashboardUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/DeleteDashboardUseCase.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardEntity.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardJpaRepository.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardJpaMapper.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardJpaAdapter.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/dashboard/InMemoryDashboardAdapter.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/dashboard/InMemoryDashboardStore.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/dashboard/InMemoryDashboardFactory.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardController.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardDtos.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/config/dashboard/DashboardComposition.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/dashboard.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/dashboard-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/dashboard/model/DashboardTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/dashboard/model/DashboardValidationTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/CreateDashboardUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/CreateDashboardUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/GetAllDashboardsUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/GetDashboardByIdUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/GetDashboardByIdUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/UpdateDashboardUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/UpdateDashboardUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/DeleteDashboardUseCaseTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/dashboard/usecase/DeleteDashboardUseCaseNegativeTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardControllerTest.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardControllerNegativeTest.java",
           "optional": false,
           "exists": true
         }

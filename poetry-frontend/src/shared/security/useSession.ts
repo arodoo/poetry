@@ -4,19 +4,32 @@
  placeholder until real auth integration is wired. Ensures role-based guards
  compile and are testable. All Rights Reserved. Arodi Emmanuel
 */
+import { tokenStorage } from './tokenStorage'
+
 export interface UserSession {
   userId: string
   roles: string[]
 }
 
-// Temporary in-memory stub session (would be replaced by context/provider)
-let currentSession: UserSession | null = {
+const fallbackSession: UserSession = {
   userId: 'demo',
   roles: ['admin'],
 }
 
+let currentSession: UserSession | null = null
+
+function hasValidTokens(): boolean {
+  try {
+    return Boolean(tokenStorage.load()?.accessToken)
+  } catch (_error: unknown) {
+    void _error
+    return false
+  }
+}
+
 export function useSession(): UserSession | null {
-  return currentSession
+  if (!hasValidTokens()) return null
+  return currentSession ?? fallbackSession
 }
 
 export function __setTestSession(session: UserSession | null): void {

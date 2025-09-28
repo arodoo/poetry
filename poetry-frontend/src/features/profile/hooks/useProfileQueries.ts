@@ -10,6 +10,7 @@ import {
   type UseMutationResult,
   type UseQueryResult,
 } from '@tanstack/react-query'
+import { tokenStorage } from '../../../shared/security/tokenStorage'
 import { fetchProfileSummary, updateProfileSummary } from '../api/profileApi'
 import {
   type ProfileSummary,
@@ -27,10 +28,21 @@ export const profileQueryKeys: {
 }
 
 export function useProfileSummaryQuery(): UseQueryResult<ProfileSummary> {
-  return useQuery({
+  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  return useQuery<ProfileSummary>({
     queryKey: profileQueryKeys.summary(),
     queryFn: fetchProfileSummary,
     staleTime: 1000 * 60,
+    enabled: hasAccessToken,
+    retry(failureCount: number, error: unknown): boolean {
+      if (
+        error instanceof Error &&
+        (error.message.includes('HTTP 401') ||
+          error.message.includes('HTTP 403'))
+      )
+        return false
+      return failureCount < 2
+    },
   })
 }
 

@@ -10,6 +10,7 @@ import { routeEs } from './route/route'
 import publicAuth from './public-auth.json'
 import accountEs from '../../../../features/account/locales/es.json'
 import dashboardEs from '../../../../features/dashboard/locales/es.json'
+import publicLoginEs from '../../../../features/public-login/locales/es.json'
 import profileEs from '../../../../features/profile/locales/es.json'
 
 export const esCatalog: Record<string, string> = {
@@ -20,5 +21,6 @@ export const esCatalog: Record<string, string> = {
   ...publicAuth,
   ...accountEs,
   ...dashboardEs,
+  ...publicLoginEs,
   ...profileEs,
 }
