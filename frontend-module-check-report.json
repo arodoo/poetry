@@ -1,10 +1,131 @@
 {
   "ok": true,
   "summary": {
-    "features": 3,
+    "features": 10,
     "missing": 0
   },
   "details": [
+    {
+      "feature": "account",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/account/model/AccountSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/api/accountApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/hooks/useAccountQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/hooks/useAccountMutations.ts",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/routing/accountRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/account/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/account.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/account-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/account/model/AccountSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/account/api/accountApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/account/hooks/accountQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/account/hooks/accountMutations.test.ts",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/account/pages/AccountPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
     {
       "feature": "admin",
       "expected": [
@@ -147,7 +268,7 @@
         {
           "path": "poetry-frontend/src/features/auth/hooks/useAuthMutations.ts",
           "optional": true,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/auth/components",
@@ -241,6 +362,732 @@
         },
         {
           "path": "poetry-frontend/src/tests/features/auth/pages/AuthPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "dashboard",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/dashboard/model/DashboardSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/api/dashboardApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/hooks/useDashboardQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/hooks/useDashboardMutations.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/routing/dashboardRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/dashboard/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/dashboard.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/dashboard-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/dashboard/model/DashboardSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/dashboard/api/dashboardApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/dashboard/hooks/dashboardQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/dashboard/hooks/dashboardMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/dashboard/pages/DashboardPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "profile",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/profile/model/ProfileSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/api/profileApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/hooks/useProfileQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/hooks/useProfileMutations.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/routing/profileRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/profile/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/profile.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/profile-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/profile/model/ProfileSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/profile/api/profileApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/profile/hooks/profileQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/profile/hooks/profileMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/profile/pages/ProfilePage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "public",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/public/model/PublicSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/api/publicApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/hooks/usePublicQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/hooks/usePublicMutations.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/public/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/routing/publicRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/public.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/public-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public/model/PublicSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public/api/publicApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public/hooks/publicQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public/hooks/publicMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public/pages/PublicPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "public-forgot-password",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/model/PublicForgotPasswordSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/api/public-forgot-passwordApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/hooks/usePublicForgotPasswordQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/hooks/usePublicForgotPasswordMutations.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/routing/public-forgot-passwordRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-forgot-password/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/public-forgot-password.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/public-forgot-password-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-forgot-password/model/PublicForgotPasswordSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-forgot-password/api/public-forgot-passwordApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-forgot-password/hooks/public-forgot-passwordQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-forgot-password/hooks/public-forgot-passwordMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-forgot-password/pages/PublicForgotPasswordPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "public-login",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/public-login/model/PublicLoginSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/api/public-loginApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/hooks/usePublicLoginQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/hooks/usePublicLoginMutations.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/routing/public-loginRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-login/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/public-login.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/public-login-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-login/model/PublicLoginSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-login/api/public-loginApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-login/hooks/public-loginQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-login/hooks/public-loginMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-login/pages/PublicLoginPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "public-register",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/public-register/model/PublicRegisterSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/api/public-registerApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/hooks/usePublicRegisterQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/hooks/usePublicRegisterMutations.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/routing/public-registerRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/public-register/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/public-register.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/public-register-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-register/model/PublicRegisterSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-register/api/public-registerApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-register/hooks/public-registerQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-register/hooks/public-registerMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/public-register/pages/PublicRegisterPage.test.ts",
           "optional": false,
           "exists": true
         }

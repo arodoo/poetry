@@ -34,7 +34,7 @@ for (const loc of locales) {
   const list = localeMap[loc]
   const seen = new Set()
   const dups = new Set()
-  for (const k of list) (seen.has(k) ? dups.add(k) : seen.add(k))
+  for (const k of list) seen.has(k) ? dups.add(k) : seen.add(k)
   if (dups.size) {
     console.error(`[i18n-verify] duplicate keys in ${loc}:`, [...dups])
     failed = true

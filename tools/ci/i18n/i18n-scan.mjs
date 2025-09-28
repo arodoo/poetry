@@ -17,10 +17,7 @@ import { shouldFlag, isSuppress } from './i18n-filters.mjs'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '../..')
 
-const INCLUDED_DIRS = [
-  'poetry-backend/src/main/java',
-  'poetry-frontend/src',
-]
+const INCLUDED_DIRS = ['poetry-backend/src/main/java', 'poetry-frontend/src']
 
 const STRING_REGEX = /"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'/g
 

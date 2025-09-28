@@ -7,14 +7,36 @@
  */
 
 import { describe, it, expect } from 'vitest'
-import { LoginFormSchema } from '../../../../features/public-login/model'
+import {
+  PublicLoginRequestSchema,
+  PublicLoginResultSchema,
+} from '../../../../features/public-login'
 
 describe('PublicLoginSchemas', () => {
-  it('rejects empty fields', () => {
-    const result = LoginFormSchema.safeParse({
-      username: '',
-      password: '',
-    })
-    expect(result.success).toBe(false)
+  it('accepts valid credentials', () => {
+    expect(
+      PublicLoginRequestSchema.safeParse({
+        username: 'aurora',
+        password: 'secret',
+      }).success
+    ).toBe(true)
+  })
+
+  it('rejects empty password', () => {
+    expect(
+      PublicLoginRequestSchema.safeParse({
+        username: 'aurora',
+        password: '',
+      }).success
+    ).toBe(false)
+  })
+
+  it('parses result payload', () => {
+    expect(
+      PublicLoginResultSchema.safeParse({
+        accessToken: 'a',
+        refreshToken: 'b',
+      }).success
+    ).toBe(true)
   })
 })

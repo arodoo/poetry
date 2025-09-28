@@ -12,7 +12,7 @@ import {
   buildFrontendFeatureReport,
 } from './frontend-module-feature-report.mjs'
 
-function run(){
+function run() {
   try {
     const featureNames = listFrontendFeatures()
     console.log(
@@ -27,12 +27,16 @@ function run(){
     const ok = missing.length === 0
 
     const lines = ['Frontend Module Structure Check']
-    for(const r of reports){
+    for (const r of reports) {
       lines.push('\nFeature: ' + r.feature)
-      if(r.missing.length){
+      if (r.missing.length) {
         lines.push('  Missing:')
-        for (const m of r.missing) { lines.push('    - ' + m) }
-      } else { lines.push('  ✓ OK') }
+        for (const m of r.missing) {
+          lines.push('    - ' + m)
+        }
+      } else {
+        lines.push('  ✓ OK')
+      }
     }
 
     const reportObj = {
@@ -56,7 +60,7 @@ function run(){
     } else {
       console.log('\n✓ PASS: frontend modules OK')
     }
-  } catch (error){
+  } catch (error) {
     console.error('Error running frontend module check:', error.message)
     process.exit(1)
   }

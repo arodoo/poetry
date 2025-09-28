@@ -1,0 +1,11 @@
+{
+  "ui.publicForgotPassword.title": "Reset your password",
+  "ui.publicForgotPassword.description": "Enter the email you use to access Poetry and we will send reset instructions.",
+  "ui.publicForgotPassword.email.label": "Email address",
+  "ui.publicForgotPassword.submit.label": "Send reset link",
+  "ui.publicForgotPassword.submit.pending": "Sending…",
+  "ui.publicForgotPassword.backToLogin": "Return to sign in",
+  "ui.publicForgotPassword.error": "We could not process your request. Try again soon.",
+  "ui.publicForgotPassword.success": "Check your inbox for the reset link.",
+  "ui.publicForgotPassword.errors.email": "Enter a valid email address."
+}

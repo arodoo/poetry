@@ -14,10 +14,18 @@ export default defineConfig({
     headless: true,
     ignoreHTTPSErrors: true,
   },
-  webServer: {
-    command: 'npm run dev:raw',
-    url: 'http://localhost:5173',
-    reuseExistingServer: true,
-    timeout: 30000,
-  },
+  webServer: [
+    {
+      command: 'npm run dev:raw',
+      url: 'http://localhost:5173',
+      reuseExistingServer: true,
+      timeout: 30000,
+    },
+    {
+      command: 'node ../tools/logs/backend/dev-with-log.mjs',
+      url: 'http://localhost:8080',
+      reuseExistingServer: true,
+      timeout: 60000,
+    },
+  ],
 })

@@ -1,0 +1,14 @@
+{
+  "ui.profile.page.title": "Profile",
+  "ui.profile.page.subtitle": "Review your account details and security.",
+  "ui.profile.summary.title": "Account details",
+  "ui.profile.summary.description": "Keep your profile information current.",
+  "ui.profile.summary.email": "Email",
+  "ui.profile.summary.locale": "Preferred locale",
+  "ui.profile.summary.username.label": "Display name",
+  "ui.profile.summary.username.save": "Save changes",
+  "ui.profile.summary.username.loading": "Saving profile…",
+  "ui.profile.summary.error": "We could not load your profile just now.",
+  "ui.profile.summary.empty": "Profile details are not available yet.",
+  "ui.profile.password.title": "Password security"
+}

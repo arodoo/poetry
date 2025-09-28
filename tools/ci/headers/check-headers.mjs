@@ -26,7 +26,7 @@ const CODE_EXTS = new Set([
 function gatherFiles() {
   let files = getChangedFiles().filter((p) => CODE_EXTS.has(path.extname(p)))
   files = files.filter(isInAllowedRoots)
-  
+
   // If no changed files or in CI PR mode, scan all files
   if (!files.length || shouldUseFallback()) {
     files = []
@@ -64,6 +64,6 @@ if (allErrors.length) {
   // print total counts on separate short lines to respect max-line limits
   console.error('\nTotal: ' + violatingFiles.size + ' files violate the rule')
   console.error('Total errors: ' + allErrors.length)
-   process.exit(1)
- }
- console.log(`✅ Headers valid (${files.length} files checked)`)
+  process.exit(1)
+}
+console.log(`✅ Headers valid (${files.length} files checked)`)

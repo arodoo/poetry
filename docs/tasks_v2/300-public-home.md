@@ -1,5 +1,3 @@
-# DONE
-
 # File: 300-public-home.md
 
 # Purpose: Implement public Home page.

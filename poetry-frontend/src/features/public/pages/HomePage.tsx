@@ -10,29 +10,56 @@
 import type { ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
 import type { I18nKey } from '../../../shared/i18n/generated/keys'
-import { Heading } from '../../../ui/Heading/Heading'
-import { Button } from '../../../ui/Button/Button'
+import { Stack } from '../../../ui/Stack/Stack'
+import { Text } from '../../../ui/Text/Text'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
+import { PublicHeroSection } from '../components/PublicHeroSection'
+import { PublicFeatureList } from '../components/PublicFeatureList'
+import { usePublicLandingQuery } from '../hooks/usePublicQueries'
 
 export default function HomePage(): ReactElement {
   const t: (k: I18nKey) => string = useT()
   const { locale } = useLocale() as { locale: string }
+  const landingQuery = usePublicLandingQuery()
+  if (landingQuery.isLoading) {
+    return (
+      <Stack as="section" gap="sm" className="mx-auto max-w-3xl p-6">
+        <Text size="sm">{t('ui.public.home.loading')}</Text>
+      </Stack>
+    )
+  }
+  const landing = landingQuery.data
+  if (!landing) {
+    return (
+      <Stack as="section" gap="sm" className="mx-auto max-w-3xl p-6">
+        <Text size="sm">{t('ui.public.home.error')}</Text>
+      </Stack>
+    )
+  }
+  const loginHref = `/${locale}/login`
+  const registerHref = `/${locale}/register`
+  const heroTitle = t(landing.heroTitleKey as I18nKey)
+  const heroBody = t(landing.heroBodyKey as I18nKey)
+  const loginLabel = t(landing.loginCtaKey as I18nKey)
+  const registerLabel = t(landing.registerCtaKey as I18nKey)
+  const features = landing.features.map((feature) => ({
+    title: t(feature.titleKey as I18nKey),
+    description: t(feature.descriptionKey as I18nKey),
+  }))
   return (
-    <section className="mx-auto max-w-3xl p-6 space-y-4">
-      <Heading level={1} size="lg" weight="bold">
-        {t('ui.route.home.title')}
-      </Heading>
-      <p className="text-[color:var(--color-text-muted,#525252)]">
-        {t('ui.public.home.intro')}
-      </p>
-      <div className="flex gap-3">
-        <Button to={`/${locale}/login`} variant="primary">
-          {t('ui.public.home.cta.login')}
-        </Button>
-        <Button to={`/${locale}/register`} variant="secondary">
-          {t('ui.public.home.cta.register')}
-        </Button>
-      </div>
-    </section>
+    <div className="space-y-8">
+      <PublicHeroSection
+        heroTitle={heroTitle}
+        heroBody={heroBody}
+        loginLabel={loginLabel}
+        registerLabel={registerLabel}
+        loginHref={loginHref}
+        registerHref={registerHref}
+      />
+      <PublicFeatureList
+        heading={t('ui.public.home.features.heading')}
+        features={features}
+      />
+    </div>
   )
 }

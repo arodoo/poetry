@@ -1,47 +1,69 @@
 /*
  * File: LoginPage.tsx
- * Purpose: Public login page component. Keeps the page small and focused on
- * presentation and delegates logic to the hook.
+ * Purpose: Orchestrate public login with new hooks and components.
  * All Rights Reserved. Arodi Emmanuel
  */
+import { useState, type FormEvent, type ReactElement } from 'react'
+import { useNavigate, Link, type NavigateFunction } from 'react-router-dom'
+import { useT } from '../../../shared/i18n/useT'
+import { useLocale } from '../../../shared/i18n/hooks/useLocale'
+import type { I18nKey } from '../../../shared/i18n/generated/keys'
+import { Text } from '../../../ui/Text/Text'
+import { PublicLoginForm } from '../components/PublicLoginForm'
+import { usePublicLoginMutation } from '../hooks/usePublicLoginQueries'
 
-import React from 'react'
-import type { NavigateFunction } from 'react-router-dom'
-import { useLoginPage } from '../hooks/useLoginPage'
-import LoginFormView from '../components/LoginFormView'
-import { handleAuthRedirects } from '../utils/handleAuthRedirects'
+export default function LoginPage(): ReactElement {
+  const t: (key: I18nKey) => string = useT()
+  const { locale } = useLocale() as { locale: string }
+  const navigate: NavigateFunction = useNavigate()
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [errorKey, setErrorKey] = useState<I18nKey | null>(null)
+  const mutation: ReturnType<typeof usePublicLoginMutation> =
+    usePublicLoginMutation()
+  const dashboardPath: string = `/${locale}/dashboard`
+  const forgotPasswordPath: string = `/${locale}/forgot-password`
 
-export default function LoginPage(): React.ReactElement {
-  const s: ReturnType<typeof useLoginPage> = useLoginPage()
-  // s is typed via hook return type.
-  // Create a typed alias to satisfy the typedef rule enforced by ESLint.
-  const state: ReturnType<typeof useLoginPage> = s
-  // Keep page focused: small presentational wrapper
-  const qs: URLSearchParams = state.qs
-  const push: (msg: string) => void = (m: string): void => {
-    state.toast.push(m)
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> {
+    event.preventDefault()
+    setErrorKey(null)
+    try {
+      await mutation.mutateAsync({ username, password })
+      void navigate(dashboardPath, { replace: true })
+    } catch (unknownError) {
+      console.error('public-login-error', unknownError)
+      setErrorKey('ui.publicLogin.error' as I18nKey)
+    }
   }
-  const nav: NavigateFunction = state.navigate
-  const pathname: string = state.location.pathname
-  handleAuthRedirects(qs, push, nav, pathname)
+
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold text-center mb-6">
-          {s.t('ui.public.home.intro')}
-        </h1>
-        <LoginFormView
-          t={s.t}
-          form={s.form as { username: string; password: string }}
-          setForm={s.setForm}
-          onSubmit={(e: React.FormEvent): void => {
-            state.onSubmit(e)
-          }}
-          isLoading={state.isLoading}
-          error={state.error}
-          fieldErrors={state.fieldErrors}
-        />
-      </div>
-    </main>
+    <div className="space-y-6 p-6">
+      <PublicLoginForm
+        username={username}
+        password={password}
+        onUsernameChange={(value: string): void => {
+          setUsername(value)
+        }}
+        onPasswordChange={(value: string): void => {
+          setPassword(value)
+        }}
+        onSubmit={(event: FormEvent<HTMLFormElement>): void =>
+          void handleSubmit(event)
+        }
+        isSubmitting={mutation.isPending}
+        title={t('ui.publicLogin.title')}
+        description={t('ui.publicLogin.description')}
+        usernameLabel={t('ui.publicLogin.username.label')}
+        passwordLabel={t('ui.publicLogin.password.label')}
+        submitLabel={t('ui.publicLogin.submit.label')}
+        pendingLabel={t('ui.publicLogin.submit.pending')}
+        errorMessage={errorKey ? t(errorKey) : undefined}
+      />
+      <Text size="sm">
+        <Link to={forgotPasswordPath}>{t('ui.publicLogin.forgotLink')}</Link>
+      </Text>
+    </div>
   )
 }

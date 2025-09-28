@@ -5,7 +5,8 @@ tools: ['tanstack-query', 'zod', 'heroicons', 'tailwindcss', 'i18next']
 
 # Frontend
 
-No hardcoded text (routes, breadcrumbs, content).
+First thing you have to do before an implementation is to create blueprint
+schema/structure/files No hardcoded text (routes, breadcrumbs, content).
 
 - 100% i18n with localized slugs.
 - Prefix all routes with "/:locale/...".

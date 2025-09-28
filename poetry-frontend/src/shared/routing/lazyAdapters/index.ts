@@ -6,3 +6,5 @@
 export * from './publicAdapters'
 export * from './unauthorizedAdapter'
 export * from './dashboardAdapter'
+export * from './profileAdapter'
+export * from './forgotPasswordAdapter'

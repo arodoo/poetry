@@ -1,0 +1,15 @@
+{
+  "ui.public.home.hero.title": "Share your poetry with the world",
+  "ui.public.home.hero.body": "Build your stage, invite readers, and celebrate every verse.",
+  "ui.public.home.cta.login": "Sign in",
+  "ui.public.home.cta.register": "Create account",
+  "ui.public.home.features.heading": "Why poets choose Poetry",
+  "ui.public.home.features.publish.title": "Publish effortlessly",
+  "ui.public.home.features.publish.description": "Schedule releases and spotlight collections in minutes.",
+  "ui.public.home.features.community.title": "Grow your community",
+  "ui.public.home.features.community.description": "Track engagement and welcome new members with ease.",
+  "ui.public.home.features.control.title": "Stay in control",
+  "ui.public.home.features.control.description": "Manage branding, access, and billing without leaving the page.",
+  "ui.public.home.loading": "Loading experience…",
+  "ui.public.home.error": "We could not load the public experience. Try again shortly."
+}

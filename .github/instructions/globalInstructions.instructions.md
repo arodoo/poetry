@@ -2,17 +2,16 @@
 applyTo: '**'
 ---
 
+- Answers in the chat can not be longer than 60 words per message
 - Before starting a new work, give a brief explanation of the task
+- When I ask for an step-by-step plan, provide routes and purposes of the
+  involved files (Both already existing and new ones)
 - Don't stop coding until the task is fully complete if the plan is clear
-- If you add debugging code mark it with '// DEBUG' so i can remove it later
 - All code contributions must be production ready: fully implemented, no TODO,
   FIXME, or commented-out code.
-- Before starting code changes Provide a brief step-by-step plan (in the chat
-  only)
 - Must follow DDD, SOLID, Clean Architecture
 - Every variable, parameter, or attribute must have a descriptive name that
-  clearly expresses its purpose in context (e.g. `response` instead of `r`, if
-  you find a bad example, fix it)
+  clearly expresses its purpose in context (e.g. `response` instead of `r`)
 - Code must be in first place LOGIC in relation to the environment
 - IMPORTANT: No file should exceed 60 lines; (test files < 40 lines>), in
   frontEnd no line should exceed 80 characters, in backend is 100,
@@ -73,6 +72,8 @@ create new modules or features in the frontend)
 
   ## Testing & CI
 
+- Reusable login/session defined at
+  'tests/e2e/shared/providers/tokenProvider.ts'
 - Test must reflect correct application behavior and not only simulate it.
 - If test discover an issue, fix the issue and re-run the test. If issue is well
   implemented and test is wrong, fix the test.
@@ -101,3 +102,5 @@ create new modules or features in the frontend)
 ## Extra notes
 
 - Application will sooner or later be PWA, consider this in your designs.
+- Length files limit, type check, linting, headers check, etc. must be checked
+  by running `npm run ci`

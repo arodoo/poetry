@@ -1,0 +1,15 @@
+{
+  "ui.dashboard.page.title": "Dashboard",
+  "ui.dashboard.page.subtitle": "Track key activity across your poetry workspace.",
+  "ui.dashboard.overview.panel.title": "Overview",
+  "ui.dashboard.overview.metrics.total": "Total poems",
+  "ui.dashboard.overview.metrics.published": "Published poems",
+  "ui.dashboard.overview.metrics.drafts": "Draft poems",
+  "ui.dashboard.overview.metrics.members": "Active members",
+  "ui.dashboard.overview.lastUpdated": "Last updated: {{label}}",
+  "ui.dashboard.overview.highlight.default": "Your community is growing steadily.",
+  "ui.dashboard.overview.highlight.surge": "Traffic surged in the last 24 hours.",
+  "ui.dashboard.overview.highlight.retention": "Member retention improved this week.",
+  "ui.dashboard.overview.error": "We could not load the latest metrics. Try again soon.",
+  "ui.dashboard.overview.empty": "No dashboard data is available yet."
+}

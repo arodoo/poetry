@@ -6,9 +6,28 @@
 
 import { z } from 'zod'
 
-export const LoginFormSchema: ReturnType<typeof z.object> = z.object({
-  username: z.string().min(1, 'login.username.required'),
-  password: z.string().min(1, 'login.password.required'),
+export const PublicLoginRequestSchema: z.ZodObject<{
+  username: z.ZodString
+  password: z.ZodString
+}> = z.object({
+  username: z.string().min(1, 'ui.publicLogin.errors.username'),
+  password: z.string().min(1, 'ui.publicLogin.errors.password'),
 })
 
-export type LoginForm = z.infer<typeof LoginFormSchema>
+export type PublicLoginRequest = z.infer<typeof PublicLoginRequestSchema>
+
+export const LoginFormSchema: z.ZodObject<{
+  username: z.ZodString
+  password: z.ZodString
+}> = PublicLoginRequestSchema
+export type LoginForm = PublicLoginRequest
+
+export const PublicLoginResultSchema: z.ZodObject<{
+  accessToken: z.ZodString
+  refreshToken: z.ZodString
+}> = z.object({
+  accessToken: z.string().min(1),
+  refreshToken: z.string().min(1),
+})
+
+export type PublicLoginResult = z.infer<typeof PublicLoginResultSchema>

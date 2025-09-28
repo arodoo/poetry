@@ -1,0 +1,15 @@
+{
+  "ui.dashboard.page.title": "Panel",
+  "ui.dashboard.page.subtitle": "Supervisa la actividad clave de tu espacio de poesía.",
+  "ui.dashboard.overview.panel.title": "Resumen",
+  "ui.dashboard.overview.metrics.total": "Poemas totales",
+  "ui.dashboard.overview.metrics.published": "Poemas publicados",
+  "ui.dashboard.overview.metrics.drafts": "Poemas en borrador",
+  "ui.dashboard.overview.metrics.members": "Miembros activos",
+  "ui.dashboard.overview.lastUpdated": "Última actualización: {{label}}",
+  "ui.dashboard.overview.highlight.default": "Tu comunidad crece de forma estable.",
+  "ui.dashboard.overview.highlight.surge": "El tráfico aumentó en las últimas 24 horas.",
+  "ui.dashboard.overview.highlight.retention": "La retención de miembros mejoró esta semana.",
+  "ui.dashboard.overview.error": "No pudimos cargar los últimos datos. Intenta de nuevo pronto.",
+  "ui.dashboard.overview.empty": "Aún no hay datos disponibles en el panel."
+}

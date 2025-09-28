@@ -9,7 +9,10 @@
 import { useMutation } from '@tanstack/react-query'
 import type { UseMutationResult } from '@tanstack/react-query'
 import { registerRequest } from '../api/publicRegisterApi'
-import type { RegisterForm } from '../model/PublicRegisterSchemas'
+import type {
+  PublicRegisterRequest,
+  PublicRegisterResult,
+} from '../model/PublicRegisterSchemas'
 
 function generateIdempotencyKey(): string {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
@@ -22,10 +25,18 @@ function generateIdempotencyKey(): string {
   )
 }
 
-export function useRegister(): UseMutationResult<unknown, Error, RegisterForm> {
-  async function mutationFn(payload: RegisterForm): Promise<unknown> {
+export function useRegister(): UseMutationResult<
+  PublicRegisterResult,
+  Error,
+  PublicRegisterRequest
+> {
+  async function mutationFn(
+    payload: PublicRegisterRequest
+  ): Promise<PublicRegisterResult> {
     return registerRequest(payload, generateIdempotencyKey())
   }
 
-  return useMutation<unknown, Error, RegisterForm>({ mutationFn })
+  return useMutation<PublicRegisterResult, Error, PublicRegisterRequest>({
+    mutationFn,
+  })
 }

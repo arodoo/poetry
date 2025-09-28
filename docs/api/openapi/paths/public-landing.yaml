@@ -1,0 +1,43 @@
+# File: public-landing.yaml
+# Purpose: Deliver localized marketing content for the public landing page.
+# All Rights Reserved. Arodi Emmanuel
+/api/v1/public/landing:
+  get:
+    summary: Fetch public landing content
+    operationId: getPublicLanding
+    tags: [public]
+    security: []
+    parameters:
+      - $ref: ../components/parameters/common-headers.yaml#/CorrelationId
+    responses:
+      '200':
+        description: Landing content retrieved
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                heroTitleKey: { type: string }
+                heroBodyKey: { type: string }
+                loginCtaKey: { type: string }
+                registerCtaKey: { type: string }
+                features:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    properties:
+                      titleKey: { type: string }
+                      descriptionKey: { type: string }
+                    required: [titleKey, descriptionKey]
+              required:
+                [
+                  heroTitleKey,
+                  heroBodyKey,
+                  loginCtaKey,
+                  registerCtaKey,
+                  features,
+                ]
+      '204':
+        description: No landing content configured
+      '500': { $ref: ../components/responses/common.yaml#/InternalServerError }

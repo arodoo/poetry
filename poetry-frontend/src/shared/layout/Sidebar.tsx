@@ -1,0 +1,76 @@
+/*
+ * File: Sidebar.tsx
+ * Purpose: Collapsible left navigation for authenticated areas.
+ * All Rights Reserved. Arodi Emmanuel
+ */
+import type { ReactElement } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
+import { useT } from '../../shared/i18n/useT'
+import { useSession } from '../../shared/security/useSession'
+
+export interface SidebarProps {
+  isOpen: boolean
+}
+
+export function Sidebar(props: SidebarProps): ReactElement | null {
+  const { isOpen } = props
+  const translator: ReturnType<typeof useT> = useT()
+  const session: { roles: string[] } | null = useSession()
+  const pathname: string = useLocation().pathname
+  const { locale = 'en' } = useParams()
+  if (!session) return null
+
+  const items: {
+    id: 'dashboard' | 'adminTokens'
+    p: string
+    roles: string[]
+  }[] = [
+    { id: 'dashboard', p: '/dashboard', roles: [] },
+    { id: 'adminTokens', p: '/admin/tokens', roles: ['admin', 'manager'] },
+  ]
+
+  return (
+    <aside
+      className={
+        isOpen
+          ? 'w-56 border-r border-gray-200 bg-white'
+          : 'w-14 border-r border-gray-200 bg-white'
+      }
+    >
+      <nav className="p-2 space-y-1">
+        {items.map(
+          (item: {
+            id: 'dashboard' | 'adminTokens'
+            p: string
+            roles: string[]
+          }): ReactElement | null => {
+            const isAllowed: boolean =
+              item.roles.length === 0 ||
+              item.roles.some((role: string): boolean =>
+                session.roles.includes(role)
+              )
+            if (!isAllowed) return null
+            const linkTo: string = `/${locale}${item.p}`
+            const active: boolean = pathname.startsWith(linkTo)
+            const base: string = active ? 'bg-gray-100' : 'hover:bg-gray-50'
+            return (
+              <Link
+                key={item.id}
+                to={linkTo}
+                className={`block rounded px-3 py-2 ${base}`}
+              >
+                {isOpen
+                  ? translator(
+                      item.id === 'dashboard'
+                        ? 'ui.route.dashboard.title'
+                        : 'ui.route.admin.tokens.title'
+                    )
+                  : '•'}
+              </Link>
+            )
+          }
+        )}
+      </nav>
+    </aside>
+  )
+}

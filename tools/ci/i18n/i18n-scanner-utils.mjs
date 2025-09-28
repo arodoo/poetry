@@ -25,8 +25,8 @@ const EXCLUDE_PATTERNS = [
 
 export function isExcluded(file) {
   // Normalize Windows backslashes and ensure forward-slash based matching
-  const normal = file.replace(/\\/g, '/');
-  return EXCLUDE_PATTERNS.some((p) => normal.includes(p));
+  const normal = file.replace(/\\/g, '/')
+  return EXCLUDE_PATTERNS.some((p) => normal.includes(p))
 }
 
 export function walk(dir, acc = []) {

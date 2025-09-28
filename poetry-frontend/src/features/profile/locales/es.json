@@ -1,0 +1,14 @@
+{
+  "ui.profile.page.title": "Perfil",
+  "ui.profile.page.subtitle": "Revisa tus datos y seguridad de la cuenta.",
+  "ui.profile.summary.title": "Detalles de la cuenta",
+  "ui.profile.summary.description": "Mantén tu información actualizada.",
+  "ui.profile.summary.email": "Correo electrónico",
+  "ui.profile.summary.locale": "Idioma preferido",
+  "ui.profile.summary.username.label": "Nombre visible",
+  "ui.profile.summary.username.save": "Guardar cambios",
+  "ui.profile.summary.username.loading": "Guardando perfil…",
+  "ui.profile.summary.error": "No pudimos cargar tu perfil ahora mismo.",
+  "ui.profile.summary.empty": "Tus datos de perfil aún no están disponibles.",
+  "ui.profile.password.title": "Seguridad de la contraseña"
+}
