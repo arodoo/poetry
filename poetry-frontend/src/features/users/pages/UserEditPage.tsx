@@ -1,52 +1,73 @@
 /*
  * File: UserEditPage.tsx
- * Purpose: Admin user edit page referencing placeholder form shell.
+ * Purpose: Admin user edit page with ETag conditional updates.
  * All Rights Reserved. Arodi Emmanuel
  */
+
 import type { ReactElement } from 'react'
-import { useParams } from 'react-router-dom'
-import { Text } from '../../../ui/Text/Text'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Button } from '../../../ui/Button/Button'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useT } from '../../../shared/i18n/useT'
-import { UsersPageLayout } from '../components/UsersPageLayout'
-import { UsersFormShell } from '../components/UsersFormShell'
+import { useLocale } from '../../../shared/i18n/hooks/useLocale'
+import { useToast } from '../../../shared/toast/toastContext'
+import type { UsersFormValues } from '../components/UsersForm'
 import { useUpdateUserMutation } from '../hooks/useUsersMutations'
-import { useUserDetailQuery } from '../hooks/useUsersQueries'
+import { useUserDetailWithETag } from '../hooks/useUserDetailWithETag'
+import type { UserDetail } from '../model/UsersSchemas'
+import { UserEditPageLoading } from './UserEditPageHelpers'
+import { UserEditForm } from './UserEditForm'
 
 export default function UserEditPage(): ReactElement {
-  const params: Readonly<Record<string, string | undefined>> = useParams()
-  const userId: string = params['id'] ?? ''
+  const userId: string = useParams()['id'] ?? ''
   const t: ReturnType<typeof useT> = useT()
-  const detailQuery: ReturnType<typeof useUserDetailQuery> =
-    useUserDetailQuery(userId)
+  const { locale }: { locale: string } = useLocale()
+  const navigate: ReturnType<typeof useNavigate> = useNavigate()
+  const { push }: { push: (msg: string) => void } = useToast()
+  const detailQuery: ReturnType<typeof useUserDetailWithETag> =
+    useUserDetailWithETag(userId)
   const mutation: ReturnType<typeof useUpdateUserMutation> =
     useUpdateUserMutation()
-  const isSubmitting: boolean = mutation.isPending
-  const version: string | undefined = (
-    detailQuery.data as { version?: string | number } | undefined
-  )?.version?.toString()
+  const user: UserDetail | undefined = detailQuery.data?.user
+
+  function handleSubmit(values: UsersFormValues): void {
+    if (!values.version || !user || !detailQuery.data?.etag) return
+    mutation.mutate(
+      {
+        id: userId,
+        input: {
+          firstName: user.firstName ?? '',
+          lastName: user.lastName ?? '',
+          email: values.email,
+          username: values.username,
+          locale: values.locale,
+          roles: values.roles as string[],
+          active: user.status === 'active',
+          version: values.version,
+        },
+        etag: detailQuery.data.etag,
+      },
+      {
+        onSuccess: (): void => {
+          push(t('ui.users.toast.update.success'))
+          void navigate(`/${locale}/users/${userId}`)
+        },
+        onError: (): void => {
+          push(t('ui.users.toast.update.error'))
+        },
+      }
+    )
+  }
+
+  if (detailQuery.isLoading)
+    return <UserEditPageLoading message={t('ui.users.status.loading')} />
+  if (detailQuery.isError || !user)
+    return <UserEditPageLoading message={t('ui.users.status.error')} />
+
   return (
-    <UsersPageLayout
-      titleKey="ui.users.edit.title"
-      subtitleKey="ui.users.edit.subtitle"
-    >
-      <UsersFormShell
-        title={t('ui.users.edit.form.title')}
-        description={t('ui.users.edit.form.subtitle')}
-      >
-        <Stack gap="sm">
-          <Text size="sm">{t('ui.users.edit.form.placeholder')}</Text>
-          {version ? (
-            <Text size="sm">
-              {t('ui.users.detail.version', { value: version })}
-            </Text>
-          ) : null}
-          <Button size="sm" disabled={isSubmitting}>
-            {t('ui.users.actions.save')}
-          </Button>
-        </Stack>
-      </UsersFormShell>
-    </UsersPageLayout>
+    <UserEditForm
+      user={user}
+      onSubmit={handleSubmit}
+      isSubmitting={mutation.isPending}
+      t={t}
+    />
   )
 }

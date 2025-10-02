@@ -14,6 +14,7 @@ import { usersQueryKeys } from './useUsersQueries'
 export interface MutationVariables<TInput> {
   readonly id: string
   readonly input: TInput
+  readonly etag?: string
 }
 
 export function useUsersMutationSuccess(): (detail: UserDetail) => void {
@@ -29,12 +30,12 @@ export function useUsersMutationSuccess(): (detail: UserDetail) => void {
 }
 
 export function useUsersEntityMutation<TInput>(
-  mutation: (id: string, input: TInput) => Promise<UserDetail>
+  mutation: (id: string, input: TInput, etag?: string) => Promise<UserDetail>
 ): UseMutationResult<UserDetail, unknown, MutationVariables<TInput>> {
   const onSuccess: (detail: UserDetail) => void = useUsersMutationSuccess()
   return useMutation({
     mutationFn: (variables: MutationVariables<TInput>): Promise<UserDetail> =>
-      mutation(variables.id, variables.input),
+      mutation(variables.id, variables.input, variables.etag),
     onSuccess,
   })
 }

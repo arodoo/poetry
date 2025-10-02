@@ -32,7 +32,7 @@ export function useUsersListQuery(): UseQueryResult<UsersCollection> {
   })
 }
 
-export function useUserDetailQuery(id: string): UseQueryResult {
+export function useUserDetailQuery(id: string): UseQueryResult<UserDetail> {
   const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: usersQueryKeys.detail(id),

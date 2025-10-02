@@ -30,7 +30,7 @@ export const UserSummarySchema: ReturnType<
         : user.version != null
           ? String(user.version)
           : '1'
-    return {
+    const result: NormalizedUserSummary = {
       id: user.id,
       username: user.username,
       email: user.email,
@@ -41,6 +41,9 @@ export const UserSummarySchema: ReturnType<
       updatedAt,
       version,
     }
+    if (user.firstName !== undefined) result.firstName = user.firstName
+    if (user.lastName !== undefined) result.lastName = user.lastName
+    return result
   }
 )
 

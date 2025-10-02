@@ -20,6 +20,7 @@ public final class UserDtos {
       String lastName,
       String email,
       String username,
+      String locale,
       boolean active,
       Set<String> roles) { }
 
@@ -47,6 +48,7 @@ public final class UserDtos {
                 u.lastName(),
                 u.email(),
                 u.username(),
+                u.locale(),
                 u.active(),
                 u.roles());
   }

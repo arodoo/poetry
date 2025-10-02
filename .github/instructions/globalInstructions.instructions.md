@@ -18,7 +18,7 @@ applyTo: '**'
 1. **File Headers** (`node tools/ci/headers/check-headers.mjs`): name, 3+
    sentence purpose, rights legend
 2. **Line/Char Limits** (`node tools/ci/limits/check-lines.mjs`): 80 lines/file,
-   80-100 chars/line (JSON excluded)
+   80-100 chars/line (JSON excluded). Split large files. Don't compress code.
 3. **i18n Strings** (`node tools/ci/i18n/i18n-scan.mjs`): No hardcoded UI text,
    use i18n keys
 4. **OpenAPI** (`npm run openapi:validate`): Valid spec at

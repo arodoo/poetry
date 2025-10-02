@@ -27,31 +27,34 @@ export async function createUser(input: CreateUserInput): Promise<UserDetail> {
 
 export async function updateUser(
   id: string,
-  input: UpdateUserInput
+  input: UpdateUserInput,
+  etag?: string
 ): Promise<UserDetail> {
   const sdk: ReturnType<typeof getUsersSdk> = getUsersSdk()
   const payload: UpdateUserInput = UpdateUserSchema.parse(input)
-  const dto: unknown = await sdk.update(id, payload)
+  const dto: unknown = await sdk.update(id, payload, etag)
   return parseUserDetail(dto)
 }
 
 export async function updateUserRoles(
   id: string,
-  input: UpdateUserRolesInput
+  input: UpdateUserRolesInput,
+  etag?: string
 ): Promise<UserDetail> {
   const sdk: ReturnType<typeof getUsersSdk> = getUsersSdk()
   const payload: UpdateUserRolesInput = UpdateUserRolesSchema.parse(input)
-  const dto: unknown = await sdk.updateRoles(id, payload)
+  const dto: unknown = await sdk.updateRoles(id, payload, etag)
   return parseUserDetail(dto)
 }
 
 export async function updateUserSecurity(
   id: string,
-  input: UpdateUserSecurityInput
+  input: UpdateUserSecurityInput,
+  etag?: string
 ): Promise<UserDetail> {
   const sdk: ReturnType<typeof getUsersSdk> = getUsersSdk()
   const payload: UpdateUserSecurityInput = UpdateUserSecuritySchema.parse(input)
-  const dto: unknown = await sdk.updateSecurity(id, payload)
+  const dto: unknown = await sdk.updateSecurity(id, payload, etag)
   return parseUserDetail(dto)
 }
 

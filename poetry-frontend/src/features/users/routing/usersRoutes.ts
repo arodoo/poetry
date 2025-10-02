@@ -24,12 +24,12 @@ export const usersRoutes: RouteObject[] = [
     element: React.createElement(UsersCreatePage),
   },
   {
-    path: '/:locale/users/:id',
-    element: React.createElement(UserDetailPage),
+    path: '/:locale/users/:id/edit',
+    element: React.createElement(UserEditPage),
   },
   {
-    path: '/:locale/users/edit/:id',
-    element: React.createElement(UserEditPage),
+    path: '/:locale/users/:id',
+    element: React.createElement(UserDetailPage),
   },
   {
     path: '/:locale/users/:id/roles',

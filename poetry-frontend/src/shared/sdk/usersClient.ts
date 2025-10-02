@@ -6,31 +6,9 @@
 import { createFetchClient } from '../http/fetchClient'
 import { getEnv, type Env } from '../config/env'
 import type { HttpOptions } from '../http/httpTypes'
+import type { UserDto, UserCollectionDto, UsersSdk } from './usersClientTypes'
 
-export interface UserDto {
-  readonly id: string
-  readonly username: string
-  readonly email: string
-  readonly locale: string
-  readonly roles: readonly string[]
-  readonly status: 'active' | 'disabled'
-  readonly createdAt: string
-  readonly updatedAt: string
-  readonly version: string
-}
-
-export type UserCollectionDto = readonly UserDto[]
-
-export interface UsersSdk {
-  list(): Promise<UserCollectionDto>
-  retrieve(id: string): Promise<UserDto>
-  create(body: unknown): Promise<UserDto>
-  update(id: string, body: unknown): Promise<UserDto>
-  updateRoles(id: string, body: unknown): Promise<UserDto>
-  updateSecurity(id: string, body: unknown): Promise<UserDto>
-  disable(id: string, body: unknown): Promise<UserDto>
-  enable(id: string, body: unknown): Promise<UserDto>
-}
+export type { UserDto, UserCollectionDto, UsersSdk } from './usersClientTypes'
 
 const basePath: string = '/api/v1/users'
 
@@ -38,18 +16,23 @@ type FetchJson = <T>(path: string, options?: HttpOptions) => Promise<T>
 
 export function createUsersSdk(env: Env = getEnv()): UsersSdk {
   const fetchJson: FetchJson = createFetchClient(env)
-  const put: (path: string, body: unknown) => Promise<UserDto> = (
+  const put: (
     path: string,
-    body: unknown
+    body: unknown,
+    etag?: string
+  ) => Promise<UserDto> = (
+    path: string,
+    body: unknown,
+    etag?: string
   ): Promise<UserDto> => {
-    return fetchJson<UserDto>(path, { method: 'PUT', body })
+    const headers: Record<string, string> = {}
+    if (etag) headers['If-Match'] = etag
+    return fetchJson<UserDto>(path, { method: 'PUT', body, headers })
   }
   const post: (path: string, body: unknown) => Promise<UserDto> = (
     path: string,
     body: unknown
-  ): Promise<UserDto> => {
-    return fetchJson<UserDto>(path, { method: 'POST', body })
-  }
+  ): Promise<UserDto> => fetchJson<UserDto>(path, { method: 'POST', body })
   return {
     list(): Promise<UserCollectionDto> {
       return fetchJson<UserCollectionDto>(basePath)
@@ -60,14 +43,14 @@ export function createUsersSdk(env: Env = getEnv()): UsersSdk {
     create(body: unknown): Promise<UserDto> {
       return post(basePath, body)
     },
-    update(id: string, body: unknown): Promise<UserDto> {
-      return put(`${basePath}/${id}`, body)
+    update(id: string, body: unknown, etag?: string): Promise<UserDto> {
+      return put(`${basePath}/${id}`, body, etag)
     },
-    updateRoles(id: string, body: unknown): Promise<UserDto> {
-      return put(`${basePath}/${id}/roles`, body)
+    updateRoles(id: string, body: unknown, etag?: string): Promise<UserDto> {
+      return put(`${basePath}/${id}/roles`, body, etag)
     },
-    updateSecurity(id: string, body: unknown): Promise<UserDto> {
-      return put(`${basePath}/${id}/security`, body)
+    updateSecurity(id: string, body: unknown, etag?: string): Promise<UserDto> {
+      return put(`${basePath}/${id}/security`, body, etag)
     },
     disable(id: string, body: unknown): Promise<UserDto> {
       return post(`${basePath}/${id}/disable`, body)

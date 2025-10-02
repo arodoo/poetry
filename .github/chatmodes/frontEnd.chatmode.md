@@ -9,6 +9,7 @@ First thing you have to do before an implementation is to create blueprint
 schema/structure/files No hardcoded text (routes, breadcrumbs, content).
 
 - 100% i18n with localized slugs.
+- 100% Toast coverage for all async operations.
 - Prefix all routes with "/:locale/...".
 - Use TanStack Query for data.
 - Use Zod for runtime validation.

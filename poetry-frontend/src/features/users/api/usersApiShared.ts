@@ -32,5 +32,6 @@ export function parseUsersCollection(dto: unknown): UsersCollection {
 
 export function parseUserDetail(dto: unknown): UserDetail {
   const detail: unknown = dto as UserDto
-  return UserDetailSchema.parse(detail)
+  const parsed: unknown = UserDetailSchema.parse(detail)
+  return parsed as UserDetail
 }

@@ -23,14 +23,22 @@ export const CreateUserSchema: z.ZodObject<{
 export type CreateUserInput = z.infer<typeof CreateUserSchema>
 
 export const UpdateUserSchema: z.ZodObject<{
+  firstName: z.ZodString
+  lastName: z.ZodString
+  email: z.ZodString
   username: z.ZodString
   locale: z.ZodString
   roles: z.ZodArray<z.ZodString>
+  active: z.ZodBoolean
   version: z.ZodString
 }> = z.object({
+  firstName: z.string().min(1, 'users.validation.firstName'),
+  lastName: z.string().min(1, 'users.validation.lastName'),
+  email: z.string().email('users.validation.email'),
   username: z.string().min(3, 'users.validation.username'),
   locale: z.string().min(2, 'users.validation.locale'),
   roles: z.array(UserRoleSchema).min(1, 'users.validation.roles'),
+  active: z.boolean(),
   version: z.string().min(1, 'users.validation.version'),
 })
 

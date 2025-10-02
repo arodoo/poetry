@@ -1,18 +1,19 @@
 /*
  * File: routesAdmin.tsx
- * Purpose: Admin route subtree extracted to keep the central router small.
+ * Purpose: Admin route subtree for authenticated admin/manager pages with
+ * authentication, role guards, and lazy-loaded components.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Suspense } from 'react'
 import { Route } from 'react-router-dom'
-import { RequireAuth } from './shared/routing/RequireAuth'
-import { RequireRoles } from './shared/routing/RequireRoles'
+import { AdminRoute } from './shared/routing/AdminRoute'
 import { RequireRole } from './shared/routing/RequireRole'
-import { AppShell } from './shared/layout/AppShell'
 import {
   AdminTokensPageLazy,
   UsersListPageLazy,
+  UsersCreatePageLazy,
+  UserDetailPageLazy,
+  UserEditPageLazy,
 } from './shared/routing/lazyAdapters'
 
 export function AdminRoutes(): ReactElement {
@@ -21,31 +22,43 @@ export function AdminRoutes(): ReactElement {
       <Route
         path=":locale/admin/tokens"
         element={
-          <RequireAuth>
-            <RequireRoles roles={['admin', 'manager']}>
-              <AppShell>
-                <Suspense fallback={null}>
-                  <RequireRole role="admin">
-                    <AdminTokensPageLazy />
-                  </RequireRole>
-                </Suspense>
-              </AppShell>
-            </RequireRoles>
-          </RequireAuth>
+          <AdminRoute>
+            <RequireRole role="admin">
+              <AdminTokensPageLazy />
+            </RequireRole>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path=":locale/users/new"
+        element={
+          <AdminRoute>
+            <UsersCreatePageLazy />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path=":locale/users/:id/edit"
+        element={
+          <AdminRoute>
+            <UserEditPageLazy />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path=":locale/users/:id"
+        element={
+          <AdminRoute>
+            <UserDetailPageLazy />
+          </AdminRoute>
         }
       />
       <Route
         path=":locale/users"
         element={
-          <RequireAuth>
-            <RequireRoles roles={['admin', 'manager']}>
-              <AppShell>
-                <Suspense fallback={null}>
-                  <UsersListPageLazy />
-                </Suspense>
-              </AppShell>
-            </RequireRoles>
-          </RequireAuth>
+          <AdminRoute>
+            <UsersListPageLazy />
+          </AdminRoute>
         }
       />
     </>

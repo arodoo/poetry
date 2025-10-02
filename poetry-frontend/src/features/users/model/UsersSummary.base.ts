@@ -14,6 +14,8 @@ export const fallbackTimestamp: string = new Date(0).toISOString()
 
 export const userSummaryBaseSchema: z.ZodObject<{
   id: typeof UserIdentifierSchema
+  firstName: z.ZodOptional<z.ZodString>
+  lastName: z.ZodOptional<z.ZodString>
   username: z.ZodString
   email: z.ZodString
   locale: z.ZodOptional<z.ZodString>
@@ -25,6 +27,8 @@ export const userSummaryBaseSchema: z.ZodObject<{
   version: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>
 }> = z.object({
   id: UserIdentifierSchema,
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
   username: z.string().min(1, 'users.validation.username'),
   email: z.string().email('users.validation.email'),
   locale: z.string().min(2, 'users.validation.locale').optional(),
@@ -38,6 +42,8 @@ export const userSummaryBaseSchema: z.ZodObject<{
 
 export interface NormalizedUserSummary {
   id: string
+  firstName?: string
+  lastName?: string
   username: string
   email: string
   locale: string
