@@ -32,8 +32,13 @@ export function FormLayout(props: FormLayoutProps): ReactElement {
           )
         )}
         <div
-          className="flex justify-end border-t border-neutral-200 pt-4
-          dark:border-neutral-700"
+          className={[
+            'flex',
+            'justify-end',
+            'border-t',
+            'border-[var(--color-border)]',
+            'pt-4',
+          ].join(' ')}
         >
           <Inline gap="sm">
             {props.onCancel ? (

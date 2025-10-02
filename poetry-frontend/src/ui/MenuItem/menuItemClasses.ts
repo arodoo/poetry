@@ -24,8 +24,10 @@ export function buildMenuItemClasses(options: ClassOptions): string {
   ]
   const interactionClass: string = options.disabled
     ? 'opacity-60 cursor-not-allowed'
-    : 'hover:bg-gray-50 cursor-pointer'
-  const toneClass: string = options.danger ? 'text-red-600' : 'text-gray-700'
+    : 'hover:bg-[var(--color-muted)] cursor-pointer'
+  const toneClass: string = options.danger
+    ? 'text-[var(--color-error)]'
+    : 'text-[var(--color-text)]'
 
   return [...baseClasses, interactionClass, toneClass, options.className ?? '']
     .filter(function (value: string): boolean {

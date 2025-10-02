@@ -27,7 +27,9 @@ describe('MenuItem', () => {
   })
   it('applies danger class', () => {
     const { getByText } = render(wrap(<MenuItem danger>DangerItem</MenuItem>))
-    expect(getByText('DangerItem').className).toMatch(/text-red-600/)
+    expect(getByText('DangerItem').className).toMatch(
+      /text-\[var\(--color-error\)\]/
+    )
   })
   it('blocks click when disabled', () => {
     let clicked = false

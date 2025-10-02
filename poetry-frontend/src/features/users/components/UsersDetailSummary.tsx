@@ -23,7 +23,7 @@ export function UsersDetailSummary(): ReactElement {
           <Text size="sm" className="font-medium">
             {t('ui.users.detail.placeholder.identity')}
           </Text>
-          <Text size="sm" className="text-neutral-500">
+          <Text size="sm" className="text-[var(--color-textMuted)]">
             {t('ui.users.detail.placeholder.identity_hint')}
           </Text>
         </Stack>
@@ -31,7 +31,7 @@ export function UsersDetailSummary(): ReactElement {
           <Text size="sm" className="font-medium">
             {t('ui.users.detail.placeholder.security')}
           </Text>
-          <Text size="sm" className="text-neutral-500">
+          <Text size="sm" className="text-[var(--color-textMuted)]">
             {t('ui.users.detail.placeholder.security_hint')}
           </Text>
         </Stack>

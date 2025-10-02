@@ -37,9 +37,11 @@ export function LoginField({
           onChange(e.target.value)
         }}
         disabled={disabled}
-        className={error ? 'border-red-500' : ''}
+        className={error ? 'border-[var(--color-error)]' : ''}
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && (
+        <p className="text-[var(--color-error)] text-sm mt-1">{error}</p>
+      )}
     </div>
   )
 }

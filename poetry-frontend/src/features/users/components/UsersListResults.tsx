@@ -35,7 +35,7 @@ export function UsersListResults({
                   {user.username}
                 </Heading>
                 <Text size="sm">{user.email}</Text>
-                <Text size="sm" className="text-neutral-500">
+                <Text size="sm" className="text-[var(--color-textMuted)]">
                   {user.roles.join(', ')}
                 </Text>
               </Stack>

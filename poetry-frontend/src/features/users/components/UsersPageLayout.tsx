@@ -30,7 +30,7 @@ export function UsersPageLayout(props: UsersPageLayoutProps): ReactElement {
             {t(props.titleKey)}
           </Heading>
           {props.subtitleKey ? (
-            <Text size="sm" className="text-neutral-500">
+            <Text size="sm" className="text-[var(--color-textMuted)]">
               {t(props.subtitleKey)}
             </Text>
           ) : null}

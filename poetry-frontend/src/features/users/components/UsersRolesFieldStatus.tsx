@@ -23,7 +23,11 @@ export function UsersRolesFieldStatus(
       </Text>
       <Text
         size="sm"
-        className={props.isError ? 'text-red-600' : 'text-neutral-500'}
+        className={
+          props.isError
+            ? 'text-[var(--color-error)]'
+            : 'text-[var(--color-textMuted)]'
+        }
       >
         {props.message}
       </Text>

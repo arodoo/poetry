@@ -23,7 +23,7 @@ export function Navbar(props: { onToggleSidebar?: () => void }): ReactElement {
   // Logout now handled inside UserMenu
 
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="border-b border-[var(--color-border)] bg-white">
       <div className={headerContainerClasses}>
         <div className="flex items-center gap-3 text-primary">
           {onToggleSidebar && (
@@ -32,7 +32,10 @@ export function Navbar(props: { onToggleSidebar?: () => void }): ReactElement {
               onClick={(): void => {
                 onToggleSidebar()
               }}
-              className="text-gray-600 hover:text-gray-900"
+              className={[
+                'text-[var(--color-textMuted)]',
+                'hover:text-[var(--color-text)]',
+              ].join(' ')}
             >
               <Icon viewBox="0 0 24 24" aria-hidden>
                 <path

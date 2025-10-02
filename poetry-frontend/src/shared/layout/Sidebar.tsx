@@ -34,8 +34,8 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
     <aside
       className={
         isOpen
-          ? 'w-56 border-r border-gray-200 bg-white'
-          : 'w-14 border-r border-gray-200 bg-white'
+          ? 'w-56 border-r border-[var(--color-border)] bg-white'
+          : 'w-14 border-r border-[var(--color-border)] bg-white'
       }
     >
       <nav className="p-2 space-y-1">
@@ -53,7 +53,9 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
             if (!isAllowed) return null
             const linkTo: string = `/${locale}${item.p}`
             const active: boolean = pathname.startsWith(linkTo)
-            const base: string = active ? 'bg-gray-100' : 'hover:bg-gray-50'
+            const base: string = active
+              ? 'bg-[var(--color-surface)]'
+              : 'hover:bg-[var(--color-muted)]'
             const labelKey: string =
               item.id === 'dashboard'
                 ? 'ui.route.dashboard.title'

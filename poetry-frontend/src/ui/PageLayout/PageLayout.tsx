@@ -30,7 +30,13 @@ export function PageLayout(props: PageLayoutProps): ReactElement {
             {props.title}
           </Heading>
           {props.subtitle ? (
-            <Text size="sm" className="text-neutral-600 dark:text-neutral-400">
+            <Text
+              size="sm"
+              className={[
+                'text-[var(--color-textMuted)]',
+                'dark:text-[var(--color-textSubtle)]',
+              ].join(' ')}
+            >
               {props.subtitle}
             </Text>
           ) : null}

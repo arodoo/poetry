@@ -34,6 +34,14 @@ export const EXCLUDE_PATTERNS = [
   /ThemeConstants\.java$/,
   /tokens\..*\.ts$/,
   /theme\/.*\.ts$/,
+  /\/tests\//,
+  /\/test\//,
+  /\/__tests__\//,
+  /\.test\.(ts|tsx|js|jsx)$/,
+  /\.spec\.(ts|tsx|js|jsx)$/,
+  /mockData\.(ts|tsx|js|jsx)$/,
+  /Mock\.(ts|tsx|js|jsx)$/,
+  /validTokenBundle\.(ts|tsx|js|jsx)$/,
 ]
 
 export const INCLUDE_EXTENSIONS = [
@@ -53,6 +61,7 @@ export const EXPECTED_THEME_VARS = [
   '--color-info',
   '--color-warning',
   '--color-error',
+  '--color-danger',
   '--color-success',
   '--color-surface',
   '--color-background',

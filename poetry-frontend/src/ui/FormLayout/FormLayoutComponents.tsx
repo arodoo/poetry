@@ -20,7 +20,14 @@ export function FormHeader(props: {
         </Heading>
       ) : null}
       {props.description ? (
-        <Text size="sm" className="mt-1 text-neutral-600 dark:text-neutral-400">
+        <Text
+          size="sm"
+          className={[
+            'mt-1',
+            'text-[var(--color-textMuted)]',
+            'dark:text-[var(--color-textSubtle)]',
+          ].join(' ')}
+        >
           {props.description}
         </Text>
       ) : null}
@@ -34,14 +41,28 @@ export function SectionHeader(props: {
 }): ReactElement | null {
   if (!props.title && !props.description) return null
   return (
-    <div className="border-b border-neutral-200 pb-4 dark:border-neutral-700">
+    <div
+      className={[
+        'border-b',
+        'border-[var(--color-border)]',
+        'pb-4',
+        'dark:border-[var(--color-border)]',
+      ].join(' ')}
+    >
       {props.title ? (
         <Heading level={3} size="sm" className="font-medium">
           {props.title}
         </Heading>
       ) : null}
       {props.description ? (
-        <Text size="sm" className="mt-1 text-neutral-500 dark:text-neutral-400">
+        <Text
+          size="sm"
+          className={[
+            'mt-1',
+            'text-[var(--color-textMuted)]',
+            'dark:text-[var(--color-textSubtle)]',
+          ].join(' ')}
+        >
           {props.description}
         </Text>
       ) : null}

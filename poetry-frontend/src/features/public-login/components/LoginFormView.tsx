@@ -5,11 +5,9 @@
  */
 
 import React from 'react'
-import { Button } from '../../../ui/Button/Button'
 import type { useT as UseTType } from '../../../shared/i18n/useT'
-
 type Tfn = ReturnType<typeof UseTType>
-import { LoginField } from './LoginField'
+import { LoginFormFields } from './LoginFormFields'
 
 export interface LoginFormViewProps {
   t: Tfn
@@ -38,36 +36,14 @@ export default function LoginFormView({
   // Use the extracted LoginField component to reduce file size
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      <LoginField
-        name="username"
-        label={t('ui.public.home.cta.login')}
-        value={form.username}
-        onChange={(v: string): void => {
-          setForm({ ...form, username: v })
-        }}
-        error={fieldErrors.username}
-      />
-      <LoginField
-        name="password"
-        label="Password"
-        type="password"
-        value={form.password}
-        onChange={(v: string): void => {
-          setForm({ ...form, password: v })
-        }}
-        error={fieldErrors.password}
-      />
-
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded p-3">
-          <p className="text-red-700 text-sm">{error}</p>
-        </div>
-      )}
-
-      <Button type="submit" disabled={isLoading} className="w-full">
-        {isLoading ? t('ui.common.loading') : t('ui.common.save')}
-      </Button>
-    </form>
+    <LoginFormFields
+      t={t}
+      form={form}
+      setForm={setForm}
+      onSubmit={onSubmit}
+      isLoading={isLoading}
+      error={error}
+      fieldErrors={fieldErrors}
+    />
   )
 }

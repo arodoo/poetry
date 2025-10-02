@@ -22,7 +22,7 @@ export function UsersFormShell(props: UsersFormShellProps): ReactElement {
         <Heading level={2} size="md">
           {props.title}
         </Heading>
-        <Text size="sm" className="text-neutral-500">
+        <Text size="sm" className="text-[var(--color-textMuted)]">
           {props.description}
         </Text>
         <Stack gap="sm" as="div">

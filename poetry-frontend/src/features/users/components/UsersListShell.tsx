@@ -29,7 +29,7 @@ export function UsersListShell(): ReactElement {
             <Text size="sm" className="uppercase tracking-wide">
               {t('ui.users.list.placeholder.filters.label')}
             </Text>
-            <Text size="sm" className="text-neutral-500">
+            <Text size="sm" className="text-[var(--color-textMuted)]">
               {t('ui.users.list.placeholder.filters.hint')}
             </Text>
           </Stack>
@@ -42,7 +42,7 @@ export function UsersListShell(): ReactElement {
             <Heading level={3} size="md">
               {t('ui.users.list.placeholder.row_title')}
             </Heading>
-            <Text size="sm" className="text-neutral-500">
+            <Text size="sm" className="text-[var(--color-textMuted)]">
               {t('ui.users.list.placeholder.row_subtitle')}
             </Text>
           </Stack>

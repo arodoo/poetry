@@ -44,7 +44,7 @@ export function UserMenuCoreImpl(): ReactElement {
         type="button"
       >
         <Avatar name={username} size="sm" />
-        <span className="text-sm text-gray-700">{username}</span>
+        <span className="text-sm text-[var(--color-text)]">{username}</span>
       </button>
       {isOpen && (
         <div

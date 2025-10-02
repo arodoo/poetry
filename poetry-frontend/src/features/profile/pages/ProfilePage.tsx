@@ -34,10 +34,9 @@ export default function ProfilePage(): ReactElement {
         <Text size="sm">{t('ui.profile.page.subtitle')}</Text>
       </header>
       {isLoading ? (
-        <section
-          aria-busy="true"
-          data-testid="profile-summary-loading"
-          className="h-48 animate-pulse rounded bg-slate-100"
+        <div
+          data-testid="profile-loading"
+          className="h-48 animate-pulse rounded bg-[var(--color-muted)]"
         />
       ) : isError ? (
         <Text role="alert" data-testid="profile-summary-error">

@@ -15,7 +15,13 @@ node tools/ci/headers/check-headers.mjs || {
   exit 1
 }
 
-echo "🌐 Scanning i18n usage..."
+echo "� Checking hardcoded colors..."
+node tools/ci/colors/check-hardcoded-colors.mjs || {
+  echo "❌ Color check failed! Use theme CSS variables instead of hardcoded colors."
+  exit 1
+}
+
+echo "�🌐 Scanning i18n usage..."
 node tools/ci/i18n/i18n-scan.mjs || {
   echo "❌ i18n scan failed! Check the output above for hardcoded strings."
   exit 1

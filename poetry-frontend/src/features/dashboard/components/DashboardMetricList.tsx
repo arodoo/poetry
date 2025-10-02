@@ -24,13 +24,16 @@ export function DashboardMetricList(
     <dl className="grid grid-cols-2 gap-4" data-testid="dashboard-metrics">
       {props.metrics.map(
         (metric: DashboardMetric): ReactElement => (
-          <div key={metric.labelKey} className="rounded bg-slate-50 p-3">
-            <dt className="text-xs text-slate-500">
+          <div
+            key={metric.labelKey}
+            className="rounded bg-[var(--color-surface)] p-3"
+          >
+            <dt className="text-xs text-[var(--color-textMuted)]">
               {props.t(metric.labelKey)}
             </dt>
             <dd
               data-testid={metric.testId}
-              className="text-xl font-semibold text-slate-900"
+              className="text-xl font-semibold text-[var(--color-text)]"
             >
               {metric.value}
             </dd>

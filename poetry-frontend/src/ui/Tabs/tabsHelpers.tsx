@@ -13,8 +13,8 @@ export function tabClass(selected: boolean, disabled?: boolean): string {
     'rounded-md',
     'transition-colors',
   ]
-  if (selected) parts.push('bg-[var(--color-surface,#f5f5f5)]', 'font-medium')
-  else parts.push('hover:bg-[var(--color-surface,#f0f0f0)]')
+  if (selected) parts.push('bg-[var(--color-surface)]', 'font-medium')
+  else parts.push('hover:bg-[var(--color-surface)]')
   if (disabled) parts.push('opacity-50', 'cursor-not-allowed')
   return parts.join(' ')
 }

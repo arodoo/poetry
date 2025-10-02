@@ -17,9 +17,9 @@ export function Alert(props: AlertProps): ReactElement {
     info:
       'bg-[var(--color-background,#eef2ff)] ' +
       'text-[var(--color-text,#1a1a1a)]',
-    warning: 'bg-yellow-100 text-yellow-900',
-    error: 'bg-red-100 text-red-900',
-    success: 'bg-green-100 text-green-900',
+    warning: 'bg-[var(--color-warning)] text-[var(--color-onSurface)]',
+    error: 'bg-[var(--color-error)] text-white',
+    success: 'bg-[var(--color-success)] text-white',
   }
 
   return <div className={clsx(base, map[status], className)} {...rest} />

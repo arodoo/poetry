@@ -23,10 +23,9 @@ export default function DashboardPage(): ReactElement {
         <Text size="sm">{t('ui.dashboard.page.subtitle')}</Text>
       </header>
       {overviewQuery.isLoading ? (
-        <section
-          aria-busy="true"
+        <div
           data-testid="dashboard-loading"
-          className="h-48 animate-pulse rounded bg-slate-100"
+          className="h-48 animate-pulse rounded bg-[var(--color-muted)]"
         />
       ) : overviewQuery.isError ? (
         <Text role="alert" data-testid="dashboard-error">

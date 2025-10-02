@@ -25,8 +25,8 @@ const spinnerClassList: readonly string[] = [
   'animate-spin',
   'rounded-full',
   'border-2',
-  'border-gray-300',
-  'border-t-gray-600',
+  'border-[var(--color-border)]',
+  'border-t-[var(--color-text)]',
 ]
 
 const overlayClasses: string = overlayClassList.join(' ')
@@ -55,7 +55,7 @@ export function BlockingOverlay({
       >
         <div className="flex flex-col items-center gap-4">
           <div className={spinnerClasses} aria-hidden="true" />
-          <p className="text-sm text-gray-800">{label}</p>
+          <p className="text-sm text-[var(--color-text)]">{label}</p>
           {children}
         </div>
       </div>

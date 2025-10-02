@@ -34,7 +34,7 @@ export function UsersPasswordField(
         required
         data-testid="user-password-input"
       />
-      <Text size="sm" className="text-neutral-500">
+      <Text size="sm" className="text-[var(--color-textMuted)]">
         {props.t('ui.users.form.password.hint')}
       </Text>
     </Stack>
