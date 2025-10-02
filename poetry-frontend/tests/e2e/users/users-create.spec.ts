@@ -37,8 +37,8 @@ test('admin can create a new user through form', async ({
   const emailInput: Locator = page.getByTestId('user-email-input')
   await expect(emailInput).toBeVisible()
 
-  const rolesInput: Locator = page.getByTestId('user-roles-input')
-  await expect(rolesInput).toBeVisible()
+  const userRoleCheckbox: Locator = page.getByTestId('role-checkbox-user')
+  await expect(userRoleCheckbox).toBeVisible()
 
   const passwordInput: Locator = page.getByTestId('user-password-input')
   await expect(passwordInput).toBeVisible()
@@ -49,7 +49,7 @@ test('admin can create a new user through form', async ({
 
   await usernameInput.fill(testUsername)
   await emailInput.fill(testEmail)
-  await rolesInput.fill('USER')
+  await userRoleCheckbox.check()
   await passwordInput.fill('SecurePassword123!')
 
   const createPromise: Promise<Response> = page.waitForResponse(

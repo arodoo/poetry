@@ -6,11 +6,18 @@
 package com.poetry.poetry_backend.domain.auth.model;
 
 public enum Role {
-  ADMIN("admin"),
-  MANAGER("manager"),
-  USER("user");
+  ADMIN("admin", "Admin"),
+  MANAGER("manager", "Manager"),
+  USER("user", "User");
 
   private final String key;
-  Role(String key) { this.key = key; }
+  private final String displayName;
+  
+  Role(String key, String displayName) {
+    this.key = key;
+    this.displayName = displayName;
+  }
+  
   public String key() { return key; }
+  public String displayName() { return displayName; }
 }

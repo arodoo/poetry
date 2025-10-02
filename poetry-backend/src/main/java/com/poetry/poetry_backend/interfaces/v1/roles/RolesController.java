@@ -24,7 +24,7 @@ public class RolesController {
   @GetMapping
   public ResponseEntity<List<RoleDto>> listRoles() {
     List<RoleDto> roles = Arrays.stream(Role.values())
-        .map(role -> new RoleDto(role.key(), role.name()))
+        .map(role -> new RoleDto(role.key(), role.displayName()))
         .toList();
     return ResponseEntity.ok(roles);
   }
