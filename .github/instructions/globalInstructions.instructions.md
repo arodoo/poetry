@@ -4,11 +4,6 @@ applyTo: '**'
 
 ## Development Workflow Rules
 
-## Development Workflow Rules
-
-- For file length/size checks, use: `npm run max-lines:check`
-- For ESLint validation, use: `npm run lint`
-
 - Before starting a new work, give a brief explanation of the task
 - Don't stop coding until the task is fully complete if the plan is clear
 - All code contributions must be production ready, no TODO, FIXME, or
@@ -18,9 +13,6 @@ applyTo: '**'
   clearly expresses its purpose in context (e.g. `response` instead of `r`)
 - Code must be in first place LOGIC in relation to the environment, the
   intention must be long term code (Code which won't get broken in 1 or 2 years)
-- IMPORTANT: No file should exceed 60 lines; (test files < 40 lines>), in
-  frontEnd no line should exceed 80 characters, in backend is 100,
-  (fixtures/helpers/components, etc)
 - Code must follow international formatting standards: ESLint + Prettier for
   TypeScript, and Google Java Style Guide
 - Each module must have its own file in /docs/domains/ including: scope, RFs,
@@ -31,19 +23,118 @@ applyTo: '**'
 - Every file must have a header comment, check 'tools\ci\check-headers.mjs'
 - Use design patterns and follow international standards
 
-## Commit musts
+## CI/CD Quality Gates (Pre-Commit Checks)
 
-When commit:  
-Use exactly one `-m` with plain ASCII in double quotes, formatted as
-`type: subject` (no scope).  
-Never include any chaining, substitution, redirection, or line-break symbols
-(e.g. `; | & $ < > ( ) \` LF CR \n \r backticks or any shell operator). When
-line/length limit violation occurs, split big files into smaller dedicated ones.
-Never remove, modify, compact existing logic to fit the line/length limit. I'll
-always prefer more files than refactoring or compacting existing logic.
+All changes are validated by pre-commit hooks before commit. Ensure your code
+passes these checks locally to avoid blocked commits:
 
-- Run git add and git commit as separate commands
-- Check .husky\commit-msg for commit message must
+### 1. File Headers (`node tools/ci/headers/check-headers.mjs`)
+
+- Every file must have a header comment with:
+  - File name
+  - Purpose (3+ sentences describing what the file does)
+  - Rights legend: "All Rights Reserved. Arodi Emmanuel"
+- Check format at 'tools\ci\check-headers.mjs'
+
+### 2. Line & Character Limits (`node tools/ci/limits/check-lines.mjs`)
+
+- Max lines per file: **80 lines** (from `code-standards.config.json`)
+- Max characters per line:
+  - **Backend Java**: 100 characters
+  - **Frontend TypeScript/JavaScript**: 80 characters
+  - **Default**: 80 characters
+- **Exceptions**: JSON files (i18n locales, config files) are excluded
+- When limit violations occur:
+  - Split files into smaller dedicated files
+  - Extract helper classes/functions/components
+  - NEVER remove, modify, or compact existing logic to fit limits
+  - Always prefer more files than refactoring existing logic
+
+### 3. i18n Hardcoded Strings (`node tools/ci/i18n/i18n-scan.mjs`)
+
+- No hardcoded user-facing messages in code
+- All UI text must use i18n keys
+- Run `npm --prefix poetry-frontend run i18n:gen` to generate keys
+- Run `npm --prefix poetry-frontend run i18n:verify` to verify catalogs
+
+### 4. OpenAPI Contract (`npm run openapi:validate`)
+
+- OpenAPI spec must be valid: `docs/api/openapi-v1.yaml`
+- All endpoints must be documented
+- Schemas must match implementation
+
+### 5. SDK Sync (`npm run sdk:check`)
+
+- Frontend SDK must be in sync with OpenAPI contract
+- If drift detected, run `npm run sdk:sync` to regenerate SDK
+- No direct fetch/axios calls; use SDK clients
+
+### 6. Module Structure (`npm run modules:check`)
+
+- All features must follow DDD module structure
+- Required files/folders per feature (see blueprints)
+- Check detailed report with `npm run modules:check`
+
+### 7. Code Formatting (`npx lint-staged`)
+
+- Prettier for TypeScript/JavaScript
+- Spotless for Java
+- Auto-formats staged files
+
+### 8. Linting
+
+- **Frontend**: `npm --prefix poetry-frontend run lint:fix -- --max-warnings=0`
+  - ESLint with zero tolerance (--max-warnings=0)
+- **Backend**: `npm run lint:backend`
+  - Spotless + Checkstyle for Java
+  - Follows Google Java Style Guide
+
+### 9. Configuration Sync
+
+- ESLint and Checkstyle configs must match `code-standards.config.json`
+- Validated automatically during line limit checks
+- Run `node tools/ci/config/config-sync.mjs` to fix drift
+
+## Pre-Push Quality Gates (Heavy Checks)
+
+After commit, pre-push hooks run expensive validations before pushing to remote:
+
+### 1. Type Checking (`npm run typecheck`)
+
+- Frontend TypeScript must compile without errors
+- Backend Java must compile without errors
+
+### 2. Frontend Tests (`npm run test:frontend`)
+
+- All unit/integration tests must pass
+- Tests located in `poetry-frontend/src/tests/<feature>/`
+
+### 3. Backend Tests (`npm run test:backend`)
+
+- All unit/integration tests must pass (Maven)
+- Tests located in `poetry-backend/src/test/<feature>/`
+
+### 4. Frontend Build (`npm --prefix poetry-frontend run build`)
+
+- Production build must succeed (Vite)
+- Validates all imports, chunks, and assets
+
+### 5. Backend Build (`cd poetry-backend && mvn -q -DskipTests package`)
+
+- Maven package must succeed
+- Produces executable JAR
+
+## Commit Message Format
+
+When committing:
+
+- Use exactly one `-m` flag with plain ASCII in double quotes
+- Format: `type: subject` (no scope, no body)
+  - Examples: `feat: add user login`, `fix: resolve token refresh`
+- Never include shell operators or special characters:
+  - Forbidden: `; | & $ < > ( ) \ :` LF CR \n \r backticks
+- Run `git add` and `git commit` as separate commands
+- Keep messages short, descriptive, and in English
 
   # BackEnd rules
 
