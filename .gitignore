@@ -33,6 +33,9 @@ coverage/
 # OS / Editor
 .DS_Store
 Thumbs.db
+
+# Playwright transient error context snapshot
+poetry-frontend/test-results/auth-auth-ui-flow.part2-Lo-5eb3e--loading-state-during-login/error-context.md
 .vscode/
 .idea/
 
