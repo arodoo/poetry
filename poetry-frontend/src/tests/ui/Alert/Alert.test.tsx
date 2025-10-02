@@ -19,6 +19,6 @@ describe('Alert', () => {
   it('renders error variant', () => {
     const { container } = render(<Alert status="error">err</Alert>)
     const el = container.firstChild as HTMLElement | null
-    expect(el?.className).toMatch(/red/)
+    expect(el?.className).toMatch(/var\(--color-error\)/)
   })
 })
