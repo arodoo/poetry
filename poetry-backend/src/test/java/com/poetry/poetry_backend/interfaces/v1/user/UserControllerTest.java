@@ -9,6 +9,7 @@
 package com.poetry.poetry_backend.interfaces.v1.user;
 
 import static com.poetry.poetry_backend.interfaces.v1.user.UserTestConstants.*;
+import static com.poetry.poetry_backend.interfaces.v1.user.UserTestJson.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
