@@ -1,9 +1,27 @@
 /*
  * File: DataTableStyles.ts
- * Purpose: Style constants for DataTable component.
+ * Purpose: Extracted Tailwind CSS class constants for DataTable.
+ * Provides reusable style definitions to maintain file limits.
  * All Rights Reserved. Arodi Emmanuel
  */
-export const s: Record<string, string> = {
+
+export const s: {
+  readonly w: string
+  readonly sc: string
+  readonly al: string
+  readonly b: string
+  readonly bD: string
+  readonly t: string
+  readonly th: string
+  readonly thC: string
+  readonly thCol: string
+  readonly tb: string
+  readonly tbD: string
+  readonly tr: string
+  readonly td: string
+  readonly tdCol: string
+  readonly em: string
+} = {
   w: 'overflow-hidden',
   sc: 'overflow-x-auto',
   al: 'inline-block min-w-full align-middle',
