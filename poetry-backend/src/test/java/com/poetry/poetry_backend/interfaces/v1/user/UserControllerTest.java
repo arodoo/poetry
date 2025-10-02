@@ -39,7 +39,7 @@ class UserControllerTest {
                 post("/api/v1/users")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(body))
-            .andExpect(status().isOk())
+            .andExpect(status().isCreated())
             .andReturn()
             .getResponse()
             .getContentAsString();

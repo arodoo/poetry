@@ -17,7 +17,7 @@ class ETagTestFlow {
     String resp = mvc.perform(post("/api/v1/users")
         .contentType(MediaType.APPLICATION_JSON)
         .content(body))
-        .andExpect(status().isOk())
+        .andExpect(status().isCreated())
         .andReturn().getResponse().getContentAsString();
     return resp.replaceAll(".*\\\"id\\\":(\\d+).*", "$1");
   }
