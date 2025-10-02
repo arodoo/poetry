@@ -48,14 +48,14 @@ export function DetailView(props: DetailViewProps): ReactElement {
                       )}
                     >
                       <dt
-                        className="text-sm font-medium text-neutral-500
-                        dark:text-neutral-400"
+                        className="text-sm font-medium 
+                        text-[var(--color-muted,#6b7280)]"
                       >
                         {item.label}
                       </dt>
                       <dd
-                        className="mt-1 text-sm text-neutral-900
-                        dark:text-neutral-100"
+                        className="mt-1 text-sm font-medium 
+                        text-[var(--color-text,#1a1a1a)]"
                       >
                         {item.value}
                       </dd>

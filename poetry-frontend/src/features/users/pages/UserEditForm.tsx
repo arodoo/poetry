@@ -3,20 +3,19 @@
  * Purpose: Form component for UserEditPage with modern FormLayout.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type FormEvent, type ReactElement } from 'react'
+import type { ReactElement } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { FormLayout } from '../../../ui/FormLayout/FormLayout'
-import { useNavigate } from 'react-router-dom'
+import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import type { useT } from '../../../shared/i18n/useT'
 import type { UserDetail } from '../model/UsersSchemas'
-import {
-  useUsersFormState,
-  type UsersFormState,
-} from '../components/useUsersFormState'
-import { buildFormData } from '../components/usersFormHelpers'
 import type { UsersFormValues } from '../components/UsersForm'
+import { useUsersFormState } from '../components/useUsersFormState'
 import { buildEditFormSections } from './userFormSections'
+import { buildUserEditBreadcrumbs } from './userBreadcrumbHelpers'
+import { createSubmitHandler, createCancelHandler } from './userEditHandlers'
 
 export interface UserEditFormProps {
   readonly userId: string
@@ -29,41 +28,34 @@ export interface UserEditFormProps {
 export function UserEditForm(props: UserEditFormProps): ReactElement {
   const navigate: ReturnType<typeof useNavigate> = useNavigate()
   const { locale }: { locale: string } = useLocale()
-  const formState: UsersFormState = useUsersFormState({
+  const formState: ReturnType<typeof useUsersFormState> = useUsersFormState({
     username: props.user.username,
     email: props.user.email,
     locale: props.user.locale,
     roles: props.user.roles,
     version: props.user.version,
   })
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-    event.preventDefault()
-    props.onSubmit(
-      buildFormData(
-        formState.username,
-        formState.email,
-        formState.locale,
-        formState.rolesString,
-        formState.password,
-        false,
-        props.user.version
-      )
-    )
-  }
-
-  function handleCancel(): void {
-    void navigate(`/${locale}/users/${props.userId}`)
-  }
-
+  const userIdNumber: number = Number(props.userId)
+  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
+    createSubmitHandler(formState, userIdNumber, props.onSubmit)
+  const handleCancel: () => void = createCancelHandler(
+    navigate,
+    locale,
+    props.userId
+  )
   const sections: ReturnType<typeof buildEditFormSections> =
     buildEditFormSections(formState, false, props.t)
+  const breadcrumbs: ReturnType<typeof buildUserEditBreadcrumbs> =
+    buildUserEditBreadcrumbs(props.userId, locale, props.t)
 
   return (
     <PageLayout
       title={props.t('ui.users.edit.title')}
       subtitle={props.t('ui.users.edit.subtitle')}
     >
+      <div className="mb-4">
+        <Breadcrumb items={breadcrumbs} />
+      </div>
       <FormLayout
         sections={sections}
         onSubmit={handleSubmit}

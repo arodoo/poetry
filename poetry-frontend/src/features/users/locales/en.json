@@ -96,5 +96,10 @@
   "ui.users.toast.create.success": "User created successfully",
   "ui.users.toast.create.error": "Failed to create user",
   "ui.users.toast.update.success": "User updated successfully",
-  "ui.users.toast.update.error": "Failed to update user"
+  "ui.users.toast.update.error": "Failed to update user",
+  "ui.users.breadcrumb.home": "Home",
+  "ui.users.breadcrumb.users": "Users",
+  "ui.users.breadcrumb.new": "New user",
+  "ui.users.breadcrumb.detail": "User detail",
+  "ui.users.breadcrumb.edit": "Edit user"
 }

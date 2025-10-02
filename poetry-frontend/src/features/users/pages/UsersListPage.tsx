@@ -9,11 +9,14 @@ import { Text } from '../../../ui/Text/Text'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { DataTable } from '../../../ui/DataTable/DataTable'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
+import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
+import type { BreadcrumbItem } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUsersListQuery } from '../hooks/useUsersQueries'
 import type { UserSummary } from '../model/UsersSchemas'
 import { useT } from '../../../shared/i18n/useT'
 import { buildUsersListColumns } from './usersListColumns'
+import { buildUserListBreadcrumbs } from './userBreadcrumbHelpers'
 
 export default function UsersListPage(): ReactElement {
   const localeResult: ReturnType<typeof useLocale> = useLocale()
@@ -27,6 +30,10 @@ export default function UsersListPage(): ReactElement {
     : []
   const columns: readonly DataTableColumn<UserSummary>[] =
     buildUsersListColumns(locale, t)
+  const breadcrumbItems: readonly BreadcrumbItem[] = buildUserListBreadcrumbs(
+    locale,
+    t
+  )
   const actions: ReactElement = (
     <Button to={`/${locale}/users/new`} size="sm">
       {t('ui.users.actions.new')}
@@ -38,6 +45,9 @@ export default function UsersListPage(): ReactElement {
       subtitle={t('ui.users.list.subtitle')}
       actions={actions}
     >
+      <div className="mb-4">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
       {isLoading ? (
         <Text size="sm">{t('ui.users.status.loading')}</Text>
       ) : isError ? (

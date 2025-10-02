@@ -48,7 +48,6 @@ export function buildUsersListColumns(
           <Button
             to={`/${locale}/users/${row.id}`}
             size="sm"
-            variant="secondary"
             data-testid={`view-user-${row.id}`}
           >
             {t('ui.users.actions.view')}
@@ -56,6 +55,7 @@ export function buildUsersListColumns(
           <Button
             to={`/${locale}/users/${row.id}/edit`}
             size="sm"
+            variant="secondary"
             data-testid={`edit-user-${row.id}`}
           >
             {t('ui.users.actions.edit')}

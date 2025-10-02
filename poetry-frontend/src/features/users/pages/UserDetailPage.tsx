@@ -11,11 +11,14 @@ import { Inline } from '../../../ui/Inline/Inline'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { DetailView } from '../../../ui/DetailView/DetailView'
 import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
+import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
+import type { BreadcrumbItem } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUserDetailQuery } from '../hooks/useUsersQueries'
 import type { UserDetail } from '../model/UsersSchemas'
 import { buildUserDetailSections } from './userDetailHelpers'
+import { buildUserDetailBreadcrumbs } from './userBreadcrumbHelpers'
 
 export default function UserDetailPage(): ReactElement {
   const params: Readonly<Record<string, string | undefined>> = useParams()
@@ -29,6 +32,10 @@ export default function UserDetailPage(): ReactElement {
   const sections: readonly DetailViewSection[] = user
     ? buildUserDetailSections(user, t)
     : []
+  const breadcrumbItems: readonly BreadcrumbItem[] = buildUserDetailBreadcrumbs(
+    locale,
+    t
+  )
   const actions: ReactElement = (
     <Inline gap="sm">
       <Button to={`/${locale}/users/${userId}/edit`} size="sm">
@@ -41,6 +48,9 @@ export default function UserDetailPage(): ReactElement {
       title={t('ui.users.detail.title')}
       subtitle={t('ui.users.detail.subtitle')}
     >
+      <div className="mb-4">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
       <div data-testid="user-detail-content">
         {isLoading ? (
           <Text size="sm">{t('ui.users.status.loading')}</Text>

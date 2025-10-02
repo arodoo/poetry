@@ -44,10 +44,10 @@ export function Button(props: ButtonProps): ReactElement {
       'bg-[var(--color-primary)] text-[var(--color-text,#1a1a1a)] ' +
       'hover:opacity-90',
     secondary:
-      'bg-[var(--color-background,#f5f5f5)] ' +
+      'bg-[var(--color-surface,#ffffff)] ' +
       'text-[var(--color-text,#1a1a1a)] ' +
       'border border-[var(--color-border,#d0d0d0)] ' +
-      'hover:bg-[var(--color-surface,#ffffff)]',
+      'hover:bg-[var(--color-background,#f5f5f5)]',
   }
   const sizeClasses: Record<string, string> = {
     sm: 'text-xs px-2 py-1',
