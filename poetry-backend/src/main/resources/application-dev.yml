@@ -1,0 +1,22 @@
+# File: application-dev.yml
+# Purpose: Development profile with hot reload enabled
+# All Rights Reserved. Arodi Emmanuel
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: static/**,public/**,templates/**
+    livereload:
+      enabled: true
+
+  # Log level for development
+  logging:
+    level:
+      com.poetry: DEBUG
+
+# Disable caching for dev
+server:
+  error:
+    include-stacktrace: always

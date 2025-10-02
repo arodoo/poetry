@@ -33,11 +33,12 @@ public class JwtTokenGeneratorAdapter implements TokenGeneratorPort {
         : Keys.hmacShaKeyFor(props.getPreviousSecretKey().getBytes(StandardCharsets.UTF_8));
   }
 
-  public String newAccessToken(String subject) {
+  public String newAccessToken(String subject, java.util.List<String> roles) {
     Instant now = Instant.now();
     Instant exp = now.plusSeconds(props.getAccessTokenTtlSeconds());
     return Jwts.builder()
         .setSubject(subject)
+        .claim("roles", roles)
         .setIssuedAt(Date.from(now))
         .setExpiration(Date.from(exp))
         .setIssuer(props.getIssuer())

@@ -13,6 +13,11 @@ import java.util.UUID;
 import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
 
 public class UuidTokenGenerator implements TokenGeneratorPort {
-  public String newAccessToken(String subject) { return "atk-" + UUID.randomUUID(); }
-  public String newRefreshToken(String subject) { return "rtk-" + UUID.randomUUID(); }
+  public String newAccessToken(String subject, java.util.List<String> roles) {
+    return "atk-" + UUID.randomUUID();
+  }
+
+  public String newRefreshToken(String subject) {
+    return "rtk-" + UUID.randomUUID();
+  }
 }

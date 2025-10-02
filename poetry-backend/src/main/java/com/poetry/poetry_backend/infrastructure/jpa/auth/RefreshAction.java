@@ -37,11 +37,16 @@ class RefreshAction {
   Map<String, Object> execute(String refreshToken) {
     limiter.acquire("refresh:" + refreshToken);
     var rotated = manager.rotate(refreshToken);
-    String username = users
-        .findById(rotated.userId())
-        .map(u -> u.getUsername())
-        .orElse(null);
-    String access = tokens.newAccessToken(username);
+    var user = users.findById(rotated.userId()).orElse(null);
+    if (user == null) {
+      throw new com.poetry.poetry_backend.application.auth.exception
+          .InvalidRefreshTokenException("user_not_found");
+    }
+    String username = user.getUsername();
+    java.util.List<String> rolesList = user.getRoles() == null 
+        ? java.util.List.of() 
+        : new java.util.ArrayList<>(user.getRoles());
+    String access = tokens.newAccessToken(username, rolesList);
     return factory.tokens(username, access, rotated.newToken());
   }
 }

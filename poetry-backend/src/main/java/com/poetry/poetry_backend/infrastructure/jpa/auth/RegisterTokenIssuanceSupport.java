@@ -29,7 +29,10 @@ final class RegisterTokenIssuanceSupport {
   }
 
   Map<String, Object> issue(String username, String email, UserEntity user) {
-    String access = tokens.newAccessToken(username);
+    java.util.List<String> rolesList = user.getRoles() == null 
+        ? java.util.List.of() 
+        : new java.util.ArrayList<>(user.getRoles());
+    String access = tokens.newAccessToken(username, rolesList);
     String refresh = manager.issue(user.getId(), null);
     audit.record("register", username, "created");
     return factory.register(username, email, user.getId(), access, refresh);

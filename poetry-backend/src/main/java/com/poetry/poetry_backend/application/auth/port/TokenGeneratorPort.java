@@ -8,7 +8,9 @@
 
 package com.poetry.poetry_backend.application.auth.port;
 
+import java.util.List;
+
 public interface TokenGeneratorPort {
-  String newAccessToken(String subject);
+  String newAccessToken(String subject, List<String> roles);
   String newRefreshToken(String subject);
 }

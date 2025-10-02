@@ -45,7 +45,7 @@ public class InMemoryAuthAdapter implements AuthPort {
       audit.record("login.fail", u, "invalid_credentials");
       throw new InvalidCredentialsException("auth.login.invalid");
     }
-    var at = tokens.newAccessToken(u);
+    var at = tokens.newAccessToken(u, java.util.List.of());
     var rt = tokens.newRefreshToken(u);
     refreshTokens.add(rt);
     var response = responseBuilder.build(u, at, rt);
@@ -58,7 +58,7 @@ public class InMemoryAuthAdapter implements AuthPort {
       audit.record("refresh.fail", "?", "invalid_refresh");
       throw new InvalidRefreshTokenException("auth.refresh.invalid");
     }
-    var at = tokens.newAccessToken("subject");
+    var at = tokens.newAccessToken("subject", java.util.List.of());
     var response = responseBuilder.build(null, at, t);
     audit.record("refresh.success", "?", "refreshed");
     return response;

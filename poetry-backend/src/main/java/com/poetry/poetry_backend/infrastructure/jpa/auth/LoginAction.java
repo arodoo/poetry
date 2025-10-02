@@ -46,7 +46,10 @@ class LoginAction {
       throw fail(username);
     }
     lockout.onSuccess(username, null);
-    String access = tokens.newAccessToken(username);
+    java.util.List<String> rolesList = user.getRoles() == null 
+        ? java.util.List.of() 
+        : new java.util.ArrayList<>(user.getRoles());
+    String access = tokens.newAccessToken(username, rolesList);
     String refresh = manager.issue(user.getId(), null);
     audit.record("login.success", username, "issued");
     return factory.tokens(username, access, refresh);

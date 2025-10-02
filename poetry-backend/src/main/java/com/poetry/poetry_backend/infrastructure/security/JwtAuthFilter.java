@@ -6,11 +6,15 @@
 package com.poetry.poetry_backend.infrastructure.security;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -44,7 +48,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
           .build().parseClaimsJws(token).getBody();
         String sub = c.getSubject();
         if (sub != null && !sub.isBlank()) {
-          var auth = new UsernamePasswordAuthenticationToken(sub, null, null);
+          @SuppressWarnings("unchecked")
+          List<String> roles = c.get("roles", List.class);
+          List<GrantedAuthority> authorities = roles == null ? List.of()
+            : roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+          var auth = new UsernamePasswordAuthenticationToken(sub, null, authorities);
           SecurityContextHolder.getContext().setAuthentication(auth);
         }
       } catch (Exception _e) { /* ignore invalid tokens */ }
