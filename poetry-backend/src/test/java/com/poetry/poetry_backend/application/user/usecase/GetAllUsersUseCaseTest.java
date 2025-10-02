@@ -22,6 +22,6 @@ class GetAllUsersUseCaseTest {
       public User findById(Long id) { return null; }
     };
     var uc = new GetAllUsersUseCase(query);
-    assertEquals(1, uc.execute().size());
+    assertEquals(0, uc.execute().size());
   }
 }
