@@ -1,19 +1,19 @@
 /*
  * File: UsersListPage.tsx
- * Purpose: Admin users index page composing list shells.
+ * Purpose: Admin users index page with modern DataTable layout.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { Button } from '../../../ui/Button/Button'
 import { Text } from '../../../ui/Text/Text'
-import { Stack } from '../../../ui/Stack/Stack'
+import { PageLayout } from '../../../ui/PageLayout/PageLayout'
+import { DataTable } from '../../../ui/DataTable/DataTable'
+import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUsersListQuery } from '../hooks/useUsersQueries'
-import { UsersPageLayout } from '../components/UsersPageLayout'
-import { UsersListShell } from '../components/UsersListShell'
-import { UsersListResults } from '../components/UsersListResults'
 import type { UserSummary } from '../model/UsersSchemas'
 import { useT } from '../../../shared/i18n/useT'
+import { buildUsersListColumns } from './usersListColumns'
 
 export default function UsersListPage(): ReactElement {
   const localeResult: ReturnType<typeof useLocale> = useLocale()
@@ -25,30 +25,31 @@ export default function UsersListPage(): ReactElement {
   const users: readonly UserSummary[] = Array.isArray(listQuery.data)
     ? (listQuery.data as readonly UserSummary[])
     : []
-  const hasUsers: boolean = users.length > 0
+  const columns: readonly DataTableColumn<UserSummary>[] =
+    buildUsersListColumns(locale, t)
   const actions: ReactElement = (
     <Button to={`/${locale}/users/new`} size="sm">
       {t('ui.users.actions.new')}
     </Button>
   )
   return (
-    <UsersPageLayout
-      titleKey="ui.users.list.title"
-      subtitleKey="ui.users.list.subtitle"
+    <PageLayout
+      title={t('ui.users.list.title')}
+      subtitle={t('ui.users.list.subtitle')}
       actions={actions}
     >
       {isLoading ? (
         <Text size="sm">{t('ui.users.status.loading')}</Text>
       ) : isError ? (
         <Text size="sm">{t('ui.users.status.error')}</Text>
-      ) : hasUsers ? (
-        <Stack gap="md">
-          <Text size="sm">{t('ui.users.status.ready')}</Text>
-          <UsersListResults users={users} />
-        </Stack>
       ) : (
-        <UsersListShell />
+        <DataTable
+          columns={columns}
+          data={users}
+          keyExtractor={(row: UserSummary): string => row.id}
+          emptyMessage={t('ui.users.status.empty')}
+        />
       )}
-    </UsersPageLayout>
+    </PageLayout>
   )
 }

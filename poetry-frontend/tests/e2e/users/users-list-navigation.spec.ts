@@ -36,6 +36,8 @@ test('view button navigates to user detail page', async ({
   const userId: string = await getUserIdFromButton(viewButton, 'view-user-')
   await viewButton.click()
   await expect(page).toHaveURL(new RegExp(`/en/users/${userId}$`))
+  await page.waitForLoadState('networkidle')
+  await expect(page.locator('section')).toBeVisible({ timeout: 15000 })
 })
 test('edit button navigates to user edit page', async ({
   page,

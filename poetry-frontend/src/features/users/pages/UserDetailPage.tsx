@@ -1,52 +1,55 @@
 /*
  * File: UserDetailPage.tsx
- * Purpose: Admin user detail page referencing query hooks.
+ * Purpose: Admin user detail page with modern DetailView layout.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { useParams } from 'react-router-dom'
 import { Text } from '../../../ui/Text/Text'
-import { Stack } from '../../../ui/Stack/Stack'
+import { Button } from '../../../ui/Button/Button'
+import { Inline } from '../../../ui/Inline/Inline'
+import { PageLayout } from '../../../ui/PageLayout/PageLayout'
+import { DetailView } from '../../../ui/DetailView/DetailView'
+import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
 import { useT } from '../../../shared/i18n/useT'
-import { UsersPageLayout } from '../components/UsersPageLayout'
-import { UsersDetailSummary } from '../components/UsersDetailSummary'
+import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUserDetailQuery } from '../hooks/useUsersQueries'
-
-function hasVersion(val: unknown): val is { version: string } {
-  if (typeof val !== 'object' || val === null) {
-    return false
-  }
-
-  const maybeVersion: unknown = (val as Record<string, unknown>)['version']
-  return typeof maybeVersion === 'string'
-}
+import type { UserDetail } from '../model/UsersSchemas'
+import { buildUserDetailSections } from './userDetailHelpers'
 
 export default function UserDetailPage(): ReactElement {
   const params: Readonly<Record<string, string | undefined>> = useParams()
   const userId: string = params['id'] ?? ''
   const t: ReturnType<typeof useT> = useT()
+  const { locale }: { locale: string } = useLocale()
   const detailQuery: ReturnType<typeof useUserDetailQuery> =
     useUserDetailQuery(userId)
   const { data, isLoading, isError } = detailQuery
+  const user: UserDetail | undefined = data
+  const sections: readonly DetailViewSection[] = user
+    ? buildUserDetailSections(user, t)
+    : []
+  const actions: ReactElement = (
+    <Inline gap="sm">
+      <Button to={`/${locale}/users/${userId}/edit`} size="sm">
+        {t('ui.users.actions.edit')}
+      </Button>
+    </Inline>
+  )
   return (
-    <UsersPageLayout
-      titleKey="ui.users.detail.title"
-      subtitleKey="ui.users.detail.subtitle"
+    <PageLayout
+      title={t('ui.users.detail.title')}
+      subtitle={t('ui.users.detail.subtitle')}
     >
-      {isLoading ? (
-        <Text size="sm">{t('ui.users.status.loading')}</Text>
-      ) : isError || !data ? (
-        <Text size="sm">{t('ui.users.status.error')}</Text>
-      ) : (
-        <Stack gap="md">
-          <UsersDetailSummary />
-          <Text size="sm">
-            {t('ui.users.detail.version', {
-              value: hasVersion(data) ? data.version : '1',
-            })}
-          </Text>
-        </Stack>
-      )}
-    </UsersPageLayout>
+      <div data-testid="user-detail-content">
+        {isLoading ? (
+          <Text size="sm">{t('ui.users.status.loading')}</Text>
+        ) : isError || !user ? (
+          <Text size="sm">{t('ui.users.status.error')}</Text>
+        ) : (
+          <DetailView sections={sections} actions={actions} />
+        )}
+      </div>
+    </PageLayout>
   )
 }

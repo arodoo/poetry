@@ -64,6 +64,7 @@ export default function UserEditPage(): ReactElement {
 
   return (
     <UserEditForm
+      userId={userId}
       user={user}
       onSubmit={handleSubmit}
       isSubmitting={mutation.isPending}
