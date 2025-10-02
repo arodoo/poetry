@@ -21,11 +21,12 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
   if (!session) return null
 
   const items: {
-    id: 'dashboard' | 'adminTokens'
+    id: 'dashboard' | 'users' | 'adminTokens'
     p: string
     roles: string[]
   }[] = [
     { id: 'dashboard', p: '/dashboard', roles: [] },
+    { id: 'users', p: '/users', roles: ['admin', 'manager'] },
     { id: 'adminTokens', p: '/admin/tokens', roles: ['admin', 'manager'] },
   ]
 
@@ -40,7 +41,7 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
       <nav className="p-2 space-y-1">
         {items.map(
           (item: {
-            id: 'dashboard' | 'adminTokens'
+            id: 'dashboard' | 'users' | 'adminTokens'
             p: string
             roles: string[]
           }): ReactElement | null => {
@@ -53,19 +54,19 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
             const linkTo: string = `/${locale}${item.p}`
             const active: boolean = pathname.startsWith(linkTo)
             const base: string = active ? 'bg-gray-100' : 'hover:bg-gray-50'
+            const labelKey: string =
+              item.id === 'dashboard'
+                ? 'ui.route.dashboard.title'
+                : item.id === 'users'
+                  ? 'ui.route.users.title'
+                  : 'ui.route.admin.tokens.title'
             return (
               <Link
                 key={item.id}
                 to={linkTo}
                 className={`block rounded px-3 py-2 ${base}`}
               >
-                {isOpen
-                  ? translator(
-                      item.id === 'dashboard'
-                        ? 'ui.route.dashboard.title'
-                        : 'ui.route.admin.tokens.title'
-                    )
-                  : '•'}
+                {isOpen ? translator(labelKey) : '•'}
               </Link>
             )
           }

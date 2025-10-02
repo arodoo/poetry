@@ -54,6 +54,7 @@ export function AccountPasswordForm(
             type="submit"
             disabled={props.isSubmitting}
             className="ml-auto"
+            data-testid="change-password"
           >
             {props.isSubmitting
               ? props.t('ui.account.security.password.submit.loading')

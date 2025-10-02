@@ -19,5 +19,7 @@ export interface PublicLoginFormProps {
   readonly passwordLabel: string
   readonly submitLabel: string
   readonly pendingLabel: string
+  readonly usernameError?: string | undefined
+  readonly passwordError?: string | undefined
   readonly errorMessage?: string | undefined
 }

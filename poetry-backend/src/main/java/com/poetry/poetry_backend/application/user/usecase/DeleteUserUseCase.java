@@ -18,7 +18,7 @@ public class DeleteUserUseCase {
     this.commands = commands;
   }
 
-  public void execute(Long id) {
-    commands.softDelete(id);
+  public void execute(Long id, long version) {
+    commands.softDelete(id, version);
   }
 }

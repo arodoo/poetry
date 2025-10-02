@@ -1,12 +1,12 @@
 {
   "ui.publicLogin.title": "Welcome back",
-  "ui.publicLogin.description": "Sign in to manage your poems, members, and subscriptions.",
+  "ui.publicLogin.description": "Sign in to your account.",
   "ui.publicLogin.username.label": "Username",
   "ui.publicLogin.password.label": "Password",
   "ui.publicLogin.submit.label": "Sign in",
-  "ui.publicLogin.submit.pending": "Signing in…",
+  "ui.publicLogin.submit.pending": "Loading…",
   "ui.publicLogin.forgotLink": "Forgot your password?",
-  "ui.publicLogin.error": "We could not sign you in. Check your credentials and try again.",
+  "ui.publicLogin.error": "Sign in failed. Check your credentials.",
   "ui.publicLogin.errors.username": "Enter your username.",
   "ui.publicLogin.errors.password": "Enter your password."
 }

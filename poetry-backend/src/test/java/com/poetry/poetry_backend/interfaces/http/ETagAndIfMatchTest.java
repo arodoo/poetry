@@ -26,25 +26,22 @@ class ETagAndIfMatchTest {
 
   @Test
   void etag_on_get_and_if_match_required_and_checked() throws Exception {
-    String createBody = createUserJson(
-        ETAG_FIRST_NAME, ETAG_LAST_NAME, ETAG_EMAIL, ETAG_USERNAME, ETAG_PASSWORD);
+    String createBody = com.poetry.poetry_backend.interfaces.v1.user.UserTestJson.createUserJson(
+        ETAG_FIRST_NAME,
+        ETAG_LAST_NAME,
+        ETAG_EMAIL,
+        ETAG_USERNAME,
+        ETAG_PASSWORD,
+        "admin");
 
-    String resp =
-        mvc.perform(
-                post("/api/v1/users")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(createBody))
-            .andExpect(status().isOk())
-            .andReturn().getResponse().getContentAsString();
-
-    String id = resp.replaceAll(".*\\\"id\\\":(\\d+).*", "$1");
+    String id = ETagTestFlow.createAndGetId(mvc, createBody);
 
     String etag =
         mvc.perform(get("/api/v1/users/" + id))
             .andExpect(status().isOk())
             .andReturn().getResponse().getHeader("ETag");
 
-    String updateBody = updateUserJson(
+    String updateBody = com.poetry.poetry_backend.interfaces.v1.user.UserTestJson.updateUserJson(
         "UpdatedFirst", "UpdatedLast", "updated-etag@test.com");
 
     mvc.perform(

@@ -1,11 +1,11 @@
 /*
  * File: CreateUserUseCaseTest.java
- * Purpose: Placeholder create use case test.
+ * Purpose: Validates create user use case command wiring.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.application.user.usecase;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Set;
 
@@ -13,42 +13,55 @@ import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.UserRehydrator;
 
 class CreateUserUseCaseTest {
   @Test
   void createsUser() {
     UserCommandPort commands = new UserCommandPort() {
+      @Override
       public User create(
           String f,
           String l,
           String e,
           String u,
+          String loc,
           String p,
           Set<String> r) {
-        return new User(10L, f, l, e, u, true, r);
+        return UserRehydrator.rehydrate(10L, f, l, e, u, loc, true, r, null, null, null, 0L);
       }
 
+      @Override
       public User update(
           Long id,
+          long version,
           String f,
           String l,
           String e,
+          String loc,
           Set<String> r,
           boolean active) {
         return null;
       }
 
-      public void softDelete(Long id) { }
+      @Override
+      public User updatePassword(Long id, long version, String password) {
+        return null;
+      }
+
+      @Override
+      public void softDelete(Long id, long version) { }
     };
     var uc = new CreateUserUseCase(commands);
     var user = uc.execute(
         "F",
         "L",
-        "e@x",
+  "user@example.com",
         "u",
+        "en",
         "p",
         Set.of("ROLE_USER")
     );
-    assertNotNull(user.getId());
+    assertNotNull(user.id());
   }
 }

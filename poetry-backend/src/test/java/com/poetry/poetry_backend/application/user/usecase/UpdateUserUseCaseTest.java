@@ -23,6 +23,7 @@ class UpdateUserUseCaseTest {
           String l,
           String e,
           String u,
+          String loc,
           String p,
           Set<String> r) {
         return null;
@@ -30,26 +31,34 @@ class UpdateUserUseCaseTest {
 
       public User update(
           Long id,
+          long version,
           String f,
           String l,
           String e,
+          String loc,
           Set<String> r,
           boolean active) {
-        return new User(id, f, l, e, "u", active, r);
+  return new User(id, f, l, e, "u", loc, active, r, null, null, null, version);
       }
 
-      public void softDelete(Long id) { }
+      public User updatePassword(Long id, long version, String password) {
+        return null;
+      }
+
+      public void softDelete(Long id, long version) { }
     };
     var uc = new UpdateUserUseCase(commands);
     var updated = uc.execute(
         7L,
+        1L,
         "NF",
         "NL",
         "ne",
+        "en",
         Set.of("R"),
         false
     );
-    assertEquals(7L, updated.getId());
-    assertFalse(updated.isActive());
+  assertEquals(7L, updated.id());
+  assertFalse(updated.active());
   }
 }

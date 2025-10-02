@@ -2,17 +2,22 @@
 applyTo: '**'
 ---
 
-- Answers in the chat can not be longer than 60 words per message
+## Development Workflow Rules
+
+## Development Workflow Rules
+
+- For file length/size checks, use: `npm run max-lines:check`
+- For ESLint validation, use: `npm run lint`
+
 - Before starting a new work, give a brief explanation of the task
-- When I ask for an step-by-step plan, provide routes and purposes of the
-  involved files (Both already existing and new ones)
 - Don't stop coding until the task is fully complete if the plan is clear
-- All code contributions must be production ready: fully implemented, no TODO,
-  FIXME, or commented-out code.
+- All code contributions must be production ready, no TODO, FIXME, or
+  commented-out code.
 - Must follow DDD, SOLID, Clean Architecture
 - Every variable, parameter, or attribute must have a descriptive name that
   clearly expresses its purpose in context (e.g. `response` instead of `r`)
-- Code must be in first place LOGIC in relation to the environment
+- Code must be in first place LOGIC in relation to the environment, the
+  intention must be long term code (Code which won't get broken in 1 or 2 years)
 - IMPORTANT: No file should exceed 60 lines; (test files < 40 lines>), in
   frontEnd no line should exceed 80 characters, in backend is 100,
   (fixtures/helpers/components, etc)
@@ -83,6 +88,7 @@ create new modules or features in the frontend)
   - Adapters live in Infrastructure
   - No direct imports of 3rd-party libs (HTTP/DB/SDK) outside Infrastructure
   - Wiring only in a composition root via constructor injection
+  - Test can not lie on text element selectors, use data-testid attributes
   - In frontend test go at 'poetry-frontend\src\tests\<feature\>'
   - Backend test go at 'poetry-backend\src\test\<feature\>'
 
@@ -103,4 +109,4 @@ create new modules or features in the frontend)
 
 - Application will sooner or later be PWA, consider this in your designs.
 - Length files limit, type check, linting, headers check, etc. must be checked
-  by running `npm run ci`
+  by running npm comands defined at 'tools\ci\'

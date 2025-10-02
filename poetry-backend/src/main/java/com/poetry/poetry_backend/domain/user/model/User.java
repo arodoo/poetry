@@ -1,29 +1,31 @@
 /*
  * File: User.java
- * Purpose: Domain model representing a user including identity, contact
- * information, username and roles. This model encapsulates domain behavior
- * and invariants that belong to the user aggregate and is referenced across
- * the application and interfaces layers. The class intentionally remains
- * framework agnostic and free of persistence annotations to preserve domain
- * purity.
+ * Purpose: Immutable record storing user aggregate state. Validation and
+ * mutation rules live in accompanying domain services to keep this record
+ * concise and under the enforced line budget while guaranteeing domain logic
+ * remains colocated within the user package.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.domain.user.model;
 
+import java.time.Instant;
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class User {
-  private Long id;
-  private String firstName;
-  private String lastName;
-  private String email;
-  private String username;
-  private boolean active;
-  private Set<String> roles;
+public record User(
+    Long id,
+    String firstName,
+    String lastName,
+    String email,
+    String username,
+    String locale,
+    boolean active,
+    Set<String> roles,
+    Instant createdAt,
+    Instant updatedAt,
+    Instant deletedAt,
+    long version) {
+  public boolean isDeleted() {
+    return deletedAt != null;
+  }
 }

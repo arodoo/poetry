@@ -23,8 +23,15 @@ test('logout triggers API, clears tokens, and invalidates auth session', async (
   const respUnknown: unknown = await logoutRequest.catch((): null => null)
   if (!respUnknown) test.fail(true, 'Logout API call missing')
   else {
-    const maybeResp: { status?: number } = respUnknown as { status?: number }
-    expect(maybeResp.status ?? 0).toBeGreaterThanOrEqual(200)
+    const response: { status?: unknown } = respUnknown as { status?: unknown }
+    const statusField: unknown = response.status
+    const statusValue: number =
+      typeof statusField === 'number'
+        ? statusField
+        : typeof statusField === 'function'
+          ? (statusField as () => number).call(response)
+          : 0
+    expect(statusValue).toBeGreaterThanOrEqual(200)
   }
   await page.waitForURL(/\/en\/login$/)
   const hasTokens: boolean = await page.evaluate(

@@ -67,6 +67,8 @@ export const I18N_KEYS: readonly string[] = [
   'ui.route.profile.title',
   'ui.route.unauthorized.slug',
   'ui.route.unauthorized.title',
+  'ui.route.users.slug',
+  'ui.route.users.title',
   'ui.sidebar.collapse',
   'ui.sidebar.expand',
 ] as const

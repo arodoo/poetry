@@ -27,9 +27,13 @@ class IdempotencyKeyTest {
   @Test
   void idempotency_key_conflict_on_duplicate() throws Exception {
     String key = "k1";
-    String body = createUserJson(
-        IDEMPOTENCY_FIRST_NAME, IDEMPOTENCY_LAST_NAME, IDEMPOTENCY_EMAIL,
-        IDEMPOTENCY_USERNAME, IDEMPOTENCY_PASSWORD);
+  String body = createUserJson(
+    IDEMPOTENCY_FIRST_NAME,
+    IDEMPOTENCY_LAST_NAME,
+    IDEMPOTENCY_EMAIL,
+    IDEMPOTENCY_USERNAME,
+    IDEMPOTENCY_PASSWORD,
+    "admin");
 
     mvc.perform(
             post("/api/v1/users")

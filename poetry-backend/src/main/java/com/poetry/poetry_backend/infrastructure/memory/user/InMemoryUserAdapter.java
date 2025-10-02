@@ -35,6 +35,7 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
       String l,
       String e,
       String u,
+      String locale,
       String p,
       Set<String> r) {
     return InMemoryUserStore.create(store, seq, f, l, e, u, true,
@@ -43,16 +44,24 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
 
   public User update(
       Long id,
+      long version,
       String f,
       String l,
       String e,
+      String locale,
       Set<String> r,
       boolean a) {
-  return Optional.ofNullable(InMemoryUserStore.update(store, id, f, l, e,
+  return Optional.ofNullable(InMemoryUserStore.update(store, id, f, l, e, locale,
     r != null ? r : null, a)).orElseThrow(() -> new UserNotFoundException(id));
   }
 
-  public void softDelete(Long id) {
+  public com.poetry.poetry_backend.domain.user.model.User updatePassword(
+      Long id, long version, String password) {
+    return Optional.ofNullable(InMemoryUserStore.updatePassword(store, id, password))
+        .orElseThrow(() -> new UserNotFoundException(id));
+  }
+
+  public void softDelete(Long id, long version) {
     if (store.containsKey(id)) {
       InMemoryUserStore.softDelete(store, id);
     } else {

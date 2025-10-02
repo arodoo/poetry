@@ -21,8 +21,9 @@ export function DashboardOverviewHeader(
   return (
     <Stack gap="xs">
       <Heading level={3} size="lg">
-        {props.t('ui.dashboard.overview.panel.title')}
+        {props.t('ui.dashboard.welcome.title')}
       </Heading>
+      <Text size="sm">{props.t('ui.dashboard.welcome.message')}</Text>
       <Text size="sm" data-testid="dashboard-highlight">
         {props.t(props.highlightKey)}
       </Text>

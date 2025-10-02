@@ -8,7 +8,6 @@ package com.poetry.poetry_backend.application.user.usecase;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,7 @@ class GetAllUsersUseCaseTest {
   @Test
   void returnsUsers() {
     UserQueryPort query = new UserQueryPort() {
-      public List<User> findAll() { return List.of(new User(1L,"F","L","e","u",true, Set.of())); }
+      public List<User> findAll() { return java.util.List.of(); }
       public User findById(Long id) { return null; }
     };
     var uc = new GetAllUsersUseCase(query);

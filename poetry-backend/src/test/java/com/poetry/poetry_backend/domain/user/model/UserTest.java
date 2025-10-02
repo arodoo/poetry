@@ -1,11 +1,13 @@
 /*
  * File: UserTest.java
- * Purpose: Placeholder domain test for User aggregate.
+ * Purpose: Validate happy path creation of the User aggregate using the
+ * factory to ensure invariants are enforced.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.domain.user.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -13,9 +15,17 @@ import org.junit.jupiter.api.Test;
 
 class UserTest {
   @Test
-  void createsUser() {
-    var u = new User(1L, "F", "L", "e@example.com", "user", true, Set.of("ROLE_USER"));
-    assertEquals("F", u.getFirstName());
-    assertTrue(u.isActive());
+  void factoryCreatesActiveUserWithCanonicalData() {
+    var user = UserFactory.createNew(
+        "Ada",
+        "Lovelace",
+        "ada@example.com",
+        "ada",
+        "en",
+    Set.of("admin"));
+
+    assertEquals("Ada", user.firstName());
+    assertEquals("ada@example.com", user.email());
+    assertTrue(user.active());
   }
 }

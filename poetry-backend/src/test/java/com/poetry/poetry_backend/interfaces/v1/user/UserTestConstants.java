@@ -50,19 +50,5 @@ public final class UserTestConstants {
   }
 
   // Helper method to create JSON for user creation
-  public static String createUserJson(String firstName, String lastName, String email, 
-                                     String username, String password) {
-    return String.format(
-        "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"email\":\"%s\"," +
-        "\"username\":\"%s\",\"password\":\"%s\"}",
-        firstName, lastName, email, username, password);
-  }
-
-  // Helper method to create JSON for user update
-  public static String updateUserJson(String firstName, String lastName, String email) {
-    return String.format(
-        "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"email\":\"%s\"," +
-        "\"roles\":[\"USER\"],\"active\":true}",
-        firstName, lastName, email);
-  }
+  // JSON helper methods moved to UserTestJson to reduce file size
 }

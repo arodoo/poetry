@@ -20,10 +20,25 @@ class GetUserByIdUseCaseTest {
   void returnsUser() {
     UserQueryPort query = new UserQueryPort() {
       public java.util.List<User> findAll() { return java.util.List.of(); }
-      public User findById(Long id) { return new User(id,"F","L","e","u",true, Set.of()); }
+      public User findById(Long id) {
+        return new User(
+            id,
+            "F",
+            "L",
+            "e",
+            "u",
+            "en",
+            true,
+            Set.of("ROLE_USER"),
+            null,
+            null,
+            null,
+            0L
+        );
+      }
     };
     var uc = new GetUserByIdUseCase(query);
-    assertEquals(5L, uc.execute(5L).getId());
+  assertEquals(5L, uc.execute(5L).id());
   }
 
   @Test

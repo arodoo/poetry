@@ -64,7 +64,9 @@ configuration, billing, integrations, API keys/webhooks, health/jobs).
 ### Admin Only
 
 - `/configuration` (Global)
-- **Users:** `/users`, `/users/new`, `/users/:id`
+- **Users:** `/users`, `/users/new`, `/users/:id`, `/users/edit/:id`,
+  `/users/:id/roles`, `/users/:id/security`, `/users/:id/disable`,
+  `/users/:id/enable`
 - **Organizations (global):** `/orgs/new`
 - **Billing:** `/billing`, `/billing/invoices`, `/billing/usage`
 - **Integrations:** `/integrations`, `/integrations/:provider`

@@ -25,3 +25,5 @@ schema/structure/files No hardcoded text (routes, breadcrumbs, content).
 - Tailwind CSS for styling.
 - Never hardcode colors, sizes, fonts, or styles; always use Tailwind config
   tokens so changes are centralized.
+- Consider app has strict lint reles (defined at
+  'poetry-frontend\eslint.config.js')

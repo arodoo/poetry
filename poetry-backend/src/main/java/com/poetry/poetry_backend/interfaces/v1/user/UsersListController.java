@@ -26,9 +26,14 @@ public class UsersListController {
 
   @GetMapping
   public ResponseEntity<List<UserDtos.UserResponse>> all() {
-    var out = getAll.execute().stream()
+    var users = getAll.execute();
+    var out = users.stream()
         .map(UserDtos::toResponse)
         .toList();
-    return ResponseEntity.ok(out);
+    // Generate ETag based on aggregated user versions and count
+    String etag = String.valueOf(users.stream()
+        .mapToLong(u -> u.version())
+        .sum() + users.size());
+    return ResponseEntity.ok().eTag(etag).body(out);
   }
 }

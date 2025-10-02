@@ -1,12 +1,12 @@
 {
   "ui.publicLogin.title": "Bienvenido de nuevo",
-  "ui.publicLogin.description": "Inicia sesión para gestionar tus poemas, miembros y suscripciones.",
+  "ui.publicLogin.description": "Inicia sesión en tu cuenta.",
   "ui.publicLogin.username.label": "Usuario",
   "ui.publicLogin.password.label": "Contraseña",
   "ui.publicLogin.submit.label": "Iniciar sesión",
-  "ui.publicLogin.submit.pending": "Iniciando…",
+  "ui.publicLogin.submit.pending": "Cargando…",
   "ui.publicLogin.forgotLink": "¿Olvidaste tu contraseña?",
-  "ui.publicLogin.error": "No pudimos iniciar sesión. Verifica tus datos e inténtalo nuevamente.",
+  "ui.publicLogin.error": "Fallo al iniciar sesión. Verifica tus datos.",
   "ui.publicLogin.errors.username": "Ingresa tu usuario.",
   "ui.publicLogin.errors.password": "Ingresa tu contraseña."
 }

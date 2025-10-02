@@ -10,25 +10,51 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poetry.poetry_backend.application.common.port.ETagPort;
+import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
 import com.poetry.poetry_backend.application.user.usecase.UpdateUserUseCase;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UsersUpdateController {
   private final UpdateUserUseCase update;
-  public UsersUpdateController(UpdateUserUseCase update) { this.update = update; }
+  private final GetUserByIdUseCase getUser;
+  private final ETagPort etagPort;
+  private final ObjectMapper mapper;
+  
+  public UsersUpdateController(
+      UpdateUserUseCase update,
+      GetUserByIdUseCase getUser,
+      ETagPort etagPort,
+      ObjectMapper mapper
+  ) {
+    this.update = update;
+    this.getUser = getUser;
+    this.etagPort = etagPort;
+    this.mapper = mapper;
+  }
 
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
   public ResponseEntity<UserDtos.UserResponse> update(
       @PathVariable Long id,
-      @RequestBody UserDtos.UserUpdateRequest r) {
+      @RequestHeader("If-Match") String ifMatch,
+      @RequestBody UserDtos.UserUpdateRequest r) throws Exception {
+    // Get current user to extract version - IfMatchFilter already validated ETag
+    var currentUser = getUser.execute(id);
+    long version = currentUser.version();
+    
     var u = update.execute(
-        id, r.firstName(), r.lastName(), r.email(),
-        r.roles(), r.active());
-    return ResponseEntity.ok(UserDtos.toResponse(u));
+        id, version, r.firstName(), r.lastName(), r.email(),
+        r.locale(), r.roles(), r.active());
+    
+    var response = UserDtos.toResponse(u);
+    String etag = etagPort.compute(mapper.writeValueAsString(response));
+    return ResponseEntity.ok().eTag(etag).body(response);
   }
 }

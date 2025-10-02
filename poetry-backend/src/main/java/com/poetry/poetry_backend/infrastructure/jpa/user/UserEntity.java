@@ -10,7 +10,11 @@
 
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
+import java.time.Instant;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -42,6 +46,9 @@ public class UserEntity {
   @Column(nullable = false, length = 72)
   private String passwordHash;
 
+  @Column(nullable = false, length = 10)
+  private String locale = "en-US";
+
   private boolean active = true;
 
   @ElementCollection(fetch = FetchType.EAGER)
@@ -50,4 +57,17 @@ public class UserEntity {
       joinColumns = @JoinColumn(name = "user_id"))
   @Column(name = "role")
   private Set<String> roles;
+
+  @CreationTimestamp
+  @Column(nullable = false, updatable = false)
+  private Instant createdAt;
+
+  @UpdateTimestamp
+  @Column(nullable = false)
+  private Instant updatedAt;
+
+  private Instant deletedAt;
+
+  @Version
+  private Long version;
 }

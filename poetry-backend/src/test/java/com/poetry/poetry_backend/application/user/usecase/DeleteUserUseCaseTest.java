@@ -22,6 +22,7 @@ class DeleteUserUseCaseTest {
           String l,
           String e,
           String u,
+          String loc,
           String p,
           java.util.Set<String> r) {
         return null;
@@ -29,20 +30,26 @@ class DeleteUserUseCaseTest {
 
       public User update(
           Long id,
+          long version,
           String f,
           String l,
           String e,
+          String loc,
           java.util.Set<String> r,
           boolean a) {
         return null;
       }
 
-      public void softDelete(Long id) {
+      public User updatePassword(Long id, long version, String password) {
+        return null;
+      }
+
+      public void softDelete(Long id, long version) {
         deleted[0] = id;
       }
     };
     var uc = new DeleteUserUseCase(commands);
-    uc.execute(11L);
+    uc.execute(11L, 1L);
     assertEquals(11L, deleted[0]);
   }
 }

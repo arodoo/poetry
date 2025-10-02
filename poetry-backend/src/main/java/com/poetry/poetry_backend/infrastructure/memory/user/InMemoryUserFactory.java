@@ -11,6 +11,7 @@ package com.poetry.poetry_backend.infrastructure.memory.user;
 import java.util.Set;
 
 import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.UserRehydrator;
 
 public final class InMemoryUserFactory {
   private InMemoryUserFactory() {
@@ -19,6 +20,18 @@ public final class InMemoryUserFactory {
 
   public static User createNew(Long id, String f, String l, String e,
       String u, boolean active, Set<String> roles) {
-    return new User(id, f, l, e, u, active, roles);
+    return UserRehydrator.rehydrate(
+        id,
+        f,
+        l,
+        e,
+        u,
+        "en", // default locale
+        active,
+        roles,
+        java.time.Instant.now(), // createdAt
+        java.time.Instant.now(), // updatedAt
+        null, // deletedAt
+        1L); // version
   }
 }

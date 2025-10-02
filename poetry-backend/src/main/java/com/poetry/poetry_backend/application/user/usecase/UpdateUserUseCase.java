@@ -23,11 +23,21 @@ public class UpdateUserUseCase {
 
   public User execute(
       Long id,
+      long version,
       String firstName,
       String lastName,
       String email,
+      String locale,
       Set<String> roles,
       boolean active) {
-    return commands.update(id, firstName, lastName, email, roles, active);
+    return commands.update(
+        id,
+        version,
+        firstName,
+        lastName,
+        email,
+        locale,
+        roles,
+        active);
   }
 }

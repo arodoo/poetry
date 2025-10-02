@@ -20,16 +20,21 @@ public interface UserCommandPort {
       String lastName,
       String email,
       String username,
+    String locale,
       String password,
       Set<String> roles);
 
   User update(
       Long id,
+    long version,
       String firstName,
       String lastName,
       String email,
+    String locale,
       Set<String> roles,
       boolean active);
 
-  void softDelete(Long id);
+  User updatePassword(Long id, long version, String password);
+
+  void softDelete(Long id, long version);
 }

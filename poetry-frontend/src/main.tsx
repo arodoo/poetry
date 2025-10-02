@@ -5,7 +5,6 @@
  imported for side-effects to fail fast on invalid settings.
  All Rights Reserved. Arodi Emmanuel
 */
-import { getEnv } from './shared/config/env'
 import { StrictMode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import './index.css'
@@ -13,6 +12,8 @@ import App from './App'
 import { I18nProvider } from './shared/i18n'
 import { TokensProvider } from './shared/tokens/TokensProvider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { getEnv } from './shared/config/env'
+import './shared/polyfills/responseStatusProperty'
 
 // Dev-only: install client error bridge BEFORE any code that may throw
 if (import.meta.env.DEV) {

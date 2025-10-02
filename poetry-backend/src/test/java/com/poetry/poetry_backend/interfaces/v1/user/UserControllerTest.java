@@ -27,7 +27,12 @@ class UserControllerTest {
   @Test
   void crud_flow() throws Exception {
     String body = createUserJson(
-        CRUD_FIRST_NAME, CRUD_LAST_NAME, CRUD_EMAIL, CRUD_USERNAME, CRUD_PASSWORD);
+        CRUD_FIRST_NAME,
+        CRUD_LAST_NAME,
+        CRUD_EMAIL,
+        CRUD_USERNAME,
+        CRUD_PASSWORD,
+        "admin");
     String resp =
         mvc.perform(
                 post("/api/v1/users")

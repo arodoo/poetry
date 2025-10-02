@@ -36,22 +36,30 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
       String l,
       String e,
       String u,
+      String locale,
       String p,
       java.util.Set<String> r) {
-    return commandAdapter.create(f, l, e, u, p, r);
+    return commandAdapter.create(f, l, e, u, locale, p, r);
   }
 
   public com.poetry.poetry_backend.domain.user.model.User update(
       Long id,
+      long version,
       String f,
       String l,
       String e,
+      String locale,
       java.util.Set<String> r,
       boolean a) {
-    return commandAdapter.update(id, f, l, e, r, a);
+    return commandAdapter.update(id, version, f, l, e, locale, r, a);
   }
 
-  public void softDelete(Long id) {
-    commandAdapter.softDelete(id);
+  public com.poetry.poetry_backend.domain.user.model.User updatePassword(
+      Long id, long version, String password) {
+    return commandAdapter.updatePassword(id, version, password);
+  }
+
+  public void softDelete(Long id, long version) {
+    commandAdapter.softDelete(id, version);
   }
 }

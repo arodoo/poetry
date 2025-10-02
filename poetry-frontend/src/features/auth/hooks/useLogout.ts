@@ -13,13 +13,14 @@ export function useLogout(): UseMutationResult<undefined, Error, void> {
   const qc: QueryClient = useQueryClient()
 
   async function logoutMutationFn(): Promise<undefined> {
+    const bundle: TokenBundle | null = tokenStorage.load()
+    const refreshToken: string | undefined = bundle?.refreshToken
     // Clear eagerly so UI reacts instantly even if network stalls.
     tokenStorage.clear()
-    const bundle: TokenBundle | null = tokenStorage.load() // should be null now
-    const refreshToken: string | undefined = bundle?.refreshToken
-    // If storage already cleared skip remote call (still attempt best effort)
     try {
-      if (refreshToken) await postLogout(refreshToken)
+      if (refreshToken) {
+        await postLogout(refreshToken)
+      }
     } catch (err: unknown) {
       // Ignore logout network errors; tokens already cleared locally.
       void err

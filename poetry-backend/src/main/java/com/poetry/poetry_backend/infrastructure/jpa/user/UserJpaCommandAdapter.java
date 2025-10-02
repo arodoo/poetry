@@ -6,53 +6,57 @@
 
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
+import static com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaCommandSupport.applyProfile;
+import static com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaCommandSupport.guard;
+import static com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaCommandSupport.persist;
+
+import java.time.Instant;
+import java.util.Set;
+
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
+import com.poetry.poetry_backend.domain.user.model.User;
 
 public class UserJpaCommandAdapter implements UserCommandPort {
-  private final UserJpaRepository repo;
+  private final UserJpaRepository repository;
 
-  public UserJpaCommandAdapter(UserJpaRepository repo) {
-    this.repo = repo;
+  public UserJpaCommandAdapter(UserJpaRepository repository) {
+    this.repository = repository;
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User create(
-      String f,
-      String l,
-      String e,
-      String u,
-      String p,
-      java.util.Set<String> r) {
-    UserEntity en = new UserEntity();
-    en.setFirstName(f);
-    en.setLastName(l);
-    en.setEmail(e);
-    en.setUsername(u);
-    en.setPasswordHash(p);
-    en.setRoles(r);
-    en.setActive(true);
-    return UserJpaMapper.toDomain(repo.save(en));
+  @Override
+  public User create(String firstName, String lastName, String email,
+      String username, String locale, String password, Set<String> roles) {
+    UserEntity entity = new UserEntity();
+    applyProfile(entity, firstName, lastName, email, locale);
+    entity.setUsername(username);
+    entity.setPasswordHash(password);
+    entity.setRoles(roles);
+    entity.setActive(true);
+    return persist(repository, entity);
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User update(
-      Long id,
-      String f,
-      String l,
-      String e,
-      java.util.Set<String> r,
-      boolean a) {
-    UserEntity en = repo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-    en.setFirstName(f);
-    en.setLastName(l);
-    en.setEmail(e);
-    en.setRoles(r);
-    en.setActive(a);
-    return UserJpaMapper.toDomain(repo.save(en));
+  @Override
+  public User update(Long id, long version, String firstName, String lastName,
+      String email, String locale, Set<String> roles, boolean active) {
+    UserEntity entity = guard(repository, id, version);
+    applyProfile(entity, firstName, lastName, email, locale);
+    entity.setRoles(roles);
+    entity.setActive(active);
+    return persist(repository, entity);
   }
 
-  public void softDelete(Long id) {
-    UserEntity en = repo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-    en.setActive(false);
-    repo.save(en);
+  @Override
+  public User updatePassword(Long id, long version, String password) {
+    UserEntity entity = guard(repository, id, version);
+    entity.setPasswordHash(password);
+    return persist(repository, entity);
+  }
+
+  @Override
+  public void softDelete(Long id, long version) {
+    UserEntity entity = guard(repository, id, version);
+    entity.setActive(false);
+    entity.setDeletedAt(Instant.now());
+    repository.save(entity);
   }
 }

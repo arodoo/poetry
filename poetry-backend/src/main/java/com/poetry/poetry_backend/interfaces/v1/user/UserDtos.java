@@ -26,7 +26,8 @@ public final class UserDtos {
   public record UserUpdateRequest(
       String firstName, 
       String lastName, 
-      String email, 
+      String email,
+      String locale,
       Set<String> roles, 
       boolean active) { }
 
@@ -35,17 +36,18 @@ public final class UserDtos {
       String lastName,
       String email,
       String username,
+      String locale,
       String password,
       Set<String> roles) { }
 
   public static UserResponse toResponse(User u) {
     return new UserResponse(
-        u.getId(),
-        u.getFirstName(),
-        u.getLastName(),
-        u.getEmail(),
-        u.getUsername(),
-        u.isActive(),
-        u.getRoles());
+                u.id(),
+                u.firstName(),
+                u.lastName(),
+                u.email(),
+                u.username(),
+                u.active(),
+                u.roles());
   }
 }

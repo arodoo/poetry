@@ -12,43 +12,11 @@ package com.poetry.poetry_backend.application.user.usecase;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.model.User;
 
 class CreateUserUseCaseNegativeTest {
     @Test
     void whenInvalidEmail_thenValidationError() {
-        // Implement a UserCommandPort stub matching the real interface signatures
-        UserCommandPort cmd = new UserCommandPort() {
-            @Override
-            public User create(
-                    String firstName,
-                    String lastName,
-                    String email,
-                    String username,
-                    String password,
-                    java.util.Set<String> roles
-            ) {
-                // minimal behavior: delegate and return a created user (use-case does not validate)
-                return new User(1L, firstName, lastName, email, username, true, roles);
-            }
-
-            @Override
-            public User update(
-                    Long id,
-                    String firstName,
-                    String lastName,
-                    String email,
-                    java.util.Set<String> roles,
-                    boolean active
-            ) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public void softDelete(Long id) {
-                // no-op
-            }
-        };
+        UserCommandPort cmd = TestUserStubs.simpleCommandPort();
 
     var uc = new CreateUserUseCase(cmd);
 
@@ -59,15 +27,13 @@ class CreateUserUseCaseNegativeTest {
         "L",
         null,
         "u",
+        "en",
         "p",
-        java.util.Set.of()
+        java.util.Set.of("ROLE_USER")
     );
 
     org.junit.jupiter.api.Assertions.assertNotNull(created);
-    org.junit.jupiter.api.Assertions.assertEquals(
-        1L,
-        created.getId()
-    );
-    org.junit.jupiter.api.Assertions.assertNull(created.getEmail());
+    org.junit.jupiter.api.Assertions.assertEquals(1L, created.id());
+    org.junit.jupiter.api.Assertions.assertNull(created.email());
     }
 }
