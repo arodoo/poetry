@@ -58,7 +58,9 @@ public class SecurityConfig {
       .permitAll()
       .requestMatchers(HttpMethod.GET,
         "/api/v1/tokens",
-        "/api/v1/me/locale")
+        "/api/v1/themes",
+        "/api/v1/me/locale",
+        "/api/v1/public/landing")
       .permitAll()
       .anyRequest().authenticated())
     // Disable browser basic auth prompt; login is handled by frontend.

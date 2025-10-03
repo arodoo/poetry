@@ -2,6 +2,7 @@
   "ui.users.actions.new": "Nuevo usuario",
   "ui.users.actions.view": "Ver",
   "ui.users.actions.edit": "Editar",
+  "ui.users.actions.delete": "Eliminar",
   "ui.users.actions.submit": "Crear usuario",
   "ui.users.actions.save": "Guardar cambios",
   "ui.users.actions.cancel": "Cancelar",

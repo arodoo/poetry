@@ -11,13 +11,21 @@ import './index.css'
 import App from './App'
 import { I18nProvider } from './shared/i18n'
 import { TokensProvider } from './shared/tokens/TokensProvider'
+import { ErrorBoundary } from './shared/error/ErrorBoundary'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getEnv } from './shared/config/env'
 import './shared/polyfills/responseStatusProperty'
 
 // Dev-only: install client error bridge BEFORE any code that may throw
 if (import.meta.env.DEV) {
-  await import('./shared/dev/clientErrorReporter')
+  // Ensure dev-only modules are loaded; use void to mark intentionally un-awaited promises
+  void import('./shared/dev/clientErrorReporter')
+  // Set up CSS variables health check monitor
+  void import('./shared/dev/cssVariablesHealthCheck').then(
+    (module: { setupCssVariablesMonitor: () => void }): void => {
+      module.setupCssVariablesMonitor()
+    }
+  )
 }
 
 // Fail-fast: validate env at startup (bridge errors explicitly in dev)
@@ -60,13 +68,15 @@ if (rootElement !== null) {
   const queryClient: QueryClient = new QueryClient()
   root.render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <I18nProvider>
-          <TokensProvider>
-            <App />
-          </TokensProvider>
-        </I18nProvider>
-      </QueryClientProvider>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <I18nProvider>
+            <TokensProvider>
+              <App />
+            </TokensProvider>
+          </I18nProvider>
+        </QueryClientProvider>
+      </ErrorBoundary>
     </StrictMode>
   )
 }

@@ -2,6 +2,7 @@
   "ui.users.actions.new": "New user",
   "ui.users.actions.view": "View",
   "ui.users.actions.edit": "Edit",
+  "ui.users.actions.delete": "Delete",
   "ui.users.actions.submit": "Create user",
   "ui.users.actions.save": "Save changes",
   "ui.users.actions.cancel": "Cancel",

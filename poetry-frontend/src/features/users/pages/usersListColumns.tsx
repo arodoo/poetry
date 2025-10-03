@@ -56,9 +56,19 @@ export function buildUsersListColumns(
             to={`/${locale}/users/${row.id}/edit`}
             size="sm"
             variant="secondary"
+            textTone="primary"
             data-testid={`edit-user-${row.id}`}
           >
             {t('ui.users.actions.edit')}
+          </Button>
+          <Button
+            to={`/${locale}/users/${row.id}/delete`}
+            size="sm"
+            variant="secondary"
+            textTone="error"
+            data-testid={`delete-user-${row.id}`}
+          >
+            {t('ui.users.actions.delete')}
           </Button>
         </Inline>
       ),

@@ -8,7 +8,6 @@ import type {
   KeyedValues,
   TokenTheme,
   TokenFontSizes,
-  TokenFontFamily,
 } from '../../features/tokens/model/TokensSchemas'
 import type { CssVars } from './tokens.generated.part1'
 import { VAR } from './tokens.generated.part1'
@@ -18,12 +17,10 @@ import {
   mapRadius,
   mapShadows,
   mapFontSizes,
-  mapFontFamily,
   mapFontWeights,
   findTheme,
   findKV,
   findFontSizes,
-  findFontFamily,
 } from './tokensMappers.generated'
 
 export function mapBundleToCssVars(bundle: TokenBundle): CssVars {
@@ -37,16 +34,19 @@ export function mapBundleToCssVars(bundle: TokenBundle): CssVars {
     bundle.fontSizes,
     cur.fontSize
   )
-  const fontFamily: TokenFontFamily | undefined = findFontFamily(
-    bundle.fontFamilies,
-    cur.font
-  )
+  // TODO: Font family mapping disabled - backend sends fonts (with metadata)
+  // not fontFamilies (with CSS family strings). Need to generate family string
+  // from font key or add family field to backend TokenFont model.
+  // const fontFamily: TokenFontFamily | undefined = findFontFamily(
+  //   bundle.fontFamilies,
+  //   cur.font
+  // )
   if (theme) mapColors(css, theme)
   if (spacings) mapSpacings(css, spacings)
   if (radius) mapRadius(css, radius)
   if (shadows) mapShadows(css, shadows)
   if (fontSizes) mapFontSizes(css, fontSizes)
-  if (fontFamily) mapFontFamily(css, fontFamily)
+  // if (fontFamily) mapFontFamily(css, fontFamily)
   if (Array.isArray(bundle.fontWeights)) {
     mapFontWeights(css, bundle.fontWeights as readonly string[])
   }

@@ -35,7 +35,7 @@ export function TokenSelectors({
       <SelectRow
         label="Font"
         value={current.font}
-        options={bundle.fontFamilies}
+        options={bundle.fonts}
         field="font"
         onChange={onChange}
       />
