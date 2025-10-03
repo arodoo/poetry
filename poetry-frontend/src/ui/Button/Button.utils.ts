@@ -55,10 +55,10 @@ export function buildClassName(props: ButtonProps): string {
   } else if (variant === 'danger') {
     bg = 'bg-[var(--color-error)] hover:opacity-90'
   } else {
-    bg = 'bg-[var(--color-surface)] hover:bg-[var(--color-muted)]'
+    bg = 'bg-[var(--color-background)] hover:bg-[var(--color-border)]'
   }
   const border: string | undefined =
-    variant === 'secondary' ? 'border border-transparent' : undefined
+    variant === 'secondary' ? 'border border-[var(--color-border)]' : undefined
   return clsx(
     base,
     bg,

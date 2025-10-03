@@ -4,6 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { test, expect, type Page } from '@playwright/test'
+import { injectTokens } from '../shared/providers/tokenProvider'
 
 test.describe('Dashboard after login', (): void => {
   test('displays dashboard content after successful login', async ({
@@ -11,13 +12,9 @@ test.describe('Dashboard after login', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/login')
-
-    await page.locator('input[name="username"]').fill('admin')
-    await page.locator('input[name="password"]').fill('ChangeMe123!')
-    await page.locator('button[type="submit"]').click()
-
-    await page.waitForURL('**/en/dashboard', { timeout: 10000 })
+    await injectTokens(page)
+    await page.goto('/en/dashboard')
+    await page.waitForLoadState('networkidle')
 
     await expect(page.locator('h1')).toContainText('Dashboard', {
       timeout: 5000,
@@ -63,13 +60,9 @@ test.describe('Dashboard after login', (): void => {
       errors.push(error.message)
     })
 
-    await page.goto('/en/login')
-
-    await page.locator('input[name="username"]').fill('admin')
-    await page.locator('input[name="password"]').fill('ChangeMe123!')
-    await page.locator('button[type="submit"]').click()
-
-    await page.waitForURL('**/en/dashboard', { timeout: 10000 })
+    await injectTokens(page)
+    await page.goto('/en/dashboard')
+    await page.waitForLoadState('networkidle')
 
     await page.waitForTimeout(3000)
 

@@ -1,6 +1,6 @@
 /*
  * File: users-list-render.spec.ts
- * Purpose: E2E test for users list page rendering.
+ * Purpose: E2E test for users list page rendering with DataTable.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
@@ -28,13 +28,9 @@ test('users list page renders seeded admin entry', async ({
   await expect(
     page.getByRole('heading', { name: 'Page not found' })
   ).toHaveCount(0)
-  await expect(page.getByText('Latest user records available.')).toBeVisible({
-    timeout: 15000,
-  })
-  await expect(page.getByTestId('users-list-results')).toBeVisible({
-    timeout: 15000,
-  })
   await expect(page.getByText('admin@example.com')).toBeVisible({
     timeout: 15000,
   })
+  await expect(page.getByTestId('view-user-1')).toBeVisible({ timeout: 15000 })
+  await expect(page.getByTestId('edit-user-1')).toBeVisible({ timeout: 15000 })
 })

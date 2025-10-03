@@ -9,6 +9,7 @@ export default defineConfig({
   timeout: 30000,
   testDir: 'tests/e2e',
   retries: 0,
+  workers: 2,
   use: {
     baseURL: 'http://localhost:5173',
     headless: true,
