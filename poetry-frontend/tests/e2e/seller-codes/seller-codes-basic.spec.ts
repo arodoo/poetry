@@ -14,7 +14,11 @@ test('seller codes list page loads successfully', async ({
   await injectTokens(page)
   await page.goto('/en/seller-codes')
   await page.waitForLoadState('networkidle')
-  await expect(page.getByText('Seller Codes')).toBeVisible({ timeout: 15000 })
+  await expect(page.getByRole('heading', { name: 'Seller Codes' })).toBeVisible(
+    {
+      timeout: 15000,
+    }
+  )
   const createButton: Locator = page.locator(
     '[data-testid="create-seller-code-button"]'
   )

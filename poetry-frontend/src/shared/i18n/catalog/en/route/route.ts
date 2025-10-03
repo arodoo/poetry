@@ -14,6 +14,8 @@ export const routeEn: Record<string, string> = {
   'ui.route.profile.slug': 'profile',
   'ui.route.users.title': 'Users',
   'ui.route.users.slug': 'users',
+  'ui.route.sellerCodes.title': 'Seller Codes',
+  'ui.route.sellerCodes.slug': 'seller-codes',
   'ui.route.admin.tokens.title': 'Admin Tokens',
   'ui.route.admin.tokens.slug': 'admin/tokens',
   'ui.route.unauthorized.title': 'Unauthorized',

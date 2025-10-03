@@ -12,6 +12,18 @@ export interface SidebarProps {
   isOpen: boolean
 }
 
+type ItemId = 'dashboard' | 'users' | 'adminTokens' | 'sellerCodes'
+
+function getLabelKey(id: ItemId): string {
+  const map: Record<ItemId, string> = {
+    dashboard: 'ui.route.dashboard.title',
+    users: 'ui.route.users.title',
+    sellerCodes: 'ui.route.sellerCodes.title',
+    adminTokens: 'ui.route.admin.tokens.title',
+  }
+  return map[id]
+}
+
 export function Sidebar(props: SidebarProps): ReactElement | null {
   const { isOpen } = props
   const translator: ReturnType<typeof useT> = useT()
@@ -20,13 +32,10 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
   const { locale = 'en' } = useParams()
   if (status !== 'authenticated' || !session) return null
 
-  const items: {
-    id: 'dashboard' | 'users' | 'adminTokens'
-    p: string
-    roles: string[]
-  }[] = [
+  const items: { id: ItemId; p: string; roles: string[] }[] = [
     { id: 'dashboard', p: '/dashboard', roles: [] },
     { id: 'users', p: '/users', roles: ['admin', 'manager'] },
+    { id: 'sellerCodes', p: '/seller-codes', roles: ['admin', 'manager'] },
     { id: 'adminTokens', p: '/admin/tokens', roles: ['admin', 'manager'] },
   ]
 
@@ -39,12 +48,7 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
       }
     >
       <nav className="p-2 space-y-1">
-        {items.map(
-          (item: {
-            id: 'dashboard' | 'users' | 'adminTokens'
-            p: string
-            roles: string[]
-          }): ReactElement | null => {
+        {items.map((item): ReactElement | null => {
             const isAllowed: boolean =
               item.roles.length === 0 ||
               item.roles.some((role: string): boolean =>
@@ -56,19 +60,13 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
             const base: string = active
               ? 'bg-[var(--color-surface)]'
               : 'hover:bg-[var(--color-muted)]'
-            const labelKey: string =
-              item.id === 'dashboard'
-                ? 'ui.route.dashboard.title'
-                : item.id === 'users'
-                  ? 'ui.route.users.title'
-                  : 'ui.route.admin.tokens.title'
             return (
               <Link
                 key={item.id}
                 to={linkTo}
                 className={`block rounded px-3 py-2 ${base}`}
               >
-                {isOpen ? translator(labelKey) : '•'}
+                {isOpen ? translator(getLabelKey(item.id)) : '•'}
               </Link>
             )
           }
