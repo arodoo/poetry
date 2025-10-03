@@ -48,29 +48,28 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
       }
     >
       <nav className="p-2 space-y-1">
-        {items.map((item): ReactElement | null => {
-            const isAllowed: boolean =
-              item.roles.length === 0 ||
-              item.roles.some((role: string): boolean =>
-                session.roles.includes(role)
-              )
-            if (!isAllowed) return null
-            const linkTo: string = `/${locale}${item.p}`
-            const active: boolean = pathname.startsWith(linkTo)
-            const base: string = active
-              ? 'bg-[var(--color-surface)]'
-              : 'hover:bg-[var(--color-muted)]'
-            return (
-              <Link
-                key={item.id}
-                to={linkTo}
-                className={`block rounded px-3 py-2 ${base}`}
-              >
-                {isOpen ? translator(getLabelKey(item.id)) : '•'}
-              </Link>
+        {items.map((item: { id: ItemId; p: string; roles: string[] }): ReactElement | null => {
+          const isAllowed: boolean =
+            item.roles.length === 0 ||
+            item.roles.some((role: string): boolean =>
+              session.roles.includes(role)
             )
-          }
-        )}
+          if (!isAllowed) return null
+          const linkTo: string = `/${locale}${item.p}`
+          const active: boolean = pathname.startsWith(linkTo)
+          const base: string = active
+            ? 'bg-[var(--color-surface)]'
+            : 'hover:bg-[var(--color-muted)]'
+          return (
+            <Link
+              key={item.id}
+              to={linkTo}
+              className={`block rounded px-3 py-2 ${base}`}
+            >
+              {isOpen ? translator(getLabelKey(item.id)) : '•'}
+            </Link>
+          )
+        })}
       </nav>
     </aside>
   )
