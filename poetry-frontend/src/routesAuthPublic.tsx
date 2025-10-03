@@ -6,9 +6,11 @@
 import type { ReactElement } from 'react'
 import { Suspense } from 'react'
 import { Route } from 'react-router-dom'
-import { LoginPageLazy } from './shared/routing/lazyAdapters/loginAdapter'
-import { RegisterPageLazy } from './shared/routing/lazyAdapters/registerAdapter'
-import { PublicForgotPasswordPageLazy } from './shared/routing/lazyAdapters/forgotPasswordAdapter'
+import {
+  LoginPageLazy,
+  RegisterPageLazy,
+  PublicForgotPasswordPageLazy,
+} from './shared/routing/lazyAdapters'
 
 export function PublicAuthRoutes(): ReactElement {
   return (

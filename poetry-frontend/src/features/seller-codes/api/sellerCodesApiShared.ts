@@ -9,7 +9,7 @@ import {
   type SellerCodeCollectionDto,
   type SellerCodeDto,
   type SellerCodesSdk,
-} from '../../../shared/sdk/sellerCodesClient'
+} from '../../../shared/sdk/seller-codes/sellerCodesClient'
 import {
   SellerCodesCollectionSchema,
   SellerCodeDetailSchema,

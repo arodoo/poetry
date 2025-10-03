@@ -2,11 +2,12 @@
  File: index.ts
  Purpose: Frontend SDK surface wrapping HTTP client with stable, typed
  functions. Provides ETag-aware tokens retrieval and health endpoint.
+ Organized by domain for better maintainability.
  All Rights Reserved. Arodi Emmanuel
 */
 import { fetchJson } from '../http/fetchClient'
 import { getEnv, type Env } from '../config/env'
-import { createTokensFetcher, type TokensRawResult } from './tokensFetcher'
+import { createTokensFetcher, type TokensRawResult } from './tokens'
 
 export interface HealthDto {
   readonly status: string
@@ -40,6 +41,12 @@ export function getHealth(): Promise<HealthDto> {
 export function getTokensRaw<T = unknown>(): Promise<TokensRawResult<T>> {
   return defaultClient.getTokensRaw<T>()
 }
-export * from './exportsA'
+
+// Re-export all domain SDKs
+export * from './account'
+export * from './dashboard'
+export * from './profile'
+export * from './public'
+export * from './seller-codes'
+export * from './tokens'
 export * from './users'
-export * from './sellerCodesClient'

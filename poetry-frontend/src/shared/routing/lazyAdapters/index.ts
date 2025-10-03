@@ -1,19 +1,13 @@
 /*
  * File: index.ts
  * Purpose: Barrel export to provide shorter import paths for adapters.
+ * Organized by domain for better maintainability.
  * All Rights Reserved. Arodi Emmanuel
  */
-export * from './publicAdapters'
-export * from './unauthorizedAdapter'
-export * from './dashboardAdapter'
-export * from './profileAdapter'
-export * from './forgotPasswordAdapter'
-export * from './adminTokensAdapter'
-export * from './usersListAdapter'
-export * from './usersCreateAdapter'
-export * from './userDetailAdapter'
-export * from './userEditAdapter'
-export * from './sellerCodesListAdapter'
-export * from './sellerCodeCreateAdapter'
-export * from './sellerCodeDetailAdapter'
-export * from './sellerCodeEditAdapter'
+export * from './admin'
+export * from './auth'
+export * from './dashboard'
+export * from './profile'
+export * from './public'
+export * from './seller-codes'
+export * from './users'
