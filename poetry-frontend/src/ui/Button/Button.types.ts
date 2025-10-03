@@ -7,30 +7,26 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 
 export type TextTone = 'default' | 'primary' | 'error' | 'muted'
-export type ButtonWidth = 'auto' | 'full' | 'fixed'
 
 export type ButtonProps =
   | (ButtonHTMLAttributes<HTMLButtonElement> & {
-      variant?: 'primary' | 'secondary' | 'error'
+      variant?: 'primary' | 'secondary'
       size?: 'sm' | 'md'
       textTone?: TextTone
-      width?: ButtonWidth
       href?: undefined
       to?: undefined
     })
   | (AnchorHTMLAttributes<HTMLAnchorElement> & {
-      variant?: 'primary' | 'secondary' | 'error'
+      variant?: 'primary' | 'secondary'
       size?: 'sm' | 'md'
       textTone?: TextTone
-      width?: ButtonWidth
       href: string
       to?: undefined
     })
   | ({
-      variant?: 'primary' | 'secondary' | 'error'
+      variant?: 'primary' | 'secondary'
       size?: 'sm' | 'md'
       textTone?: TextTone
-      width?: ButtonWidth
       to: string
       href?: undefined
     } & Record<string, unknown>)
