@@ -6,7 +6,7 @@
  prevents silent failures and offers a reload action to recover the app.
  All Rights Reserved. Arodi Emmanuel
 */
-/* eslint-disable max-lines */
+ 
 import type { ReactNode, ErrorInfo } from 'react'
 import { Component } from 'react'
 import ErrorOverlay from './ErrorOverlay'
@@ -28,77 +28,51 @@ export class ErrorBoundary extends Component<
 > {
   public constructor(props: ErrorBoundaryProps) {
     super(props)
+  }
+
+  public static getDerivedStateFromError(
+    error: Error
+  ): Partial<ErrorBoundaryState> {
+    return { hasError: true, error }
+  }
+
+  public override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error('🚨 [ErrorBoundary] Caught error:', error, errorInfo)
+    this.setState({ error, errorInfo })
+  }
+
+  public override render(): ReactNode {
+    const { hasError, error, errorInfo } = this.state
+    const { children, fallback } = this.props
+
+    if (hasError && error) {
       if (fallback && errorInfo) return fallback(error, errorInfo)
 
       const isDev: boolean = import.meta.env.DEV
-      const title = isDev ? '🐛 React Error' : '⚠️ Something went wrong'
-      const message = isDev
+      const title: string = isDev ? '🐛 React Error' : '⚠️ Something went wrong'
+      const message: string = isDev
         ? 'A React component error occurred. Check the details below.'
         : 'We encountered an unexpected error. Please try refreshing the page.'
 
-      const details = isDev ? (
-        <div>
-          <div style={{ marginTop: 16, fontFamily: 'monospace' }}>
-            <strong>Error:</strong> {error.message}
-          </div>
-          {error.stack && (
-            <details style={{ marginTop: 12 }}>
-              <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>
-                Stack Trace
-              </summary>
-              <pre style={{ fontSize: 12, backgroundColor: 'var(--color-background)', padding: 12 }}>
-                {error.stack}
-              </pre>
-            </details>
-          )}
-          {errorInfo?.componentStack && (
-            <details style={{ marginTop: 12 }}>
-              <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>
-                Component Stack
-              </summary>
-              <pre style={{ fontSize: 12, backgroundColor: 'var(--color-background)', padding: 12 }}>
-                {errorInfo.componentStack}
-              </pre>
-            </details>
-          )}
-        </div>
-      ) : undefined
+      const details: string | undefined = isDev
+        ? [
+            `Error: ${error.message}`,
+            '',
+            'Stack:',
+            error.stack ?? 'n/a',
+            '',
+            'ComponentStack:',
+            errorInfo?.componentStack ?? 'n/a',
+          ].join('\n')
+        : undefined
 
-      return <ErrorOverlay title={title} message={message} details={details} onReload={() => window.location.reload()} />
-                        backgroundColor: 'var(--color-background)',
-                        padding: '12px',
-                        borderRadius: '4px',
-                        overflow: 'auto',
-                        marginTop: '8px',
-                      }}
-                    >
-                      {errorInfo.componentStack}
-                    </pre>
-                  </details>
-                )}
-              </>
-            )}
-
-            <button
-              onClick={(): void => {
-                window.location.reload()
-              }}
-              style={{
-                marginTop: '20px',
-                padding: '10px 20px',
-                backgroundColor: 'var(--color-error)',
-                color: 'var(--color-onPrimary, white)',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: 'bold',
-              }}
-            >
-              Reload Page
-            </button>
-          </div>
-        </div>
+      return (
+        <ErrorOverlay
+          title={title}
+          message={message}
+          details={<pre style={{ fontFamily: 'monospace' }}>{details}</pre>}
+          onReload={(): void => { window.location.reload(); }}
+        />
       )
     }
 
