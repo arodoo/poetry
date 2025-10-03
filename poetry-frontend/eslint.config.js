@@ -35,6 +35,7 @@ export default tseslint.config([
     ignores: [
       '**/*.test.{ts,tsx}',
       '**/__tests__/**/*.{ts,tsx}',
+      'tests/e2e/**/*.{ts,tsx}',
       'vitest.config.ts',
     ],
     extends: [
@@ -110,6 +111,7 @@ export default tseslint.config([
       '**/*.test.{ts,tsx}',
       'src/tests/**/*.{ts,tsx}',
       '**/__tests__/**/*.{ts,tsx}',
+      'tests/e2e/**/*.{ts,tsx}',
       'vitest.config.ts',
     ],
     extends: [

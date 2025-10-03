@@ -44,7 +44,13 @@ export default function ErrorOverlay({
           boxShadow: 'var(--shadow)',
         }}
       >
-        <h1 style={{ color: 'var(--color-error)', marginTop: 0, fontSize: '24px' }}>
+        <h1
+          style={{
+            color: 'var(--color-error)',
+            marginTop: 0,
+            fontSize: '24px',
+          }}
+        >
           {title}
         </h1>
         <p style={{ fontSize: '16px', lineHeight: '1.5' }}>{message}</p>
