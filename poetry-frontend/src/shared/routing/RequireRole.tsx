@@ -34,7 +34,8 @@ export function RequireRole(props: RequireRoleProps): ReactNode | null {
         unauthorizedPath ?? buildLocalePath('/dashboard')
       void navigate(fallbackPath, { replace: true })
     }
-  }, [status, hasRole, navigate, unauthorizedPath])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, hasRole, unauthorizedPath])
 
   if (status !== 'authenticated' || !session || !hasRole) return null
   return <>{children}</>

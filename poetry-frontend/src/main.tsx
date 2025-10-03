@@ -13,6 +13,7 @@ import { I18nProvider } from './shared/i18n'
 import { TokensProvider } from './shared/tokens/TokensProvider'
 import { ErrorBoundary } from './shared/error/ErrorBoundary'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { getEnv } from './shared/config/env'
 import './shared/polyfills/responseStatusProperty'
 
@@ -75,6 +76,7 @@ if (rootElement !== null) {
               <App />
             </TokensProvider>
           </I18nProvider>
+          {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
         </QueryClientProvider>
       </ErrorBoundary>
     </StrictMode>

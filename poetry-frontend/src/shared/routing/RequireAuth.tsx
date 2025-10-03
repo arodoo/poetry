@@ -23,7 +23,8 @@ export function RequireAuth(props: RequireAuthProps): ReactNode | null {
       const redirectPath: string = loginPath ?? buildLocalePath('/login')
       void navigate(redirectPath, { replace: true })
     }
-  }, [status, navigate, loginPath])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, loginPath])
 
   if (status !== 'authenticated' || !session) return null
   return <>{children}</>

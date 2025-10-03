@@ -5,7 +5,7 @@
  status flag for route guards to react appropriately. All Rights Reserved.
  Arodi Emmanuel
 */
-import { useEffect, useSyncExternalStore } from 'react'
+import { useEffect, useMemo, useSyncExternalStore } from 'react'
 import { HttpError } from '../http/clientCore/httpErrors'
 import { useMeQuery } from '../../features/auth/hooks/useMe'
 import type { TokenBundle } from './tokenStorage'
@@ -38,23 +38,35 @@ export function useSession(): SessionHookResult {
     }
   }, [meQuery.isError, meQuery.error, hasTokens])
 
-  if (!hasTokens) {
-    return unauthenticatedResult
-  }
+  const userId: string | undefined = meQuery.data?.id
+  const userRoles: readonly string[] | undefined = meQuery.data?.roles
 
-  if (meQuery.isLoading || meQuery.isFetching) {
-    return loadingResult
-  }
+  const result: SessionHookResult = useMemo((): SessionHookResult => {
+    if (!hasTokens) {
+      return unauthenticatedResult
+    }
 
-  if (meQuery.isError || !meQuery.data) {
-    return unauthenticatedResult
-  }
+    if (meQuery.isLoading || meQuery.isFetching) {
+      return loadingResult
+    }
 
-  const { id, roles } = meQuery.data
-  const session: UserSession = {
-    userId: id,
-    roles: [...roles],
-  }
+    if (meQuery.isError || !userId || !userRoles) {
+      return unauthenticatedResult
+    }
 
-  return { status: 'authenticated', session }
+    const session: UserSession = {
+      userId,
+      roles: userRoles as string[],
+    }
+    return { status: 'authenticated', session }
+  }, [
+    hasTokens,
+    meQuery.isLoading,
+    meQuery.isFetching,
+    meQuery.isError,
+    userId,
+    userRoles,
+  ])
+
+  return result
 }

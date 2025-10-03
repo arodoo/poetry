@@ -13,6 +13,8 @@ export const TOKEN_STORAGE_KEY: string = 'poetry.auth.tokens'
 type TokenListener = () => void
 
 const subscribers: Set<TokenListener> = new Set<TokenListener>()
+let cachedTokens: TokenBundle | null = null
+let cachedRaw: string | null = null
 
 function notifySubscribers(): void {
   subscribers.forEach((listener: TokenListener): void => {
@@ -27,20 +29,38 @@ export const tokenStorage: {
   subscribe: (listener: TokenListener) => () => void
 } = {
   save(tokens: TokenBundle): void {
-    localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens))
+    const raw: string = JSON.stringify(tokens)
+    localStorage.setItem(TOKEN_STORAGE_KEY, raw)
+    cachedRaw = raw
+    cachedTokens = tokens
     notifySubscribers()
   },
   load(): TokenBundle | null {
     const raw: string | null = localStorage.getItem(TOKEN_STORAGE_KEY)
-    if (!raw) return null
+    if (!raw) {
+      cachedRaw = null
+      cachedTokens = null
+      return null
+    }
+    // Return cached object if the raw string hasn't changed
+    if (raw === cachedRaw && cachedTokens) {
+      return cachedTokens
+    }
     try {
-      return JSON.parse(raw) as TokenBundle
+      const parsed: TokenBundle = JSON.parse(raw) as TokenBundle
+      cachedRaw = raw
+      cachedTokens = parsed
+      return parsed
     } catch {
+      cachedRaw = null
+      cachedTokens = null
       return null
     }
   },
   clear(): void {
     localStorage.removeItem(TOKEN_STORAGE_KEY)
+    cachedRaw = null
+    cachedTokens = null
     notifySubscribers()
   },
   subscribe(listener: TokenListener): () => void {
