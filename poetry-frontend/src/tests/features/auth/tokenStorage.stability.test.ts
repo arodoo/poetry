@@ -13,20 +13,30 @@ describe('tokenStorage object stability', () => {
   })
 
   it('returns same object reference when localStorage unchanged', () => {
-    const tokens = { accessToken: 'test-access', refreshToken: 'test-refresh' }
+    const tokens = {
+      accessToken: 'test-access',
+      refreshToken: 'test-refresh',
+    }
     tokenStorage.save(tokens)
 
     const load1 = tokenStorage.load()
     const load2 = tokenStorage.load()
 
-    expect(load1).toBe(load2) // SAME REFERENCE - critical for useSyncExternalStore!
+    // SAME REFERENCE - important for useSyncExternalStore stability
+    expect(load1).toBe(load2)
   })
 
   it('returns new object only when localStorage changes', () => {
-    tokenStorage.save({ accessToken: 'token1', refreshToken: 'refresh1' })
+    tokenStorage.save({
+      accessToken: 'token1',
+      refreshToken: 'refresh1',
+    })
     const load1 = tokenStorage.load()
 
-    tokenStorage.save({ accessToken: 'token2', refreshToken: 'refresh2' })
+    tokenStorage.save({
+      accessToken: 'token2',
+      refreshToken: 'refresh2',
+    })
     const load2 = tokenStorage.load()
 
     expect(load1).not.toBe(load2) // Different reference after change

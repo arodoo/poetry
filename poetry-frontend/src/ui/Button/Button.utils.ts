@@ -5,12 +5,12 @@
  centralizes class composition so the main component stays
  small. All Rights Reserved. Arodi Emmanuel
 */
-import type { ButtonProps, TextTone } from './Button.types'
+import type { ButtonProps, TextTone, ButtonWidth } from './Button.types'
 import clsx from 'clsx'
 
 export const base: string =
-  'inline-flex items-center font-medium rounded appearance-none ' +
-  'select-none focus:outline-none focus:ring ' +
+  'inline-flex items-center justify-center font-medium rounded ' +
+  'appearance-none select-none focus:outline-none focus:ring ' +
   'focus:ring-[var(--focus-ring-color)] focus:ring-offset-1 ' +
   'focus:ring-[length:var(--focus-ring-width)]'
 
@@ -19,11 +19,20 @@ export const sizeClasses: Record<'sm' | 'md', string> = {
   md: 'text-sm px-3 py-2',
 }
 
+export const widthClasses: Record<ButtonWidth, string> = {
+  content: 'w-auto',
+  container: 'w-full',
+  'fixed-small': 'w-20',
+  'fixed-medium': 'w-24',
+  'fixed-large': 'w-32',
+}
+
 export function pickTextColor(
-  variant: 'primary' | 'secondary',
+  variant: 'primary' | 'secondary' | 'danger',
   tone: TextTone
 ): string {
-  if (variant === 'primary') return 'text-[var(--color-onPrimary)]'
+  if (variant === 'primary') return '!text-white'
+  if (variant === 'danger') return '!text-white'
   // Secondary variant uses tone to determine text color.
   if (tone === 'primary') return 'text-[var(--color-primary)]'
   if (tone === 'error') return 'text-[var(--color-error)]'
@@ -33,16 +42,21 @@ export function pickTextColor(
 
 export function buildClassName(props: ButtonProps): string {
   const p: ButtonProps = props
-  const variant: 'primary' | 'secondary' = p.variant ?? 'primary'
+  const variant: 'primary' | 'secondary' | 'danger' = p.variant ?? 'primary'
   const size: 'sm' | 'md' = p.size ?? 'md'
   const textTone: TextTone = p.textTone ?? 'default'
+  const width: ButtonWidth = p.width ?? 'content'
   const classNameProp: string | undefined = (
     p as unknown as { className?: string }
   ).className
-  const bg: string =
-    variant === 'primary'
-      ? 'bg-[var(--color-primary)] hover:opacity-90'
-      : 'bg-[var(--color-surface)] hover:bg-[var(--color-muted)]'
+  let bg: string
+  if (variant === 'primary') {
+    bg = 'bg-[var(--color-primary)] hover:opacity-90'
+  } else if (variant === 'danger') {
+    bg = 'bg-[var(--color-error)] hover:opacity-90'
+  } else {
+    bg = 'bg-[var(--color-surface)] hover:bg-[var(--color-muted)]'
+  }
   const border: string | undefined =
     variant === 'secondary' ? 'border border-transparent' : undefined
   return clsx(
@@ -51,6 +65,7 @@ export function buildClassName(props: ButtonProps): string {
     border,
     pickTextColor(variant, textTone),
     sizeClasses[size],
+    widthClasses[width],
     classNameProp
   )
 }

@@ -48,6 +48,7 @@ export function buildUsersListColumns(
           <Button
             to={`/${locale}/users/${row.id}`}
             size="sm"
+            width="fixed-small"
             data-testid={`view-user-${row.id}`}
           >
             {t('ui.users.actions.view')}
@@ -55,6 +56,7 @@ export function buildUsersListColumns(
           <Button
             to={`/${locale}/users/${row.id}/edit`}
             size="sm"
+            width="fixed-small"
             variant="secondary"
             textTone="primary"
             data-testid={`edit-user-${row.id}`}
@@ -64,8 +66,8 @@ export function buildUsersListColumns(
           <Button
             to={`/${locale}/users/${row.id}/delete`}
             size="sm"
-            variant="secondary"
-            textTone="error"
+            width="fixed-small"
+            variant="danger"
             data-testid={`delete-user-${row.id}`}
           >
             {t('ui.users.actions.delete')}

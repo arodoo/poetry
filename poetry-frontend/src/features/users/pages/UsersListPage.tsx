@@ -35,7 +35,7 @@ export default function UsersListPage(): ReactElement {
     t
   )
   const actions: ReactElement = (
-    <Button to={`/${locale}/users/new`} size="sm">
+    <Button to={`/${locale}/users/new`} size="md" width="fixed-large">
       {t('ui.users.actions.new')}
     </Button>
   )
