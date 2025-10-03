@@ -40,20 +40,20 @@ export interface TokenBundle {
 
 export const TokenBundleSchema: z.ZodType<TokenBundle> = z
   .object({
-    themes: z.array(TokenThemeSchema),
-    fonts: z.array(TokenFontSchema),
-    fontWeights: z.array(z.string()),
-    fontSizes: z.array(TokenFontSizesSchema),
-    spacings: z.array(KeyedValuesSchema),
-    radius: z.array(KeyedValuesSchema),
-    shadows: z.array(KeyedValuesSchema),
+    themes: z.array(TokenThemeSchema).min(1),
+    fonts: z.array(TokenFontSchema).min(1),
+    fontWeights: z.array(z.string()).min(1),
+    fontSizes: z.array(TokenFontSizesSchema).min(1),
+    spacings: z.array(KeyedValuesSchema).min(1),
+    radius: z.array(KeyedValuesSchema).min(1),
+    shadows: z.array(KeyedValuesSchema).min(1),
     current: z.object({
-      theme: z.string(),
-      font: z.string(),
-      fontSize: z.string(),
-      spacing: z.string(),
-      radius: z.string(),
-      shadow: z.string(),
+      theme: z.string().min(1),
+      font: z.string().min(1),
+      fontSize: z.string().min(1),
+      spacing: z.string().min(1),
+      radius: z.string().min(1),
+      shadow: z.string().min(1),
     }),
   })
   .readonly()

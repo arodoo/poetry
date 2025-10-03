@@ -42,8 +42,9 @@ applyTo: '**'
 Use one `-m` flag with plain ASCII: `type: subject` (no scope/body)
 
 - Examples: `feat: add user login`, `fix: resolve token refresh`
-- Forbidden chars: `; | & $ < > ( ) \ :` LF CR \n \r backticks
-- Keep messages short, descriptive, English only
+- Forbidden chars: `;, |, &, $, <, >, (, ), \, :` LF CR \n \r backticks
+- Keep messages short, descriptive, English only.
+- Execute one command at a time, don't chain with `&&` or `;`
 
 ## Architecture References
 
