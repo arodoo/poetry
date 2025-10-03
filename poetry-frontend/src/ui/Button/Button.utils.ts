@@ -20,10 +20,11 @@ export const sizeClasses: Record<'sm' | 'md', string> = {
 }
 
 export function pickTextColor(
-  variant: 'primary' | 'secondary',
+  variant: 'primary' | 'secondary' | 'error',
   tone: TextTone
 ): string {
-  if (variant === 'primary') return 'text-[var(--color-onPrimary)]'
+  if (variant === 'primary') return '!text-[var(--color-onPrimary)]'
+  if (variant === 'error') return '!text-[var(--color-onPrimary)]'
   // Secondary variant uses tone to determine text color.
   if (tone === 'primary') return 'text-[var(--color-primary)]'
   if (tone === 'error') return 'text-[var(--color-error)]'
@@ -33,24 +34,34 @@ export function pickTextColor(
 
 export function buildClassName(props: ButtonProps): string {
   const p: ButtonProps = props
-  const variant: 'primary' | 'secondary' = p.variant ?? 'primary'
+  const variant: 'primary' | 'secondary' | 'error' = p.variant ?? 'primary'
   const size: 'sm' | 'md' = p.size ?? 'md'
   const textTone: TextTone = p.textTone ?? 'default'
+  const width: string | undefined = (p as { width?: string }).width
   const classNameProp: string | undefined = (
     p as unknown as { className?: string }
   ).className
   const bg: string =
     variant === 'primary'
       ? 'bg-[var(--color-primary)] hover:opacity-90'
-      : 'bg-[var(--color-surface)] hover:bg-[var(--color-muted)]'
+      : variant === 'error'
+        ? 'bg-[var(--color-error)] hover:opacity-90'
+        : 'bg-[var(--color-surface)] hover:bg-[var(--color-muted)]'
   const border: string | undefined =
     variant === 'secondary' ? 'border border-transparent' : undefined
+  const widthClass: string | undefined =
+    width === 'full'
+      ? 'w-full'
+      : width === 'fixed'
+        ? 'w-16 justify-center'
+        : undefined
   return clsx(
     base,
     bg,
     border,
     pickTextColor(variant, textTone),
     sizeClasses[size],
+    widthClass,
     classNameProp
   )
 }
