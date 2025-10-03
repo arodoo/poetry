@@ -9,7 +9,8 @@ All Rights Reserved. Arodi Emmanuel
 
 import { type ReactNode, useEffect } from 'react'
 import { useNavigate, type NavigateFunction } from 'react-router-dom'
-import { useSession, type UserSession } from '../security/useSession'
+import { useSession } from '../security/useSession'
+import { buildLocalePath } from './localeUtils'
 
 export interface RequireRoleProps {
   role: string
@@ -18,16 +19,23 @@ export interface RequireRoleProps {
 }
 
 export function RequireRole(props: RequireRoleProps): ReactNode | null {
-  const { role, children, unauthorizedPath = '/unauthorized' } = props
+  const { role, children, unauthorizedPath }: RequireRoleProps = props
   const navigate: NavigateFunction = useNavigate()
-  const session: UserSession | null = useSession()
+  const { status, session } = useSession()
   const roles: readonly string[] = session?.roles ?? []
   const hasRole: boolean = roles.includes(role)
 
   useEffect((): void => {
-    if (!hasRole) void navigate(unauthorizedPath, { replace: true })
-  }, [hasRole, navigate, unauthorizedPath])
+    if (status === 'loading') return
+    if (status === 'unauthenticated') {
+      void navigate(buildLocalePath('/login'), { replace: true })
+    } else if (!hasRole) {
+      const fallbackPath: string =
+        unauthorizedPath ?? buildLocalePath('/dashboard')
+      void navigate(fallbackPath, { replace: true })
+    }
+  }, [status, hasRole, navigate, unauthorizedPath])
 
-  if (!hasRole) return null
+  if (status !== 'authenticated' || !session || !hasRole) return null
   return <>{children}</>
 }

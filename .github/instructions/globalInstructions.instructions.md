@@ -30,6 +30,8 @@ applyTo: '**'
 7. **Formatting** (`npx lint-staged`): Prettier (TS/JS), Spotless (Java)
 8. **Linting**: ESLint --max-warnings=0 (frontend), Checkstyle (backend)
 9. **Config Sync**: ESLint/Checkstyle match `code-standards.config.json`
+10. **Theme checker** (`npm run theme:check`): No hardcoded colors, use theme
+    tokens
 
 ## Pre-Push Checks
 

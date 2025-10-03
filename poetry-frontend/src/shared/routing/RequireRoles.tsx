@@ -6,7 +6,7 @@
 import { type ReactNode, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSession } from '../security/useSession'
-import type { UserSession } from '../security/useSession'
+import { buildLocalePath } from './localeUtils'
 
 export interface RequireRolesProps {
   roles: readonly string[]
@@ -15,12 +15,8 @@ export interface RequireRolesProps {
 }
 
 export function RequireRoles(props: RequireRolesProps): ReactNode | null {
-  const {
-    roles,
-    children,
-    unauthorizedPath = '/unauthorized',
-  }: RequireRolesProps = props
-  const session: UserSession | null = useSession()
+  const { roles, children, unauthorizedPath }: RequireRolesProps = props
+  const { status, session } = useSession()
   const navigate: ReturnType<typeof useNavigate> = useNavigate()
   const userRoles: readonly string[] = (session?.roles ??
     []) as readonly string[]
@@ -29,9 +25,16 @@ export function RequireRoles(props: RequireRolesProps): ReactNode | null {
   )
 
   useEffect((): void => {
-    if (!allowed) void navigate(unauthorizedPath, { replace: true })
-  }, [allowed, navigate, unauthorizedPath])
+    if (status === 'loading') return
+    if (status === 'unauthenticated') {
+      void navigate(buildLocalePath('/login'), { replace: true })
+    } else if (!allowed) {
+      const fallbackPath: string =
+        unauthorizedPath ?? buildLocalePath('/dashboard')
+      void navigate(fallbackPath, { replace: true })
+    }
+  }, [status, allowed, navigate, unauthorizedPath])
 
-  if (!allowed) return null
+  if (status !== 'authenticated' || !session || !allowed) return null
   return <>{children}</>
 }

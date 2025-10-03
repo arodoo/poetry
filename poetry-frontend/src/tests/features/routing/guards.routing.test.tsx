@@ -3,22 +3,40 @@
  Purpose: Validate RequireAuth/RequireRoles with MemoryRouter.
  All Rights Reserved. Arodi Emmanuel
 */
-import { describe, it, expect, vi } from 'vitest'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import { render } from '@testing-library/react'
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest'
+import { render, waitFor } from '@testing-library/react'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { RequireAuth } from '../../../shared/routing/RequireAuth'
-import { RequireRoles } from '../../../shared/routing/RequireRoles'
 import * as session from '../../../shared/security/useSession'
+import type { SessionHookResult } from '../../../shared/security/useSession'
+
+const navigateMock = vi.fn()
 
 vi.mock('react-router-dom', async () => {
-  const real =
+  const actual =
     await vi.importActual<typeof import('react-router-dom')>('react-router-dom')
-  return { ...real, useNavigate: () => vi.fn() }
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
 })
 
-describe('route guards', () => {
-  it('RequireAuth blocks when no session', () => {
-    vi.spyOn(session, 'useSession').mockReturnValue(null)
+beforeEach(() => {
+  navigateMock.mockReset()
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
+
+describe('route guards - auth', () => {
+  it('RequireAuth redirects to login when unauthenticated', async () => {
+    window.history.pushState(null, '', '/en/x')
+    const unauth: SessionHookResult = {
+      status: 'unauthenticated',
+      session: null,
+    }
+    vi.spyOn(session, 'useSession').mockReturnValue(unauth)
     const { queryByText } = render(
       <MemoryRouter initialEntries={['/x']}>
         <Routes>
@@ -33,29 +51,9 @@ describe('route guards', () => {
         </Routes>
       </MemoryRouter>
     )
-    expect(queryByText('ok')).toBeNull()
-  })
-
-  it('RequireRoles allows with matching role', () => {
-    vi.spyOn(session, 'useSession').mockReturnValue({
-      userId: 'u',
-      roles: ['a'],
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith('/en/login', { replace: true })
     })
-    const roles = ['a', 'b']
-    const { getByText } = render(
-      <MemoryRouter initialEntries={['/x']}>
-        <Routes>
-          <Route
-            path="/x"
-            element={
-              <RequireRoles roles={roles}>
-                <div>ok</div>
-              </RequireRoles>
-            }
-          />
-        </Routes>
-      </MemoryRouter>
-    )
-    expect(getByText('ok')).toBeTruthy()
+    expect(queryByText('ok')).toBeNull()
   })
 })

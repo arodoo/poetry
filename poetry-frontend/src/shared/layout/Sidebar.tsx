@@ -15,10 +15,10 @@ export interface SidebarProps {
 export function Sidebar(props: SidebarProps): ReactElement | null {
   const { isOpen } = props
   const translator: ReturnType<typeof useT> = useT()
-  const session: { roles: string[] } | null = useSession()
+  const { status, session } = useSession()
   const pathname: string = useLocation().pathname
   const { locale = 'en' } = useParams()
-  if (!session) return null
+  if (status !== 'authenticated' || !session) return null
 
   const items: {
     id: 'dashboard' | 'users' | 'adminTokens'

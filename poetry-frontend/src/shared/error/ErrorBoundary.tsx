@@ -9,6 +9,7 @@
 import type { ReactNode, ErrorInfo } from 'react'
 import { Component } from 'react'
 import ErrorOverlay from './ErrorOverlay'
+import { buildErrorDisplay } from './errorBoundaryHelpers'
 
 interface ErrorBoundaryProps {
   readonly children: ReactNode
@@ -26,6 +27,11 @@ export class ErrorBoundary extends Component<
 > {
   public constructor(props: ErrorBoundaryProps) {
     super(props)
+    this.state = {
+      hasError: false,
+      error: null,
+      errorInfo: null,
+    }
   }
   public static getDerivedStateFromError(
     error: Error
@@ -41,27 +47,18 @@ export class ErrorBoundary extends Component<
     const { children, fallback } = this.props
     if (hasError && error) {
       if (fallback && errorInfo) return fallback(error, errorInfo)
-      const isDev: boolean = import.meta.env.DEV
-      const title: string = isDev ? '🐛 React Error' : '⚠️ Something went wrong'
-      const message: string = isDev
-        ? 'A React component error occurred. Check the details below.'
-        : 'We encountered an unexpected error. Please try refreshing the page.'
-      const details: string | undefined = isDev
-        ? [
-            `Error: ${error.message}`,
-            '',
-            'Stack:',
-            error.stack ?? 'n/a',
-            '',
-            'ComponentStack:',
-            errorInfo?.componentStack ?? 'n/a',
-          ].join('\n')
-        : undefined
+      const built: {
+        title: string
+        message: string
+        details: string | undefined
+      } = buildErrorDisplay(error, errorInfo)
       return (
         <ErrorOverlay
-          title={title}
-          message={message}
-          details={<pre style={{ fontFamily: 'monospace' }}>{details}</pre>}
+          title={built.title}
+          message={built.message}
+          details={
+            <pre style={{ fontFamily: 'monospace' }}>{built.details}</pre>
+          }
           onReload={(): void => {
             window.location.reload()
           }}

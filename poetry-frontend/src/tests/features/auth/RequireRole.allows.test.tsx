@@ -7,18 +7,24 @@
  composition using role-based protection.
  All Rights Reserved. Arodi Emmanuel
 */
-import { describe, it, expect, vi } from 'vitest'
-import { RequireRole } from '../../../shared/routing/RequireRole'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { RequireRole } from '../../../shared/routing/RequireRole'
 import * as session from '../../../shared/security/useSession'
+import type { SessionHookResult } from '../../../shared/security/useSession'
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
 describe('RequireRole (allow)', () => {
   it('renders children with role', () => {
-    vi.spyOn(session, 'useSession').mockReturnValue({
-      userId: 'x',
-      roles: ['admin'],
-    })
+    const value: SessionHookResult = {
+      status: 'authenticated',
+      session: { userId: 'x', roles: ['admin'] },
+    }
+    vi.spyOn(session, 'useSession').mockReturnValue(value)
     const { getByText } = render(
       <MemoryRouter>
         <RequireRole role="admin">

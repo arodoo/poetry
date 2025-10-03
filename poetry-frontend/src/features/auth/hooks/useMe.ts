@@ -10,9 +10,13 @@ import { tokenStorage } from '../../../shared/security/tokenStorage'
 
 export const meQueryKey: readonly ['auth', 'me'] = ['auth', 'me'] as const
 
-export function useMeQuery(): UseQueryResult<Me> {
-  // If no tokens in storage we skip the network call entirely to avoid spam.
-  const hasTokens: boolean = !!tokenStorage.load()?.accessToken
+export interface UseMeQueryOptions {
+  enabled?: boolean
+}
+
+export function useMeQuery(options?: UseMeQueryOptions): UseQueryResult<Me> {
+  const shouldFetch: boolean = options?.enabled ?? true
+  const hasTokens: boolean = shouldFetch && !!tokenStorage.load()?.accessToken
   return useQuery<Me>({
     queryKey: meQueryKey,
     enabled: hasTokens, // don't run until we have tokens

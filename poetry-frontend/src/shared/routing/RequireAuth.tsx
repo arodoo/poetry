@@ -5,7 +5,8 @@
 */
 import { type ReactNode, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSession, type UserSession } from '../security/useSession'
+import { useSession } from '../security/useSession'
+import { buildLocalePath } from './localeUtils'
 
 export interface RequireAuthProps {
   children: ReactNode
@@ -13,14 +14,17 @@ export interface RequireAuthProps {
 }
 
 export function RequireAuth(props: RequireAuthProps): ReactNode | null {
-  const { children, loginPath = '/unauthorized' }: RequireAuthProps = props
-  const session: UserSession | null = useSession()
+  const { children, loginPath }: RequireAuthProps = props
+  const { status, session } = useSession()
   const navigate: ReturnType<typeof useNavigate> = useNavigate()
 
   useEffect((): void => {
-    if (!session) void navigate(loginPath, { replace: true })
-  }, [session, navigate, loginPath])
+    if (status === 'unauthenticated') {
+      const redirectPath: string = loginPath ?? buildLocalePath('/login')
+      void navigate(redirectPath, { replace: true })
+    }
+  }, [status, navigate, loginPath])
 
-  if (!session) return null
+  if (status !== 'authenticated' || !session) return null
   return <>{children}</>
 }
