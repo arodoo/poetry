@@ -17,17 +17,18 @@ export function commentOutFile(filePath) {
   }
 
   const today = new Date().toISOString().split('T')[0]
+  const lines = content.split('\n')
+  const commentedLines = lines.map((line) => '// ' + String(line))
+
   const deprecationNotice = [
     '/*',
     ' * DEPRECATED: This file was marked as unused on ' + String(today),
     ' * All code has been commented out to preserve git history.',
-    ' * If this file is needed, uncomment the code below and update imports.',
+    ' * If this file is needed, uncomment the code below and update.',
     ' * To permanently remove, delete this file in a future cleanup.',
     ' */',
     '',
-    '/*',
-    content,
-    '*/',
+    ...commentedLines,
     '',
   ].join('\n')
 

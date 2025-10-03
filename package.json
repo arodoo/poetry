@@ -30,6 +30,8 @@
     "frontend:modules:check": "node tools/ci/modules/check-frontend-modules.mjs",
     "check:colors": "node tools/ci/colors/check-hardcoded-colors.mjs",
     "check:unused": "node tools/ci/unused-files/index.mjs",
+    "comment:unused": "node tools/ci/unused-files/comment-out-unused.mjs",
+    "delete:deprecated": "node tools/ci/unused-files/delete-deprecated.mjs",
     "ci": "npm run max-lines:check && npm run headers:check && npm run check:colors && npm run i18n:scan && npm run modules:check && npm run frontend:modules:check && npm run lint && npm run typecheck && npm run build && npm run e2e:test && npm run test && npm run openapi:validate && npm run sdk:check",
     "dev:backend": "node tools/logs/backend/dev-with-log.mjs",
     "build:backend:log": "node tools/logs/backend/build-with-log.mjs"
