@@ -15,29 +15,28 @@ applyTo: '**'
 
 ## Pre-Commit Checks (Husky)
 
-1. **File Headers** (`node tools/ci/headers/check-headers.mjs`): name, 3+
-   sentence purpose, rights legend
-2. **Line/Char Limits** (`node tools/ci/limits/check-lines.mjs`): 80 lines/file,
-   80-100 chars/line (JSON excluded). Split large files. Don't compress code.
-   This instruction is a must. Neever violate it or code won't be accepted.
-3. **i18n Strings** (`node tools/ci/i18n/i18n-scan.mjs`): No hardcoded UI text,
-   use i18n keys
-4. **OpenAPI** (`npm run openapi:validate`): Valid spec at
+1. File Headers (`node tools/ci/headers/check-headers.mjs`): name, 3+ sentence
+   purpose, rights legend
+2. Line/Char Limits (`node tools/ci/limits/check-lines.mjs`): 80 lines/file, 80
+   chars/line (JSON excluded). Split large files. Don't compress code.
+3. i18n Strings (`node tools/ci/i18n/i18n-scan.mjs`): No hardcoded UI text, use
+   i18n keys
+4. OpenAPI (`npm run openapi:validate`): Valid spec at
    `docs/api/openapi-v1.yaml`
-5. **SDK Sync** (`npm run sdk:check`): Frontend SDK matches OpenAPI, no direct
+5. SDK Sync (`npm run sdk:check`): Frontend SDK matches OpenAPI, no direct
    fetch/axios
-6. **Module Structure** (`npm run modules:check`): DDD structure per blueprints
-7. **Formatting** (`npx lint-staged`): Prettier (TS/JS), Spotless (Java)
-8. **Linting**: ESLint --max-warnings=0 (frontend), Checkstyle (backend)
-9. **Config Sync**: ESLint/Checkstyle match `code-standards.config.json`
-10. **Theme checker** (`npm run "check:colors`): No hardcoded colors, use theme
+6. Module Structure (`npm run modules:check`): DDD structure per blueprints
+7. Formatting (`npx lint-staged`): Prettier (TS/JS), Spotless (Java)
+8. Linting: ESLint --max-warnings=0 (frontend), Checkstyle (backend)
+9. Config Sync: ESLint/Checkstyle match `code-standards.config.json`
+10. Theme checker (`npm run "check:colors`): No hardcoded colors, use theme
     tokens
 
 ## Pre-Push Checks
 
-1. **Typecheck** (`npm run typecheck`): TS/Java compile without errors
-2. **Tests**: `npm run test:frontend`, `npm run test:backend` (all pass)
-3. **Builds**: Frontend (Vite), Backend (Maven package)
+1. Typecheck (`npm run typecheck`): TS/Java compile without errors
+2. Tests: `npm run test:frontend`, `npm run test:backend` (all pass)
+3. Builds: Frontend (Vite), Backend (Maven package)
 
 ## Commit Format
 
@@ -88,4 +87,13 @@ Use one `-m` flag with plain ASCII: `type: subject` (no scope/body)
 ## Extra Notes
 
 - PWA-ready architecture (consider offline, caching, service workers)
+- Avoid using python scripts for tasks npm can handle
 - Length, typecheck, lint, headers validated via `tools/ci/` scripts
+- Check limits: `npm run max-lines:check`
+- Check headers: `npm run headers:check`
+- Check colors: `npm run check:colors`
+- Scan i18n: `npm run i18n:scan`
+- Check modules: `npm run modules:check` and `npm run frontend:modules:check`
+- Validate OpenAPI: `npm run openapi:validate`
+- Check SDK sync: `npm run sdk:check`
+- Full CI suite: `npm run ci`

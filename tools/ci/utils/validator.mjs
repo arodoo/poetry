@@ -48,9 +48,9 @@ export function validateFile(filePath) {
   lines.forEach((line, i) => {
     if (line.length > charLimit) {
       const lineNum = i + 1
-      errors.push(
-        `Max-chars ${line.length}/${charLimit} in ${filePath}:${lineNum}`
-      )
+      const msg = `Max-chars ${line.length}/${charLimit} in `
+        + `${filePath}:${lineNum}\n    → ${line}`
+      errors.push(msg)
     }
   })
 
