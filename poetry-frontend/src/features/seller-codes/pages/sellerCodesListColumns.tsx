@@ -39,9 +39,10 @@ export function buildSellerCodesListColumns(
       ),
     },
     {
-      key: 'orgName',
+      key: 'organizationId',
       header: t('ui.sellerCodes.table.organization'),
-      accessor: (row: SellerCodeSummary): string => row.orgName ?? '-',
+      accessor: (row: SellerCodeSummary): string =>
+        row.organizationId ?? '-',
     },
     {
       key: 'actions',

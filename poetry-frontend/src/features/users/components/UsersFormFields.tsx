@@ -13,12 +13,16 @@ import { UsersPasswordField } from './UsersPasswordField'
 import { UsersRolesField } from './UsersRolesField'
 
 export interface UsersFormFieldsProps {
+  readonly firstName: string
+  readonly lastName: string
   readonly username: string
   readonly email: string
   readonly locale: string
   readonly rolesString: string
   readonly password: string
   readonly showPassword: boolean
+  readonly onFirstNameChange: (value: string) => void
+  readonly onLastNameChange: (value: string) => void
   readonly onUsernameChange: (value: string) => void
   readonly onEmailChange: (value: string) => void
   readonly onLocaleChange: (value: string) => void
@@ -34,8 +38,12 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
   return (
     <>
       <UsersBasicFields
+        firstName={props.firstName}
+        lastName={props.lastName}
         username={props.username}
         email={props.email}
+        onFirstNameChange={props.onFirstNameChange}
+        onLastNameChange={props.onLastNameChange}
         onUsernameChange={props.onUsernameChange}
         onEmailChange={props.onEmailChange}
         t={props.t}

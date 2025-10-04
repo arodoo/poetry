@@ -28,7 +28,8 @@ export function useSellerCodeEditPage(): {
       sellerCode
         ? {
             code: sellerCode.code,
-            orgId: sellerCode.orgId ?? '',
+            organizationId: sellerCode.organizationId ?? '',
+            userId: sellerCode.userId ? String(sellerCode.userId) : '',
             status: sellerCode.status,
           }
         : undefined

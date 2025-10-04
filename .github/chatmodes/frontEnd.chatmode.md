@@ -13,7 +13,7 @@ schema/structure/files No hardcoded text (routes, breadcrumbs, content).
 - Prefix all routes with "/:locale/...".
 - Use TanStack Query for data.
 - Use Zod for runtime validation.
-- Use SDK generated from OpenAPI (no direct fetch/axios in components).
+- Use SDK generated from OpenAPI (no direct fetch/axios in components). SDK at 'docs\api\backend-generated\v1\openapi.yaml
 - Each feature must have a dedicated folder 'locales' with i18n (it's own
   language definitions).
 - Page components must only use pre-defined UI components from app/src/ui/

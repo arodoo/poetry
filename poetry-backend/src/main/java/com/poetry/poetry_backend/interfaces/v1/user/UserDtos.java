@@ -52,17 +52,17 @@ public final class UserDtos {
 
   @Schema(description = "User creation request")
   public record UserCreateRequest(
-      @Schema(description = "First name", example = "John", required = true)
+      @Schema(description = "First name", example = "John", requiredMode = Schema.RequiredMode.REQUIRED)
       String firstName,
-      @Schema(description = "Last name", example = "Doe", required = true)
+      @Schema(description = "Last name", example = "Doe", requiredMode = Schema.RequiredMode.REQUIRED)
       String lastName,
-      @Schema(description = "Email address", example = "john.doe@example.com", required = true)
+      @Schema(description = "Email address", example = "john.doe@example.com", requiredMode = Schema.RequiredMode.REQUIRED)
       String email,
-      @Schema(description = "Username", example = "johndoe", required = true)
+      @Schema(description = "Username", example = "johndoe", requiredMode = Schema.RequiredMode.REQUIRED)
       String username,
       @Schema(description = "Locale code", example = "en")
       String locale,
-      @Schema(description = "Password", example = "SecurePass123!", required = true)
+      @Schema(description = "Password", example = "SecurePass123!", requiredMode = Schema.RequiredMode.REQUIRED)
       String password,
       @Schema(description = "User roles", example = "[\"user\"]")
       Set<String> roles) { }

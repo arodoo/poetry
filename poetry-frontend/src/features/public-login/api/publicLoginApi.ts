@@ -1,33 +1,29 @@
 /*
  * File: publicLoginApi.ts
- * Purpose: API wrapper for public login using shared HTTP client.
+ * Purpose: API wrapper for public login using generated SDK.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { LoginForm } from '../model/PublicLoginSchemas'
-import { fetchJson } from '../../../shared/http/fetchClient'
-import type { HttpOptions } from '../../../shared/http/httpTypes'
+import {
+  login as loginSdk,
+  type LoginRequest,
+  type TokenResponse,
+} from '../../../api/generated'
 import {
   AuthTokensSchema,
   type AuthTokens,
 } from '../../auth/model/AuthTokensSchemas'
-import { createIdempotencyKey } from '../../../shared/http/idempotency'
 
-// API wrapper using shared HTTP client. Returns parsed JSON on success.
 export async function loginRequest(
   payload: LoginForm,
-  signal?: AbortSignal
+  _signal?: AbortSignal
 ): Promise<AuthTokens> {
-  const base: HttpOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Idempotency-Key': createIdempotencyKey(),
-    },
-    body: payload, // Let fetchJson handle JSON.stringify
-    retry: { maxAttempts: 1, backoffMs: 0 }, // No retries for auth
+  const requestBody: LoginRequest = {
+    username: payload.username,
+    password: payload.password,
   }
-  const options: HttpOptions = signal ? { ...base, signal } : base
-  const res: unknown = await fetchJson<unknown>('/api/v1/auth/login', options)
-  return AuthTokensSchema.parse(res) as AuthTokens
+  const response = await loginSdk({ body: requestBody })
+  const data = response.data as TokenResponse
+  return AuthTokensSchema.parse(data)
 }

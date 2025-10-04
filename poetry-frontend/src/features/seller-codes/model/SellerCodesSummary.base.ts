@@ -1,7 +1,7 @@
 /*
  * File: SellerCodesSummary.base.ts
- * Purpose: Base summary types and defaults for denormalized seller
- * code listings.
+ * Purpose: Base summary types for seller code listings.
+ * Field names aligned with SDK SellerCodeResponse to maintain SSOT.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { z } from 'zod'
@@ -9,22 +9,11 @@ import { SellerCodeStatusSchema } from './SellerCodesBasics'
 
 export const fallbackTimestamp: string = new Date(0).toISOString()
 
-export const sellerCodeSummaryBaseSchema: z.ZodObject<{
-  id: z.ZodString
-  code: z.ZodString
-  status: z.ZodOptional<typeof SellerCodeStatusSchema>
-  orgId: z.ZodOptional<z.ZodString>
-  orgName: z.ZodOptional<z.ZodString>
-  userId: z.ZodOptional<z.ZodNumber>
-  createdAt: z.ZodOptional<z.ZodString>
-  updatedAt: z.ZodOptional<z.ZodString>
-  version: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>
-}> = z.object({
-  id: z.string(),
+export const sellerCodeSummaryBaseSchema = z.object({
+  id: z.number(),
   code: z.string(),
   status: SellerCodeStatusSchema.optional(),
-  orgId: z.string().optional(),
-  orgName: z.string().optional(),
+  organizationId: z.string().optional(),
   userId: z.number().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
@@ -32,11 +21,10 @@ export const sellerCodeSummaryBaseSchema: z.ZodObject<{
 })
 
 export interface NormalizedSellerCodeSummary {
-  readonly id: string
+  readonly id: number
   readonly code: string
   readonly status: 'active' | 'inactive' | 'expired'
-  readonly orgId?: string
-  readonly orgName?: string
+  readonly organizationId?: string
   readonly userId?: number
   readonly createdAt: string
   readonly updatedAt: string

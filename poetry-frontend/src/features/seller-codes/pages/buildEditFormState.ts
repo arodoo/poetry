@@ -8,14 +8,14 @@ import type { SellerCodeDetail } from '../model/SellerCodesSchemas'
 export function buildEditFormState(sellerCode: SellerCodeDetail | undefined):
   | {
       code: string
-      orgId: string
+      organizationId: string
       status: 'active' | 'inactive' | 'expired'
     }
   | undefined {
   return sellerCode
     ? {
         code: sellerCode.code,
-        orgId: sellerCode.orgId ?? '',
+        organizationId: sellerCode.organizationId ?? '',
         status: sellerCode.status,
       }
     : undefined

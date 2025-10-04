@@ -39,7 +39,7 @@ export default function SellerCodeEditPage(): ReactElement {
       breadcrumbs={breadcrumbs}
       sections={buildEditFormSections(formState, t)}
       onSubmit={handleSubmit}
-      submitLabel={t('ui.sellerCodes.actions.submit')}
+      submitLabel={t('ui.sellerCodes.actions.save')}
       cancelLabel={t('ui.sellerCodes.actions.cancel')}
       onCancel={handleCancel}
       isSubmitting={mutation.isPending}

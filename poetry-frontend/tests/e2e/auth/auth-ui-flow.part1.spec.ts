@@ -50,7 +50,7 @@ test.describe('Login UI Flow Part1', (): void => {
     await page.locator('input[name="password"]').fill(WRONG_P)
     await page.locator('button[type="submit"]').click()
     await expect(
-      page.locator('text=Invalid username or password')
+      page.locator('text=Login failed. Please try again.')
     ).toBeVisible()
     expect(page.url()).toContain('/login')
     const tokens: TokenResponseLike | null = await getTokens(page)

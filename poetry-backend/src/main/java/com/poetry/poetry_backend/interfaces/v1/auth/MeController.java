@@ -19,6 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "auth", description = "Authentication endpoints")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class MeController {
@@ -28,8 +35,23 @@ public class MeController {
     this.userRepository = userRepository;
   }
 
-  public record MeResponse(String id, String username, List<String> roles) {}
+  @Schema(description = "Current user information")
+  public record MeResponse(
+      @Schema(description = "User ID", example = "1")
+      String id,
+      @Schema(description = "Username", example = "admin")
+      String username,
+      @Schema(description = "User roles", example = "[\"admin\", \"user\"]")
+      List<String> roles) {}
 
+  @Operation(
+      operationId = "me",
+      summary = "Get current user",
+      description = "Get authenticated user information")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "User information retrieved"),
+    @ApiResponse(responseCode = "401", description = "Not authenticated")
+  })
   @GetMapping("/me")
   public ResponseEntity<?> me(Principal principal) {
     if (principal == null) {

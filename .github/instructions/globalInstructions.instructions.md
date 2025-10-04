@@ -55,9 +55,13 @@ Use one `-m` flag with plain ASCII: `type: subject` (no scope/body)
 - Frontend rules: `.github/chatmodes/frontend.chatmode.md`
 - Frontend blueprint: `docs/architecture/frontEnd-module-blueprint.md`
 
+## Logs
+- Backend logs at logs\backend\backend-dev.log
+- Frontend logs at logs\frontend/frontend-dev.log
+
 ## Front/Back Anti-Drift
 
-- OpenAPI → SDK (no direct fetch/axios)
+- OpenAPI → SDK (no direct fetch/axios). OpenApi contracts defined at 'docs\api\backend-generated\v1\openapi.yaml
 - Zod at runtime validation
 - React Query with stable/invalidated keys
 - ETag + If-Match, Idempotency-Key headers

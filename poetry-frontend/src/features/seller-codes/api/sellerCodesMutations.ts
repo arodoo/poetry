@@ -25,7 +25,7 @@ export async function createSellerCode(
   const response = await createSellerCodeSdk({
     body: {
       code: payload.code,
-      organizationId: payload.orgId || 'default-org',
+      organizationId: payload.organizationId || 'default-org',
       userId: payload.userId,
       ...(payload.status && { status: payload.status }),
     },
@@ -46,7 +46,7 @@ export async function updateSellerCode(
     path: { id: Number(id) },
     body: {
       code: payload.code,
-      organizationId: payload.orgId || 'default-org',
+      organizationId: payload.organizationId || 'default-org',
       userId: payload.userId,
       status: payload.status,
     },

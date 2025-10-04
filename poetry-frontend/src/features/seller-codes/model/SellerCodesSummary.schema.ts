@@ -33,8 +33,10 @@ export const SellerCodeSummarySchema: ReturnType<
       createdAt,
       updatedAt,
       version,
-      ...(sellerCode.orgId !== undefined && { orgId: sellerCode.orgId }),
-      ...(sellerCode.orgName !== undefined && { orgName: sellerCode.orgName }),
+      ...(sellerCode.organizationId !== undefined && 
+        { organizationId: sellerCode.organizationId }),
+      ...(sellerCode.userId !== undefined && 
+        { userId: sellerCode.userId }),
     }
     return result
   }

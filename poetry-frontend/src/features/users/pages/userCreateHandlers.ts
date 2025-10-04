@@ -18,6 +18,8 @@ export function createUserSubmitHandler(
   return (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     const values: UsersFormValues = buildFormData(
+      formState.firstName,
+      formState.lastName,
       formState.username,
       formState.email,
       formState.locale,
@@ -27,9 +29,13 @@ export function createUserSubmitHandler(
       undefined
     )
     const input: CreateUserInput = {
-      ...values,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      username: values.username,
+      email: values.email,
+      locale: values.locale,
       roles: values.roles as string[],
-      password: values.password ?? '',
+      password: values.password || '',
     }
     onSuccess(input)
   }

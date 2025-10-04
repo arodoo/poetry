@@ -62,7 +62,9 @@ export default function SellerCodesListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={sellerCodes}
-          keyExtractor={(row: SellerCodeSummary): string => row.id}
+          keyExtractor={(row: SellerCodeSummary): string =>
+            String(row.id)
+          }
           emptyMessage={t('ui.sellerCodes.status.empty')}
         />
       )}

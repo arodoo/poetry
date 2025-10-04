@@ -35,7 +35,7 @@ export function buildSellerCodeDetailSections(
         },
         {
           label: t('ui.sellerCodes.form.organization.label'),
-          value: sellerCode.orgName ?? '-',
+          value: sellerCode.organizationId ?? '-',
         },
       ] as readonly DetailViewItem[],
     },

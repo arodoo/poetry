@@ -1,10 +1,18 @@
 /*
  * File: authApi.ts
- * Purpose: Auth API wrapper. Uses shared HTTP client and Zod parsing.
+ * Purpose: Auth API wrapper using generated SDK functions.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { fetchJson } from '../../../shared/http/fetchClient'
-import { createIdempotencyKey } from '../../../shared/http/idempotency'
+import {
+  login as loginSdk,
+  refresh as refreshSdk,
+  logout as logoutSdk,
+  status as statusSdk,
+  me as meSdk,
+  type TokenResponse,
+  type LoginRequest,
+  type RefreshRequest,
+} from '../../../api/generated'
 import { AuthStatusSchema, type AuthStatus } from '../model/AuthSchemas'
 import {
   AuthTokensSchema,
@@ -14,53 +22,33 @@ import {
 } from '../model/AuthTokensSchemas'
 
 export async function getAuthStatus(): Promise<AuthStatus> {
-  return AuthStatusSchema.parse(
-    await fetchJson<unknown>('/api/v1/auth/status', { method: 'GET' })
-  )
+  const response = await statusSdk()
+  return AuthStatusSchema.parse(response.data)
 }
 
 export async function postLogin(
   username: string,
   password: string
 ): Promise<AuthTokens> {
-  return AuthTokensSchema.parse(
-    await fetchJson<unknown>('/api/v1/auth/login', {
-      method: 'POST',
-      body: { username, password },
-      headers: {
-        'Content-Type': 'application/json',
-        'Idempotency-Key': createIdempotencyKey(),
-      },
-    })
-  )
+  const requestBody: LoginRequest = { username, password }
+  const response = await loginSdk({ body: requestBody })
+  const data = response.data as TokenResponse
+  return AuthTokensSchema.parse(data)
 }
 
 export async function postRefresh(refreshToken: string): Promise<AuthTokens> {
-  return AuthTokensSchema.parse(
-    await fetchJson<unknown>('/api/v1/auth/refresh', {
-      method: 'POST',
-      body: { refreshToken },
-      headers: {
-        'Content-Type': 'application/json',
-        'Idempotency-Key': createIdempotencyKey(),
-      },
-    })
-  )
+  const requestBody: RefreshRequest = { refreshToken }
+  const response = await refreshSdk({ body: requestBody })
+  const data = response.data as TokenResponse
+  return AuthTokensSchema.parse(data)
 }
 
 export async function postLogout(refreshToken: string): Promise<void> {
-  await fetchJson<unknown>('/api/v1/auth/logout', {
-    method: 'POST',
-    body: { refreshToken },
-    headers: {
-      'Content-Type': 'application/json',
-      'Idempotency-Key': createIdempotencyKey(),
-    },
-  })
+  const requestBody: RefreshRequest = { refreshToken }
+  await logoutSdk({ body: requestBody })
 }
 
 export async function getMe(): Promise<Me> {
-  return MeSchema.parse(
-    await fetchJson<unknown>('/api/v1/auth/me', { method: 'GET' })
-  )
+  const response = await meSdk()
+  return MeSchema.parse(response.data)
 }

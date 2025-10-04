@@ -7,16 +7,20 @@ import { z } from 'zod'
 import { UserRoleSchema } from './UsersBasics'
 
 export const CreateUserSchema: z.ZodObject<{
+  firstName: z.ZodString
+  lastName: z.ZodString
   username: z.ZodString
   email: z.ZodString
-  locale: z.ZodString
-  roles: z.ZodArray<z.ZodString>
+  locale: z.ZodOptional<z.ZodString>
+  roles: z.ZodOptional<z.ZodArray<z.ZodString>>
   password: z.ZodString
 }> = z.object({
+  firstName: z.string().min(1, 'users.validation.firstName'),
+  lastName: z.string().min(1, 'users.validation.lastName'),
   username: z.string().min(3, 'users.validation.username'),
   email: z.string().email('users.validation.email'),
-  locale: z.string().min(2, 'users.validation.locale'),
-  roles: z.array(UserRoleSchema).min(1, 'users.validation.roles'),
+  locale: z.string().min(2, 'users.validation.locale').optional(),
+  roles: z.array(UserRoleSchema).min(1, 'users.validation.roles').optional(),
   password: z.string().min(10, 'users.validation.password'),
 })
 

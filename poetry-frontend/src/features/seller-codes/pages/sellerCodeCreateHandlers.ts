@@ -19,7 +19,7 @@ export function createSellerCodeSubmitHandler(
       code: formState.code,
       userId: Number(formState.userId),
       status: formState.status,
-      ...(formState.orgId && { orgId: formState.orgId }),
+      ...(formState.organizationId && { organizationId: formState.organizationId }),
     }
     onSuccess(input)
   }

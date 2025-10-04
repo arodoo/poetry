@@ -12,6 +12,8 @@ import { buildFormData } from './usersFormHelpers'
 import { useUsersFormState, type UsersFormState } from './useUsersFormState'
 
 export interface UsersFormValues {
+  readonly firstName: string
+  readonly lastName: string
   readonly username: string
   readonly email: string
   readonly locale: string
@@ -35,6 +37,8 @@ export function UsersForm(props: UsersFormProps): ReactElement {
     event.preventDefault()
     props.onSubmit(
       buildFormData(
+        formState.firstName,
+        formState.lastName,
         formState.username,
         formState.email,
         formState.locale,
@@ -49,12 +53,16 @@ export function UsersForm(props: UsersFormProps): ReactElement {
     <form onSubmit={handleSubmit} noValidate data-testid="users-form">
       <Stack gap="md">
         <UsersFormFields
+          firstName={formState.firstName}
+          lastName={formState.lastName}
           username={formState.username}
           email={formState.email}
           locale={formState.locale}
           rolesString={formState.rolesString}
           password={formState.password}
           showPassword={props.showPassword ?? false}
+          onFirstNameChange={formState.setFirstName}
+          onLastNameChange={formState.setLastName}
           onUsernameChange={formState.setUsername}
           onEmailChange={formState.setEmail}
           onLocaleChange={formState.setLocale}

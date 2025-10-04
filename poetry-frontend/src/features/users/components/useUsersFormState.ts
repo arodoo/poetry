@@ -7,11 +7,15 @@ import { useState } from 'react'
 import type { UsersFormValues } from './UsersForm'
 
 export interface UsersFormState {
+  readonly firstName: string
+  readonly lastName: string
   readonly username: string
   readonly email: string
   readonly locale: string
   readonly rolesString: string
   readonly password: string
+  readonly setFirstName: (value: string) => void
+  readonly setLastName: (value: string) => void
   readonly setUsername: (value: string) => void
   readonly setEmail: (value: string) => void
   readonly setLocale: (value: string) => void
@@ -22,6 +26,12 @@ export interface UsersFormState {
 export function useUsersFormState(
   initialValues?: Partial<UsersFormValues>
 ): UsersFormState {
+  const [firstName, setFirstName] = useState<string>(
+    initialValues?.firstName ?? ''
+  )
+  const [lastName, setLastName] = useState<string>(
+    initialValues?.lastName ?? ''
+  )
   const [username, setUsername] = useState<string>(
     initialValues?.username ?? ''
   )
@@ -34,11 +44,15 @@ export function useUsersFormState(
     initialValues?.password ?? ''
   )
   return {
+    firstName,
+    lastName,
     username,
     email,
     locale,
     rolesString,
     password,
+    setFirstName,
+    setLastName,
     setUsername,
     setEmail,
     setLocale,

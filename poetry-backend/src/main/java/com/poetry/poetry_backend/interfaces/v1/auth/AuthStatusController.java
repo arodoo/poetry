@@ -12,11 +12,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "auth", description = "Authentication endpoints")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthStatusController {
-  public record StatusResponse(boolean authenticated) {}
+  @Schema(description = "Authentication status response")
+  public record StatusResponse(
+      @Schema(description = "Whether user is authenticated", example = "true")
+      boolean authenticated) {}
 
+  @Operation(
+      operationId = "status",
+      summary = "Check authentication status",
+      description = "Check if user is currently authenticated")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Status retrieved")
+  })
   @GetMapping("/status")
   public ResponseEntity<StatusResponse> status(Principal principal) {
     boolean isAuth = principal != null;

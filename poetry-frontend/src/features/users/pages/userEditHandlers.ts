@@ -18,6 +18,8 @@ export function createSubmitHandler(
   return (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     const data: UsersFormValues = buildFormData(
+      formState.firstName,
+      formState.lastName,
       formState.username,
       formState.email,
       formState.locale,
