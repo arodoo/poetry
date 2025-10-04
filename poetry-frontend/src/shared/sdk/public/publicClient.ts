@@ -1,41 +1,18 @@
 /*
  * File: publicClient.ts
- * Purpose: SDK helpers for public landing endpoints.
+ * Purpose: SDK helpers for public landing endpoints using generated SDK.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { createFetchClient } from '../../http/fetchClient'
-import { getEnv, type Env } from '../../config/env'
-import type { HttpOptions } from '../../http/httpTypes'
+import { getLanding } from '../../../api/generated'
+import type { PublicLandingResponse } from '../../../api/generated'
 
-export interface PublicLandingFeatureDto {
-  readonly titleKey: string
-  readonly descriptionKey: string
-}
+export type { PublicLandingResponse }
+export type PublicLandingDto = PublicLandingResponse
 
-export interface PublicLandingDto {
-  readonly heroTitleKey: string
-  readonly heroBodyKey: string
-  readonly loginCtaKey: string
-  readonly registerCtaKey: string
-  readonly features: readonly PublicLandingFeatureDto[]
-}
-
-export interface PublicSdk {
-  getLanding(): Promise<PublicLandingDto>
-}
-
-export function createPublicSdk(env: Env = getEnv()): PublicSdk {
-  const fetchJson: <T>(path: string, options?: HttpOptions) => Promise<T> =
-    createFetchClient(env)
-  return {
-    getLanding(): Promise<PublicLandingDto> {
-      return fetchJson<PublicLandingDto>('/api/v1/public/landing')
-    },
+export async function getPublicLandingRaw(): Promise<PublicLandingResponse> {
+  const response = await getLanding()
+  if (response.error || !response.data) {
+    throw new Error('Failed to fetch public landing')
   }
-}
-
-const defaultPublicSdk: PublicSdk = createPublicSdk()
-
-export function getPublicLandingRaw(): Promise<PublicLandingDto> {
-  return defaultPublicSdk.getLanding()
+  return response.data
 }

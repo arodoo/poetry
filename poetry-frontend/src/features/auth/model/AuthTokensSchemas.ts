@@ -6,12 +6,14 @@
  */
 import { z } from 'zod'
 
-export const AuthTokensSchema = z.object({
-  accessToken: z.string().min(1),
-  refreshToken: z.string().min(1),
-  username: z.string().min(1).optional(),
-  expiresIn: z.number().positive().optional(),
-}).strict()
+export const AuthTokensSchema = z
+  .object({
+    accessToken: z.string().min(1),
+    refreshToken: z.string().min(1),
+    username: z.string().min(1).optional(),
+    expiresIn: z.number().positive().optional(),
+  })
+  .strict()
 
 export interface AuthTokens {
   accessToken: string

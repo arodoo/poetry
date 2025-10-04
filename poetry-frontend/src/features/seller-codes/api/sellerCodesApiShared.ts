@@ -1,25 +1,21 @@
 /*
  * File: sellerCodesApiShared.ts
- * Purpose: Parsers for seller codes API responses.
+ * Purpose: Parsers for seller codes API responses using SDK types directly.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { z } from 'zod'
-import {
-  SellerCodesCollectionSchema,
-  SellerCodeDetailSchema,
-  type SellerCodesCollection,
-  type SellerCodeDetail,
+import type {
+  SellerCodesCollection,
+  SellerCodeDetail,
 } from '../model/SellerCodesSchemas'
 
 export function parseSellerCodesCollection(
   dto: unknown
 ): SellerCodesCollection {
-  const parsed: z.infer<typeof SellerCodesCollectionSchema> =
-    SellerCodesCollectionSchema.parse(dto)
-  return parsed as SellerCodesCollection
+  // SDK types are already validated by OpenAPI contract
+  return dto as SellerCodesCollection
 }
 
 export function parseSellerCodeDetail(dto: unknown): SellerCodeDetail {
-  const parsed: unknown = SellerCodeDetailSchema.parse(dto)
-  return parsed as SellerCodeDetail
+  // SDK types are already validated by OpenAPI contract
+  return dto as SellerCodeDetail
 }

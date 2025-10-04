@@ -2,9 +2,18 @@
  File: TokensSchemas.impl1.ts
  Purpose: Implementation part 1 for token schema types.
  This file holds the theme/font/keyed-values definitions.
+ Uses generated UiTokensDto as foundation.
  All Rights Reserved. Arodi Emmanuel
 */
 import { z } from 'zod'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- Used in JSDoc @see
+import type { UiTokensDto } from '../../../api/generated'
+
+/**
+ * Token schemas aligned with generated UiTokensDto from OpenAPI.
+ *
+ * @see {UiTokensDto} from api/generated - OpenAPI source of truth
+ */
 
 export interface TokenTheme {
   readonly key: string

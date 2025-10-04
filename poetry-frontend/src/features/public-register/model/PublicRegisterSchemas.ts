@@ -1,28 +1,35 @@
 /*
  * File: PublicRegisterSchemas.ts
- * Purpose: Zod schemas and types for the public registration flow.
+ * Purpose: Zod runtime validation for SDK request types.
+ * Types are SDK types directly. Schemas add client-side validation only.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 import { z } from 'zod'
+import type { RegisterRequest, TokenResponse } from '../../../api/generated'
 
-export const PublicRegisterRequestSchema: z.ZodType<{
-  readonly username: string
-  readonly email: string
-  readonly password: string
-}> = z.object({
+/**
+ * Runtime validation for RegisterRequest.
+ * TYPE = RegisterRequest (SDK). SCHEMA = adds email/password validation.
+ *
+ * @see {RegisterRequest} from api/generated - OpenAPI source of truth
+ */
+export type PublicRegisterRequest = RegisterRequest
+
+export const PublicRegisterRequestSchema: z.ZodType<PublicRegisterRequest> = z.object({
   username: z.string().min(1, 'register.username.required'),
   email: z.string().email('register.email.invalid'),
   password: z.string().min(6, 'register.password.min'),
-})
+}) as z.ZodType<PublicRegisterRequest>
 
-export const PublicRegisterResultSchema: z.ZodType<{
-  readonly accessToken: string
-  readonly refreshToken: string
-}> = z.object({
+/**
+ * Runtime validation for TokenResponse.
+ *
+ * @see {TokenResponse} from api/generated - OpenAPI source of truth
+ */
+export type PublicRegisterResult = TokenResponse
+
+export const PublicRegisterResultSchema: z.ZodType<PublicRegisterResult> = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
-})
-
-export type PublicRegisterRequest = z.infer<typeof PublicRegisterRequestSchema>
-export type PublicRegisterResult = z.infer<typeof PublicRegisterResultSchema>
+}) as z.ZodType<PublicRegisterResult>

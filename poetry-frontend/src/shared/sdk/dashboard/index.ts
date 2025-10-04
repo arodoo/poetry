@@ -4,8 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 export {
-  createDashboardSdk,
   getDashboardOverviewRaw,
+  type DashboardOverviewResponse,
   type DashboardOverviewDto,
-  type DashboardSdk,
 } from './dashboardClient'

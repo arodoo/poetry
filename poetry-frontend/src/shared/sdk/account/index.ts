@@ -4,10 +4,8 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 export {
-  createAccountSdk,
   getAccountLocaleRaw,
   postAccountPassword,
-  type AccountLocaleDto,
-  type AccountPasswordChangeRequestDto,
-  type AccountSdk,
+  type LocaleDto,
+  type PasswordChangeRequest,
 } from './accountClient'

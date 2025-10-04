@@ -1,11 +1,11 @@
 /*
  File: tokensApi.ts
- Purpose: API wrapper functions calling generated SDK (shared sdk here) to
- retrieve the token bundle with ETag support. Performs Zod validation and
- maps to internal types. No direct fetch in components.
+ Purpose: API wrapper functions calling generated SDK to retrieve the token
+ bundle with ETag support. Performs Zod validation and maps to internal types.
+ No direct fetch in components.
  All Rights Reserved. Arodi Emmanuel
 */
-import { getTokensRaw } from '../../../shared/sdk'
+import { getTokens as getTokensSdk } from '../../../api/generated'
 import { TokenBundleSchema, type TokenBundle } from '../model/TokensSchemas'
 
 export type TokensApiResponse = Readonly<{
@@ -15,7 +15,10 @@ export type TokensApiResponse = Readonly<{
 
 export async function getTokens(): Promise<TokensApiResponse> {
   try {
-    const { data, etag } = await getTokensRaw()
+    const response = await getTokensSdk()
+
+    const data = response.data
+    const etag = response.response.headers.get('ETag') || null
 
     // Validate with Zod schema - will throw if data doesn't match
     const bundle: TokenBundle = TokenBundleSchema.parse(data)

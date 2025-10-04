@@ -6,15 +6,15 @@
 import { describe, it, expect, beforeAll, vi, beforeEach } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import * as Fetch from '../../../../shared/http/fetchClient'
+import * as generatedSdk from '../../../../api/generated'
 import { useMeQuery } from '../../../../features/auth/hooks/useMe'
 
 describe('useMeQuery', () => {
   beforeAll(() => {
-    vi.spyOn(Fetch, 'fetchJson').mockImplementation(async (p: string) => {
-      if (p.endsWith('/api/v1/auth/me'))
-        return { id: 'u1', username: 'john', roles: ['admin'] }
-      return {} as unknown as Record<string, unknown>
+    vi.spyOn(generatedSdk, 'me').mockResolvedValue({
+      data: { id: 'u1', username: 'john', roles: ['admin'] },
+      request: new Request('http://localhost/api/v1/auth/me'),
+      response: new Response(),
     })
   })
 

@@ -32,17 +32,20 @@ export function buildUserDetailSections(
     {
       title: t('ui.users.detail.section.identity'),
       items: [
-        { label: t('ui.users.form.username.label'), value: user.username },
-        { label: t('ui.users.form.email.label'), value: user.email },
+        {
+          label: t('ui.users.form.username.label'),
+          value: user.username ?? '',
+        },
+        { label: t('ui.users.form.email.label'), value: user.email ?? '' },
         {
           label: t('ui.users.form.locale.label'),
-          value: getLocaleName(user.locale, t),
+          value: getLocaleName(user.locale ?? 'en', t),
         },
         {
           label: t('ui.users.form.roles.label'),
           value: (
             <Inline gap="xs">
-              {user.roles.map(
+              {(user.roles ?? []).map(
                 (role: string): ReactElement => (
                   <Badge key={role} tone="primary" size="sm">
                     {role}
@@ -61,12 +64,11 @@ export function buildUserDetailSections(
         {
           label: t('ui.users.detail.field.status'),
           value: (
-            <Badge tone={user.status === 'active' ? 'success' : 'danger'}>
-              {user.status}
+            <Badge tone={user.active ? 'success' : 'danger'}>
+              {user.active ? 'Active' : 'Inactive'}
             </Badge>
           ),
         },
-        { label: t('ui.users.detail.field.version'), value: user.version },
       ] as readonly DetailViewItem[],
     },
   ]

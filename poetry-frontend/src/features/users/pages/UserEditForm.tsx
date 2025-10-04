@@ -29,15 +29,15 @@ export function UserEditForm(props: UserEditFormProps): ReactElement {
   const navigate: ReturnType<typeof useNavigate> = useNavigate()
   const { locale }: { locale: string } = useLocale()
   const formState: ReturnType<typeof useUsersFormState> = useUsersFormState({
-    username: props.user.username,
-    email: props.user.email,
-    locale: props.user.locale,
-    roles: props.user.roles,
-    version: props.user.version,
+    firstName: props.user.firstName ?? '',
+    lastName: props.user.lastName ?? '',
+    username: props.user.username ?? '',
+    email: props.user.email ?? '',
+    locale: props.user.locale ?? 'en',
+    roles: props.user.roles ?? [],
   })
-  const userIdNumber: number = Number(props.userId)
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
-    createSubmitHandler(formState, userIdNumber, props.onSubmit)
+    createSubmitHandler(formState, props.onSubmit)
   const handleCancel: () => void = createCancelHandler(
     navigate,
     locale,

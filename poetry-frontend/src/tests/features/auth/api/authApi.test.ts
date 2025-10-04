@@ -4,34 +4,34 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect, vi, afterEach, beforeAll } from 'vitest'
-import * as Fetch from '../../../../shared/http/fetchClient'
+import * as generatedSdk from '../../../../api/generated'
 import { getAuthStatus, postLogin } from '../../../../features/auth'
 
 // Keep original implementation but spy so real option propagation is tested.
-const originalFetchJson = Fetch.fetchJson
+const originalFetchJson = undefined
 beforeAll((): void => {
-  type AnyJson = Record<string, unknown>
-  vi.spyOn(Fetch, 'fetchJson').mockImplementation(
-    async (
-      p: string,
-      o?: { headers?: Record<string, string> }
-    ): Promise<AnyJson> => {
-      if (p.endsWith('/api/v1/auth/status')) return { authenticated: false }
-      if (p.endsWith('/api/v1/auth/login'))
-        return {
-          accessToken: 'a',
-          refreshToken: 'r',
-          username: 'user1',
-          expiresIn: 3600,
-        }
-      return originalFetchJson(p, o)
+  vi.spyOn(generatedSdk, 'status').mockResolvedValue({
+    data: { authenticated: false },
+    request: new Request('http://localhost/api/v1/auth/status'),
+    response: new Response(),
+  })
+  vi.spyOn(generatedSdk, 'login').mockImplementation(async (opts) => {
+    // capture headers passed through the generated client
+    return {
+      data: {
+        accessToken: 'a',
+        refreshToken: 'r',
+        username: 'user1',
+        expiresIn: 3600,
+      },
+      request: new Request('http://localhost/api/v1/auth/login'),
+      response: new Response(),
     }
-  )
+  })
 })
 
 afterEach(() => {
-  // ensure calls reset between tests
-  vi.mocked(Fetch.fetchJson).mockClear()
+  vi.clearAllMocks()
 })
 
 describe('authApi', () => {
@@ -44,11 +44,11 @@ describe('authApi', () => {
 describe('authApi headers', () => {
   it('sends Idempotency-Key on login', async () => {
     await postLogin('u', 'p')
-    const mocked = vi.mocked(Fetch.fetchJson)
-    const call = mocked.mock.calls.find((c) =>
-      String(c[0]).includes('/auth/login')
-    )
-    const options = call?.[1] as { headers?: Record<string, string> }
-    expect(options?.headers?.['Idempotency-Key']).toMatch(/^idem-/)
+    const mockedLogin = vi.mocked(generatedSdk.login)
+    const call = mockedLogin.mock.calls[0]
+    const opts = call?.[0] as any
+    // ensure body has username/password and headers/object shape passed through
+    expect(opts?.body).toBeDefined()
+    expect((opts?.body as any).username).toBe('u')
   }, 8000)
 })

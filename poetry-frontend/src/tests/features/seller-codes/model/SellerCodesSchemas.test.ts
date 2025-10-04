@@ -12,7 +12,7 @@ describe('SellerCodesSchemas', () => {
   describe('SellerCodeSummarySchema', () => {
     it('should parse valid seller code summary', () => {
       const validData = {
-        id: '123',
+        id: 123,
         code: 'ABC123',
         status: 'active',
         createdAt: '2023-01-01T00:00:00Z',
@@ -25,7 +25,7 @@ describe('SellerCodesSchemas', () => {
 
     it('should reject invalid status', () => {
       const invalidData = {
-        id: '123',
+        id: 123,
         code: 'ABC123',
         status: 'invalid-status',
         createdAt: '2023-01-01T00:00:00Z',

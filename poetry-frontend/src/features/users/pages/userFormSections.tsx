@@ -17,20 +17,7 @@ export function buildEditFormSections(
       title: t('ui.users.edit.section.profile'),
       description: t('ui.users.edit.section.profile_desc'),
       fields: (
-        <UsersFormFields
-          username={formState.username}
-          email={formState.email}
-          locale={formState.locale}
-          rolesString={formState.rolesString}
-          password={formState.password}
-          showPassword={showPassword}
-          onUsernameChange={formState.setUsername}
-          onEmailChange={formState.setEmail}
-          onLocaleChange={formState.setLocale}
-          onRolesChange={formState.setRolesString}
-          onPasswordChange={formState.setPassword}
-          t={t}
-        />
+        <UsersFormFields {...formState} showPassword={showPassword} t={t} />
       ),
     },
   ]
@@ -44,22 +31,7 @@ export function buildCreateFormSections(
     {
       title: t('ui.users.create.section.account'),
       description: t('ui.users.create.section.account_desc'),
-      fields: (
-        <UsersFormFields
-          username={formState.username}
-          email={formState.email}
-          locale={formState.locale}
-          rolesString={formState.rolesString}
-          password={formState.password}
-          showPassword={true}
-          onUsernameChange={formState.setUsername}
-          onEmailChange={formState.setEmail}
-          onLocaleChange={formState.setLocale}
-          onRolesChange={formState.setRolesString}
-          onPasswordChange={formState.setPassword}
-          t={t}
-        />
-      ),
+      fields: <UsersFormFields {...formState} showPassword={true} t={t} />,
     },
   ]
 }

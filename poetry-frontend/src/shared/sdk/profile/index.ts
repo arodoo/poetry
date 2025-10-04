@@ -4,10 +4,8 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 export {
-  createProfileSdk,
   getProfileSummaryRaw,
   putProfileSummary,
-  type ProfileSummaryDto,
-  type ProfileSummaryUpdateDto,
-  type ProfileSdk,
+  type ProfileResponse,
+  type ProfileUpdateRequest,
 } from './profileClient'

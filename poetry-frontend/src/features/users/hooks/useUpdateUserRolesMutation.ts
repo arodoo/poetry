@@ -5,14 +5,15 @@
  */
 import type { UseMutationResult } from '@tanstack/react-query'
 import { updateUserRoles } from '../api/usersApi'
-import type { UpdateUserRolesInput, UserDetail } from '../model/UsersSchemas'
+import type { UpdateUserRolesInput } from '../model/UsersSchemas'
+import type { UserResponse } from '../../../api/generated'
 import {
   type MutationVariables,
   useUsersEntityMutation,
 } from './useUsersMutationHelpers'
 
 export function useUpdateUserRolesMutation(): UseMutationResult<
-  UserDetail,
+  UserResponse,
   unknown,
   MutationVariables<UpdateUserRolesInput>
 > {

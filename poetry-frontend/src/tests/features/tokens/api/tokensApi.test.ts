@@ -1,19 +1,17 @@
 /*
  * File: tokensApi.test.ts
  * Purpose: Tests tokens API wrapper happy path using mocked client.
+ * Tests now use generated SDK mocks from api/generated.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect, vi } from 'vitest'
-import * as sdk from '../../../../shared/sdk'
+import * as generatedSdk from '../../../../api/generated'
 import { getTokens } from '../../../../features/tokens/api/tokensApi'
 
-vi.spyOn(sdk, 'getTokensRaw').mockResolvedValue({
+vi.spyOn(generatedSdk, 'getTokens').mockResolvedValue({
   data: {
     themes: [{ key: 'amber', label: 'Amber', colors: { primary: '#fff' } }],
     fonts: [{ key: 'inter', label: 'Inter', weights: [400] }],
-    fontFamilies: [
-      { key: 'inter', label: 'Inter', family: 'Inter, sans-serif' },
-    ],
     fontWeights: ['400'],
     fontSizes: [{ key: 'default', label: 'Default', sizes: { base: '1rem' } }],
     spacings: [{ key: 'default', label: 'Default', values: { md: '1rem' } }],
@@ -30,7 +28,10 @@ vi.spyOn(sdk, 'getTokensRaw').mockResolvedValue({
       shadow: 'default',
     },
   },
-  etag: 'W/"x"',
+  request: new Request('http://localhost/api/v1/tokens'),
+  response: new Response('', {
+    headers: { etag: 'W/"x"' },
+  }),
 })
 
 describe('tokensApi', () => {

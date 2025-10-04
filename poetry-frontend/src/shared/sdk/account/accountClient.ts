@@ -1,52 +1,26 @@
 /*
  * File: accountClient.ts
- * Purpose: SDK surface for account endpoints backed by generated OpenAPI
- * client once available. Provides default singleton helpers that wrap the
- * shared fetch client and remain easily swappable for real codegen.
+ * Purpose: SDK surface for account endpoints using generated SDK.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { createFetchClient } from '../../http/fetchClient'
-import { getEnv, type Env } from '../../config/env'
-import type { HttpOptions } from '../../http/httpTypes'
+import { getLocale, changePassword } from '../../../api/generated'
+import type { LocaleDto, PasswordChangeRequest } from '../../../api/generated'
 
-export interface AccountLocaleDto {
-  readonly locale: string
-}
+export type { LocaleDto, PasswordChangeRequest }
 
-export interface AccountPasswordChangeRequestDto {
-  readonly currentPassword: string
-  readonly newPassword: string
-}
-
-export interface AccountSdk {
-  getLocale(): Promise<AccountLocaleDto>
-  changePassword(body: AccountPasswordChangeRequestDto): Promise<void>
-}
-
-export function createAccountSdk(env: Env = getEnv()): AccountSdk {
-  const fetchJson: <T>(path: string, options?: HttpOptions) => Promise<T> =
-    createFetchClient(env)
-  return {
-    async getLocale(): Promise<AccountLocaleDto> {
-      return fetchJson<AccountLocaleDto>('/api/v1/me/locale')
-    },
-    async changePassword(body: AccountPasswordChangeRequestDto): Promise<void> {
-      await fetchJson('/api/v1/me/password', {
-        method: 'POST',
-        body,
-      })
-    },
+export async function getAccountLocaleRaw(): Promise<LocaleDto> {
+  const response = await getLocale()
+  if (response.error || !response.data) {
+    throw new Error('Failed to fetch locale')
   }
+  return response.data
 }
 
-const defaultAccountSdk: AccountSdk = createAccountSdk()
-
-export function getAccountLocaleRaw(): Promise<AccountLocaleDto> {
-  return defaultAccountSdk.getLocale()
-}
-
-export function postAccountPassword(
-  body: AccountPasswordChangeRequestDto
+export async function postAccountPassword(
+  body: PasswordChangeRequest
 ): Promise<void> {
-  return defaultAccountSdk.changePassword(body)
+  const response = await changePassword({ body })
+  if (response.error) {
+    throw new Error('Failed to change password')
+  }
 }

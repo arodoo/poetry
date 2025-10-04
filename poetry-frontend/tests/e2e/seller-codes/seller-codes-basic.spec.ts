@@ -62,7 +62,9 @@ test('seller code detail page renders sections', async ({
   }
   await viewButton.click()
   await page.waitForLoadState('networkidle')
-  await expect(page.getByRole('heading', { name: 'Seller Code Detail', level: 1 })).toBeVisible({
+  await expect(
+    page.getByRole('heading', { name: 'Seller Code Detail', level: 1 })
+  ).toBeVisible({
     timeout: 15000,
   })
   await expect(page.getByTestId('seller-code-detail-content')).toBeVisible()

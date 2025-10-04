@@ -1,12 +1,12 @@
 /*
  * File: usersMutations.ts
  * Purpose: Mutation operations using generated SDK for admin users feature.
+ * Returns generated UserResponse types directly (zero drift).
  * All Rights Reserved. Arodi Emmanuel
  */
 import {
   createUser as createUserSdk,
   updateUser as updateUserSdk,
-  type UserCreateRequest,
   type UserResponse,
 } from '../../../api/generated'
 import {
@@ -19,61 +19,58 @@ import {
   type UpdateUserRolesInput,
   type UpdateUserSecurityInput,
   type UserStatusToggleInput,
-  type UserDetail,
 } from '../model/UsersSchemas'
-import { parseUserDetail } from './usersApiShared'
 
-export async function createUser(input: CreateUserInput): Promise<UserDetail> {
-  const payload: CreateUserInput = CreateUserSchema.parse(input)
-  const requestBody: UserCreateRequest = {
-    firstName: payload.firstName,
-    lastName: payload.lastName,
-    username: payload.username,
-    email: payload.email,
-    password: payload.password,
-    ...(payload.locale && { locale: payload.locale }),
-    ...(payload.roles && { roles: payload.roles }),
+export async function createUser(
+  input: CreateUserInput
+): Promise<UserResponse> {
+  const validatedInput: CreateUserInput = CreateUserSchema.parse(input)
+  const response = await createUserSdk({ body: validatedInput })
+  if (!response.data) {
+    throw new Error('Failed to create user')
   }
-  const response = await createUserSdk({ body: requestBody })
-  const data = response.data as UserResponse
-  return parseUserDetail(data)
+  return response.data as UserResponse
 }
 
 export async function updateUser(
   id: string,
   input: UpdateUserInput,
   etag?: string
-): Promise<UserDetail> {
+): Promise<UserResponse> {
   const payload: UpdateUserInput = UpdateUserSchema.parse(input)
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: payload,
     headers: { 'If-Match': etag || '""' },
   })
-  const data = response.data as UserResponse
-  return parseUserDetail(data)
+  if (!response.data) {
+    throw new Error(`Failed to update user ${id}`)
+  }
+  return response.data as UserResponse
 }
 
 export async function updateUserRoles(
   id: string,
   input: UpdateUserRolesInput,
   etag?: string
-): Promise<UserDetail> {
+): Promise<UserResponse> {
   const payload: UpdateUserRolesInput = UpdateUserRolesSchema.parse(input)
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: { roles: payload.roles },
     headers: { 'If-Match': etag || '""' },
   })
-  const data = response.data as UserResponse
-  return parseUserDetail(data)
+  if (!response.data) {
+    throw new Error(`Failed to update user roles for ${id}`)
+  }
+  return response.data as UserResponse
 }
 
 export async function updateUserSecurity(
   id: string,
   input: UpdateUserSecurityInput,
   _etag?: string
-): Promise<UserDetail> {
+): Promise<UserResponse> {
   UpdateUserSecuritySchema.parse(input)
   throw new Error(
     `Password update endpoint not yet implemented in backend OpenAPI for user ${id}`
@@ -84,26 +81,30 @@ export async function disableUser(
   id: string,
   _input: UserStatusToggleInput,
   etag?: string
-): Promise<UserDetail> {
+): Promise<UserResponse> {
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: { active: false },
     headers: { 'If-Match': etag || '""' },
   })
-  const data = response.data as UserResponse
-  return parseUserDetail(data)
+  if (!response.data) {
+    throw new Error(`Failed to disable user ${id}`)
+  }
+  return response.data as UserResponse
 }
 
 export async function enableUser(
   id: string,
   _input: UserStatusToggleInput,
   etag?: string
-): Promise<UserDetail> {
+): Promise<UserResponse> {
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: { active: true },
     headers: { 'If-Match': etag || '""' },
   })
-  const data = response.data as UserResponse
-  return parseUserDetail(data)
+  if (!response.data) {
+    throw new Error(`Failed to enable user ${id}`)
+  }
+  return response.data as UserResponse
 }

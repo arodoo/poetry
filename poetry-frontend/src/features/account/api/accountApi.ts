@@ -1,9 +1,12 @@
 /*
  * File: accountApi.ts
- * Purpose: Account endpoints wrapper (password update, etc.).
+ * Purpose: Account endpoints wrapper using generated SDK (password update, locale, etc.).
  * All Rights Reserved. Arodi Emmanuel
  */
-import { getAccountLocaleRaw, postAccountPassword } from '../../../shared/sdk'
+import {
+  getLocale as getLocaleSdk,
+  changePassword as changePasswordSdk,
+} from '../../../api/generated'
 import {
   AccountLocaleSchema,
   AccountPasswordChangeSchema,
@@ -12,7 +15,8 @@ import {
 } from '../model/AccountSchemas'
 
 export async function fetchAccountLocale(): Promise<AccountLocale> {
-  const dto: unknown = await getAccountLocaleRaw()
+  const response = await getLocaleSdk()
+  const dto = response.data
   return AccountLocaleSchema.parse(dto)
 }
 
@@ -21,5 +25,10 @@ export async function updatePassword(
 ): Promise<void> {
   const payload: AccountPasswordChangeRequest =
     AccountPasswordChangeSchema.parse(body)
-  await postAccountPassword(payload)
+  await changePasswordSdk({
+    body: {
+      currentPassword: payload.currentPassword,
+      newPassword: payload.newPassword,
+    },
+  })
 }

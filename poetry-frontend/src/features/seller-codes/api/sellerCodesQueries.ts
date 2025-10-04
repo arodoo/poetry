@@ -17,9 +17,7 @@ import {
   parseSellerCodesCollection,
 } from './sellerCodesApiShared'
 
-export async function fetchSellerCodesList(): Promise<
-  SellerCodesCollection
-> {
+export async function fetchSellerCodesList(): Promise<SellerCodesCollection> {
   const response = await listSellerCodes()
   const data = response.data as SellerCodeResponse[]
   return parseSellerCodesCollection(data)

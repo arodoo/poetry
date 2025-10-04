@@ -1,77 +1,73 @@
 /*
  * File: UsersCommands.ts
- * Purpose: Command payload schemas for admin user mutations.
+ * Purpose: Zod runtime validation for SDK request types.
+ * Types are SDK types directly. Schemas add client-side validation only.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { z } from 'zod'
-import { UserRoleSchema } from './UsersBasics'
+import type {
+  UserCreateRequest,
+  UserUpdateRequest,
+} from '../../../api/generated'
 
-export const CreateUserSchema: z.ZodObject<{
-  firstName: z.ZodString
-  lastName: z.ZodString
-  username: z.ZodString
-  email: z.ZodString
-  locale: z.ZodOptional<z.ZodString>
-  roles: z.ZodOptional<z.ZodArray<z.ZodString>>
-  password: z.ZodString
-}> = z.object({
+/**
+ * Runtime validation for UserCreateRequest.
+ * TYPE = UserCreateRequest (SDK). SCHEMA = adds min lengths validation.
+ *
+ * @see {UserCreateRequest} from api/generated - OpenAPI source of truth
+ */
+export type CreateUserInput = UserCreateRequest
+
+export const CreateUserSchema: z.ZodType<CreateUserInput> = z.object({
   firstName: z.string().min(1, 'users.validation.firstName'),
   lastName: z.string().min(1, 'users.validation.lastName'),
   username: z.string().min(3, 'users.validation.username'),
   email: z.string().email('users.validation.email'),
-  locale: z.string().min(2, 'users.validation.locale').optional(),
-  roles: z.array(UserRoleSchema).min(1, 'users.validation.roles').optional(),
   password: z.string().min(10, 'users.validation.password'),
-})
+  locale: z.string().min(2, 'users.validation.locale').optional(),
+  roles: z.array(z.string()).optional(),
+}) as z.ZodType<CreateUserInput>
 
-export type CreateUserInput = z.infer<typeof CreateUserSchema>
+/**
+ * Runtime validation for UserUpdateRequest.
+ * TYPE = UserUpdateRequest (SDK). SCHEMA = adds validation.
+ *
+ * @see {UserUpdateRequest} from api/generated - OpenAPI source of truth
+ */
+export type UpdateUserInput = UserUpdateRequest
 
-export const UpdateUserSchema: z.ZodObject<{
-  firstName: z.ZodString
-  lastName: z.ZodString
-  email: z.ZodString
-  username: z.ZodString
-  locale: z.ZodString
-  roles: z.ZodArray<z.ZodString>
-  active: z.ZodBoolean
-  version: z.ZodString
-}> = z.object({
-  firstName: z.string().min(1, 'users.validation.firstName'),
-  lastName: z.string().min(1, 'users.validation.lastName'),
-  email: z.string().email('users.validation.email'),
-  username: z.string().min(3, 'users.validation.username'),
-  locale: z.string().min(2, 'users.validation.locale'),
-  roles: z.array(UserRoleSchema).min(1, 'users.validation.roles'),
-  active: z.boolean(),
-  version: z.string().min(1, 'users.validation.version'),
-})
+export const UpdateUserSchema: z.ZodType<UpdateUserInput> = z.object({
+  firstName: z.string().min(1, 'users.validation.firstName').optional(),
+  lastName: z.string().min(1, 'users.validation.lastName').optional(),
+  email: z.string().email('users.validation.email').optional(),
+  locale: z.string().min(2, 'users.validation.locale').optional(),
+  roles: z.array(z.string()).optional(),
+  active: z.boolean().optional(),
+}) as z.ZodType<UpdateUserInput>
 
-export type UpdateUserInput = z.infer<typeof UpdateUserSchema>
-
-export const UpdateUserRolesSchema: z.ZodObject<{
-  roles: z.ZodArray<z.ZodString>
-  version: z.ZodString
-}> = z.object({
-  roles: z.array(UserRoleSchema).min(1, 'users.validation.roles'),
-  version: z.string().min(1, 'users.validation.version'),
+/**
+ * Partial update - roles only (not in SDK, custom operation)
+ */
+export const UpdateUserRolesSchema = z.object({
+  roles: z.array(z.string()).min(1, 'users.validation.roles'),
 })
 
 export type UpdateUserRolesInput = z.infer<typeof UpdateUserRolesSchema>
 
-export const UpdateUserSecuritySchema: z.ZodObject<{
-  password: z.ZodString
-  version: z.ZodString
-}> = z.object({
+/**
+ * Partial update - password only (not in SDK, custom operation)
+ */
+export const UpdateUserSecuritySchema = z.object({
   password: z.string().min(10, 'users.validation.password'),
-  version: z.string().min(1, 'users.validation.version'),
 })
 
 export type UpdateUserSecurityInput = z.infer<typeof UpdateUserSecuritySchema>
 
-export const UserStatusToggleSchema: z.ZodObject<{
-  version: z.ZodString
-}> = z.object({
-  version: z.string().min(1, 'users.validation.version'),
+/**
+ * Toggle active status (not in SDK, custom operation)
+ */
+export const UserStatusToggleSchema = z.object({
+  active: z.boolean(),
 })
 
 export type UserStatusToggleInput = z.infer<typeof UserStatusToggleSchema>

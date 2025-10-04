@@ -3,6 +3,18 @@
  Purpose: Frontend SDK surface wrapping HTTP client with stable, typed
  functions. Provides ETag-aware tokens retrieval and health endpoint.
  Organized by domain for better maintainability.
+ 
+ @deprecated LEGACY MANUAL SDK - MIGRATION IN PROGRESS
+ 
+ This SDK is being replaced by the OpenAPI-generated SDK in src/api/generated.
+ Most endpoints have been migrated. Remaining endpoints not yet in OpenAPI:
+ - /api/v1/me/profile (profile endpoints)
+ - /api/v1/public/landing (public landing page)
+ - /api/v1/public/forgot-password (password reset)
+ 
+ For all other endpoints, use the generated SDK from src/api/generated.
+ See seller-codes and users features for migration examples.
+ 
  All Rights Reserved. Arodi Emmanuel
 */
 import { fetchJson } from '../http/fetchClient'

@@ -4,13 +4,13 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-import { fetchRoles, type Role } from '../api/rolesApi'
+import { fetchRoles } from '../api/rolesApi'
+import type { RoleDto } from '../../../api/generated'
 
-export function useRolesQuery(): UseQueryResult<readonly Role[]> {
-  return useQuery({
+export function useRolesQuery(): UseQueryResult<readonly RoleDto[]> {
+  return useQuery<readonly RoleDto[]>({
     queryKey: ['roles'],
-    queryFn: (): Promise<readonly Role[]> => fetchRoles(),
-    staleTime: 1000 * 60 * 60,
-    gcTime: 1000 * 60 * 60 * 2,
+    queryFn: fetchRoles,
+    staleTime: 1000 * 60 * 10,
   })
 }

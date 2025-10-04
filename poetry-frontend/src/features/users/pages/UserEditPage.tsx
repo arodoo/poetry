@@ -12,7 +12,11 @@ import { useToast } from '../../../shared/toast/toastContext'
 import type { UsersFormValues } from '../components/UsersForm'
 import { useUpdateUserMutation } from '../hooks/useUsersMutations'
 import { useUserDetailWithETag } from '../hooks/useUserDetailWithETag'
-import type { UserDetail } from '../model/UsersSchemas'
+import type { UserResponse } from '../../../api/generated'
+import {
+  UpdateUserSchema,
+  type UpdateUserInput,
+} from '../model/UsersSchemas'
 import { UserEditPageLoading } from './UserEditPageHelpers'
 import { UserEditForm } from './UserEditForm'
 
@@ -26,23 +30,22 @@ export default function UserEditPage(): ReactElement {
     useUserDetailWithETag(userId)
   const mutation: ReturnType<typeof useUpdateUserMutation> =
     useUpdateUserMutation()
-  const user: UserDetail | undefined = detailQuery.data?.user
+  const user: UserResponse | undefined = detailQuery.data?.user
 
   function handleSubmit(values: UsersFormValues): void {
-    if (!values.version || !user || !detailQuery.data?.etag) return
+    if (!user || !detailQuery.data?.etag) return
+    const validatedInput: UpdateUserInput = UpdateUserSchema.parse({
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      locale: values.locale,
+      roles: values.roles as string[],
+      active: user.active ?? true,
+    })
     mutation.mutate(
       {
         id: userId,
-        input: {
-          firstName: user.firstName ?? '',
-          lastName: user.lastName ?? '',
-          email: values.email,
-          username: values.username,
-          locale: values.locale,
-          roles: values.roles as string[],
-          active: user.status === 'active',
-          version: values.version,
-        },
+        input: validatedInput,
         etag: detailQuery.data.etag,
       },
       {

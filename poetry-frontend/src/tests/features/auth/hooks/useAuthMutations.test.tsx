@@ -6,22 +6,27 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import * as Fetch from '../../../../shared/http/fetchClient'
+import * as generatedSdk from '../../../../api/generated'
 import { useLogin } from '../../../../features/auth/hooks/useLogin'
 import { useLogout } from '../../../../features/auth/hooks/useLogout'
 
 describe('auth mutations', () => {
   beforeAll(() => {
-    vi.spyOn(Fetch, 'fetchJson').mockImplementation(async (p: string) => {
-      if (p.endsWith('/api/v1/auth/login'))
-        return {
-          accessToken: 'a',
-          refreshToken: 'r',
-          username: 'john',
-          expiresIn: 3600,
-        }
-      if (p.endsWith('/api/v1/auth/logout')) return {}
-      return {} as unknown as Record<string, unknown>
+    // Mock generated SDK login/logout to return TokenResponse shapes
+    vi.spyOn(generatedSdk, 'login').mockResolvedValue({
+      data: {
+        accessToken: 'a',
+        refreshToken: 'r',
+        username: 'john',
+        expiresIn: 3600,
+      },
+      request: new Request('http://localhost/api/v1/auth/login'),
+      response: new Response(),
+    })
+    vi.spyOn(generatedSdk, 'logout').mockResolvedValue({
+      data: undefined,
+      request: new Request('http://localhost/api/v1/auth/logout'),
+      response: new Response(),
     })
   })
 

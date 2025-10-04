@@ -9,14 +9,17 @@ import type { NavigateFunction } from 'react-router-dom'
 import { buildFormData } from '../components/usersFormHelpers'
 import type { UsersFormValues } from '../components/UsersForm'
 import type { UsersFormState } from '../components/useUsersFormState'
-import type { CreateUserInput } from '../model/UsersSchemas'
+import {
+  CreateUserSchema,
+  type CreateUserInput,
+} from '../model/UsersSchemas'
 
 export function createUserSubmitHandler(
   formState: UsersFormState,
   onSuccess: (input: CreateUserInput) => void
 ): (event: FormEvent<HTMLFormElement>) => void {
-  return (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
+  return function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault()
     const values: UsersFormValues = buildFormData(
       formState.firstName,
       formState.lastName,
@@ -25,19 +28,18 @@ export function createUserSubmitHandler(
       formState.locale,
       formState.rolesString,
       formState.password,
-      true,
-      undefined
+      true
     )
-    const input: CreateUserInput = {
+    const validatedInput: CreateUserInput = CreateUserSchema.parse({
       firstName: values.firstName,
       lastName: values.lastName,
       username: values.username,
       email: values.email,
+      password: values.password || '',
       locale: values.locale,
       roles: values.roles as string[],
-      password: values.password || '',
-    }
-    onSuccess(input)
+    })
+    onSuccess(validatedInput)
   }
 }
 

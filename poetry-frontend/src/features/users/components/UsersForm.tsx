@@ -10,16 +10,15 @@ import type { useT } from '../../../shared/i18n/useT'
 import { UsersFormFields } from './UsersFormFields'
 import { buildFormData } from './usersFormHelpers'
 import { useUsersFormState, type UsersFormState } from './useUsersFormState'
+import type { UserResponse } from '../../../api/generated'
 
-export interface UsersFormValues {
-  readonly firstName: string
-  readonly lastName: string
-  readonly username: string
-  readonly email: string
-  readonly locale: string
-  readonly roles: readonly string[]
+export type UsersFormValues = Required<
+  Pick<
+    UserResponse,
+    'firstName' | 'lastName' | 'username' | 'email' | 'locale' | 'roles'
+  >
+> & {
   readonly password?: string
-  readonly version?: string
 }
 
 export interface UsersFormProps {
@@ -44,8 +43,7 @@ export function UsersForm(props: UsersFormProps): ReactElement {
         formState.locale,
         formState.rolesString,
         formState.password,
-        props.showPassword ?? false,
-        props.initialValues?.version
+        props.showPassword ?? false
       )
     )
   }
@@ -53,21 +51,8 @@ export function UsersForm(props: UsersFormProps): ReactElement {
     <form onSubmit={handleSubmit} noValidate data-testid="users-form">
       <Stack gap="md">
         <UsersFormFields
-          firstName={formState.firstName}
-          lastName={formState.lastName}
-          username={formState.username}
-          email={formState.email}
-          locale={formState.locale}
-          rolesString={formState.rolesString}
-          password={formState.password}
+          {...formState}
           showPassword={props.showPassword ?? false}
-          onFirstNameChange={formState.setFirstName}
-          onLastNameChange={formState.setLastName}
-          onUsernameChange={formState.setUsername}
-          onEmailChange={formState.setEmail}
-          onLocaleChange={formState.setLocale}
-          onRolesChange={formState.setRolesString}
-          onPasswordChange={formState.setPassword}
           t={props.t}
         />
         <Button

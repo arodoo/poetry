@@ -1,6 +1,7 @@
 /*
  * File: UsersSchemas.test.ts
  * Purpose: Validate admin users schemas for happy and failure cases.
+ * Tests aligned with generated SDK types requirements.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, expect, it } from 'vitest'
@@ -12,6 +13,8 @@ import {
 describe('UsersSchemas', () => {
   it('accepts a valid create payload', () => {
     const result = CreateUserSchema.safeParse({
+      firstName: 'Aaron',
+      lastName: 'Smith',
       username: 'aaron',
       email: 'aaron@example.com',
       locale: 'en',

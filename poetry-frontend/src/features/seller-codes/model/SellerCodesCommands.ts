@@ -1,27 +1,41 @@
 /*
  * File: SellerCodesCommands.ts
- * Purpose: Command payload schemas for seller code mutations.
- * Field names aligned with SDK SellerCodeCreateRequest and
- * SellerCodeUpdateRequest to maintain SSOT contract.
+ * Purpose: Zod runtime validation for SDK request types.
+ * Types are SDK types directly. Schemas add client-side validation only.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { z } from 'zod'
-import { SellerCodeStatusSchema } from './SellerCodesBasics'
+import type {
+  SellerCodeCreateRequest,
+  SellerCodeUpdateRequest,
+} from '../../../api/generated'
 
-export const CreateSellerCodeSchema = z.object({
+/**
+ * Runtime validation for SellerCodeCreateRequest.
+ * TYPE = SellerCodeCreateRequest (SDK). SCHEMA = adds min length validation.
+ *
+ * @see {SellerCodeCreateRequest} from api/generated - OpenAPI source of truth
+ */
+export type CreateSellerCodeInput = SellerCodeCreateRequest
+
+export const CreateSellerCodeSchema: z.ZodType<CreateSellerCodeInput> = z.object({
   code: z.string().min(3, 'sellerCodes.validation.code'),
   organizationId: z.string().optional(),
   userId: z.number({ required_error: 'sellerCodes.validation.userId' }),
-  status: SellerCodeStatusSchema.optional(),
-}).strict()
+  status: z.string().optional(),
+}) as z.ZodType<CreateSellerCodeInput>
 
-export type CreateSellerCodeInput = z.infer<typeof CreateSellerCodeSchema>
+/**
+ * Runtime validation for SellerCodeUpdateRequest.
+ * TYPE = SellerCodeUpdateRequest (SDK). SCHEMA = adds validation.
+ *
+ * @see {SellerCodeUpdateRequest} from api/generated - OpenAPI source of truth
+ */
+export type UpdateSellerCodeInput = SellerCodeUpdateRequest
 
-export const UpdateSellerCodeSchema = z.object({
-  code: z.string().min(3, 'sellerCodes.validation.code'),
+export const UpdateSellerCodeSchema: z.ZodType<UpdateSellerCodeInput> = z.object({
+  code: z.string().min(3, 'sellerCodes.validation.code').optional(),
   organizationId: z.string().optional(),
-  userId: z.number({ required_error: 'sellerCodes.validation.userId' }),
-  status: SellerCodeStatusSchema,
-}).strict()
-
-export type UpdateSellerCodeInput = z.infer<typeof UpdateSellerCodeSchema>
+  userId: z.number().optional(),
+  status: z.string().optional(),
+}) as z.ZodType<UpdateSellerCodeInput>

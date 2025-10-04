@@ -41,8 +41,7 @@ export function buildSellerCodesListColumns(
     {
       key: 'organizationId',
       header: t('ui.sellerCodes.table.organization'),
-      accessor: (row: SellerCodeSummary): string =>
-        row.organizationId ?? '-',
+      accessor: (row: SellerCodeSummary): string => row.organizationId ?? '-',
     },
     {
       key: 'actions',

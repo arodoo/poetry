@@ -22,7 +22,9 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     await page.goto('/en/seller-codes/new')
     await page.waitForLoadState('networkidle')
 
-    await expect(page.getByRole('heading', { name: /Create seller code/i })).toBeVisible({
+    await expect(
+      page.getByRole('heading', { name: /Create seller code/i })
+    ).toBeVisible({
       timeout: 15000,
     })
 
@@ -31,22 +33,22 @@ test.describe('Seller Codes CRUD Operations', (): void => {
 
     const userSelect: Locator = page.getByTestId('seller-code-user-select')
     await expect(userSelect).toBeVisible()
-    
+
     // Wait for users to load (select should have more than just placeholder)
     await page.waitForTimeout(2000)
-    
+
     const options: Locator = userSelect.locator('option')
     const optionsCount: number = await options.count()
-    
+
     // If no users loaded, check if it's showing error or loading state
     if (optionsCount <= 1) {
-      const firstOption: string = await options.first().textContent() || ''
+      const firstOption: string = (await options.first().textContent()) || ''
       console.log('User select state:', firstOption)
-      
+
       // If still loading or error, this test needs users in the database
       test.skip(true, 'No users available in database for selection')
     }
-    
+
     expect(optionsCount).toBeGreaterThan(1)
 
     await userSelect.selectOption({ index: 1 })
@@ -54,12 +56,16 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     const statusSelect: Locator = page.getByTestId('seller-code-status-select')
     await statusSelect.selectOption('active')
 
-    const submitButton: Locator = page.getByRole('button', { name: /Create seller code/i })
+    const submitButton: Locator = page.getByRole('button', {
+      name: /Create seller code/i,
+    })
     await submitButton.click()
 
     await page.waitForURL(/\/en\/seller-codes$/, { timeout: 10000 })
 
-    await expect(page.getByText(/Seller code created successfully/i)).toBeVisible({
+    await expect(
+      page.getByText(/Seller code created successfully/i)
+    ).toBeVisible({
       timeout: 5000,
     })
 
@@ -67,8 +73,11 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     await expect(codeCell).toBeVisible({ timeout: 10000 })
 
     const row: Locator = codeCell.locator('xpath=ancestor::tr')
-    const viewButton: Locator = row.locator('[data-testid^="view-seller-code-"]')
-    const dataTestId: string | null = await viewButton.getAttribute('data-testid')
+    const viewButton: Locator = row.locator(
+      '[data-testid^="view-seller-code-"]'
+    )
+    const dataTestId: string | null =
+      await viewButton.getAttribute('data-testid')
     if (dataTestId) {
       createdSellerCodeId = dataTestId.replace('view-seller-code-', '')
     }
@@ -90,7 +99,9 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     await viewButton.click()
     await page.waitForLoadState('networkidle')
 
-    await expect(page.getByRole('heading', { name: /Seller Code Detail/i })).toBeVisible({
+    await expect(
+      page.getByRole('heading', { name: /Seller Code Detail/i })
+    ).toBeVisible({
       timeout: 15000,
     })
 
@@ -121,7 +132,9 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     const statusSelect: Locator = page.getByTestId('seller-code-status-select')
     await statusSelect.selectOption('inactive')
 
-    const saveButton: Locator = page.getByRole('button', { name: /Save changes/i })
+    const saveButton: Locator = page.getByRole('button', {
+      name: /Save changes/i,
+    })
     await saveButton.click()
 
     await page.waitForURL(`/en/seller-codes/${createdSellerCodeId}`, {
@@ -159,7 +172,7 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     const confirmButton: Locator = page.getByRole('button', {
       name: /confirm|delete|yes/i,
     })
-    if ((await confirmButton.isVisible().catch(() => false))) {
+    if (await confirmButton.isVisible().catch(() => false)) {
       await confirmButton.click()
     }
 

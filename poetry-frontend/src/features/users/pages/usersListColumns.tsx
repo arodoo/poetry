@@ -18,19 +18,19 @@ export function buildUsersListColumns(
     {
       key: 'username',
       header: t('ui.users.table.username'),
-      accessor: (row: UserSummary): string => row.username,
+      accessor: (row: UserSummary): string => row.username ?? '',
     },
     {
       key: 'email',
       header: t('ui.users.table.email'),
-      accessor: (row: UserSummary): string => row.email,
+      accessor: (row: UserSummary): string => row.email ?? '',
     },
     {
       key: 'roles',
       header: t('ui.users.table.roles'),
       accessor: (row: UserSummary): ReactElement => (
         <Inline gap="xs">
-          {row.roles.map(
+          {(row.roles ?? []).map(
             (role: string): ReactElement => (
               <Badge key={role} tone="primary" size="sm">
                 {role}

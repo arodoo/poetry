@@ -12,7 +12,6 @@ import type { UsersFormState } from '../components/useUsersFormState'
 
 export function createSubmitHandler(
   formState: UsersFormState,
-  userVersion: number | undefined,
   onSubmit: (values: UsersFormValues) => void
 ): (event: FormEvent<HTMLFormElement>) => void {
   return (event: FormEvent<HTMLFormElement>): void => {
@@ -25,8 +24,7 @@ export function createSubmitHandler(
       formState.locale,
       formState.rolesString,
       formState.password,
-      false,
-      userVersion?.toString()
+      false
     )
     onSubmit(data)
   }

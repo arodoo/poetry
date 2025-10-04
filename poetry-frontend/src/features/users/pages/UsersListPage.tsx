@@ -13,7 +13,7 @@ import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import type { BreadcrumbItem } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUsersListQuery } from '../hooks/useUsersQueries'
-import type { UserSummary } from '../model/UsersSchemas'
+import type { UserResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
 import { buildUsersListColumns } from './usersListColumns'
 import { buildUserListBreadcrumbs } from './userBreadcrumbHelpers'
@@ -25,10 +25,10 @@ export default function UsersListPage(): ReactElement {
   const listQuery: ReturnType<typeof useUsersListQuery> = useUsersListQuery()
   const isLoading: boolean = listQuery.isLoading
   const isError: boolean = listQuery.isError
-  const users: readonly UserSummary[] = Array.isArray(listQuery.data)
-    ? (listQuery.data as readonly UserSummary[])
+  const users: readonly UserResponse[] = Array.isArray(listQuery.data)
+    ? listQuery.data
     : []
-  const columns: readonly DataTableColumn<UserSummary>[] =
+  const columns: readonly DataTableColumn<UserResponse>[] =
     buildUsersListColumns(locale, t)
   const breadcrumbItems: readonly BreadcrumbItem[] = buildUserListBreadcrumbs(
     locale,
@@ -56,7 +56,7 @@ export default function UsersListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={users}
-          keyExtractor={(row: UserSummary): string => row.id}
+          keyExtractor={(row: UserResponse): string => String(row.id ?? '')}
           emptyMessage={t('ui.users.status.empty')}
         />
       )}

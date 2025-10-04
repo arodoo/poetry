@@ -1,56 +1,36 @@
 /*
  * File: publicForgotPasswordClient.ts
- * Purpose: SDK helper for public forgot-password endpoint.
+ * Purpose: SDK helper for public forgot-password endpoint using generated SDK.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { createFetchClient } from '../../http/fetchClient'
-import { getEnv, type Env } from '../../config/env'
+import { forgotPassword } from '../../../api/generated'
+import type {
+  ForgotPasswordRequest,
+  ForgotPasswordResponse,
+} from '../../../api/generated'
 import { createIdempotencyKey } from '../../http/idempotency'
 
-export interface PublicForgotPasswordRequestDto {
-  readonly email: string
-}
+export type { ForgotPasswordRequest, ForgotPasswordResponse }
+export type PublicForgotPasswordRequestDto = ForgotPasswordRequest
+export type PublicForgotPasswordResponseDto = ForgotPasswordResponse
 
-export interface PublicForgotPasswordResponseDto {
-  readonly messageKey: string
-}
-
-export interface PublicForgotPasswordSdk {
-  sendRequest(
-    body: PublicForgotPasswordRequestDto
-  ): Promise<PublicForgotPasswordResponseDto>
-}
-
-export function createPublicForgotPasswordSdk(
-  env: Env = getEnv()
-): PublicForgotPasswordSdk {
-  const fetchJson: <T>(
-    path: string,
-    options?: import('../../http/httpTypes').HttpOptions
-  ) => Promise<T> = createFetchClient(env)
-  return {
-    sendRequest(
-      body: PublicForgotPasswordRequestDto
-    ): Promise<PublicForgotPasswordResponseDto> {
-      return fetchJson<PublicForgotPasswordResponseDto>(
-        '/api/v1/public/forgot-password',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Idempotency-Key': createIdempotencyKey(),
-          },
-          body,
-        }
-      )
+export async function sendForgotPasswordRequest(
+  body: ForgotPasswordRequest
+): Promise<ForgotPasswordResponse> {
+  const response = await forgotPassword({
+    body,
+    headers: {
+      'Idempotency-Key': createIdempotencyKey(),
     },
+  })
+  if (response.error || !response.data) {
+    throw new Error('Failed to send forgot password request')
   }
+  return response.data
 }
-const defaultPublicForgotPasswordSdk: PublicForgotPasswordSdk =
-  createPublicForgotPasswordSdk()
 
 export function postPublicForgotPassword(
   body: PublicForgotPasswordRequestDto
 ): Promise<PublicForgotPasswordResponseDto> {
-  return defaultPublicForgotPasswordSdk.sendRequest(body)
+  return sendForgotPasswordRequest(body)
 }

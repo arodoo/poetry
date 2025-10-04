@@ -38,7 +38,7 @@ export function useUsersFormState(
   const [email, setEmail] = useState<string>(initialValues?.email ?? '')
   const [locale, setLocale] = useState<string>(initialValues?.locale ?? 'en')
   const [rolesString, setRolesString] = useState<string>(
-    initialValues?.roles?.join(',') ?? 'ADMIN'
+    initialValues?.roles?.join(',') ?? 'admin'
   )
   const [password, setPassword] = useState<string>(
     initialValues?.password ?? ''

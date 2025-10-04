@@ -38,7 +38,10 @@ initEnv()
 // Configure authentication for generated SDK client
 client.interceptors.request.use((request: Request): Request => {
   const tokens = tokenStorage.load()
+  console.log('[SDK Interceptor] Request URL:', request.url)
+  console.log('[SDK Interceptor] Tokens:', tokens ? 'LOADED' : 'NONE')
   if (tokens?.accessToken) {
+    console.log('[SDK Interceptor] Adding Authorization header')
     request.headers.set('Authorization', `Bearer ${tokens.accessToken}`)
   }
   return request

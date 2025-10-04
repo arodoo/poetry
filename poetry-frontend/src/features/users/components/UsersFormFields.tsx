@@ -11,29 +11,17 @@ import type { useT } from '../../../shared/i18n/useT'
 import { UsersBasicFields } from './UsersBasicFields'
 import { UsersPasswordField } from './UsersPasswordField'
 import { UsersRolesField } from './UsersRolesField'
+import type { UsersFormState } from './useUsersFormState'
 
-export interface UsersFormFieldsProps {
-  readonly firstName: string
-  readonly lastName: string
-  readonly username: string
-  readonly email: string
-  readonly locale: string
-  readonly rolesString: string
-  readonly password: string
+export interface UsersFormFieldsProps
+  extends Omit<UsersFormState, 'setActive'> {
   readonly showPassword: boolean
-  readonly onFirstNameChange: (value: string) => void
-  readonly onLastNameChange: (value: string) => void
-  readonly onUsernameChange: (value: string) => void
-  readonly onEmailChange: (value: string) => void
-  readonly onLocaleChange: (value: string) => void
-  readonly onRolesChange: (value: string) => void
-  readonly onPasswordChange: (value: string) => void
   readonly t: ReturnType<typeof useT>
 }
 
 export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
   function handleLocaleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    props.onLocaleChange(e.target.value)
+    props.setLocale(e.target.value)
   }
   return (
     <>
@@ -42,10 +30,10 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
         lastName={props.lastName}
         username={props.username}
         email={props.email}
-        onFirstNameChange={props.onFirstNameChange}
-        onLastNameChange={props.onLastNameChange}
-        onUsernameChange={props.onUsernameChange}
-        onEmailChange={props.onEmailChange}
+        onFirstNameChange={props.setFirstName}
+        onLastNameChange={props.setLastName}
+        onUsernameChange={props.setUsername}
+        onEmailChange={props.setEmail}
         t={props.t}
       />
       <Stack gap="xs">
@@ -64,13 +52,13 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
       </Stack>
       <UsersRolesField
         value={props.rolesString}
-        onChange={props.onRolesChange}
+        onChange={props.setRolesString}
         t={props.t}
       />
       {props.showPassword ? (
         <UsersPasswordField
           value={props.password}
-          onChange={props.onPasswordChange}
+          onChange={props.setPassword}
           t={props.t}
         />
       ) : null}

@@ -4,11 +4,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 export {
-  createPublicSdk,
   getPublicLandingRaw,
+  type PublicLandingResponse,
   type PublicLandingDto,
-  type PublicLandingFeatureDto,
-  type PublicSdk,
 } from './publicClient'
 
 export {
@@ -20,9 +18,10 @@ export {
 } from './publicLoginClient'
 
 export {
-  createPublicForgotPasswordSdk,
+  sendForgotPasswordRequest,
   postPublicForgotPassword,
+  type ForgotPasswordRequest,
+  type ForgotPasswordResponse,
   type PublicForgotPasswordRequestDto,
   type PublicForgotPasswordResponseDto,
-  type PublicForgotPasswordSdk,
 } from './publicForgotPasswordClient'

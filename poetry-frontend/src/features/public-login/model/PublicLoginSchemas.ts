@@ -1,33 +1,37 @@
 /*
  * File: PublicLoginSchemas.ts
- * Purpose: Zod schemas for public login forms.
+ * Purpose: Zod runtime validation for SDK request types.
+ * Types are SDK types directly. Schemas add client-side validation only.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 import { z } from 'zod'
+import type { LoginRequest } from '../../../api/generated'
 
-export const PublicLoginRequestSchema: z.ZodObject<{
-  username: z.ZodString
-  password: z.ZodString
-}> = z.object({
+/**
+ * Runtime validation for LoginRequest.
+ * TYPE = LoginRequest (SDK). SCHEMA = adds min length validation.
+ *
+ * @see {LoginRequest} from api/generated - OpenAPI source of truth
+ */
+export type PublicLoginRequest = LoginRequest
+
+export const PublicLoginRequestSchema: z.ZodType<PublicLoginRequest> = z.object({
   username: z.string().min(1, 'ui.publicLogin.errors.username'),
   password: z.string().min(1, 'ui.publicLogin.errors.password'),
-})
+}) as z.ZodType<PublicLoginRequest>
 
-export type PublicLoginRequest = z.infer<typeof PublicLoginRequestSchema>
-
-export const LoginFormSchema: z.ZodObject<{
-  username: z.ZodString
-  password: z.ZodString
-}> = PublicLoginRequestSchema
+export const LoginFormSchema: z.ZodType<PublicLoginRequest> = PublicLoginRequestSchema
 export type LoginForm = PublicLoginRequest
 
-export const PublicLoginResultSchema: z.ZodObject<{
-  accessToken: z.ZodString
-  refreshToken: z.ZodString
-}> = z.object({
+/**
+ * Runtime validation for TokenResponse (login result).
+ *
+ * @see {TokenResponse} from api/generated - OpenAPI source of truth
+ */
+export type PublicLoginResult = import('../../../api/generated').TokenResponse
+
+export const PublicLoginResultSchema: z.ZodType<PublicLoginResult> = z.object({
   accessToken: z.string().min(1),
   refreshToken: z.string().min(1),
-})
-
-export type PublicLoginResult = z.infer<typeof PublicLoginResultSchema>
+}) as z.ZodType<PublicLoginResult>

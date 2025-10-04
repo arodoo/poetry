@@ -28,14 +28,14 @@ node tools/ci/i18n/i18n-scan.mjs || {
 }
 
 echo "📋 Validating OpenAPI contract..."
-npm run openapi:validate || {
+npm run validate:openapi || {
   echo "❌ OpenAPI validation failed! Check the output above for contract errors."
   exit 1
 }
 
 echo "🔄 Checking SDK sync..."
-npm run sdk:check || {
-  echo "❌ SDK check failed! Run 'npm run sdk:sync' to fix OpenAPI drift."
+npm run check:sdk-sync || {
+  echo "❌ SDK check failed! Run 'npm run sdk:generate' to fix OpenAPI drift."
   exit 1
 }
 

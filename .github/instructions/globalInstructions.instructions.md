@@ -2,6 +2,10 @@
 applyTo: '**'
 ---
 
+## Global considerations
+- Backend and Frontend are already running in default ports
+- Frontend can't have types or schemas definitios if they are not fixed to generated SDK gems
+
 ## Development Rules
 
 - Production-ready code only (no TODO, FIXME, or commented-out code)
@@ -21,16 +25,17 @@ applyTo: '**'
    chars/line (JSON excluded). Split large files. Don't compress code.
 3. i18n Strings (`node tools/ci/i18n/i18n-scan.mjs`): No hardcoded UI text, use
    i18n keys
-4. OpenAPI (`npm run openapi:validate`): Valid spec at
+4. OpenAPI (`npm run validate:openapi`): Valid spec at
    `docs/api/openapi-v1.yaml`
-5. SDK Sync (`npm run sdk:check`): Frontend SDK matches OpenAPI, no direct
+5. SDK Sync (`npm run check:sdk-sync`): Frontend SDK matches OpenAPI, no direct
    fetch/axios
-6. Module Structure (`npm run modules:check`): DDD structure per blueprints
+6. Module Structure (`npm run check:backend-modules`): DDD structure per blueprints
 7. Formatting (`npx lint-staged`): Prettier (TS/JS), Spotless (Java)
 8. Linting: ESLint --max-warnings=0 (frontend), Checkstyle (backend)
 9. Config Sync: ESLint/Checkstyle match `code-standards.config.json`
-10. Theme checker (`npm run "check:colors`): No hardcoded colors, use theme
+10. Theme checker (`npm run check:hardcoded-colors`): No hardcoded colors, use theme
     tokens
+11. SDK generation (`npm run generate:sdk`): SDK up to date with OpenAPI. Comand inside frontend
 
 ## Pre-Push Checks
 
@@ -93,11 +98,12 @@ Use one `-m` flag with plain ASCII: `type: subject` (no scope/body)
 - PWA-ready architecture (consider offline, caching, service workers)
 - Avoid using python scripts for tasks npm can handle
 - Length, typecheck, lint, headers validated via `tools/ci/` scripts
-- Check limits: `npm run max-lines:check`
-- Check headers: `npm run headers:check`
-- Check colors: `npm run check:colors`
-- Scan i18n: `npm run i18n:scan`
-- Check modules: `npm run modules:check` and `npm run frontend:modules:check`
-- Validate OpenAPI: `npm run openapi:validate`
-- Check SDK sync: `npm run sdk:check`
+- Check limits: `npm run check:file-length`
+- Check headers: `npm run check:file-headers`
+- Check colors: `npm run check:hardcoded-colors`
+- Scan i18n: `npm run check:hardcoded-strings`
+- Check modules: `npm run check:backend-modules` and `npm run check:frontend-modules`
+- Validate OpenAPI: `npm run validate:openapi`
+- Check SDK sync: `npm run check:sdk-sync`
+- Check manual fetch calls: `npm run check:manual-fetch-calls`
 - Full CI suite: `npm run ci`

@@ -13,23 +13,13 @@ export function buildFormData(
   locale: string,
   rolesString: string,
   password: string,
-  showPassword: boolean,
-  version?: string
+  showPassword: boolean
 ): UsersFormValues {
   const roles: string[] = rolesString
     .split(',')
     .map((r: string): string => r.trim())
     .filter((r: string): boolean => r.length > 0)
-  const formData: {
-    firstName: string
-    lastName: string
-    username: string
-    email: string
-    locale: string
-    roles: string[]
-    version?: string
-    password?: string
-  } = {
+  const formData: UsersFormValues = {
     firstName,
     lastName,
     username,
@@ -37,11 +27,8 @@ export function buildFormData(
     locale,
     roles,
   }
-  if (version) {
-    formData.version = version
-  }
   if (showPassword && password) {
-    formData.password = password
+    return { ...formData, password }
   }
-  return formData as UsersFormValues
+  return formData
 }

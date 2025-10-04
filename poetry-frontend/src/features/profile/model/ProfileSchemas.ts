@@ -5,6 +5,13 @@
  */
 import { z } from 'zod'
 import { MIN_PASSWORD_LENGTH } from '../../../shared/security/passwordPolicy'
+import type {
+  ProfileResponse,
+  ProfileUpdateRequest,
+} from '../../../api/generated'
+
+export type { ProfileResponse, ProfileUpdateRequest }
+export type ProfileSummary = ProfileResponse
 
 export const ProfileUsernameSchema: z.ZodObject<{ username: z.ZodString }> =
   z.object({
@@ -13,31 +20,22 @@ export const ProfileUsernameSchema: z.ZodObject<{ username: z.ZodString }> =
 
 export type ProfileUsernameInput = z.infer<typeof ProfileUsernameSchema>
 
-export const ProfileSummarySchema: z.ZodObject<{
-  username: z.ZodString
-  email: z.ZodString
-  locale: z.ZodString
-  version: z.ZodString
-}> = z.object({
+export const ProfileSummarySchema: z.ZodType<ProfileResponse> = z.object({
   username: z.string().min(1, 'profile.summary.username.required'),
   email: z.string().email('profile.summary.email.invalid'),
   locale: z.string().min(2, 'profile.summary.locale.required'),
-  version: z.string().min(1, 'profile.summary.version.required'),
-})
+  version: z.number(),
+}) as z.ZodType<ProfileResponse>
 
-export type ProfileSummary = z.infer<typeof ProfileSummarySchema>
+export type ProfileSummaryUpdateInput = ProfileUpdateRequest
 
-export const ProfileSummaryUpdateSchema: z.ZodObject<{
-  username: z.ZodString
-  version: z.ZodString
-}> = ProfileSummarySchema.pick({
-  username: true,
-  version: true,
-})
-
-export type ProfileSummaryUpdateInput = z.infer<
-  typeof ProfileSummaryUpdateSchema
->
+export const ProfileSummaryUpdateSchema: z.ZodType<ProfileUpdateRequest> =
+  z.object({
+    username: z.string().min(3).max(50),
+    email: z.string().email(),
+    locale: z.string().min(2).max(10),
+    version: z.number().optional(),
+  }) as z.ZodType<ProfileUpdateRequest>
 
 export const ProfilePasswordChangeSchema: z.ZodType<{
   currentPassword: string

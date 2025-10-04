@@ -8,7 +8,7 @@ import { Stack } from '../../../ui/Stack/Stack'
 import { Text } from '../../../ui/Text/Text'
 import type { useT } from '../../../shared/i18n/useT'
 import { useRolesQuery } from '../hooks/useRolesQuery'
-import type { Role } from '../api/rolesApi'
+import type { RoleDto } from '../../../api/generated'
 import { UsersRolesFieldStatus } from './UsersRolesFieldStatus'
 
 export interface UsersRolesFieldProps {
@@ -55,7 +55,7 @@ export function UsersRolesField(props: UsersRolesFieldProps): ReactElement {
       </Text>
       <Stack gap="sm">
         {rolesQuery.data?.map(
-          (role: Role): ReactElement => (
+          (role: RoleDto): ReactElement => (
             <label
               key={role.key}
               className="flex items-center gap-2 cursor-pointer"
@@ -63,9 +63,9 @@ export function UsersRolesField(props: UsersRolesFieldProps): ReactElement {
               <input
                 type="checkbox"
                 value={role.key}
-                checked={selectedRoles.includes(role.key)}
+                checked={selectedRoles.includes(role.key ?? '')}
                 onChange={handleCheckboxChange}
-                data-testid={`role-checkbox-${role.key}`}
+                data-testid={`role-checkbox-${role.key?.toLowerCase()}`}
                 className="w-4 h-4"
               />
               <Text size="sm">{props.t(`ui.users.roles.${role.key}`)}</Text>

@@ -20,15 +20,9 @@ import { parseSellerCodeDetail } from './sellerCodesApiShared'
 export async function createSellerCode(
   input: CreateSellerCodeInput
 ): Promise<SellerCodeDetail> {
-  const payload: CreateSellerCodeInput =
-    CreateSellerCodeSchema.parse(input)
+  const validatedInput: CreateSellerCodeInput = CreateSellerCodeSchema.parse(input)
   const response = await createSellerCodeSdk({
-    body: {
-      code: payload.code,
-      organizationId: payload.organizationId || 'default-org',
-      userId: payload.userId,
-      ...(payload.status && { status: payload.status }),
-    },
+    body: validatedInput,
   })
   const data = response.data as SellerCodeResponse
   return parseSellerCodeDetail(data)
@@ -39,17 +33,11 @@ export async function updateSellerCode(
   input: UpdateSellerCodeInput,
   etag?: string
 ): Promise<SellerCodeDetail> {
-  const payload: UpdateSellerCodeInput =
-    UpdateSellerCodeSchema.parse(input)
+  const validatedInput: UpdateSellerCodeInput = UpdateSellerCodeSchema.parse(input)
   const headers = etag ? { 'If-Match': etag } : {}
   const response = await updateSellerCodeSdk({
     path: { id: Number(id) },
-    body: {
-      code: payload.code,
-      organizationId: payload.organizationId || 'default-org',
-      userId: payload.userId,
-      status: payload.status,
-    },
+    body: validatedInput,
     headers,
   })
   const data = response.data as SellerCodeResponse

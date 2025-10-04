@@ -16,7 +16,7 @@ import type { BreadcrumbItem } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUserDetailQuery } from '../hooks/useUsersQueries'
-import type { UserDetail } from '../model/UsersSchemas'
+import type { UserResponse } from '../../../api/generated'
 import { buildUserDetailSections } from './userDetailHelpers'
 import { buildUserDetailBreadcrumbs } from './userBreadcrumbHelpers'
 
@@ -28,7 +28,7 @@ export default function UserDetailPage(): ReactElement {
   const detailQuery: ReturnType<typeof useUserDetailQuery> =
     useUserDetailQuery(userId)
   const { data, isLoading, isError } = detailQuery
-  const user: UserDetail | undefined = data
+  const user: UserResponse | undefined = data
   const sections: readonly DetailViewSection[] = user
     ? buildUserDetailSections(user, t)
     : []
