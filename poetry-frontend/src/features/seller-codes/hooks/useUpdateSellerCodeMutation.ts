@@ -4,7 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { type UseMutationResult } from '@tanstack/react-query'
-import { updateSellerCode } from '../api/sellerCodesApi'
+import { updateSellerCode } from '../api/seller-codesApi'
 import type {
   UpdateSellerCodeInput,
   SellerCodeDetail,

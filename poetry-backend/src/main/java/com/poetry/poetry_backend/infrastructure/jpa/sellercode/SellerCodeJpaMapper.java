@@ -20,6 +20,7 @@ public final class SellerCodeJpaMapper {
         e.getId(),
         e.getCode(),
         e.getOrganizationId(),
+        e.getUserId(),
         e.getStatus(),
         e.getCreatedAt(),
         e.getUpdatedAt(),

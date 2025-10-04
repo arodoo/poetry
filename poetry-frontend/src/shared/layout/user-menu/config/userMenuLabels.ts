@@ -4,7 +4,7 @@
  * dedicated to orchestration within required limits.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { UserMenuDependencies } from './useUserMenuDependencies'
+import type { UserMenuDependencies } from '../hooks/useUserMenuDependencies'
 
 export interface UserMenuLabels {
   readonly profilePath: string

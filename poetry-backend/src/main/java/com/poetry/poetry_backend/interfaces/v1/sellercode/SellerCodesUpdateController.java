@@ -34,7 +34,7 @@ public class SellerCodesUpdateController {
       @RequestHeader(value = "If-Match", required = false) String ifMatch,
       @RequestBody SellerCodeDtos.SellerCodeUpdateRequest r) {
     long version = ifMatch == null ? 0L : Long.parseLong(ifMatch.replace("\"", ""));
-    var sc = update.execute(id, version, r.code(), r.organizationId(), r.status());
+    var sc = update.execute(id, version, r.code(), r.organizationId(), r.userId(), r.status());
     return ResponseEntity.ok().body(SellerCodeDtos.toResponse(sc));
   }
 }

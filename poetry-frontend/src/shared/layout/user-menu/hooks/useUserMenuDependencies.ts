@@ -5,9 +5,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useParams, useNavigate } from 'react-router-dom'
-import { useT } from '../../shared/i18n/useT'
-import { useLogout } from '../../features/auth/hooks/useLogout'
-import { useMeQuery } from '../../features/auth/hooks/useMe'
+import { useT } from '../../../i18n/useT'
+import { useLogout } from '../../../../features/auth/hooks/useLogout'
+import { useMeQuery } from '../../../../features/auth/hooks/useMe'
 
 export interface UserMenuDependencies {
   readonly translate: ReturnType<typeof useT>

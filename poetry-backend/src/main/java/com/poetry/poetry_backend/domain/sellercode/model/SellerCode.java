@@ -14,6 +14,7 @@ public record SellerCode(
     Long id,
     String code,
     String organizationId,
+    Long userId,
     String status,
     Instant createdAt,
     Instant updatedAt,

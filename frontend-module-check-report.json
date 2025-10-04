@@ -1,7 +1,7 @@
 {
   "ok": true,
   "summary": {
-    "features": 11,
+    "features": 12,
     "missing": 0
   },
   "details": [
@@ -1088,6 +1088,127 @@
         },
         {
           "path": "poetry-frontend/src/tests/features/public-register/pages/PublicRegisterPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "seller-codes",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/seller-codes/model/SellerCodesSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/api/seller-codesApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/hooks/useSellerCodesQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/hooks/useSellerCodesMutations.ts",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/routing/seller-codesRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/seller-codes/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/seller-codes.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/seller-codes-*.yaml",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/seller-codes/model/SellerCodesSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/seller-codes/api/seller-codesApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/seller-codes/hooks/seller-codesQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/seller-codes/hooks/seller-codesMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/seller-codes/pages/SellerCodesPage.test.ts",
           "optional": false,
           "exists": true
         }

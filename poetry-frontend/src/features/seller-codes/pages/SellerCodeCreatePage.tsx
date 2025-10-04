@@ -13,6 +13,7 @@ import { FormLayout } from '../../../ui/FormLayout/FormLayout'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useSellerCodesFormState } from '../components/useSellerCodesFormState'
 import { useCreateSellerCodeMutation } from '../hooks/useSellerCodesMutations'
+import { useMeQuery } from '../../auth/hooks/useMe'
 import type { CreateSellerCodeInput } from '../model/SellerCodesSchemas'
 import { buildCreateFormSections } from './sellerCodeFormSections'
 import { buildSellerCodeCreateBreadcrumbs } from './sellerCodeBreadcrumbHelpers'
@@ -31,11 +32,13 @@ export default function SellerCodeCreatePage(): ReactElement {
   const isSubmitting: boolean = mutation.isPending
   const formState: ReturnType<typeof useSellerCodesFormState> =
     useSellerCodesFormState()
+  const meQuery: ReturnType<typeof useMeQuery> = useMeQuery()
   const breadcrumbs: readonly { label: string; href?: string }[] =
     buildSellerCodeCreateBreadcrumbs(locale, t)
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
     createSellerCodeSubmitHandler(
       formState,
+      Number(meQuery.data?.id),
       (input: CreateSellerCodeInput): void => {
         mutation.mutate(input, {
           onSuccess: (): void => {

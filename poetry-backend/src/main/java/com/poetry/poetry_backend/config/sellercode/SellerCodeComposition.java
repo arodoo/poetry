@@ -16,12 +16,14 @@ import com.poetry.poetry_backend.application.sellercode.port.*;
 import com.poetry.poetry_backend.application.sellercode.usecase.*;
 import com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCodeJpaAdapter;
 import com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCodeJpaRepository;
+import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 @Configuration
 public class SellerCodeComposition {
   @Bean
-  SellerCodeJpaAdapter sellerCodeJpaAdapter(SellerCodeJpaRepository repo) {
-    return new SellerCodeJpaAdapter(repo);
+  SellerCodeJpaAdapter sellerCodeJpaAdapter(
+      SellerCodeJpaRepository repo, UserJpaRepository userRepo) {
+    return new SellerCodeJpaAdapter(repo, userRepo);
   }
 
   @Bean

@@ -16,17 +16,18 @@ public final class SellerCodeDtos {
       Long id,
       String code,
       String organizationId,
+      Long userId,
       String status,
       long version) {}
 
   public record SellerCodeCreateRequest(
-      String code, String organizationId, String status) {}
+      String code, String organizationId, Long userId, String status) {}
 
   public record SellerCodeUpdateRequest(
-      String code, String organizationId, String status) {}
+      String code, String organizationId, Long userId, String status) {}
 
   public static SellerCodeResponse toResponse(SellerCode sc) {
     return new SellerCodeResponse(
-        sc.id(), sc.code(), sc.organizationId(), sc.status(), sc.version());
+        sc.id(), sc.code(), sc.organizationId(), sc.userId(), sc.status(), sc.version());
   }
 }

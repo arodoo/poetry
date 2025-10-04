@@ -5,13 +5,13 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useState, useRef } from 'react'
-import { useDocumentClick } from '../hooks/useDocumentClick'
+import { useDocumentClick } from '../../../hooks/useDocumentClick'
 import {
   useUserMenuDependencies,
   type UserMenuDependencies,
-} from './useUserMenuDependencies'
+} from '../hooks/useUserMenuDependencies'
 import { createLogoutExecutor } from './userMenuLogout'
-import { buildUserMenuLabels } from './userMenuLabels'
+import { buildUserMenuLabels } from '../config/userMenuLabels'
 
 export interface UserMenuCoreResult {
   readonly isOpen: boolean

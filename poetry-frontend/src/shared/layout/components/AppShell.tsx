@@ -6,7 +6,7 @@
 import type { ReactElement, ReactNode } from 'react'
 import { useState } from 'react'
 import { Navbar } from './Navbar.tsx'
-import { Sidebar } from './Sidebar'
+import { Sidebar } from '../sidebar'
 
 export function AppShell({ children }: { children: ReactNode }): ReactElement {
   const [open, setOpen] = useState<boolean>(true)

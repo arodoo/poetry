@@ -17,6 +17,7 @@ import { updateSellerCodeSubmitHandler } from './sellerCodeEditHandlers'
 export function buildEditSubmitHandler(
   sellerCode: { version: string } | undefined,
   formState: SC.SellerCodesFormState,
+  userId: number,
   sellerCodeId: string,
   mutation: UseMutationResult<
     unknown,
@@ -31,6 +32,7 @@ export function buildEditSubmitHandler(
   return sellerCode
     ? updateSellerCodeSubmitHandler(
         formState,
+        userId,
         sellerCode.version,
         (input: UpdateSellerCodeInput): void => {
           mutation.mutate(

@@ -10,6 +10,7 @@ import type { UpdateSellerCodeInput } from '../model/SellerCodesSchemas'
 
 export function updateSellerCodeSubmitHandler(
   formState: SC.SellerCodesFormState,
+  userId: number,
   version: string,
   onSuccess: (input: UpdateSellerCodeInput) => void
 ): (event: FormEvent<HTMLFormElement>) => void {
@@ -17,6 +18,7 @@ export function updateSellerCodeSubmitHandler(
     event.preventDefault()
     const input: UpdateSellerCodeInput = {
       code: formState.code,
+      userId,
       status: formState.status,
       version,
       ...(formState.orgId && { orgId: formState.orgId }),

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.poetry.poetry_backend.application.sellercode.port.SellerCodeCommandPort;
 import com.poetry.poetry_backend.application.sellercode.port.SellerCodeQueryPort;
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
+import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 @Transactional
 public class SellerCodeJpaAdapter
@@ -22,9 +23,10 @@ public class SellerCodeJpaAdapter
   private final SellerCodeJpaQueryAdapter queryAdapter;
   private final SellerCodeJpaCommandAdapter commandAdapter;
 
-  public SellerCodeJpaAdapter(SellerCodeJpaRepository repo) {
+  public SellerCodeJpaAdapter(
+      SellerCodeJpaRepository repo, UserJpaRepository userRepo) {
     this.queryAdapter = new SellerCodeJpaQueryAdapter(repo);
-    this.commandAdapter = new SellerCodeJpaCommandAdapter(repo);
+    this.commandAdapter = new SellerCodeJpaCommandAdapter(repo, userRepo);
   }
 
   public List<SellerCode> findAll() {
@@ -36,8 +38,8 @@ public class SellerCodeJpaAdapter
   }
 
   public SellerCode create(
-      String code, String organizationId, String status) {
-    return commandAdapter.create(code, organizationId, status);
+      String code, String organizationId, Long userId, String status) {
+    return commandAdapter.create(code, organizationId, userId, status);
   }
 
   public SellerCode update(
@@ -45,8 +47,9 @@ public class SellerCodeJpaAdapter
       long version,
       String code,
       String organizationId,
+      Long userId,
       String status) {
-    return commandAdapter.update(id, version, code, organizationId, status);
+    return commandAdapter.update(id, version, code, organizationId, userId, status);
   }
 
   public void softDelete(Long id, long version) {

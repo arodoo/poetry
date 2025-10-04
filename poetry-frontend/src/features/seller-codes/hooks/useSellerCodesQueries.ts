@@ -8,7 +8,7 @@ import { tokenStorage } from '../../../shared/security/tokenStorage'
 import {
   fetchSellerCodeById,
   fetchSellerCodesList,
-} from '../api/sellerCodesApi'
+} from '../api/seller-codesApi'
 import type {
   SellerCodeDetail,
   SellerCodesCollection,

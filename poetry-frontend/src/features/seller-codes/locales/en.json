@@ -25,6 +25,9 @@
   "ui.sellerCodes.form.code.placeholder": "Enter seller code",
   "ui.sellerCodes.form.organization.label": "Organization",
   "ui.sellerCodes.form.organization.placeholder": "Enter organization ID",
+  "ui.sellerCodes.form.user.label": "User",
+  "ui.sellerCodes.form.user.placeholder": "Select user",
+  "ui.sellerCodes.form.user.search": "Search users...",
   "ui.sellerCodes.form.status.label": "Status",
   "ui.sellerCodes.detail.title": "Seller Code Detail",
   "ui.sellerCodes.detail.subtitle": "Review seller code information",
@@ -45,5 +48,8 @@
   "ui.sellerCodes.breadcrumb.sellerCodes": "Seller Codes",
   "ui.sellerCodes.breadcrumb.new": "New seller code",
   "ui.sellerCodes.breadcrumb.detail": "Seller code detail",
-  "ui.sellerCodes.breadcrumb.edit": "Edit seller code"
+  "ui.sellerCodes.breadcrumb.edit": "Edit seller code",
+  "sellerCodes.validation.userId": "User is required",
+  "sellerCodes.validation.code": "Code must be at least 3 characters",
+  "sellerCodes.validation.version": "Version is required"
 }

@@ -18,12 +18,13 @@ public final class SellerCodeRehydrator {
       Long id,
       String code,
       String organizationId,
+      Long userId,
       String status,
       Instant createdAt,
       Instant updatedAt,
       Instant deletedAt,
       long version) {
     return new SellerCode(
-        id, code, organizationId, status, createdAt, updatedAt, deletedAt, version);
+        id, code, organizationId, userId, status, createdAt, updatedAt, deletedAt, version);
   }
 }

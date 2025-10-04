@@ -7,7 +7,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { MenuItem } from '../../ui/MenuItem/MenuItem'
+import { MenuItem } from '../../../../ui/MenuItem/MenuItem'
 
 interface Props {
   profilePath: string

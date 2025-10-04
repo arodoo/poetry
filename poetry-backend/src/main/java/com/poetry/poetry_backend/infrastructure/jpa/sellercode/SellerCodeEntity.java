@@ -38,6 +38,9 @@ public class SellerCodeEntity {
   @Column(nullable = false, length = 100)
   private String organizationId;
 
+  @Column(nullable = false)
+  private Long userId;
+
   @Column(nullable = false, length = 20)
   private String status;
 

@@ -7,7 +7,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { BlockingOverlay } from '../../ui/BlockingOverlay/BlockingOverlay'
+import BlockingOverlay from '../../../ui/BlockingOverlay/BlockingOverlay'
 export default function BlockingOverlaySmall({
   visible,
   label,

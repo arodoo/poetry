@@ -29,7 +29,7 @@ public class SellerCodesCreateController {
   @PostMapping
   public ResponseEntity<SellerCodeDtos.SellerCodeResponse> create(
       @RequestBody SellerCodeDtos.SellerCodeCreateRequest r) {
-    var sc = create.execute(r.code(), r.organizationId(), r.status());
+    var sc = create.execute(r.code(), r.organizationId(), r.userId(), r.status());
     return ResponseEntity.status(201).body(SellerCodeDtos.toResponse(sc));
   }
 }

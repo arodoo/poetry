@@ -4,9 +4,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { useT } from '../../shared/i18n/useT'
-import { Icon } from '../../ui/Icon/Icon'
-import { UserMenu } from './UserMenu'
+import { useT } from '../../i18n/useT'
+import { Icon } from '../../../ui/Icon/Icon'
+import { UserMenu } from '../user-menu'
 
 export function Navbar(props: { onToggleSidebar?: () => void }): ReactElement {
   const onToggleSidebar: (() => void) | undefined = props.onToggleSidebar

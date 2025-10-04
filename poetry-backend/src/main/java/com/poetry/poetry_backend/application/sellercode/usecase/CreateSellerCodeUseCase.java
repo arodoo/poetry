@@ -20,7 +20,7 @@ public class CreateSellerCodeUseCase {
   }
 
   public SellerCode execute(
-      String code, String organizationId, String status) {
-    return commands.create(code, organizationId, status);
+      String code, String organizationId, Long userId, String status) {
+    return commands.create(code, organizationId, userId, status);
   }
 }

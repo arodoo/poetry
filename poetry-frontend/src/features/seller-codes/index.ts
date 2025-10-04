@@ -6,10 +6,10 @@
  */
 
 export * from './model/SellerCodesSchemas'
-export * from './api/sellerCodesApi'
+export * from './api/seller-codesApi'
 export * from './hooks/useSellerCodesQueries'
 export * from './hooks/useSellerCodesMutations'
-export * from './routing/sellerCodesRoutes'
+export * from './routing/seller-codesRoutes'
 export { default as SellerCodesListPage } from './pages/SellerCodesListPage'
 export { default as SellerCodeCreatePage } from './pages/SellerCodeCreatePage'
 export { default as SellerCodeDetailPage } from './pages/SellerCodeDetailPage'

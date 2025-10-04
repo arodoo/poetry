@@ -7,7 +7,7 @@
 import type {
   LogoutMutation,
   NavigateFunction,
-} from './useUserMenuDependencies'
+} from '../hooks/useUserMenuDependencies'
 
 export interface LogoutExecutorConfig {
   readonly closeMenu: () => void

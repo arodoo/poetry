@@ -13,21 +13,30 @@ import static com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCode
 import java.time.Instant;
 
 import com.poetry.poetry_backend.application.sellercode.port.SellerCodeCommandPort;
+import com.poetry.poetry_backend.domain.sellercode.exception.InvalidUserException;
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
+import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 public class SellerCodeJpaCommandAdapter implements SellerCodeCommandPort {
   private final SellerCodeJpaRepository repository;
+  private final UserJpaRepository userRepository;
 
-  public SellerCodeJpaCommandAdapter(SellerCodeJpaRepository repository) {
+  public SellerCodeJpaCommandAdapter(
+      SellerCodeJpaRepository repository, UserJpaRepository userRepository) {
     this.repository = repository;
+    this.userRepository = userRepository;
   }
 
   @Override
   public SellerCode create(
-      String code, String organizationId, String status) {
+      String code, String organizationId, Long userId, String status) {
+    if (!userRepository.existsById(userId)) {
+      throw InvalidUserException.userNotFound(userId);
+    }
     SellerCodeEntity entity = new SellerCodeEntity();
     entity.setCode(code);
     entity.setOrganizationId(organizationId);
+    entity.setUserId(userId);
     entity.setStatus(status);
     return persist(repository, entity);
   }
@@ -38,10 +47,15 @@ public class SellerCodeJpaCommandAdapter implements SellerCodeCommandPort {
       long version,
       String code,
       String organizationId,
+      Long userId,
       String status) {
+    if (!userRepository.existsById(userId)) {
+      throw InvalidUserException.userNotFound(userId);
+    }
     SellerCodeEntity entity = guard(repository, id, version);
     entity.setCode(code);
     entity.setOrganizationId(organizationId);
+    entity.setUserId(userId);
     entity.setStatus(status);
     return persist(repository, entity);
   }

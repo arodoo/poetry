@@ -1,5 +1,5 @@
 /*
- * File: sellerCodesRoutes.ts
+ * File: seller-codesRoutes.ts
  * Purpose: Locale-scoped route definitions for seller codes pages.
  * All Rights Reserved. Arodi Emmanuel
  */

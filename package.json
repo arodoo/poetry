@@ -21,6 +21,7 @@
     "openapi:validate": "redocly lint docs/api/openapi-v1.yaml",
     "sdk:check": "node tools/ci/openapi/check-openapi-hash.mjs",
     "sdk:sync": "node tools/ci/openapi/update-openapi-hash.mjs",
+    "sdk:manual-report": "node tools/ci/sdk/sdk-manual-report.mjs",
     "max-lines:check": "node tools/ci/limits/check-lines.mjs",
     "config:sync": "node tools/ci/config/config-sync.mjs",
     "config:validate": "node tools/ci/config/validate-config-sync.mjs",

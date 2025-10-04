@@ -3,31 +3,20 @@
  * Purpose: Present forgot-password form with accessible controls.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { FormEvent, ReactElement, ChangeEvent } from 'react'
+import type { ChangeEvent } from 'react'
 import { Card } from '../../../ui/Card/Card'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Heading } from '../../../ui/Heading/Heading'
 import { Text } from '../../../ui/Text/Text'
 import { Input } from '../../../ui/Input/Input'
 import { Button } from '../../../ui/Button/Button'
+import type { PublicForgotPasswordFormProps } from './FormProps'
 
-export interface PublicForgotPasswordFormProps {
-  readonly emailValue: string
-  readonly onEmailChange: (value: string) => void
-  readonly onSubmit: (event: FormEvent<HTMLFormElement>) => void
-  readonly isSubmitting: boolean
-  readonly title: string
-  readonly description: string
-  readonly emailLabel: string
-  readonly submitLabel: string
-  readonly pendingLabel: string
-  readonly successMessage?: string | undefined
-  readonly errorMessage?: string | undefined
-}
+export type { PublicForgotPasswordFormProps }
 
 export function PublicForgotPasswordForm(
   props: PublicForgotPasswordFormProps
-): ReactElement {
+): React.ReactElement {
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {
     props.onEmailChange(event.target.value)
   }

@@ -15,6 +15,7 @@ export const sellerCodeSummaryBaseSchema: z.ZodObject<{
   status: z.ZodOptional<typeof SellerCodeStatusSchema>
   orgId: z.ZodOptional<z.ZodString>
   orgName: z.ZodOptional<z.ZodString>
+  userId: z.ZodOptional<z.ZodNumber>
   createdAt: z.ZodOptional<z.ZodString>
   updatedAt: z.ZodOptional<z.ZodString>
   version: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>
@@ -24,6 +25,7 @@ export const sellerCodeSummaryBaseSchema: z.ZodObject<{
   status: SellerCodeStatusSchema.optional(),
   orgId: z.string().optional(),
   orgName: z.string().optional(),
+  userId: z.number().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
   version: z.union([z.string(), z.number()]).optional(),
@@ -35,6 +37,7 @@ export interface NormalizedSellerCodeSummary {
   readonly status: 'active' | 'inactive' | 'expired'
   readonly orgId?: string
   readonly orgName?: string
+  readonly userId?: number
   readonly createdAt: string
   readonly updatedAt: string
   readonly version: string

@@ -25,6 +25,9 @@
   "ui.sellerCodes.form.code.placeholder": "Ingresar código de vendedor",
   "ui.sellerCodes.form.organization.label": "Organización",
   "ui.sellerCodes.form.organization.placeholder": "Ingresar ID de organización",
+  "ui.sellerCodes.form.user.label": "Usuario",
+  "ui.sellerCodes.form.user.placeholder": "Seleccionar usuario",
+  "ui.sellerCodes.form.user.search": "Buscar usuarios...",
   "ui.sellerCodes.form.status.label": "Estado",
   "ui.sellerCodes.detail.title": "Detalle de Código de Vendedor",
   "ui.sellerCodes.detail.subtitle": "Revisar información del código de vendedor",
@@ -45,5 +48,8 @@
   "ui.sellerCodes.breadcrumb.sellerCodes": "Códigos de Vendedor",
   "ui.sellerCodes.breadcrumb.new": "Nuevo código de vendedor",
   "ui.sellerCodes.breadcrumb.detail": "Detalle de código de vendedor",
-  "ui.sellerCodes.breadcrumb.edit": "Editar código de vendedor"
+  "ui.sellerCodes.breadcrumb.edit": "Editar código de vendedor",
+  "sellerCodes.validation.userId": "El usuario es requerido",
+  "sellerCodes.validation.code": "El código debe tener al menos 3 caracteres",
+  "sellerCodes.validation.version": "La versión es requerida"
 }

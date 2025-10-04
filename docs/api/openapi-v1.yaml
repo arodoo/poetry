@@ -24,6 +24,8 @@ tags:
     description: UI theme management endpoints
   - name: fonts
     description: Font asset management endpoints
+  - name: seller-codes
+    description: Seller code management endpoints
 paths:
   /:
     $ref: ./openapi/paths/api-index.yaml
@@ -69,6 +71,10 @@ paths:
     $ref: ./openapi/paths/fonts-collection.yaml#/~1api~1v1~1fonts
   /v1/fonts/{key}:
     $ref: ./openapi/paths/fonts-item.yaml#/~1api~1v1~1fonts~1{key}
+  /v1/seller-codes:
+    $ref: ./openapi/paths/seller-codes-collection.yaml#/~1api~1v1~1seller-codes
+  /v1/seller-codes/{id}:
+    $ref: ./openapi/paths/seller-codes-item.yaml#/~1api~1v1~1seller-codes~1{id}
 components:
   securitySchemes:
     $ref: ./openapi/components/securitySchemes.yaml
@@ -109,6 +115,14 @@ components:
       $ref: ./openapi/components/schemas/font-create.yaml
     FontUpdate:
       $ref: ./openapi/components/schemas/font-update.yaml
+    SellerCode:
+      $ref: ./openapi/components/schemas/seller-code.yaml
+    SellerCodeCreate:
+      $ref: ./openapi/components/schemas/seller-code-create.yaml
+    SellerCodeUpdate:
+      $ref: ./openapi/components/schemas/seller-code-update.yaml
+    PageSellerCode:
+      $ref: ./openapi/components/schemas/page-seller-code.yaml
     UITokens:
       type: object
       description: Aggregate UI tokens payload.

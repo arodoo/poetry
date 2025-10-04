@@ -7,10 +7,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Avatar } from '../../ui/Avatar/Avatar'
+import { Avatar } from '../../../../ui/Avatar/Avatar'
 import { UserMenuItems } from './UserMenuItems'
-import BlockingOverlaySmall from './BlockingOverlaySmall'
-import { useUserMenuCore } from './UserMenuCoreLogic'
+import BlockingOverlaySmall from '../../components/BlockingOverlaySmall'
+import { useUserMenuCore } from '../logic/UserMenuCoreLogic'
 
 export function UserMenuCoreImpl(): ReactElement {
   const {

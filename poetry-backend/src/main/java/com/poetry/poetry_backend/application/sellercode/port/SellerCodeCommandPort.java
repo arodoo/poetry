@@ -12,13 +12,14 @@ package com.poetry.poetry_backend.application.sellercode.port;
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
 
 public interface SellerCodeCommandPort {
-  SellerCode create(String code, String organizationId, String status);
+  SellerCode create(String code, String organizationId, Long userId, String status);
 
   SellerCode update(
       Long id,
       long version,
       String code,
       String organizationId,
+      Long userId,
       String status);
 
   void softDelete(Long id, long version);

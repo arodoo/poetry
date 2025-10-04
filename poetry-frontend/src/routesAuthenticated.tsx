@@ -7,7 +7,7 @@ import type { ReactElement } from 'react'
 import { Suspense } from 'react'
 import { Route } from 'react-router-dom'
 import { RequireAuth } from './shared/routing/RequireAuth'
-import { AppShell } from './shared/layout/AppShell'
+import { AppShell } from './shared/layout'
 import {
   DashboardPageLazy,
   ProfilePageLazy,
