@@ -12,6 +12,7 @@
     "format:check": "prettier --check .",
     "i18n:gen": "node ../tools/ci/i18n/i18n-generate-keys.mjs",
     "i18n:verify": "node ../tools/ci/i18n/i18n-verify.mjs",
+    "sdk:generate": "openapi-ts -i ../docs/api/backend-generated/v1/openapi.yaml -o src/api/generated -c @hey-api/client-fetch",
     "typecheck": "npm run i18n:gen && npm run i18n:verify && tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "typecheck:only": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "build": "npm run i18n:gen && npm run i18n:verify && npm run format && npm run lint -- --max-warnings=0 && npm run typecheck && vite build",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@hey-api/openapi-ts": "^0.84.4",
     "@playwright/test": "^1.48.2",
     "@tanstack/react-query-devtools": "^5.90.2",
     "@testing-library/jest-dom": "^6.4.8",

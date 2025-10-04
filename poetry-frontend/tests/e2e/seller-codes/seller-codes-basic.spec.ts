@@ -79,6 +79,7 @@ test('create seller code form has required fields', async ({
   await expect(page.getByTestId('seller-code-input')).toBeVisible({
     timeout: 15000,
   })
+  await expect(page.getByTestId('seller-code-user-select')).toBeVisible()
   await expect(page.getByTestId('seller-code-status-select')).toBeVisible()
   await expect(page.getByTestId('seller-code-org-input')).toBeVisible()
 })

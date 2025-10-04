@@ -1,8 +1,13 @@
 /*
  * File: sellerCodesMutations.ts
- * Purpose: Mutation operations for seller codes feature.
+ * Purpose: Mutation operations using generated SDK.
  * All Rights Reserved. Arodi Emmanuel
  */
+import {
+  createSellerCode as createSellerCodeSdk,
+  updateSellerCode as updateSellerCodeSdk,
+  type SellerCodeResponse,
+} from '../../../api/generated'
 import {
   CreateSellerCodeSchema,
   UpdateSellerCodeSchema,
@@ -10,18 +15,23 @@ import {
   type UpdateSellerCodeInput,
   type SellerCodeDetail,
 } from '../model/SellerCodesSchemas'
-import {
-  getSellerCodesSdk,
-  parseSellerCodeDetail,
-} from './sellerCodesApiShared'
+import { parseSellerCodeDetail } from './sellerCodesApiShared'
 
 export async function createSellerCode(
   input: CreateSellerCodeInput
 ): Promise<SellerCodeDetail> {
-  const sdk: ReturnType<typeof getSellerCodesSdk> = getSellerCodesSdk()
-  const payload: CreateSellerCodeInput = CreateSellerCodeSchema.parse(input)
-  const dto: unknown = await sdk.create(payload)
-  return parseSellerCodeDetail(dto)
+  const payload: CreateSellerCodeInput =
+    CreateSellerCodeSchema.parse(input)
+  const response = await createSellerCodeSdk({
+    body: {
+      code: payload.code,
+      organizationId: payload.orgId || 'default-org',
+      userId: payload.userId,
+      ...(payload.status && { status: payload.status }),
+    },
+  })
+  const data = response.data as SellerCodeResponse
+  return parseSellerCodeDetail(data)
 }
 
 export async function updateSellerCode(
@@ -29,8 +39,19 @@ export async function updateSellerCode(
   input: UpdateSellerCodeInput,
   etag?: string
 ): Promise<SellerCodeDetail> {
-  const sdk: ReturnType<typeof getSellerCodesSdk> = getSellerCodesSdk()
-  const payload: UpdateSellerCodeInput = UpdateSellerCodeSchema.parse(input)
-  const dto: unknown = await sdk.update(id, payload, etag)
-  return parseSellerCodeDetail(dto)
+  const payload: UpdateSellerCodeInput =
+    UpdateSellerCodeSchema.parse(input)
+  const headers = etag ? { 'If-Match': etag } : {}
+  const response = await updateSellerCodeSdk({
+    path: { id: Number(id) },
+    body: {
+      code: payload.code,
+      organizationId: payload.orgId || 'default-org',
+      userId: payload.userId,
+      status: payload.status,
+    },
+    headers,
+  })
+  const data = response.data as SellerCodeResponse
+  return parseSellerCodeDetail(data)
 }

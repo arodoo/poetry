@@ -9,15 +9,18 @@ import { type ReactElement, type ChangeEvent } from 'react'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Input } from '../../../ui/Input/Input'
 import { SellerCodesFormStatus } from './SellerCodesFormStatus'
+import { UserSelect } from './UserSelect'
 import { Text } from '../../../ui/Text/Text'
 import type { useT } from '../../../shared/i18n/useT'
 
 export interface SellerCodesFormFieldsProps {
   readonly code: string
   readonly orgId: string
+  readonly userId: string
   readonly status: 'active' | 'inactive' | 'expired'
   readonly onCodeChange: (value: string) => void
   readonly onOrgIdChange: (value: string) => void
+  readonly onUserIdChange: (value: string) => void
   readonly onStatusChange: (value: 'active' | 'inactive' | 'expired') => void
   readonly t: ReturnType<typeof useT>
 }
@@ -54,6 +57,13 @@ export function SellerCodesFormFields(
           data-testid="seller-code-org-input"
         />
       </Stack>
+
+      <UserSelect
+        value={props.userId}
+        onChange={props.onUserIdChange}
+        t={props.t}
+        required
+      />
 
       <SellerCodesFormStatus
         status={props.status}

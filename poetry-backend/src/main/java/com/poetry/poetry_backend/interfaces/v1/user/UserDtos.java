@@ -13,32 +13,58 @@ import java.util.Set;
 
 import com.poetry.poetry_backend.domain.user.model.User;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public final class UserDtos {
+  @Schema(description = "User response representation")
   public record UserResponse(
+      @Schema(description = "User ID", example = "1")
       Long id,
+      @Schema(description = "First name", example = "John")
       String firstName,
+      @Schema(description = "Last name", example = "Doe")
       String lastName,
+      @Schema(description = "Email address", example = "john.doe@example.com")
       String email,
+      @Schema(description = "Username", example = "johndoe")
       String username,
+      @Schema(description = "Locale code", example = "en")
       String locale,
+      @Schema(description = "Active status")
       boolean active,
+      @Schema(description = "User roles", example = "[\"admin\", \"user\"]")
       Set<String> roles) { }
 
+  @Schema(description = "User update request")
   public record UserUpdateRequest(
+      @Schema(description = "First name", example = "John")
       String firstName, 
+      @Schema(description = "Last name", example = "Doe")
       String lastName, 
+      @Schema(description = "Email address", example = "john.doe@example.com")
       String email,
+      @Schema(description = "Locale code", example = "en")
       String locale,
+      @Schema(description = "User roles", example = "[\"admin\", \"user\"]")
       Set<String> roles, 
+      @Schema(description = "Active status")
       boolean active) { }
 
+  @Schema(description = "User creation request")
   public record UserCreateRequest(
+      @Schema(description = "First name", example = "John", required = true)
       String firstName,
+      @Schema(description = "Last name", example = "Doe", required = true)
       String lastName,
+      @Schema(description = "Email address", example = "john.doe@example.com", required = true)
       String email,
+      @Schema(description = "Username", example = "johndoe", required = true)
       String username,
+      @Schema(description = "Locale code", example = "en")
       String locale,
+      @Schema(description = "Password", example = "SecurePass123!", required = true)
       String password,
+      @Schema(description = "User roles", example = "[\"user\"]")
       Set<String> roles) { }
 
   public static UserResponse toResponse(User u) {

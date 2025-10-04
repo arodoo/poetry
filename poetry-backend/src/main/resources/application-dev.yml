@@ -20,3 +20,14 @@ spring:
 server:
   error:
     include-stacktrace: always
+
+# Enable OpenAPI documentation
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  packages-to-scan: com.poetry.poetry_backend.interfaces
+  show-actuator: false

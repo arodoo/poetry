@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.sellercode.usecase.GetAllSellerCodesUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "seller-codes", description = "Seller code management")
 @RestController
 @RequestMapping("/api/v1/seller-codes")
 public class SellerCodesListController {
@@ -26,6 +32,16 @@ public class SellerCodesListController {
     this.getAll = getAll;
   }
 
+  @Operation(
+      operationId = "listSellerCodes",
+      summary = "List all seller codes",
+      description = "Retrieve all seller codes with ETag for caching")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "200", description = "Seller codes list"),
+        @ApiResponse(responseCode = "401", description = "Unauthorized"),
+        @ApiResponse(responseCode = "403", description = "Forbidden")
+      })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
   public ResponseEntity<List<SellerCodeDtos.SellerCodeResponse>> all() {

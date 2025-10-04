@@ -27,6 +27,8 @@
   "ui.sellerCodes.form.organization.placeholder": "Enter organization ID",
   "ui.sellerCodes.form.user.label": "User",
   "ui.sellerCodes.form.user.placeholder": "Select user",
+  "ui.sellerCodes.form.user.loading": "Loading users...",
+  "ui.sellerCodes.form.user.error": "Failed to load users",
   "ui.sellerCodes.form.user.search": "Search users...",
   "ui.sellerCodes.form.status.label": "Status",
   "ui.sellerCodes.detail.title": "Seller Code Detail",

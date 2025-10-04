@@ -40,12 +40,11 @@ public class SecurityConfig {
     .csrf(csrf -> csrf.disable())
     .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
     .authorizeHttpRequests(reg -> reg
+      .requestMatchers("/v3/api-docs/**", "/v3/api-docs.yaml", "/v3/api-docs", 
+          "/swagger-ui/**", "/swagger-ui.html").permitAll()
       .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
       .requestMatchers(
         "/actuator/**",
-        "/v3/api-docs/**",
-        "/swagger-ui/**",
-        "/swagger-ui.html",
         "/api",
         // Newly whitelisted public API endpoints necessary for obtaining tokens
         // or health checks

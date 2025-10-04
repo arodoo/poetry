@@ -18,6 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.sellercode.usecase.UpdateSellerCodeUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "seller-codes", description = "Seller code management")
 @RestController
 @RequestMapping("/api/v1/seller-codes")
 public class SellerCodesUpdateController {
@@ -27,6 +33,19 @@ public class SellerCodesUpdateController {
     this.update = update;
   }
 
+  @Operation(
+      operationId = "updateSellerCode",
+      summary = "Update seller code",
+      description = "Update seller code with optimistic locking via If-Match")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "200", description = "Successfully updated"),
+        @ApiResponse(responseCode = "400", description = "Invalid request"),
+        @ApiResponse(responseCode = "401", description = "Unauthorized"),
+        @ApiResponse(responseCode = "403", description = "Forbidden"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "409", description = "Version conflict")
+      })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
   public ResponseEntity<SellerCodeDtos.SellerCodeResponse> update(

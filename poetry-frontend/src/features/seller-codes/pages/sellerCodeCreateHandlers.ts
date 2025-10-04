@@ -11,14 +11,13 @@ import type { CreateSellerCodeInput } from '../model/SellerCodesSchemas'
 
 export function createSellerCodeSubmitHandler(
   formState: SC.SellerCodesFormState,
-  userId: number,
   onSuccess: (input: CreateSellerCodeInput) => void
 ): (event: FormEvent<HTMLFormElement>) => void {
   return (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     const input: CreateSellerCodeInput = {
       code: formState.code,
-      userId,
+      userId: Number(formState.userId),
       status: formState.status,
       ...(formState.orgId && { orgId: formState.orgId }),
     }

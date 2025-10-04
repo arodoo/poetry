@@ -77,11 +77,10 @@ paths:
     $ref: ./openapi/paths/seller-codes-item.yaml#/~1api~1v1~1seller-codes~1{id}
 components:
   securitySchemes:
-    $ref: ./openapi/components/securitySchemes.yaml
-  parameters:
-    $ref: ./openapi/components/parameters/common-headers.yaml
-  headers:
-    $ref: ./openapi/components/headers.yaml
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Error:
       $ref: ./openapi/components/schemas/error.yaml

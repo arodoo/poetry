@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.sellercode.usecase.CreateSellerCodeUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/seller-codes")
+@Tag(name = "seller-codes", description = "Seller code management")
 public class SellerCodesCreateController {
   private final CreateSellerCodeUseCase create;
 
@@ -27,9 +33,24 @@ public class SellerCodesCreateController {
 
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
+  @Operation(
+    operationId = "createSellerCode",
+    summary = "Create a new seller code",
+    description = "Create seller code with user assignment"
+  )
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "201", description = "Created"),
+    @ApiResponse(responseCode = "400", description = "Invalid request"),
+    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+  })
   public ResponseEntity<SellerCodeDtos.SellerCodeResponse> create(
       @RequestBody SellerCodeDtos.SellerCodeCreateRequest r) {
-    var sc = create.execute(r.code(), r.organizationId(), r.userId(), r.status());
-    return ResponseEntity.status(201).body(SellerCodeDtos.toResponse(sc));
+    var sc = create.execute(
+      r.code(), r.organizationId(), r.userId(), r.status()
+    );
+    return ResponseEntity.status(201).body(
+      SellerCodeDtos.toResponse(sc)
+    );
   }
 }

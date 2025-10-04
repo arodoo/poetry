@@ -19,6 +19,12 @@ import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
 import com.poetry.poetry_backend.application.user.usecase.UpdateUserUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "users", description = "User management")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UsersUpdateController {
@@ -39,6 +45,18 @@ public class UsersUpdateController {
     this.mapper = mapper;
   }
 
+  @Operation(
+      operationId = "updateUser",
+      summary = "Update user",
+      description = "Update user with optimistic locking via If-Match")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Successfully updated"),
+    @ApiResponse(responseCode = "400", description = "Invalid request"),
+    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    @ApiResponse(responseCode = "403", description = "Forbidden"),
+    @ApiResponse(responseCode = "404", description = "Not found"),
+    @ApiResponse(responseCode = "409", description = "Version conflict")
+  })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
   public ResponseEntity<UserDtos.UserResponse> update(

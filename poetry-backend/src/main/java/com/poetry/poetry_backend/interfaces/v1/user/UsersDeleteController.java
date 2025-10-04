@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poetry.poetry_backend.application.user.usecase.DeleteUserUseCase;
 import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "users", description = "User management")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UsersDeleteController {
@@ -27,6 +33,17 @@ public class UsersDeleteController {
     this.getUser = getUser;
   }
 
+  @Operation(
+      operationId = "deleteUser",
+      summary = "Delete user",
+      description = "Soft delete user with optimistic locking")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    @ApiResponse(responseCode = "403", description = "Forbidden"),
+    @ApiResponse(responseCode = "404", description = "Not found"),
+    @ApiResponse(responseCode = "409", description = "Version conflict")
+  })
   @PreAuthorize("hasAuthority('admin')")
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(

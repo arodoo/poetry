@@ -15,12 +15,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.user.usecase.CreateUserUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "users", description = "User management")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UsersCreateController {
   private final CreateUserUseCase create;
   public UsersCreateController(CreateUserUseCase create) { this.create = create; }
 
+  @Operation(
+      operationId = "createUser",
+      summary = "Create a new user",
+      description = "Create user with role assignment")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "201", description = "Created"),
+    @ApiResponse(responseCode = "400", description = "Invalid request"),
+    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+  })
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
   public ResponseEntity<UserDtos.UserResponse> create(

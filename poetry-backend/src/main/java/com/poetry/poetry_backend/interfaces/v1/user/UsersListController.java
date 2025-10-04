@@ -19,12 +19,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.user.usecase.GetAllUsersUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "users", description = "User management")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UsersListController {
   private final GetAllUsersUseCase getAll;
   public UsersListController(GetAllUsersUseCase getAll) { this.getAll = getAll; }
 
+  @Operation(
+      operationId = "listUsers",
+      summary = "List all users",
+      description = "Retrieve all users with ETag for caching")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Users list"),
+    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+  })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
   public ResponseEntity<List<UserDtos.UserResponse>> all() {

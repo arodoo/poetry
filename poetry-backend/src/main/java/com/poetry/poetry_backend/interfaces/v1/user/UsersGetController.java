@@ -17,6 +17,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "users", description = "User management")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UsersGetController {
@@ -30,6 +36,16 @@ public class UsersGetController {
     this.mapper = mapper;
   }
 
+  @Operation(
+      operationId = "getUserById",
+      summary = "Get user by ID",
+      description = "Retrieve single user with ETag for caching")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "User found"),
+    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    @ApiResponse(responseCode = "403", description = "Forbidden"),
+    @ApiResponse(responseCode = "404", description = "Not found")
+  })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
   public ResponseEntity<UserDtos.UserResponse> byId(@PathVariable Long id) throws Exception {

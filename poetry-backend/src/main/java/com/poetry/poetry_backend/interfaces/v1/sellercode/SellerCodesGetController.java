@@ -18,6 +18,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.application.sellercode.usecase.GetSellerCodeByIdUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "seller-codes", description = "Seller code management")
 @RestController
 @RequestMapping("/api/v1/seller-codes")
 public class SellerCodesGetController {
@@ -32,6 +38,17 @@ public class SellerCodesGetController {
     this.mapper = mapper;
   }
 
+  @Operation(
+      operationId = "getSellerCodeById",
+      summary = "Get seller code by ID",
+      description = "Retrieve single seller code with ETag for caching")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "200", description = "Seller code found"),
+        @ApiResponse(responseCode = "401", description = "Unauthorized"),
+        @ApiResponse(responseCode = "403", description = "Forbidden"),
+        @ApiResponse(responseCode = "404", description = "Not found")
+      })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
   public ResponseEntity<SellerCodeDtos.SellerCodeResponse> byId(

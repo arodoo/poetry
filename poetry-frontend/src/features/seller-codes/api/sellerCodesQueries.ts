@@ -1,28 +1,36 @@
 /*
  * File: sellerCodesQueries.ts
- * Purpose: Query operations for seller codes feature.
+ * Purpose: Query operations for seller codes using generated SDK.
  * All Rights Reserved. Arodi Emmanuel
  */
+import {
+  listSellerCodes,
+  getSellerCodeById,
+  type SellerCodeResponse,
+} from '../../../api/generated'
 import type {
   SellerCodesCollection,
   SellerCodeDetail,
 } from '../model/SellerCodesSchemas'
 import {
-  getSellerCodesSdk,
   parseSellerCodeDetail,
   parseSellerCodesCollection,
 } from './sellerCodesApiShared'
 
-export async function fetchSellerCodesList(): Promise<SellerCodesCollection> {
-  const sdk: ReturnType<typeof getSellerCodesSdk> = getSellerCodesSdk()
-  const dto: unknown = await sdk.list()
-  return parseSellerCodesCollection(dto)
+export async function fetchSellerCodesList(): Promise<
+  SellerCodesCollection
+> {
+  const response = await listSellerCodes()
+  const data = response.data as SellerCodeResponse[]
+  return parseSellerCodesCollection(data)
 }
 
 export async function fetchSellerCodeById(
   id: string
 ): Promise<SellerCodeDetail> {
-  const sdk: ReturnType<typeof getSellerCodesSdk> = getSellerCodesSdk()
-  const dto: unknown = await sdk.retrieve(id)
-  return parseSellerCodeDetail(dto)
+  const response = await getSellerCodeById({
+    path: { id: Number(id) },
+  })
+  const data = response.data as SellerCodeResponse
+  return parseSellerCodeDetail(data)
 }

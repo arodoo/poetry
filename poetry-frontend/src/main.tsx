@@ -16,6 +16,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { initEnv } from './shared/bootstrap/initEnv'
 import './shared/polyfills/responseStatusProperty'
+import { client } from './api/generated/client.gen'
+import { tokenStorage } from './shared/security/tokenStorage'
 
 // Dev-only: install client error bridge BEFORE any code that may throw
 if (import.meta.env.DEV) {
@@ -32,6 +34,15 @@ if (import.meta.env.DEV) {
 
 // Fail-fast: validate env at startup (bridge errors explicitly in dev)
 initEnv()
+
+// Configure authentication for generated SDK client
+client.interceptors.request.use((request: Request): Request => {
+  const tokens = tokenStorage.load()
+  if (tokens?.accessToken) {
+    request.headers.set('Authorization', `Bearer ${tokens.accessToken}`)
+  }
+  return request
+})
 
 const rootElement: HTMLElement | null = document.getElementById('root')
 
