@@ -11,4 +11,5 @@ export {
   updateUserSecurity,
   disableUser,
   enableUser,
+  deleteUser,
 } from './usersMutations'

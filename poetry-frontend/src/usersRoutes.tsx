@@ -11,6 +11,7 @@ import {
   UsersCreatePageLazy,
   UserDetailPageLazy,
   UserEditPageLazy,
+  UserDeletePageLazy,
 } from './shared/routing/lazyAdapters'
 
 export function UsersRoutes(): ReactElement[] {
@@ -21,6 +22,15 @@ export function UsersRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <UsersCreatePageLazy />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="users-delete"
+      path=":locale/users/:id/delete"
+      element={
+        <AdminRoute>
+          <UserDeletePageLazy />
         </AdminRoute>
       }
     />,

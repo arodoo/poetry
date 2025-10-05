@@ -13,6 +13,7 @@ import UserRolesPage from '../pages/UserRolesPage'
 import UserSecurityPage from '../pages/UserSecurityPage'
 import UserDisablePage from '../pages/UserDisablePage'
 import UserEnablePage from '../pages/UserEnablePage'
+import UserDeletePage from '../pages/UserDeletePage'
 
 export const usersRoutes: RouteObject[] = [
   {
@@ -46,5 +47,9 @@ export const usersRoutes: RouteObject[] = [
   {
     path: '/:locale/users/:id/enable',
     element: React.createElement(UserEnablePage),
+  },
+  {
+    path: '/:locale/users/:id/delete',
+    element: React.createElement(UserDeletePage),
   },
 ]

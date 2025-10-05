@@ -5,5 +5,6 @@
  */
 export * from './userDetailAdapter'
 export * from './userEditAdapter'
+export * from './userDeleteAdapter'
 export * from './usersCreateAdapter'
 export * from './usersListAdapter'

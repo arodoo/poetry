@@ -108,3 +108,33 @@ export async function enableUser(
   }
   return response.data as UserResponse
 }
+
+export async function deleteUser(
+  id: string,
+  _input: unknown,
+  etag?: string
+): Promise<UserResponse> {
+  // Soft delete: fetch current user, then update with active = false
+  const { getUserById } = await import('../../../api/generated')
+  const currentUserResponse = await getUserById({ path: { id: Number(id) } })
+  if (!currentUserResponse.data) {
+    throw new Error(`User ${id} not found`)
+  }
+  const currentUser = currentUserResponse.data
+  const response = await updateUserSdk({
+    path: { id: Number(id) },
+    body: {
+      firstName: currentUser.firstName ?? '',
+      lastName: currentUser.lastName ?? '',
+      email: currentUser.email ?? '',
+      locale: currentUser.locale ?? 'en',
+      roles: currentUser.roles ? Array.from(currentUser.roles) : [],
+      active: false,
+    },
+    headers: { 'If-Match': etag || '""' },
+  })
+  if (!response.data) {
+    throw new Error(`Failed to delete user ${id}`)
+  }
+  return response.data as UserResponse
+}

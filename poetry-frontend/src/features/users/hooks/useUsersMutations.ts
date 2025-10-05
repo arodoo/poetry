@@ -9,6 +9,7 @@ export { useUpdateUserRolesMutation } from './useUpdateUserRolesMutation'
 export { useUpdateUserSecurityMutation } from './useUpdateUserSecurityMutation'
 export { useDisableUserMutation } from './useDisableUserMutation'
 export { useEnableUserMutation } from './useEnableUserMutation'
+export { useDeleteUserMutation } from './useDeleteUserMutation'
 export {
   type MutationVariables,
   useUsersEntityMutation,
