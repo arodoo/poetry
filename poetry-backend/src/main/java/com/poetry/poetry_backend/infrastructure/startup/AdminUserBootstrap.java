@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.auth.exception.DuplicateUserException;
 import com.poetry.poetry_backend.application.auth.usecase.RegisterUseCase;
+import com.poetry.poetry_backend.application.sellercode.usecase.CreateSellerCodeUseCase;
 import com.poetry.poetry_backend.domain.auth.model.Role;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
@@ -28,6 +29,7 @@ public class AdminUserBootstrap {
   private static final Logger log = LoggerFactory.getLogger(AdminUserBootstrap.class);
   private final RegisterUseCase registerUseCase;
   private final UserJpaRepository users;
+  private final CreateSellerCodeUseCase createSellerCode;
 
   @Value("${admin.bootstrap.username:admin}")
   private String adminUsername;
@@ -47,9 +49,11 @@ public class AdminUserBootstrap {
 
   public AdminUserBootstrap(
       RegisterUseCase registerUseCase,
-      UserJpaRepository users) {
+      UserJpaRepository users,
+      CreateSellerCodeUseCase createSellerCode) {
     this.registerUseCase = registerUseCase;
     this.users = users;
+    this.createSellerCode = createSellerCode;
   }
 
   @EventListener(ApplicationReadyEvent.class)
@@ -94,7 +98,20 @@ public class AdminUserBootstrap {
       String email = String.format("%s@example.com", username);
       Map<String, Object> payload = Map.of("username", username, "email", email, "password", adminPassword);
       try {
-        registerUseCase.execute(payload);
+        Map<String, Object> result = registerUseCase.execute(payload);
+        // If seller code creation is available, create a seller code per user immediately
+        if (injectSampleUsers && createSellerCode != null) {
+          try {
+            Object idObj = result.get("id");
+            Long userId = idObj instanceof Number ? ((Number) idObj).longValue() : null;
+            if (userId != null) {
+              String code = String.format("USER-SC-%05d", userId);
+              createSellerCode.execute(code, "default-org", userId, "active");
+            }
+          } catch (Exception ex) {
+            log.debug("AdminUserBootstrap: failed creating seller code for {}: {}", username, ex.toString());
+          }
+        }
       } catch (DuplicateUserException d) {
         // already exists, ignore
       } catch (Exception e) {
