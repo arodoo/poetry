@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 
 @Transactional
 public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
@@ -25,6 +26,11 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
 
   public List<com.poetry.poetry_backend.domain.user.model.User> findAll() {
     return queryAdapter.findAll();
+  }
+
+  public PageResult<com.poetry.poetry_backend.domain.user.model.User>
+      findAllPaged(int page, int size, String search) {
+    return queryAdapter.findAllPaged(page, size, search);
   }
 
   public com.poetry.poetry_backend.domain.user.model.User findById(Long id) {

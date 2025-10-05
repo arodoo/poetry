@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.poetry.poetry_backend.application.sellercode.port.SellerCodeCommandPort;
 import com.poetry.poetry_backend.application.sellercode.port.SellerCodeQueryPort;
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 @Transactional
@@ -31,6 +32,10 @@ public class SellerCodeJpaAdapter
 
   public List<SellerCode> findAll() {
     return queryAdapter.findAll();
+  }
+
+  public PageResult<SellerCode> findAllPaged(int page, int size, String search) {
+    return queryAdapter.findAllPaged(page, size, search);
   }
 
   public SellerCode findById(Long id) {

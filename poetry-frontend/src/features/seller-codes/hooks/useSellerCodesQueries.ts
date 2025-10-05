@@ -8,15 +8,28 @@ import { tokenStorage } from '../../../shared/security/tokenStorage'
 import {
   fetchSellerCodeById,
   fetchSellerCodesList,
+  fetchSellerCodesPage,
 } from '../api/seller-codesApi'
 import type {
   SellerCodeDetail,
   SellerCodesCollection,
 } from '../model/SellerCodesSchemas'
+import type { PageResponseDtoSellerCodeResponse } from '../../../api/generated'
 
 interface SellerCodesQueryKeys {
   readonly root: readonly ['sellerCodes']
   list(): readonly ['sellerCodes', 'list']
+  page(
+    page: number,
+    size: number,
+    search?: string
+  ): readonly [
+    'sellerCodes',
+    'page',
+    number,
+    number,
+    string | undefined,
+  ]
   detail(id: string): readonly ['sellerCodes', 'detail', string]
 }
 
@@ -24,6 +37,19 @@ export const sellerCodesQueryKeys: SellerCodesQueryKeys = {
   root: ['sellerCodes'] as const,
   list(): readonly ['sellerCodes', 'list'] {
     return ['sellerCodes', 'list'] as const
+  },
+  page(
+    page: number,
+    size: number,
+    search?: string
+  ): readonly [
+    'sellerCodes',
+    'page',
+    number,
+    number,
+    string | undefined,
+  ] {
+    return ['sellerCodes', 'page', page, size, search] as const
   },
   detail(id: string): readonly ['sellerCodes', 'detail', string] {
     return ['sellerCodes', 'detail', id] as const
@@ -49,6 +75,23 @@ export function useSellerCodeDetailQuery(id: string): UseQueryResult<SDetail> {
     queryKey: sellerCodesQueryKeys.detail(id),
     queryFn: (): Promise<SellerCodeDetail> => fetchSellerCodeById(id),
     enabled: hasAccessToken && id.length > 0,
+    staleTime: 1000 * 30,
+  })
+}
+
+type PageResp = PageResponseDtoSellerCodeResponse
+
+export function useSellerCodesPageQuery(
+  page: number,
+  size: number,
+  search?: string
+): UseQueryResult<PageResp> {
+  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  return useQuery({
+    queryKey: sellerCodesQueryKeys.page(page, size, search),
+    queryFn: (): Promise<PageResp> =>
+      fetchSellerCodesPage(page, size, search),
+    enabled: hasAccessToken,
     staleTime: 1000 * 30,
   })
 }

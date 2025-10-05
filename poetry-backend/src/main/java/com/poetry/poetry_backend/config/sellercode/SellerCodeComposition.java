@@ -32,6 +32,11 @@ public class SellerCodeComposition {
   }
 
   @Bean
+  GetSellerCodesPageUseCase getSellerCodesPageUseCase(SellerCodeQueryPort q) {
+    return new GetSellerCodesPageUseCase(q);
+  }
+
+  @Bean
   GetSellerCodeByIdUseCase getSellerCodeByIdUseCase(SellerCodeQueryPort q) {
     return new GetSellerCodeByIdUseCase(q);
   }

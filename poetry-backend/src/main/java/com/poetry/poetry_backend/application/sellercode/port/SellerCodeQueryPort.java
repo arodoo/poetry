@@ -12,9 +12,12 @@ package com.poetry.poetry_backend.application.sellercode.port;
 import java.util.List;
 
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 
 public interface SellerCodeQueryPort {
   List<SellerCode> findAll();
+
+  PageResult<SellerCode> findAllPaged(int page, int size, String search);
 
   SellerCode findById(Long id);
 }

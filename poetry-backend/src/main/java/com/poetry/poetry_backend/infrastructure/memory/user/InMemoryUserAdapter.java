@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
 import com.poetry.poetry_backend.domain.user.model.User;
 
@@ -26,8 +27,23 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
     return new ArrayList<>(store.values());
   }
 
+  public PageResult<User> findAllPaged(int page, int size, String search) {
+    List<User> allUsers = new ArrayList<>(store.values());
+    int totalElements = allUsers.size();
+    int totalPages = (int) Math.ceil((double) totalElements / size);
+    int startIndex = page * size;
+    int endIndex = Math.min(startIndex + size, totalElements);
+    List<User> pageContent =
+        startIndex < totalElements
+            ? allUsers.subList(startIndex, endIndex)
+            : List.of();
+    return new PageResult<>(
+        pageContent, totalElements, totalPages, page, size);
+  }
+
   public User findById(Long id) {
-    return Optional.ofNullable(store.get(id)).orElseThrow(() -> new UserNotFoundException(id));
+    return Optional.ofNullable(store.get(id))
+        .orElseThrow(() -> new UserNotFoundException(id));
   }
 
   public User create(

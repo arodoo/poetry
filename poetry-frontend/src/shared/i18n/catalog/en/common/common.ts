@@ -13,4 +13,12 @@ export const commonEn: Record<string, string> = {
   'ui.common.retry': 'Try again',
   'ui.dashboard.welcome.title': 'Welcome to Dashboard',
   'ui.dashboard.welcome.message': 'You have successfully logged in.',
+  'ui.table.pagination.showing': 'Showing',
+  'ui.table.pagination.of': 'of',
+  'ui.table.pagination.perPage': 'per page',
+  'ui.table.pagination.page': 'Page',
+  'ui.table.pagination.previous': 'Previous',
+  'ui.table.pagination.next': 'Next',
+  'ui.table.search.placeholder': 'Search...',
+  'ui.table.search.clear': 'Clear search',
 }

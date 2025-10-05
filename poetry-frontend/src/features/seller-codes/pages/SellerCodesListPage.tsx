@@ -1,9 +1,11 @@
 /*
  * File: SellerCodesListPage.tsx
- * Purpose: Admin seller codes index page with modern DataTable layout.
+ * Purpose: Admin seller codes index page with modern DataTable layout
+ * and server-side pagination for performance with large datasets.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
+import { useState } from 'react'
 import { Button } from '../../../ui/Button/Button'
 import { Text } from '../../../ui/Text/Text'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
@@ -12,26 +14,31 @@ import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import type { BreadcrumbItem } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
-import { useSellerCodesListQuery } from '../hooks/useSellerCodesQueries'
-import type { SellerCodeSummary } from '../model/SellerCodesSchemas'
+import { useSellerCodesPageQuery } from '../hooks/useSellerCodesQueries'
+import type { SellerCodeResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
 import { buildSellerCodesListColumns } from './sellerCodesListColumns'
 import { buildSellerCodeListBreadcrumbs } from './sellerCodeBreadcrumbHelpers'
 
 export default function SellerCodesListPage(): ReactElement {
+  const [page, setPage] = useState<number>(0)
+  const [size, setSize] = useState<number>(10)
+  const [search, setSearch] = useState<string>('')
   const localeResult: ReturnType<typeof useLocale> = useLocale()
   const locale: string = localeResult.locale
   const t: ReturnType<typeof useT> = useT()
-  const listQuery: ReturnType<typeof useSellerCodesListQuery> =
-    useSellerCodesListQuery()
-  const isLoading: boolean = listQuery.isLoading
-  const isError: boolean = listQuery.isError
-  const sellerCodes: readonly SellerCodeSummary[] = Array.isArray(
-    listQuery.data
+  const pageQuery: ReturnType<typeof useSellerCodesPageQuery> =
+    useSellerCodesPageQuery(page, size, search)
+  const isLoading: boolean = pageQuery.isLoading
+  const isError: boolean = pageQuery.isError
+  const sellerCodes: readonly SellerCodeResponse[] = Array.isArray(
+    pageQuery.data?.content
   )
-    ? (listQuery.data as readonly SellerCodeSummary[])
+    ? pageQuery.data.content
     : []
-  const columns: readonly DataTableColumn<SellerCodeSummary>[] =
+  const totalElements: number = pageQuery.data?.totalElements ?? 0
+  const totalPages: number = pageQuery.data?.totalPages ?? 0
+  const columns: readonly DataTableColumn<SellerCodeResponse>[] =
     buildSellerCodesListColumns(locale, t)
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildSellerCodeListBreadcrumbs(locale, t)
@@ -62,8 +69,22 @@ export default function SellerCodesListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={sellerCodes}
-          keyExtractor={(row: SellerCodeSummary): string => String(row.id)}
+          keyExtractor={(row: SellerCodeResponse): string =>
+            String(row.id ?? '')
+          }
           emptyMessage={t('ui.sellerCodes.status.empty')}
+          search={{
+            value: search,
+            onSearchChange: setSearch,
+          }}
+          pagination={{
+            currentPage: page,
+            pageSize: size,
+            totalElements,
+            totalPages,
+            onPageChange: setPage,
+            onPageSizeChange: setSize,
+          }}
         />
       )}
     </PageLayout>

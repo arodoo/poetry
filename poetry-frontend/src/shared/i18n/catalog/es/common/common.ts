@@ -13,4 +13,12 @@ export const commonEs: Record<string, string> = {
   'ui.common.retry': 'Intentar de nuevo',
   'ui.dashboard.welcome.title': 'Bienvenido al Panel',
   'ui.dashboard.welcome.message': 'Has iniciado sesión correctamente.',
+  'ui.table.pagination.showing': 'Mostrando',
+  'ui.table.pagination.of': 'de',
+  'ui.table.pagination.perPage': 'por página',
+  'ui.table.pagination.page': 'Página',
+  'ui.table.pagination.previous': 'Anterior',
+  'ui.table.pagination.next': 'Siguiente',
+  'ui.table.search.placeholder': 'Buscar...',
+  'ui.table.search.clear': 'Limpiar búsqueda',
 }

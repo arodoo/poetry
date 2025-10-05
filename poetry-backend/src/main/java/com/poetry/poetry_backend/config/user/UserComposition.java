@@ -31,6 +31,11 @@ public class UserComposition {
   }
 
   @Bean
+  GetUsersPageUseCase getUsersPageUseCase(UserQueryPort q) {
+    return new GetUsersPageUseCase(q);
+  }
+
+  @Bean
   GetUserByIdUseCase getUserByIdUseCase(UserQueryPort q) {
     return new GetUserByIdUseCase(q);
   }

@@ -3,7 +3,11 @@
  * Purpose: Public surface re-exporting users queries and mutations.
  * All Rights Reserved. Arodi Emmanuel
  */
-export { fetchUsersList, fetchUserById } from './usersQueries'
+export {
+  fetchUsersList,
+  fetchUsersPage,
+  fetchUserById,
+} from './usersQueries'
 export {
   createUser,
   updateUser,

@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.user.model.User;
 
 public final class TestUserStubs {
@@ -71,8 +72,17 @@ public final class TestUserStubs {
 
   public static UserQueryPort simpleQueryPort() {
     return new UserQueryPort() {
-      public java.util.List<User> findAll() { return java.util.List.of(); }
-      public User findById(Long id) { return null; }
+      public java.util.List<User> findAll() {
+        return java.util.List.of();
+      }
+
+      public PageResult<User> findAllPaged(int page, int size) {
+        return new PageResult<>(java.util.List.of(), 0, 0, page, size);
+      }
+
+      public User findById(Long id) {
+        return null;
+      }
     };
   }
 }

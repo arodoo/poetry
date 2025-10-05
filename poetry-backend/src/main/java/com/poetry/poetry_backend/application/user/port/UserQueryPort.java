@@ -11,10 +11,13 @@ package com.poetry.poetry_backend.application.user.port;
 
 import java.util.List;
 
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.user.model.User;
 
 public interface UserQueryPort {
   List<User> findAll();
+
+  PageResult<User> findAllPaged(int page, int size, String search);
 
   User findById(Long id);
 }

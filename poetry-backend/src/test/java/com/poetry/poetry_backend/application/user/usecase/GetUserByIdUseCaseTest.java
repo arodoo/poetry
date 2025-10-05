@@ -12,6 +12,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
 import com.poetry.poetry_backend.domain.user.model.User;
 
@@ -20,6 +21,9 @@ class GetUserByIdUseCaseTest {
   void returnsUser() {
     UserQueryPort query = new UserQueryPort() {
       public java.util.List<User> findAll() { return java.util.List.of(); }
+      public PageResult<User> findAllPaged(int p, int s) {
+        return new PageResult<>(java.util.List.of(), 0, 0, p, s);
+      }
       public User findById(Long id) {
         return new User(
             id,
@@ -45,6 +49,9 @@ class GetUserByIdUseCaseTest {
   void notFoundThrows() {
     UserQueryPort query = new UserQueryPort() {
       public java.util.List<User> findAll() { return java.util.List.of(); }
+      public PageResult<User> findAllPaged(int p, int s) {
+        return new PageResult<>(java.util.List.of(), 0, 0, p, s);
+      }
       public User findById(Long id) { return null; }
     };
     var uc = new GetUserByIdUseCase(query);
