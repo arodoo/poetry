@@ -1,8 +1,7 @@
 /*
- * File: AuthSupportCoreConfig.java
- * Purpose: Provides core authentication support beans including audit
- * logging, rate limiting, account lockout, correlation id and idempotency
- * storage. Split from monolithic config to respect max file length.
+ * File: AuthSupportDevConfig.java
+ * Purpose: Development profile configuration that disables rate limiting
+ * and account lockout to allow E2E tests to run without hitting 429 errors.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.config.auth;
@@ -21,16 +20,15 @@ import com.poetry.poetry_backend.infrastructure.jpa.audit.CorrelationIdProvider;
 import com.poetry.poetry_backend.infrastructure.jpa.audit.PersistentAuditLoggerAdapter;
 import com.poetry.poetry_backend.infrastructure.jpa.common.IdempotencyJpaAdapter;
 import com.poetry.poetry_backend.infrastructure.jpa.common.IdempotencyRepository;
-import com.poetry.poetry_backend.infrastructure.memory.auth.AdaptiveRateLimiterAdapter;
-import com.poetry.poetry_backend.infrastructure.memory.auth.InMemoryAccountLockoutAdapter;
-import com.poetry.poetry_backend.infrastructure.memory.auth.InMemoryTokenBucketRateLimiter;
+import com.poetry.poetry_backend.infrastructure.memory.auth.NoOpAccountLockout;
+import com.poetry.poetry_backend.infrastructure.memory.auth.NoOpRateLimiter;
 import com.poetry.poetry_backend.infrastructure.monitoring.AuthMetricsPublisher;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
 @Configuration
-@Profile("!dev")
-public class AuthSupportCoreConfig {
+@Profile("dev")
+public class AuthSupportDevConfig {
     @Bean
     CorrelationIdProvider correlationIdProvider() {
         return new CorrelationIdProvider();
@@ -43,13 +41,12 @@ public class AuthSupportCoreConfig {
 
     @Bean
     RateLimiterPort rawRateLimiter() {
-        var base = new InMemoryTokenBucketRateLimiter(10, 60, 10);
-        return new AdaptiveRateLimiterAdapter(base, 8, 5, 300);
+        return new NoOpRateLimiter();
     }
 
     @Bean
     AccountLockoutPort rawAccountLockout() {
-        return new InMemoryAccountLockoutAdapter(5, 60, 1800);
+        return new NoOpAccountLockout();
     }
 
     @Primary
