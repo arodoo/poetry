@@ -27,6 +27,9 @@ public class AdminSellerCodeBootstrap {
   @Value("${admin.bootstrap.username:admin}")
   private String adminUsername;
 
+  @Value("${admin.bootstrap.injectSampleUsers:false}")
+  private boolean injectSampleUsers;
+
   public AdminSellerCodeBootstrap(
       UserJpaRepository users,
       CreateSellerCodeUseCase createSellerCode,
@@ -39,6 +42,9 @@ public class AdminSellerCodeBootstrap {
   @EventListener(ApplicationReadyEvent.class)
   public void onApplicationReady() {
     ensureAdminSellerCode();
+    if (injectSampleUsers) {
+      ensureSellerCodesForAllUsers();
+    }
   }
 
   private void ensureAdminSellerCode() {
@@ -54,5 +60,25 @@ public class AdminSellerCodeBootstrap {
         }
       }
     });
+  }
+
+  private void ensureSellerCodesForAllUsers() {
+    try {
+      users.findAllActive().forEach(user -> {
+        // Use user id to make a stable, unique seller code per user
+        String code = String.format("USER-SC-%05d", user.getId());
+        boolean exists = sellerCodes.findAll().stream().anyMatch(sc -> code.equals(sc.getCode()));
+        if (!exists) {
+          try {
+            createSellerCode.execute(code, "default-org", user.getId(), "active");
+            log.info("AdminSellerCodeBootstrap: seller code '{}' created for user {}", code, user.getId());
+          } catch (Exception e) {
+            log.warn("AdminSellerCodeBootstrap: failed to create seller code {} for user {}: {}", code, user.getId(), e.toString());
+          }
+        }
+      });
+    } catch (Exception e) {
+      log.warn("AdminSellerCodeBootstrap: failed ensuring seller codes for users: {}", e.toString());
+    }
   }
 }
