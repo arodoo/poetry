@@ -38,6 +38,13 @@ public class AdminUserBootstrap {
   @Value("${admin.bootstrap.password:ChangeMe123!}")
   private String adminPassword;
 
+  // Optional: inject sample users on startup to help UI/dev testing.
+  @Value("${admin.bootstrap.injectSampleUsers:false}")
+  private boolean injectSampleUsers;
+
+  @Value("${admin.bootstrap.sampleCount:50}")
+  private int sampleCount;
+
   public AdminUserBootstrap(
       RegisterUseCase registerUseCase,
       UserJpaRepository users) {
@@ -60,6 +67,14 @@ public class AdminUserBootstrap {
       log.warn("AdminUserBootstrap: bootstrap failed: {}", e.toString());
       ensureRoles();
     }
+
+    if (injectSampleUsers) {
+      try {
+        injectSampleUsersOnStartup();
+      } catch (Exception e) {
+        log.warn("AdminUserBootstrap: failed injecting sample users: {}", e.toString());
+      }
+    }
   }
 
   private void ensureRoles() {
@@ -70,5 +85,22 @@ public class AdminUserBootstrap {
         log.info("AdminUserBootstrap: admin user '{}' roles repaired", adminUsername);
       }
     });
+  }
+
+  private void injectSampleUsersOnStartup() {
+    log.info("AdminUserBootstrap: injecting {} sample users", sampleCount);
+    for (int i = 1; i <= sampleCount; i++) {
+      String username = String.format("testuser%03d", i);
+      String email = String.format("%s@example.com", username);
+      Map<String, Object> payload = Map.of("username", username, "email", email, "password", adminPassword);
+      try {
+        registerUseCase.execute(payload);
+      } catch (DuplicateUserException d) {
+        // already exists, ignore
+      } catch (Exception e) {
+        log.debug("AdminUserBootstrap: failed creating sample user {}: {}", username, e.toString());
+      }
+    }
+    log.info("AdminUserBootstrap: sample users injection complete");
   }
 }
