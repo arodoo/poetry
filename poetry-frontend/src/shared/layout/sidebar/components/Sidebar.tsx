@@ -21,8 +21,8 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
 
   const items: ReturnType<typeof getNavigationItems> = getNavigationItems()
   const sidebarWidth: string = isOpen
-    ? 'w-56 border-r border-[var(--color-border)] bg-white'
-    : 'w-14 border-r border-[var(--color-border)] bg-white'
+    ? 'w-56 flex-shrink-0 border-r border-[var(--color-border)] bg-white'
+    : 'w-14 flex-shrink-0 border-r border-[var(--color-border)] bg-white'
 
   return (
     <aside className={sidebarWidth}>

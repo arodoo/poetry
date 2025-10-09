@@ -18,6 +18,8 @@ import { initEnv } from './shared/bootstrap/initEnv'
 import './shared/polyfills/responseStatusProperty'
 import { client } from './api/generated/client.gen'
 import { tokenStorage } from './shared/security/tokenStorage'
+import { startTokenRefreshScheduler } from
+  './shared/security/tokenRefreshScheduler'
 
 // Dev-only: install client error bridge BEFORE any code that may throw
 if (import.meta.env.DEV) {
@@ -34,6 +36,9 @@ if (import.meta.env.DEV) {
 
 // Fail-fast: validate env at startup (bridge errors explicitly in dev)
 initEnv()
+
+// Start background token refresh scheduler to maintain long sessions
+startTokenRefreshScheduler()
 
 // Configure authentication for generated SDK client
 client.interceptors.request.use((request: Request): Request => {

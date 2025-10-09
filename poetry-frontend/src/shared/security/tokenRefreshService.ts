@@ -1,22 +1,27 @@
 /*
  * File: tokenRefreshService.ts
- * Purpose: Automatic token refresh logic for expired access tokens.
+ * Purpose: Proactive token refresh to prevent expiry-related logout.
+ * Checks JWT exp claim before requests and refreshes with buffer time.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { postRefresh } from '../../features/auth/api/authApi'
 import { tokenStorage } from './tokenStorage'
+import { isTokenExpiringSoon } from './tokenExpiry'
 import type { TokenBundle } from './tokenStorage'
 
-// Track refresh promise to prevent concurrent refreshes
 let refreshPromise: Promise<TokenBundle> | null = null
 
 export async function refreshTokenIfNeeded(): Promise<TokenBundle | null> {
   const tokens: TokenBundle | null = tokenStorage.load()
-  if (!tokens?.refreshToken) {
+  if (!tokens?.refreshToken || !tokens?.accessToken) {
     return null
   }
 
-  // If already refreshing, wait for that promise
+  const needsRefresh: boolean = isTokenExpiringSoon(tokens.accessToken)
+  if (!needsRefresh) {
+    return tokens
+  }
+
   if (refreshPromise) {
     try {
       return await refreshPromise
@@ -35,7 +40,7 @@ export async function refreshTokenIfNeeded(): Promise<TokenBundle | null> {
   } catch (_e: unknown) {
     refreshPromise = null
     void _e
-    tokenStorage.clear() // Clear invalid tokens
+    tokenStorage.clear()
     return null
   }
 }

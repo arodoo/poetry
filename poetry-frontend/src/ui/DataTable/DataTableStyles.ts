@@ -22,11 +22,11 @@ export const s: {
   readonly tdCol: string
   readonly em: string
 } = {
-  w: 'overflow-hidden',
+  w: 'w-full',
   sc: 'overflow-x-auto',
   al: 'inline-block min-w-full align-middle',
   b:
-    'overflow-hidden rounded-lg border ' +
+    'rounded-lg border ' +
     'border-[var(--color-border,#d0d0d0)]',
   bD: '',
   t: 'min-w-full divide-y divide-[var(--color-border,#d0d0d0)]',

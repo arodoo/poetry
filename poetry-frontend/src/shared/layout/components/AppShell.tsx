@@ -18,7 +18,9 @@ export function AppShell({ children }: { children: ReactNode }): ReactElement {
       <Navbar onToggleSidebar={onToggleSidebar} />
       <div className="flex">
         <Sidebar isOpen={open} />
-        <main className="flex-1 max-w-6xl mx-auto px-4 py-6">{children}</main>
+        <main className="flex-1 min-w-0 max-w-7xl mx-auto px-4 py-6">
+          {children}
+        </main>
       </div>
     </div>
   )
