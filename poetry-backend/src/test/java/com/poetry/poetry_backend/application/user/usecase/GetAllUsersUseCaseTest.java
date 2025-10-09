@@ -23,7 +23,7 @@ class GetAllUsersUseCaseTest {
         return java.util.List.of();
       }
 
-      public PageResult<User> findAllPaged(int page, int size) {
+      public PageResult<User> findAllPaged(int page, int size, String search) {
         return new PageResult<>(java.util.List.of(), 0, 0, page, size);
       }
 

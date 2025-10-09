@@ -11,6 +11,7 @@ import {
   SellerCodeCreatePageLazy,
   SellerCodeDetailPageLazy,
   SellerCodeEditPageLazy,
+  SellerCodeDeletePageLazy,
 } from './shared/routing/lazyAdapters'
 
 export function SellerCodesRoutes(): ReactElement[] {
@@ -39,6 +40,15 @@ export function SellerCodesRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <SellerCodeDetailPageLazy />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="seller-codes-delete"
+      path=":locale/seller-codes/:id/delete"
+      element={
+        <AdminRoute>
+          <SellerCodeDeletePageLazy />
         </AdminRoute>
       }
     />,

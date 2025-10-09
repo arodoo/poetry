@@ -21,7 +21,7 @@ class GetUserByIdUseCaseTest {
   void returnsUser() {
     UserQueryPort query = new UserQueryPort() {
       public java.util.List<User> findAll() { return java.util.List.of(); }
-      public PageResult<User> findAllPaged(int p, int s) {
+      public PageResult<User> findAllPaged(int p, int s, String search) {
         return new PageResult<>(java.util.List.of(), 0, 0, p, s);
       }
       public User findById(Long id) {
@@ -49,7 +49,7 @@ class GetUserByIdUseCaseTest {
   void notFoundThrows() {
     UserQueryPort query = new UserQueryPort() {
       public java.util.List<User> findAll() { return java.util.List.of(); }
-      public PageResult<User> findAllPaged(int p, int s) {
+      public PageResult<User> findAllPaged(int p, int s, String search) {
         return new PageResult<>(java.util.List.of(), 0, 0, p, s);
       }
       public User findById(Long id) { return null; }

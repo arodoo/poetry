@@ -18,7 +18,7 @@ export function buildSellerCodesListColumns(
     {
       key: 'code',
       header: t('ui.sellerCodes.table.code'),
-      accessor: (row: SellerCodeSummary): string => row.code,
+      accessor: (row: SellerCodeSummary): string => row.code ?? '',
     },
     {
       key: 'status',
@@ -65,6 +65,15 @@ export function buildSellerCodesListColumns(
             data-testid={`edit-seller-code-${row.id}`}
           >
             {t('ui.sellerCodes.actions.edit')}
+          </Button>
+          <Button
+            to={`/${locale}/seller-codes/${row.id}/delete`}
+            size="sm"
+            width="fixed-small"
+            variant="danger"
+            data-testid={`delete-seller-code-${row.id}`}
+          >
+            {t('ui.sellerCodes.actions.delete')}
           </Button>
         </Inline>
       ),

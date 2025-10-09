@@ -8,4 +8,4 @@ export {
   fetchSellerCodesPage,
   fetchSellerCodeById,
 } from './sellerCodesQueries'
-export { createSellerCode, updateSellerCode } from './sellerCodesMutations'
+export { createSellerCode, updateSellerCode, deleteSellerCode } from './sellerCodesMutations'
