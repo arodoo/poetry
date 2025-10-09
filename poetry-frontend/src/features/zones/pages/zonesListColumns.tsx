@@ -8,6 +8,7 @@
 
 import type { ReactElement } from 'react'
 import { Button } from '../../../ui/Button/Button'
+import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { ZoneResponse } from '../model/ZonesSchemas'
@@ -27,6 +28,18 @@ export function buildZonesListColumns(
       key: 'description',
       header: t('ui.zones.table.description'),
       accessor: (row: ZoneResponse): string => row.description ?? '-',
+    },
+    {
+      key: 'status',
+      header: t('ui.zones.table.status'),
+      accessor: (row: ZoneResponse): ReactElement => (
+        <Badge
+          tone={row.status === 'active' ? 'success' : 'neutral'}
+          size="sm"
+        >
+          {t(`ui.zones.status.${row.status}`)}
+        </Badge>
+      ),
     },
     {
       key: 'managerId',

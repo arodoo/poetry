@@ -29,7 +29,7 @@ public class UpdateUserUseCase {
       String email,
       String locale,
       Set<String> roles,
-      boolean active) {
+      String status) {
     return commands.update(
         id,
         version,
@@ -38,6 +38,6 @@ public class UpdateUserUseCase {
         email,
         locale,
         roles,
-        active);
+        status);
   }
 }

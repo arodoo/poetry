@@ -29,7 +29,8 @@ class CreateUserUseCaseNegativeTest {
         "u",
         "en",
         "p",
-        java.util.Set.of("ROLE_USER")
+        java.util.Set.of("ROLE_USER"),
+        "active"
     );
 
     org.junit.jupiter.api.Assertions.assertNotNull(created);

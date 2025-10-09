@@ -49,7 +49,8 @@ public class UserEntity {
   @Column(nullable = false, length = 10)
   private String locale = "en-US";
 
-  private boolean active = true;
+  @Column(nullable = false, length = 20)
+  private String status = "active";
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(

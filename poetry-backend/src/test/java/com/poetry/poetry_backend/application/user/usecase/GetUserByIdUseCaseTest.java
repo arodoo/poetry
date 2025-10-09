@@ -32,7 +32,7 @@ class GetUserByIdUseCaseTest {
             "e",
             "u",
             "en",
-            true,
+            "active",
             Set.of("ROLE_USER"),
             null,
             null,

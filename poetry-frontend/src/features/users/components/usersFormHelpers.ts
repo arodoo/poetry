@@ -13,7 +13,8 @@ export function buildFormData(
   locale: string,
   rolesString: string,
   password: string,
-  showPassword: boolean
+  showPassword: boolean,
+  status: 'active' | 'inactive'
 ): UsersFormValues {
   const roles: string[] = rolesString
     .split(',')
@@ -26,6 +27,7 @@ export function buildFormData(
     email,
     locale,
     roles,
+    status,
   }
   if (showPassword && password) {
     return { ...formData, password }

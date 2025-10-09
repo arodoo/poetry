@@ -36,6 +36,7 @@ export const UpdateZoneSchema: z.ZodType<UpdateZoneInput> = z.object({
   name: z.string().min(3, 'zones.validation.name').optional(),
   description: z.string().optional(),
   managerId: z.number().optional(),
+  status: z.enum(['active', 'inactive']).optional(),
   version: z.number({ required_error: 'zones.validation.version' }),
 }) as z.ZodType<UpdateZoneInput>
 

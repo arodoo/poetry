@@ -11,9 +11,9 @@ import java.time.Instant;
 public final class UserLifecycleManager {
   private UserLifecycleManager() { }
 
-  public static User updateActive(User base, boolean active) {
+  public static User updateStatus(User base, String status) {
     if (base.isDeleted()) {
-      throw new IllegalStateException("Deleted users cannot change active state");
+      throw new IllegalStateException("Deleted users cannot change status");
     }
     return UserRehydrator.rehydrate(
         base.id(),
@@ -22,7 +22,7 @@ public final class UserLifecycleManager {
         base.email(),
         base.username(),
         base.locale(),
-        active,
+        status,
         base.roles(),
         base.createdAt(),
         base.updatedAt(),
@@ -39,7 +39,7 @@ public final class UserLifecycleManager {
         base.email(),
         base.username(),
         base.locale(),
-        false,
+        "inactive",
         base.roles(),
         base.createdAt(),
         base.updatedAt(),

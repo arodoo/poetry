@@ -25,6 +25,9 @@ export async function createUser(
   input: CreateUserInput
 ): Promise<UserResponse> {
   const validatedInput: CreateUserInput = CreateUserSchema.parse(input)
+  if (!validatedInput.status) {
+    validatedInput.status = 'active'
+  }
   const response = await createUserSdk({ body: validatedInput })
   if (!response.data) {
     throw new Error('Failed to create user')
@@ -84,7 +87,7 @@ export async function disableUser(
 ): Promise<UserResponse> {
   const response = await updateUserSdk({
     path: { id: Number(id) },
-    body: { active: false },
+    body: { status: 'inactive' },
     headers: { 'If-Match': etag || '""' },
   })
   if (!response.data) {
@@ -100,7 +103,7 @@ export async function enableUser(
 ): Promise<UserResponse> {
   const response = await updateUserSdk({
     path: { id: Number(id) },
-    body: { active: true },
+    body: { status: 'active' },
     headers: { 'If-Match': etag || '""' },
   })
   if (!response.data) {
@@ -129,7 +132,7 @@ export async function deleteUser(
       email: currentUser.email ?? '',
       locale: currentUser.locale ?? 'en',
       roles: currentUser.roles ? Array.from(currentUser.roles) : [],
-      active: false,
+      status: 'inactive',
     },
     headers: { 'If-Match': etag || '""' },
   })

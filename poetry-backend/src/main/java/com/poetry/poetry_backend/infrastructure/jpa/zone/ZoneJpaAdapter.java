@@ -48,8 +48,9 @@ public class ZoneJpaAdapter implements ZoneQueryPort, ZoneCommandPort {
       long version,
       String name,
       String description,
-      Long managerId) {
-    return commandAdapter.update(id, version, name, description, managerId);
+      Long managerId,
+      String status) {
+    return commandAdapter.update(id, version, name, description, managerId, status);
   }
 
   public void softDelete(Long id, long version) {

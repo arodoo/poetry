@@ -26,7 +26,8 @@ public final class TestUserStubs {
           String username,
           String locale,
           String password,
-          Set<String> roles
+          Set<String> roles,
+          String status
       ) {
         return new User(
             1L,
@@ -35,7 +36,7 @@ public final class TestUserStubs {
             email,
             username,
             locale,
-            true,
+            status != null ? status : "active",
             roles,
             null,
             null,
@@ -53,7 +54,7 @@ public final class TestUserStubs {
           String email,
           String locale,
           Set<String> roles,
-          boolean active
+          String status
       ) {
         throw new UnsupportedOperationException();
       }

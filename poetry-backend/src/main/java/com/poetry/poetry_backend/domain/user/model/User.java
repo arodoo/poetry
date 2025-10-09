@@ -19,7 +19,7 @@ public record User(
     String email,
     String username,
     String locale,
-    boolean active,
+    String status,
     Set<String> roles,
     Instant createdAt,
     Instant updatedAt,

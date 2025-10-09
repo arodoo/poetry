@@ -21,6 +21,7 @@ class ZoneTest {
             "Main Store",
             "Primary retail zone",
             42L,
+            "active",
             Instant.now(),
             Instant.now(),
             null,
@@ -38,7 +39,7 @@ class ZoneTest {
     Instant now = Instant.now();
     Zone zone =
         ZoneRehydrator.rehydrate(
-            1L, "Store", "Description", 42L, now, now, now, 0L);
+            1L, "Store", "Description", 42L, "inactive", now, now, now, 0L);
     assertTrue(zone.isDeleted());
   }
 }

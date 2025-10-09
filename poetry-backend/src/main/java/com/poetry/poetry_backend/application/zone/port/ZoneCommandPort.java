@@ -19,7 +19,8 @@ public interface ZoneCommandPort {
       long version,
       String name,
       String description,
-      Long managerId);
+      Long managerId,
+      String status);
 
   void softDelete(Long id, long version);
 }

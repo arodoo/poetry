@@ -7,7 +7,6 @@
 package com.poetry.poetry_backend.domain.user.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -26,6 +25,6 @@ class UserTest {
 
     assertEquals("Ada", user.firstName());
     assertEquals("ada@example.com", user.email());
-    assertTrue(user.active());
+    assertEquals("active", user.status());
   }
 }

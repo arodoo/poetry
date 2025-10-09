@@ -28,8 +28,10 @@ public class CreateUserUseCase {
       String username,
       String locale,
       String password,
-      Set<String> roles) {
+      Set<String> roles,
+      String status) {
     return commands.create(
-        firstName, lastName, email, username, locale, password, roles);
+        firstName, lastName, email, username, locale, password, roles,
+        status);
   }
 }

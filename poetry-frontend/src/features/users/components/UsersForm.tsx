@@ -19,6 +19,7 @@ export type UsersFormValues = Required<
   >
 > & {
   readonly password?: string
+  readonly status: 'active' | 'inactive'
 }
 
 export interface UsersFormProps {
@@ -43,7 +44,8 @@ export function UsersForm(props: UsersFormProps): ReactElement {
         formState.locale,
         formState.rolesString,
         formState.password,
-        props.showPassword ?? false
+        props.showPassword ?? false,
+        formState.status
       )
     )
   }

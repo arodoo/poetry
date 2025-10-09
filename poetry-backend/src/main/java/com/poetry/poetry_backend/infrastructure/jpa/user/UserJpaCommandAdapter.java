@@ -25,23 +25,24 @@ public class UserJpaCommandAdapter implements UserCommandPort {
 
   @Override
   public User create(String firstName, String lastName, String email,
-      String username, String locale, String password, Set<String> roles) {
+      String username, String locale, String password, Set<String> roles,
+      String status) {
     UserEntity entity = new UserEntity();
     applyProfile(entity, firstName, lastName, email, locale);
     entity.setUsername(username);
     entity.setPasswordHash(password);
     entity.setRoles(roles);
-    entity.setActive(true);
+    entity.setStatus(status != null ? status : "active");
     return persist(repository, entity);
   }
 
   @Override
   public User update(Long id, long version, String firstName, String lastName,
-      String email, String locale, Set<String> roles, boolean active) {
+      String email, String locale, Set<String> roles, String status) {
     UserEntity entity = guard(repository, id, version);
     applyProfile(entity, firstName, lastName, email, locale);
     entity.setRoles(roles);
-    entity.setActive(active);
+    entity.setStatus(status);
     return persist(repository, entity);
   }
 
@@ -55,7 +56,7 @@ public class UserJpaCommandAdapter implements UserCommandPort {
   @Override
   public void softDelete(Long id, long version) {
     UserEntity entity = guard(repository, id, version);
-    entity.setActive(false);
+    entity.setStatus("inactive");
     entity.setDeletedAt(Instant.now());
     repository.save(entity);
   }

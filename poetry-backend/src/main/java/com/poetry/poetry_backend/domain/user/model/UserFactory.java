@@ -28,7 +28,7 @@ public final class UserFactory {
         UserValidator.requireEmail(email),
         UserValidator.requireUsername(username),
         UserValidator.requireLocale(locale),
-        true,
+        "active",
         UserValidator.requireRoles(roles),
         null,
         null,

@@ -24,14 +24,14 @@ public final class InMemoryUserStore {
 
   public static User create(Map<Long, User> store, AtomicLong seq,
       String firstName, String lastName, String email, String username,
-      boolean active, Set<String> roles) {
+      String status, Set<String> roles) {
     return InMemoryUserCreate.create(store, seq, firstName, lastName,
-        email, username, active, roles);
+        email, username, status, roles);
   }
 
   public static User update(Map<Long, User> store, Long id,
       String firstName, String lastName, String email, String locale,
-      Set<String> roles, boolean active) {
+      Set<String> roles, String status) {
   User ex = Optional.ofNullable(store.get(id))
     .orElseThrow(() -> new UserNotFoundException(id));
   User updatedProfile = UserMutations.updateProfile(
@@ -42,9 +42,9 @@ public final class InMemoryUserStore {
   User updatedRoles = roles == null
     ? updatedProfile
     : UserMutations.updateRoles(updatedProfile, roles);
-  User updatedActive = UserMutations.updateActive(updatedRoles, active);
-  store.put(id, updatedActive);
-  return updatedActive;
+  User updatedStatus = UserMutations.updateStatus(updatedRoles, status);
+  store.put(id, updatedStatus);
+  return updatedStatus;
   }
 
   public static User updatePassword(Map<Long, User> store, Long id, String password) {

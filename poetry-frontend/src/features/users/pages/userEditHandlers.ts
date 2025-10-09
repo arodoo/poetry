@@ -24,7 +24,8 @@ export function createSubmitHandler(
       formState.locale,
       formState.rolesString,
       formState.password,
-      false
+      false,
+      formState.status
     )
     onSubmit(data)
   }

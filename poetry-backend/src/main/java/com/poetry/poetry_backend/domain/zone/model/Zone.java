@@ -15,6 +15,7 @@ public record Zone(
     String name,
     String description,
     Long managerId,
+    String status,
     Instant createdAt,
     Instant updatedAt,
     Instant deletedAt,

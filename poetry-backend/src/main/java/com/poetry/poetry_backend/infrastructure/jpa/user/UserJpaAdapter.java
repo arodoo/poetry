@@ -44,8 +44,9 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
       String u,
       String locale,
       String p,
-      java.util.Set<String> r) {
-    return commandAdapter.create(f, l, e, u, locale, p, r);
+      java.util.Set<String> r,
+      String status) {
+    return commandAdapter.create(f, l, e, u, locale, p, r, status);
   }
 
   public com.poetry.poetry_backend.domain.user.model.User update(
@@ -56,8 +57,8 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
       String e,
       String locale,
       java.util.Set<String> r,
-      boolean a) {
-    return commandAdapter.update(id, version, f, l, e, locale, r, a);
+      String status) {
+    return commandAdapter.update(id, version, f, l, e, locale, r, status);
   }
 
   public com.poetry.poetry_backend.domain.user.model.User updatePassword(

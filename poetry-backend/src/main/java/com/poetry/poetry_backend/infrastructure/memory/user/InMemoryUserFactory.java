@@ -19,7 +19,7 @@ public final class InMemoryUserFactory {
   }
 
   public static User createNew(Long id, String f, String l, String e,
-      String u, boolean active, Set<String> roles) {
+      String u, String status, Set<String> roles) {
     return UserRehydrator.rehydrate(
         id,
         f,
@@ -27,7 +27,7 @@ public final class InMemoryUserFactory {
         e,
         u,
         "en", // default locale
-        active,
+        status,
         roles,
         java.time.Instant.now(), // createdAt
         java.time.Instant.now(), // updatedAt

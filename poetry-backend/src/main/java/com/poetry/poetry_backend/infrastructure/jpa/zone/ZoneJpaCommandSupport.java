@@ -20,6 +20,9 @@ final class ZoneJpaCommandSupport {
     entity.setName(name);
     entity.setDescription(description);
     entity.setManagerId(managerId);
+    if (entity.getStatus() == null || entity.getStatus().isBlank()) {
+      entity.setStatus("active");
+    }
   }
 
   static ZoneEntity guard(ZoneJpaRepository repository, Long id, long version) {

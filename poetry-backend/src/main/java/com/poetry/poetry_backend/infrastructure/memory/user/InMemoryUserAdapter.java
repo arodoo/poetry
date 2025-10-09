@@ -53,8 +53,10 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
       String u,
       String locale,
       String p,
-      Set<String> r) {
-    return InMemoryUserStore.create(store, seq, f, l, e, u, true,
+      Set<String> r,
+      String status) {
+    return InMemoryUserStore.create(store, seq, f, l, e, u,
+        status != null ? status : "active",
         r != null ? r : Set.of("USER"));
   }
 
@@ -66,9 +68,9 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
       String e,
       String locale,
       Set<String> r,
-      boolean a) {
+      String status) {
   return Optional.ofNullable(InMemoryUserStore.update(store, id, f, l, e, locale,
-    r != null ? r : null, a)).orElseThrow(() -> new UserNotFoundException(id));
+    r != null ? r : null, status)).orElseThrow(() -> new UserNotFoundException(id));
   }
 
   public com.poetry.poetry_backend.domain.user.model.User updatePassword(

@@ -25,7 +25,8 @@ class UpdateUserUseCaseTest {
           String u,
           String loc,
           String p,
-          Set<String> r) {
+          Set<String> r,
+          String status) {
         return null;
       }
 
@@ -37,8 +38,8 @@ class UpdateUserUseCaseTest {
           String e,
           String loc,
           Set<String> r,
-          boolean active) {
-  return new User(id, f, l, e, "u", loc, active, r, null, null, null, version);
+          String status) {
+  return new User(id, f, l, e, "u", loc, status, r, null, null, null, version);
       }
 
       public User updatePassword(Long id, long version, String password) {
@@ -56,9 +57,9 @@ class UpdateUserUseCaseTest {
         "ne",
         "en",
         Set.of("R"),
-        false
+        "inactive"
     );
   assertEquals(7L, updated.id());
-  assertFalse(updated.active());
+  assertEquals("inactive", updated.status());
   }
 }

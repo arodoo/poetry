@@ -43,7 +43,8 @@ public class UsersCreateController {
       @RequestBody UserDtos.UserCreateRequest r) {
     var u = create.execute(
         r.firstName(), r.lastName(), r.email(),
-        r.username(), r.locale(), r.password(), r.roles());
+        r.username(), r.locale(), r.password(), r.roles(),
+        r.status());
     return ResponseEntity.status(201).body(UserDtos.toResponse(u));
   }
 }

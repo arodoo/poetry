@@ -28,7 +28,8 @@ export function createUserSubmitHandler(
       formState.locale,
       formState.rolesString,
       formState.password,
-      true
+      true,
+      formState.status
     )
     const validatedInput: CreateUserInput = CreateUserSchema.parse({
       firstName: values.firstName,
@@ -38,6 +39,7 @@ export function createUserSubmitHandler(
       password: values.password || '',
       locale: values.locale,
       roles: values.roles as string[],
+      status: values.status || 'active',
     })
     onSuccess(validatedInput)
   }

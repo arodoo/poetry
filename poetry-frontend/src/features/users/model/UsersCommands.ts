@@ -26,6 +26,7 @@ export const CreateUserSchema: z.ZodType<CreateUserInput> = z.object({
   password: z.string().min(10, 'users.validation.password'),
   locale: z.string().min(2, 'users.validation.locale').optional(),
   roles: z.array(z.string()).optional(),
+  status: z.enum(['active', 'inactive']).default('active'),
 }) as z.ZodType<CreateUserInput>
 
 /**
@@ -42,7 +43,7 @@ export const UpdateUserSchema: z.ZodType<UpdateUserInput> = z.object({
   email: z.string().email('users.validation.email').optional(),
   locale: z.string().min(2, 'users.validation.locale').optional(),
   roles: z.array(z.string()).optional(),
-  active: z.boolean().optional(),
+  status: z.enum(['active', 'inactive']).optional(),
 }) as z.ZodType<UpdateUserInput>
 
 /**
@@ -64,10 +65,10 @@ export const UpdateUserSecuritySchema = z.object({
 export type UpdateUserSecurityInput = z.infer<typeof UpdateUserSecuritySchema>
 
 /**
- * Toggle active status (not in SDK, custom operation)
+ * Toggle status (not in SDK, custom operation)
  */
 export const UserStatusToggleSchema = z.object({
-  active: z.boolean(),
+  status: z.enum(['active', 'inactive']),
 })
 
 export type UserStatusToggleInput = z.infer<typeof UserStatusToggleSchema>

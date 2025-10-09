@@ -98,7 +98,8 @@ public class ZoneController {
             request.version(),
             request.name(),
             request.description(),
-            request.managerId());
+            request.managerId(),
+            request.status());
     return toResponse(updated);
   }
 

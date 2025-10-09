@@ -30,8 +30,8 @@ public final class UserDtos {
       String username,
       @Schema(description = "Locale code", example = "en")
       String locale,
-      @Schema(description = "Active status")
-      boolean active,
+      @Schema(description = "Status", example = "active")
+      String status,
       @Schema(description = "User roles", example = "[\"admin\", \"user\"]")
       Set<String> roles) { }
 
@@ -47,8 +47,8 @@ public final class UserDtos {
       String locale,
       @Schema(description = "User roles", example = "[\"admin\", \"user\"]")
       Set<String> roles, 
-      @Schema(description = "Active status")
-      boolean active) { }
+      @Schema(description = "Status", example = "active")
+      String status) { }
 
   @Schema(description = "User creation request")
   public record UserCreateRequest(
@@ -65,7 +65,9 @@ public final class UserDtos {
       @Schema(description = "Password", example = "SecurePass123!", requiredMode = Schema.RequiredMode.REQUIRED)
       String password,
       @Schema(description = "User roles", example = "[\"user\"]")
-      Set<String> roles) { }
+      Set<String> roles,
+      @Schema(description = "Status", example = "active")
+      String status) { }
 
   public static UserResponse toResponse(User u) {
     return new UserResponse(
@@ -75,7 +77,7 @@ public final class UserDtos {
                 u.email(),
                 u.username(),
                 u.locale(),
-                u.active(),
+                u.status(),
                 u.roles());
   }
 }

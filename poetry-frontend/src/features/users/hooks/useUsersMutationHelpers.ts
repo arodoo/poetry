@@ -25,7 +25,7 @@ export function useUsersMutationSuccess(): (detail: UserResponse) => void {
       id?: string | number
     }
     const id: string = String(casted.id)
-    void queryClient.invalidateQueries({ queryKey: usersQueryKeys.list() })
+    void queryClient.invalidateQueries({ queryKey: usersQueryKeys.root })
     void queryClient.invalidateQueries({ queryKey: usersQueryKeys.detail(id) })
   }
 }

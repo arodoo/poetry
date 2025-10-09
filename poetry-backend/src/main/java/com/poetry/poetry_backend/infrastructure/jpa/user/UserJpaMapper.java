@@ -25,7 +25,7 @@ public final class UserJpaMapper {
                 e.getEmail(),
                 e.getUsername(),
                 e.getLocale(),
-                e.isActive(),
+                e.getStatus(),
                 e.getRoles(),
                 e.getCreatedAt(),
                 e.getUpdatedAt(),

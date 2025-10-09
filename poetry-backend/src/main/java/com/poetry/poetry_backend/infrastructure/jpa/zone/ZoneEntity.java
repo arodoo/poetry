@@ -39,6 +39,9 @@ public class ZoneEntity {
   @Column(nullable = false)
   private Long managerId;
 
+  @Column(nullable = false, length = 20)
+  private String status = "active";
+
   @CreationTimestamp
   @Column(nullable = false, updatable = false)
   private Instant createdAt;

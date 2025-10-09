@@ -4,6 +4,7 @@ applyTo: '**'
 
 ## Global considerations
 - Backend and Frontend are already running in default ports and both runs with  hot-reload
+- backend has drop-create at startup, so db is recreated each time 
 - Frontend can't have types or schemas definitios if they are not fixed to generated SDK gems
 - don't adjust my app to your solution, adjust your solution to my app
 

@@ -25,8 +25,8 @@ public final class UserMutations {
     return UserPasswordUpdater.update(base, passwordHash);
   }
 
-  public static User updateActive(User base, boolean active) {
-    return UserLifecycleManager.updateActive(base, active);
+  public static User updateStatus(User base, String status) {
+    return UserLifecycleManager.updateStatus(base, status);
   }
 
   public static User markDeleted(User base, java.time.Instant deletedAt) {

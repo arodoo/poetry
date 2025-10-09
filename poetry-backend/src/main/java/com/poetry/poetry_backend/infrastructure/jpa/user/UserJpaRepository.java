@@ -17,24 +17,24 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
-  @Query("select u from UserEntity u where u.active = true") // i18n-ignore: JPQL
+  @Query("select u from UserEntity u where u.status = 'active'") // i18n-ignore: JPQL
   List<UserEntity> findAllActive();
 
-  @Query("select u from UserEntity u where u.active = true") // i18n-ignore: JPQL
+  @Query("select u from UserEntity u where u.status = 'active'") // i18n-ignore: JPQL
   Page<UserEntity> findAllActive(Pageable pageable);
   
   @Query(
-      "select u from UserEntity u where u.active = true and "
+      "select u from UserEntity u where u.status = 'active' and "
           + "(lower(u.email) like lower(concat('%', :search, '%')) or "
           + "lower(u.username) like lower(concat('%', :search, '%')))") // i18n-ignore: JPQL
   Page<UserEntity> searchActive(String search, Pageable pageable);
   
   // i18n-ignore: JPQL query, not user-facing  
-  @Query("select u from UserEntity u where u.id = :id and u.active = true") 
+  @Query("select u from UserEntity u where u.id = :id and u.status = 'active'") 
   Optional<UserEntity> findActiveById(Long id);
   
   // i18n-ignore: JPQL query, not user-facing
-  @Query("select u from UserEntity u where u.username = :u and u.active = true") 
+  @Query("select u from UserEntity u where u.username = :u and u.status = 'active'") 
   Optional<UserEntity> findActiveByUsername(String u);
   
   boolean existsByUsername(String username);

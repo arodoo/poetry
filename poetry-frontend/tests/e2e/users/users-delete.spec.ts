@@ -109,3 +109,35 @@ test('confirm delete triggers API call and redirects', async ({
   await page.waitForURL(/\/en\/users$/, { timeout: 5000 })
   await expect(page).toHaveURL(/\/en\/users$/)
 })
+
+test('deleted user is removed from list after delete', async ({
+  page,
+}: {
+  page: Page
+}): Promise<void> => {
+  await injectTokens(page)
+  const { id: userId, username } = await createTestUser(page)
+  await page.goto('/en/users')
+  await page.waitForLoadState('networkidle')
+  const searchInput = page.getByPlaceholder(/search/i)
+  await searchInput.fill(username)
+  await page.waitForTimeout(1000)
+  const userRow = page.getByTestId(`view-user-${userId}`)
+  await expect(userRow).toBeVisible()
+  await page.goto(`/en/users/${userId}/delete`)
+  await page.waitForLoadState('networkidle')
+  const deleteApiPromise: Promise<Response> = page.waitForResponse(
+    (response: Response): boolean =>
+      response.url().includes(`/api/v1/users/${userId}`) &&
+      response.request().method() === 'PUT'
+  )
+  const confirmButton = page.getByTestId('confirm-delete-user-button')
+  await confirmButton.click()
+  await deleteApiPromise
+  await page.waitForURL(/\/en\/users$/, { timeout: 5000 })
+  await page.waitForLoadState('networkidle')
+  await searchInput.fill(username)
+  await page.waitForTimeout(1000)
+  const deletedUserRow = page.getByTestId(`view-user-${userId}`)
+  await expect(deletedUserRow).not.toBeVisible()
+})

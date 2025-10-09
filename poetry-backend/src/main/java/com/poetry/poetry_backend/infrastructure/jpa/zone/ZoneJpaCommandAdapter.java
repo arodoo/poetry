@@ -33,14 +33,17 @@ public class ZoneJpaCommandAdapter implements ZoneCommandPort {
       long version,
       String name,
       String description,
-      Long managerId) {
+      Long managerId,
+      String status) {
     ZoneEntity entity = guard(repo, id, version);
     applyFields(entity, name, description, managerId);
+    entity.setStatus(status);
     return persist(repo, entity);
   }
 
   public void softDelete(Long id, long version) {
     ZoneEntity entity = guard(repo, id, version);
+    entity.setStatus("inactive");
     entity.setDeletedAt(Instant.now());
     repo.save(entity);
   }

@@ -22,7 +22,8 @@ public interface UserCommandPort {
       String username,
     String locale,
       String password,
-      Set<String> roles);
+      Set<String> roles,
+      String status);
 
   User update(
       Long id,
@@ -32,7 +33,7 @@ public interface UserCommandPort {
       String email,
     String locale,
       Set<String> roles,
-      boolean active);
+      String status);
 
   User updatePassword(Long id, long version, String password);
 

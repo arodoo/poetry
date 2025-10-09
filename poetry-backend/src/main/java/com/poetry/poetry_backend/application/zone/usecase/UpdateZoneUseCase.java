@@ -23,7 +23,8 @@ public class UpdateZoneUseCase {
       long version,
       String name,
       String description,
-      Long managerId) {
-    return commands.update(id, version, name, description, managerId);
+      Long managerId,
+      String status) {
+    return commands.update(id, version, name, description, managerId, status);
   }
 }

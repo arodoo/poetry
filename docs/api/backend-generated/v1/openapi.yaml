@@ -1403,6 +1403,10 @@ components:
           description: Manager user ID
           format: int64
           example: 42
+        status:
+          type: string
+          description: Status
+          example: active
         version:
           type: integer
           description: Version for optimistic locking
@@ -1430,6 +1434,10 @@ components:
           description: Manager user ID
           format: int64
           example: 42
+        status:
+          type: string
+          description: Status
+          example: active
         version:
           type: integer
           description: Version for locking
@@ -1466,9 +1474,10 @@ components:
             type: string
             description: User roles
             example: "[\"admin\",\"user\"]"
-        active:
-          type: boolean
-          description: Active status
+        status:
+          type: string
+          description: Status
+          example: active
       description: User update request
     UserResponse:
       type: object
@@ -1498,9 +1507,10 @@ components:
           type: string
           description: Locale code
           example: en
-        active:
-          type: boolean
-          description: Active status
+        status:
+          type: string
+          description: Status
+          example: active
         roles:
           uniqueItems: true
           type: array
@@ -1769,6 +1779,10 @@ components:
             type: string
             description: User roles
             example: "[\"user\"]"
+        status:
+          type: string
+          description: Status
+          example: active
       description: User creation request
     CreateRequest:
       type: object

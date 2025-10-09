@@ -69,7 +69,7 @@ public class UsersUpdateController {
     
     var u = update.execute(
         id, version, r.firstName(), r.lastName(), r.email(),
-        r.locale(), r.roles(), r.active());
+        r.locale(), r.roles(), r.status());
     
     var response = UserDtos.toResponse(u);
     String etag = etagPort.compute(mapper.writeValueAsString(response));

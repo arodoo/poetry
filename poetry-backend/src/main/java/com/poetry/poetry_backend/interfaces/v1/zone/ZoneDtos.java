@@ -25,6 +25,8 @@ public final class ZoneDtos {
       String description,
       @Schema(description = "Manager user ID", example = "42")
       Long managerId,
+      @Schema(description = "Status", example = "active")
+      String status,
       @Schema(description = "Version for locking", example = "0")
       long version) {}
 
@@ -45,11 +47,13 @@ public final class ZoneDtos {
       String description,
       @Schema(description = "Manager user ID", example = "42")
       Long managerId,
+      @Schema(description = "Status", example = "active")
+      String status,
       @Schema(description = "Version for optimistic locking", example = "0")
       long version) {}
 
   public static ZoneResponse toResponse(Zone z) {
     return new ZoneResponse(
-        z.id(), z.name(), z.description(), z.managerId(), z.version());
+        z.id(), z.name(), z.description(), z.managerId(), z.status(), z.version());
   }
 }

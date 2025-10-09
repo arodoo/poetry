@@ -14,6 +14,7 @@ export interface UsersFormState {
   readonly locale: string
   readonly rolesString: string
   readonly password: string
+  readonly status: 'active' | 'inactive'
   readonly setFirstName: (value: string) => void
   readonly setLastName: (value: string) => void
   readonly setUsername: (value: string) => void
@@ -21,6 +22,7 @@ export interface UsersFormState {
   readonly setLocale: (value: string) => void
   readonly setRolesString: (value: string) => void
   readonly setPassword: (value: string) => void
+  readonly setStatus: (value: 'active' | 'inactive') => void
 }
 
 export function useUsersFormState(
@@ -43,6 +45,9 @@ export function useUsersFormState(
   const [password, setPassword] = useState<string>(
     initialValues?.password ?? ''
   )
+  const [status, setStatus] = useState<'active' | 'inactive'>(
+    initialValues?.status ?? 'active'
+  )
   return {
     firstName,
     lastName,
@@ -51,6 +56,7 @@ export function useUsersFormState(
     locale,
     rolesString,
     password,
+    status,
     setFirstName,
     setLastName,
     setUsername,
@@ -58,5 +64,6 @@ export function useUsersFormState(
     setLocale,
     setRolesString,
     setPassword,
+    setStatus,
   }
 }

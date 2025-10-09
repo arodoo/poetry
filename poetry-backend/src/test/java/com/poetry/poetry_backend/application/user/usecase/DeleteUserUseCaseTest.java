@@ -24,7 +24,8 @@ class DeleteUserUseCaseTest {
           String u,
           String loc,
           String p,
-          java.util.Set<String> r) {
+          java.util.Set<String> r,
+          String status) {
         return null;
       }
 
@@ -36,7 +37,7 @@ class DeleteUserUseCaseTest {
           String e,
           String loc,
           java.util.Set<String> r,
-          boolean a) {
+          String status) {
         return null;
       }
 

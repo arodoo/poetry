@@ -27,8 +27,10 @@ class CreateUserUseCaseTest {
           String u,
           String loc,
           String p,
-          Set<String> r) {
-        return UserRehydrator.rehydrate(10L, f, l, e, u, loc, true, r, null, null, null, 0L);
+          Set<String> r,
+          String status) {
+        return UserRehydrator.rehydrate(10L, f, l, e, u, loc,
+            status != null ? status : "active", r, null, null, null, 0L);
       }
 
       @Override
@@ -40,7 +42,7 @@ class CreateUserUseCaseTest {
           String e,
           String loc,
           Set<String> r,
-          boolean active) {
+          String status) {
         return null;
       }
 
@@ -60,7 +62,8 @@ class CreateUserUseCaseTest {
         "u",
         "en",
         "p",
-        Set.of("ROLE_USER")
+        Set.of("ROLE_USER"),
+        "active"
     );
     assertNotNull(user.id());
   }

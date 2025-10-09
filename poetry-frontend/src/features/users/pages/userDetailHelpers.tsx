@@ -64,8 +64,8 @@ export function buildUserDetailSections(
         {
           label: t('ui.users.detail.field.status'),
           value: (
-            <Badge tone={user.active ? 'success' : 'danger'}>
-              {user.active ? 'Active' : 'Inactive'}
+            <Badge tone={user.status === 'active' ? 'success' : 'neutral'}>
+              {t(`ui.users.status.${user.status}`)}
             </Badge>
           ),
         },

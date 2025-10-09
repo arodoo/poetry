@@ -24,7 +24,7 @@ public final class InMemoryUserCreate {
       String lastName,
       String email,
       String username,
-      boolean active,
+      String status,
       Set<String> roles
   ) {
     Long id = seq.getAndIncrement();
@@ -36,7 +36,7 @@ public final class InMemoryUserCreate {
       "en",
       roles != null ? roles : Set.of("USER")
     );
-    User rehydrated = UserMutations.updateActive(
+    User rehydrated = UserMutations.updateStatus(
       UserRehydrator.rehydrate(
         id,
         user.firstName(),
@@ -44,13 +44,13 @@ public final class InMemoryUserCreate {
         user.email(),
         user.username(),
         user.locale(),
-        user.active(),
+        user.status(),
         user.roles(),
         user.createdAt(),
         user.updatedAt(),
         user.deletedAt(),
         user.version()),
-      active);
+      status);
     store.put(id, rehydrated);
     return rehydrated;
   }

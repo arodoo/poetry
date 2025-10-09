@@ -19,7 +19,7 @@ public final class UserRolesUpdater {
         base.email(),
         base.username(),
         base.locale(),
-        base.active(),
+        base.status(),
         UserValidator.requireRoles(roles),
         base.createdAt(),
         base.updatedAt(),

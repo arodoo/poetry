@@ -21,6 +21,7 @@ public final class ZoneJpaMapper {
         e.getName(),
         e.getDescription(),
         e.getManagerId(),
+        e.getStatus(),
         e.getCreatedAt(),
         e.getUpdatedAt(),
         e.getDeletedAt(),

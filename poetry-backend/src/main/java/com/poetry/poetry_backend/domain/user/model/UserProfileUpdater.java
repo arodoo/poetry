@@ -18,7 +18,7 @@ public final class UserProfileUpdater {
         UserValidator.requireEmail(email),
         base.username(),
         base.locale(),
-        base.active(),
+        base.status(),
         base.roles(),
         base.createdAt(),
         base.updatedAt(),

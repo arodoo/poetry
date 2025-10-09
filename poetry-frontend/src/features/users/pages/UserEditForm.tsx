@@ -35,6 +35,7 @@ export function UserEditForm(props: UserEditFormProps): ReactElement {
     email: props.user.email ?? '',
     locale: props.user.locale ?? 'en',
     roles: props.user.roles ?? [],
+    status: (props.user as any).status ?? 'active',
   })
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
     createSubmitHandler(formState, props.onSubmit)

@@ -11,6 +11,7 @@ import type { useT } from '../../../shared/i18n/useT'
 import { UsersBasicFields } from './UsersBasicFields'
 import { UsersPasswordField } from './UsersPasswordField'
 import { UsersRolesField } from './UsersRolesField'
+import { UsersFormStatus } from './UsersFormStatus'
 import type { UsersFormState } from './useUsersFormState'
 
 export interface UsersFormFieldsProps
@@ -53,6 +54,11 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
       <UsersRolesField
         value={props.rolesString}
         onChange={props.setRolesString}
+        t={props.t}
+      />
+      <UsersFormStatus
+        status={props.status}
+        onStatusChange={props.setStatus}
         t={props.t}
       />
       {props.showPassword ? (

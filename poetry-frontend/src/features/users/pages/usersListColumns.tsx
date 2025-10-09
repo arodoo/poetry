@@ -26,6 +26,18 @@ export function buildUsersListColumns(
       accessor: (row: UserSummary): string => row.email ?? '',
     },
     {
+      key: 'status',
+      header: t('ui.users.table.status'),
+      accessor: (row: UserSummary): ReactElement => (
+        <Badge
+          tone={row.status === 'active' ? 'success' : 'neutral'}
+          size="sm"
+        >
+          {t(`ui.users.status.${row.status}`)}
+        </Badge>
+      ),
+    },
+    {
       key: 'roles',
       header: t('ui.users.table.roles'),
       accessor: (row: UserSummary): ReactElement => (
