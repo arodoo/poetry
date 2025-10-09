@@ -69,6 +69,10 @@ test.describe('Seller Codes CRUD Operations', (): void => {
       timeout: 5000,
     })
 
+    const searchInput: Locator = page.getByPlaceholder(/search/i)
+    await searchInput.fill(TEST_SELLER_CODE)
+    await page.waitForTimeout(1000)
+
     const codeCell: Locator = page.locator(`text=${TEST_SELLER_CODE}`)
     await expect(codeCell).toBeVisible({ timeout: 10000 })
 
@@ -92,6 +96,10 @@ test.describe('Seller Codes CRUD Operations', (): void => {
 
     await page.goto('/en/seller-codes')
     await page.waitForLoadState('networkidle')
+
+    const searchInput: Locator = page.getByPlaceholder(/search/i)
+    await searchInput.fill(TEST_SELLER_CODE)
+    await page.waitForTimeout(1000)
 
     const viewButton: Locator = page.locator(
       `[data-testid="view-seller-code-${createdSellerCodeId}"]`
@@ -155,28 +163,30 @@ test.describe('Seller Codes CRUD Operations', (): void => {
   }): Promise<void> => {
     test.skip(!createdSellerCodeId, 'No seller code created yet')
 
-    await page.goto('/en/seller-codes')
+    await page.goto(`/en/seller-codes/${createdSellerCodeId}`)
     await page.waitForLoadState('networkidle')
 
-    const deleteButton: Locator = page.locator(
-      `[data-testid="delete-seller-code-${createdSellerCodeId}"]`
-    )
-
-    const isDeleteButtonVisible: boolean = await deleteButton
-      .isVisible()
-      .catch(() => false)
-    test.skip(!isDeleteButtonVisible, 'Delete button not available')
+    const deleteButton: Locator = page.getByTestId('delete-seller-code-button')
+    await expect(deleteButton).toBeVisible()
 
     await deleteButton.click()
 
-    const confirmButton: Locator = page.getByRole('button', {
-      name: /confirm|delete|yes/i,
-    })
-    if (await confirmButton.isVisible().catch(() => false)) {
-      await confirmButton.click()
-    }
+    await page.waitForURL(
+      `/en/seller-codes/${createdSellerCodeId}/delete`,
+      { timeout: 10000 }
+    )
 
-    await page.waitForLoadState('networkidle')
+    const confirmButton: Locator = page.getByRole('button', {
+      name: /confirm/i,
+    })
+    await expect(confirmButton).toBeVisible()
+    await confirmButton.click()
+
+    await page.waitForURL('/en/seller-codes', { timeout: 10000 })
+
+    await expect(
+      page.getByText(/deleted successfully/i)
+    ).toBeVisible({ timeout: 5000 })
 
     await expect(page.locator(`text=${TEST_SELLER_CODE}`)).not.toBeVisible({
       timeout: 10000,

@@ -32,5 +32,4 @@ test('users list page renders seeded admin entry', async ({
     timeout: 15000,
   })
   await expect(page.getByTestId('view-user-1')).toBeVisible({ timeout: 15000 })
-  await expect(page.getByTestId('edit-user-1')).toBeVisible({ timeout: 15000 })
 })

@@ -12,7 +12,11 @@ test('confirm delete triggers API and redirects', async ({ page }: { page: Page 
   await page.waitForResponse((response) => response.url().includes('/api/v1/seller-codes') && response.request().method() === 'GET')
   const row = page.locator('tr', { hasText: code }).first()
   await expect(row).toBeVisible({ timeout: 10000 })
-  const deleteButton = row.locator(`[data-testid="delete-seller-code-${sellerCodeId}"]`)
+  const viewButton = row.locator(`[data-testid="view-seller-code-${sellerCodeId}"]`)
+  await viewButton.click()
+  await page.waitForLoadState('networkidle')
+  
+  const deleteButton = page.getByTestId('delete-seller-code-button')
   await deleteButton.click()
   await page.waitForURL(new RegExp(`/en/seller-codes/${sellerCodeId}/delete`))
   

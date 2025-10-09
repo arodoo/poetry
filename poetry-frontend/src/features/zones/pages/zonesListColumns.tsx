@@ -40,14 +40,12 @@ export function buildZonesListColumns(
       accessor: (row: ZoneResponse): ReactElement => (
         <Inline gap="xs">
           <Button
-            to={`/${locale}/zones/edit/${row.id}`}
+            to={`/${locale}/zones/${row.id}`}
             size="sm"
             width="fixed-small"
-            variant="secondary"
-            textTone="primary"
-            data-testid={`edit-zone-${row.id}`}
+            data-testid={`view-zone-${row.id}`}
           >
-            {t('ui.zones.actions.edit')}
+            {t('ui.zones.actions.view')}
           </Button>
         </Inline>
       ),

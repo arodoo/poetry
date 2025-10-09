@@ -11,7 +11,7 @@ import {
 } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
-async function createTestUser(page: Page): Promise<string> {
+async function createTestUser(page: Page): Promise<{ id: string; username: string }> {
   await page.goto('/en/users/new')
   await page.waitForLoadState('networkidle')
   const timestamp: number = Date.now()
@@ -30,7 +30,7 @@ async function createTestUser(page: Page): Promise<string> {
   await page.getByRole('button', { name: 'Create user' }).click()
   const createResponse: Response = await createApiPromise
   const userData = (await createResponse.json()) as { id?: number }
-  return String(userData.id ?? '')
+  return { id: String(userData.id ?? ''), username }
 }
 
 test('delete button navigates to delete confirmation page', async ({
@@ -39,10 +39,17 @@ test('delete button navigates to delete confirmation page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
-  const userId = await createTestUser(page)
+  const { id: userId, username } = await createTestUser(page)
   await page.goto('/en/users')
   await page.waitForLoadState('networkidle')
-  const deleteButton = page.getByTestId(`delete-user-${userId}`)
+  const searchInput = page.getByPlaceholder(/search/i)
+  await searchInput.fill(username)
+  await page.waitForTimeout(1000)
+  const viewButton = page.getByTestId(`view-user-${userId}`)
+  await viewButton.waitFor({ state: 'visible', timeout: 5000 })
+  await viewButton.click()
+  await page.waitForLoadState('networkidle')
+  const deleteButton = page.getByTestId('delete-user-button')
   await deleteButton.waitFor({ state: 'visible', timeout: 5000 })
   await deleteButton.click()
   await page.waitForURL(new RegExp(`/en/users/${userId}/delete`))
@@ -55,7 +62,7 @@ test('delete confirmation page displays correctly', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
-  const userId = await createTestUser(page)
+  const { id: userId } = await createTestUser(page)
   await page.goto(`/en/users/${userId}/delete`)
   await page.waitForLoadState('networkidle')
   const heading = page.getByRole('heading', { name: /delete/i, level: 1 })
@@ -72,7 +79,7 @@ test('cancel button navigates back to user detail', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
-  const userId = await createTestUser(page)
+  const { id: userId } = await createTestUser(page)
   await page.goto(`/en/users/${userId}/delete`)
   await page.waitForLoadState('networkidle')
   const cancelButton = page.getByTestId('cancel-delete-user-button')
@@ -87,7 +94,7 @@ test('confirm delete triggers API call and redirects', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
-  const userId = await createTestUser(page)
+  const { id: userId } = await createTestUser(page)
   await page.goto(`/en/users/${userId}/delete`)
   await page.waitForLoadState('networkidle')
   const deleteApiPromise: Promise<Response> = page.waitForResponse(

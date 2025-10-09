@@ -60,3 +60,20 @@ export function buildZoneEditBreadcrumbs(
     { label: t('ui.zones.breadcrumb.edit') },
   ]
 }
+
+export function buildZoneDetailBreadcrumbs(
+  locale: string,
+  t: (key: I18nKey) => string
+): readonly BreadcrumbItem[] {
+  return [
+    {
+      label: t('ui.zones.breadcrumb.home'),
+      href: `/${locale}/dashboard`,
+    },
+    {
+      label: t('ui.zones.breadcrumb.zones'),
+      href: `/${locale}/zones`,
+    },
+    { label: t('ui.zones.breadcrumb.detail') },
+  ]
+}

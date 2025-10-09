@@ -81,6 +81,8 @@ export const I18N_KEYS: readonly string[] = [
   'ui.route.unauthorized.title',
   'ui.route.users.slug',
   'ui.route.users.title',
+  'ui.route.zones.slug',
+  'ui.route.zones.title',
   'ui.sidebar.collapse',
   'ui.sidebar.expand',
   'ui.table.pagination.next',

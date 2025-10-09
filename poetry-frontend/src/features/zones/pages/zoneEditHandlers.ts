@@ -30,19 +30,10 @@ export function buildZoneEditSubmitHandler(
 ): (e: FormEvent<HTMLFormElement>) => void {
   return (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    toast.push('FORM SUBMITTED - HANDLER CALLED')
     
-    if (!zone) {
-      toast.push('ERROR: Zone data not loaded')
+    if (!zone || zone.version === undefined) {
       return
     }
-    
-    if (zone.version === undefined) {
-      toast.push('ERROR: Zone version is undefined')
-      return
-    }
-
-    toast.push('Attempting mutation...')
 
     const input: UpdateZoneInput = {
       name: formState.name,

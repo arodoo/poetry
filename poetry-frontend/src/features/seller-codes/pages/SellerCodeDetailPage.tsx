@@ -39,9 +39,19 @@ export default function SellerCodeDetailPage(): ReactElement {
       <Button
         to={`/${locale}/seller-codes/edit/${sellerCodeId}`}
         size="sm"
+        width="fixed-small"
         data-testid="edit-seller-code-button"
       >
         {t('ui.sellerCodes.actions.edit')}
+      </Button>
+      <Button
+        to={`/${locale}/seller-codes/${sellerCodeId}/delete`}
+        size="sm"
+        width="fixed-small"
+        variant="danger"
+        data-testid="delete-seller-code-button"
+      >
+        {t('ui.sellerCodes.actions.delete')}
       </Button>
     </Inline>
   )

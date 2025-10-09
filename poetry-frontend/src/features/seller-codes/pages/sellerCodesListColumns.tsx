@@ -56,25 +56,6 @@ export function buildSellerCodesListColumns(
           >
             {t('ui.sellerCodes.actions.view')}
           </Button>
-          <Button
-            to={`/${locale}/seller-codes/edit/${row.id}`}
-            size="sm"
-            width="fixed-small"
-            variant="secondary"
-            textTone="primary"
-            data-testid={`edit-seller-code-${row.id}`}
-          >
-            {t('ui.sellerCodes.actions.edit')}
-          </Button>
-          <Button
-            to={`/${locale}/seller-codes/${row.id}/delete`}
-            size="sm"
-            width="fixed-small"
-            variant="danger"
-            data-testid={`delete-seller-code-${row.id}`}
-          >
-            {t('ui.sellerCodes.actions.delete')}
-          </Button>
         </Inline>
       ),
     },

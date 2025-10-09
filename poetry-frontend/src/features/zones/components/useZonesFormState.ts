@@ -6,7 +6,7 @@
  * © 2025 Poetry Platform. All rights reserved.
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export interface ZonesFormValues {
   readonly name: string
@@ -30,6 +30,18 @@ export function useZonesFormState(
   const [managerId, setManagerId] = useState<string>(
     initialValues?.managerId ?? ''
   )
+
+  useEffect(() => {
+    if (initialValues?.name !== undefined) {
+      setName(initialValues.name)
+    }
+    if (initialValues?.description !== undefined) {
+      setDescription(initialValues.description)
+    }
+    if (initialValues?.managerId !== undefined) {
+      setManagerId(initialValues.managerId)
+    }
+  }, [initialValues?.name, initialValues?.description, initialValues?.managerId])
 
   return {
     name,

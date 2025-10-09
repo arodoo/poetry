@@ -3,18 +3,29 @@
  * Purpose: Mutation hook for deleting seller codes (soft delete).
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { UseMutationResult } from '@tanstack/react-query'
-import { deleteSellerCode } from '../api/seller-codesApi'
-import type { SellerCodeDetail } from '../model/SellerCodesSchemas'
 import {
-  type MutationVariables,
-  useSellerCodesEntityMutation,
-} from './useSellerCodesMutationHelpers'
+  useMutation,
+  useQueryClient,
+  type UseMutationResult,
+} from '@tanstack/react-query'
+import { deleteSellerCode } from '../api/seller-codesApi'
+import { sellerCodesQueryKeys } from './useSellerCodesQueries'
 
 export function useDeleteSellerCodeMutation(): UseMutationResult<
-  SellerCodeDetail,
   unknown,
-  MutationVariables<unknown>
+  unknown,
+  { id: string; version: number; etag?: string }
 > {
-  return useSellerCodesEntityMutation(deleteSellerCode)
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, version, etag }) => {
+      const etagHeader = etag ?? `"${version}"`
+      return deleteSellerCode(id, {}, etagHeader)
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: sellerCodesQueryKeys.root,
+      })
+    },
+  })
 }

@@ -3,7 +3,7 @@
  * Purpose: Type definitions for sidebar navigation.
  * All Rights Reserved. Arodi Emmanuel
  */
-export type ItemId = 'dashboard' | 'users' | 'adminTokens' | 'sellerCodes'
+export type ItemId = 'dashboard' | 'users' | 'adminTokens' | 'sellerCodes' | 'zones'
 
 export interface SidebarProps {
   isOpen: boolean

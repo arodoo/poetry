@@ -47,11 +47,15 @@ test('edit button navigates to user edit page', async ({
   await injectTokens(page)
   await page.goto('/en/users')
   await page.waitForLoadState('networkidle')
-  const editButton: Locator = page
-    .locator('[data-testid^="edit-user-"]')
+  const viewButton: Locator = page
+    .locator('[data-testid^="view-user-"]')
     .first()
+  await expect(viewButton).toBeVisible({ timeout: 15000 })
+  const userId: string = await getUserIdFromButton(viewButton, 'view-user-')
+  await viewButton.click()
+  await page.waitForLoadState('networkidle')
+  const editButton: Locator = page.getByTestId('edit-user-button')
   await expect(editButton).toBeVisible({ timeout: 15000 })
-  const userId: string = await getUserIdFromButton(editButton, 'edit-user-')
   await editButton.click()
   await expect(page).toHaveURL(new RegExp(`/en/users/${userId}/edit$`))
   await expect(page.getByTestId('user-username-input')).toBeVisible()

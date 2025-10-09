@@ -38,8 +38,22 @@ export default function UserDetailPage(): ReactElement {
   )
   const actions: ReactElement = (
     <Inline gap="sm">
-      <Button to={`/${locale}/users/${userId}/edit`} size="sm">
+      <Button
+        to={`/${locale}/users/${userId}/edit`}
+        size="sm"
+        width="fixed-small"
+        data-testid="edit-user-button"
+      >
         {t('ui.users.actions.edit')}
+      </Button>
+      <Button
+        to={`/${locale}/users/${userId}/delete`}
+        size="sm"
+        width="fixed-small"
+        variant="danger"
+        data-testid="delete-user-button"
+      >
+        {t('ui.users.actions.delete')}
       </Button>
     </Inline>
   )

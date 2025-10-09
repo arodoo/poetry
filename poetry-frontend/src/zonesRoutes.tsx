@@ -14,11 +14,17 @@ import { lazy } from 'react'
 const ZonesListPageLazy = lazy(() => 
   import('./features/zones/pages/ZonesListPage')
 )
+const ZoneDetailPageLazy = lazy(() => 
+  import('./features/zones/pages/ZoneDetailPage')
+)
 const ZoneCreatePageLazy = lazy(() => 
   import('./features/zones/pages/ZoneCreatePage')
 )
 const ZoneEditPageLazy = lazy(() => 
   import('./features/zones/pages/ZoneEditPage')
+)
+const ZoneDeletePageLazy = lazy(() => 
+  import('./features/zones/pages/ZoneDeletePage')
 )
 
 export function ZonesRoutes(): ReactElement[] {
@@ -29,6 +35,15 @@ export function ZonesRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <ZonesListPageLazy />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="zones-detail"
+      path=":locale/zones/:id"
+      element={
+        <AdminRoute>
+          <ZoneDetailPageLazy />
         </AdminRoute>
       }
     />,
@@ -47,6 +62,15 @@ export function ZonesRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <ZoneEditPageLazy />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="zones-delete"
+      path=":locale/zones/:id/delete"
+      element={
+        <AdminRoute>
+          <ZoneDeletePageLazy />
         </AdminRoute>
       }
     />,

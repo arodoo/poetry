@@ -24,11 +24,21 @@ export default function SellerCodeDeletePage(): ReactElement {
   const toast = useToast()
   const mutation = useDeleteSellerCodeMutation()
   const detailQuery = useSellerCodeDetailQuery(sellerCodeId)
+  const sellerCodeDetail = detailQuery.data
   const isSubmitting: boolean = mutation.isPending
 
   function handleConfirmDelete(): void {
+    if (
+      !sellerCodeDetail ||
+      sellerCodeDetail.version === undefined ||
+      sellerCodeDetail.version === null
+    ) {
+      toast.push(t('ui.sellerCodes.delete.error'))
+      return
+    }
+
     mutation.mutate(
-      { id: sellerCodeId, input: {} },
+      { id: sellerCodeId, version: sellerCodeDetail.version },
       {
         onSuccess: (): void => {
           toast.push(t('ui.sellerCodes.delete.success'))
