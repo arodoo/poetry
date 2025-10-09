@@ -64,14 +64,22 @@ Naming Rules:
 | Folder     | Must Do                                                                                                            | Must NOT Do                                                      |
 | ---------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | model      | Define Zod schemas; refine; map backend DTO -> model; pure                                                         | Import React; perform side effects; call network                 |
-| api        | Call generated sdk; add headers (ETag, If-Match, Idempotency-Key); runtime validation; map errors to typed objects | Use React Query; touch UI state; access window/document directly |
-| hooks      | Compose queries/mutations; cache strategy (staleTime, gcTime); derive optimistic updates                           | Contain complex parsing (move to model); manipulate raw fetch    |
-| components | Pure render; local ephemeral UI state only; accessibility semantics                                                | Call sdk/api directly; embed business rules                      |
-| pages      | Route params parsing, error & loading orchestration, layout slots                                                  | Contain validation logic; manual fetch                           |
+| api        | Call generated SDK or shared/http/fetchClient; add headers (ETag, If-Match, Idempotency-Key); runtime validation; map errors to typed objects | Use raw fetch/axios; Use React Query; touch UI state; access window/document directly |
+| hooks      | Compose queries/mutations; cache strategy (staleTime, gcTime); derive optimistic updates                           | Contain complex parsing (move to model); manipulate raw fetch; call SDK directly (use api/ layer)    |
+| components | Pure render; local ephemeral UI state only; accessibility semantics                                                | Call sdk/api directly; embed business rules; use fetch          |
+| pages      | Route params parsing, error & loading orchestration, layout slots                                                  | Contain validation logic; manual fetch; call SDK directly        |
 | routing    | Provide `RouteObject`; guard composition; locale prefix enforcement                                                | Business logic or data fetching                                  |
 | locales    | Provide keys referencing backend i18n (mirror naming)                                                              | Hardcode dynamic values (compose via interpolation instead)      |
 
 ## 3. Data & Network (Anti-Drift Enforcement)
+
+**CRITICAL API Call Rules:**
+
+1. **NEVER use raw `fetch()` or `axios` in feature code**
+2. **Primary**: Use generated SDK from `shared/sdk/` (auto-generated from OpenAPI at `docs/api/backend-generated/v1/openapi.yaml`)
+3. **Fallback**: If endpoint NOT in SDK yet, use `shared/http/fetchClient.fetchJson()` which includes JWT authentication automatically
+4. **Reference implementations**: Check `features/seller-codes/` and `features/users/` for correct patterns
+5. **Migration path**: When using fetchJson, add TODO comment to migrate to SDK when OpenAPI spec includes the endpoint
 
 Mandatory Headers / Behaviors:
 
@@ -116,8 +124,11 @@ export const createQueryClient = () => new QueryClient({
 
 No Direct fetch/axios:
 
-- Only inside generated sdk (codegen) or `shared/http` low-level client. Lint
-  rule forbids otherwise.
+- **FORBIDDEN**: Raw `fetch()` or `axios` calls in features/** directories
+- **ALLOWED**: Generated SDK from `shared/sdk/` (primary method)
+- **ALLOWED**: `shared/http/fetchClient.fetchJson()` for endpoints not yet in SDK (with TODO to migrate)
+- **ENFORCEMENT**: Lint rule should forbid raw fetch/axios outside of `shared/http/` layer
+- **EXAMPLES**: See `features/seller-codes/api/` and `features/users/api/` for correct implementation patterns
 
 ## 4. Error & i18n Strategy
 

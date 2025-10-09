@@ -21,7 +21,14 @@ const sdkPath = join(
   'shared',
   'sdk'
 )
-const openApiPath = join(rootDir, 'docs', 'api', 'openapi-v1.yaml')
+const openApiPath = join(
+  rootDir,
+  'docs',
+  'api',
+  'backend-generated',
+  'v1',
+  'openapi.yaml'
+)
 
 const features = scanFeatures(sdkPath)
 const patterns = analyzePatterns(features)

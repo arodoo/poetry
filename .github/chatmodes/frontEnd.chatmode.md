@@ -13,7 +13,8 @@ schema/structure/files No hardcoded text (routes, breadcrumbs, content).
 - Prefix all routes with "/:locale/...".
 - Use TanStack Query for data.
 - Use Zod for runtime validation. Zod schemas must match OpenAPI specs by implementing gems as interfaces.
-- Use SDK generated from OpenAPI (no direct fetch/axios in components). SDK at 'docs\api\backend-generated\v1\openapi.yaml
+- **CRITICAL: NEVER use raw fetch() or axios in features. ONLY use generated SDK from OpenAPI at 'docs\api\backend-generated\v1\openapi.yaml' OR shared/http/fetchClient for authenticated requests. Check seller-codes and users features for correct pattern.**
+- If endpoint not in SDK yet: Use shared/http/fetchClient.fetchJson() which includes JWT auth automatically. Document with TODO to migrate to SDK when OpenAPI is updated.
 - Each feature must have a dedicated folder 'locales' with i18n (it's own
   language definitions).
 - Page components must only use pre-defined UI components from app/src/ui/

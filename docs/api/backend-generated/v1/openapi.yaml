@@ -10,6 +10,8 @@ servers:
 security:
 - bearerAuth: []
 tags:
+- name: Zones
+  description: Zone management endpoints
 - name: users
   description: User management
 - name: auth
@@ -19,6 +21,72 @@ tags:
 - name: Seller Codes
   description: Seller code management
 paths:
+  /api/v1/zones/{id}:
+    get:
+      tags:
+      - Zones
+      summary: Get zone by ID
+      operationId: getZoneById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ZoneResponse"
+    put:
+      tags:
+      - Zones
+      summary: Update existing zone
+      operationId: updateZone
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZoneUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ZoneResponse"
+    delete:
+      tags:
+      - Zones
+      summary: Delete zone (soft delete)
+      operationId: deleteZone
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: version
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
   /api/v1/users/{id}:
     get:
       tags:
@@ -535,6 +603,39 @@ paths:
       responses:
         "200":
           description: OK
+  /api/v1/zones:
+    get:
+      tags:
+      - Zones
+      summary: List all zones
+      operationId: listAllZones
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ZoneResponse"
+    post:
+      tags:
+      - Zones
+      summary: Create new zone
+      operationId: createZone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZoneCreateRequest"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ZoneResponse"
   /api/v1/users:
     get:
       tags:
@@ -999,6 +1100,39 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
+  /api/v1/zones/paged:
+    get:
+      tags:
+      - Zones
+      summary: List zones with pagination
+      operationId: listPagedZones
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoZoneResponse"
   /api/v1/users/paged:
     get:
       tags:
@@ -1253,6 +1387,55 @@ components:
           type: object
           additionalProperties:
             type: object
+    ZoneUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+          example: Main Store
+        description:
+          type: string
+          description: Zone description
+          example: Primary retail zone
+        managerId:
+          type: integer
+          description: Manager user ID
+          format: int64
+          example: 42
+        version:
+          type: integer
+          description: Version for optimistic locking
+          format: int64
+          example: 0
+      description: Update zone request payload
+    ZoneResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier
+          format: int64
+          example: 1
+        name:
+          type: string
+          description: Zone name
+          example: Main Store
+        description:
+          type: string
+          description: Zone description
+          example: Primary retail zone
+        managerId:
+          type: integer
+          description: Manager user ID
+          format: int64
+          example: 42
+        version:
+          type: integer
+          description: Version for locking
+          format: int64
+          example: 0
+      description: Zone response with all fields
     UserUpdateRequest:
       type: object
       properties:
@@ -1526,6 +1709,23 @@ components:
         createdAt:
           type: string
           format: date-time
+    ZoneCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+          example: Main Store
+        description:
+          type: string
+          description: Zone description
+          example: Primary retail zone
+        managerId:
+          type: integer
+          description: Manager user ID
+          format: int64
+          example: 42
+      description: Create zone request payload
     UserCreateRequest:
       required:
       - email
@@ -1748,6 +1948,43 @@ components:
           type: array
           items:
             type: string
+    PageResponseDtoZoneResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content
+          items:
+            $ref: "#/components/schemas/ZoneResponse"
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 50
+        totalPages:
+          type: integer
+          description: Total number of pages
+          format: int32
+          example: 5
+        currentPage:
+          type: integer
+          description: Current page number (0-indexed)
+          format: int32
+          example: 0
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+          example: 10
+        hasNext:
+          type: boolean
+          description: Has next page
+          example: true
+        hasPrevious:
+          type: boolean
+          description: Has previous page
+          example: false
+      description: Paginated response wrapper
     PageResponseDtoUserResponse:
       type: object
       properties:

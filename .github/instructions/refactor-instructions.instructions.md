@@ -1,0 +1,15 @@
+---
+applyTo: '**'
+---
+
+# Refactoring Instructions
+When refactoring code, follow these guidelines to ensure maintainability and clarity:
+
+## General Principles
+- Don't apply your personal style. Follow existing project conventions and logic.
+- When splitting files, ensure logic keeps intact, don't break/change/improve methods or classes.
+- Avoid adding new features or fixing unrelated bugs during refactoring.
+- Keep changes minimal and focused on structure, not functionality.
+- Ensure all tests pass after refactoring to confirm no functionality is broken.
+- Maintain consistent naming conventions and coding styles throughout the codebase.
+- Document any significant changes in structure or organization for future reference.
