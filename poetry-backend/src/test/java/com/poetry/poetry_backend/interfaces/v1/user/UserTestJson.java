@@ -40,7 +40,7 @@ public final class UserTestJson {
         lastName,
         email
     ) + String.format(
-        "\"locale\":\"en\",\"roles\":[\"USER\"],\"active\":true}",
+        "\"locale\":\"en\",\"roles\":[\"USER\"],\"status\":\"active\"}",
         new Object[] {}
     );
   }

@@ -19,7 +19,7 @@ export interface UsersPageLayoutProps {
 export function UsersPageLayout(props: UsersPageLayoutProps): ReactElement {
   const t: ReturnType<typeof useT> = useT()
   return (
-    <Stack as="section" gap="lg" className="mx-auto max-w-6xl px-6 py-8">
+    <Stack as="section" gap="lg" className="w-full px-4 py-4">
       <Stack
         as="div"
         gap="md"

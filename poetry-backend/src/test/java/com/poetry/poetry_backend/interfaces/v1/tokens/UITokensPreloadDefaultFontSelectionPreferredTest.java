@@ -41,6 +41,7 @@ class UITokensPreloadDefaultFontSelectionPreferredTest {
     var dataProvider = new UITokensDataProvider(
       themesProvider,
       fontsProvider,
+      new UITokensFontFamiliesProvider(),
       new UITokensFontSizesProvider(),
       new UITokensFontWeightsProvider(),
       new UITokensSpacingsProvider(),

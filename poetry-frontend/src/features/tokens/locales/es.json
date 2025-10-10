@@ -1,8 +1,25 @@
 {
-  "ui": {
-    "tokens": {
-      "loading": "Cargando tema…",
-      "error": "No se pudo cargar el tema"
-    }
-  }
+  "ui.admin.tokens.title": "Configuración de Tokens UI",
+  "ui.admin.tokens.subtitle": "Personalizar tokens de diseño globales",
+  "ui.admin.tokens.loading": "Cargando tokens…",
+  "ui.admin.tokens.error": "No se pudieron cargar los tokens",
+  "ui.admin.tokens.empty": "No hay tokens disponibles",
+  "ui.admin.tokens.currentSelection": "Selección Actual",
+  "ui.admin.tokens.availableOptions": "Opciones Disponibles",
+  "ui.admin.tokens.preview": "Vista Previa en Vivo",
+  "ui.tokens.loading": "Cargando tema…",
+  "ui.tokens.error": "No se pudo cargar el tema",
+  "ui.tokens.fields.theme": "Tema",
+  "ui.tokens.fields.font": "Familia de Fuente",
+  "ui.tokens.fields.fontSize": "Tamaño de Fuente",
+  "ui.tokens.fields.spacing": "Espaciado",
+  "ui.tokens.fields.radius": "Radio de Borde",
+  "ui.tokens.fields.shadow": "Sombra",
+  "ui.tokens.actions.save": "Guardar Selección",
+  "ui.tokens.actions.cancel": "Cancelar",
+  "ui.tokens.actions.reset": "Restaurar Predeterminados",
+  "ui.tokens.toast.update.success": "Tokens actualizados exitosamente",
+  "ui.tokens.toast.update.error": "Error al actualizar tokens",
+  "ui.tokens.breadcrumbs.admin": "Administración",
+  "ui.tokens.breadcrumbs.tokens": "Tokens UI"
 }

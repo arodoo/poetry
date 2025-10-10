@@ -19,11 +19,22 @@ public class UITokensShadowsProvider implements ShadowsProviderPort {
 
   @Override
   public List<UITokensDto.ShadowSet> getShadows() {
-    return List.of(createShadowSet("default", "Default", Map.of(
-        "sm", "0 1px 2px 0 rgb(0 0 0 / 0.05)", // i18n-ignore
-        "md", "0 4px 6px -1px rgb(0 0 0 / 0.1)", // i18n-ignore
-        "lg", "0 10px 15px -3px rgb(0 0 0 / 0.1)" // i18n-ignore
-    )));
+    return List.of(
+        createShadowSet("flat", "Flat", Map.of(
+            "sm", "none", // i18n-ignore
+            "md", "none", // i18n-ignore
+            "lg", "none" // i18n-ignore
+        )),
+        createShadowSet("subtle", "Subtle", Map.of(
+            "sm", "0 1px 2px 0 rgb(0 0 0 / 0.05)", // i18n-ignore
+            "md", "0 4px 6px -1px rgb(0 0 0 / 0.1)", // i18n-ignore
+            "lg", "0 10px 15px -3px rgb(0 0 0 / 0.1)" // i18n-ignore
+        )),
+        createShadowSet("elevated", "Elevated", Map.of(
+            "sm", "0 2px 4px 0 rgb(0 0 0 / 0.1)", // i18n-ignore
+            "md", "0 8px 12px -2px rgb(0 0 0 / 0.15)", // i18n-ignore
+            "lg", "0 20px 25px -5px rgb(0 0 0 / 0.15)" // i18n-ignore
+        )));
   }
 
   private static UITokensDto.ShadowSet createShadowSet(String key,

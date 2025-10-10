@@ -19,8 +19,13 @@ public class UITokensRadiusProvider implements RadiusProviderPort {
 
   @Override
   public List<UITokensDto.RadiusSet> getRadius() {
-    return List.of(createRadiusSet("default", "Default",
-        Map.of("sm", "0.125rem", "md", "0.375rem", "lg", "0.5rem")));
+    return List.of(
+        createRadiusSet("sharp", "Sharp", Map.of(
+            "sm", "0rem", "md", "0rem", "lg", "0rem")),
+        createRadiusSet("default", "Default", Map.of(
+            "sm", "0.125rem", "md", "0.375rem", "lg", "0.5rem")),
+        createRadiusSet("rounded", "Rounded", Map.of(
+            "sm", "0.25rem", "md", "0.5rem", "lg", "1rem")));
   }
 
   private static UITokensDto.RadiusSet createRadiusSet(String key,

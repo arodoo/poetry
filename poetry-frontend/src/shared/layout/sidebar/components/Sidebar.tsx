@@ -12,7 +12,7 @@ import { getNavigationItems } from '../config/navigationConfig'
 import type { SidebarProps } from '../types'
 
 export function Sidebar(props: SidebarProps): ReactElement | null {
-  const { isOpen } = props
+  const { isOpen, onToggle } = props
   const translator: ReturnType<typeof useT> = useT()
   const { status, session } = useSession()
   const pathname: string = useLocation().pathname
@@ -26,6 +26,45 @@ export function Sidebar(props: SidebarProps): ReactElement | null {
 
   return (
     <aside className={sidebarWidth}>
+      <div className="p-2 border-b border-[var(--color-border)]">
+        <button
+          aria-label={
+            isOpen
+              ? translator('ui.sidebar.collapse')
+              : translator('ui.sidebar.expand')
+          }
+          onClick={onToggle}
+          className="w-full h-10 flex items-center justify-center text-[var(--color-textMuted)] hover:text-[var(--color-text)] hover:bg-[var(--color-background)] rounded transition-colors"
+        >
+          {isOpen ? (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-6 h-6"
+              aria-hidden="true"
+            >
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-6 h-6"
+              aria-hidden="true"
+            >
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          )}
+        </button>
+      </div>
       <nav className="p-2 space-y-1">
         {items.map(
           (

@@ -1,8 +1,25 @@
 {
-  "ui": {
-    "tokens": {
-      "loading": "Loading theme…",
-      "error": "Could not load theme"
-    }
-  }
+  "ui.admin.tokens.title": "UI Token Configuration",
+  "ui.admin.tokens.subtitle": "Customize global design tokens",
+  "ui.admin.tokens.loading": "Loading tokens…",
+  "ui.admin.tokens.error": "Could not load tokens",
+  "ui.admin.tokens.empty": "No tokens available",
+  "ui.admin.tokens.currentSelection": "Current Selection",
+  "ui.admin.tokens.availableOptions": "Available Options",
+  "ui.admin.tokens.preview": "Live Preview",
+  "ui.tokens.loading": "Loading theme…",
+  "ui.tokens.error": "Could not load theme",
+  "ui.tokens.fields.theme": "Theme",
+  "ui.tokens.fields.font": "Font Family",
+  "ui.tokens.fields.fontSize": "Font Size",
+  "ui.tokens.fields.spacing": "Spacing",
+  "ui.tokens.fields.radius": "Border Radius",
+  "ui.tokens.fields.shadow": "Shadow",
+  "ui.tokens.actions.save": "Save Selection",
+  "ui.tokens.actions.cancel": "Cancel",
+  "ui.tokens.actions.reset": "Reset to Defaults",
+  "ui.tokens.toast.update.success": "Tokens updated successfully",
+  "ui.tokens.toast.update.error": "Failed to update tokens",
+  "ui.tokens.breadcrumbs.admin": "Admin",
+  "ui.tokens.breadcrumbs.tokens": "UI Tokens"
 }

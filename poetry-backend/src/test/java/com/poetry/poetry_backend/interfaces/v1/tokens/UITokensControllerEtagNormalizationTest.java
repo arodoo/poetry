@@ -43,6 +43,7 @@ class UITokensControllerEtagNormalizationTest {
     var dataProvider = new UITokensDataProvider(
       themesProvider,
       new UITokensFontsProvider(),
+      new UITokensFontFamiliesProvider(),
       new UITokensFontSizesProvider(),
       new UITokensFontWeightsProvider(),
       new UITokensSpacingsProvider(),

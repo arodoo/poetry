@@ -16,6 +16,7 @@ export type ItemId =
 
 export interface SidebarProps {
   isOpen: boolean
+  onToggle?: () => void
 }
 
 export type HeroIcon = ForwardRefExoticComponent<

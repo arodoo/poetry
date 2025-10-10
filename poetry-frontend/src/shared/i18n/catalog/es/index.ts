@@ -17,6 +17,7 @@ import sellerCodesEs from '../../../../features/seller-codes/locales/es.json'
 import subscriptionsEs from '../../../../features/subscriptions/locales/es.json'
 import zonesEs from '../../../../features/zones/locales/es.json'
 import membershipsEs from '../../../../features/memberships/locales/es.json'
+import tokensEs from '../../../../features/tokens/locales/es.json'
 
 export const esCatalog: Record<string, string> = {
   ...commonEs,
@@ -33,4 +34,5 @@ export const esCatalog: Record<string, string> = {
   ...subscriptionsEs,
   ...zonesEs,
   ...membershipsEs,
+  ...tokensEs,
 }

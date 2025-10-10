@@ -1,12 +1,16 @@
 /*
  File: tokensRoutes.ts
- Purpose: RouteObject export for tokens feature pages (if any). Provides
- locale-prefixed paths. This feature has no pages yet; placeholder routes.
+ Purpose: RouteObject export for tokens feature pages. Provides
+ locale-prefixed admin routes for token configuration.
  All Rights Reserved. Arodi Emmanuel
 */
-// Rights: All Rights Reserved. Arodi Emmanuel
+import React from 'react'
 import type { RouteObject } from 'react-router-dom'
+import { AdminTokensPage } from '../pages/AdminTokensPage'
 
 export const tokensRoutes: RouteObject[] = [
-  // Example: { path: '/:locale/settings/theme', element: <ThemePage /> }
+  {
+    path: '/:locale/admin/tokens',
+    element: React.createElement(AdminTokensPage),
+  },
 ]

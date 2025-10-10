@@ -21,13 +21,10 @@ import { tokenStorage } from './shared/security/tokenStorage'
 import { startTokenRefreshScheduler } from
   './shared/security/tokenRefreshScheduler'
 
-// Dev-only: install client error bridge BEFORE any code that may throw
+// Dev-only: install client error bridge synchronously
 if (import.meta.env.DEV) {
-  // Ensure dev-only modules are loaded.
-  // Use `void` to mark intentionally un-awaited promises.
-  void import('./shared/dev/clientErrorReporter')
-  // Set up CSS variables health check monitor
-  void import('./shared/dev/cssVariablesHealthCheck').then(
+  import('./shared/dev/clientErrorReporter')
+  import('./shared/dev/cssVariablesHealthCheck').then(
     (module: { setupCssVariablesMonitor: () => void }): void => {
       module.setupCssVariablesMonitor()
     }

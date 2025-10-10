@@ -16,12 +16,15 @@ public class UITokensFontsProvider implements FontsProviderPort {
   @Override
   public List<UITokensDto.Font> getFonts() {
     return List.of(
-        createFont("inter", "Inter", // normalized key
+        createFont("inter", "Inter",
             "https://cdn.myapp.com/fonts/inter.woff2",
             List.of(400, 500, 700), "sha256-abc123"),
         createFont("roboto", "Roboto",
             "https://cdn.myapp.com/fonts/roboto.woff2",
-            List.of(400, 500, 700), "sha256-def456"));
+            List.of(400, 500, 700), "sha256-def456"),
+        createFont("open-sans", "Open Sans",
+            "https://cdn.myapp.com/fonts/open-sans.woff2",
+            List.of(400, 600, 700), "sha256-ghi789"));
   }
 
   private static UITokensDto.Font createFont(String key, String label,

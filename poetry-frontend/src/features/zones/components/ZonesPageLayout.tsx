@@ -21,7 +21,7 @@ export function ZonesPageLayout({
 }: ZonesPageLayoutProps) {
   return (
     <div className="min-h-screen bg-surface-base">
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="w-full px-4 py-4">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-content-primary">
             {title}

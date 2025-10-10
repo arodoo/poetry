@@ -8,6 +8,7 @@ package com.poetry.poetry_backend.interfaces.v1.tokens;
 
 import org.springframework.stereotype.Component;
 
+import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontFamiliesProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontSizesProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontWeightsProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontsProviderPort;
@@ -20,6 +21,7 @@ import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
 public class UITokensDataProvider {
   private final ThemesProviderPort themesProvider;
   private final FontsProviderPort fontsProvider;
+  private final FontFamiliesProviderPort fontFamiliesProvider;
   private final FontSizesProviderPort fontSizesProvider;
   private final FontWeightsProviderPort fontWeightsProvider;
   private final SpacingsProviderPort spacingsProvider;
@@ -28,7 +30,8 @@ public class UITokensDataProvider {
   private final UITokensCurrentProvider currentProvider;
 
   public UITokensDataProvider(ThemesProviderPort themesProvider,
-      FontsProviderPort fontsProvider, FontSizesProviderPort fontSizesProvider,
+      FontsProviderPort fontsProvider, FontFamiliesProviderPort fontFamiliesProvider,
+      FontSizesProviderPort fontSizesProvider,
       FontWeightsProviderPort fontWeightsProvider,
       SpacingsProviderPort spacingsProvider,
       RadiusProviderPort radiusProvider,
@@ -36,6 +39,7 @@ public class UITokensDataProvider {
       UITokensCurrentProvider currentProvider) {
     this.themesProvider = themesProvider;
     this.fontsProvider = fontsProvider;
+    this.fontFamiliesProvider = fontFamiliesProvider;
     this.fontSizesProvider = fontSizesProvider;
     this.fontWeightsProvider = fontWeightsProvider;
     this.spacingsProvider = spacingsProvider;
@@ -48,6 +52,7 @@ public class UITokensDataProvider {
     UITokensDto tokens = new UITokensDto();
     tokens.themes = themesProvider.getThemes();
     tokens.fonts = fontsProvider.getFonts();
+    tokens.fontFamilies = fontFamiliesProvider.getFontFamilies();
     tokens.fontSizes = fontSizesProvider.getFontSizes();
     tokens.fontWeights = fontWeightsProvider.getFontWeights();
     tokens.spacings = spacingsProvider.getSpacings();

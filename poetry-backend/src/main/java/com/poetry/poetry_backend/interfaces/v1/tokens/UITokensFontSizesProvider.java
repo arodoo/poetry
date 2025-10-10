@@ -19,9 +19,16 @@ public class UITokensFontSizesProvider implements FontSizesProviderPort {
 
   @Override
   public List<UITokensDto.FontSizeSet> getFontSizes() {
-    return List.of(createFontSizeSet("default", "Default", Map.of(
-        "xs", "0.75rem", "sm", "0.875rem", "base", "1rem", "lg",
-        "1.125rem", "xl", "1.25rem")));
+    return List.of(
+        createFontSizeSet("compact", "Compact", Map.of(
+            "xs", "0.625rem", "sm", "0.75rem", "base", "0.875rem",
+            "lg", "1rem", "xl", "1.125rem")),
+        createFontSizeSet("default", "Default", Map.of(
+            "xs", "0.75rem", "sm", "0.875rem", "base", "1rem",
+            "lg", "1.125rem", "xl", "1.25rem")),
+        createFontSizeSet("comfortable", "Comfortable", Map.of(
+            "xs", "0.875rem", "sm", "1rem", "base", "1.125rem",
+            "lg", "1.25rem", "xl", "1.5rem")));
   }
 
   private static UITokensDto.FontSizeSet createFontSizeSet(String key,

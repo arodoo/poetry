@@ -14,6 +14,7 @@ import java.util.Map;
 public class UITokensDto {
   public List<Theme> themes;
   public List<Font> fonts;
+  public List<FontFamily> fontFamilies;
   public List<String> fontWeights;
   public List<FontSizeSet> fontSizes;
   public List<SpacingSet> spacings;
@@ -36,6 +37,12 @@ public class UITokensDto {
     // New additive fields for offline strategy
     public boolean preloadDefault; // exactly one true
     public String integrity; // optional (may mirror hash initially)
+  }
+
+  public static class FontFamily {
+    public String key;
+    public String label;
+    public String family;
   }
 
   public static class FontSizeSet {

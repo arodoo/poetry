@@ -7,10 +7,20 @@
 */
 import { getTokens as getTokensSdk } from '../../../api/generated'
 import { TokenBundleSchema, type TokenBundle } from '../model/TokensSchemas'
+import { fetchJson } from '../../../shared/http/fetchClient'
 
 export type TokensApiResponse = Readonly<{
   bundle: TokenBundle
   etag: string | null
+}>
+
+export type UpdateSelectionInput = Readonly<{
+  theme: string
+  font: string
+  fontSize: string
+  spacing: string
+  radius: string
+  shadow: string
 }>
 
 export async function getTokens(): Promise<TokensApiResponse> {
@@ -75,4 +85,13 @@ export async function getTokens(): Promise<TokensApiResponse> {
       `Failed to fetch tokens: ${err instanceof Error ? err.message : String(err)}`
     )
   }
+}
+
+export async function updateSelection(
+  input: UpdateSelectionInput
+): Promise<void> {
+  await fetchJson<void>('/api/v1/tokens/selection', {
+    method: 'PUT',
+    body: input,
+  })
 }

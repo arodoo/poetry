@@ -19,9 +19,16 @@ public class UITokensSpacingsProvider implements SpacingsProviderPort {
 
   @Override
   public List<UITokensDto.SpacingSet> getSpacings() {
-    return List.of(createSpacingSet("default", "Default", Map.of("xs",
-        "0.25rem", "sm", "0.5rem", "md", "1rem", "lg", "1.5rem",
-        "xl", "2rem")));
+    return List.of(
+        createSpacingSet("tight", "Tight", Map.of(
+            "xs", "0.125rem", "sm", "0.25rem", "md", "0.5rem",
+            "lg", "0.75rem", "xl", "1rem")),
+        createSpacingSet("default", "Default", Map.of(
+            "xs", "0.25rem", "sm", "0.5rem", "md", "1rem",
+            "lg", "1.5rem", "xl", "2rem")),
+        createSpacingSet("comfortable", "Comfortable", Map.of(
+            "xs", "0.5rem", "sm", "0.75rem", "md", "1.5rem",
+            "lg", "2rem", "xl", "3rem")));
   }
 
   private static UITokensDto.SpacingSet createSpacingSet(String key,

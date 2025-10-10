@@ -14,13 +14,15 @@ export function AppShell({ children }: { children: ReactNode }): ReactElement {
     setOpen((value: boolean): boolean => !value)
   }
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar onToggleSidebar={onToggleSidebar} />
-      <div className="flex">
-        <Sidebar isOpen={open} />
-        <main className="flex-1 min-w-0 max-w-7xl mx-auto px-4 py-6">
-          {children}
-        </main>
+    <div className="min-h-screen bg-[var(--color-background)]">
+      <div className="h-full min-h-screen bg-[var(--color-surface)] border-l-[5vw] border-r-[5vw] border-[var(--color-border)]">
+        <Navbar />
+        <div className="flex">
+          <Sidebar isOpen={open} onToggle={onToggleSidebar} />
+          <main className="flex-1 min-w-0 w-full">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   )

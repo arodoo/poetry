@@ -15,7 +15,7 @@ export default function DashboardPage(): ReactElement {
   const overviewQuery: ReturnType<typeof useDashboardOverviewQuery> =
     useDashboardOverviewQuery()
   return (
-    <main className="mx-auto flex max-w-5xl flex-col gap-6 p-6">
+    <main className="flex w-full flex-col gap-6 p-4">
       <header className="flex flex-col gap-2">
         <Heading level={1} size="lg">
           {t('ui.dashboard.page.title')}
