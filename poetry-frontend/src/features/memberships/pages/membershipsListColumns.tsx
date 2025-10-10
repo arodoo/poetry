@@ -60,6 +60,7 @@ export function buildMembershipsListColumns(
             to={`/${locale}/memberships/${row.id}`}
             size="sm"
             width="fixed-small"
+            data-testid={`view-membership-${row.id}`}
           >
             {t('ui.memberships.actions.view')}
           </Button>

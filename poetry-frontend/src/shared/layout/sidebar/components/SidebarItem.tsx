@@ -1,6 +1,6 @@
 /*
  * File: SidebarItem.tsx
- * Purpose: Individual navigation item component.
+ * Purpose: Navigation item with icon support for collapsed mode.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -29,13 +29,18 @@ export function SidebarItem(props: SidebarItemProps): ReactElement | null {
   const base: string = active
     ? 'bg-[var(--color-surface)]'
     : 'hover:bg-[var(--color-muted)]'
+  const Icon: typeof item.icon = item.icon
   return (
     <Link
       key={item.id}
       to={linkTo}
-      className={`block rounded px-3 py-2 ${base}`}
+      className={`flex items-center gap-3 rounded px-3 py-2 ${base}`}
+      title={isOpen ? undefined : translator(getLabelKey(item.id))}
     >
-      {isOpen ? translator(getLabelKey(item.id)) : '•'}
+      <Icon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+      {isOpen && (
+        <span className="truncate">{translator(getLabelKey(item.id))}</span>
+      )}
     </Link>
   )
 }
