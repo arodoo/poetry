@@ -12,7 +12,7 @@
     "format:check": "prettier --check .",
     "i18n:gen": "node ../tools/ci/i18n/i18n-generate-keys.mjs",
     "i18n:verify": "node ../tools/ci/i18n/i18n-verify.mjs",
-    "sdk:generate": "openapi-ts -i ../docs/api/backend-generated/v1/openapi.yaml -o src/api/generated -c @hey-api/client-fetch && node tools/sdk/add-ts-nocheck-to-generated.mjs",
+    "sdk:generate": "openapi-ts -i ../docs/api/backend-generated/v1/openapi.yaml -o src/api/generated -c @hey-api/client-fetch -l ../logs/frontend && node tools/sdk/add-ts-nocheck-to-generated.mjs",
     "typecheck": "npm run i18n:gen && npm run i18n:verify && tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "typecheck:only": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "build": "npm run i18n:gen && npm run i18n:verify && npm run format && npm run lint -- --max-warnings=0 && npm run typecheck && vite build",

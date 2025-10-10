@@ -78,7 +78,7 @@ test('creates new subscription successfully', async ({
   await page.waitForLoadState('networkidle')
   
   // Take screenshot for debugging
-  await page.screenshot({ path: `subscription-created-${subscriptionId}.png` })
+  await page.screenshot({ path: `test-results/subscription-created-${subscriptionId}.png` })
   
   // Check if pagination is affecting visibility - go to first page
   const firstPageButton = page.getByTestId('pagination-first-page')

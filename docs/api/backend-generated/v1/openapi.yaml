@@ -1,1 +1,2949 @@
-{"openapi":"3.0.1","info":{"title":"Poetry API","license":{"name":"Proprietary"},"version":"1.0.0"},"servers":[{"url":"http://localhost:8080","description":"Generated server url"}],"security":[{"bearerAuth":[]}],"tags":[{"name":"Zones","description":"Zone management endpoints"},{"name":"subscriptions","description":"Subscription plan management"},{"name":"users","description":"User management"},{"name":"auth","description":"Authentication endpoints"},{"name":"seller-codes","description":"Seller code management"},{"name":"Seller Codes","description":"Seller code management"}],"paths":{"/api/v1/zones/{id}":{"get":{"tags":["Zones"],"summary":"Get zone by ID","operationId":"getZoneById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ZoneResponse"}}}}}},"put":{"tags":["Zones"],"summary":"Update existing zone","operationId":"updateZone","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ZoneUpdateRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ZoneResponse"}}}}}},"delete":{"tags":["Zones"],"summary":"Delete zone (soft delete)","operationId":"deleteZone","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"version","in":"query","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"204":{"description":"No Content"}}}},"/api/v1/users/{id}":{"get":{"tags":["users"],"summary":"Get user by ID","description":"Retrieve single user with ETag for caching","operationId":"getUserById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"User found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"404":{"description":"Not found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}}}},"put":{"tags":["users"],"summary":"Update user","description":"Update user with optimistic locking via If-Match","operationId":"updateUser","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"If-Match","in":"header","required":true,"schema":{"type":"string"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserUpdateRequest"}}},"required":true},"responses":{"404":{"description":"Not found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"200":{"description":"Successfully updated","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"409":{"description":"Version conflict","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}}}},"delete":{"tags":["users"],"summary":"Delete user","description":"Soft delete user with optimistic locking","operationId":"deleteUser","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"If-Match","in":"header","required":true,"schema":{"type":"string"}}],"responses":{"204":{"description":"Successfully deleted"},"404":{"description":"Not found"},"403":{"description":"Forbidden"},"409":{"description":"Version conflict"},"401":{"description":"Unauthorized"}}}},"/api/v1/tokens/selection":{"put":{"tags":["ui-tokens-controller"],"operationId":"updateSelection","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateSelectionRequest"}}},"required":true},"responses":{"200":{"description":"OK"}}}},"/api/v1/themes/{id}":{"get":{"tags":["theme-read-controller"],"operationId":"byId","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProblemDetail"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ThemeResponse"}}}}}},"put":{"tags":["theme-update-controller"],"operationId":"update","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateRequest"}}},"required":true},"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProblemDetail"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ThemeResponse"}}}}}},"delete":{"tags":["theme-delete-controller"],"operationId":"delete","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProblemDetail"}}}},"200":{"description":"OK"}}}},"/api/v1/themes/{id}/activate":{"put":{"tags":["theme-activate-controller"],"operationId":"activate","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProblemDetail"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ThemeResponse"}}}}}}},"/api/v1/subscriptions/{id}":{"get":{"tags":["subscriptions"],"summary":"Get subscription by ID","description":"Retrieve single subscription with ETag for caching","operationId":"getSubscriptionById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"Subscription found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"404":{"description":"Not found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}}}},"put":{"tags":["subscriptions"],"summary":"Update a subscription","description":"Update subscription plan with optimistic locking","operationId":"updateSubscription","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"If-Match","in":"header","required":true,"schema":{"type":"string"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SubscriptionUpdateRequest"}}},"required":true},"responses":{"404":{"description":"Not found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"200":{"description":"Updated","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"412":{"description":"Precondition Failed","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}}}},"delete":{"tags":["subscriptions"],"summary":"Delete a subscription","description":"Soft-delete subscription plan by ID","operationId":"deleteSubscription","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"204":{"description":"Deleted"},"404":{"description":"Not found"},"403":{"description":"Forbidden"},"401":{"description":"Unauthorized"}}}},"/api/v1/seller-codes/{id}":{"get":{"tags":["seller-codes"],"summary":"Get seller code by ID","description":"Retrieve single seller code with ETag for caching","operationId":"getSellerCodeById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"404":{"description":"Not found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"200":{"description":"Seller code found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}}}},"put":{"tags":["seller-codes"],"summary":"Update seller code","description":"Update seller code with optimistic locking via If-Match","operationId":"updateSellerCode","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"If-Match","in":"header","required":false,"schema":{"type":"string"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SellerCodeUpdateRequest"}}},"required":true},"responses":{"404":{"description":"Not found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"200":{"description":"Successfully updated","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"409":{"description":"Version conflict","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}}}},"delete":{"tags":["seller-codes"],"summary":"Delete seller code","description":"Soft delete seller code with optimistic locking","operationId":"deleteSellerCode","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"If-Match","in":"header","required":false,"schema":{"type":"string"}}],"responses":{"204":{"description":"Successfully deleted"},"404":{"description":"Not found"},"403":{"description":"Forbidden"},"409":{"description":"Version conflict"},"401":{"description":"Unauthorized"}}}},"/api/v1/me/profile":{"get":{"tags":["me-profile-controller"],"operationId":"getProfile","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProfileResponse"}}}}}},"put":{"tags":["me-profile-controller"],"operationId":"updateProfile","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ProfileUpdateRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProfileResponse"}}}}}}},"/api/v1/fonts/{key}":{"get":{"tags":["font-read-controller"],"operationId":"byKey","parameters":[{"name":"key","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FontResponse"}}}}}},"put":{"tags":["font-update-controller"],"operationId":"update_1","parameters":[{"name":"key","in":"path","required":true,"schema":{"type":"string"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateFontRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FontResponse"}}}}}},"delete":{"tags":["font-delete-controller"],"operationId":"delete_1","parameters":[{"name":"key","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/v1/dashboard/{id}":{"get":{"tags":["dashboard-controller"],"operationId":"getDashboard","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/DashboardResponse"}}}}}},"put":{"tags":["dashboard-mutation-controller"],"operationId":"updateDashboard","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateDashboardRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/DashboardResponse"}}}}}},"delete":{"tags":["dashboard-mutation-controller"],"operationId":"deleteDashboard","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK"}}}},"/api/v1/zones":{"get":{"tags":["Zones"],"summary":"List all zones","operationId":"listAllZones","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/ZoneResponse"}}}}}}},"post":{"tags":["Zones"],"summary":"Create new zone","operationId":"createZone","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ZoneCreateRequest"}}},"required":true},"responses":{"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ZoneResponse"}}}}}}},"/api/v1/users":{"get":{"tags":["users"],"summary":"List all users","description":"Retrieve all users with ETag for caching","operationId":"listUsers","responses":{"200":{"description":"Users list","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/UserResponse"}}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/UserResponse"}}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/UserResponse"}}}}}}},"post":{"tags":["users"],"summary":"Create a new user","description":"Create user with role assignment","operationId":"createUser","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserCreateRequest"}}},"required":true},"responses":{"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}}}}},"/api/v1/themes":{"get":{"tags":["theme-read-controller"],"operationId":"list","responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProblemDetail"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/ThemeResponse"}}}}}}},"post":{"tags":["theme-create-controller"],"operationId":"create","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateRequest"}}},"required":true},"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProblemDetail"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ThemeResponse"}}}}}}},"/api/v1/subscriptions":{"get":{"tags":["subscriptions"],"summary":"List all subscriptions","description":"Retrieve all active subscription plans","operationId":"listSubscriptions","responses":{"200":{"description":"Subscriptions list","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/SubscriptionResponse"}}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/SubscriptionResponse"}}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/SubscriptionResponse"}}}}}}},"post":{"tags":["subscriptions"],"summary":"Create a new subscription","description":"Create subscription plan with pricing and features","operationId":"createSubscription","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SubscriptionCreateRequest"}}},"required":true},"responses":{"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SubscriptionResponse"}}}}}}},"/api/v1/seller-codes":{"get":{"tags":["seller-codes"],"summary":"List all seller codes","description":"Retrieve all seller codes with ETag for caching","operationId":"listSellerCodes","responses":{"403":{"description":"Forbidden","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/SellerCodeResponse"}}}}},"200":{"description":"Seller codes list","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/SellerCodeResponse"}}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/SellerCodeResponse"}}}}}}},"post":{"tags":["seller-codes"],"summary":"Create a new seller code","description":"Create seller code with user assignment","operationId":"createSellerCode","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SellerCodeCreateRequest"}}},"required":true},"responses":{"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/SellerCodeResponse"}}}}}}},"/api/v1/public/forgot-password":{"post":{"tags":["public-forgot-password-controller"],"operationId":"forgotPassword","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ForgotPasswordRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ForgotPasswordResponse"}}}}}}},"/api/v1/me/password":{"post":{"tags":["me-password-controller"],"operationId":"changePassword","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PasswordChangeRequest"}}},"required":true},"responses":{"200":{"description":"OK"}}}},"/api/v1/fonts":{"get":{"tags":["font-read-controller"],"operationId":"list_1","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/FontResponse"}}}}}}},"post":{"tags":["font-create-controller"],"operationId":"create_1","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateFontRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FontResponse"}}}}}}},"/api/v1/dashboard":{"get":{"tags":["dashboard-controller"],"operationId":"getDashboards","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/DashboardResponse"}}}}}}},"post":{"tags":["dashboard-mutation-controller"],"operationId":"createDashboard","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateDashboardRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/DashboardResponse"}}}}}}},"/api/v1/auth/register":{"post":{"tags":["auth"],"summary":"Register new user","description":"Create new user account with idempotency support","operationId":"register","parameters":[{"name":"Idempotency-Key","in":"header","required":false,"schema":{"type":"string"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RegisterEnvelope"}}},"required":true},"responses":{"409":{"description":"User already exists","content":{"*/*":{"schema":{"type":"object"}}}},"200":{"description":"Registration successful","content":{"*/*":{"schema":{"type":"object"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"type":"object"}}}}}}},"/api/v1/auth/refresh":{"post":{"tags":["auth"],"summary":"Refresh access token","description":"Get new access token using refresh token","operationId":"refresh","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RefreshRequest"}}},"required":true},"responses":{"401":{"description":"Invalid refresh token","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TokenResponse"}}}},"200":{"description":"Token refreshed","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TokenResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TokenResponse"}}}}}}},"/api/v1/auth/logout":{"post":{"tags":["auth"],"summary":"User logout","description":"Invalidate refresh token and log out user","operationId":"logout","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RefreshRequest"}}},"required":true},"responses":{"401":{"description":"Invalid token"},"204":{"description":"Logout successful"},"400":{"description":"Invalid request"}}}},"/api/v1/auth/login":{"post":{"tags":["auth"],"summary":"User login","description":"Authenticate user and return tokens","operationId":"login","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/LoginRequest"}}},"required":true},"responses":{"200":{"description":"Login successful","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TokenResponse"}}}},"401":{"description":"Invalid credentials","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TokenResponse"}}}},"400":{"description":"Invalid request","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TokenResponse"}}}}}}},"/api/v1/admin/echo":{"post":{"tags":["admin-echo-controller"],"operationId":"echo","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/EchoRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/EchoResponse"}}}}}}},"/v1/i18n/messages/{key}":{"get":{"tags":["i-18n-controller"],"operationId":"message","parameters":[{"name":"key","in":"path","required":true,"schema":{"type":"string"}},{"name":"locale","in":"query","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/v1/i18n/locales":{"get":{"tags":["i-18n-controller"],"operationId":"locales","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/LocalesResponse"}}}}}}},"/api":{"get":{"tags":["api-index-controller"],"operationId":"index","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object","additionalProperties":{"type":"string"}}}}}}}},"/api/v1/zones/paged":{"get":{"tags":["Zones"],"summary":"List zones with pagination","operationId":"listPagedZones","parameters":[{"name":"page","in":"query","required":false,"schema":{"type":"integer","format":"int32","default":0}},{"name":"size","in":"query","required":false,"schema":{"type":"integer","format":"int32","default":10}},{"name":"search","in":"query","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoZoneResponse"}}}}}}},"/api/v1/users/paged":{"get":{"tags":["users"],"summary":"List users with pagination","description":"Retrieve users page-by-page for performance","operationId":"listUsersPaged","parameters":[{"name":"page","in":"query","description":"Page number","required":false,"schema":{"type":"integer","format":"int32","default":0},"example":0},{"name":"size","in":"query","description":"Page size","required":false,"schema":{"type":"integer","format":"int32","default":10},"example":10},{"name":"search","in":"query","description":"Search term","required":false,"schema":{"type":"string"},"example":"john"}],"responses":{"200":{"description":"Users page","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoUserResponse"}}}},"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoUserResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoUserResponse"}}}},"400":{"description":"Invalid page params","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoUserResponse"}}}}}}},"/api/v1/tokens":{"get":{"tags":["ui-tokens-controller"],"operationId":"getTokens","parameters":[{"name":"If-None-Match","in":"header","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UITokensDto"}}}}}}},"/api/v1/themes/active":{"get":{"tags":["theme-read-controller"],"operationId":"active","responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ProblemDetail"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/ThemeResponse"}}}}}}},"/api/v1/subscriptions/paged":{"get":{"tags":["subscriptions"],"summary":"List subscriptions with pagination","description":"Retrieve paginated subscription plans with search","operationId":"listSubscriptionsPaged","parameters":[{"name":"page","in":"query","description":"Page number (0-based)","required":false,"schema":{"type":"integer","format":"int32","default":0}},{"name":"size","in":"query","description":"Page size","required":false,"schema":{"type":"integer","format":"int32","default":20}},{"name":"search","in":"query","description":"Search term","required":false,"schema":{"type":"string"}}],"responses":{"403":{"description":"Forbidden","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoSubscriptionResponse"}}}},"200":{"description":"Paged results","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoSubscriptionResponse"}}}},"401":{"description":"Unauthorized","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoSubscriptionResponse"}}}}}}},"/api/v1/seller-codes/paged":{"get":{"tags":["Seller Codes"],"summary":"Get paginated seller codes","description":"Retrieve page","operationId":"getPaged","parameters":[{"name":"page","in":"query","required":false,"schema":{"type":"integer","format":"int32","default":0}},{"name":"size","in":"query","required":false,"schema":{"type":"integer","format":"int32","default":10}},{"name":"search","in":"query","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PageResponseDtoSellerCodeResponse"}}}}}}},"/api/v1/roles":{"get":{"tags":["roles-controller"],"operationId":"listRoles","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/RoleDto"}}}}}}}},"/api/v1/public/landing":{"get":{"tags":["public-landing-controller"],"operationId":"getLanding","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PublicLandingResponse"}}}}}}},"/api/v1/me/locale":{"get":{"tags":["me-locale-controller"],"operationId":"getLocale","parameters":[{"name":"X-User-Id","in":"header","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/LocaleDto"}}}}}}},"/api/v1/health":{"get":{"tags":["versioned-placeholder-controller"],"operationId":"health","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"object","additionalProperties":{"type":"object"}}}}}}}},"/api/v1/dashboard/overview":{"get":{"tags":["dashboard-overview-controller"],"operationId":"overview","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/DashboardOverviewResponse"}}}}}}},"/api/v1/auth/status":{"get":{"tags":["auth"],"summary":"Check authentication status","description":"Check if user is currently authenticated","operationId":"status","responses":{"200":{"description":"Status retrieved","content":{"*/*":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}}}}},"/api/v1/auth/me":{"get":{"tags":["auth"],"summary":"Get current user","description":"Get authenticated user information","operationId":"me","responses":{"401":{"description":"Not authenticated","content":{"*/*":{"schema":{"type":"object"}}}},"200":{"description":"User information retrieved","content":{"*/*":{"schema":{"type":"object"}}}}}}}},"components":{"schemas":{"ProblemDetail":{"type":"object","properties":{"type":{"type":"string","format":"uri"},"title":{"type":"string"},"status":{"type":"integer","format":"int32"},"detail":{"type":"string"},"instance":{"type":"string","format":"uri"},"properties":{"type":"object","additionalProperties":{"type":"object"}}}},"ZoneUpdateRequest":{"type":"object","properties":{"name":{"type":"string","description":"Zone name","example":"Main Store"},"description":{"type":"string","description":"Zone description","example":"Primary retail zone"},"managerId":{"type":"integer","description":"Manager user ID","format":"int64","example":42},"status":{"type":"string","description":"Status","example":"active"},"version":{"type":"integer","description":"Version for optimistic locking","format":"int64","example":0}},"description":"Update zone request payload"},"ZoneResponse":{"type":"object","properties":{"id":{"type":"integer","description":"Unique identifier","format":"int64","example":1},"name":{"type":"string","description":"Zone name","example":"Main Store"},"description":{"type":"string","description":"Zone description","example":"Primary retail zone"},"managerId":{"type":"integer","description":"Manager user ID","format":"int64","example":42},"status":{"type":"string","description":"Status","example":"active"},"version":{"type":"integer","description":"Version for locking","format":"int64","example":0}},"description":"Zone response with all fields"},"UserUpdateRequest":{"type":"object","properties":{"firstName":{"type":"string","description":"First name","example":"John"},"lastName":{"type":"string","description":"Last name","example":"Doe"},"email":{"type":"string","description":"Email address","example":"john.doe@example.com"},"locale":{"type":"string","description":"Locale code","example":"en"},"roles":{"uniqueItems":true,"type":"array","description":"User roles","example":["admin","user"],"items":{"type":"string","description":"User roles","example":"[\"admin\",\"user\"]"}},"status":{"type":"string","description":"Status","example":"active"}},"description":"User update request"},"UserResponse":{"type":"object","properties":{"id":{"type":"integer","description":"User ID","format":"int64","example":1},"firstName":{"type":"string","description":"First name","example":"John"},"lastName":{"type":"string","description":"Last name","example":"Doe"},"email":{"type":"string","description":"Email address","example":"john.doe@example.com"},"username":{"type":"string","description":"Username","example":"johndoe"},"locale":{"type":"string","description":"Locale code","example":"en"},"status":{"type":"string","description":"Status","example":"active"},"roles":{"uniqueItems":true,"type":"array","description":"User roles","example":["admin","user"],"items":{"type":"string","description":"User roles","example":"[\"admin\",\"user\"]"}}},"description":"User response representation"},"UpdateSelectionRequest":{"required":["font","fontSize","radius","shadow","spacing","theme"],"type":"object","properties":{"theme":{"pattern":"^[a-z0-9]+(?:-[a-z0-9]+)*$","type":"string"},"font":{"type":"string"},"fontSize":{"type":"string"},"spacing":{"type":"string"},"radius":{"type":"string"},"shadow":{"type":"string"}}},"UpdateRequest":{"type":"object","properties":{"name":{"type":"string"},"colors":{"type":"object","additionalProperties":{"type":"string"}}}},"ThemeResponse":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"key":{"type":"string"},"name":{"type":"string"},"active":{"type":"boolean"},"colors":{"type":"object","additionalProperties":{"type":"string"}}}},"SubscriptionUpdateRequest":{"type":"object","properties":{"name":{"type":"string","description":"Plan name","example":"Gold"},"description":{"type":"string","description":"Plan description","example":"Premium plan"},"price":{"type":"number","description":"Price","example":29.99},"currency":{"type":"string","description":"Currency code","example":"USD"},"durationDays":{"type":"integer","description":"Duration in days","format":"int32","example":30},"features":{"uniqueItems":true,"type":"array","description":"Features","items":{"type":"string","description":"Features"}},"status":{"type":"string","description":"Status","example":"active"}},"description":"Subscription update request"},"SubscriptionResponse":{"type":"object","properties":{"id":{"type":"integer","description":"Subscription ID","format":"int64","example":1},"name":{"type":"string","description":"Plan name","example":"Gold"},"description":{"type":"string","description":"Plan description","example":"Premium plan"},"price":{"type":"number","description":"Price","example":29.99},"currency":{"type":"string","description":"Currency code","example":"USD"},"durationDays":{"type":"integer","description":"Duration in days","format":"int32","example":30},"features":{"uniqueItems":true,"type":"array","description":"Features","example":["feature1"],"items":{"type":"string","description":"Features","example":"[\"feature1\"]"}},"status":{"type":"string","description":"Status","example":"active"}},"description":"Subscription response representation"},"SellerCodeUpdateRequest":{"type":"object","properties":{"code":{"type":"string","description":"Seller code","example":"SC-2024-001"},"organizationId":{"type":"string","description":"Organization ID","example":"default-org"},"userId":{"type":"integer","description":"User ID owner","format":"int64","example":1},"status":{"type":"string","description":"Current status","example":"active"}},"description":"Update seller code request payload"},"SellerCodeResponse":{"type":"object","properties":{"id":{"type":"integer","description":"Unique identifier","format":"int64","example":1},"code":{"type":"string","description":"Seller code","example":"ADMIN-SC-001"},"organizationId":{"type":"string","description":"Organization ID","example":"default-org"},"userId":{"type":"integer","description":"User ID owner","format":"int64","example":1},"status":{"type":"string","description":"Status","example":"active"},"version":{"type":"integer","description":"Version for locking","format":"int64","example":0}},"description":"Seller code response with all fields"},"ProfileUpdateRequest":{"required":["email","locale","username"],"type":"object","properties":{"username":{"maxLength":50,"minLength":3,"type":"string"},"email":{"type":"string"},"locale":{"maxLength":10,"minLength":2,"type":"string"},"version":{"type":"integer","format":"int64"}}},"ProfileResponse":{"type":"object","properties":{"username":{"type":"string"},"email":{"type":"string"},"locale":{"type":"string"},"version":{"type":"integer","format":"int64"}}},"UpdateFontRequest":{"type":"object","properties":{"label":{"type":"string"},"woff2Url":{"type":"string"},"weights":{"type":"array","items":{"type":"integer","format":"int32"}},"preloadDefault":{"type":"boolean"},"active":{"type":"boolean"},"integrity":{"type":"string"}}},"FontResponse":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"woff2Url":{"type":"string"},"weights":{"type":"array","items":{"type":"integer","format":"int32"}},"hash":{"type":"string"},"preloadDefault":{"type":"boolean"},"active":{"type":"boolean"},"integrity":{"type":"string"}}},"UpdateDashboardRequest":{"type":"object","properties":{"name":{"type":"string"},"slug":{"type":"string"},"description":{"type":"string"}}},"DashboardResponse":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"slug":{"type":"string"},"description":{"type":"string"},"createdAt":{"type":"string","format":"date-time"}}},"ZoneCreateRequest":{"type":"object","properties":{"name":{"type":"string","description":"Zone name","example":"Main Store"},"description":{"type":"string","description":"Zone description","example":"Primary retail zone"},"managerId":{"type":"integer","description":"Manager user ID","format":"int64","example":42}},"description":"Create zone request payload"},"UserCreateRequest":{"required":["email","firstName","lastName","password","username"],"type":"object","properties":{"firstName":{"type":"string","description":"First name","example":"John"},"lastName":{"type":"string","description":"Last name","example":"Doe"},"email":{"type":"string","description":"Email address","example":"john.doe@example.com"},"username":{"type":"string","description":"Username","example":"johndoe"},"locale":{"type":"string","description":"Locale code","example":"en"},"password":{"type":"string","description":"Password","example":"SecurePass123!"},"roles":{"uniqueItems":true,"type":"array","description":"User roles","example":["user"],"items":{"type":"string","description":"User roles","example":"[\"user\"]"}},"status":{"type":"string","description":"Status","example":"active"}},"description":"User creation request"},"CreateRequest":{"type":"object","properties":{"key":{"type":"string"},"name":{"type":"string"},"colors":{"type":"object","additionalProperties":{"type":"string"}}}},"SubscriptionCreateRequest":{"required":["durationDays","name","price"],"type":"object","properties":{"name":{"type":"string","description":"Plan name","example":"Gold"},"description":{"type":"string","description":"Plan description","example":"Premium plan"},"price":{"type":"number","description":"Price","example":29.99},"currency":{"type":"string","description":"Currency code","example":"USD"},"durationDays":{"type":"integer","description":"Duration in days","format":"int32","example":30},"features":{"uniqueItems":true,"type":"array","description":"Features","items":{"type":"string","description":"Features"}},"status":{"type":"string","description":"Status","example":"active"}},"description":"Subscription creation request"},"SellerCodeCreateRequest":{"type":"object","properties":{"code":{"type":"string","description":"Seller code","example":"SC-2024-001"},"organizationId":{"type":"string","description":"Organization ID","example":"default-org"},"userId":{"type":"integer","description":"User ID owner","format":"int64","example":1},"status":{"type":"string","description":"Initial status","example":"active"}},"description":"Create seller code request payload"},"ForgotPasswordRequest":{"required":["email"],"type":"object","properties":{"email":{"type":"string"}}},"ForgotPasswordResponse":{"type":"object","properties":{"message":{"type":"string"}}},"PasswordChangeRequest":{"required":["currentPassword","newPassword"],"type":"object","properties":{"currentPassword":{"type":"string"},"newPassword":{"type":"string"}}},"CreateFontRequest":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"woff2Url":{"type":"string"},"weights":{"type":"array","items":{"type":"integer","format":"int32"}},"hash":{"type":"string"},"preloadDefault":{"type":"boolean"},"integrity":{"type":"string"}}},"CreateDashboardRequest":{"type":"object","properties":{"name":{"type":"string"},"slug":{"type":"string"},"description":{"type":"string"}}},"RegisterEnvelope":{"required":["user"],"type":"object","properties":{"user":{"$ref":"#/components/schemas/RegisterRequest"}},"description":"Registration envelope wrapping user data"},"RegisterRequest":{"required":["email","password","username"],"type":"object","properties":{"username":{"type":"string","description":"Username","example":"newuser"},"email":{"type":"string","description":"Email address","example":"user@example.com"},"password":{"type":"string","description":"Password","example":"SecurePass123!"}},"description":"User registration request"},"RefreshRequest":{"required":["refreshToken"],"type":"object","properties":{"refreshToken":{"type":"string","description":"Refresh token","example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."}},"description":"Token refresh request"},"TokenResponse":{"type":"object","properties":{"accessToken":{"type":"string","description":"JWT access token","example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."},"refreshToken":{"type":"string","description":"JWT refresh token","example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."},"expiresIn":{"type":"integer","description":"Token expiration time in seconds","format":"int32","example":3600},"username":{"type":"string","description":"Username of authenticated user","example":"admin"}},"description":"Authentication token response"},"LoginRequest":{"required":["password","username"],"type":"object","properties":{"username":{"type":"string","description":"Username","example":"admin"},"password":{"type":"string","description":"Password","example":"SecurePass123!"}},"description":"Login request with credentials"},"EchoRequest":{"required":["message"],"type":"object","properties":{"message":{"maxLength":512,"minLength":1,"type":"string"}}},"EchoResponse":{"type":"object","properties":{"message":{"type":"string"}}},"LocalesResponse":{"type":"object","properties":{"locales":{"type":"array","items":{"type":"string"}}}},"PageResponseDtoZoneResponse":{"type":"object","properties":{"content":{"type":"array","description":"Page content","items":{"$ref":"#/components/schemas/ZoneResponse"}},"totalElements":{"type":"integer","description":"Total number of elements","format":"int64","example":50},"totalPages":{"type":"integer","description":"Total number of pages","format":"int32","example":5},"currentPage":{"type":"integer","description":"Current page number (0-indexed)","format":"int32","example":0},"pageSize":{"type":"integer","description":"Page size","format":"int32","example":10},"hasNext":{"type":"boolean","description":"Has next page","example":true},"hasPrevious":{"type":"boolean","description":"Has previous page","example":false}},"description":"Paginated response wrapper"},"PageResponseDtoUserResponse":{"type":"object","properties":{"content":{"type":"array","description":"Page content","items":{"$ref":"#/components/schemas/UserResponse"}},"totalElements":{"type":"integer","description":"Total number of elements","format":"int64","example":50},"totalPages":{"type":"integer","description":"Total number of pages","format":"int32","example":5},"currentPage":{"type":"integer","description":"Current page number (0-indexed)","format":"int32","example":0},"pageSize":{"type":"integer","description":"Page size","format":"int32","example":10},"hasNext":{"type":"boolean","description":"Has next page","example":true},"hasPrevious":{"type":"boolean","description":"Has previous page","example":false}},"description":"Paginated response wrapper"},"Current":{"type":"object","properties":{"theme":{"type":"string"},"font":{"type":"string"},"fontSize":{"type":"string"},"spacing":{"type":"string"},"radius":{"type":"string"},"shadow":{"type":"string"}}},"Font":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"woff2Url":{"type":"string"},"weights":{"type":"array","items":{"type":"integer","format":"int32"}},"hash":{"type":"string"},"preloadDefault":{"type":"boolean"},"integrity":{"type":"string"}}},"FontSizeSet":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"sizes":{"type":"object","additionalProperties":{"type":"string"}}}},"RadiusSet":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"values":{"type":"object","additionalProperties":{"type":"string"}}}},"ShadowSet":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"values":{"type":"object","additionalProperties":{"type":"string"}}}},"SpacingSet":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"values":{"type":"object","additionalProperties":{"type":"string"}}}},"Theme":{"type":"object","properties":{"key":{"type":"string"},"label":{"type":"string"},"colors":{"type":"object","additionalProperties":{"type":"string"}}}},"UITokensDto":{"type":"object","properties":{"themes":{"type":"array","items":{"$ref":"#/components/schemas/Theme"}},"fonts":{"type":"array","items":{"$ref":"#/components/schemas/Font"}},"fontWeights":{"type":"array","items":{"type":"string"}},"fontSizes":{"type":"array","items":{"$ref":"#/components/schemas/FontSizeSet"}},"spacings":{"type":"array","items":{"$ref":"#/components/schemas/SpacingSet"}},"radius":{"type":"array","items":{"$ref":"#/components/schemas/RadiusSet"}},"shadows":{"type":"array","items":{"$ref":"#/components/schemas/ShadowSet"}},"current":{"$ref":"#/components/schemas/Current"}}},"PageResponseDtoSubscriptionResponse":{"type":"object","properties":{"content":{"type":"array","description":"Page content","items":{"$ref":"#/components/schemas/SubscriptionResponse"}},"totalElements":{"type":"integer","description":"Total number of elements","format":"int64","example":50},"totalPages":{"type":"integer","description":"Total number of pages","format":"int32","example":5},"currentPage":{"type":"integer","description":"Current page number (0-indexed)","format":"int32","example":0},"pageSize":{"type":"integer","description":"Page size","format":"int32","example":10},"hasNext":{"type":"boolean","description":"Has next page","example":true},"hasPrevious":{"type":"boolean","description":"Has previous page","example":false}},"description":"Paginated response wrapper"},"PageResponseDtoSellerCodeResponse":{"type":"object","properties":{"content":{"type":"array","description":"Page content","items":{"$ref":"#/components/schemas/SellerCodeResponse"}},"totalElements":{"type":"integer","description":"Total number of elements","format":"int64","example":50},"totalPages":{"type":"integer","description":"Total number of pages","format":"int32","example":5},"currentPage":{"type":"integer","description":"Current page number (0-indexed)","format":"int32","example":0},"pageSize":{"type":"integer","description":"Page size","format":"int32","example":10},"hasNext":{"type":"boolean","description":"Has next page","example":true},"hasPrevious":{"type":"boolean","description":"Has previous page","example":false}},"description":"Paginated response wrapper"},"RoleDto":{"type":"object","properties":{"key":{"type":"string"},"name":{"type":"string"}}},"PublicLandingResponse":{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"version":{"type":"string"}}},"LocaleDto":{"type":"object","properties":{"locale":{"type":"string"}}},"DashboardOverviewResponse":{"type":"object","properties":{"totalPoems":{"type":"integer","format":"int32"},"publishedPoems":{"type":"integer","format":"int32"},"draftPoems":{"type":"integer","format":"int32"},"activeMembers":{"type":"integer","format":"int32"},"highlightKey":{"type":"string"},"lastUpdatedLabel":{"type":"string"}}},"StatusResponse":{"type":"object","properties":{"authenticated":{"type":"boolean","description":"Whether user is authenticated","example":true}},"description":"Authentication status response"}},"securitySchemes":{"bearerAuth":{"type":"http","scheme":"bearer","bearerFormat":"JWT"}}}}
+openapi: 3.0.1
+info:
+  title: Poetry API
+  license:
+    name: Proprietary
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: Zones
+  description: Zone management endpoints
+- name: subscriptions
+  description: Subscription plan management
+- name: users
+  description: User management
+- name: auth
+  description: Authentication endpoints
+- name: seller-codes
+  description: Seller code management
+- name: Seller Codes
+  description: Seller code management
+- name: memberships
+  description: Membership management
+paths:
+  /api/v1/zones/{id}:
+    get:
+      tags:
+      - Zones
+      summary: Get zone by ID
+      operationId: getZoneById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ZoneResponse"
+    put:
+      tags:
+      - Zones
+      summary: Update existing zone
+      operationId: updateZone
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZoneUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ZoneResponse"
+    delete:
+      tags:
+      - Zones
+      summary: Delete zone (soft delete)
+      operationId: deleteZone
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: version
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+  /api/v1/users/{id}:
+    get:
+      tags:
+      - users
+      summary: Get user by ID
+      description: Retrieve single user with ETag for caching
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+    put:
+      tags:
+      - users
+      summary: Update user
+      description: Update user with optimistic locking via If-Match
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateRequest"
+        required: true
+      responses:
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "200":
+          description: Successfully updated
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "409":
+          description: Version conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+    delete:
+      tags:
+      - users
+      summary: Delete user
+      description: Soft delete user with optimistic locking
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Successfully deleted
+        "404":
+          description: Not found
+        "403":
+          description: Forbidden
+        "409":
+          description: Version conflict
+        "401":
+          description: Unauthorized
+  /api/v1/tokens/selection:
+    put:
+      tags:
+      - ui-tokens-controller
+      operationId: updateSelection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSelectionRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/v1/themes/{id}:
+    get:
+      tags:
+      - theme-read-controller
+      operationId: byId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ThemeResponse"
+    put:
+      tags:
+      - theme-update-controller
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateRequest"
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ThemeResponse"
+    delete:
+      tags:
+      - theme-delete-controller
+      operationId: delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "200":
+          description: OK
+  /api/v1/themes/{id}/activate:
+    put:
+      tags:
+      - theme-activate-controller
+      operationId: activate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ThemeResponse"
+  /api/v1/subscriptions/{id}:
+    get:
+      tags:
+      - subscriptions
+      summary: Get subscription by ID
+      description: Retrieve single subscription with ETag for caching
+      operationId: getSubscriptionById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Subscription found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+    put:
+      tags:
+      - subscriptions
+      summary: Update a subscription
+      description: Update subscription plan with optimistic locking
+      operationId: updateSubscription
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubscriptionUpdateRequest"
+        required: true
+      responses:
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "200":
+          description: Updated
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "412":
+          description: Precondition Failed
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+    delete:
+      tags:
+      - subscriptions
+      summary: Delete a subscription
+      description: Soft-delete subscription plan by ID
+      operationId: deleteSubscription
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+        "403":
+          description: Forbidden
+        "401":
+          description: Unauthorized
+  /api/v1/seller-codes/{id}:
+    get:
+      tags:
+      - seller-codes
+      summary: Get seller code by ID
+      description: Retrieve single seller code with ETag for caching
+      operationId: getSellerCodeById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "200":
+          description: Seller code found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+    put:
+      tags:
+      - seller-codes
+      summary: Update seller code
+      description: Update seller code with optimistic locking via If-Match
+      operationId: updateSellerCode
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: If-Match
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SellerCodeUpdateRequest"
+        required: true
+      responses:
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "200":
+          description: Successfully updated
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "409":
+          description: Version conflict
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+    delete:
+      tags:
+      - seller-codes
+      summary: Delete seller code
+      description: Soft delete seller code with optimistic locking
+      operationId: deleteSellerCode
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: If-Match
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Successfully deleted
+        "404":
+          description: Not found
+        "403":
+          description: Forbidden
+        "409":
+          description: Version conflict
+        "401":
+          description: Unauthorized
+  /api/v1/memberships/{id}:
+    get:
+      tags:
+      - memberships
+      summary: Get membership by ID
+      description: Retrieve single membership with ETag
+      operationId: getMembershipById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MembershipResponse"
+    put:
+      tags:
+      - memberships
+      summary: Update membership
+      description: Update membership with version check
+      operationId: updateMembership
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MembershipUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MembershipResponse"
+    delete:
+      tags:
+      - memberships
+      summary: Delete membership
+      description: Soft delete membership
+      operationId: deleteMembership
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: No Content
+  /api/v1/me/profile:
+    get:
+      tags:
+      - me-profile-controller
+      operationId: getProfile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProfileResponse"
+    put:
+      tags:
+      - me-profile-controller
+      operationId: updateProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProfileResponse"
+  /api/v1/fonts/{key}:
+    get:
+      tags:
+      - font-read-controller
+      operationId: byKey
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FontResponse"
+    put:
+      tags:
+      - font-update-controller
+      operationId: update_1
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateFontRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FontResponse"
+    delete:
+      tags:
+      - font-delete-controller
+      operationId: delete_1
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/dashboard/{id}:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getDashboard
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DashboardResponse"
+    put:
+      tags:
+      - dashboard-mutation-controller
+      operationId: updateDashboard
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateDashboardRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DashboardResponse"
+    delete:
+      tags:
+      - dashboard-mutation-controller
+      operationId: deleteDashboard
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/zones:
+    get:
+      tags:
+      - Zones
+      summary: List all zones
+      operationId: listAllZones
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ZoneResponse"
+    post:
+      tags:
+      - Zones
+      summary: Create new zone
+      operationId: createZone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZoneCreateRequest"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ZoneResponse"
+  /api/v1/users:
+    get:
+      tags:
+      - users
+      summary: List all users
+      description: Retrieve all users with ETag for caching
+      operationId: listUsers
+      responses:
+        "200":
+          description: Users list
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserResponse"
+    post:
+      tags:
+      - users
+      summary: Create a new user
+      description: Create user with role assignment
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateRequest"
+        required: true
+      responses:
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+  /api/v1/themes:
+    get:
+      tags:
+      - theme-read-controller
+      operationId: list
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ThemeResponse"
+    post:
+      tags:
+      - theme-create-controller
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRequest"
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ThemeResponse"
+  /api/v1/subscriptions:
+    get:
+      tags:
+      - subscriptions
+      summary: List all subscriptions
+      description: Retrieve all active subscription plans
+      operationId: listSubscriptions
+      responses:
+        "200":
+          description: Subscriptions list
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SubscriptionResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SubscriptionResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SubscriptionResponse"
+    post:
+      tags:
+      - subscriptions
+      summary: Create a new subscription
+      description: Create subscription plan with pricing and features
+      operationId: createSubscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubscriptionCreateRequest"
+        required: true
+      responses:
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SubscriptionResponse"
+  /api/v1/seller-codes:
+    get:
+      tags:
+      - seller-codes
+      summary: List all seller codes
+      description: Retrieve all seller codes with ETag for caching
+      operationId: listSellerCodes
+      responses:
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SellerCodeResponse"
+        "200":
+          description: Seller codes list
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SellerCodeResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SellerCodeResponse"
+    post:
+      tags:
+      - seller-codes
+      summary: Create a new seller code
+      description: Create seller code with user assignment
+      operationId: createSellerCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SellerCodeCreateRequest"
+        required: true
+      responses:
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SellerCodeResponse"
+  /api/v1/public/forgot-password:
+    post:
+      tags:
+      - public-forgot-password-controller
+      operationId: forgotPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForgotPasswordRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ForgotPasswordResponse"
+  /api/v1/memberships:
+    get:
+      tags:
+      - memberships
+      summary: List all memberships
+      description: Retrieve all active memberships
+      operationId: listMemberships
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MembershipResponse"
+    post:
+      tags:
+      - memberships
+      summary: Create membership
+      description: Create new membership with validation
+      operationId: createMembership
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MembershipCreateRequest"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MembershipResponse"
+  /api/v1/me/password:
+    post:
+      tags:
+      - me-password-controller
+      operationId: changePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PasswordChangeRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/v1/fonts:
+    get:
+      tags:
+      - font-read-controller
+      operationId: list_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FontResponse"
+    post:
+      tags:
+      - font-create-controller
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFontRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FontResponse"
+  /api/v1/dashboard:
+    get:
+      tags:
+      - dashboard-controller
+      operationId: getDashboards
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DashboardResponse"
+    post:
+      tags:
+      - dashboard-mutation-controller
+      operationId: createDashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDashboardRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DashboardResponse"
+  /api/v1/auth/register:
+    post:
+      tags:
+      - auth
+      summary: Register new user
+      description: Create new user account with idempotency support
+      operationId: register
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterEnvelope"
+        required: true
+      responses:
+        "409":
+          description: User already exists
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Registration successful
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/auth/refresh:
+    post:
+      tags:
+      - auth
+      summary: Refresh access token
+      description: Get new access token using refresh token
+      operationId: refresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshRequest"
+        required: true
+      responses:
+        "401":
+          description: Invalid refresh token
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+        "200":
+          description: Token refreshed
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+  /api/v1/auth/logout:
+    post:
+      tags:
+      - auth
+      summary: User logout
+      description: Invalidate refresh token and log out user
+      operationId: logout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshRequest"
+        required: true
+      responses:
+        "401":
+          description: Invalid token
+        "204":
+          description: Logout successful
+        "400":
+          description: Invalid request
+  /api/v1/auth/login:
+    post:
+      tags:
+      - auth
+      summary: User login
+      description: Authenticate user and return tokens
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: Login successful
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+  /api/v1/admin/echo:
+    post:
+      tags:
+      - admin-echo-controller
+      operationId: echo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EchoRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EchoResponse"
+  /v1/i18n/messages/{key}:
+    get:
+      tags:
+      - i-18n-controller
+      operationId: message
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locale
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /v1/i18n/locales:
+    get:
+      tags:
+      - i-18n-controller
+      operationId: locales
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LocalesResponse"
+  /api:
+    get:
+      tags:
+      - api-index-controller
+      operationId: index
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/v1/zones/paged:
+    get:
+      tags:
+      - Zones
+      summary: List zones with pagination
+      operationId: listPagedZones
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoZoneResponse"
+  /api/v1/users/paged:
+    get:
+      tags:
+      - users
+      summary: List users with pagination
+      description: Retrieve users page-by-page for performance
+      operationId: listUsersPaged
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+        example: 0
+      - name: size
+        in: query
+        description: Page size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+        example: 10
+      - name: search
+        in: query
+        description: Search term
+        required: false
+        schema:
+          type: string
+        example: john
+      responses:
+        "200":
+          description: Users page
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoUserResponse"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoUserResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoUserResponse"
+        "400":
+          description: Invalid page params
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoUserResponse"
+  /api/v1/tokens:
+    get:
+      tags:
+      - ui-tokens-controller
+      operationId: getTokens
+      parameters:
+      - name: If-None-Match
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UITokensDto"
+  /api/v1/themes/active:
+    get:
+      tags:
+      - theme-read-controller
+      operationId: active
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ThemeResponse"
+  /api/v1/subscriptions/paged:
+    get:
+      tags:
+      - subscriptions
+      summary: List subscriptions with pagination
+      description: Retrieve paginated subscription plans with search
+      operationId: listSubscriptionsPaged
+      parameters:
+      - name: page
+        in: query
+        description: Page number (0-based)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        description: Page size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: search
+        in: query
+        description: Search term
+        required: false
+        schema:
+          type: string
+      responses:
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoSubscriptionResponse"
+        "200":
+          description: Paged results
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoSubscriptionResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoSubscriptionResponse"
+  /api/v1/seller-codes/paged:
+    get:
+      tags:
+      - Seller Codes
+      summary: Get paginated seller codes
+      description: Retrieve page
+      operationId: getPaged
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoSellerCodeResponse"
+  /api/v1/roles:
+    get:
+      tags:
+      - roles-controller
+      operationId: listRoles
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoleDto"
+  /api/v1/public/landing:
+    get:
+      tags:
+      - public-landing-controller
+      operationId: getLanding
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PublicLandingResponse"
+  /api/v1/memberships/paged:
+    get:
+      tags:
+      - memberships
+      summary: List memberships (paged)
+      description: Retrieve memberships with pagination
+      operationId: listMembershipsPaged
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseDtoMembershipResponse"
+  /api/v1/me/locale:
+    get:
+      tags:
+      - me-locale-controller
+      operationId: getLocale
+      parameters:
+      - name: X-User-Id
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LocaleDto"
+  /api/v1/health:
+    get:
+      tags:
+      - versioned-placeholder-controller
+      operationId: health
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+  /api/v1/dashboard/overview:
+    get:
+      tags:
+      - dashboard-overview-controller
+      operationId: overview
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DashboardOverviewResponse"
+  /api/v1/auth/status:
+    get:
+      tags:
+      - auth
+      summary: Check authentication status
+      description: Check if user is currently authenticated
+      operationId: status
+      responses:
+        "200":
+          description: Status retrieved
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StatusResponse"
+  /api/v1/auth/me:
+    get:
+      tags:
+      - auth
+      summary: Get current user
+      description: Get authenticated user information
+      operationId: me
+      responses:
+        "401":
+          description: Not authenticated
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: User information retrieved
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    ProblemDetail:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
+        properties:
+          type: object
+          additionalProperties:
+            type: object
+    ZoneUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+          example: Main Store
+        description:
+          type: string
+          description: Zone description
+          example: Primary retail zone
+        managerId:
+          type: integer
+          description: Manager user ID
+          format: int64
+          example: 42
+        status:
+          type: string
+          description: Status
+          example: active
+        version:
+          type: integer
+          description: Version for optimistic locking
+          format: int64
+          example: 0
+      description: Update zone request payload
+    ZoneResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier
+          format: int64
+          example: 1
+        name:
+          type: string
+          description: Zone name
+          example: Main Store
+        description:
+          type: string
+          description: Zone description
+          example: Primary retail zone
+        managerId:
+          type: integer
+          description: Manager user ID
+          format: int64
+          example: 42
+        status:
+          type: string
+          description: Status
+          example: active
+        version:
+          type: integer
+          description: Version for locking
+          format: int64
+          example: 0
+      description: Zone response with all fields
+    UserUpdateRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name
+          example: John
+        lastName:
+          type: string
+          description: Last name
+          example: Doe
+        email:
+          type: string
+          description: Email address
+          example: john.doe@example.com
+        locale:
+          type: string
+          description: Locale code
+          example: en
+        roles:
+          uniqueItems: true
+          type: array
+          description: User roles
+          example:
+          - admin
+          - user
+          items:
+            type: string
+            description: User roles
+            example: "[\"admin\",\"user\"]"
+        status:
+          type: string
+          description: Status
+          example: active
+      description: User update request
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User ID
+          format: int64
+          example: 1
+        firstName:
+          type: string
+          description: First name
+          example: John
+        lastName:
+          type: string
+          description: Last name
+          example: Doe
+        email:
+          type: string
+          description: Email address
+          example: john.doe@example.com
+        username:
+          type: string
+          description: Username
+          example: johndoe
+        locale:
+          type: string
+          description: Locale code
+          example: en
+        status:
+          type: string
+          description: Status
+          example: active
+        roles:
+          uniqueItems: true
+          type: array
+          description: User roles
+          example:
+          - admin
+          - user
+          items:
+            type: string
+            description: User roles
+            example: "[\"admin\",\"user\"]"
+      description: User response representation
+    UpdateSelectionRequest:
+      required:
+      - font
+      - fontSize
+      - radius
+      - shadow
+      - spacing
+      - theme
+      type: object
+      properties:
+        theme:
+          pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+        font:
+          type: string
+        fontSize:
+          type: string
+        spacing:
+          type: string
+        radius:
+          type: string
+        shadow:
+          type: string
+    UpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        colors:
+          type: object
+          additionalProperties:
+            type: string
+    ThemeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        key:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        colors:
+          type: object
+          additionalProperties:
+            type: string
+    SubscriptionUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Plan name
+          example: Gold
+        description:
+          type: string
+          description: Plan description
+          example: Premium plan
+        price:
+          type: number
+          description: Price
+          example: 29.99
+        currency:
+          type: string
+          description: Currency code
+          example: USD
+        durationDays:
+          type: integer
+          description: Duration in days
+          format: int32
+          example: 30
+        features:
+          uniqueItems: true
+          type: array
+          description: Features
+          items:
+            type: string
+            description: Features
+        status:
+          type: string
+          description: Status
+          example: active
+      description: Subscription update request
+    SubscriptionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Subscription ID
+          format: int64
+          example: 1
+        name:
+          type: string
+          description: Plan name
+          example: Gold
+        description:
+          type: string
+          description: Plan description
+          example: Premium plan
+        price:
+          type: number
+          description: Price
+          example: 29.99
+        currency:
+          type: string
+          description: Currency code
+          example: USD
+        durationDays:
+          type: integer
+          description: Duration in days
+          format: int32
+          example: 30
+        features:
+          uniqueItems: true
+          type: array
+          description: Features
+          example:
+          - feature1
+          items:
+            type: string
+            description: Features
+            example: "[\"feature1\"]"
+        status:
+          type: string
+          description: Status
+          example: active
+      description: Subscription response representation
+    SellerCodeUpdateRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Seller code
+          example: SC-2024-001
+        organizationId:
+          type: string
+          description: Organization ID
+          example: default-org
+        userId:
+          type: integer
+          description: User ID owner
+          format: int64
+          example: 1
+        status:
+          type: string
+          description: Current status
+          example: active
+      description: Update seller code request payload
+    SellerCodeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier
+          format: int64
+          example: 1
+        code:
+          type: string
+          description: Seller code
+          example: ADMIN-SC-001
+        organizationId:
+          type: string
+          description: Organization ID
+          example: default-org
+        userId:
+          type: integer
+          description: User ID owner
+          format: int64
+          example: 1
+        status:
+          type: string
+          description: Status
+          example: active
+        version:
+          type: integer
+          description: Version for locking
+          format: int64
+          example: 0
+      description: Seller code response with all fields
+    MembershipUpdateRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: User ID
+          format: int64
+          example: 5
+        subscriptionId:
+          type: integer
+          description: Subscription ID
+          format: int64
+          example: 2
+        sellerCode:
+          type: string
+          description: Seller code
+          example: SC-2024-001
+        zoneIds:
+          uniqueItems: true
+          type: array
+          description: Zone IDs
+          example:
+          - 1
+          - 3
+          - 5
+          items:
+            type: integer
+            description: Zone IDs
+            format: int64
+        allZones:
+          type: boolean
+          description: All zones flag
+          example: false
+        status:
+          type: string
+          description: Status
+          example: active
+      description: Membership update request
+    MembershipResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Membership ID
+          format: int64
+          example: 1
+        userId:
+          type: integer
+          description: User ID
+          format: int64
+          example: 5
+        subscriptionId:
+          type: integer
+          description: Subscription ID
+          format: int64
+          example: 2
+        sellerCode:
+          type: string
+          description: Seller code
+          example: SC-2024-001
+        zoneIds:
+          uniqueItems: true
+          type: array
+          description: Zone IDs
+          example:
+          - 1
+          - 3
+          - 5
+          items:
+            type: integer
+            description: Zone IDs
+            format: int64
+        allZones:
+          type: boolean
+          description: All zones flag
+          example: false
+        status:
+          type: string
+          description: Status
+          example: active
+        version:
+          type: integer
+          description: Version for locking
+          format: int64
+          example: 0
+      description: Membership response representation
+    ProfileUpdateRequest:
+      required:
+      - email
+      - locale
+      - username
+      type: object
+      properties:
+        username:
+          maxLength: 50
+          minLength: 3
+          type: string
+        email:
+          type: string
+        locale:
+          maxLength: 10
+          minLength: 2
+          type: string
+        version:
+          type: integer
+          format: int64
+    ProfileResponse:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        locale:
+          type: string
+        version:
+          type: integer
+          format: int64
+    UpdateFontRequest:
+      type: object
+      properties:
+        label:
+          type: string
+        woff2Url:
+          type: string
+        weights:
+          type: array
+          items:
+            type: integer
+            format: int32
+        preloadDefault:
+          type: boolean
+        active:
+          type: boolean
+        integrity:
+          type: string
+    FontResponse:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        woff2Url:
+          type: string
+        weights:
+          type: array
+          items:
+            type: integer
+            format: int32
+        hash:
+          type: string
+        preloadDefault:
+          type: boolean
+        active:
+          type: boolean
+        integrity:
+          type: string
+    UpdateDashboardRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+    DashboardResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    ZoneCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Zone name
+          example: Main Store
+        description:
+          type: string
+          description: Zone description
+          example: Primary retail zone
+        managerId:
+          type: integer
+          description: Manager user ID
+          format: int64
+          example: 42
+      description: Create zone request payload
+    UserCreateRequest:
+      required:
+      - email
+      - firstName
+      - lastName
+      - password
+      - username
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name
+          example: John
+        lastName:
+          type: string
+          description: Last name
+          example: Doe
+        email:
+          type: string
+          description: Email address
+          example: john.doe@example.com
+        username:
+          type: string
+          description: Username
+          example: johndoe
+        locale:
+          type: string
+          description: Locale code
+          example: en
+        password:
+          type: string
+          description: Password
+          example: SecurePass123!
+        roles:
+          uniqueItems: true
+          type: array
+          description: User roles
+          example:
+          - user
+          items:
+            type: string
+            description: User roles
+            example: "[\"user\"]"
+        status:
+          type: string
+          description: Status
+          example: active
+      description: User creation request
+    CreateRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        colors:
+          type: object
+          additionalProperties:
+            type: string
+    SubscriptionCreateRequest:
+      required:
+      - durationDays
+      - name
+      - price
+      type: object
+      properties:
+        name:
+          type: string
+          description: Plan name
+          example: Gold
+        description:
+          type: string
+          description: Plan description
+          example: Premium plan
+        price:
+          type: number
+          description: Price
+          example: 29.99
+        currency:
+          type: string
+          description: Currency code
+          example: USD
+        durationDays:
+          type: integer
+          description: Duration in days
+          format: int32
+          example: 30
+        features:
+          uniqueItems: true
+          type: array
+          description: Features
+          items:
+            type: string
+            description: Features
+        status:
+          type: string
+          description: Status
+          example: active
+      description: Subscription creation request
+    SellerCodeCreateRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Seller code
+          example: SC-2024-001
+        organizationId:
+          type: string
+          description: Organization ID
+          example: default-org
+        userId:
+          type: integer
+          description: User ID owner
+          format: int64
+          example: 1
+        status:
+          type: string
+          description: Initial status
+          example: active
+      description: Create seller code request payload
+    ForgotPasswordRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+    ForgotPasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    MembershipCreateRequest:
+      required:
+      - sellerCode
+      - subscriptionId
+      - userId
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: User ID
+          format: int64
+          example: 5
+        subscriptionId:
+          type: integer
+          description: Subscription ID
+          format: int64
+          example: 2
+        sellerCode:
+          type: string
+          description: Seller code
+          example: SC-2024-001
+        zoneIds:
+          uniqueItems: true
+          type: array
+          description: Zone IDs
+          example:
+          - 1
+          - 3
+          - 5
+          items:
+            type: integer
+            description: Zone IDs
+            format: int64
+        allZones:
+          type: boolean
+          description: All zones flag
+          example: false
+        status:
+          type: string
+          description: Status
+          example: active
+      description: Membership creation request
+    PasswordChangeRequest:
+      required:
+      - currentPassword
+      - newPassword
+      type: object
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+    CreateFontRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        woff2Url:
+          type: string
+        weights:
+          type: array
+          items:
+            type: integer
+            format: int32
+        hash:
+          type: string
+        preloadDefault:
+          type: boolean
+        integrity:
+          type: string
+    CreateDashboardRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+    RegisterEnvelope:
+      required:
+      - user
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/RegisterRequest"
+      description: Registration envelope wrapping user data
+    RegisterRequest:
+      required:
+      - email
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          description: Username
+          example: newuser
+        email:
+          type: string
+          description: Email address
+          example: user@example.com
+        password:
+          type: string
+          description: Password
+          example: SecurePass123!
+      description: User registration request
+    RefreshRequest:
+      required:
+      - refreshToken
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          description: Refresh token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      description: Token refresh request
+    TokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: JWT access token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        refreshToken:
+          type: string
+          description: JWT refresh token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiresIn:
+          type: integer
+          description: Token expiration time in seconds
+          format: int32
+          example: 3600
+        username:
+          type: string
+          description: Username of authenticated user
+          example: admin
+      description: Authentication token response
+    LoginRequest:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          description: Username
+          example: admin
+        password:
+          type: string
+          description: Password
+          example: SecurePass123!
+      description: Login request with credentials
+    EchoRequest:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          maxLength: 512
+          minLength: 1
+          type: string
+    EchoResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    LocalesResponse:
+      type: object
+      properties:
+        locales:
+          type: array
+          items:
+            type: string
+    PageResponseDtoZoneResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content
+          items:
+            $ref: "#/components/schemas/ZoneResponse"
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 50
+        totalPages:
+          type: integer
+          description: Total number of pages
+          format: int32
+          example: 5
+        currentPage:
+          type: integer
+          description: Current page number (0-indexed)
+          format: int32
+          example: 0
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+          example: 10
+        hasNext:
+          type: boolean
+          description: Has next page
+          example: true
+        hasPrevious:
+          type: boolean
+          description: Has previous page
+          example: false
+      description: Paginated response wrapper
+    PageResponseDtoUserResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content
+          items:
+            $ref: "#/components/schemas/UserResponse"
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 50
+        totalPages:
+          type: integer
+          description: Total number of pages
+          format: int32
+          example: 5
+        currentPage:
+          type: integer
+          description: Current page number (0-indexed)
+          format: int32
+          example: 0
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+          example: 10
+        hasNext:
+          type: boolean
+          description: Has next page
+          example: true
+        hasPrevious:
+          type: boolean
+          description: Has previous page
+          example: false
+      description: Paginated response wrapper
+    Current:
+      type: object
+      properties:
+        theme:
+          type: string
+        font:
+          type: string
+        fontSize:
+          type: string
+        spacing:
+          type: string
+        radius:
+          type: string
+        shadow:
+          type: string
+    Font:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        woff2Url:
+          type: string
+        weights:
+          type: array
+          items:
+            type: integer
+            format: int32
+        hash:
+          type: string
+        preloadDefault:
+          type: boolean
+        integrity:
+          type: string
+    FontSizeSet:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        sizes:
+          type: object
+          additionalProperties:
+            type: string
+    RadiusSet:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        values:
+          type: object
+          additionalProperties:
+            type: string
+    ShadowSet:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        values:
+          type: object
+          additionalProperties:
+            type: string
+    SpacingSet:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        values:
+          type: object
+          additionalProperties:
+            type: string
+    Theme:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        colors:
+          type: object
+          additionalProperties:
+            type: string
+    UITokensDto:
+      type: object
+      properties:
+        themes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Theme"
+        fonts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Font"
+        fontWeights:
+          type: array
+          items:
+            type: string
+        fontSizes:
+          type: array
+          items:
+            $ref: "#/components/schemas/FontSizeSet"
+        spacings:
+          type: array
+          items:
+            $ref: "#/components/schemas/SpacingSet"
+        radius:
+          type: array
+          items:
+            $ref: "#/components/schemas/RadiusSet"
+        shadows:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShadowSet"
+        current:
+          $ref: "#/components/schemas/Current"
+    PageResponseDtoSubscriptionResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content
+          items:
+            $ref: "#/components/schemas/SubscriptionResponse"
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 50
+        totalPages:
+          type: integer
+          description: Total number of pages
+          format: int32
+          example: 5
+        currentPage:
+          type: integer
+          description: Current page number (0-indexed)
+          format: int32
+          example: 0
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+          example: 10
+        hasNext:
+          type: boolean
+          description: Has next page
+          example: true
+        hasPrevious:
+          type: boolean
+          description: Has previous page
+          example: false
+      description: Paginated response wrapper
+    PageResponseDtoSellerCodeResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content
+          items:
+            $ref: "#/components/schemas/SellerCodeResponse"
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 50
+        totalPages:
+          type: integer
+          description: Total number of pages
+          format: int32
+          example: 5
+        currentPage:
+          type: integer
+          description: Current page number (0-indexed)
+          format: int32
+          example: 0
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+          example: 10
+        hasNext:
+          type: boolean
+          description: Has next page
+          example: true
+        hasPrevious:
+          type: boolean
+          description: Has previous page
+          example: false
+      description: Paginated response wrapper
+    RoleDto:
+      type: object
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+    PublicLandingResponse:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+    PageResponseDtoMembershipResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content
+          items:
+            $ref: "#/components/schemas/MembershipResponse"
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 50
+        totalPages:
+          type: integer
+          description: Total number of pages
+          format: int32
+          example: 5
+        currentPage:
+          type: integer
+          description: Current page number (0-indexed)
+          format: int32
+          example: 0
+        pageSize:
+          type: integer
+          description: Page size
+          format: int32
+          example: 10
+        hasNext:
+          type: boolean
+          description: Has next page
+          example: true
+        hasPrevious:
+          type: boolean
+          description: Has previous page
+          example: false
+      description: Paginated response wrapper
+    LocaleDto:
+      type: object
+      properties:
+        locale:
+          type: string
+    DashboardOverviewResponse:
+      type: object
+      properties:
+        totalPoems:
+          type: integer
+          format: int32
+        publishedPoems:
+          type: integer
+          format: int32
+        draftPoems:
+          type: integer
+          format: int32
+        activeMembers:
+          type: integer
+          format: int32
+        highlightKey:
+          type: string
+        lastUpdatedLabel:
+          type: string
+    StatusResponse:
+      type: object
+      properties:
+        authenticated:
+          type: boolean
+          description: Whether user is authenticated
+          example: true
+      description: Authentication status response
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

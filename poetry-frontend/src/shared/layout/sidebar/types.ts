@@ -10,6 +10,7 @@ export type ItemId =
   | 'sellerCodes'
   | 'subscriptions'
   | 'zones'
+  | 'memberships'
 
 export interface SidebarProps {
   isOpen: boolean

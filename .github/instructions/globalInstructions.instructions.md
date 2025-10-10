@@ -8,6 +8,7 @@ applyTo: '**'
 - Frontend can't have types or schemas definitios if they are not fixed to generated SDK gems
 - don't adjust my app to your solution, adjust your solution to my app
 
+
 ## Development Rules
 
 - Production-ready code only (no TODO, FIXME, or commented-out code)
@@ -61,6 +62,7 @@ Use one `-m` flag with plain ASCII: `type: subject` (no scope/body)
 - Database blueprint: `docs/architecture/db-architecture-blueprint.md`
 - Frontend rules: `.github/chatmodes/frontend.chatmode.md`
 - Frontend blueprint: `docs/architecture/frontEnd-module-blueprint.md`
+- **CRITICAL**: Update OpenAPI spec using `npm run update:openapi` ONLY (uses /v3/api-docs.yaml endpoint)
 
 ## Logs
 - Backend logs at logs\backend\backend-dev.log

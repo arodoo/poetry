@@ -38,8 +38,10 @@ The project uses **Option A** architecture:
 
 1. Update backend controller with annotations
 2. Restart backend
-3. Regenerate OpenAPI: `curl -s http://localhost:8080/v3/api-docs.yaml > docs/api/backend-generated/v1/openapi.yaml`
+3. **Regenerate OpenAPI: `npm run update:openapi`** (MUST use .yaml endpoint!)
 4. Regenerate frontend SDK: `cd poetry-frontend && npm run sdk:generate`
+
+**⚠️ CRITICAL:** Always use `npm run update:openapi` - DO NOT use `/v3/api-docs` (returns JSON) instead of `/v3/api-docs.yaml`
 
 ### Benefits:
 

@@ -16,6 +16,7 @@ import usersEn from '../../../../features/users/locales/en.json'
 import sellerCodesEn from '../../../../features/seller-codes/locales/en.json'
 import subscriptionsEn from '../../../../features/subscriptions/locales/en.json'
 import zonesEn from '../../../../features/zones/locales/en.json'
+import membershipsEn from '../../../../features/memberships/locales/en.json'
 
 export const enCatalog: Record<string, string> = {
   ...commonEn,
@@ -28,6 +29,10 @@ export const enCatalog: Record<string, string> = {
   ...publicLoginEn,
   ...profileEn,
   ...usersEn,
+  ...sellerCodesEn,
+  ...subscriptionsEn,
+  ...zonesEn,
+  ...membershipsEn,
   ...sellerCodesEn,
   ...subscriptionsEn,
   ...zonesEn,

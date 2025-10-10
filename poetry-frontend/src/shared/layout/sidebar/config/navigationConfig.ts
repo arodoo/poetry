@@ -12,6 +12,7 @@ export function getLabelKey(id: ItemId): string {
     sellerCodes: 'ui.route.sellerCodes.title',
     subscriptions: 'ui.route.subscriptions.title',
     zones: 'ui.route.zones.title',
+    memberships: 'ui.route.memberships.title',
     adminTokens: 'ui.route.admin.tokens.title',
   }
   return map[id]
@@ -24,6 +25,7 @@ export function getNavigationItems(): NavigationItem[] {
     { id: 'sellerCodes', p: '/seller-codes', roles: ['admin', 'manager'] },
     { id: 'subscriptions', p: '/subscriptions', roles: ['admin', 'manager'] },
     { id: 'zones', p: '/zones', roles: ['admin', 'manager'] },
+    { id: 'memberships', p: '/memberships', roles: ['admin', 'manager'] },
     { id: 'adminTokens', p: '/admin/tokens', roles: ['admin', 'manager'] },
   ]
 }

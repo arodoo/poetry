@@ -12,6 +12,7 @@ import { UsersRoutes } from './usersRoutes'
 import { SellerCodesRoutes } from './sellerCodesRoutes'
 import { SubscriptionsRoutes } from './subscriptionsRoutes'
 import { ZonesRoutes } from './zonesRoutes'
+import { MembershipsRoutes } from './membershipsRoutes'
 
 function AdminTokensRoute(): ReactElement {
   return (
@@ -35,5 +36,6 @@ export function AdminRoutesConfig(): ReactElement[] {
     ...SellerCodesRoutes(),
     ...SubscriptionsRoutes(),
     ...ZonesRoutes(),
+    ...MembershipsRoutes(),
   ]
 }
