@@ -50,11 +50,21 @@ export default function SubscriptionDeletePage(): ReactElement {
           {t('ui.subscriptions.delete.confirm')} <strong>{subscription?.name}</strong>?
         </p>
         <Inline gap="sm">
-          <Button onClick={handleDelete} tone="danger" size="md">
-            {t('ui.subscriptions.actions.confirmDelete')}
-          </Button>
-          <Button onClick={handleCancel} size="md">
+          <Button 
+            onClick={handleCancel} 
+            size="sm"
+            variant="secondary"
+            data-testid="cancel-delete-subscription-button"
+          >
             {t('ui.subscriptions.actions.cancel')}
+          </Button>
+          <Button 
+            onClick={handleDelete} 
+            size="sm"
+            variant="danger"
+            data-testid="confirm-delete-subscription-button"
+          >
+            {t('ui.subscriptions.actions.confirmDelete')}
           </Button>
         </Inline>
       </div>

@@ -31,6 +31,8 @@
   "ui.subscriptions.detail.title": "Subscription Detail",
   "ui.subscriptions.detail.subtitle": "Plan overview",
   "ui.subscriptions.detail.name": "Name",
+  "ui.subscriptions.detail.section.plan": "Plan Information",
+  "ui.subscriptions.detail.section.pricing": "Pricing & Status",
   "ui.subscriptions.breadcrumb.list": "Subscriptions",
   "ui.subscriptions.breadcrumb.detail": "Detail",
   "ui.subscriptions.breadcrumb.create": "Create",
