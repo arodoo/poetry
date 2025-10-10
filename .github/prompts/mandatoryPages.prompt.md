@@ -54,9 +54,10 @@ configuration, billing, integrations, API keys/webhooks, health/jobs).
 - **Zones:** `/zones`, `/zones/new`, `/zones/edit/:id`
 - **Seller Codes:** `/seller-codes`, `/seller-codes/new`, `/seller-codes/:id`,
   `/seller-codes/edit/:id`
-- **Memberships:** `/memberships`, `/memberships/new`, `/memberships/edit/:id`
+- **Memberships:** `/memberships`, `/memberships/new`, `/memberships/edit/:id`, 
+  `/memberships/details/:id`, 
 - **Subscriptions:** `/subscriptions`, `/subscriptions/new`,
-  `/subscriptions/manage`
+  `/subscriptions/details/:id`, `/subscriptions/delete/:id`,
 - **Organizations (scoped):** `/orgs`, `/orgs/:orgId`, `/orgs/:orgId/members`,
   `/orgs/:orgId/audit-log`
 - **Data Ops:** `/imports`, `/exports`

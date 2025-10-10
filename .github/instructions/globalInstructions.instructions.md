@@ -37,7 +37,7 @@ applyTo: '**'
 9. Config Sync: ESLint/Checkstyle match `code-standards.config.json`
 10. Theme checker (`npm run check:hardcoded-colors`): No hardcoded colors, use theme
     tokens
-11. SDK generation (`npm run generate:sdk`): SDK up to date with OpenAPI. Comand inside frontend
+11. SDK generation (`npm run sdk:generate`): SDK up to date with OpenAPI. Command at poetry-frontend\package.json
 
 ## Pre-Push Checks
 

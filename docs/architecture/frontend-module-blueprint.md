@@ -195,9 +195,32 @@ Naming Patterns:
 4. Components (presentational) with a11y
 5. Pages + routing entry (locale prefix) + guard(s) if needed
 6. Locales namespace + translations referencing backend keys
-7. Added to aggregate routes + nav metadata
-8. Domain doc updated: `docs/domains/<feature>.md`
-9. OpenAPI path referenced in domain doc
+7. Domain doc updated: `docs/domains/<feature>.md`
+8. OpenAPI path referenced in domain doc
+9. ETag + version handling (if versioned resource)
+10. Idempotent create (header set & tested)
+11. Tests (model, api, hooks, UI, negative paths)
+
+### CRITICAL Post-Creation Steps
+
+**After creating all feature files, complete these integrations:**
+
+1. **Register i18n** (CRITICAL): In `shared/i18n/catalog/{en,es}/index.ts`:
+   - Import: `import <feature>En from '../../../../features/<feature>/locales/en.json'`
+   - Spread: `...<feature>En,` in catalog export
+   - Without this: React shows `i18n.missing:<feature>.key` errors
+
+2. **Register routes** (CRITICAL): In `src/routes.tsx` or `routesAuthenticated.tsx`:
+   - Import: `import { <feature>Routes } from './features/<feature>'`
+   - Include: `...<feature>Routes,` in children array
+   - Without this: 404 on feature URLs
+
+3. **Add sidebar nav** (if applicable): In `shared/layout/sidebar/`:
+   - Add to `types.ts` ItemId union
+   - Add to `config/navigationConfig.ts` array
+   - Add `ui.route.<feature>.title` to `catalog/{en,es}/route/route.ts`
+
+## 8. Governance & Enforcement
 10. ETag + version handling (if versioned resource)
 11. Idempotent create (header set & tested)
 12. Tests (model, api, hooks, UI, negative paths)

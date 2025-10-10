@@ -10,6 +10,7 @@ import { RequireRole } from './shared/routing/RequireRole'
 import { AdminTokensPageLazy } from './shared/routing/lazyAdapters'
 import { UsersRoutes } from './usersRoutes'
 import { SellerCodesRoutes } from './sellerCodesRoutes'
+import { SubscriptionsRoutes } from './subscriptionsRoutes'
 import { ZonesRoutes } from './zonesRoutes'
 
 function AdminTokensRoute(): ReactElement {
@@ -32,6 +33,7 @@ export function AdminRoutesConfig(): ReactElement[] {
     AdminTokensRoute(),
     ...UsersRoutes(),
     ...SellerCodesRoutes(),
+    ...SubscriptionsRoutes(),
     ...ZonesRoutes(),
   ]
 }

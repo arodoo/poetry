@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "1.2",
-    "description": "Canonical backend feature file & folder structure (structure-only). Now includes negative test file expectations. Semantic rules enforced by dedicated CI scripts."
+    "version": "1.3",
+    "description": "Canonical backend feature file & folder structure (structure-only). Controllers split by operation (Create/Get/List/PagedList/Update/Delete). Negative test file expectations included. Semantic rules enforced by dedicated CI scripts."
   },
   "structure": {
     "domain": {
@@ -106,7 +106,37 @@
         {
           "path": "v1/<feature>/FeatureController.java",
           "required": true,
-          "description": "Controller"
+          "description": "Placeholder controller (final, empty)"
+        },
+        {
+          "path": "v1/<feature>/FeaturesCreateController.java",
+          "required": true,
+          "description": "Create endpoint controller"
+        },
+        {
+          "path": "v1/<feature>/FeaturesGetController.java",
+          "required": true,
+          "description": "Get by ID endpoint controller"
+        },
+        {
+          "path": "v1/<feature>/FeaturesListController.java",
+          "required": true,
+          "description": "List all endpoint controller"
+        },
+        {
+          "path": "v1/<feature>/FeaturesPagedListController.java",
+          "required": true,
+          "description": "Paged list endpoint controller"
+        },
+        {
+          "path": "v1/<feature>/FeaturesUpdateController.java",
+          "required": true,
+          "description": "Update endpoint controller"
+        },
+        {
+          "path": "v1/<feature>/FeaturesDeleteController.java",
+          "required": true,
+          "description": "Delete endpoint controller"
         },
         {
           "path": "v1/<feature>/FeatureDtos.java",
@@ -202,12 +232,12 @@
         {
           "path": "interfaces/v1/<feature>/FeatureControllerTest.java",
           "required": true,
-          "description": "Controller happy-path tests"
+          "description": "Controller happy-path tests (all endpoints)"
         },
         {
           "path": "interfaces/v1/<feature>/FeatureControllerNegativeTest.java",
           "required": true,
-          "description": "Controller negative tests (400/404/409/412)"
+          "description": "Controller negative tests (400/404/409/412, all endpoints)"
         }
       ]
     }

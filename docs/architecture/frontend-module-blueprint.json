@@ -1,8 +1,25 @@
 {
   "meta": {
-    "version": "1.0",
+    "version": "1.1",
     "description": "Canonical frontend feature folder & file structure (existence-only). Semantic rules (headers, query keys, i18n) enforced by other CI scripts."
   },
+  "postCreationSteps": [
+    {
+      "step": "Register i18n in shared/i18n/catalog/{en,es}/index.ts",
+      "critical": true,
+      "action": "import <feature>En from '../../../../features/<feature>/locales/en.json' and spread ...<feature>En in catalog"
+    },
+    {
+      "step": "Register routes in src/routes.tsx or routesAuthenticated.tsx",
+      "critical": true,
+      "action": "import { <feature>Routes } from './features/<feature>' and include in children array"
+    },
+    {
+      "step": "Add sidebar nav (if applicable) in shared/layout/sidebar/types.ts and config/navigationConfig.ts",
+      "critical": false,
+      "action": "Add to ItemId union and navigation config array"
+    }
+  ],
   "structure": {
     "features": {
       "path": "poetry-frontend/src/features",

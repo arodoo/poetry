@@ -14,6 +14,7 @@ import publicLoginEn from '../../../../features/public-login/locales/en.json'
 import profileEn from '../../../../features/profile/locales/en.json'
 import usersEn from '../../../../features/users/locales/en.json'
 import sellerCodesEn from '../../../../features/seller-codes/locales/en.json'
+import subscriptionsEn from '../../../../features/subscriptions/locales/en.json'
 import zonesEn from '../../../../features/zones/locales/en.json'
 
 export const enCatalog: Record<string, string> = {
@@ -28,5 +29,6 @@ export const enCatalog: Record<string, string> = {
   ...profileEn,
   ...usersEn,
   ...sellerCodesEn,
+  ...subscriptionsEn,
   ...zonesEn,
 }
