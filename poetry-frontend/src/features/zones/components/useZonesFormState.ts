@@ -12,12 +12,14 @@ export interface ZonesFormValues {
   readonly name: string
   readonly description: string
   readonly managerId: string
+  readonly status: 'active' | 'inactive'
 }
 
 export interface ZonesFormState extends ZonesFormValues {
   readonly setName: (value: string) => void
   readonly setDescription: (value: string) => void
   readonly setManagerId: (value: string) => void
+  readonly setStatus: (value: 'active' | 'inactive') => void
 }
 
 export function useZonesFormState(
@@ -30,6 +32,9 @@ export function useZonesFormState(
   const [managerId, setManagerId] = useState<string>(
     initialValues?.managerId ?? ''
   )
+  const [status, setStatus] = useState<'active' | 'inactive'>(
+    initialValues?.status ?? 'active'
+  )
 
   useEffect(() => {
     if (initialValues?.name !== undefined) {
@@ -41,14 +46,24 @@ export function useZonesFormState(
     if (initialValues?.managerId !== undefined) {
       setManagerId(initialValues.managerId)
     }
-  }, [initialValues?.name, initialValues?.description, initialValues?.managerId])
+    if (initialValues?.status !== undefined) {
+      setStatus(initialValues.status)
+    }
+  }, [
+    initialValues?.name,
+    initialValues?.description,
+    initialValues?.managerId,
+    initialValues?.status,
+  ])
 
   return {
     name,
     description,
     managerId,
+    status,
     setName,
     setDescription,
     setManagerId,
+    setStatus,
   }
 }

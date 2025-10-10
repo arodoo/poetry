@@ -21,7 +21,6 @@ import { useUpdateZoneMutation } from '../hooks/useZonesMutations'
 import { buildEditFormSections } from './zoneFormSections'
 import { buildZoneEditBreadcrumbs } from './zoneBreadcrumbHelpers'
 import { buildZoneEditSubmitHandler } from './zoneEditHandlers'
-import type { UpdateZoneInput } from '../model/ZonesSchemas'
 
 export default function ZoneEditPage(): ReactElement {
   const params = useParams()
@@ -39,6 +38,7 @@ export default function ZoneEditPage(): ReactElement {
           name: zone.name ?? '',
           description: zone.description ?? '',
           managerId: zone.managerId ? String(zone.managerId) : '',
+          status: (zone.status as 'active' | 'inactive') ?? 'active',
         }
       : undefined
   )

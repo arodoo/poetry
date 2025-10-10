@@ -39,6 +39,7 @@ export function buildZoneEditSubmitHandler(
       name: formState.name,
       description: formState.description,
       managerId: Number(formState.managerId),
+      status: formState.status,
       version: zone.version,
     }
 
