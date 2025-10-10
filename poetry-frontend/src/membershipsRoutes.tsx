@@ -10,6 +10,7 @@ import MembershipsListPage from './features/memberships/pages/MembershipsListPag
 import MembershipsCreatePage from './features/memberships/pages/MembershipsCreatePage'
 import MembershipDetailPage from './features/memberships/pages/MembershipDetailPage'
 import MembershipEditPage from './features/memberships/pages/MembershipEditPage'
+import MembershipDeletePage from './features/memberships/pages/MembershipDeletePage'
 
 export function MembershipsRoutes(): ReactElement[] {
   return [
@@ -46,6 +47,15 @@ export function MembershipsRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <MembershipEditPage />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="memberships-delete"
+      path=":locale/memberships/:id/delete"
+      element={
+        <AdminRoute>
+          <MembershipDeletePage />
         </AdminRoute>
       }
     />,

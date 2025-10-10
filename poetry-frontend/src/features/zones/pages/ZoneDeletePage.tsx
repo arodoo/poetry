@@ -1,8 +1,8 @@
 /*
- * ZoneDeletePage.tsx
- * Zone delete confirmation page with cancel and confirm actions.
- * Shows warning message and handles soft delete mutation.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZoneDeletePage.tsx
+ * Purpose: Zone delete confirmation page with cancel and confirm
+ * actions. Shows warning message and handles soft delete mutation.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
@@ -67,10 +67,10 @@ export default function ZoneDeletePage(): ReactElement {
           <Heading level={2} size="md">
             {t('ui.zones.delete.form.title')}
           </Heading>
-          <Text size="sm" className="text-neutral-600">
+          <Text size="sm" className="text-[var(--color-textMuted)]">
             {t('ui.zones.delete.form.subtitle')}
           </Text>
-          <Text size="sm" className="text-error-600 font-medium">
+          <Text size="sm" className="text-[var(--color-error)] font-medium">
             {t('ui.zones.delete.form.warning')}
           </Text>
           <div className="flex gap-2">

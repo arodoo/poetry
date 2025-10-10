@@ -46,13 +46,19 @@
   "ui.memberships.form.allZones.label": "Todas las zonas",
   "ui.memberships.form.allZones.hint": "Acceso a todas las zonas",
   "ui.memberships.form.status.label": "Estado",
-  "ui.memberships.detail.title": "Detalle membresía",
+  "ui.memberships.detail.title": "Detalle de membresía",
   "ui.memberships.detail.subtitle": "Revisar información",
+  "ui.memberships.detail.section.basic": "Información básica",
+  "ui.memberships.detail.section.zones": "Acceso a zonas",
+  "ui.memberships.detail.section.metadata": "Estado",
+  "ui.memberships.breadcrumb.detail": "Detalle",
+  "ui.memberships.delete.title": "Eliminar membresía",
+  "ui.memberships.delete.subtitle": "Confirmar eliminación",
+  "ui.memberships.delete.warning": "Esta acción no se puede deshacer. La membresía será eliminada permanentemente.",
   "ui.memberships.validation.userId": "Usuario requerido",
   "ui.memberships.validation.subscriptionId": "Suscripción requerida",
   "ui.memberships.validation.sellerCode": "Código requerido",
   "ui.memberships.toast.created": "Membresía creada",
   "ui.memberships.toast.updated": "Membresía actualizada",
-  "ui.memberships.toast.deleted": "Membresía eliminada",
-  "ui.memberships.toast.error": "Operación fallida"
+  "ui.memberships.toast.deleted": "Membresía eliminada"
 }

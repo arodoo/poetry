@@ -17,9 +17,14 @@ export async function waitForMembershipsApiResponse(
 
 export async function getMembershipIdFromButton(
   buttonLocator: { getAttribute: (attr: string) => Promise<string | null> },
-  prefix: string
+  prefix?: string
 ): Promise<string> {
-  const dataTestId: string | null =
-    await buttonLocator.getAttribute('data-testid')
-  return dataTestId?.replace(prefix, '') ?? ''
+  if (prefix) {
+    const dataTestId: string | null =
+      await buttonLocator.getAttribute('data-testid')
+    return dataTestId?.replace(prefix, '') ?? ''
+  }
+  const href: string | null = await buttonLocator.getAttribute('href')
+  const match: RegExpMatchArray | null = href?.match(/\/memberships\/(\d+)/) ?? null
+  return match?.[1] ?? ''
 }

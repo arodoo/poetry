@@ -20,3 +20,22 @@ export function buildMembershipListBreadcrumbs(
     },
   ]
 }
+
+export function buildMembershipDetailBreadcrumbs(
+  locale: string,
+  t: (key: string) => string
+): readonly BreadcrumbItem[] {
+  return [
+    {
+      label: t('ui.route.dashboard.title'),
+      href: `/${locale}/dashboard`,
+    },
+    {
+      label: t('ui.route.memberships.title'),
+      href: `/${locale}/memberships`,
+    },
+    {
+      label: t('ui.memberships.breadcrumb.detail'),
+    },
+  ]
+}
