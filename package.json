@@ -37,11 +37,13 @@
     "dev:backend": "node tools/logs/backend/dev-with-log.mjs",
     "build:backend:log": "node tools/logs/backend/build-with-log.mjs",
     "update:openapi": "curl -s http://localhost:8080/v3/api-docs.yaml -o docs/api/backend-generated/v1/openapi.yaml",
+    "sdk:generate": "npm --prefix poetry-frontend run sdk:generate",
     "dev:mobile": "node tools/logs/mobile/dev-with-log.mjs",
     "mobile:android": "npm --prefix poetry-mobile run android",
     "mobile:ios": "npm --prefix poetry-mobile run ios",
     "mobile:web": "npm --prefix poetry-mobile run web",
     "mobile:sdk": "npm --prefix poetry-mobile run sdk:generate",
+    "mobile-sdk:generate": "npm --prefix poetry-mobile run sdk:generate",
     "typecheck:mobile": "npm --prefix poetry-mobile run typecheck",
     "test:mobile": "npm --prefix poetry-mobile run test",
     "lint:mobile": "npm --prefix poetry-mobile run lint"
