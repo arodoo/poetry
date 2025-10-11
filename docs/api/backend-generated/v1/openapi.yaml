@@ -18,6 +18,8 @@ tags:
   description: User management
 - name: auth
   description: Authentication endpoints
+- name: events
+  description: Event management
 - name: seller-codes
   description: Seller code management
 - name: Seller Codes
@@ -735,6 +737,103 @@ paths:
             '*/*':
               schema:
                 type: object
+  /api/v1/events/{id}:
+    get:
+      tags:
+      - events
+      summary: Get event by ID
+      description: Retrieve single event details including location
+      operationId: getEvent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Event not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+        "200":
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+    put:
+      tags:
+      - events
+      summary: Update an event
+      description: Update event details with optimistic locking
+      operationId: updateEvent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: Updated
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+        "404":
+          description: Event not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+        "409":
+          description: Conflict/version mismatch
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+    delete:
+      tags:
+      - events
+      summary: Delete an event
+      description: Soft delete event (sets deletedAt timestamp)
+      operationId: deleteEvent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Event not found
+        "401":
+          description: Unauthorized
   /api/v1/dashboard/{id}:
     get:
       tags:
@@ -1173,6 +1272,57 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/FontResponse"
+  /api/v1/events:
+    get:
+      tags:
+      - events
+      summary: List events with pagination
+      description: Get events with page/size params
+      operationId: listEventsPaged
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageEventResponse"
+    post:
+      tags:
+      - events
+      summary: Create a new event
+      description: Create event with location data for map display
+      operationId: createEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventCreateRequest"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EventResponse"
   /api/v1/dashboard:
     get:
       tags:
@@ -1695,6 +1845,58 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
+  /api/v1/events/nearby:
+    get:
+      tags:
+      - events
+      summary: Get nearby events
+      description: Find events within radius using geospatial query
+      operationId: getNearbyEvents
+      parameters:
+      - name: latitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: longitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: radiusMeters
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 5000
+      responses:
+        "200":
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventResponse"
+  /api/v1/events/list:
+    get:
+      tags:
+      - events
+      summary: List all events
+      description: Get all events without pagination
+      operationId: listEvents
+      responses:
+        "200":
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventResponse"
   /api/v1/dashboard/overview:
     get:
       tags:
@@ -2237,6 +2439,91 @@ components:
           type: boolean
         integrity:
           type: string
+    EventUpdateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Event title
+        description:
+          type: string
+          description: Event description
+        locationName:
+          type: string
+          description: Location name
+        latitude:
+          type: number
+          description: Latitude
+          format: double
+        longitude:
+          type: number
+          description: Longitude
+          format: double
+        eventDate:
+          type: string
+          description: Event date
+          format: date-time
+        status:
+          type: string
+          description: Status
+          example: PUBLISHED
+        imageUrl:
+          type: string
+          description: Image URL
+      description: Event update request
+    EventResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Event ID
+          format: int64
+          example: 1
+        userId:
+          type: integer
+          description: User ID
+          format: int64
+          example: 123
+        title:
+          type: string
+          description: Event title
+          example: Park Meetup
+        description:
+          type: string
+          description: Event description
+          example: Join us
+        locationName:
+          type: string
+          description: Location name
+          example: Central Park
+        latitude:
+          type: number
+          description: Latitude
+          format: double
+          example: 40.785091
+        longitude:
+          type: number
+          description: Longitude
+          format: double
+          example: -73.968285
+        eventDate:
+          type: string
+          description: Event date
+          format: date-time
+        status:
+          type: string
+          description: Status
+          example: PUBLISHED
+        imageUrl:
+          type: string
+          description: Image URL
+          example: https://cdn.example.com/img.jpg
+        version:
+          type: integer
+          description: Version
+          format: int64
+          example: 1
+      description: Event response representation
     UpdateDashboardRequest:
       type: object
       properties:
@@ -2482,6 +2769,39 @@ components:
           type: boolean
         integrity:
           type: string
+    EventCreateRequest:
+      required:
+      - eventDate
+      - latitude
+      - longitude
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: Event title
+        description:
+          type: string
+          description: Event description
+        locationName:
+          type: string
+          description: Location name
+        latitude:
+          type: number
+          description: Latitude
+          format: double
+        longitude:
+          type: number
+          description: Longitude
+          format: double
+        eventDate:
+          type: string
+          description: Event date
+          format: date-time
+        imageUrl:
+          type: string
+          description: Image URL
+      description: Event creation request
     CreateDashboardRequest:
       type: object
       properties:
@@ -2695,6 +3015,15 @@ components:
           type: boolean
         integrity:
           type: string
+    FontFamily:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        family:
+          type: string
     FontSizeSet:
       type: object
       properties:
@@ -2761,6 +3090,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Font"
+        fontFamilies:
+          type: array
+          items:
+            $ref: "#/components/schemas/FontFamily"
         fontWeights:
           type: array
           items:
@@ -2915,6 +3248,80 @@ components:
       properties:
         locale:
           type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    PageEventResponse:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/EventResponse"
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        first:
+          type: boolean
+        last:
+          type: boolean
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        pageSize:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
     DashboardOverviewResponse:
       type: object
       properties:

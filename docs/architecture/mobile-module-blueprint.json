@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Canonical mobile feature folder & file structure for React Native with Expo. Enforces consistency with backend DDD and web frontend patterns."
+  },
+  "postCreationSteps": [
+    {
+      "step": "Register i18n in shared/i18n/catalog/{en,es}/index.ts",
+      "critical": true,
+      "action": "import <feature>En from '../../../../features/<feature>/locales/en.json' and spread ...<feature>En in catalog"
+    },
+    {
+      "step": "Register routes in app navigation (Expo Router)",
+      "critical": true,
+      "action": "Create screen files in app/<feature>/ and update navigation stack"
+    },
+    {
+      "step": "Configure Mapbox if feature uses maps",
+      "critical": false,
+      "action": "Import MapboxGL in feature and ensure MAPBOX_ACCESS_TOKEN is in env"
+    }
+  ],
+  "structure": {
+    "features": {
+      "path": "poetry-mobile/src/features",
+      "files": [
+        {
+          "path": "<feature>/model/<Feature>Schemas.ts",
+          "required": true,
+          "description": "Zod schemas + model types (must match OpenAPI)"
+        },
+        {
+          "path": "<feature>/api/<feature>Api.ts",
+          "required": true,
+          "description": "API wrapper functions calling generated SDK or apiClient"
+        },
+        {
+          "path": "<feature>/hooks/use<Feature>Queries.ts",
+          "required": true,
+          "description": "React Query hooks for queries"
+        },
+        {
+          "path": "<feature>/hooks/use<Feature>Mutations.ts",
+          "required": false,
+          "description": "React Query hooks for mutations (optional if read-only)"
+        },
+        {
+          "path": "<feature>/components",
+          "required": true,
+          "description": "Presentational React Native components folder"
+        },
+        {
+          "path": "<feature>/screens",
+          "required": true,
+          "description": "Screen-level components (route targets)"
+        },
+        {
+          "path": "<feature>/locales/en.json",
+          "required": true,
+          "description": "English i18n namespace"
+        },
+        {
+          "path": "<feature>/locales/es.json",
+          "required": true,
+          "description": "Spanish i18n namespace"
+        },
+        {
+          "path": "<feature>/index.ts",
+          "required": true,
+          "description": "Public re-exports (types, hooks, screens)"
+        }
+      ]
+    },
+    "shared": {
+      "path": "poetry-mobile/src/shared",
+      "files": [
+        {
+          "path": "config/env.ts",
+          "required": true,
+          "description": "Environment schema with Zod validation"
+        },
+        {
+          "path": "http/apiClient.ts",
+          "required": true,
+          "description": "Axios client factory with JWT interceptors"
+        },
+        {
+          "path": "auth/tokenStorage.ts",
+          "required": true,
+          "description": "Secure token storage using Expo SecureStore"
+        },
+        {
+          "path": "auth/useSession.ts",
+          "required": true,
+          "description": "Session hook for authentication state"
+        },
+        {
+          "path": "i18n/index.ts",
+          "required": true,
+          "description": "i18n bootstrap with i18next"
+        },
+        {
+          "path": "theme/ThemeProvider.tsx",
+          "required": true,
+          "description": "Theme provider consuming design tokens from backend"
+        },
+        {
+          "path": "components",
+          "required": true,
+          "description": "Shared UI component library"
+        },
+        {
+          "path": "query/queryClient.ts",
+          "required": true,
+          "description": "TanStack Query client configuration"
+        },
+        {
+          "path": "mapbox/MapboxConfig.ts",
+          "required": true,
+          "description": "Mapbox initialization and configuration"
+        }
+      ]
+    },
+    "api": {
+      "path": "poetry-mobile/src/api",
+      "files": [
+        {
+          "path": "generated",
+          "required": true,
+          "description": "Auto-generated SDK from OpenAPI spec (never edit manually)"
+        }
+      ]
+    },
+    "app": {
+      "path": "poetry-mobile/app",
+      "description": "Expo Router file-based routing",
+      "files": [
+        {
+          "path": "(auth)/login.tsx",
+          "required": true,
+          "description": "Login screen"
+        },
+        {
+          "path": "(tabs)/_layout.tsx",
+          "required": true,
+          "description": "Tab navigator layout"
+        },
+        {
+          "path": "_layout.tsx",
+          "required": true,
+          "description": "Root layout with providers"
+        }
+      ]
+    }
+  },
+  "rules": {
+    "naming": {
+      "features": "lowercase (e.g., events, profile)",
+      "components": "PascalCase (e.g., EventCard.tsx)",
+      "hooks": "camelCase with 'use' prefix (e.g., useEventQueries.ts)",
+      "screens": "PascalCase with 'Screen' suffix (e.g., EventDetailScreen.tsx)"
+    },
+    "fileLimits": {
+      "maxLines": 80,
+      "maxCharsPerLine": 80,
+      "exceptions": ["JSON files", "generated SDK"]
+    },
+    "apiCalls": {
+      "primary": "Use generated SDK from OpenAPI",
+      "fallback": "Use shared/http/apiClient.ts (never raw fetch/axios)",
+      "authentication": "JWT via Axios interceptors"
+    },
+    "validation": {
+      "runtime": "Zod schemas for all API responses",
+      "compile": "TypeScript strict mode",
+      "schemas": "Must match OpenAPI definitions"
+    },
+    "i18n": {
+      "noHardcodedStrings": true,
+      "locales": ["en", "es"],
+      "keyFormat": "<feature>.<context>.<key>"
+    },
+    "styling": {
+      "framework": "React Native StyleSheet + themed tokens",
+      "noHardcodedColors": true,
+      "noHardcodedSizes": true,
+      "source": "Design tokens from /api/v1/tokens"
+    },
+    "testing": {
+      "location": "poetry-mobile/src/tests/<feature>/",
+      "framework": "Jest + React Native Testing Library",
+      "coverage": "Unit tests for hooks, API, components"
+    }
+  },
+  "dependencies": {
+    "core": [
+      "react-native",
+      "expo",
+      "expo-router",
+      "@tanstack/react-query",
+      "zod",
+      "axios",
+      "expo-secure-store"
+    ],
+    "mapbox": [
+      "@rnmapbox/maps"
+    ],
+    "ui": [
+      "react-native-reanimated",
+      "react-native-gesture-handler"
+    ],
+    "dev": [
+      "typescript",
+      "eslint",
+      "prettier",
+      "@testing-library/react-native",
+      "jest"
+    ]
+  }
+}

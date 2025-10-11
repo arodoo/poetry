@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "Poetry Events",
+    "slug": "poetry-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsDownloadToken": "PLACE_YOUR_MAPBOX_DOWNLOAD_TOKEN_HERE"
+        }
+      ]
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.poetry.mobile",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We need your location to show nearby events",
+        "NSCameraUsageDescription": "We need camera access to add photos to your events",
+        "NSPhotoLibraryUsageDescription": "We need photo library access to add photos to your events"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.poetry.mobile",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "apiBaseUrl": "http://localhost:8080/api/v1",
+      "mapboxAccessToken": "YOUR_MAPBOX_TOKEN_HERE"
+    }
+  }
+}

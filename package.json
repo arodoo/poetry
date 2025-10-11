@@ -36,7 +36,15 @@
     "ci": "npm run check:file-length && npm run check:file-headers && npm run check:hardcoded-colors && npm run check:hardcoded-strings && npm run check:backend-modules && npm run check:frontend-modules && npm run lint && npm run typecheck && npm run build && npm run test:e2e && npm run test && npm run validate:openapi && npm run check:sdk-sync",
     "dev:backend": "node tools/logs/backend/dev-with-log.mjs",
     "build:backend:log": "node tools/logs/backend/build-with-log.mjs",
-    "update:openapi": "curl -s http://localhost:8080/v3/api-docs.yaml -o docs/api/backend-generated/v1/openapi.yaml"
+    "update:openapi": "curl -s http://localhost:8080/v3/api-docs.yaml -o docs/api/backend-generated/v1/openapi.yaml",
+    "dev:mobile": "node tools/logs/mobile/dev-with-log.mjs",
+    "mobile:android": "npm --prefix poetry-mobile run android",
+    "mobile:ios": "npm --prefix poetry-mobile run ios",
+    "mobile:web": "npm --prefix poetry-mobile run web",
+    "mobile:sdk": "npm --prefix poetry-mobile run sdk:generate",
+    "typecheck:mobile": "npm --prefix poetry-mobile run typecheck",
+    "test:mobile": "npm --prefix poetry-mobile run test",
+    "lint:mobile": "npm --prefix poetry-mobile run lint"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}": [
