@@ -24,6 +24,7 @@ applyTo: '**'
 ### Logs
 - Backend logs at logs\backend\backend-dev.log
 - Frontend logs at logs\frontend/frontend-dev.log
+- Mobile logs at logs\mobile/mobile-dev.log
 
 ## Development Standards
 

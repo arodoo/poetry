@@ -1,8 +1,8 @@
 {
-  "ok": true,
+  "ok": false,
   "summary": {
-    "features": 12,
-    "missing": 0
+    "features": 15,
+    "missing": 40
   },
   "details": [
     {
@@ -91,12 +91,12 @@
         {
           "path": "docs/domains/account.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/account-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/account/model/AccountSchemas.test.ts",
@@ -124,7 +124,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/account.md",
+        "docs/api/openapi/paths/account-*.yaml"
+      ]
     },
     {
       "feature": "admin",
@@ -212,12 +215,12 @@
         {
           "path": "docs/domains/admin.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/admin-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/admin/model/AdminSchemas.test.ts",
@@ -245,7 +248,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/admin.md",
+        "docs/api/openapi/paths/admin-*.yaml"
+      ]
     },
     {
       "feature": "auth",
@@ -333,12 +339,12 @@
         {
           "path": "docs/domains/auth.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/auth-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/auth/model/AuthSchemas.test.ts",
@@ -366,7 +372,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/auth.md",
+        "docs/api/openapi/paths/auth-*.yaml"
+      ]
     },
     {
       "feature": "dashboard",
@@ -454,12 +463,12 @@
         {
           "path": "docs/domains/dashboard.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/dashboard-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/dashboard/model/DashboardSchemas.test.ts",
@@ -487,7 +496,137 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/dashboard.md",
+        "docs/api/openapi/paths/dashboard-*.yaml"
+      ]
+    },
+    {
+      "feature": "memberships",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/memberships/model/MembershipsSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/api/membershipsApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/hooks/useMembershipsQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/hooks/useMembershipsMutations.ts",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/routing/membershipsRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/memberships/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/memberships.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/memberships-*.yaml",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/memberships/model/MembershipsSchemas.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/memberships/api/membershipsApi.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/memberships/hooks/membershipsQueries.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/memberships/hooks/membershipsMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/memberships/pages/MembershipsPage.test.ts",
+          "optional": false,
+          "exists": false
+        }
+      ],
+      "missing": [
+        "docs/api/openapi/paths/memberships-*.yaml",
+        "poetry-frontend/src/tests/features/memberships/model/MembershipsSchemas.test.ts",
+        "poetry-frontend/src/tests/features/memberships/api/membershipsApi.test.ts",
+        "poetry-frontend/src/tests/features/memberships/hooks/membershipsQueries.test.ts",
+        "poetry-frontend/src/tests/features/memberships/pages/MembershipsPage.test.ts"
+      ]
     },
     {
       "feature": "profile",
@@ -575,12 +714,12 @@
         {
           "path": "docs/domains/profile.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/profile-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/profile/model/ProfileSchemas.test.ts",
@@ -608,7 +747,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/profile.md",
+        "docs/api/openapi/paths/profile-*.yaml"
+      ]
     },
     {
       "feature": "public",
@@ -696,12 +838,12 @@
         {
           "path": "docs/domains/public.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/public-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/public/model/PublicSchemas.test.ts",
@@ -729,7 +871,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/public.md",
+        "docs/api/openapi/paths/public-*.yaml"
+      ]
     },
     {
       "feature": "public-forgot-password",
@@ -817,12 +962,12 @@
         {
           "path": "docs/domains/public-forgot-password.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/public-forgot-password-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/public-forgot-password/model/PublicForgotPasswordSchemas.test.ts",
@@ -850,7 +995,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/public-forgot-password.md",
+        "docs/api/openapi/paths/public-forgot-password-*.yaml"
+      ]
     },
     {
       "feature": "public-login",
@@ -938,12 +1086,12 @@
         {
           "path": "docs/domains/public-login.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/public-login-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/public-login/model/PublicLoginSchemas.test.ts",
@@ -971,7 +1119,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/public-login.md",
+        "docs/api/openapi/paths/public-login-*.yaml"
+      ]
     },
     {
       "feature": "public-register",
@@ -1059,12 +1210,12 @@
         {
           "path": "docs/domains/public-register.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/public-register-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/public-register/model/PublicRegisterSchemas.test.ts",
@@ -1092,7 +1243,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/public-register.md",
+        "docs/api/openapi/paths/public-register-*.yaml"
+      ]
     },
     {
       "feature": "seller-codes",
@@ -1180,12 +1334,12 @@
         {
           "path": "docs/domains/seller-codes.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/seller-codes-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/seller-codes/model/SellerCodesSchemas.test.ts",
@@ -1213,7 +1367,138 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/seller-codes.md",
+        "docs/api/openapi/paths/seller-codes-*.yaml"
+      ]
+    },
+    {
+      "feature": "subscriptions",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/subscriptions/model/SubscriptionsSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/api/subscriptionsApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/hooks/useSubscriptionsQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/hooks/useSubscriptionsMutations.ts",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/components",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/routing/subscriptionsRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/subscriptions/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/subscriptions.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/subscriptions-*.yaml",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/subscriptions/model/SubscriptionsSchemas.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/subscriptions/api/subscriptionsApi.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/subscriptions/hooks/subscriptionsQueries.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/subscriptions/hooks/subscriptionsMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/subscriptions/pages/SubscriptionsPage.test.ts",
+          "optional": false,
+          "exists": false
+        }
+      ],
+      "missing": [
+        "poetry-frontend/src/features/subscriptions/components",
+        "docs/api/openapi/paths/subscriptions-*.yaml",
+        "poetry-frontend/src/tests/features/subscriptions/model/SubscriptionsSchemas.test.ts",
+        "poetry-frontend/src/tests/features/subscriptions/api/subscriptionsApi.test.ts",
+        "poetry-frontend/src/tests/features/subscriptions/hooks/subscriptionsQueries.test.ts",
+        "poetry-frontend/src/tests/features/subscriptions/pages/SubscriptionsPage.test.ts"
+      ]
     },
     {
       "feature": "tokens",
@@ -1236,7 +1521,7 @@
         {
           "path": "poetry-frontend/src/features/tokens/hooks/useTokensMutations.ts",
           "optional": true,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-frontend/src/features/tokens/components",
@@ -1306,7 +1591,7 @@
         {
           "path": "docs/api/openapi/paths/tokens-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/tokens/model/TokensSchemas.test.ts",
@@ -1334,7 +1619,9 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/api/openapi/paths/tokens-*.yaml"
+      ]
     },
     {
       "feature": "users",
@@ -1422,12 +1709,12 @@
         {
           "path": "docs/domains/users.md",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "docs/api/openapi/paths/users-*.yaml",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-frontend/src/tests/features/users/model/UsersSchemas.test.ts",
@@ -1455,7 +1742,138 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "docs/domains/users.md",
+        "docs/api/openapi/paths/users-*.yaml"
+      ]
+    },
+    {
+      "feature": "zones",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/zones/model/ZonesSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/api/zonesApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/hooks/useZonesQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/hooks/useZonesMutations.ts",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/routing/zonesRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/zones/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/zones.md",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "docs/api/openapi/paths/zones-*.yaml",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/zones/model/ZonesSchemas.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/zones/api/zonesApi.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/zones/hooks/zonesQueries.test.ts",
+          "optional": false,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/zones/hooks/zonesMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/zones/pages/ZonesPage.test.ts",
+          "optional": false,
+          "exists": false
+        }
+      ],
+      "missing": [
+        "docs/domains/zones.md",
+        "docs/api/openapi/paths/zones-*.yaml",
+        "poetry-frontend/src/tests/features/zones/model/ZonesSchemas.test.ts",
+        "poetry-frontend/src/tests/features/zones/api/zonesApi.test.ts",
+        "poetry-frontend/src/tests/features/zones/hooks/zonesQueries.test.ts",
+        "poetry-frontend/src/tests/features/zones/pages/ZonesPage.test.ts"
+      ]
     }
   ]
 }
