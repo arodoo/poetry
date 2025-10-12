@@ -16,9 +16,7 @@ export interface UsersFormStatusProps {
   readonly t: ReturnType<typeof useT>
 }
 
-export function UsersFormStatus(
-  props: UsersFormStatusProps
-): ReactElement {
+export function UsersFormStatus(props: UsersFormStatusProps): ReactElement {
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
@@ -28,20 +26,14 @@ export function UsersFormStatus(
         value={props.status}
         onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
           const raw: string = e.target.value
-          const v: 'active' | 'inactive' = raw as
-            | 'active'
-            | 'inactive'
+          const v: 'active' | 'inactive' = raw as 'active' | 'inactive'
           props.onStatusChange(v)
         }}
         required
         data-testid="user-status-select"
       >
-        <option value="active">
-          {props.t('ui.users.status.active')}
-        </option>
-        <option value="inactive">
-          {props.t('ui.users.status.inactive')}
-        </option>
+        <option value="active">{props.t('ui.users.status.active')}</option>
+        <option value="inactive">{props.t('ui.users.status.inactive')}</option>
       </Select>
     </Stack>
   )

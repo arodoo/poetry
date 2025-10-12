@@ -30,7 +30,10 @@ export function useSellerCodeEditPage(): {
             code: sellerCode.code ?? '',
             organizationId: sellerCode.organizationId ?? '',
             userId: sellerCode.userId ? String(sellerCode.userId) : '',
-            status: (sellerCode.status ?? 'inactive') as 'active' | 'inactive' | 'expired',
+            status: (sellerCode.status ?? 'inactive') as
+              | 'active'
+              | 'inactive'
+              | 'expired',
           }
         : undefined
     )

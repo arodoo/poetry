@@ -1,4 +1,3 @@
-
 /*
  * File: ZoneEditPage.tsx
  * Purpose: Page for editing an existing zone, with a form layout pre-populated from API data. Handles update mutation with version for optimistic locking and navigation after success. Built for maintainability and integration with admin workflows.
@@ -88,7 +87,7 @@ export default function ZoneEditPage(): ReactElement {
         onSubmit={handleSubmit}
         submitLabel={t('ui.zones.actions.save')}
         cancelLabel={t('ui.zones.actions.cancel')}
-        onCancel={() => navigate(`/${locale}/zones`)}
+        onCancel={() => void navigate(`/${locale}/zones`)}
         isSubmitting={mutation.isPending}
       />
     </PageLayout>

@@ -21,12 +21,8 @@ export type CreateMembershipInput = MembershipCreateRequest
 export const CreateMembershipSchema: z.ZodType<CreateMembershipInput> =
   z.object({
     userId: z.number().min(1, 'memberships.validation.userId'),
-    subscriptionId: z
-      .number()
-      .min(1, 'memberships.validation.subscriptionId'),
-    sellerCode: z
-      .string()
-      .min(1, 'memberships.validation.sellerCode'),
+    subscriptionId: z.number().min(1, 'memberships.validation.subscriptionId'),
+    sellerCode: z.string().min(1, 'memberships.validation.sellerCode'),
     zoneIds: z.array(z.number()).optional(),
     allZones: z.boolean().optional(),
     status: z.enum(['active', 'inactive']).optional(),

@@ -23,13 +23,7 @@ export const subscriptionsQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'subscriptions',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ]
+  ): readonly ['subscriptions', 'page', number, number, string | undefined]
   detail(id: string): readonly ['subscriptions', 'detail', string]
 } = {
   root: ['subscriptions'],
@@ -40,13 +34,7 @@ export const subscriptionsQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'subscriptions',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ] {
+  ): readonly ['subscriptions', 'page', number, number, string | undefined] {
     return ['subscriptions', 'page', pageNum, pageSize, search] as const
   },
   detail(id: string): readonly ['subscriptions', 'detail', string] {
@@ -54,8 +42,9 @@ export const subscriptionsQueryKeys: {
   },
 }
 
-export function useSubscriptionsListQuery():
-  UseQueryResult<SubscriptionResponse[]> {
+export function useSubscriptionsListQuery(): UseQueryResult<
+  SubscriptionResponse[]
+> {
   const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: subscriptionsQueryKeys.list(),

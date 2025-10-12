@@ -18,9 +18,7 @@ import {
 } from '../model/ZonesSchemas'
 import { parseZoneDetail } from './zonesApiShared'
 
-export async function createZone(
-  input: CreateZoneInput
-): Promise<ZoneDetail> {
+export async function createZone(input: CreateZoneInput): Promise<ZoneDetail> {
   const validatedInput = CreateZoneSchema.parse(input)
   const response = await createZoneSdk({
     body: validatedInput as any,
@@ -57,6 +55,3 @@ export async function deleteZone(
     headers,
   } as any)
 }
-
-
-

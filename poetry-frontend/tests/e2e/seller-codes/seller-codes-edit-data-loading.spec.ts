@@ -26,7 +26,8 @@ test.describe('Seller Code Edit Data Loading', (): void => {
 
     const testIdAttr: string | null =
       await firstViewButton.getAttribute('data-testid')
-    const sellerCodeId: string = testIdAttr?.replace('view-seller-code-', '') || ''
+    const sellerCodeId: string =
+      testIdAttr?.replace('view-seller-code-', '') || ''
     expect(sellerCodeId).toBeTruthy()
 
     await firstViewButton.click()

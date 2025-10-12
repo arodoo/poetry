@@ -1,4 +1,3 @@
-
 /*
  * File: useZonesFormState.ts
  * Purpose: Custom React hook for managing the state of zone forms, including name, description, managerId, and status fields. Provides setter functions for controlled inputs in both create and edit forms, ensuring consistent state management. Designed for extensibility and integration with form validation and submission logic.

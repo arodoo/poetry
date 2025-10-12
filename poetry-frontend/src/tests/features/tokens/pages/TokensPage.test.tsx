@@ -15,7 +15,7 @@ const mockUseT = <T extends string>(k: T): string => k
 vi.spyOn(i18n, 'useT').mockReturnValue(mockUseT)
 
 vi.mock('../../../../shared/toast/toastContext', () => ({
-  useToast: () => ({ push: (_: string) => {} }),
+  useToast: () => ({ push: (/* message: string */) => {} }),
 }))
 
 describe('Tokens pages', () => {

@@ -24,11 +24,7 @@ export async function performRequest<T>(
 ): Promise<T> {
   let lastError: Error | null = null
   const headers: Record<string, string> = { ...execution.headers }
-  for (
-    let attempt = 1;
-    attempt <= execution.retryCfg.maxAttempts;
-    attempt++
-  ) {
+  for (let attempt = 1; attempt <= execution.retryCfg.maxAttempts; attempt++) {
     const controller: AbortController = new AbortController()
     const activeSignal: AbortSignal = execution.signal ?? controller.signal
     try {

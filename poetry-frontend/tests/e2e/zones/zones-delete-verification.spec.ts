@@ -23,7 +23,8 @@ test.describe('Zones Delete Verification', (): void => {
     const testIdAttr = await firstViewButton.getAttribute('data-testid')
     const zoneId = testIdAttr?.replace('view-zone-', '') || ''
 
-    const zoneNameElement = page.locator(`[data-testid="view-zone-${zoneId}"]`)
+    const zoneNameElement = page
+      .locator(`[data-testid="view-zone-${zoneId}"]`)
       .locator('xpath=ancestor::tr')
       .locator('td')
       .first()
@@ -53,7 +54,9 @@ test.describe('Zones Delete Verification', (): void => {
     await page.waitForURL(/\/en\/zones$/, { timeout: 5000 })
     await page.waitForLoadState('networkidle')
 
-    const deletedZoneButton = page.locator(`[data-testid="view-zone-${zoneId}"]`)
+    const deletedZoneButton = page.locator(
+      `[data-testid="view-zone-${zoneId}"]`
+    )
     await expect(deletedZoneButton).not.toBeVisible({ timeout: 5000 })
 
     if (zoneName) {

@@ -20,9 +20,7 @@ test.describe('Zones Detail and Edit Flow', (): void => {
     await page.goto('/en/zones')
     await page.waitForLoadState('networkidle')
 
-    await expect(
-      page.getByRole('heading', { name: /Zones/i })
-    ).toBeVisible({
+    await expect(page.getByRole('heading', { name: /Zones/i })).toBeVisible({
       timeout: 10000,
     })
 
@@ -56,11 +54,11 @@ test.describe('Zones Detail and Edit Flow', (): void => {
     await page.waitForURL(`/en/zones/edit/${zoneId}`, { timeout: 10000 })
     await page.waitForLoadState('networkidle')
 
-    await expect(
-      page.getByRole('heading', { name: /Edit zone/i })
-    ).toBeVisible({
-      timeout: 10000,
-    })
+    await expect(page.getByRole('heading', { name: /Edit zone/i })).toBeVisible(
+      {
+        timeout: 10000,
+      }
+    )
 
     const nameInput: Locator = page.getByTestId('zone-name-input')
     const descInput: Locator = page.getByTestId('zone-description-input')
@@ -84,16 +82,12 @@ test.describe('Zones Detail and Edit Flow', (): void => {
     await expect(saveButton).toBeVisible()
     await saveButton.click()
 
-    await expect(
-      page.getByText(/Zone updated successfully/i)
-    ).toBeVisible({
+    await expect(page.getByText(/Zone updated successfully/i)).toBeVisible({
       timeout: 10000,
     })
 
     await page.waitForURL('/en/zones', { timeout: 10000 })
 
-    await expect(
-      page.getByRole('heading', { name: /Zones/i })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Zones/i })).toBeVisible()
   })
 })

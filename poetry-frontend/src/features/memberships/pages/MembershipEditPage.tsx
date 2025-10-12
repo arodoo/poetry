@@ -29,9 +29,13 @@ export default function MembershipEditPage(): ReactElement {
     detailQuery.data?.membership
 
   if (detailQuery.isLoading)
-    return <MembershipEditPageLoading message={t('ui.memberships.status.loading')} />
+    return (
+      <MembershipEditPageLoading message={t('ui.memberships.status.loading')} />
+    )
   if (detailQuery.isError || !membership || !detailQuery.data?.etag)
-    return <MembershipEditPageLoading message={t('ui.memberships.status.error')} />
+    return (
+      <MembershipEditPageLoading message={t('ui.memberships.status.error')} />
+    )
 
   const handleSubmit = createEditSubmitHandler(
     membershipId,

@@ -3,12 +3,12 @@
  * Purpose: Validate exported types and zod schemas from memberships feature.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { describe, it, expect } from 'vitest';
-import type { MembershipCreateRequest } from '../../../../api/generated';
+import { describe, it, expect } from 'vitest'
+import type { MembershipCreateRequest } from '../../../../api/generated'
 import {
   CreateMembershipSchema,
   UpdateMembershipSchema,
-} from '../../../../features/memberships/model/MembershipsCommands';
+} from '../../../../features/memberships/model/MembershipsCommands'
 
 describe('Memberships Schemas', () => {
   it('CreateMembershipSchema should parse a valid payload', () => {
@@ -27,8 +27,8 @@ describe('Memberships Schemas', () => {
   })
 
   it('UpdateMembershipSchema should accept partial updates', () => {
-    const partial = { name: 'Updated Name' };
-    const parsed = UpdateMembershipSchema.safeParse(partial);
-    expect(parsed.success).toBe(true);
-  });
-});
+    const partial = { name: 'Updated Name' }
+    const parsed = UpdateMembershipSchema.safeParse(partial)
+    expect(parsed.success).toBe(true)
+  })
+})

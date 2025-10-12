@@ -18,11 +18,7 @@ export interface PageLayoutProps {
 
 export function PageLayout(props: PageLayoutProps): ReactElement {
   return (
-    <Stack
-      as="section"
-      gap="lg"
-      className="w-full px-4 py-4"
-    >
+    <Stack as="section" gap="lg" className="w-full px-4 py-4">
       {props.breadcrumbs ?? null}
       <div className="sm:flex sm:items-center sm:justify-between">
         <Stack gap="xs">

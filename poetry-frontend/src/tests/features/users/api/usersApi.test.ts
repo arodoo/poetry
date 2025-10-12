@@ -59,9 +59,9 @@ describe('usersApi', () => {
       response: new Response(),
     })
 
-  const list = await fetchUsersList()
-  // IDs may be numeric from SDK; assert stringified value for stability
-  expect(String(list[0]?.id)).toBe('1')
+    const list = await fetchUsersList()
+    // IDs may be numeric from SDK; assert stringified value for stability
+    expect(String(list[0]?.id)).toBe('1')
 
     await createUser({
       firstName: dto.firstName,

@@ -16,7 +16,7 @@ import * as hook from '../../../../features/tokens/hooks/useTokensQueries'
 import * as i18n from '../../../../shared/i18n/useT'
 
 vi.mock('../../../../shared/toast/toastContext', () => ({
-  useToast: () => ({ push: (_: string) => {} }),
+  useToast: () => ({ push: (/* message: string */) => {} }),
 }))
 
 const mockUseT = <T extends string>(k: T): string => k

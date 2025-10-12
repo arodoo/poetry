@@ -10,7 +10,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   invalid?: boolean
 }
 
- 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     { className, invalid, disabled, ...rest }: InputProps,

@@ -16,9 +16,7 @@ export interface ZonesFormStatusProps {
   readonly t: ReturnType<typeof useT>
 }
 
-export function ZonesFormStatus(
-  props: ZonesFormStatusProps
-): ReactElement {
+export function ZonesFormStatus(props: ZonesFormStatusProps): ReactElement {
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
@@ -28,20 +26,14 @@ export function ZonesFormStatus(
         value={props.status}
         onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
           const raw: string = e.target.value
-          const v: 'active' | 'inactive' = raw as
-            | 'active'
-            | 'inactive'
+          const v: 'active' | 'inactive' = raw as 'active' | 'inactive'
           props.onStatusChange(v)
         }}
         required
         data-testid="zone-status-select"
       >
-        <option value="active">
-          {props.t('ui.zones.status.active')}
-        </option>
-        <option value="inactive">
-          {props.t('ui.zones.status.inactive')}
-        </option>
+        <option value="active">{props.t('ui.zones.status.active')}</option>
+        <option value="inactive">{props.t('ui.zones.status.inactive')}</option>
       </Select>
     </Stack>
   )

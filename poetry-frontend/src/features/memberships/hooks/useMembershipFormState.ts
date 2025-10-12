@@ -24,11 +24,9 @@ export function useMembershipFormState(
   const [subscriptionId, setSubscriptionId] = useState(
     membership.subscriptionId ?? 0
   )
-  const [sellerCode, setSellerCode] = useState(
-    membership.sellerCode ?? ''
-  )
+  const [sellerCode, setSellerCode] = useState(membership.sellerCode ?? '')
   const [status, setStatus] = useState<'active' | 'inactive'>(
-    (membership.status as 'active' | 'inactive') ?? 'active'
+    (membership.status as 'active' | 'inactive') || 'active'
   )
   const [zoneIds, setZoneIds] = useState<readonly number[]>(
     membership.zoneIds ?? []

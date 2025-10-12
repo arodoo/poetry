@@ -25,15 +25,19 @@ export function DataTableBody<T>(props: Props<T>): ReactElement {
   return (
     <tbody className={clsx(s.tb, s.tbD)}>
       {hasData ? (
-        props.data.map((row: T): ReactElement => (
-          <tr key={props.keyExtractor(row)} className={s.tr}>
-            {props.columns.map((col: Column<T>): ReactElement => (
-              <td key={col.key} className={clsx(s.td, s.tdCol)}>
-                {col.accessor(row)}
-              </td>
-            ))}
-          </tr>
-        ))
+        props.data.map(
+          (row: T): ReactElement => (
+            <tr key={props.keyExtractor(row)} className={s.tr}>
+              {props.columns.map(
+                (col: Column<T>): ReactElement => (
+                  <td key={col.key} className={clsx(s.td, s.tdCol)}>
+                    {col.accessor(row)}
+                  </td>
+                )
+              )}
+            </tr>
+          )
+        )
       ) : (
         <tr>
           <td colSpan={props.columns.length} className={s.em}>

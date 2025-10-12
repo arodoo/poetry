@@ -1,4 +1,3 @@
-
 /*
  * File: ZonesListPage.tsx
  * Purpose: Page for listing all zones, with DataTable, pagination, search, and actions for viewing, editing, and creating zones. Follows the seller codes list pattern with locale-aware routing and UI components. Built for scalability and admin usability.
@@ -30,17 +29,17 @@ export default function ZonesListPage(): ReactElement {
   const pageQuery = useZonesPageQuery(page, size, search)
   const isLoading: boolean = pageQuery.isLoading
   const isError: boolean = pageQuery.isError
-  const zones: readonly ZoneResponse[] = Array.isArray(
-    pageQuery.data?.content
-  )
+  const zones: readonly ZoneResponse[] = Array.isArray(pageQuery.data?.content)
     ? pageQuery.data.content
     : []
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
   const columns: readonly DataTableColumn<ZoneResponse>[] =
     buildZonesListColumns(locale, t)
-  const breadcrumbItems: readonly BreadcrumbItem[] =
-    buildZoneListBreadcrumbs(locale, t)
+  const breadcrumbItems: readonly BreadcrumbItem[] = buildZoneListBreadcrumbs(
+    locale,
+    t
+  )
   const actions: ReactElement = (
     <Button
       to={`/${locale}/zones/new`}
@@ -68,9 +67,7 @@ export default function ZonesListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={zones}
-          keyExtractor={(row: ZoneResponse): string =>
-            String(row.id ?? '')
-          }
+          keyExtractor={(row: ZoneResponse): string => String(row.id ?? '')}
           emptyMessage={t('ui.zones.status.empty')}
           search={{
             value: search,

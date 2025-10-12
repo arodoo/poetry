@@ -35,9 +35,7 @@ test.describe('Membership Delete Confirmation', (): void => {
         resp.request().method() === 'DELETE'
     )
 
-    const confirmButton = page.getByTestId(
-      'confirm-delete-membership-button'
-    )
+    const confirmButton = page.getByTestId('confirm-delete-membership-button')
     await confirmButton.click()
 
     const deleteResponse: Response = await deleteApiPromise

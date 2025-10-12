@@ -22,24 +22,63 @@ interface Props {
   readonly t: (key: string) => string
 }
 
-export function MembershipEditForm({ membership, onSubmit, isSubmitting, t }: Props): ReactElement {
+export function MembershipEditForm({
+  membership,
+  onSubmit,
+  isSubmitting,
+  t,
+}: Props): ReactElement {
   const { locale } = useLocale()
   const navigate = useNavigate()
   const formData = useMembershipFormData()
   const formState = useMembershipFormState(membership)
 
-  if (formData.isLoading) return <PageLayout title={t('ui.memberships.actions.edit')} subtitle=""><p>{t('ui.memberships.status.loading')}</p></PageLayout>
+  if (formData.isLoading)
+    return (
+      <PageLayout title={t('ui.memberships.actions.edit')} subtitle="">
+        <p>{t('ui.memberships.status.loading')}</p>
+      </PageLayout>
+    )
 
   return (
     <PageLayout title={t('ui.memberships.actions.edit')} subtitle="">
-      <form onSubmit={(e) => { e.preventDefault(); onSubmit(formState.values) }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          onSubmit(formState.values)
+        }}
+      >
         <Stack gap="md">
-          <MembershipFormFields values={formState.values} users={formData.users} subscriptions={formData.subscriptions}
-            onUserChange={formState.setUserId} onSubscriptionChange={formState.setSubscriptionId}
-            onSellerCodeChange={formState.setSellerCode} onStatusChange={formState.setStatus} t={t} />
+          <MembershipFormFields
+            values={formState.values}
+            users={formData.users}
+            subscriptions={formData.subscriptions}
+            onUserChange={formState.setUserId}
+            onSubscriptionChange={formState.setSubscriptionId}
+            onSellerCodeChange={formState.setSellerCode}
+            onStatusChange={formState.setStatus}
+            t={t}
+          />
           <div className="flex gap-2">
-            <Button type="button" variant="secondary" size="sm" onClick={() => navigate(`/${locale}/memberships/${membership.id}`)}>{t('ui.memberships.actions.cancel')}</Button>
-            <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>{t('ui.memberships.actions.save')}</Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() =>
+                // intentionally fire-and-forget navigation from a button handler
+                void navigate(`/${locale}/memberships/${membership.id}`)
+              }
+            >
+              {t('ui.memberships.actions.cancel')}
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              size="sm"
+              disabled={isSubmitting}
+            >
+              {t('ui.memberships.actions.save')}
+            </Button>
           </div>
         </Stack>
       </form>

@@ -7,7 +7,10 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { tokenStorage } from '../../../shared/security/tokenStorage'
 import { fetchZoneById, fetchZonesList, fetchZonesPage } from '../api/zonesApi'
-import type { ZoneResponse, PageResponseDtoZoneResponse } from '../../../api/generated'
+import type {
+  ZoneResponse,
+  PageResponseDtoZoneResponse,
+} from '../../../api/generated'
 
 export const zonesQueryKeys: {
   readonly root: readonly ['zones']
@@ -16,13 +19,7 @@ export const zonesQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'zones',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ]
+  ): readonly ['zones', 'page', number, number, string | undefined]
   detail(id: string): readonly ['zones', 'detail', string]
 } = {
   root: ['zones'],
@@ -33,13 +30,7 @@ export const zonesQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'zones',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ] {
+  ): readonly ['zones', 'page', number, number, string | undefined] {
     return ['zones', 'page', pageNum, pageSize, search] as const
   },
   detail(id: string): readonly ['zones', 'detail', string] {

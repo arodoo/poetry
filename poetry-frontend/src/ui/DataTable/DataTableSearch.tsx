@@ -30,7 +30,9 @@ export function DataTableSearch(props: SearchProps): ReactElement {
         props.onSearchChange(localValue)
       }
     }, debounceMs)
-    return (): void => { clearTimeout(timer); }
+    return (): void => {
+      clearTimeout(timer)
+    }
   }, [localValue, debounceMs, props])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {

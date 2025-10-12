@@ -34,12 +34,11 @@ export async function updateMembership(
   input: UpdateMembershipInput,
   etag?: string
 ): Promise<MembershipResponse> {
-  const payload: UpdateMembershipInput =
-    UpdateMembershipSchema.parse(input)
+  const payload: UpdateMembershipInput = UpdateMembershipSchema.parse(input)
   const response = await updateMembershipSdk({
     path: { id: Number(id) },
     body: payload,
-    headers: { 'If-Match': etag || '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to update membership ${id}`)
@@ -53,6 +52,6 @@ export async function deleteMembership(
 ): Promise<void> {
   await deleteMembershipSdk({
     path: { id: Number(id) },
-    headers: { 'If-Match': etag || '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
 }

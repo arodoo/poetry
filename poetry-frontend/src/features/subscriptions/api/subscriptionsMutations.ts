@@ -40,8 +40,7 @@ export async function updateSubscription(
   input: UpdateSubscriptionInput,
   etag?: string
 ): Promise<SubscriptionResponse> {
-  const payload: UpdateSubscriptionInput =
-    UpdateSubscriptionSchema.parse(input)
+  const payload: UpdateSubscriptionInput = UpdateSubscriptionSchema.parse(input)
   const response = await updateSubscriptionSdk({
     path: { id: Number(id) },
     body: payload,

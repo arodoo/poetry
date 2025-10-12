@@ -1,4 +1,3 @@
-
 /*
  * File: ZonesFormFields.tsx
  * Purpose: Renders form input fields for zone creation and editing, including name, description, and manager selection. Centralizes labels, inputs, and change handlers for consistency and reusability across forms. Supports accessibility and localization for a better user experience.
@@ -22,9 +21,7 @@ export interface ZonesFormFieldsProps {
   readonly t: (key: I18nKey) => string
 }
 
-export function ZonesFormFields(
-  props: ZonesFormFieldsProps
-): ReactElement {
+export function ZonesFormFields(props: ZonesFormFieldsProps): ReactElement {
   return (
     <>
       <Stack gap="xs">

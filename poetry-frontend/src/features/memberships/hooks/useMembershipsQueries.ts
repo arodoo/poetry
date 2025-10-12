@@ -23,13 +23,7 @@ export const membershipsQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'memberships',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ]
+  ): readonly ['memberships', 'page', number, number, string | undefined]
   detail(id: string): readonly ['memberships', 'detail', string]
 } = {
   root: ['memberships'],
@@ -40,13 +34,7 @@ export const membershipsQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'memberships',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ] {
+  ): readonly ['memberships', 'page', number, number, string | undefined] {
     return ['memberships', 'page', pageNum, pageSize, search] as const
   },
   detail(id: string): readonly ['memberships', 'detail', string] {
@@ -57,9 +45,7 @@ export const membershipsQueryKeys: {
 export function useMembershipsListQuery(): UseQueryResult<
   MembershipResponse[]
 > {
-  const hasAccessToken = Boolean(
-    tokenStorage.load()?.accessToken
-  )
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: membershipsQueryKeys.list(),
     queryFn: fetchMembershipsList,
@@ -73,9 +59,7 @@ export function useMembershipsPageQuery(
   pageSize: number,
   search?: string
 ): UseQueryResult<PageResponseDtoMembershipResponse> {
-  const hasAccessToken = Boolean(
-    tokenStorage.load()?.accessToken
-  )
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: membershipsQueryKeys.page(page, pageSize, search),
     queryFn: () => fetchMembershipsPage(page, pageSize, search),
@@ -87,9 +71,7 @@ export function useMembershipsPageQuery(
 export function useMembershipDetailQuery(
   id: string
 ): UseQueryResult<MembershipResponse> {
-  const hasAccessToken = Boolean(
-    tokenStorage.load()?.accessToken
-  )
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: membershipsQueryKeys.detail(id),
     queryFn: () => fetchMembershipById(id),

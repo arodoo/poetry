@@ -5,16 +5,16 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect } from 'vitest'
-import { isTokenExpiringSoon, getTokenExpiryTime } from
-  '../../../shared/security/tokenExpiry'
+import {
+  isTokenExpiringSoon,
+  getTokenExpiryTime,
+} from '../../../shared/security/tokenExpiry'
 
 function createMockJwt(expiresInSeconds: number): string {
   const now = Math.floor(Date.now() / 1000)
   const exp = now + expiresInSeconds
   const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }))
-  const payload = btoa(
-    JSON.stringify({ sub: 'testuser', exp, iat: now })
-  )
+  const payload = btoa(JSON.stringify({ sub: 'testuser', exp, iat: now }))
   const signature = 'mock-signature'
   return `${header}.${payload}.${signature}`
 }

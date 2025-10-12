@@ -4,7 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect } from 'vitest'
-import { zonesQueryKeys, useZonesListQuery } from '../../../../features/zones/hooks/useZonesQueries'
+import {
+  zonesQueryKeys,
+  useZonesListQuery,
+} from '../../../../features/zones/hooks/useZonesQueries'
 
 describe('Zones Queries Hook', () => {
   it('zonesQueryKeys should build stable keys', () => {

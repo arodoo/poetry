@@ -23,9 +23,7 @@ test('memberships list page renders with data', async ({
   await page.waitForLoadState('networkidle')
   const apiResponse: Response = await apiResponsePromise
   expect(apiResponse.status()).toBe(200)
-  await expect(
-    page.getByRole('heading', { name: /membership/i })
-  ).toBeVisible({
+  await expect(page.getByRole('heading', { name: /membership/i })).toBeVisible({
     timeout: 15000,
   })
   await expect(

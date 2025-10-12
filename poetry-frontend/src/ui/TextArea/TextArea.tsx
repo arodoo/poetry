@@ -15,7 +15,6 @@ export interface TextAreaProps
   invalid?: boolean
 }
 
- 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
     { className, invalid, disabled, ...rest }: TextAreaProps,

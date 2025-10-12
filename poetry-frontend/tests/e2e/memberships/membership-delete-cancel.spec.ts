@@ -29,9 +29,7 @@ test.describe('Membership Delete Cancel', (): void => {
     await page.goto(`/en/memberships/${membershipId}/delete`)
     await page.waitForLoadState('networkidle')
 
-    const cancelButton = page.getByTestId(
-      'cancel-delete-membership-button'
-    )
+    const cancelButton = page.getByTestId('cancel-delete-membership-button')
     await cancelButton.waitFor({ state: 'visible', timeout: 5000 })
     await cancelButton.click()
 

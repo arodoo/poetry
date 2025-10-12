@@ -18,17 +18,24 @@ import { initEnv } from './shared/bootstrap/initEnv'
 import './shared/polyfills/responseStatusProperty'
 import { client } from './api/generated/client.gen'
 import { tokenStorage } from './shared/security/tokenStorage'
-import { startTokenRefreshScheduler } from
-  './shared/security/tokenRefreshScheduler'
+import { startTokenRefreshScheduler } from './shared/security/tokenRefreshScheduler'
 
 // Dev-only: install client error bridge synchronously
 if (import.meta.env.DEV) {
-  import('./shared/dev/clientErrorReporter')
-  import('./shared/dev/cssVariablesHealthCheck').then(
-    (module: { setupCssVariablesMonitor: () => void }): void => {
+  import('./shared/dev/clientErrorReporter').catch((err: unknown) => {
+    // Do not silently swallow errors in dev; log and rethrow so developers see the root cause
+    console.error('[dev] clientErrorReporter failed to load', err)
+    throw err
+  })
+  import('./shared/dev/cssVariablesHealthCheck')
+    .then((module: { setupCssVariablesMonitor: () => void }): void => {
       module.setupCssVariablesMonitor()
-    }
-  )
+    })
+    .catch((err: unknown) => {
+      // Do not silently swallow errors in dev; log and rethrow so developers see the root cause
+      console.error('[dev] cssVariablesHealthCheck failed to load', err)
+      throw err
+    })
 }
 
 // Fail-fast: validate env at startup (bridge errors explicitly in dev)

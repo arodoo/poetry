@@ -8,7 +8,6 @@ import clsx from 'clsx'
 
 export type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
 
- 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     { className, disabled, ...rest }: CheckboxProps,

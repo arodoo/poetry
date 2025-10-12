@@ -13,7 +13,11 @@ let refreshPromise: Promise<TokenBundle> | null = null
 
 export async function refreshTokenIfNeeded(): Promise<TokenBundle | null> {
   const tokens: TokenBundle | null = tokenStorage.load()
-  if (!tokens?.refreshToken || !tokens?.accessToken) {
+  if (!tokens) {
+    return null
+  }
+  const { refreshToken, accessToken } = tokens
+  if (!refreshToken || !accessToken) {
     return null
   }
 

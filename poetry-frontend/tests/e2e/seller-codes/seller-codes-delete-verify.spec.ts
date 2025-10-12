@@ -40,9 +40,9 @@ test.describe('Seller Code Delete Verification', (): void => {
     await page.getByRole('button', { name: /Create seller code/i }).click()
     await page.waitForURL(/\/en\/seller-codes$/, { timeout: 10000 })
 
-    await expect(
-      page.getByText(/created successfully/i)
-    ).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(/created successfully/i)).toBeVisible({
+      timeout: 5000,
+    })
 
     const searchInput: Locator = page.getByPlaceholder(/search/i)
     await searchInput.fill(testCode)
@@ -92,9 +92,9 @@ test.describe('Seller Code Delete Verification', (): void => {
 
     await page.waitForURL('/en/seller-codes', { timeout: 10000 })
 
-    await expect(
-      page.getByText(/deleted successfully/i)
-    ).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(/deleted successfully/i)).toBeVisible({
+      timeout: 5000,
+    })
 
     await searchInput.fill(testCode)
     await page.waitForTimeout(1000)

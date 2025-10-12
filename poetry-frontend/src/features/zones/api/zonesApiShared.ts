@@ -4,14 +4,9 @@
  * Temporary: Direct parsing until SDK includes zones.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type {
-  ZonesCollection,
-  ZoneDetail,
-} from '../model/ZonesSchemas'
+import type { ZonesCollection, ZoneDetail } from '../model/ZonesSchemas'
 
-export function parseZonesCollection(
-  dto: unknown
-): ZonesCollection {
+export function parseZonesCollection(dto: unknown): ZonesCollection {
   // API types validated by backend OpenAPI contract
   return dto as ZonesCollection
 }

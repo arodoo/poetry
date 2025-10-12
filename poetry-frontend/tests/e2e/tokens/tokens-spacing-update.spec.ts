@@ -25,9 +25,7 @@ test.describe('Tokens Admin - Spacing Update', (): void => {
 
     const initialValue = await spacingSelect.inputValue()
     const allOptions = await spacingSelect.locator('option').allTextContents()
-    const otherOption = allOptions.find(
-      (opt): boolean => opt !== initialValue
-    )
+    const otherOption = allOptions.find((opt): boolean => opt !== initialValue)
     expect(otherOption).toBeDefined()
 
     const optionToSelect = await spacingSelect

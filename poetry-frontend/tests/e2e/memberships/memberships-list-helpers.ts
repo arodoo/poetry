@@ -25,6 +25,7 @@ export async function getMembershipIdFromButton(
     return dataTestId?.replace(prefix, '') ?? ''
   }
   const href: string | null = await buttonLocator.getAttribute('href')
-  const match: RegExpMatchArray | null = href?.match(/\/memberships\/(\d+)/) ?? null
+  const match: RegExpMatchArray | null =
+    href?.match(/\/memberships\/(\d+)/) ?? null
   return match?.[1] ?? ''
 }

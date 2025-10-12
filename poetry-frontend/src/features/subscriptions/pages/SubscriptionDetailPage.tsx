@@ -32,8 +32,8 @@ export default function SubscriptionDetailPage(): ReactElement {
   const breadcrumbs = buildSubscriptionDetailBreadcrumbs(locale, t, id ?? '')
   const actions: ReactElement = (
     <Inline gap="sm">
-      <Button 
-        to={`/${locale}/subscriptions/${id}/edit`} 
+      <Button
+        to={`/${locale}/subscriptions/${id}/edit`}
         size="sm"
         width="fixed-small"
         data-testid="edit-subscription-button"

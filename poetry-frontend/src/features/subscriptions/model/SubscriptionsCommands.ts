@@ -23,9 +23,12 @@ export const CreateSubscriptionSchema: z.ZodType<CreateSubscriptionInput> =
     name: z.string().min(1, 'subscriptions.validation.name'),
     description: z.string().optional(),
     price: z.number().positive('subscriptions.validation.price'),
-    currency: z.string().length(3, 'subscriptions.validation.currency')
+    currency: z
+      .string()
+      .length(3, 'subscriptions.validation.currency')
       .default('USD'),
-    durationDays: z.number()
+    durationDays: z
+      .number()
       .int()
       .positive('subscriptions.validation.durationDays'),
     features: z.array(z.string()).optional(),
@@ -45,9 +48,12 @@ export const UpdateSubscriptionSchema: z.ZodType<UpdateSubscriptionInput> =
     name: z.string().min(1, 'subscriptions.validation.name').optional(),
     description: z.string().optional(),
     price: z.number().positive('subscriptions.validation.price').optional(),
-    currency: z.string().length(3, 'subscriptions.validation.currency')
+    currency: z
+      .string()
+      .length(3, 'subscriptions.validation.currency')
       .optional(),
-    durationDays: z.number()
+    durationDays: z
+      .number()
       .int()
       .positive('subscriptions.validation.durationDays')
       .optional(),

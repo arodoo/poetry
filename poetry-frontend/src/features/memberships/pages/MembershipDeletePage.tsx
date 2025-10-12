@@ -31,7 +31,8 @@ export default function MembershipDeletePage(): ReactElement {
       {
         onSuccess: (): void => {
           toast.push(t('ui.memberships.toast.deleted'))
-          navigate(`/${locale}/memberships`)
+          // intentionally fire-and-forget navigation after successful mutation
+          void navigate(`/${locale}/memberships`)
         },
         onError: (): void => {
           toast.push(t('ui.memberships.status.error'))
@@ -41,6 +42,7 @@ export default function MembershipDeletePage(): ReactElement {
   }
 
   function handleCancel(): void {
+    // intentional fire-and-forget navigation triggered by user's cancel action
     void navigate(`/${locale}/memberships/${membershipId}`)
   }
 

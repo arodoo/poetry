@@ -36,11 +36,9 @@ test.describe('Zones Delete Confirmation', (): void => {
     await confirmButton.click()
 
     const deleteResponse: Response = await deleteApiPromise
-    
+
     if (deleteResponse.status() === 200 || deleteResponse.status() === 204) {
-      await expect(
-        page.getByText(/Zone deleted successfully/i)
-      ).toBeVisible({
+      await expect(page.getByText(/Zone deleted successfully/i)).toBeVisible({
         timeout: 1000,
       })
 

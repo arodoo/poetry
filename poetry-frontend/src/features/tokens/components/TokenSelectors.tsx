@@ -20,8 +20,7 @@ export function TokenSelectors({
   current,
   onChange,
 }: TokenSelectorsProps): ReactElement {
-  const containerCls =
-    'grid gap-3 sm:grid-cols-3 text-sm p-3 border rounded'
+  const containerCls = 'grid gap-3 sm:grid-cols-3 text-sm p-3 border rounded'
   const surface = 'bg-[var(--color-surface,#fafafa)]'
   return (
     <div className={`${containerCls} ${surface}`}>

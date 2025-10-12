@@ -25,9 +25,7 @@ test.describe('Tokens Admin - Theme Update', (): void => {
 
     const initialValue = await themeSelect.inputValue()
     const allOptions = await themeSelect.locator('option').allTextContents()
-    const otherOption = allOptions.find(
-      (opt): boolean => opt !== initialValue
-    )
+    const otherOption = allOptions.find((opt): boolean => opt !== initialValue)
     expect(otherOption).toBeDefined()
 
     const optionToSelect = await themeSelect

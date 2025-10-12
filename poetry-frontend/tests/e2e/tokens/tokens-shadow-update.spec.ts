@@ -25,9 +25,7 @@ test.describe('Tokens Admin - Shadow Update', (): void => {
 
     const initialValue = await shadowSelect.inputValue()
     const allOptions = await shadowSelect.locator('option').allTextContents()
-    const otherOption = allOptions.find(
-      (opt): boolean => opt !== initialValue
-    )
+    const otherOption = allOptions.find((opt): boolean => opt !== initialValue)
     expect(otherOption).toBeDefined()
 
     const optionToSelect = await shadowSelect

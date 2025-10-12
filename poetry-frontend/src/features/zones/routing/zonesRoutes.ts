@@ -1,4 +1,3 @@
-
 /*
  * File: zonesRoutes.ts
  * Purpose: Locale-scoped route definitions for zones feature pages, including list, create, and edit views with React elements. Follows the seller codes routing pattern for consistency. Supports modular navigation and future route expansion.

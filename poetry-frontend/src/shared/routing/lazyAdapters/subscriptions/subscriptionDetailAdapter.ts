@@ -11,18 +11,16 @@ interface SubscriptionDetailModule {
   SubscriptionDetailPage?: () => ReactElement
 }
 
-export const SubscriptionDetailPageLazy:
-  LazyExoticComponent<() => ReactElement> = lazy(
+export const SubscriptionDetailPageLazy: LazyExoticComponent<
+  () => ReactElement
+> = lazy(
   (): Promise<{ default: () => ReactElement }> =>
     import(
       '../../../../features/subscriptions/pages/SubscriptionDetailPage'
-    ).then(
-      (module: unknown): { default: () => ReactElement } => {
-        const typed: SubscriptionDetailModule =
-          module as SubscriptionDetailModule
-        const page: () => ReactElement =
-          typed.default ?? (typed.SubscriptionDetailPage as () => ReactElement)
-        return { default: page }
-      }
-    )
+    ).then((module: unknown): { default: () => ReactElement } => {
+      const typed: SubscriptionDetailModule = module as SubscriptionDetailModule
+      const page: () => ReactElement =
+        typed.default ?? (typed.SubscriptionDetailPage as () => ReactElement)
+      return { default: page }
+    })
 )

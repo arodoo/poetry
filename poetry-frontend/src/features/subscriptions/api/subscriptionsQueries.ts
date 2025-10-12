@@ -12,8 +12,9 @@ import {
   type PageResponseDtoSubscriptionResponse,
 } from '../../../api/generated'
 
-export async function fetchSubscriptionsList():
-  Promise<SubscriptionResponse[]> {
+export async function fetchSubscriptionsList(): Promise<
+  SubscriptionResponse[]
+> {
   const response = await listSubscriptionsSdk()
   return (response.data as SubscriptionResponse[]) ?? []
 }

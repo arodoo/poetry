@@ -18,8 +18,9 @@ export interface MutationVariables<TInput> {
   readonly etag?: string
 }
 
-export function useSubscriptionsMutationSuccess():
-  (detail: SubscriptionResponse) => void {
+export function useSubscriptionsMutationSuccess(): (
+  detail: SubscriptionResponse
+) => void {
   const queryClient: ReturnType<typeof useQueryClient> = useQueryClient()
   return (detail: SubscriptionResponse): void => {
     const casted: { id?: string | number } = detail as {
@@ -41,11 +42,7 @@ export function useSubscriptionsEntityMutation<TInput>(
     input: TInput,
     etag?: string
   ) => Promise<SubscriptionResponse>
-): UseMutationResult<
-  SubscriptionResponse,
-  unknown,
-  MutationVariables<TInput>
-> {
+): UseMutationResult<SubscriptionResponse, unknown, MutationVariables<TInput>> {
   const onSuccess: (detail: SubscriptionResponse) => void =
     useSubscriptionsMutationSuccess()
   return useMutation({

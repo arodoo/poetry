@@ -18,7 +18,7 @@ test.describe('Tokens UI - Spacing Visual Update', () => {
 
     const initialValue = await spacingSelect.inputValue()
     const allOptions = await spacingSelect.locator('option').allTextContents()
-    const differentOption = allOptions.find(opt => opt !== initialValue)
+    const differentOption = allOptions.find((opt) => opt !== initialValue)
 
     if (!differentOption) {
       throw new Error('No alternative spacing option available')

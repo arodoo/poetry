@@ -11,7 +11,14 @@
 :root {
   color: var(--color-text);
   background-color: var(--color-background);
-  font-family: var(--font-family-base, system-ui, Avenir, Helvetica, Arial, sans-serif);
+  font-family: var(
+    --font-family-base,
+    system-ui,
+    Avenir,
+    Helvetica,
+    Arial,
+    sans-serif
+  );
   font-size: var(--font-size-base, 16px);
   line-height: 1.5;
 }

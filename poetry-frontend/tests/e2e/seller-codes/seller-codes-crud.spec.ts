@@ -171,10 +171,9 @@ test.describe('Seller Codes CRUD Operations', (): void => {
 
     await deleteButton.click()
 
-    await page.waitForURL(
-      `/en/seller-codes/${createdSellerCodeId}/delete`,
-      { timeout: 10000 }
-    )
+    await page.waitForURL(`/en/seller-codes/${createdSellerCodeId}/delete`, {
+      timeout: 10000,
+    })
 
     const confirmButton: Locator = page.getByRole('button', {
       name: /confirm/i,
@@ -184,9 +183,9 @@ test.describe('Seller Codes CRUD Operations', (): void => {
 
     await page.waitForURL('/en/seller-codes', { timeout: 10000 })
 
-    await expect(
-      page.getByText(/deleted successfully/i)
-    ).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(/deleted successfully/i)).toBeVisible({
+      timeout: 5000,
+    })
 
     await expect(page.locator(`text=${TEST_SELLER_CODE}`)).not.toBeVisible({
       timeout: 10000,

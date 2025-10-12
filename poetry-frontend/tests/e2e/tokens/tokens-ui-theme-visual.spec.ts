@@ -8,7 +8,9 @@ import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Theme Visual Update', () => {
-  test('should visually update theme colors in UI after save', async ({ page }) => {
+  test('should visually update theme colors in UI after save', async ({
+    page,
+  }) => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
     await page.waitForLoadState('networkidle')
@@ -18,7 +20,7 @@ test.describe('Tokens UI - Theme Visual Update', () => {
 
     const initialValue = await themeSelect.inputValue()
     const allOptions = await themeSelect.locator('option').allTextContents()
-    const differentOption = allOptions.find(opt => opt !== initialValue)
+    const differentOption = allOptions.find((opt) => opt !== initialValue)
 
     if (!differentOption) {
       throw new Error('No alternative theme option available')
@@ -57,4 +59,3 @@ test.describe('Tokens UI - Theme Visual Update', () => {
     expect(bodyAfter.bg).not.toBe(bodyBefore.bg)
   })
 })
-

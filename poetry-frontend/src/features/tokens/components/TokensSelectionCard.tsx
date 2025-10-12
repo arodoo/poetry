@@ -37,16 +37,18 @@ export function TokensSelectionCard({
         {t('ui.admin.tokens.currentSelection')}
       </h2>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {fields.map(({ key, labelKey }): ReactElement => (
-          <div key={key} className="space-y-1">
-            <Text size="sm" className="text-[var(--color-textMuted)]">
-              {t(labelKey)}
-            </Text>
-            <Text size="md" className="font-medium text-[var(--color-text)]">
-              {formatTokenLabel(current[key])}
-            </Text>
-          </div>
-        ))}
+        {fields.map(
+          ({ key, labelKey }): ReactElement => (
+            <div key={key} className="space-y-1">
+              <Text size="sm" className="text-[var(--color-textMuted)]">
+                {t(labelKey)}
+              </Text>
+              <Text size="md" className="font-medium text-[var(--color-text)]">
+                {formatTokenLabel(current[key])}
+              </Text>
+            </div>
+          )
+        )}
       </div>
     </div>
   )

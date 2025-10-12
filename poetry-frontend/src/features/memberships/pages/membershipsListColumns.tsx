@@ -18,14 +18,12 @@ export function buildMembershipsListColumns(
     {
       key: 'id',
       header: t('ui.memberships.table.id'),
-      accessor: (row: MembershipResponse): string =>
-        String(row.id ?? ''),
+      accessor: (row: MembershipResponse): string => String(row.id ?? ''),
     },
     {
       key: 'userId',
       header: t('ui.memberships.table.userId'),
-      accessor: (row: MembershipResponse): string =>
-        String(row.userId ?? ''),
+      accessor: (row: MembershipResponse): string => String(row.userId ?? ''),
     },
     {
       key: 'subscriptionId',
@@ -36,17 +34,13 @@ export function buildMembershipsListColumns(
     {
       key: 'sellerCode',
       header: t('ui.memberships.table.sellerCode'),
-      accessor: (row: MembershipResponse): string =>
-        row.sellerCode ?? '',
+      accessor: (row: MembershipResponse): string => row.sellerCode ?? '',
     },
     {
       key: 'status',
       header: t('ui.memberships.table.status'),
       accessor: (row: MembershipResponse): ReactElement => (
-        <Badge
-          tone={row.status === 'active' ? 'success' : 'neutral'}
-          size="sm"
-        >
+        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
           {t(`ui.memberships.status.${row.status}`)}
         </Badge>
       ),

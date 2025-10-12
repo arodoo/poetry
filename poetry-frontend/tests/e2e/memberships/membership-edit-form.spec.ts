@@ -40,9 +40,7 @@ test.describe('Membership Edit Form', (): void => {
 
     await expect(page.getByRole('heading', { name: /Edit/i })).toBeVisible()
 
-    const sellerCodeInput = page.getByTestId(
-      'membership-seller-code-input'
-    )
+    const sellerCodeInput = page.getByTestId('membership-seller-code-input')
     await expect(sellerCodeInput).toBeVisible()
     await page.waitForTimeout(1000)
 

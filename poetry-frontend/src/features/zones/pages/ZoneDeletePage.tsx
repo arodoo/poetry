@@ -1,4 +1,3 @@
-
 /*
  * File: ZoneDeletePage.tsx
  * Purpose: Zone delete confirmation page with cancel and confirm actions. Shows warning messages and handles soft delete mutation for zones. Ensures user safety and provides feedback during the deletion process.

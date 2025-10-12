@@ -8,7 +8,6 @@ import * as generatedSdk from '../../../../api/generated'
 import { getAuthStatus, postLogin } from '../../../../features/auth'
 
 // Keep original implementation but spy so real option propagation is tested.
-const originalFetchJson = undefined
 beforeAll((): void => {
   vi.spyOn(generatedSdk, 'status').mockResolvedValue({
     data: { authenticated: false },
@@ -17,7 +16,7 @@ beforeAll((): void => {
   })
   vi.spyOn(generatedSdk, 'login').mockImplementation(async (opts) => {
     // capture headers passed through the generated client
-    return {
+    return Promise.resolve({
       data: {
         accessToken: 'a',
         refreshToken: 'r',
@@ -26,7 +25,7 @@ beforeAll((): void => {
       },
       request: new Request('http://localhost/api/v1/auth/login'),
       response: new Response(),
-    }
+    } as any)
   })
 })
 

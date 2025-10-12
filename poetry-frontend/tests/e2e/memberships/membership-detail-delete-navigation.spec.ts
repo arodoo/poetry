@@ -35,14 +35,12 @@ test.describe('Membership Detail Delete Navigation', (): void => {
     await page.waitForURL(`/en/memberships/${membershipId}`)
     await page.waitForLoadState('networkidle')
 
-    await page.getByTestId('membership-detail-content').waitFor({ 
-      state: 'visible', 
-      timeout: 5000 
+    await page.getByTestId('membership-detail-content').waitFor({
+      state: 'visible',
+      timeout: 5000,
     })
 
-    const deleteButton: Locator = page.getByTestId(
-      'delete-membership-button'
-    )
+    const deleteButton: Locator = page.getByTestId('delete-membership-button')
     await deleteButton.waitFor({ state: 'visible', timeout: 5000 })
     await deleteButton.click()
 

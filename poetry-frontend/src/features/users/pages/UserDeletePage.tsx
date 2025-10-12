@@ -39,7 +39,8 @@ export default function UserDeletePage(): ReactElement {
       {
         onSuccess: (): void => {
           toast.push(t('ui.users.delete.success'))
-          navigate(`/${locale}/users`)
+          // intentionally fire-and-forget navigation after success
+          void navigate(`/${locale}/users`)
         },
         onError: (): void => {
           toast.push(t('ui.users.delete.error'))

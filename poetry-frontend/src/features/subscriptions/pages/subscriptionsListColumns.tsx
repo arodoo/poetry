@@ -36,10 +36,7 @@ export function buildSubscriptionsListColumns(
       key: 'status',
       header: t('ui.subscriptions.table.status'),
       accessor: (row: SubscriptionSummary): ReactElement => (
-        <Badge
-          tone={row.status === 'active' ? 'success' : 'neutral'}
-          size="sm"
-        >
+        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
           {t(`ui.subscriptions.status.${row.status}`)}
         </Badge>
       ),

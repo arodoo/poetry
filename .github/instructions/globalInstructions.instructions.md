@@ -34,6 +34,7 @@ applyTo: '**'
 - Long-term focus: write code that won't break in 1-2 years
 - Descriptive naming (e.g. `response` vs `r`)
 - English for code, comments, and vars
+- When try/catch, catch should always trow the specific error, never be empty 
 
 ### Formatting & Style
 - ESLint + Prettier (TS/JS), Google Java Style Guide (Java)

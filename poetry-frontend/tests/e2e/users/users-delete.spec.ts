@@ -3,15 +3,12 @@
  * Purpose: E2E tests for user deletion confirmation page.
  * All Rights Reserved. Arodi Emmanuel
  */
-import {
-  test,
-  expect,
-  type Page,
-  type Response,
-} from '@playwright/test'
+import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
-async function createTestUser(page: Page): Promise<{ id: string; username: string }> {
+async function createTestUser(
+  page: Page
+): Promise<{ id: string; username: string }> {
   await page.goto('/en/users/new')
   await page.waitForLoadState('networkidle')
   const timestamp: number = Date.now()

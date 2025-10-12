@@ -25,8 +25,6 @@ export function buildTokensBreadcrumbs(
 export function formatTokenLabel(value: string): string {
   return value
     .split('-')
-    .map((word: string): string =>
-      word.charAt(0).toUpperCase() + word.slice(1)
-    )
+    .map((word: string): string => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
 }

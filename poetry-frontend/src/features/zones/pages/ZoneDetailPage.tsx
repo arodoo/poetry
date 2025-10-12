@@ -1,4 +1,3 @@
-
 /*
  * File: ZoneDetailPage.tsx
  * Purpose: Displays detailed information about a zone, with edit and delete actions. Uses a DetailView layout and breadcrumb navigation for user orientation. Designed for extensibility and integration with admin features.
@@ -33,8 +32,10 @@ export default function ZoneDetailPage(): ReactElement {
   const sections: readonly DetailViewSection[] = zone
     ? buildZoneDetailSections(zone, t)
     : []
-  const breadcrumbItems: readonly BreadcrumbItem[] =
-    buildZoneDetailBreadcrumbs(locale, t)
+  const breadcrumbItems: readonly BreadcrumbItem[] = buildZoneDetailBreadcrumbs(
+    locale,
+    t
+  )
   const actions: ReactElement = (
     <Inline gap="sm">
       <Button

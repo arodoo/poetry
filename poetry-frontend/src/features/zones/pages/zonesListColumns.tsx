@@ -1,4 +1,3 @@
-
 /*
  * File: zonesListColumns.tsx
  * Purpose: Column definitions for the zones DataTable, with accessors for rendering zone name, description, manager, and action buttons. Provides type-safe, locale-aware table structure for consistent UI. Designed for extensibility and integration with admin features.
@@ -32,10 +31,7 @@ export function buildZonesListColumns(
       key: 'status',
       header: t('ui.zones.table.status'),
       accessor: (row: ZoneResponse): ReactElement => (
-        <Badge
-          tone={row.status === 'active' ? 'success' : 'neutral'}
-          size="sm"
-        >
+        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
           {t(`ui.zones.status.${row.status}`)}
         </Badge>
       ),
@@ -43,8 +39,7 @@ export function buildZonesListColumns(
     {
       key: 'managerId',
       header: t('ui.zones.table.manager'),
-      accessor: (row: ZoneResponse): string =>
-        String(row.managerId ?? '-'),
+      accessor: (row: ZoneResponse): string => String(row.managerId ?? '-'),
     },
     {
       key: 'actions',

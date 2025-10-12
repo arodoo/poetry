@@ -25,9 +25,7 @@ test.describe('Tokens Admin - Font Size Update', (): void => {
 
     const initialValue = await fontSizeSelect.inputValue()
     const allOptions = await fontSizeSelect.locator('option').allTextContents()
-    const otherOption = allOptions.find(
-      (opt): boolean => opt !== initialValue
-    )
+    const otherOption = allOptions.find((opt): boolean => opt !== initialValue)
     expect(otherOption).toBeDefined()
 
     const optionToSelect = await fontSizeSelect

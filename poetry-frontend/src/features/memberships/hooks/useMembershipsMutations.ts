@@ -32,9 +32,7 @@ interface DeleteMembershipVariables {
   readonly etag?: string
 }
 
-function useMembershipsMutationSuccess(): (
-  detail: MembershipResponse
-) => void {
+function useMembershipsMutationSuccess(): (detail: MembershipResponse) => void {
   const queryClient = useQueryClient()
   return (detail: MembershipResponse): void => {
     const id = String(detail.id)

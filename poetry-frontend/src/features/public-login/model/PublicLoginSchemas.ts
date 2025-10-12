@@ -16,12 +16,15 @@ import type { LoginRequest } from '../../../api/generated'
  */
 export type PublicLoginRequest = LoginRequest
 
-export const PublicLoginRequestSchema: z.ZodType<PublicLoginRequest> = z.object({
-  username: z.string().min(1, 'ui.publicLogin.errors.username'),
-  password: z.string().min(1, 'ui.publicLogin.errors.password'),
-}) as z.ZodType<PublicLoginRequest>
+export const PublicLoginRequestSchema: z.ZodType<PublicLoginRequest> = z.object(
+  {
+    username: z.string().min(1, 'ui.publicLogin.errors.username'),
+    password: z.string().min(1, 'ui.publicLogin.errors.password'),
+  }
+) as z.ZodType<PublicLoginRequest>
 
-export const LoginFormSchema: z.ZodType<PublicLoginRequest> = PublicLoginRequestSchema
+export const LoginFormSchema: z.ZodType<PublicLoginRequest> =
+  PublicLoginRequestSchema
 export type LoginForm = PublicLoginRequest
 
 /**

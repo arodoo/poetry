@@ -1,4 +1,3 @@
-
 /*
  * File: zoneEditHandlers.ts
  * Purpose: Event handler for zone edit page submit. Transforms form state into UpdateZoneInput with version from the existing zone entity and triggers mutation with navigation and toast callbacks. Supports optimistic locking and user feedback.
@@ -29,7 +28,7 @@ export function buildZoneEditSubmitHandler(
 ): (e: FormEvent<HTMLFormElement>) => void {
   return (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    
+
     if (zone?.version === undefined) {
       return
     }

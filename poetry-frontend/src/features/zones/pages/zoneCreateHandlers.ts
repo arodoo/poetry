@@ -1,4 +1,3 @@
-
 /*
  * File: zoneCreateHandlers.ts
  * Purpose: Event handlers for the zone creation page, including form submission with validation and cancel navigation. Transforms form state into CreateZoneInput and triggers mutation callbacks. Designed for extensibility and integration with form logic.

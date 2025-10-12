@@ -41,4 +41,3 @@ export async function fetchZoneById(id: string): Promise<ZoneDetail> {
   const data = response.data as ZoneResponse
   return parseZoneDetail(data)
 }
-

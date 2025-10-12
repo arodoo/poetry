@@ -29,9 +29,9 @@ test('pagination displays correct info for first page', async ({
   const json = await apiRes.json()
   expect(json.content).toBeDefined()
   expect(json.totalElements).toBeGreaterThan(0)
-  await expect(
-    page.getByText(/Showing 1-\d+ of \d+/)
-  ).toBeVisible({ timeout: 10000 })
+  await expect(page.getByText(/Showing 1-\d+ of \d+/)).toBeVisible({
+    timeout: 10000,
+  })
   await expect(page.getByText('Page 1')).toBeVisible()
 })
 

@@ -23,13 +23,7 @@ interface SellerCodesQueryKeys {
     page: number,
     size: number,
     search?: string
-  ): readonly [
-    'sellerCodes',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ]
+  ): readonly ['sellerCodes', 'page', number, number, string | undefined]
   detail(id: string): readonly ['sellerCodes', 'detail', string]
 }
 
@@ -42,13 +36,7 @@ export const sellerCodesQueryKeys: SellerCodesQueryKeys = {
     page: number,
     size: number,
     search?: string
-  ): readonly [
-    'sellerCodes',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ] {
+  ): readonly ['sellerCodes', 'page', number, number, string | undefined] {
     return ['sellerCodes', 'page', page, size, search] as const
   },
   detail(id: string): readonly ['sellerCodes', 'detail', string] {
@@ -89,8 +77,7 @@ export function useSellerCodesPageQuery(
   const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: sellerCodesQueryKeys.page(page, size, search),
-    queryFn: (): Promise<PageResp> =>
-      fetchSellerCodesPage(page, size, search),
+    queryFn: (): Promise<PageResp> => fetchSellerCodesPage(page, size, search),
     enabled: hasAccessToken,
     staleTime: 1000 * 30,
   })

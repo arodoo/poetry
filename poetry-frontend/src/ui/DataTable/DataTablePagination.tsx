@@ -17,9 +17,7 @@ export interface PaginationProps {
   readonly onPageSizeChange: (size: number) => void
 }
 
-export function DataTablePagination(
-  props: PaginationProps
-): ReactElement {
+export function DataTablePagination(props: PaginationProps): ReactElement {
   const start = props.currentPage * props.pageSize + 1
   const end = Math.min(
     (props.currentPage + 1) * props.pageSize,

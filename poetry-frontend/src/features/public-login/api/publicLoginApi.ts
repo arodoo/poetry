@@ -17,7 +17,7 @@ import {
 
 export async function loginRequest(
   payload: LoginForm,
-  _signal?: AbortSignal
+  _?: AbortSignal
 ): Promise<AuthTokens> {
   const requestBody: LoginRequest = {
     username: payload.username,

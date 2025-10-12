@@ -31,36 +31,64 @@ export function TokensSelectionForm(
     labelKey: I18nKey
     options: readonly { key: string }[]
   }[] = [
-    { key: 'theme', labelKey: 'ui.tokens.fields.theme', options: props.bundle.themes },
-    { key: 'font', labelKey: 'ui.tokens.fields.font', options: props.bundle.fonts },
-    { key: 'fontSize', labelKey: 'ui.tokens.fields.fontSize', options: props.bundle.fontSizes },
-    { key: 'spacing', labelKey: 'ui.tokens.fields.spacing', options: props.bundle.spacings },
-    { key: 'radius', labelKey: 'ui.tokens.fields.radius', options: props.bundle.radius },
-    { key: 'shadow', labelKey: 'ui.tokens.fields.shadow', options: props.bundle.shadows },
+    {
+      key: 'theme',
+      labelKey: 'ui.tokens.fields.theme',
+      options: props.bundle.themes,
+    },
+    {
+      key: 'font',
+      labelKey: 'ui.tokens.fields.font',
+      options: props.bundle.fonts,
+    },
+    {
+      key: 'fontSize',
+      labelKey: 'ui.tokens.fields.fontSize',
+      options: props.bundle.fontSizes,
+    },
+    {
+      key: 'spacing',
+      labelKey: 'ui.tokens.fields.spacing',
+      options: props.bundle.spacings,
+    },
+    {
+      key: 'radius',
+      labelKey: 'ui.tokens.fields.radius',
+      options: props.bundle.radius,
+    },
+    {
+      key: 'shadow',
+      labelKey: 'ui.tokens.fields.shadow',
+      options: props.bundle.shadows,
+    },
   ]
 
   return (
     <form onSubmit={props.onSubmit} className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {fields.map(({ key, labelKey, options }): ReactElement => (
-          <div key={key} className="space-y-2">
-            <Label htmlFor={key}>{props.t(labelKey)}</Label>
-            <Select
-              id={key}
-              value={props.formState[key]}
-              onChange={(e): void =>
-                { props.onFieldChange(key, e.currentTarget.value); }
-              }
-              disabled={props.isSubmitting}
-            >
-              {options.map((opt): ReactElement => (
-                <option key={opt.key} value={opt.key}>
-                  {formatTokenLabel(opt.key)}
-                </option>
-              ))}
-            </Select>
-          </div>
-        ))}
+        {fields.map(
+          ({ key, labelKey, options }): ReactElement => (
+            <div key={key} className="space-y-2">
+              <Label htmlFor={key}>{props.t(labelKey)}</Label>
+              <Select
+                id={key}
+                value={props.formState[key]}
+                onChange={(e): void => {
+                  props.onFieldChange(key, e.currentTarget.value)
+                }}
+                disabled={props.isSubmitting}
+              >
+                {options.map(
+                  (opt): ReactElement => (
+                    <option key={opt.key} value={opt.key}>
+                      {formatTokenLabel(opt.key)}
+                    </option>
+                  )
+                )}
+              </Select>
+            </div>
+          )
+        )}
       </div>
       <div className="flex gap-3">
         <Button type="submit" disabled={props.isSubmitting}>

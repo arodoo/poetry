@@ -39,4 +39,3 @@ export const UpdateZoneSchema: z.ZodType<UpdateZoneInput> = z.object({
   status: z.enum(['active', 'inactive']).optional(),
   version: z.number({ required_error: 'zones.validation.version' }),
 }) as z.ZodType<UpdateZoneInput>
-

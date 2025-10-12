@@ -21,7 +21,8 @@ import { parseSellerCodeDetail } from './sellerCodesApiShared'
 export async function createSellerCode(
   input: CreateSellerCodeInput
 ): Promise<SellerCodeDetail> {
-  const validatedInput: CreateSellerCodeInput = CreateSellerCodeSchema.parse(input)
+  const validatedInput: CreateSellerCodeInput =
+    CreateSellerCodeSchema.parse(input)
   const response = await createSellerCodeSdk({
     body: validatedInput,
   })
@@ -34,7 +35,8 @@ export async function updateSellerCode(
   input: UpdateSellerCodeInput,
   etag?: string
 ): Promise<SellerCodeDetail> {
-  const validatedInput: UpdateSellerCodeInput = UpdateSellerCodeSchema.parse(input)
+  const validatedInput: UpdateSellerCodeInput =
+    UpdateSellerCodeSchema.parse(input)
   const headers = etag ? { 'If-Match': etag } : {}
   const response = await updateSellerCodeSdk({
     path: { id: Number(id) },
@@ -56,6 +58,7 @@ export async function deleteSellerCode(
     path: { id: Number(id) },
     headers,
   } as any)
-  const data: SellerCodeResponse = (responseAny?.data ?? {}) as SellerCodeResponse
+  const data: SellerCodeResponse = (responseAny?.data ??
+    {}) as SellerCodeResponse
   return parseSellerCodeDetail(data)
 }

@@ -14,7 +14,11 @@ let intervalId: ReturnType<typeof setInterval> | null = null
 
 async function checkAndRefreshToken(): Promise<void> {
   const tokens = tokenStorage.load()
-  if (!tokens?.accessToken || !tokens?.refreshToken) {
+  if (!tokens) {
+    return
+  }
+  const { accessToken, refreshToken } = tokens
+  if (!accessToken || !refreshToken) {
     return
   }
 
@@ -49,7 +53,11 @@ export function stopTokenRefreshScheduler(): void {
 
 export function scheduleNextRefresh(): void {
   const tokens = tokenStorage.load()
-  if (!tokens?.accessToken) {
+  if (!tokens) {
+    return
+  }
+  const { accessToken } = tokens
+  if (!accessToken) {
     return
   }
   const expiryTime = getTokenExpiryTime(tokens.accessToken)

@@ -25,9 +25,7 @@ test.describe('Tokens Admin - Radius Update', (): void => {
 
     const initialValue = await radiusSelect.inputValue()
     const allOptions = await radiusSelect.locator('option').allTextContents()
-    const otherOption = allOptions.find(
-      (opt): boolean => opt !== initialValue
-    )
+    const otherOption = allOptions.find((opt): boolean => opt !== initialValue)
     expect(otherOption).toBeDefined()
 
     const optionToSelect = await radiusSelect

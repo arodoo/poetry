@@ -7,8 +7,7 @@
  */
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import { tokenStorage } from '../../../shared/security/tokenStorage'
-import { refreshTokenIfNeeded } from
-  '../../../shared/security/tokenRefreshService'
+import { refreshTokenIfNeeded } from '../../../shared/security/tokenRefreshService'
 import * as authApi from '../../../features/auth/api/authApi'
 
 vi.mock('../../../features/auth/api/authApi')

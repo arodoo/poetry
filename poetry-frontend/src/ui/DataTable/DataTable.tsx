@@ -39,15 +39,17 @@ export function DataTable<T>(props: DataTableProps<T>): ReactElement {
             <table className={s.t}>
               <thead className={s.th}>
                 <tr>
-                  {props.columns.map((col): ReactElement => (
-                    <th
-                      key={col.key}
-                      scope="col"
-                      className={clsx(s.thC, s.thCol, col.className)}
-                    >
-                      {col.header}
-                    </th>
-                  ))}
+                  {props.columns.map(
+                    (col): ReactElement => (
+                      <th
+                        key={col.key}
+                        scope="col"
+                        className={clsx(s.thC, s.thCol, col.className)}
+                      >
+                        {col.header}
+                      </th>
+                    )
+                  )}
                 </tr>
               </thead>
               <DataTableBody

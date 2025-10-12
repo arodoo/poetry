@@ -22,8 +22,7 @@ export function useCreateZoneMutation(): UseMutationResult<
   unknown,
   CreateZoneInput
 > {
-  const onSuccess: (detail: ZoneDetail) => void =
-    useZonesMutationSuccess()
+  const onSuccess: (detail: ZoneDetail) => void = useZonesMutationSuccess()
   return useMutation({
     mutationFn: createZone,
     onSuccess,
@@ -35,8 +34,7 @@ export function useUpdateZoneMutation(): UseMutationResult<
   unknown,
   { id: string; input: UpdateZoneInput; etag?: string }
 > {
-  const onSuccess: (detail: ZoneDetail) => void =
-    useZonesMutationSuccess()
+  const onSuccess: (detail: ZoneDetail) => void = useZonesMutationSuccess()
   return useMutation({
     mutationFn: ({ id, input, etag }) => updateZone(id, input, etag),
     onSuccess,

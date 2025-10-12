@@ -8,7 +8,9 @@ import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Shadow Visual Update', () => {
-  test('should visually update box shadow in UI after save', async ({ page }) => {
+  test('should visually update box shadow in UI after save', async ({
+    page,
+  }) => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
     await page.waitForLoadState('networkidle')
@@ -18,7 +20,7 @@ test.describe('Tokens UI - Shadow Visual Update', () => {
 
     const initialValue = await shadowSelect.inputValue()
     const allOptions = await shadowSelect.locator('option').allTextContents()
-    const differentOption = allOptions.find(opt => opt !== initialValue)
+    const differentOption = allOptions.find((opt) => opt !== initialValue)
 
     if (!differentOption) {
       throw new Error('No alternative shadow option available')

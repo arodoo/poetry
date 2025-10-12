@@ -43,11 +43,7 @@ export default function MembershipsListPage(): ReactElement {
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildMembershipListBreadcrumbs(locale, t)
   const actions: ReactElement = (
-    <Button
-      to={`/${locale}/memberships/new`}
-      size="md"
-      width="fixed-large"
-    >
+    <Button to={`/${locale}/memberships/new`} size="md" width="fixed-large">
       {t('ui.memberships.actions.new')}
     </Button>
   )

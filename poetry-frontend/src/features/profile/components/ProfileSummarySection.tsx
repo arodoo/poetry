@@ -32,7 +32,10 @@ export function ProfileSummarySection(
       username: username ?? '',
       email: props.profile.email ?? '',
       locale: props.profile.locale ?? 'en',
-      version: typeof props.profile.version === 'number' ? props.profile.version : Number(props.profile.version) || 0,
+      version:
+        typeof props.profile.version === 'number'
+          ? props.profile.version
+          : Number(props.profile.version) || 0,
     })
   }
 

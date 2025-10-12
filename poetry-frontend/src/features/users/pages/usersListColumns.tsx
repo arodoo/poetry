@@ -29,10 +29,7 @@ export function buildUsersListColumns(
       key: 'status',
       header: t('ui.users.table.status'),
       accessor: (row: UserSummary): ReactElement => (
-        <Badge
-          tone={row.status === 'active' ? 'success' : 'neutral'}
-          size="sm"
-        >
+        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
           {t(`ui.users.status.${row.status}`)}
         </Badge>
       ),

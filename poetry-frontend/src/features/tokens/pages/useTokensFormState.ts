@@ -38,10 +38,12 @@ export function useTokensFormState(
     field: keyof TokensFormState,
     value: string
   ): void => {
-    setFormState((prev: TokensFormState): TokensFormState => ({
-      ...prev,
-      [field]: value,
-    }))
+    setFormState(
+      (prev: TokensFormState): TokensFormState => ({
+        ...prev,
+        [field]: value,
+      })
+    )
   }
 
   const resetForm: (initial: TokensFormState) => void = (

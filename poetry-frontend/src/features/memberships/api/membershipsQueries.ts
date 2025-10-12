@@ -12,11 +12,10 @@ import {
   type PageResponseDtoMembershipResponse,
 } from '../../../api/generated'
 
-export async function fetchMembershipsList(): Promise<
-  MembershipResponse[]
-> {
+export async function fetchMembershipsList(): Promise<MembershipResponse[]> {
   const response = await listMembershipsSdk()
-  return (response.data as MembershipResponse[]) ?? []
+  if (!response.data) return []
+  return response.data as unknown as MembershipResponse[]
 }
 
 export async function fetchMembershipsPage(

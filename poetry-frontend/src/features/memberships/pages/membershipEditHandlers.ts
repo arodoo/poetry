@@ -21,15 +21,14 @@ export function createEditSubmitHandler(
   t: (key: string) => string
 ): (values: MembershipFormValues) => void {
   return (values: MembershipFormValues): void => {
-    const validatedInput: UpdateMembershipInput =
-      UpdateMembershipSchema.parse({
-        userId: values.userId,
-        subscriptionId: values.subscriptionId,
-        sellerCode: values.sellerCode,
-        status: values.status,
-        allZones: values.allZones,
-        zoneIds: values.zoneIds,
-      })
+    const validatedInput: UpdateMembershipInput = UpdateMembershipSchema.parse({
+      userId: values.userId,
+      subscriptionId: values.subscriptionId,
+      sellerCode: values.sellerCode,
+      status: values.status,
+      allZones: values.allZones,
+      zoneIds: values.zoneIds,
+    })
     mutate(
       { id: membershipId, input: validatedInput, etag },
       {

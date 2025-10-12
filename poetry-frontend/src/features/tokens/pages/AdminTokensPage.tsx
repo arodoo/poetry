@@ -31,12 +31,25 @@ export function AdminTokensPage(): ReactElement {
   const { data, isLoading, error } = useTokensQuery()
   const mutation = useUpdateSelectionMutation()
 
+  // Ensure hooks are called unconditionally (rules-of-hooks). Provide a safe
+  // default initial value when data is not yet available. This keeps behavior
+  // identical while satisfying lint rules.
+  const safeInitial = data?.bundle?.current ?? {
+    theme: 'light',
+    font: 'system',
+    fontSize: 'medium',
+    spacing: 'medium',
+    radius: 'medium',
+    shadow: 'none',
+  }
+
+  const { formState, setField, resetForm } = useTokensFormState(safeInitial)
+
   if (isLoading) return <p>{t('ui.admin.tokens.loading')}</p>
   if (error) return <p>{t('ui.admin.tokens.error')}</p>
   if (!data) return <p>{t('ui.admin.tokens.empty')}</p>
 
   const { bundle } = data
-  const { formState, setField, resetForm } = useTokensFormState(bundle.current)
   const breadcrumbs = buildTokensBreadcrumbs(locale, t)
 
   const handleSubmit = createTokensSubmitHandler(

@@ -18,9 +18,7 @@ export interface LocaleServiceResult {
 export class LocaleService {
   private readonly env: ReturnType<typeof getEnv> = getEnv()
 
-  public async fetchUserLocale(
-    userId = 'demo'
-  ): Promise<LocaleServiceResult> {
+  public async fetchUserLocale(userId = 'demo'): Promise<LocaleServiceResult> {
     try {
       // Align with backend versioned base path "/api/v1"
       const response: Response = await fetch('/api/v1/me/locale', {

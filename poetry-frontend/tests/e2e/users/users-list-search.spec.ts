@@ -26,10 +26,7 @@ test('search input is visible and interactive', async ({
   const searchInput = page.getByTestId('table-search-input')
   await expect(searchInput).toBeVisible()
   await expect(searchInput).toBeEnabled()
-  await expect(searchInput).toHaveAttribute(
-    'placeholder',
-    /Search/i
-  )
+  await expect(searchInput).toHaveAttribute('placeholder', /Search/i)
 })
 
 test('search for user by typing maintains focus', async ({
@@ -83,10 +80,9 @@ test('search for "20" finds matching records', async ({
   const json = await apiRes.json()
   expect(json.content).toBeDefined()
   expect(json.totalElements).toBeGreaterThan(0)
-  await expect(page.locator('tbody tr')).toHaveCount(
-    json.content.length,
-    { timeout: 5000 }
-  )
+  await expect(page.locator('tbody tr')).toHaveCount(json.content.length, {
+    timeout: 5000,
+  })
 })
 
 test('clear button clears search and reloads data', async ({

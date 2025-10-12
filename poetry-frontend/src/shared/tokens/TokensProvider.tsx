@@ -6,7 +6,7 @@
  failures and triggers offline font loading for available font bundles.
  All Rights Reserved. Arodi Emmanuel
 */
- 
+
 import type { PropsWithChildren, ReactNode } from 'react'
 import { createContext, useEffect, useMemo } from 'react'
 import { useTokensQuery } from '../../features/tokens/hooks/useTokensQueries'

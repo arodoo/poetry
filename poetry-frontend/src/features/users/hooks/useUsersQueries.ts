@@ -19,13 +19,7 @@ export const usersQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'users',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ]
+  ): readonly ['users', 'page', number, number, string | undefined]
   detail(id: string): readonly ['users', 'detail', string]
 } = {
   root: ['users'],
@@ -36,13 +30,7 @@ export const usersQueryKeys: {
     pageNum: number,
     pageSize: number,
     search?: string
-  ): readonly [
-    'users',
-    'page',
-    number,
-    number,
-    string | undefined,
-  ] {
+  ): readonly ['users', 'page', number, number, string | undefined] {
     return ['users', 'page', pageNum, pageSize, search] as const
   },
   detail(id: string): readonly ['users', 'detail', string] {

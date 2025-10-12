@@ -4,7 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect } from 'vitest'
-import { subscriptionsQueryKeys, useSubscriptionsListQuery } from '../../../../features/subscriptions/hooks/useSubscriptionsQueries'
+import {
+  subscriptionsQueryKeys,
+  useSubscriptionsListQuery,
+} from '../../../../features/subscriptions/hooks/useSubscriptionsQueries'
 
 describe('Subscriptions Queries Hook', () => {
   it('subscriptionsQueryKeys should build stable keys', () => {

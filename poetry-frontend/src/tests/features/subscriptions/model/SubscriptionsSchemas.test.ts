@@ -5,7 +5,10 @@
  */
 import { describe, it, expect } from 'vitest'
 import type { CreateSubscriptionInput } from '../../../../features/subscriptions/model/SubscriptionsCommands'
-import { CreateSubscriptionSchema, UpdateSubscriptionSchema } from '../../../../features/subscriptions/model/SubscriptionsCommands'
+import {
+  CreateSubscriptionSchema,
+  UpdateSubscriptionSchema,
+} from '../../../../features/subscriptions/model/SubscriptionsCommands'
 
 describe('Subscriptions Schemas', () => {
   it('CreateSubscriptionSchema should parse a valid payload', () => {

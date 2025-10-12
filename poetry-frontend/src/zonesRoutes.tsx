@@ -1,4 +1,3 @@
-
 /*
  * File: zonesRoutes.tsx
  * Purpose: Admin route configurations for zones, with AdminRoute protection for list, create, and edit pages. Follows the seller-codes pattern with lazy loading and role-based access control. Designed for maintainability and secure navigation.
@@ -10,20 +9,20 @@ import { Route } from 'react-router-dom'
 import { AdminRoute } from './shared/routing/AdminRoute'
 import { lazy } from 'react'
 
-const ZonesListPageLazy = lazy(() => 
-  import('./features/zones/pages/ZonesListPage')
+const ZonesListPageLazy = lazy(
+  () => import('./features/zones/pages/ZonesListPage')
 )
-const ZoneDetailPageLazy = lazy(() => 
-  import('./features/zones/pages/ZoneDetailPage')
+const ZoneDetailPageLazy = lazy(
+  () => import('./features/zones/pages/ZoneDetailPage')
 )
-const ZoneCreatePageLazy = lazy(() => 
-  import('./features/zones/pages/ZoneCreatePage')
+const ZoneCreatePageLazy = lazy(
+  () => import('./features/zones/pages/ZoneCreatePage')
 )
-const ZoneEditPageLazy = lazy(() => 
-  import('./features/zones/pages/ZoneEditPage')
+const ZoneEditPageLazy = lazy(
+  () => import('./features/zones/pages/ZoneEditPage')
 )
-const ZoneDeletePageLazy = lazy(() => 
-  import('./features/zones/pages/ZoneDeletePage')
+const ZoneDeletePageLazy = lazy(
+  () => import('./features/zones/pages/ZoneDeletePage')
 )
 
 export function ZonesRoutes(): ReactElement[] {

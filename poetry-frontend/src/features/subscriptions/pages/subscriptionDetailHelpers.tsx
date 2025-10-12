@@ -4,14 +4,20 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { SubscriptionResponse } from '../../../api/generated'
-import type { DetailViewSection, DetailViewItem } from '../../../ui/DetailView/DetailView'
+import type {
+  DetailViewSection,
+  DetailViewItem,
+} from '../../../ui/DetailView/DetailView'
 import { Badge } from '../../../ui/Badge/Badge'
 
 export function formatCurrency(amount: number, currency: string): string {
   return `${currency} ${amount.toFixed(2)}`
 }
 
-export function formatDuration(days: number, t: (key: string) => string): string {
+export function formatDuration(
+  days: number,
+  t: (key: string) => string
+): string {
   if (days === 1) {
     return `${days} day`
   }
@@ -54,7 +60,10 @@ export function buildSubscriptionDetailSections(
       items: [
         {
           label: t('ui.subscriptions.table.price'),
-          value: formatCurrency(subscription.price ?? 0, subscription.currency ?? 'USD'),
+          value: formatCurrency(
+            subscription.price ?? 0,
+            subscription.currency ?? 'USD'
+          ),
         },
         {
           label: t('ui.subscriptions.table.duration'),
@@ -63,14 +72,13 @@ export function buildSubscriptionDetailSections(
         {
           label: t('ui.subscriptions.table.status'),
           value: (
-            <Badge 
+            <Badge
               tone={subscription.status === 'active' ? 'success' : 'neutral'}
               data-testid="subscription-status-display"
             >
-              {subscription.status === 'active' 
-                ? t('ui.subscriptions.status.active') 
-                : t('ui.subscriptions.status.inactive')
-              }
+              {subscription.status === 'active'
+                ? t('ui.subscriptions.status.active')
+                : t('ui.subscriptions.status.inactive')}
             </Badge>
           ),
         },

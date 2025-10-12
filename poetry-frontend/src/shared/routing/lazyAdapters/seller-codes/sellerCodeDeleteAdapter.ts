@@ -14,12 +14,12 @@ interface SellerCodeDeleteModule {
 export const SellerCodeDeletePageLazy: LazyExoticComponent<() => ReactElement> =
   lazy(
     (): Promise<{ default: () => ReactElement }> =>
-      import('../../../../features/seller-codes/pages/SellerCodeDeletePage').then(
-        (module: unknown): { default: () => ReactElement } => {
-          const typed: SellerCodeDeleteModule = module as SellerCodeDeleteModule
-          const page: () => ReactElement =
-            typed.default ?? (typed.SellerCodeDeletePage as () => ReactElement)
-          return { default: page }
-        }
-      )
+      import(
+        '../../../../features/seller-codes/pages/SellerCodeDeletePage'
+      ).then((module: unknown): { default: () => ReactElement } => {
+        const typed: SellerCodeDeleteModule = module as SellerCodeDeleteModule
+        const page: () => ReactElement =
+          typed.default ?? (typed.SellerCodeDeletePage as () => ReactElement)
+        return { default: page }
+      })
   )

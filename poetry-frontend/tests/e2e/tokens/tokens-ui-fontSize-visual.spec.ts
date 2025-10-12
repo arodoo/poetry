@@ -8,7 +8,9 @@ import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Font Size Visual Update', () => {
-  test('should visually update font sizes in UI after save', async ({ page }) => {
+  test('should visually update font sizes in UI after save', async ({
+    page,
+  }) => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
     await page.waitForLoadState('networkidle')
@@ -18,7 +20,7 @@ test.describe('Tokens UI - Font Size Visual Update', () => {
 
     const initialValue = await fontSizeSelect.inputValue()
     const allOptions = await fontSizeSelect.locator('option').allTextContents()
-    const differentOption = allOptions.find(opt => opt !== initialValue)
+    const differentOption = allOptions.find((opt) => opt !== initialValue)
 
     if (!differentOption) {
       throw new Error('No alternative fontSize option available')
