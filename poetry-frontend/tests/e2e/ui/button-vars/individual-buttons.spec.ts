@@ -35,7 +35,12 @@ test('edit button has primary text color', async ({
 }: {
   page: Page
 }): Promise<void> => {
-  const editBtn = page.locator('[data-testid^="edit-user-"]').first()
+  const viewBtn = page.locator('[data-testid^="view-user-"]').first()
+  await expect(viewBtn).toBeVisible()
+  await viewBtn.click()
+  await page.waitForLoadState('networkidle')
+  
+  const editBtn = page.locator('[data-testid="edit-user-button"]')
   await expect(editBtn).toBeVisible()
   const textColor: string = await editBtn.evaluate(
     (el) => getComputedStyle(el).color

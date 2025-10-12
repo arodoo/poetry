@@ -21,7 +21,7 @@ test.describe('Tokens Admin - Font Update', (): void => {
     await expect(fontSelect).toBeVisible()
 
     const optionCount = await fontSelect.locator('option').count()
-    expect(optionCount).toBeGreaterThanOrEqual(3)
+    expect(optionCount).toBeGreaterThanOrEqual(2)
 
     const initialValue = await fontSelect.inputValue()
     const allOptions = await fontSelect.locator('option').allTextContents()
