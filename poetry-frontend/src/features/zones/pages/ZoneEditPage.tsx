@@ -1,9 +1,8 @@
+
 /*
- * ZoneEditPage.tsx
- * Zone edit page with FormLayout pre-populated from API data
- * using zone detail query. Handles update mutation with version
- * for optimistic locking and navigation after success.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZoneEditPage.tsx
+ * Purpose: Page for editing an existing zone, with a form layout pre-populated from API data. Handles update mutation with version for optimistic locking and navigation after success. Built for maintainability and integration with admin workflows.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'

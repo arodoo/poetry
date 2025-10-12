@@ -1,8 +1,8 @@
+
 /*
- * ZoneDetailPage.tsx
- * Zone detail page displaying zone information with edit and
- * delete actions. Uses DetailView layout with breadcrumb navigation.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZoneDetailPage.tsx
+ * Purpose: Displays detailed information about a zone, with edit and delete actions. Uses a DetailView layout and breadcrumb navigation for user orientation. Designed for extensibility and integration with admin features.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'

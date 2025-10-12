@@ -1,9 +1,8 @@
+
 /*
- * zoneFormSections.tsx
- * Form section builders for zone create and edit pages using
- * FormLayout component. Returns readonly section arrays with
- * title description and ZonesFormFields as field content.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zoneFormSections.tsx
+ * Purpose: Builders for form sections in zone create and edit pages, using the FormLayout component. Returns readonly section arrays with title, description, and ZonesFormFields as field content. Improves modularity and reusability of form layouts.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { FormLayoutSection } from '../../../ui/FormLayout/FormLayout'

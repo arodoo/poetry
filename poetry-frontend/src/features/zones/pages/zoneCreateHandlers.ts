@@ -1,9 +1,8 @@
+
 /*
- * zoneCreateHandlers.ts
- * Event handlers for zone create page including form submit
- * with validation and cancel navigation. Transforms form state
- * into CreateZoneInput and triggers mutation callback.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zoneCreateHandlers.ts
+ * Purpose: Event handlers for the zone creation page, including form submission with validation and cancel navigation. Transforms form state into CreateZoneInput and triggers mutation callbacks. Designed for extensibility and integration with form logic.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { FormEvent } from 'react'

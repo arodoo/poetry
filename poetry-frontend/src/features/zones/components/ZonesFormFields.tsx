@@ -1,9 +1,8 @@
+
 /*
- * ZonesFormFields.tsx
- * Form input fields for zones create and edit forms including
- * name description and manager selection. Centralizes labels
- * inputs and change handlers for consistency across forms.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZonesFormFields.tsx
+ * Purpose: Renders form input fields for zone creation and editing, including name, description, and manager selection. Centralizes labels, inputs, and change handlers for consistency and reusability across forms. Supports accessibility and localization for a better user experience.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement, ChangeEvent } from 'react'

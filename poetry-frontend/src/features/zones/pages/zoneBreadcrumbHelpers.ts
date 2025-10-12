@@ -1,9 +1,8 @@
+
 /*
- * zoneBreadcrumbHelpers.ts
- * Helper functions to build breadcrumb navigation trails for
- * zones feature pages including list create edit and detail.
- * Returns locale-aware BreadcrumbItem arrays.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zoneBreadcrumbHelpers.ts
+ * Purpose: Helper functions to build breadcrumb navigation trails for all zones feature pages, including list, create, edit, and detail views. Returns locale-aware BreadcrumbItem arrays for use in UI components. Improves navigation consistency and user experience.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { BreadcrumbItem } from '../../../ui/Breadcrumb/Breadcrumb'

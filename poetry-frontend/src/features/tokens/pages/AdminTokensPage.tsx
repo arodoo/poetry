@@ -2,7 +2,8 @@
  File: AdminTokensPage.tsx
  Purpose: Admin-only page for managing global UI token selection.
  Displays current selection, provides form for updates, and persists
- changes to backend. Follows PageLayout pattern. All Rights Reserved.
+ changes to backend. Follows PageLayout pattern.
+ All Rights Reserved. Arodi Emmanuel
 */
 import { type ReactElement } from 'react'
 import { useTokensQuery } from '../hooks/useTokensQueries'

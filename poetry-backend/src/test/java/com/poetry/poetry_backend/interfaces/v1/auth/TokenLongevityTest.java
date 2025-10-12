@@ -3,8 +3,8 @@
  * Purpose: Test token lifecycle over extended periods to verify that
  * access tokens can be refreshed for 14 days using refresh tokens, and
  * that proactive refresh within the 15-minute access token window keeps
- * users authenticated for 90+ days with regular activity. All Rights
- * Reserved. Arodi Emmanuel
+ * users authenticated for 90+ days with regular activity.
+ * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.interfaces.v1.auth;
 

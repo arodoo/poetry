@@ -1,9 +1,8 @@
+
 /*
- * ZonesPageLayout.tsx
- * Layout wrapper for zones feature pages with consistent header
- * navigation breadcrumbs and content area structure. Provides
- * accessibility landmarks and responsive layout.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZonesPageLayout.tsx
+ * Purpose: Layout wrapper for all zones feature pages, providing consistent headers, navigation breadcrumbs, and content area structure. Ensures accessibility and responsive design for a seamless user experience. Facilitates maintainability and code reuse across the zones module.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactNode } from 'react'

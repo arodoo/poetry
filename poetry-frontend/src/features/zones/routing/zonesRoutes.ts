@@ -1,9 +1,8 @@
+
 /*
- * zonesRoutes.ts
- * Locale-scoped route definitions for zones feature pages
- * including list create and edit views with React elements.
- * Follows seller codes routing pattern exactly.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zonesRoutes.ts
+ * Purpose: Locale-scoped route definitions for zones feature pages, including list, create, and edit views with React elements. Follows the seller codes routing pattern for consistency. Supports modular navigation and future route expansion.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import React from 'react'

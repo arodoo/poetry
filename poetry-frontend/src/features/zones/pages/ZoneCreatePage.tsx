@@ -1,9 +1,8 @@
+
 /*
- * ZonesCreatePage.tsx
- * Zone creation page with FormLayout for name description and
- * manager assignment. Handles validation submission success and
- * error toasts with navigation to list after creation.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZoneCreatePage.tsx
+ * Purpose: Page for creating a new zone, featuring a form layout for name, description, and manager assignment. Handles validation, submission, success/error toasts, and navigation after creation. Built for extensibility and integration with admin workflows.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'

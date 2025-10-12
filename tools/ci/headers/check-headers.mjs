@@ -36,6 +36,12 @@ function gatherFiles() {
       }
     }
   }
+  
+  // Exclude generated SDK files (*.gen.ts, *.gen.js, etc.)
+  files = files.filter((p) => !p.includes('.gen.'))
+  // Exclude src/api/generated directory entirely
+  files = files.filter((p) => !p.includes('src/api/generated') && !p.includes('src\\api\\generated'))
+  
   return files
 }
 

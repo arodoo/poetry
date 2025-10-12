@@ -1,9 +1,8 @@
+
 /*
- * zoneEditHandlers.ts
- * Event handler for zone edit page submit. Transforms form state
- * into UpdateZoneInput with version from existing zone entity
- * and triggers mutation with navigation and toast callbacks.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zoneEditHandlers.ts
+ * Purpose: Event handler for zone edit page submit. Transforms form state into UpdateZoneInput with version from the existing zone entity and triggers mutation with navigation and toast callbacks. Supports optimistic locking and user feedback.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { FormEvent } from 'react'

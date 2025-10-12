@@ -1,9 +1,8 @@
+
 /*
- * ZonesListPage.tsx
- * Zones list page with DataTable pagination search and actions
- * for viewing editing and creating zones. Follows seller codes
- * list pattern with locale-aware routing and UI components.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZonesListPage.tsx
+ * Purpose: Page for listing all zones, with DataTable, pagination, search, and actions for viewing, editing, and creating zones. Follows the seller codes list pattern with locale-aware routing and UI components. Built for scalability and admin usability.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import { useState, type ReactElement } from 'react'

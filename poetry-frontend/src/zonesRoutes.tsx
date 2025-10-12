@@ -1,9 +1,8 @@
+
 /*
- * zonesRoutes.tsx
- * Zones admin route configurations with AdminRoute protection
- * for list create and edit pages. Follows seller-codes pattern
- * with lazy loading and role-based access control.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zonesRoutes.tsx
+ * Purpose: Admin route configurations for zones, with AdminRoute protection for list, create, and edit pages. Follows the seller-codes pattern with lazy loading and role-based access control. Designed for maintainability and secure navigation.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'

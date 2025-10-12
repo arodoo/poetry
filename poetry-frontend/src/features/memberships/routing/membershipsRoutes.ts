@@ -1,6 +1,6 @@
 /*
  * File: membershipsRoutes.ts
- * Purpose: Locale-scoped route definitions for memberships pages
+ * Purpose: Locale-scoped route definitions for memberships pages. This file defines all React Router routes for memberships, ensuring navigation is consistent and localized. It enables modular routing and supports future route expansion as the feature grows. Keeping routes isolated here improves maintainability and testability.
  * All Rights Reserved. Arodi Emmanuel
  */
 import React from 'react'

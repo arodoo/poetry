@@ -1,15 +1,14 @@
+
 /*
- * ZonesListShell.tsx
- * Container shell for zones list display with table structure
- * pagination controls and loading error empty states. Handles
- * zone collection rendering and user interaction flows.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: ZonesListShell.tsx
+ * Purpose: Container component for displaying a list of zones with table structure, pagination, and state handling. Manages loading, error, and empty states, and provides user interaction flows for zone management. Designed for modularity and integration with admin features.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import type { ZoneResponse } from '../model/ZonesSchemas'
+import { useT } from '../../../shared/i18n/useT'
 
 interface ZonesListShellProps {
   readonly zones: readonly ZoneResponse[]
@@ -24,7 +23,7 @@ export function ZonesListShell({
   onDelete,
   locale,
 }: ZonesListShellProps) {
-  const { t } = useTranslation('zones')
+  const t = useT()
 
   if (isLoading) {
     return (
@@ -93,7 +92,7 @@ export function ZonesListShell({
                       <PencilIcon className="h-5 w-5" />
                     </Link>
                     <button
-                      onClick={() => onDelete(zone.id)}
+                      onClick={() => zone.id && onDelete(zone.id)}
                       className="ml-4 text-feedback-error"
                     >
                       <TrashIcon className="h-5 w-5" />

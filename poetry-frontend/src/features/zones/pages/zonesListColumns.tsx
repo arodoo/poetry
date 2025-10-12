@@ -1,9 +1,8 @@
+
 /*
- * zonesListColumns.tsx
- * Column definitions for zones DataTable with accessors for
- * rendering zone name description manager and action buttons.
- * Provides type-safe locale-aware table structure.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zonesListColumns.tsx
+ * Purpose: Column definitions for the zones DataTable, with accessors for rendering zone name, description, manager, and action buttons. Provides type-safe, locale-aware table structure for consistent UI. Designed for extensibility and integration with admin features.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'

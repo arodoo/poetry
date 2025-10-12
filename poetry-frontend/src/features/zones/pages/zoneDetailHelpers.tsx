@@ -1,8 +1,8 @@
+
 /*
- * zoneDetailHelpers.tsx
- * Helper functions to build detail view sections for zone detail page.
- * Formats zone properties into DetailView section structure.
- * © 2025 Poetry Platform. All rights reserved.
+ * File: zoneDetailHelpers.tsx
+ * Purpose: Helper functions to build detail view sections for the zone detail page. Formats zone properties into DetailView section structures for display. Supports modular UI and improves maintainability of detail views.
+ * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
