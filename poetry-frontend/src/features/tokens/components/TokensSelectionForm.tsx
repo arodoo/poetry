@@ -26,11 +26,11 @@ export interface TokensSelectionFormProps {
 export function TokensSelectionForm(
   props: TokensSelectionFormProps
 ): ReactElement {
-  const fields: ReadonlyArray<{
+  const fields: readonly {
     key: keyof TokensFormState
     labelKey: I18nKey
-    options: ReadonlyArray<{ key: string }>
-  }> = [
+    options: readonly { key: string }[]
+  }[] = [
     { key: 'theme', labelKey: 'ui.tokens.fields.theme', options: props.bundle.themes },
     { key: 'font', labelKey: 'ui.tokens.fields.font', options: props.bundle.fonts },
     { key: 'fontSize', labelKey: 'ui.tokens.fields.fontSize', options: props.bundle.fontSizes },
@@ -49,7 +49,7 @@ export function TokensSelectionForm(
               id={key}
               value={props.formState[key]}
               onChange={(e): void =>
-                props.onFieldChange(key, e.currentTarget.value)
+                { props.onFieldChange(key, e.currentTarget.value); }
               }
               disabled={props.isSubmitting}
             >

@@ -11,7 +11,7 @@ interface ForgotPasswordModule {
   PublicForgotPasswordPage?: () => ReactElement
 }
 
-const pagePath: string =
+const pagePath =
   '../../../../features/public-forgot-password/pages/PublicForgotPasswordPage'
 
 export const PublicForgotPasswordPageLazy: LazyExoticComponent<

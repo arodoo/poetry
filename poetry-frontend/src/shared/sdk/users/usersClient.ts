@@ -10,7 +10,7 @@ import type { UserDto, UserCollectionDto, UsersSdk } from './usersClientTypes'
 
 export type { UserDto, UserCollectionDto, UsersSdk } from './usersClientTypes'
 
-const basePath: string = '/api/v1/users'
+const basePath = '/api/v1/users'
 
 type FetchJson = <T>(path: string, options?: HttpOptions) => Promise<T>
 

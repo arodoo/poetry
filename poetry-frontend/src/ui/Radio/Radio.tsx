@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 export type RadioProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
 
-// eslint-disable-next-line @typescript-eslint/typedef
+ 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   (
     { className, disabled, ...rest }: RadioProps,

@@ -20,15 +20,20 @@ export interface ProfileSummarySectionProps {
 export function ProfileSummarySection(
   props: ProfileSummarySectionProps
 ): ReactElement {
-  const [username, setUsername] = useState(props.profile.username)
+  const [username, setUsername] = useState(props.profile.username ?? '')
   useEffect((): void => {
-    setUsername(props.profile.username)
+    setUsername(props.profile.username ?? '')
     return undefined
   }, [props.profile.username])
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault()
-    props.onSubmit({ username, version: props.profile.version })
+    props.onSubmit({
+      username: username ?? '',
+      email: props.profile.email ?? '',
+      locale: props.profile.locale ?? 'en',
+      version: typeof props.profile.version === 'number' ? props.profile.version : Number(props.profile.version) || 0,
+    })
   }
 
   function onSubmitWrapper(e: unknown): void {

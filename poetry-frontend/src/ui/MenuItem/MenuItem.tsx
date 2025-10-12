@@ -10,7 +10,7 @@ import type { MenuItemProps } from './MenuItem.types'
 import { buildMenuItemClasses } from './menuItemClasses'
 import { handleMenuItemClick } from './menuItemUtils'
 
-const defaultRole: string = 'menuitem'
+const defaultRole = 'menuitem'
 
 function createClickHandler(
   disabled: boolean,

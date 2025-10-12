@@ -14,7 +14,7 @@ const summary = {
   username: 'aurora',
   email: 'aurora@example.com',
   locale: 'en-US',
-  version: 'v1',
+  version: 1,
 }
 
 describe('profileApi', () => {
@@ -31,7 +31,7 @@ describe('profileApi', () => {
   it('rejects invalid update payload without sdk call', async () => {
     const spy = vi.spyOn(sdk, 'putProfileSummary')
     await expect(
-      updateProfileSummary({ username: '', version: 'v1' })
+      updateProfileSummary({ username: '', email: '', locale: '', version: 1 })
     ).rejects.toThrow()
     expect(spy).not.toHaveBeenCalled()
   })
@@ -40,11 +40,15 @@ describe('profileApi', () => {
     const spy = vi.spyOn(sdk, 'putProfileSummary').mockResolvedValue(summary)
     const result = await updateProfileSummary({
       username: 'nova',
-      version: 'v1',
+      email: 'nova@example.com',
+      locale: 'en',
+      version: 2,
     })
     expect(spy).toHaveBeenCalledWith({
       username: 'nova',
-      version: 'v1',
+      email: 'nova@example.com',
+      locale: 'en',
+      version: 2,
     })
     expect(result.locale).toBe('en-US')
   })

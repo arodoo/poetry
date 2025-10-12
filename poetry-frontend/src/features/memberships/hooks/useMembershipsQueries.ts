@@ -57,7 +57,7 @@ export const membershipsQueryKeys: {
 export function useMembershipsListQuery(): UseQueryResult<
   MembershipResponse[]
 > {
-  const hasAccessToken: boolean = Boolean(
+  const hasAccessToken = Boolean(
     tokenStorage.load()?.accessToken
   )
   return useQuery({
@@ -73,7 +73,7 @@ export function useMembershipsPageQuery(
   pageSize: number,
   search?: string
 ): UseQueryResult<PageResponseDtoMembershipResponse> {
-  const hasAccessToken: boolean = Boolean(
+  const hasAccessToken = Boolean(
     tokenStorage.load()?.accessToken
   )
   return useQuery({
@@ -87,7 +87,7 @@ export function useMembershipsPageQuery(
 export function useMembershipDetailQuery(
   id: string
 ): UseQueryResult<MembershipResponse> {
-  const hasAccessToken: boolean = Boolean(
+  const hasAccessToken = Boolean(
     tokenStorage.load()?.accessToken
   )
   return useQuery({

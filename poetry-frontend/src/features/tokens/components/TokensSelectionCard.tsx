@@ -19,10 +19,10 @@ export function TokensSelectionCard({
   current,
   t,
 }: TokensSelectionCardProps): ReactElement {
-  const fields: Array<{
+  const fields: {
     key: keyof TokenBundle['current']
     labelKey: I18nKey
-  }> = [
+  }[] = [
     { key: 'theme', labelKey: 'ui.tokens.fields.theme' },
     { key: 'font', labelKey: 'ui.tokens.fields.font' },
     { key: 'fontSize', labelKey: 'ui.tokens.fields.fontSize' },

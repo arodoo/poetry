@@ -56,7 +56,7 @@ export function createOnSubmit(params: {
       const data: LoginForm = (parsed as { success: true; data: LoginForm })
         .data
       await mutation.mutateAsync(data)
-      const dashPath: string = `/${locale}/dashboard`
+      const dashPath = `/${locale}/dashboard`
       navigate(dashPath, { replace: true })
     } catch (caught: unknown) {
       const errorMsg: string =

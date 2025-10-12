@@ -12,16 +12,19 @@ import {
 
 describe('Memberships Schemas', () => {
   it('CreateMembershipSchema should parse a valid payload', () => {
-    const payload: MembershipCreateRequest = {
-      // minimal required fields observed from SDK types
-      name: 'Test Plan',
-      price: 0,
-      currency: 'USD',
-    } as unknown as MembershipCreateRequest;
+    // CreateMembershipSchema validates SDK MembershipCreateRequest fields.
+    const payload = {
+      userId: 1,
+      subscriptionId: 1,
+      sellerCode: 'ABC',
+      zoneIds: [1, 2],
+      allZones: false,
+      status: 'active',
+    } as unknown as MembershipCreateRequest
 
-    const parsed = CreateMembershipSchema.safeParse(payload);
-    expect(parsed.success).toBe(true);
-  });
+    const parsed = CreateMembershipSchema.safeParse(payload)
+    expect(parsed.success).toBe(true)
+  })
 
   it('UpdateMembershipSchema should accept partial updates', () => {
     const partial = { name: 'Updated Name' };

@@ -51,7 +51,7 @@ export const usersQueryKeys: {
 }
 
 export function useUsersListQuery(): UseQueryResult<UserResponse[]> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: usersQueryKeys.list(),
     queryFn: fetchUsersList,
@@ -65,7 +65,7 @@ export function useUsersPageQuery(
   size: number,
   search?: string
 ): UseQueryResult<PageResponseDtoUserResponse> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: usersQueryKeys.page(page, size, search),
     queryFn: (): Promise<PageResponseDtoUserResponse> =>
@@ -76,7 +76,7 @@ export function useUsersPageQuery(
 }
 
 export function useUserDetailQuery(id: string): UseQueryResult<UserResponse> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: usersQueryKeys.detail(id),
     queryFn: (): Promise<UserResponse> => fetchUserById(id),

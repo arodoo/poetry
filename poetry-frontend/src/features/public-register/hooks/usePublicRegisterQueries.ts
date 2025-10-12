@@ -46,8 +46,8 @@ export function usePublicRegisterMutation(): UseMutationResult<
     mutationFn: submitPublicRegister,
     onSuccess(result: PublicRegisterResult): void {
       tokenStorage.save({
-        accessToken: result.accessToken,
-        refreshToken: result.refreshToken,
+        accessToken: result.accessToken ?? '',
+        refreshToken: result.refreshToken ?? '',
       })
     },
   })

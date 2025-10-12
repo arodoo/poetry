@@ -6,34 +6,23 @@
  */
 
 import { describe, it, expect } from 'vitest'
-import { SellerCodeSummarySchema } from '../../../../features/seller-codes'
+import { CreateSellerCodeSchema } from '../../../../features/seller-codes/model/SellerCodesCommands'
 
 describe('SellerCodesSchemas', () => {
-  describe('SellerCodeSummarySchema', () => {
-    it('should parse valid seller code summary', () => {
-      const validData = {
-        id: 123,
-        code: 'ABC123',
-        status: 'active',
-        createdAt: '2023-01-01T00:00:00Z',
-        updatedAt: '2023-01-01T00:00:00Z',
-      }
+  it('CreateSellerCodeSchema should accept valid create payload', () => {
+    const valid = {
+      code: 'ABC123',
+      userId: 1,
+      organizationId: 'org-1',
+      status: 'active',
+    }
+    const result = CreateSellerCodeSchema.safeParse(valid)
+    expect(result.success).toBe(true)
+  })
 
-      const result = SellerCodeSummarySchema.safeParse(validData)
-      expect(result.success).toBe(true)
-    })
-
-    it('should reject invalid status', () => {
-      const invalidData = {
-        id: 123,
-        code: 'ABC123',
-        status: 'invalid-status',
-        createdAt: '2023-01-01T00:00:00Z',
-        updatedAt: '2023-01-01T00:00:00Z',
-      }
-
-      const result = SellerCodeSummarySchema.safeParse(invalidData)
-      expect(result.success).toBe(false)
-    })
+  it('CreateSellerCodeSchema should reject short code', () => {
+    const invalid = { code: 'A', userId: 1 }
+    const result = CreateSellerCodeSchema.safeParse(invalid)
+    expect(result.success).toBe(false)
   })
 })

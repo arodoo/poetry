@@ -23,7 +23,7 @@ export function PageControls(props: Props): ReactElement {
     <div className="flex items-center gap-4">
       <select
         value={props.pageSize}
-        onChange={(e) => props.onPageSizeChange(Number(e.target.value))}
+        onChange={(e) => { props.onPageSizeChange(Number(e.target.value)); }}
         className="text-sm bg-surface-base border px-2 py-1"
       >
         {SIZES.map((s) => (
@@ -33,7 +33,7 @@ export function PageControls(props: Props): ReactElement {
         ))}
       </select>
       <button
-        onClick={() => props.onPageChange(props.currentPage - 1)}
+        onClick={() => { props.onPageChange(props.currentPage - 1); }}
         disabled={!props.hasPrev}
         className="px-3 py-1 bg-surface-base border disabled:opacity-50"
       >
@@ -43,7 +43,7 @@ export function PageControls(props: Props): ReactElement {
         {t('ui.table.pagination.page')} {props.currentPage + 1}
       </span>
       <button
-        onClick={() => props.onPageChange(props.currentPage + 1)}
+        onClick={() => { props.onPageChange(props.currentPage + 1); }}
         disabled={!props.hasNext}
         className="px-3 py-1 bg-surface-base border disabled:opacity-50"
       >

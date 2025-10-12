@@ -6,8 +6,6 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { z } from 'zod'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- Used in JSDoc @see
-import type { UiTokensDto } from '../../../api/generated'
 
 /**
  * Token schemas aligned with generated UiTokensDto from OpenAPI.

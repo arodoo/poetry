@@ -3,8 +3,8 @@
  * Purpose: Centralized password policy constants and validation helpers.
  * All Rights Reserved. Arodi Emmanuel
  */
-export const MIN_PASSWORD_LENGTH: number = 6
-export const MAX_PASSWORD_LENGTH: number = 72 // bcrypt typical safe upper bound
+export const MIN_PASSWORD_LENGTH = 6
+export const MAX_PASSWORD_LENGTH = 72 // bcrypt typical safe upper bound
 
 export function isPasswordLengthValid(candidate: string): boolean {
   return (

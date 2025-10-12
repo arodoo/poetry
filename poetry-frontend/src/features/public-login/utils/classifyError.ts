@@ -4,10 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 export function classifyError(msg: string): string {
-  const invalidMsg: string = 'Invalid username or password'
-  const networkMsg: string = 'Network error. Please try again.'
-  const serverMsg: string = 'Server error. Please try again.'
-  const genericMsg: string = 'Login failed. Please try again.'
+  const invalidMsg = 'Invalid username or password'
+  const networkMsg = 'Network error. Please try again.'
+  const serverMsg = 'Server error. Please try again.'
+  const genericMsg = 'Login failed. Please try again.'
 
   if (msg.includes('401') || msg.includes('unauthorized')) return invalidMsg
   if (msg.includes('Network') || msg.includes('fetch')) return networkMsg

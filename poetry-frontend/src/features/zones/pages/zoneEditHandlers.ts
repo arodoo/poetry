@@ -30,7 +30,7 @@ export function buildZoneEditSubmitHandler(
   return (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     
-    if (!zone || zone.version === undefined) {
+    if (zone?.version === undefined) {
       return
     }
 

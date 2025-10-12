@@ -39,8 +39,8 @@ export default function UserEditPage(): ReactElement {
       lastName: values.lastName,
       email: values.email,
       locale: values.locale,
-      roles: values.roles as string[],
-      active: user.active ?? true,
+      roles: values.roles,
+      status: (user as any).status ?? 'active',
     })
     mutation.mutate(
       {

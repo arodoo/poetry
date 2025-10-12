@@ -37,7 +37,7 @@ function useMembershipsMutationSuccess(): (
 ) => void {
   const queryClient = useQueryClient()
   return (detail: MembershipResponse): void => {
-    const id: string = String(detail.id)
+    const id = String(detail.id)
     void queryClient.invalidateQueries({
       queryKey: membershipsQueryKeys.root,
     })

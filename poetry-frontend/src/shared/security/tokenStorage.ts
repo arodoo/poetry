@@ -8,7 +8,7 @@ export interface TokenBundle {
   refreshToken: string
 }
 
-export const TOKEN_STORAGE_KEY: string = 'poetry.auth.tokens'
+export const TOKEN_STORAGE_KEY = 'poetry.auth.tokens'
 
 type TokenListener = () => void
 

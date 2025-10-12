@@ -14,9 +14,9 @@ export function buildEditFormState(sellerCode: SellerCodeDetail | undefined):
   | undefined {
   return sellerCode
     ? {
-        code: sellerCode.code,
+        code: sellerCode.code ?? '',
         organizationId: sellerCode.organizationId ?? '',
-        status: sellerCode.status,
+        status: (sellerCode.status ?? 'inactive') as 'active' | 'inactive' | 'expired',
       }
     : undefined
 }

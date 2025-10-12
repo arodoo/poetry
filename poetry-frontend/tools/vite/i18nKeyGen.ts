@@ -18,7 +18,7 @@ function hashContent(path: string): string {
 
 export function i18nKeyGen(): Plugin {
   const catalogDir: string = resolve(process.cwd(), 'src/shared/i18n/catalog')
-  let lastHash: string = ''
+  let lastHash = ''
 
   function generate(): void {
     execSync('node ../tools/ci/i18n/i18n-generate-keys.mjs', {

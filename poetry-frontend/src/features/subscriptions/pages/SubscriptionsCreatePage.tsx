@@ -76,7 +76,7 @@ export default function SubscriptionsCreatePage(): ReactElement {
                 <Input
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => { setName(e.target.value); }}
                   required
                   data-testid="subscription-name-input"
                 />
@@ -88,7 +88,7 @@ export default function SubscriptionsCreatePage(): ReactElement {
                 </Text>
                 <TextArea
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e) => { setDescription(e.target.value); }}
                   rows={3}
                   data-testid="subscription-description-input"
                 />
@@ -101,7 +101,7 @@ export default function SubscriptionsCreatePage(): ReactElement {
                 <Input
                   type="number"
                   value={price}
-                  onChange={(e) => setPrice(Number(e.target.value))}
+                  onChange={(e) => { setPrice(Number(e.target.value)); }}
                   min="0"
                   step="0.01"
                   required
@@ -115,7 +115,7 @@ export default function SubscriptionsCreatePage(): ReactElement {
                 </Text>
                 <Select
                   value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
+                  onChange={(e) => { setCurrency(e.target.value); }}
                   data-testid="subscription-currency-select"
                 >
                   <option value="USD">USD</option>
@@ -131,7 +131,7 @@ export default function SubscriptionsCreatePage(): ReactElement {
                 <Input
                   type="number"
                   value={durationDays}
-                  onChange={(e) => setDurationDays(Number(e.target.value))}
+                  onChange={(e) => { setDurationDays(Number(e.target.value)); }}
                   min="1"
                   required
                   data-testid="subscription-duration-input"
@@ -144,7 +144,7 @@ export default function SubscriptionsCreatePage(): ReactElement {
                 </Text>
                 <Select
                   value={status}
-                  onChange={(e) => setStatus(e.target.value as 'active' | 'inactive')}
+                  onChange={(e) => { setStatus(e.target.value as 'active' | 'inactive'); }}
                   data-testid="subscription-status-select"
                 >
                   <option value="active">{t('ui.subscriptions.status.active')}</option>

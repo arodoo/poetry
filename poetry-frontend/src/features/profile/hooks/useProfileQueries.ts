@@ -28,7 +28,7 @@ export const profileQueryKeys: {
 }
 
 export function useProfileSummaryQuery(): UseQueryResult<ProfileSummary> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery<ProfileSummary>({
     queryKey: profileQueryKeys.summary(),
     queryFn: fetchProfileSummary,

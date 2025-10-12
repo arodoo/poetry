@@ -12,8 +12,8 @@ import {
 const sample = {
   username: 'aurora',
   email: 'aurora@example.com',
-  locale: 'en-US',
-  version: 'abc123',
+  locale: 'en',
+  version: 1,
 }
 
 describe('ProfileSchemas', () => {

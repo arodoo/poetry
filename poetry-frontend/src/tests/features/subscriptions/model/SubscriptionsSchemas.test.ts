@@ -13,6 +13,9 @@ describe('Subscriptions Schemas', () => {
       name: 'Monthly',
       price: 10,
       currency: 'USD',
+      durationDays: 30,
+      features: [],
+      status: 'active',
     } as unknown as CreateSubscriptionInput
     const parsed = CreateSubscriptionSchema.safeParse(payload)
     expect(parsed.success).toBe(true)

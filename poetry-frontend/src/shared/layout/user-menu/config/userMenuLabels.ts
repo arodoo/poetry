@@ -15,7 +15,7 @@ export function buildUserMenuLabels(
   dependencies: Pick<UserMenuDependencies, 'translate' | 'locale'>
 ): UserMenuLabels {
   const profileSlug: string = dependencies.translate('ui.route.profile.slug')
-  const profilePath: string = `/${dependencies.locale}/${profileSlug}`
+  const profilePath = `/${dependencies.locale}/${profileSlug}`
   const logoutLabel: string = dependencies.translate('ui.nav.logout')
   return {
     profilePath,

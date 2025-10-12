@@ -38,7 +38,7 @@ export function createUserSubmitHandler(
       email: values.email,
       password: values.password || '',
       locale: values.locale,
-      roles: values.roles as string[],
+      roles: values.roles,
       status: values.status || 'active',
     })
     onSuccess(validatedInput)

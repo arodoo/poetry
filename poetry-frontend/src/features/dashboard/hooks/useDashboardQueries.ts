@@ -19,7 +19,7 @@ export const dashboardQueryKeys: {
 }
 
 export function useDashboardOverviewQuery(): UseQueryResult<DashboardOverview> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery<DashboardOverview>({
     queryKey: dashboardQueryKeys.overview(),
     queryFn: fetchDashboardOverview,

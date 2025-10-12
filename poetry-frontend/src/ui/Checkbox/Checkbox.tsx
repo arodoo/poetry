@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 export type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
 
-// eslint-disable-next-line @typescript-eslint/typedef
+ 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     { className, disabled, ...rest }: CheckboxProps,

@@ -14,7 +14,7 @@ export async function tryRefreshAuthorization(
   headers: Record<string, string>
 ): Promise<boolean> {
   const firstAttempt: boolean = attempt === 1
-  const hasRefreshToken: boolean = Boolean(tokens?.refreshToken)
+  const hasRefreshToken = Boolean(tokens?.refreshToken)
   const shouldRefresh: boolean =
     response.status === 401 && firstAttempt && hasRefreshToken
   if (!shouldRefresh) {

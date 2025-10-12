@@ -15,7 +15,7 @@ export interface TextAreaProps
   invalid?: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/typedef
+ 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
     { className, invalid, disabled, ...rest }: TextAreaProps,

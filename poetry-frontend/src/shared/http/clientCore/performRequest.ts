@@ -25,7 +25,7 @@ export async function performRequest<T>(
   let lastError: Error | null = null
   const headers: Record<string, string> = { ...execution.headers }
   for (
-    let attempt: number = 1;
+    let attempt = 1;
     attempt <= execution.retryCfg.maxAttempts;
     attempt++
   ) {

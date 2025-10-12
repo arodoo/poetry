@@ -15,8 +15,7 @@ import { tokensQueryKeys } from './useTokensQueries'
 export function useUpdateSelectionMutation(): UseMutationResult<
   void,
   Error,
-  UpdateSelectionInput,
-  unknown
+  UpdateSelectionInput
 > {
   const queryClient = useQueryClient()
 

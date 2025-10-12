@@ -31,8 +31,8 @@ export function usePublicLoginMutation(): UseMutationResult<
     mutationFn: submitPublicLogin,
     onSuccess(result: PublicLoginResult): void {
       tokenStorage.save({
-        accessToken: result.accessToken,
-        refreshToken: result.refreshToken,
+        accessToken: result.accessToken ?? '',
+        refreshToken: result.refreshToken ?? '',
       })
     },
   })

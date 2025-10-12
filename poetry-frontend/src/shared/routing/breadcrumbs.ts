@@ -17,7 +17,7 @@ export function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   const segments: string[] =
     pathname === '/' ? [''] : pathname.split('/').slice(1)
   const crumbs: BreadcrumbItem[] = []
-  let currentPath: string = ''
+  let currentPath = ''
 
   for (const seg of segments) {
     currentPath += '/' + seg

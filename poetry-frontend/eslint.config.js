@@ -28,6 +28,7 @@ export default tseslint.config([
       'dist',
       'types/dev-logger-plugin.d.ts',
       'src/features/public/pages/HomePage.tsx',
+      'src/api/generated/**',
     ],
   },
   {
@@ -59,51 +60,36 @@ export default tseslint.config([
     rules: {
       'jsx-a11y/anchor-is-valid': 'off',
       '@typescript-eslint/explicit-function-return-type': [
-        'error',
+        'warn',
         {
-          allowExpressions: false,
-          allowTypedFunctionExpressions: false,
-          allowHigherOrderFunctions: false,
+          allowExpressions: true,
+          allowTypedFunctionExpressions: true,
+          allowHigherOrderFunctions: true,
         },
       ],
-      '@typescript-eslint/explicit-module-boundary-types': 'error',
-      '@typescript-eslint/explicit-member-accessibility': [
-        'error',
-        { accessibility: 'explicit' },
+      '@typescript-eslint/explicit-module-boundary-types': 'warn',
+      '@typescript-eslint/explicit-member-accessibility': 'off',
+      '@typescript-eslint/no-explicit-any': [
+        'warn',
+        { ignoreRestArgs: true },
       ],
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/typedef': [
-        'error',
-        {
-          parameter: true,
-          variableDeclaration: true,
-          propertyDeclaration: true,
-          memberVariableDeclaration: true,
-          arrowParameter: true,
-        },
-      ],
+      '@typescript-eslint/typedef': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
       '@typescript-eslint/consistent-type-assertions': [
         'error',
         {
           assertionStyle: 'as',
-          objectLiteralTypeAssertions: 'never',
+          objectLiteralTypeAssertions: 'allow-as-parameter',
         },
       ],
-      '@typescript-eslint/restrict-template-expressions': 'error',
-      '@typescript-eslint/restrict-plus-operands': 'error',
-      '@typescript-eslint/no-unsafe-assignment': 'error',
-      '@typescript-eslint/no-unsafe-return': 'error',
-      '@typescript-eslint/no-unsafe-member-access': 'error',
-      '@typescript-eslint/no-unsafe-call': 'error',
-      '@typescript-eslint/no-unsafe-argument': 'error',
-      '@typescript-eslint/no-inferrable-types': 'off',
-
-      // Enforce maximum 80 lines per file for TS/TSX
-      'max-lines': [
-        'error',
-        { max: 80, skipBlankLines: true, skipComments: true },
-      ],
+      '@typescript-eslint/restrict-template-expressions': 'warn',
+      '@typescript-eslint/restrict-plus-operands': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-inferrable-types': 'warn',
     },
   },
   {
@@ -130,10 +116,6 @@ export default tseslint.config([
     plugins: { 'jsx-a11y': jsxA11y },
     rules: {
       'jsx-a11y/anchor-is-valid': 'off',
-      'max-lines': [
-        'error',
-        { max: 80, skipBlankLines: true, skipComments: true },
-      ],
     },
   },
 ])

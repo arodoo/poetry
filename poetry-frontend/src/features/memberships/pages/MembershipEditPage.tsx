@@ -12,7 +12,7 @@ import { useToast } from '../../../shared/toast/toastContext'
 import { useUpdateMembershipMutation } from '../hooks/useMembershipsMutations'
 import { useMembershipDetailWithETag } from '../hooks/useMembershipDetailWithETag'
 import type { MembershipResponse } from '../../../api/generated'
-import type { MembershipFormValues } from '../components/MembershipFormValues'
+// membership form values type intentionally unused in this module
 import { MembershipEditForm } from './MembershipEditForm'
 import { MembershipEditPageLoading } from './MembershipEditPageLoading'
 import { createEditSubmitHandler } from './membershipEditHandlers'

@@ -18,7 +18,7 @@ export type {
   SellerCodesSdk,
 } from './sellerCodesClientTypes'
 
-const basePath: string = '/api/v1/seller-codes'
+const basePath = '/api/v1/seller-codes'
 
 type FetchJson = <T>(path: string, options?: HttpOptions) => Promise<T>
 

@@ -12,7 +12,7 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Alert(props: AlertProps): ReactElement {
   const { status = 'info', className, ...rest } = props
-  const base: string = 'rounded px-3 py-2 text-sm'
+  const base = 'rounded px-3 py-2 text-sm'
   const map: Record<string, string> = {
     info:
       'bg-[var(--color-background,#eef2ff)] ' +

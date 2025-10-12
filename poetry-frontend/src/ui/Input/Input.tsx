@@ -10,7 +10,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   invalid?: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/typedef
+ 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     { className, invalid, disabled, ...rest }: InputProps,

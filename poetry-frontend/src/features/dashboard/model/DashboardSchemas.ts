@@ -6,8 +6,6 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { z } from 'zod'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- Used in JSDoc @see
-import type { DashboardOverviewResponse } from '../../../api/generated'
 
 /**
  * Dashboard overview schema aligned with generated DashboardOverviewResponse.

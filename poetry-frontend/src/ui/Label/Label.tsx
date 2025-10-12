@@ -16,7 +16,7 @@ export function Label({
   className,
   ...rest
 }: LabelProps): ReactElement {
-  const txt: string = 'text-[var(--color-text,#111)]'
+  const txt = 'text-[var(--color-text,#111)]'
   return (
     <label
       className={clsx(

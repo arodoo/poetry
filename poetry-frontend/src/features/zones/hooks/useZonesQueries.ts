@@ -48,7 +48,7 @@ export const zonesQueryKeys: {
 }
 
 export function useZonesListQuery(): UseQueryResult<readonly ZoneResponse[]> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: zonesQueryKeys.list(),
     queryFn: fetchZonesList,
@@ -62,7 +62,7 @@ export function useZonesPageQuery(
   size: number,
   search?: string
 ): UseQueryResult<PageResponseDtoZoneResponse> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: zonesQueryKeys.page(page, size, search),
     queryFn: (): Promise<PageResponseDtoZoneResponse> =>
@@ -73,7 +73,7 @@ export function useZonesPageQuery(
 }
 
 export function useZoneDetailQuery(id: string): UseQueryResult<ZoneResponse> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: zonesQueryKeys.detail(id),
     queryFn: (): Promise<ZoneResponse> => fetchZoneById(id),

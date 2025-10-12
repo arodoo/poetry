@@ -44,11 +44,15 @@ export function buildSellerCodeDetailSections(
       items: [
         {
           label: t('ui.sellerCodes.detail.field.createdAt'),
-          value: new Date(sellerCode.createdAt).toLocaleString(),
+          value: (sellerCode as any).createdAt
+            ? new Date((sellerCode as any).createdAt).toLocaleString()
+            : '-',
         },
         {
           label: t('ui.sellerCodes.detail.field.updatedAt'),
-          value: new Date(sellerCode.updatedAt).toLocaleString(),
+          value: (sellerCode as any).updatedAt
+            ? new Date((sellerCode as any).updatedAt).toLocaleString()
+            : '-',
         },
         {
           label: t('ui.sellerCodes.detail.field.version'),

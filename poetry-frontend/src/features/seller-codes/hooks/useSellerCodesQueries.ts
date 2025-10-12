@@ -60,7 +60,7 @@ type SColl = SellerCodesCollection
 type SDetail = SellerCodeDetail
 
 export function useSellerCodesListQuery(): UseQueryResult<SColl> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: sellerCodesQueryKeys.list(),
     queryFn: fetchSellerCodesList,
@@ -70,7 +70,7 @@ export function useSellerCodesListQuery(): UseQueryResult<SColl> {
 }
 
 export function useSellerCodeDetailQuery(id: string): UseQueryResult<SDetail> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: sellerCodesQueryKeys.detail(id),
     queryFn: (): Promise<SellerCodeDetail> => fetchSellerCodeById(id),
@@ -86,7 +86,7 @@ export function useSellerCodesPageQuery(
   size: number,
   search?: string
 ): UseQueryResult<PageResp> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: sellerCodesQueryKeys.page(page, size, search),
     queryFn: (): Promise<PageResp> =>

@@ -11,7 +11,7 @@ import { tokenStorage } from '../../../shared/security/tokenStorage'
 export function useUsersListForSelect(): UseQueryResult<
   readonly UserResponse[]
 > {
-  const hasToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasToken = Boolean(tokenStorage.load()?.accessToken)
 
   return useQuery({
     queryKey: ['users', 'list-for-select'],

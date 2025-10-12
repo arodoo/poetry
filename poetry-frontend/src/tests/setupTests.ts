@@ -39,7 +39,7 @@ try {
   // mismatches for third-party packages.
 
   // i18n-ignore
-  const warnMsg: string = '[setupTests] jest-dom matchers not available;'
-  const warnSuffix: string = ' skipping'
+  const warnMsg = '[setupTests] jest-dom matchers not available;'
+  const warnSuffix = ' skipping'
   console.warn(warnMsg + warnSuffix)
 }

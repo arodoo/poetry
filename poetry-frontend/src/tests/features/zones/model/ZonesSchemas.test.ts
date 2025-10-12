@@ -8,7 +8,8 @@ import { CreateZoneSchema } from '../../../../features/zones/model/ZonesCommands
 
 describe('Zones Schemas', () => {
   it('CreateZoneSchema should parse a valid payload', () => {
-    const payload = { name: 'Test Zone' }
+    // schema requires name min length and managerId number
+    const payload = { name: 'Test Zone', managerId: 1 }
     const parsed = CreateZoneSchema.safeParse(payload)
     expect(parsed.success).toBe(true)
   })

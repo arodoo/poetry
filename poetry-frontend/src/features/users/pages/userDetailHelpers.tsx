@@ -16,7 +16,7 @@ export function getLocaleName(
 ): string {
   const parts: string[] = localeCode.split('-')
   const baseLocale: string = parts[0] ?? localeCode
-  const localeKey: string = `ui.users.form.locale.${baseLocale}`
+  const localeKey = `ui.users.form.locale.${baseLocale}`
   try {
     return t(localeKey)
   } catch {

@@ -56,7 +56,7 @@ export const subscriptionsQueryKeys: {
 
 export function useSubscriptionsListQuery():
   UseQueryResult<SubscriptionResponse[]> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: subscriptionsQueryKeys.list(),
     queryFn: fetchSubscriptionsList,
@@ -70,7 +70,7 @@ export function useSubscriptionsPageQuery(
   size: number,
   search?: string
 ): UseQueryResult<PageResponseDtoSubscriptionResponse> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: subscriptionsQueryKeys.page(page, size, search),
     queryFn: (): Promise<PageResponseDtoSubscriptionResponse> =>
@@ -83,7 +83,7 @@ export function useSubscriptionsPageQuery(
 export function useSubscriptionDetailQuery(
   id: string
 ): UseQueryResult<SubscriptionResponse> {
-  const hasAccessToken: boolean = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
     queryKey: subscriptionsQueryKeys.detail(id),
     queryFn: (): Promise<SubscriptionResponse> => fetchSubscriptionById(id),

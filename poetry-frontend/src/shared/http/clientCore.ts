@@ -26,7 +26,7 @@ export async function fetchJsonInternal<T>(
   // compact and within repository line/size limits.
   const base: string = cfg.VITE_API_BASE_URL.replace(/\/$/, '')
   const p: string = path.startsWith('/') ? path : `/${path}`
-  const url: string = `${base}${p}`
+  const url = `${base}${p}`
   const retryCfg: RetryConfig = options.retry ?? {
     maxAttempts: cfg.VITE_HTTP_RETRY_MAX_ATTEMPTS,
     backoffMs: cfg.VITE_HTTP_RETRY_BACKOFF_MS,

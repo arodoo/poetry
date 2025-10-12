@@ -24,7 +24,7 @@ export function SidebarItem(props: SidebarItemProps): ReactElement | null {
     item.roles.length === 0 ||
     item.roles.some((role: string): boolean => session.roles.includes(role))
   if (!isAllowed) return null
-  const linkTo: string = `/${locale}${item.p}`
+  const linkTo = `/${locale}${item.p}`
   const active: boolean = pathname.startsWith(linkTo)
   const base: string = active
     ? 'bg-[var(--color-surface)]'

@@ -20,9 +20,9 @@ export function TokenSelectors({
   current,
   onChange,
 }: TokenSelectorsProps): ReactElement {
-  const containerCls: string =
+  const containerCls =
     'grid gap-3 sm:grid-cols-3 text-sm p-3 border rounded'
-  const surface: string = 'bg-[var(--color-surface,#fafafa)]'
+  const surface = 'bg-[var(--color-surface,#fafafa)]'
   return (
     <div className={`${containerCls} ${surface}`}>
       <SelectRow

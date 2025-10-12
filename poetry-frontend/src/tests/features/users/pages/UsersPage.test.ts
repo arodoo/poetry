@@ -10,6 +10,7 @@ import { render, screen } from '@testing-library/react'
 
 vi.mock('../../../../features/users/hooks/useUsersQueries', () => ({
   useUsersListQuery: () => ({ data: [], isLoading: false, isError: false }),
+  useUsersPageQuery: () => ({ data: [], isLoading: false, isError: false }),
   usersQueryKeys: { list: () => ['users', 'list'] },
 }))
 

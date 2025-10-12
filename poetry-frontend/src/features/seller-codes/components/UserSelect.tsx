@@ -28,7 +28,7 @@ export function UserSelect(props: UserSelectProps): ReactElement {
       </Text>
       <Select
         value={props.value}
-        onChange={(e): void => props.onChange(e.target.value)}
+        onChange={(e): void => { props.onChange(e.target.value); }}
         required={props.required}
         disabled={isLoading || isError}
         data-testid="seller-code-user-select"
@@ -42,8 +42,7 @@ export function UserSelect(props: UserSelectProps): ReactElement {
         </option>
         {!isLoading &&
           !isError &&
-          users &&
-          users.map((user: UserResponse) => (
+          users?.map((user: UserResponse) => (
             <option key={user.id} value={user.id?.toString() || ''}>
               {user.username} ({user.email})
             </option>

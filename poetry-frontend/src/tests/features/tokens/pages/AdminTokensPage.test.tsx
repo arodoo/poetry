@@ -8,10 +8,16 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { describe, it, expect, vi } from 'vitest'
+import { MemoryRouter } from 'react-router-dom'
 import { AdminTokensPage } from '../../../../features/tokens/pages/AdminTokensPage'
 import { render, screen } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import * as hook from '../../../../features/tokens/hooks/useTokensQueries'
 import * as i18n from '../../../../shared/i18n/useT'
+
+vi.mock('../../../../shared/toast/toastContext', () => ({
+  useToast: () => ({ push: (_: string) => {} }),
+}))
 
 const mockUseT = <T extends string>(k: T): string => k
 vi.spyOn(i18n, 'useT').mockReturnValue(mockUseT)
@@ -23,7 +29,22 @@ describe('AdminTokensPage', () => {
     }
     const mockResult: ReturnType<typeof hook.useTokensQuery> = {
       data: {
-        bundle: { themes: [] } as unknown as PartialBundle,
+        bundle: {
+          themes: [{ key: 'default' }],
+          fonts: [{ key: 'inter' }],
+          fontSizes: [{ key: 'default' }],
+          spacings: [{ key: 'default' }],
+          radius: [{ key: 'default' }],
+          shadows: [{ key: 'default' }],
+          current: {
+            theme: 'default',
+            font: 'inter',
+            fontSize: 'default',
+            spacing: 'default',
+            radius: 'default',
+            shadow: 'default',
+          },
+        } as unknown as PartialBundle,
         etag: '1',
       },
       error: null,
@@ -52,7 +73,14 @@ describe('AdminTokensPage', () => {
       fetchStatusIdle: true,
     } as unknown as ReturnType<typeof hook.useTokensQuery>
     vi.spyOn(hook, 'useTokensQuery').mockReturnValue(mockResult)
-    render(<AdminTokensPage />)
+    const client = new QueryClient()
+    render(
+      <MemoryRouter>
+        <QueryClientProvider client={client}>
+          <AdminTokensPage />
+        </QueryClientProvider>
+      </MemoryRouter>
+    )
     const el = screen.getByText('ui.admin.tokens.title')
     expect(el).toBeTruthy()
   })

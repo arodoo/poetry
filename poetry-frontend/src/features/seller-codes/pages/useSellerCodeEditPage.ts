@@ -27,10 +27,10 @@ export function useSellerCodeEditPage(): {
     useSellerCodesFormState(
       sellerCode
         ? {
-            code: sellerCode.code,
+            code: sellerCode.code ?? '',
             organizationId: sellerCode.organizationId ?? '',
             userId: sellerCode.userId ? String(sellerCode.userId) : '',
-            status: sellerCode.status,
+            status: (sellerCode.status ?? 'inactive') as 'active' | 'inactive' | 'expired',
           }
         : undefined
     )
@@ -38,7 +38,7 @@ export function useSellerCodeEditPage(): {
     buildSellerCodeEditBreadcrumbs(deps.sellerCodeId, deps.locale, deps.t)
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
     buildEditSubmitHandler(
-      sellerCode,
+      sellerCode ? { version: String(sellerCode.version) } : undefined,
       formState,
       deps.userId,
       deps.sellerCodeId,

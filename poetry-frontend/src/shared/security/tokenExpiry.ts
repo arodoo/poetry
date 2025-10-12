@@ -13,7 +13,7 @@ interface JwtPayload {
   sub?: string
 }
 
-const REFRESH_BUFFER_SECONDS: number = 60
+const REFRESH_BUFFER_SECONDS = 60
 
 export function isTokenExpiringSoon(
   accessToken: string,

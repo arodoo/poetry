@@ -19,7 +19,7 @@ export class LocaleService {
   private readonly env: ReturnType<typeof getEnv> = getEnv()
 
   public async fetchUserLocale(
-    userId: string = 'demo'
+    userId = 'demo'
   ): Promise<LocaleServiceResult> {
     try {
       // Align with backend versioned base path "/api/v1"

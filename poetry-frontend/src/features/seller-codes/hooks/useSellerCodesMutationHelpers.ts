@@ -25,7 +25,7 @@ export function useSellerCodesMutationSuccess(): (
     const casted: { id: string | number } = detail as {
       id: string | number
     }
-    const id: string = String(casted.id)
+    const id = String(casted.id)
     void queryClient.invalidateQueries({
       queryKey: sellerCodesQueryKeys.list(),
     })

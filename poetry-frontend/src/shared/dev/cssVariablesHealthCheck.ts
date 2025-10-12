@@ -59,7 +59,7 @@ export function checkCssVariablesHealth(): void {
       '%c✅ CSS Variables Health Check Passed',
       'color: white; background: green; font-size: 14px; padding: 4px;',
       ((): string => {
-        const countStr: string = String(criticalVars.length)
+        const countStr = String(criticalVars.length)
         return `\n${countStr} critical variables are set correctly`
       })()
     )

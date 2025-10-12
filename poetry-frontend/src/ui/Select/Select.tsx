@@ -10,7 +10,7 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   invalid?: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/typedef
+ 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     { className, invalid, disabled, children, ...rest }: SelectProps,

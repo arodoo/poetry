@@ -22,7 +22,7 @@ export function useSession(): SessionHookResult {
     getTokenSnapshot,
     getTokenSnapshot
   )
-  const hasTokens: boolean = Boolean(tokens?.accessToken)
+  const hasTokens = Boolean(tokens?.accessToken)
 
   const meQuery: ReturnType<typeof useMeQuery> = useMeQuery({
     enabled: hasTokens,

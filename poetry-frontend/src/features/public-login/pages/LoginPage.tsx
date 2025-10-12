@@ -14,7 +14,7 @@ export default function LoginPage(): ReactElement {
   const { t, form, setForm, onSubmit, isLoading, error, fieldErrors } =
     useLoginPage()
   const { locale } = useLocale() as { locale: string }
-  const forgotPasswordPath: string = `/${locale}/forgot-password`
+  const forgotPasswordPath = `/${locale}/forgot-password`
 
   function setUsername(value: string): void {
     setForm((prev: typeof form): typeof form => ({ ...prev, username: value }))

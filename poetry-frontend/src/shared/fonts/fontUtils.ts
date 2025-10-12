@@ -9,7 +9,7 @@
 import type { TokenFont, TokenBundle } from './loadFontTypes'
 import { i18nLogger } from '../i18n/utils/logger'
 
-export const FONT_CACHE_KEY_PREFIX: string = 'font-cache-v1-'
+export const FONT_CACHE_KEY_PREFIX = 'font-cache-v1-'
 
 export function findActiveFont(bundle: TokenBundle): TokenFont | undefined {
   return bundle.fonts.find(
