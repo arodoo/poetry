@@ -23,6 +23,7 @@ import { useSubscriptionDetailQuery } from '../hooks/useSubscriptionsQueries'
 import { useUpdateSubscriptionMutation } from '../hooks/useSubscriptionsMutations'
 import type { UpdateSubscriptionInput } from '../model/SubscriptionsSchemas'
 import { buildSubscriptionEditBreadcrumbs } from './subscriptionBreadcrumbHelpers'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export default function SubscriptionEditPage(): ReactElement {
   const { id } = useParams<{ id: string }>()
@@ -40,7 +41,7 @@ export default function SubscriptionEditPage(): ReactElement {
   const [currency, setCurrency] = useState<string>('USD')
   const [durationDays, setDurationDays] = useState<number>(30)
   const [status, setStatus] = useState<'active' | 'inactive'>('active')
-  const breadcrumbs = buildSubscriptionEditBreadcrumbs(locale, t, id ?? '')
+  const breadcrumbs = buildSubscriptionEditBreadcrumbs(locale, t)
   useEffect((): void => {
     if (query.data) {
       setName(query.data.name ?? '')
@@ -48,7 +49,8 @@ export default function SubscriptionEditPage(): ReactElement {
       setPrice(query.data.price ?? 0)
       setCurrency(query.data.currency ?? 'USD')
       setDurationDays(query.data.durationDays ?? 30)
-      setStatus((query.data.status as 'active' | 'inactive') ?? 'active')
+      const s = query.data.status as 'active' | 'inactive' | undefined
+      setStatus(s ?? 'active')
     }
   }, [query.data])
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -66,7 +68,7 @@ export default function SubscriptionEditPage(): ReactElement {
       {
         onSuccess: (): void => {
           toast.push(t('ui.subscriptions.toast.update.success'))
-          void navigate(`/${locale}/subscriptions/${id}`)
+          void navigate(`/${locale}/subscriptions/${toTemplateString(id)}`)
         },
         onError: (): void => {
           toast.push(t('ui.subscriptions.toast.update.error'))
@@ -192,7 +194,7 @@ export default function SubscriptionEditPage(): ReactElement {
               <Button
                 type="button"
                 variant="secondary"
-                onClick={() => void navigate(`/${locale}/subscriptions/${id}`)}
+                onClick={() => void navigate(`/${locale}/subscriptions/${toTemplateString(id)}`)}
                 disabled={mutation.isPending}
                 data-testid="subscription-cancel-button"
               >

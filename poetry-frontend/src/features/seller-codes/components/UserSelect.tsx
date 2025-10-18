@@ -45,8 +45,8 @@ export function UserSelect(props: UserSelectProps): ReactElement {
         {!isLoading &&
           !isError &&
           users?.map((user: UserResponse) => (
-            <option key={user.id} value={user.id?.toString() || ''}>
-              {user.username} ({user.email})
+            <option key={user.id} value={user.id?.toString() ?? ''}>
+              {user.username} ({user.email ?? ''})
             </option>
           ))}
       </Select>

@@ -21,7 +21,9 @@ import {
 
 export async function fetchSellerCodesList(): Promise<SellerCodesCollection> {
   const response = await listSellerCodes()
-  const data = response.data as SellerCodeResponse[]
+  // `response.data` comes from generated SDK and can have differing shapes.
+  // Cast via unknown first to satisfy TS and then parse safely.
+  const data = (response.data as unknown) as SellerCodeResponse[]
   return parseSellerCodesCollection(data)
 }
 
@@ -37,7 +39,7 @@ export async function fetchSellerCodesPage(
       ...(search ? { search } : {}),
     },
   })
-  return response.data as PageResponseDtoSellerCodeResponse
+  return response.data as unknown as PageResponseDtoSellerCodeResponse
 }
 
 export async function fetchSellerCodeById(
@@ -46,6 +48,6 @@ export async function fetchSellerCodeById(
   const response = await getSellerCodeById({
     path: { id: Number(id) },
   })
-  const data = response.data as SellerCodeResponse
+  const data = response.data as unknown as SellerCodeResponse
   return parseSellerCodeDetail(data)
 }

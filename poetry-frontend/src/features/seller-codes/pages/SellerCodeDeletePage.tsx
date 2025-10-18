@@ -28,10 +28,7 @@ export default function SellerCodeDeletePage(): ReactElement {
   const isSubmitting: boolean = mutation.isPending
 
   function handleConfirmDelete(): void {
-    if (
-      sellerCodeDetail?.version === undefined ||
-      sellerCodeDetail.version === null
-    ) {
+    if (sellerCodeDetail?.version == null) {
       toast.push(t('ui.sellerCodes.delete.error'))
       return
     }

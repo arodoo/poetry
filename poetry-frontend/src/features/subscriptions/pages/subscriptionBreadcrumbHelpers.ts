@@ -17,8 +17,7 @@ export function buildSubscriptionListBreadcrumbs(
 
 export function buildSubscriptionDetailBreadcrumbs(
   locale: string,
-  t: (key: string) => string,
-  _id: string
+  t: (key: string) => string
 ): readonly BreadcrumbItem[] {
   return [
     { label: t('ui.navigation.home'), href: `/${locale}` },
@@ -50,8 +49,7 @@ export function buildSubscriptionCreateBreadcrumbs(
 
 export function buildSubscriptionEditBreadcrumbs(
   locale: string,
-  t: (key: string) => string,
-  _id: string
+  t: (key: string) => string
 ): readonly BreadcrumbItem[] {
   return [
     { label: t('ui.navigation.home'), href: `/${locale}` },

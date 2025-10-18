@@ -9,6 +9,7 @@ import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { UserSummary } from '../model/UsersSchemas'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export function buildUsersListColumns(
   locale: string,
@@ -30,7 +31,7 @@ export function buildUsersListColumns(
       header: t('ui.users.table.status'),
       accessor: (row: UserSummary): ReactElement => (
         <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
-          {t(`ui.users.status.${row.status}`)}
+          {t('ui.users.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
     },
@@ -54,11 +55,11 @@ export function buildUsersListColumns(
       header: t('ui.users.table.actions'),
       accessor: (row: UserSummary): ReactElement => (
         <Inline gap="xs">
-          <Button
-            to={`/${locale}/users/${row.id}`}
+            <Button
+            to={`/${locale}/users/${toTemplateString(row.id)}`}
             size="sm"
             width="fixed-small"
-            data-testid={`view-user-${row.id}`}
+            data-testid={`view-user-${toTemplateString(row.id)}`}
           >
             {t('ui.users.actions.view')}
           </Button>

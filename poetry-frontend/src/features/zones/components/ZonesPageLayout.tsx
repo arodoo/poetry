@@ -4,7 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import type { ReactNode } from 'react'
+import type { ReactNode, ReactElement } from 'react'
 
 interface ZonesPageLayoutProps {
   readonly children: ReactNode
@@ -16,7 +16,7 @@ export function ZonesPageLayout({
   children,
   title,
   description,
-}: ZonesPageLayoutProps) {
+}: ZonesPageLayoutProps): ReactElement {
   return (
     <div className="min-h-screen bg-surface-base">
       <main className="w-full px-4 py-4">

@@ -16,7 +16,8 @@ export async function fetchSubscriptionsList(): Promise<
   SubscriptionResponse[]
 > {
   const response = await listSubscriptionsSdk()
-  return (response.data as SubscriptionResponse[]) ?? []
+  if (!response.data) return []
+  return response.data as unknown as SubscriptionResponse[]
 }
 
 export async function fetchSubscriptionsPage(

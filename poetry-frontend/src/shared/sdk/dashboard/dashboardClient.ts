@@ -14,5 +14,5 @@ export async function getDashboardOverviewRaw(): Promise<DashboardOverviewRespon
   if (response.error || !response.data) {
     throw new Error('Failed to fetch dashboard overview')
   }
-  return response.data
+  return (response.data as unknown) as DashboardOverviewResponse
 }

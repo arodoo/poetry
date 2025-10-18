@@ -30,13 +30,15 @@ export default function ZoneEditPage(): ReactElement {
   const detailQuery = useZoneDetailQuery(zoneId)
   const mutation = useUpdateZoneMutation()
   const zone = detailQuery.data
+  // normalize status to the expected union; if status is missing, default to 'active'
+  const zoneStatus = zone?.status ? (zone.status as 'active' | 'inactive') : 'active'
   const formState = useZonesFormState(
     zone
       ? {
           name: zone.name ?? '',
           description: zone.description ?? '',
           managerId: zone.managerId ? String(zone.managerId) : '',
-          status: (zone.status as 'active' | 'inactive') ?? 'active',
+          status: zoneStatus,
         }
       : undefined
   )

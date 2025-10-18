@@ -26,7 +26,8 @@ export function useMembershipFormState(
   )
   const [sellerCode, setSellerCode] = useState(membership.sellerCode ?? '')
   const [status, setStatus] = useState<'active' | 'inactive'>(
-    (membership.status as 'active' | 'inactive') || 'active'
+    // ensure we only fallback when membership.status is nullish; cast after
+    (membership.status ?? 'active') as 'active' | 'inactive'
   )
   const [zoneIds, setZoneIds] = useState<readonly number[]>(
     membership.zoneIds ?? []

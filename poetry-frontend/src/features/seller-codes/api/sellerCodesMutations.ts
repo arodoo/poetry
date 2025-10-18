@@ -9,6 +9,7 @@ import {
   deleteSellerCode as deleteSellerCodeSdk,
   type SellerCodeResponse,
 } from '../../../api/generated'
+import { extractSdkData } from '../../../shared/api/extractSdkData'
 import {
   CreateSellerCodeSchema,
   UpdateSellerCodeSchema,
@@ -54,11 +55,11 @@ export async function deleteSellerCode(
 ): Promise<SellerCodeDetail> {
   const headers = etag ? { 'If-Match': etag } : {}
   // The generated SDK has a broad options signature for delete; only pass path and headers
-  const responseAny: any = await deleteSellerCodeSdk({
+  const responseUnknown = (await deleteSellerCodeSdk({
     path: { id: Number(id) },
     headers,
-  } as any)
-  const data: SellerCodeResponse = (responseAny?.data ??
-    {}) as SellerCodeResponse
+  } as unknown as Parameters<typeof deleteSellerCodeSdk>[0]) ) as unknown
+
+  const data = extractSdkData(responseUnknown) as SellerCodeResponse
   return parseSellerCodeDetail(data)
 }

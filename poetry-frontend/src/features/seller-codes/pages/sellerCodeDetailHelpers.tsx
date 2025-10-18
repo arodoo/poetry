@@ -29,7 +29,7 @@ export function buildSellerCodeDetailSections(
                     : 'danger'
               }
             >
-              {t(`ui.sellerCodes.status.${sellerCode.status}`)}
+              {t('ui.sellerCodes.status.' + (sellerCode.status ?? 'inactive'))}
             </Badge>
           ),
         },
@@ -44,15 +44,19 @@ export function buildSellerCodeDetailSections(
       items: [
         {
           label: t('ui.sellerCodes.detail.field.createdAt'),
-          value: (sellerCode as any).createdAt
-            ? new Date((sellerCode as any).createdAt).toLocaleString()
-            : '-',
+          value:
+            typeof (sellerCode as unknown as { createdAt?: string }).createdAt ===
+            'string'
+              ? new Date((sellerCode as unknown as { createdAt: string }).createdAt).toLocaleString()
+              : '-',
         },
         {
           label: t('ui.sellerCodes.detail.field.updatedAt'),
-          value: (sellerCode as any).updatedAt
-            ? new Date((sellerCode as any).updatedAt).toLocaleString()
-            : '-',
+          value:
+            typeof (sellerCode as unknown as { updatedAt?: string }).updatedAt ===
+            'string'
+              ? new Date((sellerCode as unknown as { updatedAt: string }).updatedAt).toLocaleString()
+              : '-',
         },
         {
           label: t('ui.sellerCodes.detail.field.version'),

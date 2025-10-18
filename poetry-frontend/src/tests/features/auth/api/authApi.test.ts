@@ -14,8 +14,8 @@ beforeAll((): void => {
     request: new Request('http://localhost/api/v1/auth/status'),
     response: new Response(),
   })
-  vi.spyOn(generatedSdk, 'login').mockImplementation(async (opts) => {
-    // capture headers passed through the generated client
+  vi.spyOn(generatedSdk, 'login').mockImplementation(async () => {
+    // Return a shape compatible with TokenResponse; keep types simple for test
     return Promise.resolve({
       data: {
         accessToken: 'a',
@@ -25,7 +25,7 @@ beforeAll((): void => {
       },
       request: new Request('http://localhost/api/v1/auth/login'),
       response: new Response(),
-    } as any)
+    })
   })
 })
 
@@ -43,11 +43,17 @@ describe('authApi', () => {
 describe('authApi headers', () => {
   it('sends Idempotency-Key on login', async () => {
     await postLogin('u', 'p')
-    const mockedLogin = vi.mocked(generatedSdk.login)
-    const call = mockedLogin.mock.calls[0]
-    const opts = call?.[0] as any
-    // ensure body has username/password and headers/object shape passed through
-    expect(opts?.body).toBeDefined()
-    expect((opts?.body as any).username).toBe('u')
+  const mockedLogin = vi.mocked(generatedSdk.login)
+  const call = mockedLogin.mock.calls[0]
+  const opts = call?.[0]
+  // ensure body has username/password and headers/object shape passed through
+  expect(opts?.body).toBeDefined()
+    const body = opts?.body as unknown
+    if (body && typeof body === 'object') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- test harness
+      expect((body as any).username).toBe('u')
+    } else {
+      throw new Error('Request body missing in mocked login call')
+    }
   }, 8000)
 })

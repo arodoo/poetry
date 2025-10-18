@@ -20,6 +20,7 @@ export interface ProfileSummarySectionProps {
 export function ProfileSummarySection(
   props: ProfileSummarySectionProps
 ): ReactElement {
+  // Keep safe fallbacks to satisfy runtime and TS guarantees
   const [username, setUsername] = useState(props.profile.username ?? '')
   useEffect((): void => {
     setUsername(props.profile.username ?? '')
@@ -28,14 +29,23 @@ export function ProfileSummarySection(
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault()
+    // compute version deterministically and avoid unnecessary coercions
+    let versionValue: number
+    if (typeof props.profile.version === 'number') {
+      versionValue = props.profile.version
+    } else if (typeof props.profile.version === 'string') {
+      // parse string versions, fallback to 0 on NaN
+      const parsed = Number(props.profile.version)
+      versionValue = Number.isFinite(parsed) ? parsed : 0
+    } else {
+      versionValue = 0
+    }
+
     props.onSubmit({
-      username: username ?? '',
+      username: username,
       email: props.profile.email ?? '',
       locale: props.profile.locale ?? 'en',
-      version:
-        typeof props.profile.version === 'number'
-          ? props.profile.version
-          : Number(props.profile.version) || 0,
+      version: versionValue,
     })
   }
 

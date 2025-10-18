@@ -17,6 +17,7 @@ import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
 import { useSubscriptionDetailQuery } from '../hooks/useSubscriptionsQueries'
 import { buildSubscriptionDetailBreadcrumbs } from './subscriptionBreadcrumbHelpers'
 import { buildSubscriptionDetailSections } from './subscriptionDetailHelpers.tsx'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export default function SubscriptionDetailPage(): ReactElement {
   const { id } = useParams<{ id: string }>()
@@ -29,11 +30,11 @@ export default function SubscriptionDetailPage(): ReactElement {
   const sections: readonly DetailViewSection[] = subscription
     ? buildSubscriptionDetailSections(subscription, t)
     : []
-  const breadcrumbs = buildSubscriptionDetailBreadcrumbs(locale, t, id ?? '')
+  const breadcrumbs = buildSubscriptionDetailBreadcrumbs(locale, t)
   const actions: ReactElement = (
     <Inline gap="sm">
       <Button
-        to={`/${locale}/subscriptions/${id}/edit`}
+        to={`/${locale}/subscriptions/${toTemplateString(id)}/edit`}
         size="sm"
         width="fixed-small"
         data-testid="edit-subscription-button"
@@ -41,7 +42,7 @@ export default function SubscriptionDetailPage(): ReactElement {
         {t('ui.subscriptions.actions.edit')}
       </Button>
       <Button
-        to={`/${locale}/subscriptions/${id}/delete`}
+        to={`/${locale}/subscriptions/${toTemplateString(id)}/delete`}
         size="sm"
         width="fixed-small"
         variant="danger"

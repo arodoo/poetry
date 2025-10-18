@@ -28,7 +28,7 @@ export async function getTokens(): Promise<TokensApiResponse> {
     const response = await getTokensSdk()
 
     const data = response.data
-    const etag = response.response.headers.get('ETag') || null
+  const etag = response.response.headers.get('ETag') ?? null
 
     // Validate with Zod schema - will throw if data doesn't match
     const bundle: TokenBundle = TokenBundleSchema.parse(data)
@@ -90,7 +90,8 @@ export async function getTokens(): Promise<TokensApiResponse> {
 export async function updateSelection(
   input: UpdateSelectionInput
 ): Promise<void> {
-  await fetchJson<void>('/api/v1/tokens/selection', {
+  // we don't need the response body; call without generic to avoid invalid void type lint
+  await fetchJson('/api/v1/tokens/selection', {
     method: 'PUT',
     body: input,
   })

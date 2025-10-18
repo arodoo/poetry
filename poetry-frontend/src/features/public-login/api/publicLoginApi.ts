@@ -23,6 +23,8 @@ export async function loginRequest(
     username: payload.username,
     password: payload.password,
   }
+  // reference the optional AbortSignal parameter so linters don't mark it as unused
+  void _
   const response = await loginSdk({ body: requestBody })
   const data = response.data as TokenResponse
   return AuthTokensSchema.parse(data)

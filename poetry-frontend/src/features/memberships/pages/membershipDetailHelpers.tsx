@@ -9,6 +9,7 @@ import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
 import type { DetailViewItem } from '../../../ui/DetailView/DetailView'
 import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export function buildMembershipDetailSections(
   membership: MembershipResponse,
@@ -51,7 +52,7 @@ export function buildMembershipDetailSections(
                 {membership.zoneIds.map(
                   (zoneId: number): ReactElement => (
                     <Badge key={zoneId} tone="neutral" size="sm">
-                      Zone {zoneId}
+                      Zone {toTemplateString(zoneId)}
                     </Badge>
                   )
                 )}
@@ -69,10 +70,8 @@ export function buildMembershipDetailSections(
         {
           label: t('ui.memberships.table.status'),
           value: (
-            <Badge
-              tone={membership.status === 'active' ? 'success' : 'neutral'}
-            >
-              {t(`ui.memberships.status.${membership.status}`)}
+            <Badge tone={membership.status === 'active' ? 'success' : 'neutral'}>
+              {t('ui.memberships.status.' + (membership.status ?? 'inactive'))}
             </Badge>
           ),
         },

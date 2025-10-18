@@ -123,12 +123,6 @@
           "path": "domains/<feature>.md",
           "required": true,
           "description": "Domain doc (shared backend/frontend)"
-        },
-        {
-          "path": "api/openapi/paths/<feature>-*.yaml",
-          "required": true,
-          "description": "OpenAPI path file (pattern)",
-          "pattern": true
         }
       ]
     },

@@ -11,6 +11,7 @@ import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { ZoneResponse } from '../model/ZonesSchemas'
 import type { I18nKey } from '../../../shared/i18n/generated/keys'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export function buildZonesListColumns(
   locale: string,
@@ -30,16 +31,24 @@ export function buildZonesListColumns(
     {
       key: 'status',
       header: t('ui.zones.table.status'),
-      accessor: (row: ZoneResponse): ReactElement => (
-        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
-          {t(`ui.zones.status.${row.status}`)}
-        </Badge>
-      ),
+      accessor: (row: ZoneResponse): ReactElement => {
+        const statusKey =
+          row.status === 'active'
+            ? 'ui.zones.status.active'
+            : row.status === 'inactive'
+            ? 'ui.zones.status.inactive'
+            : 'ui.zones.status.unknown'
+        return (
+          <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
+            {t(statusKey)}
+          </Badge>
+        )
+      },
     },
     {
       key: 'managerId',
       header: t('ui.zones.table.manager'),
-      accessor: (row: ZoneResponse): string => String(row.managerId ?? '-'),
+      accessor: (row: ZoneResponse): string => toTemplateString(row.managerId ?? '-'),
     },
     {
       key: 'actions',
@@ -47,10 +56,10 @@ export function buildZonesListColumns(
       accessor: (row: ZoneResponse): ReactElement => (
         <Inline gap="xs">
           <Button
-            to={`/${locale}/zones/${row.id}`}
+            to={`/${locale}/zones/${toTemplateString(row.id)}`}
             size="sm"
             width="fixed-small"
-            data-testid={`view-zone-${row.id}`}
+            data-testid={`view-zone-${toTemplateString(row.id)}`}
           >
             {t('ui.zones.actions.view')}
           </Button>

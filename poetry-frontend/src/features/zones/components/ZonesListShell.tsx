@@ -5,9 +5,11 @@
  */
 
 import { Link } from 'react-router-dom'
+import type { ReactElement } from 'react'
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import type { ZoneResponse } from '../model/ZonesSchemas'
 import { useT } from '../../../shared/i18n/useT'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 interface ZonesListShellProps {
   readonly zones: readonly ZoneResponse[]
@@ -21,7 +23,7 @@ export function ZonesListShell({
   isLoading,
   onDelete,
   locale,
-}: ZonesListShellProps) {
+}: ZonesListShellProps): ReactElement {
   const t = useT()
 
   if (isLoading) {
@@ -74,7 +76,7 @@ export function ZonesListShell({
                   <td className="px-6 py-4 text-sm">{zone.managerId}</td>
                   <td className="px-6 py-4 text-sm text-right">
                     <Link
-                      to={`/${locale}/zones/edit/${zone.id}`}
+                      to={`/${locale}/zones/edit/${toTemplateString(zone.id)}`}
                       className="text-action-primary hover:text-action-hover"
                     >
                       <PencilIcon className="h-5 w-5" />

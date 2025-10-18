@@ -15,7 +15,14 @@ node tools/ci/headers/check-headers.mjs || {
   exit 1
 }
 
-echo "� Checking hardcoded colors..."
+# Run SDK extraction checker to enforce extractSdkData pattern
+echo "🔍 Checking SDK extraction pattern..."
+node tools/ci/sdk/check-sdk-extraction.mjs || {
+  echo "❌ SDK extraction pattern violations found! Use extractSdkData() instead of inline extraction."
+  exit 1
+}
+
+echo " Checking hardcoded colors..."
 node tools/ci/colors/check-hardcoded-colors.mjs || {
   echo "❌ Color check failed! Use theme CSS variables instead of hardcoded colors."
   exit 1

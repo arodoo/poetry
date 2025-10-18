@@ -14,5 +14,5 @@ export async function getPublicLandingRaw(): Promise<PublicLandingResponse> {
   if (response.error || !response.data) {
     throw new Error('Failed to fetch public landing')
   }
-  return response.data
+  return (response.data as unknown) as PublicLandingResponse
 }

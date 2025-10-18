@@ -9,6 +9,7 @@ import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { SellerCodeSummary } from '../model/SellerCodesSchemas'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export function buildSellerCodesListColumns(
   locale: string,
@@ -34,7 +35,7 @@ export function buildSellerCodesListColumns(
           }
           size="sm"
         >
-          {t(`ui.sellerCodes.status.${row.status}`)}
+          {t('ui.sellerCodes.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
     },
@@ -48,11 +49,11 @@ export function buildSellerCodesListColumns(
       header: t('ui.sellerCodes.table.actions'),
       accessor: (row: SellerCodeSummary): ReactElement => (
         <Inline gap="xs">
-          <Button
-            to={`/${locale}/seller-codes/${row.id}`}
+            <Button
+            to={`/${locale}/seller-codes/${toTemplateString(row.id)}`}
             size="sm"
             width="fixed-small"
-            data-testid={`view-seller-code-${row.id}`}
+            data-testid={`view-seller-code-${toTemplateString(row.id)}`}
           >
             {t('ui.sellerCodes.actions.view')}
           </Button>

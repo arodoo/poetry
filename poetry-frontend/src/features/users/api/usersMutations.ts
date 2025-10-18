@@ -25,9 +25,8 @@ export async function createUser(
   input: CreateUserInput
 ): Promise<UserResponse> {
   const validatedInput: CreateUserInput = CreateUserSchema.parse(input)
-  if (!validatedInput.status) {
-    validatedInput.status = 'active'
-  }
+  // prefer nullish coalescing to avoid overriding falsy but valid values
+  validatedInput.status ??= 'active'
   const response = await createUserSdk({ body: validatedInput })
   if (!response.data) {
     throw new Error('Failed to create user')
@@ -44,7 +43,7 @@ export async function updateUser(
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: payload,
-    headers: { 'If-Match': etag || '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to update user ${id}`)
@@ -61,7 +60,7 @@ export async function updateUserRoles(
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: { roles: payload.roles },
-    headers: { 'If-Match': etag || '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to update user roles for ${id}`)
@@ -74,9 +73,15 @@ export async function updateUserSecurity(
   input: UpdateUserSecurityInput,
   _etag?: string
 ): Promise<UserResponse> {
+  // Keep function signature for future implementation. The input is validated
+  // now to keep behavior consistent. This remains intentionally unimplemented.
   UpdateUserSecuritySchema.parse(input)
-  throw new Error(
-    `Password update endpoint not yet implemented in backend OpenAPI for user ${id}`
+  // Reference _etag to avoid unused var lint; function intentionally unimplemented
+  void _etag
+  return Promise.reject(
+    new Error(
+      `Password update endpoint not yet implemented in backend OpenAPI for user ${id}`
+    )
   )
 }
 
@@ -88,7 +93,7 @@ export async function disableUser(
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: { status: 'inactive' },
-    headers: { 'If-Match': etag || '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to disable user ${id}`)
@@ -104,7 +109,7 @@ export async function enableUser(
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: { status: 'active' },
-    headers: { 'If-Match': etag || '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to enable user ${id}`)
@@ -123,7 +128,14 @@ export async function deleteUser(
   if (!currentUserResponse.data) {
     throw new Error(`User ${id} not found`)
   }
-  const currentUser = currentUserResponse.data
+  // generated SDK response type is wide; narrow to expected shape for access
+  const currentUser = currentUserResponse.data as unknown as {
+    firstName?: string
+    lastName?: string
+    email?: string
+    locale?: string
+    roles?: string[]
+  }
   const response = await updateUserSdk({
     path: { id: Number(id) },
     body: {
@@ -134,7 +146,7 @@ export async function deleteUser(
       roles: currentUser.roles ? Array.from(currentUser.roles) : [],
       status: 'inactive',
     },
-    headers: { 'If-Match': etag || '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to delete user ${id}`)

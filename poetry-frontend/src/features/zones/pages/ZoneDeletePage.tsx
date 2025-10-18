@@ -30,7 +30,9 @@ export default function ZoneDeletePage(): ReactElement {
   const isSubmitting: boolean = mutation.isPending
 
   function handleConfirmDelete(): void {
-    if (zoneDetail?.version === undefined || zoneDetail.version === null) {
+    // Accept either missing detail or missing version. Use == null to cover both
+    // prefer optional chaining for clarity
+    if (zoneDetail?.version == null) {
       toast.push(t('ui.zones.toast.delete.error'))
       return
     }

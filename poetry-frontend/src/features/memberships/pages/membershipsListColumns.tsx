@@ -7,6 +7,7 @@ import type { ReactElement } from 'react'
 import { Button } from '../../../ui/Button/Button'
 import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { MembershipResponse } from '../../../api/generated'
 
@@ -41,7 +42,7 @@ export function buildMembershipsListColumns(
       header: t('ui.memberships.table.status'),
       accessor: (row: MembershipResponse): ReactElement => (
         <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
-          {t(`ui.memberships.status.${row.status}`)}
+          {t('ui.memberships.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
     },
@@ -51,10 +52,10 @@ export function buildMembershipsListColumns(
       accessor: (row: MembershipResponse): ReactElement => (
         <Inline gap="xs">
           <Button
-            to={`/${locale}/memberships/${row.id}`}
+            to={`/${locale}/memberships/${toTemplateString(row.id)}`}
             size="sm"
             width="fixed-small"
-            data-testid={`view-membership-${row.id}`}
+            data-testid={`view-membership-${toTemplateString(row.id)}`}
           >
             {t('ui.memberships.actions.view')}
           </Button>

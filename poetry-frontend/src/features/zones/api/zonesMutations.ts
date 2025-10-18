@@ -17,13 +17,14 @@ import {
   type ZoneDetail,
 } from '../model/ZonesSchemas'
 import { parseZoneDetail } from './zonesApiShared'
+import { extractSdkData } from '../../../shared/api/extractSdkData'
 
 export async function createZone(input: CreateZoneInput): Promise<ZoneDetail> {
   const validatedInput = CreateZoneSchema.parse(input)
-  const response = await createZoneSdk({
-    body: validatedInput as any,
-  })
-  const data = response.data as ZoneResponse
+  const responseUnknown = (await createZoneSdk({
+    body: validatedInput,
+  } as unknown as Parameters<typeof createZoneSdk>[0])) as unknown
+  const data = extractSdkData(responseUnknown) as ZoneResponse
   return parseZoneDetail(data)
 }
 
@@ -34,12 +35,12 @@ export async function updateZone(
 ): Promise<ZoneDetail> {
   const validatedInput = UpdateZoneSchema.parse(input)
   const headers = etag ? { 'If-Match': etag } : {}
-  const response = await updateZoneSdk({
+  const responseUnknown = (await updateZoneSdk({
     path: { id: Number(id) },
-    body: validatedInput as any,
+    body: validatedInput,
     headers,
-  })
-  const data = response.data as ZoneResponse
+  } as unknown as Parameters<typeof updateZoneSdk>[0])) as unknown
+  const data = extractSdkData(responseUnknown) as ZoneResponse
   return parseZoneDetail(data)
 }
 
@@ -53,5 +54,5 @@ export async function deleteZone(
     path: { id: Number(id) },
     query: { version },
     headers,
-  } as any)
+  } as unknown as Parameters<typeof deleteZoneSdk>[0])
 }

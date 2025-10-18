@@ -28,16 +28,18 @@ export function createUserSubmitHandler(
       true,
       formState.status
     )
-    const validatedInput: CreateUserInput = CreateUserSchema.parse({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      username: values.username,
-      email: values.email,
-      password: values.password || '',
-      locale: values.locale,
-      roles: values.roles,
-      status: values.status || 'active',
-    })
+      const validatedInput: CreateUserInput = CreateUserSchema.parse({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        username: values.username,
+        email: values.email,
+        locale: values.locale,
+        roles: values.roles,
+        // passwords may be optional in the form, but CreateUserSchema will validate
+        password: values.password ?? '',
+        // status is always present on UsersFormValues; pass through directly
+        status: values.status,
+      })
     onSuccess(validatedInput)
   }
 }

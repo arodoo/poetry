@@ -15,7 +15,7 @@ import { parseZonesCollection, parseZoneDetail } from './zonesApiShared'
 
 export async function fetchZonesList(): Promise<ZonesCollection> {
   const response = await listZones()
-  const data = response.data as ZoneResponse[]
+  const data = (response.data as unknown) as ZoneResponse[]
   return parseZonesCollection(data)
 }
 
@@ -31,13 +31,13 @@ export async function fetchZonesPage(
       ...(search ? { search } : {}),
     },
   })
-  return response.data as PageResponseDtoZoneResponse
+  return response.data as unknown as PageResponseDtoZoneResponse
 }
 
 export async function fetchZoneById(id: string): Promise<ZoneDetail> {
   const response = await getZoneById({
     path: { id: Number(id) },
   })
-  const data = response.data as ZoneResponse
+  const data = response.data as unknown as ZoneResponse
   return parseZoneDetail(data)
 }

@@ -9,6 +9,7 @@ import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Button } from '../../../ui/Button/Button'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 import type { MembershipResponse } from '../../../api/generated'
 import type { MembershipFormValues } from '../components/MembershipFormValues'
 import { MembershipFormFields } from '../components/MembershipFormFields'
@@ -66,7 +67,7 @@ export function MembershipEditForm({
               size="sm"
               onClick={() =>
                 // intentionally fire-and-forget navigation from a button handler
-                void navigate(`/${locale}/memberships/${membership.id}`)
+                void navigate(`/${locale}/memberships/${toTemplateString(membership.id)}`)
               }
             >
               {t('ui.memberships.actions.cancel')}

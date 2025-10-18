@@ -3,13 +3,7 @@
  * Purpose: E2E test for subscription deletion confirmation functionality.
  * All Rights Reserved. Arodi Emmanuel
  */
-import {
-  test,
-  expect,
-  type Page,
-  type Response,
-  type Locator,
-} from '@playwright/test'
+import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
 async function createTestSubscription(
@@ -43,13 +37,7 @@ async function createTestSubscription(
   return { id: String(subscriptionData.id ?? ''), name: subscriptionName }
 }
 
-async function getSubscriptionIdFromButton(
-  button: Locator,
-  prefix: string
-): Promise<string> {
-  const testId: string = (await button.getAttribute('data-testid')) ?? ''
-  return testId.replace(prefix, '')
-}
+// helper removed: not used in this spec
 
 test('delete button navigates to delete confirmation page', async ({
   page,

@@ -26,7 +26,7 @@ export async function sendForgotPasswordRequest(
   if (response.error || !response.data) {
     throw new Error('Failed to send forgot password request')
   }
-  return response.data
+  return (response.data as unknown) as ForgotPasswordResponse
 }
 
 export function postPublicForgotPassword(

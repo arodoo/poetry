@@ -9,9 +9,11 @@ import type {
   DetailViewItem,
 } from '../../../ui/DetailView/DetailView'
 import { Badge } from '../../../ui/Badge/Badge'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export function formatCurrency(amount: number, currency: string): string {
-  return `${currency} ${amount.toFixed(2)}`
+  const formatted = Number.isFinite(amount) ? amount.toFixed(2) : '0.00'
+  return toTemplateString(currency) + ' ' + formatted
 }
 
 export function formatDuration(
@@ -19,7 +21,7 @@ export function formatDuration(
   t: (key: string) => string
 ): string {
   if (days === 1) {
-    return `${days} day`
+  return toTemplateString(days) + ' day'
   }
   if (days === 7) {
     return '1 week'
@@ -33,7 +35,7 @@ export function formatDuration(
   if (days === 365) {
     return '1 year'
   }
-  return `${days} ${t('ui.subscriptions.table.days')}`
+  return toTemplateString(days) + ' ' + t('ui.subscriptions.table.days')
 }
 
 export function buildSubscriptionDetailSections(
@@ -50,7 +52,7 @@ export function buildSubscriptionDetailSections(
         },
         {
           label: 'Description',
-          value: subscription.description || 'No description provided',
+          value: subscription.description ?? 'No description provided',
           fullWidth: true,
         },
       ] as readonly DetailViewItem[],

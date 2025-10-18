@@ -22,12 +22,8 @@ export async function createSubscription(
 ): Promise<SubscriptionResponse> {
   const validatedInput: CreateSubscriptionInput =
     CreateSubscriptionSchema.parse(input)
-  if (!validatedInput.status) {
-    validatedInput.status = 'active'
-  }
-  if (!validatedInput.currency) {
-    validatedInput.currency = 'USD'
-  }
+  validatedInput.status ??= 'active'
+  validatedInput.currency ??= 'USD'
   const response = await createSubscriptionSdk({ body: validatedInput })
   if (!response.data) {
     throw new Error('Failed to create subscription')
@@ -44,7 +40,7 @@ export async function updateSubscription(
   const response = await updateSubscriptionSdk({
     path: { id: Number(id) },
     body: payload,
-    headers: { 'If-Match': etag || '""' },
+  headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to update subscription ${id}`)

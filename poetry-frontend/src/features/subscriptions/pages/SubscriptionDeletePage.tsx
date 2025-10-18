@@ -13,6 +13,7 @@ import { Button } from '../../../ui/Button/Button'
 import { Inline } from '../../../ui/Inline/Inline'
 import { useSubscriptionDetailQuery } from '../hooks/useSubscriptionsQueries'
 import { useDeleteSubscriptionMutation } from '../hooks/useSubscriptionsMutations'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export default function SubscriptionDeletePage(): ReactElement {
   const { id } = useParams<{ id: string }>()
@@ -28,9 +29,9 @@ export default function SubscriptionDeletePage(): ReactElement {
   const handleDelete = (): void => {
     if (!id) return
     mutation.mutate(id, {
-      onSuccess: (): void => {
+        onSuccess: (): void => {
         toast.push(t('ui.subscriptions.toast.delete.success'))
-        void navigate(`/${locale}/subscriptions`)
+          void navigate(`/${locale}/subscriptions`)
       },
       onError: (): void => {
         toast.push(t('ui.subscriptions.toast.delete.error'))
@@ -38,7 +39,7 @@ export default function SubscriptionDeletePage(): ReactElement {
     })
   }
   const handleCancel = (): void => {
-    void navigate(`/${locale}/subscriptions/${id}`)
+    void navigate(`/${locale}/subscriptions/${toTemplateString(id)}`)
   }
   return (
     <PageLayout

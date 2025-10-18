@@ -14,7 +14,7 @@ import type { MembershipFormValues } from '../components/MembershipFormValues'
 export function createEditSubmitHandler(
   membershipId: string,
   etag: string,
-  mutate: (vars: any, callbacks: any) => void,
+  mutate: (vars: unknown, callbacks: unknown) => void,
   navigate: NavigateFunction,
   locale: string,
   push: (msg: string) => void,
@@ -29,17 +29,18 @@ export function createEditSubmitHandler(
       allZones: values.allZones,
       zoneIds: values.zoneIds,
     })
-    mutate(
-      { id: membershipId, input: validatedInput, etag },
-      {
-        onSuccess: (): void => {
-          push(t('ui.memberships.toast.updated'))
-          void navigate(`/${locale}/memberships`)
-        },
-        onError: (): void => {
-          push(t('ui.memberships.toast.error'))
-        },
-      }
-    )
+    // Narrow callbacks locally before passing to mutate (keeps external
+    // API flexible while respecting lint rules about `any`).
+    const callbacks = {
+      onSuccess: (): void => {
+        push(t('ui.memberships.toast.updated'))
+        void navigate(`/${locale}/memberships`)
+      },
+      onError: (): void => {
+        push(t('ui.memberships.toast.error'))
+      },
+    }
+
+    mutate({ id: membershipId, input: validatedInput, etag }, callbacks)
   }
 }
