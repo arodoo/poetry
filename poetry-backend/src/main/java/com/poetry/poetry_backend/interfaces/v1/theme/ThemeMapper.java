@@ -13,12 +13,12 @@ import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 @Component
 public class ThemeMapper {
-  public List<ThemeDtos.ThemeResponse> map(List<Theme> themes) {
+  public List<ThemeDto.ThemeResponse> map(List<Theme> themes) {
     return themes.stream().map(this::map).toList();
   }
 
-  public ThemeDtos.ThemeResponse map(Theme theme) {
-    ThemeDtos.ThemeResponse dto = new ThemeDtos.ThemeResponse();
+  public ThemeDto.ThemeResponse map(Theme theme) {
+    ThemeDto.ThemeResponse dto = new ThemeDto.ThemeResponse();
     dto.id = theme.getId();
     dto.key = theme.getKey();
     dto.name = theme.getName();

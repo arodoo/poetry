@@ -10,13 +10,13 @@ package com.poetry.poetry_backend.application.events.usecase;
 
 import java.util.List;
 
-import com.poetry.poetry_backend.application.events.port.EventsQueryPort;
+import com.poetry.poetry_backend.application.events.port.EventQueryPort;
 import com.poetry.poetry_backend.domain.events.model.Event;
 
 public class GetNearbyEventsUseCase {
-  private final EventsQueryPort queryPort;
+  private final EventQueryPort queryPort;
 
-  public GetNearbyEventsUseCase(EventsQueryPort queryPort) {
+  public GetNearbyEventsUseCase(EventQueryPort queryPort) {
     this.queryPort = queryPort;
   }
 

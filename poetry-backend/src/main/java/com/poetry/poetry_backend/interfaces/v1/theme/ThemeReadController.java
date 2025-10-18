@@ -33,17 +33,17 @@ public class ThemeReadController {
   }
 
   @GetMapping
-  public List<ThemeDtos.ThemeResponse> list() {
+  public List<ThemeDto.ThemeResponse> list() {
     return mapper.map(getAll.execute());
   }
 
   @GetMapping("/active")
-  public ThemeDtos.ThemeResponse active() {
+  public ThemeDto.ThemeResponse active() {
     return mapper.map(getActive.execute());
   }
 
   @GetMapping("/{id}")
-  public ThemeDtos.ThemeResponse byId(@PathVariable Long id) {
+  public ThemeDto.ThemeResponse byId(@PathVariable Long id) {
     return mapper.map(getById.execute(id));
   }
 }

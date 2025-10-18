@@ -44,13 +44,13 @@ public class SellerCodesCreateController {
     @ApiResponse(responseCode = "401", description = "Unauthorized"),
     @ApiResponse(responseCode = "403", description = "Forbidden")
   })
-  public ResponseEntity<SellerCodeDtos.SellerCodeResponse> create(
-      @RequestBody SellerCodeDtos.SellerCodeCreateRequest r) {
+  public ResponseEntity<SellerCodeDto.SellerCodeResponse> create(
+      @RequestBody SellerCodeDto.SellerCodeCreateRequest r) {
     var sc = create.execute(
       r.code(), r.organizationId(), r.userId(), r.status()
     );
     return ResponseEntity.status(201).body(
-      SellerCodeDtos.toResponse(sc)
+      SellerCodeDto.toResponse(sc)
     );
   }
 }

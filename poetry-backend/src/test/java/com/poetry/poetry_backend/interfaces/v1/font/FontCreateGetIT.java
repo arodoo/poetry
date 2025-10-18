@@ -21,7 +21,7 @@ class FontCreateGetIT {
   TestRestTemplate rest;
   @Test
   void createAndGet() {
-  FontDtos.CreateFontRequest req = new FontDtos.CreateFontRequest(
+  FontDto.CreateFontRequest req = new FontDto.CreateFontRequest(
     "body",
     "Body",
     "https://f/1.woff2",
@@ -29,16 +29,16 @@ class FontCreateGetIT {
     "h",
     true,
     null);
-  ResponseEntity<FontDtos.FontResponse> c = rest.postForEntity(
+  ResponseEntity<FontDto.FontResponse> c = rest.postForEntity(
     "/api/v1/fonts",
     req,
-    FontDtos.FontResponse.class);
+    FontDto.FontResponse.class);
     assertThat(c.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-  ResponseEntity<FontDtos.FontResponse> g = rest.getForEntity(
+  ResponseEntity<FontDto.FontResponse> g = rest.getForEntity(
     "/api/v1/fonts/body",
-    FontDtos.FontResponse.class);
+    FontDto.FontResponse.class);
     assertThat(g.getStatusCode()).isEqualTo(HttpStatus.OK);
-  FontDtos.FontResponse body = java.util.Objects.requireNonNull(g.getBody());
+  FontDto.FontResponse body = java.util.Objects.requireNonNull(g.getBody());
   assertThat(body.label()).isEqualTo("Body");
   }
 }

@@ -10,14 +10,14 @@ package com.poetry.poetry_backend.application.events.usecase;
 
 import java.time.Instant;
 
-import com.poetry.poetry_backend.application.events.port.EventsCommandPort;
+import com.poetry.poetry_backend.application.events.port.EventCommandPort;
 import com.poetry.poetry_backend.domain.events.model.Event;
 import com.poetry.poetry_backend.domain.events.model.EventFactory;
 
 public class CreateEventUseCase {
-  private final EventsCommandPort commandPort;
+  private final EventCommandPort commandPort;
 
-  public CreateEventUseCase(EventsCommandPort commandPort) {
+  public CreateEventUseCase(EventCommandPort commandPort) {
     this.commandPort = commandPort;
   }
 

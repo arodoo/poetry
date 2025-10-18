@@ -60,17 +60,17 @@ public class SubscriptionsUpdateController {
   })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
-  public ResponseEntity<SubscriptionDtos.SubscriptionResponse> update(
+  public ResponseEntity<SubscriptionDto.SubscriptionResponse> update(
       @PathVariable Long id,
       @RequestHeader("If-Match") String ifMatch,
-      @RequestBody SubscriptionDtos.SubscriptionUpdateRequest r)
+      @RequestBody SubscriptionDto.SubscriptionUpdateRequest r)
       throws Exception {
     var current = getSub.execute(id);
     long version = current.version();
     var updated = update.execute(
         id, version, r.name(), r.description(), r.price(),
         r.currency(), r.durationDays(), r.features(), r.status());
-    var response = SubscriptionDtos.toResponse(updated);
+    var response = SubscriptionDto.toResponse(updated);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }

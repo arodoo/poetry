@@ -43,12 +43,12 @@ public class SubscriptionsCreateController {
   })
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
-  public ResponseEntity<SubscriptionDtos.SubscriptionResponse> create(
-      @RequestBody SubscriptionDtos.SubscriptionCreateRequest r) {
+  public ResponseEntity<SubscriptionDto.SubscriptionResponse> create(
+      @RequestBody SubscriptionDto.SubscriptionCreateRequest r) {
     var sub = create.execute(
         r.name(), r.description(), r.price(), r.currency(),
         r.durationDays(), r.features(), r.status());
     return ResponseEntity.status(201)
-        .body(SubscriptionDtos.toResponse(sub));
+        .body(SubscriptionDto.toResponse(sub));
   }
 }

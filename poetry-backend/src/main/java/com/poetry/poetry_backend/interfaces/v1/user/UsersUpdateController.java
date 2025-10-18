@@ -59,10 +59,10 @@ public class UsersUpdateController {
   })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
-  public ResponseEntity<UserDtos.UserResponse> update(
+  public ResponseEntity<UserDto.UserResponse> update(
       @PathVariable Long id,
       @RequestHeader("If-Match") String ifMatch,
-      @RequestBody UserDtos.UserUpdateRequest r) throws Exception {
+      @RequestBody UserDto.UserUpdateRequest r) throws Exception {
     // Get current user to extract version - IfMatchFilter already validated ETag
     var currentUser = getUser.execute(id);
     long version = currentUser.version();
@@ -71,7 +71,7 @@ public class UsersUpdateController {
         id, version, r.firstName(), r.lastName(), r.email(),
         r.locale(), r.roles(), r.status());
     
-    var response = UserDtos.toResponse(u);
+    var response = UserDto.toResponse(u);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }

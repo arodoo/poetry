@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
-import com.poetry.poetry_backend.interfaces.v1.user.UserDtos;
+import com.poetry.poetry_backend.interfaces.v1.user.UserDto;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,7 +62,7 @@ public class IfMatchFilter implements Filter {
       String provided = ifMatch.replace("\"", "");
       String current = etag.compute(
           json.writeValueAsString(
-              UserDtos.toResponse(getUser.execute(id))));
+              UserDto.toResponse(getUser.execute(id))));
       if (!current.equals(provided)) {
         res.setStatus(HttpStatus.PRECONDITION_FAILED.value());
         return;

@@ -7,7 +7,7 @@
 
 package com.poetry.poetry_backend.interfaces.v1.membership;
 
-import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDtos.*;
+import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDto.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,6 +44,6 @@ public class MembershipsCreateController {
         request.zoneIds(),
         request.allZones(),
         request.status());
-    return MembershipDtos.toResponse(membership);
+    return MembershipDto.toResponse(membership);
   }
 }

@@ -87,6 +87,7 @@ export default tseslint.config([
       '@typescript-eslint/no-unsafe-call': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-inferrable-types': 'warn',
+      'max-lines': ['error', { max: 80, skipBlankLines: true, skipComments: true }],
     },
   },
   {

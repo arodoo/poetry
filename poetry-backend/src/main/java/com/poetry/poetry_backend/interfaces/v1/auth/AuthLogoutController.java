@@ -42,7 +42,7 @@ public class AuthLogoutController {
   })
   @PostMapping("/logout")
   public ResponseEntity<Void> logout(
-      @Valid @RequestBody AuthDtos.RefreshRequest r) {
+      @Valid @RequestBody AuthDto.RefreshRequest r) {
     logout.execute(r.refreshToken());
     return ResponseEntity.noContent().build();
   }

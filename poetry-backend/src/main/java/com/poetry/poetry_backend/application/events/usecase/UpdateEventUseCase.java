@@ -10,17 +10,17 @@ package com.poetry.poetry_backend.application.events.usecase;
 
 import java.time.Instant;
 
-import com.poetry.poetry_backend.application.events.port.EventsCommandPort;
-import com.poetry.poetry_backend.application.events.port.EventsQueryPort;
+import com.poetry.poetry_backend.application.events.port.EventCommandPort;
+import com.poetry.poetry_backend.application.events.port.EventQueryPort;
 import com.poetry.poetry_backend.domain.events.model.Event;
 import com.poetry.poetry_backend.domain.events.model.EventRehydrator;
 import com.poetry.poetry_backend.domain.events.model.EventStatus;
 
 public class UpdateEventUseCase {
-  private final EventsQueryPort queryPort;
-  private final EventsCommandPort commandPort;
+  private final EventQueryPort queryPort;
+  private final EventCommandPort commandPort;
 
-  public UpdateEventUseCase(EventsQueryPort queryPort, EventsCommandPort commandPort) {
+  public UpdateEventUseCase(EventQueryPort queryPort, EventCommandPort commandPort) {
     this.queryPort = queryPort;
     this.commandPort = commandPort;
   }

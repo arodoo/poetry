@@ -42,10 +42,10 @@ public class UsersListController {
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
-  public ResponseEntity<List<UserDtos.UserResponse>> all() {
+  public ResponseEntity<List<UserDto.UserResponse>> all() {
     var users = getAll.execute();
     var out = users.stream()
-        .map(UserDtos::toResponse)
+  .map(UserDto::toResponse)
         .toList();
     // Generate ETag based on aggregated user versions and count
     String etag = String.valueOf(users.stream()

@@ -44,9 +44,9 @@ public class SellerCodesListController {
       })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
-  public ResponseEntity<List<SellerCodeDtos.SellerCodeResponse>> all() {
+  public ResponseEntity<List<SellerCodeDto.SellerCodeResponse>> all() {
     var codes = getAll.execute();
-    var out = codes.stream().map(SellerCodeDtos::toResponse).toList();
+  var out = codes.stream().map(SellerCodeDto::toResponse).toList();
     String etag =
         String.valueOf(
             codes.stream().mapToLong(sc -> sc.version()).sum() + codes.size());

@@ -29,9 +29,9 @@ public class ThemeUpdateController {
 
   @PutMapping("/{id}")
   @PreAuthorize("hasAuthority('admin')")
-  public ThemeDtos.ThemeResponse update(
+  public ThemeDto.ThemeResponse update(
       @PathVariable Long id,
-      @RequestBody ThemeDtos.UpdateRequest request) {
+      @RequestBody ThemeDto.UpdateRequest request) {
     return themeMapper.map(updateUseCase.execute(id, request.name, request.colors));
   }
 }

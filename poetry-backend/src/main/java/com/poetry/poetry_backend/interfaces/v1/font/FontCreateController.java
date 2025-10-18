@@ -24,7 +24,7 @@ public class FontCreateController {
   public FontCreateController(CreateFontUseCase create) {this.create = create;}
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
-  public ResponseEntity<FontDtos.FontResponse> create(@RequestBody FontDtos.CreateFontRequest req) {
+  public ResponseEntity<FontDto.FontResponse> create(@RequestBody FontDto.CreateFontRequest req) {
     FontAsset saved = create.execute(
         req.key(),
         req.label(),

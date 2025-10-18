@@ -49,7 +49,7 @@ public class UsersPagedListController {
       })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping(path = "/paged")
-  public ResponseEntity<PageResponseDto<UserDtos.UserResponse>> paged(
+  public ResponseEntity<PageResponseDto<UserDto.UserResponse>> paged(
       @Parameter(description = "Page number", example = "0")
       @RequestParam(defaultValue = "0") int page,
       @Parameter(description = "Page size", example = "10")
@@ -57,8 +57,8 @@ public class UsersPagedListController {
       @Parameter(description = "Search term", example = "john")
       @RequestParam(required = false) String search) {
     PageResult<User> result = getPage.execute(page, size, search);
-    PageResponseDto<UserDtos.UserResponse> response =
-        PageResponseDto.from(result, UserDtos::toResponse);
+    PageResponseDto<UserDto.UserResponse> response =
+  PageResponseDto.from(result, UserDto::toResponse);
     return ResponseEntity.ok(response);
   }
 }

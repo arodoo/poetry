@@ -8,21 +8,29 @@
  * codebase. The helper is intentionally conservative and returns stable
  * fallbacks for non-serializable values.
  *
- * Rights: Copyright (c) 2024-2025 Arodi Emmanuel. All Rights Reserved.
+ * All Rights Reserved. Arodi Emmanuel
  */
 /* eslint-disable @typescript-eslint/no-base-to-string */
 export function toTemplateString(value: unknown): string {
   if (value === null || value === undefined) return ''
   if (typeof value === 'string') return value
-  if (typeof value === 'number' || typeof value === 'boolean') return String(value)
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return String(value)
+  }
 
-  // Avoid letting objects fall back to Object's default toString ("[object Object]")
-  // which triggers the no-base-to-string rule. For plain objects and arrays we
-  // attempt a safe JSON.stringify (shallow), otherwise return a stable placeholder
-  // using Object.prototype.toString for non-serializable values like functions.
+  // Avoid letting objects fall back to Object's default toString
+  // ("[object Object]") which triggers the no-base-to-string rule.
+  // For plain objects and arrays we attempt a safe JSON.stringify
+  // (shallow). Otherwise return a stable placeholder using
+  // Object.prototype.toString for non-serializable values like
+  // functions.
   try {
-    // Only stringify plain objects/arrays to avoid serializing complex types.
-    if (Array.isArray(value) || Object.prototype.toString.call(value) === '[object Object]') {
+    // Only stringify plain objects/arrays to avoid serializing complex
+    // types.
+    if (
+      Array.isArray(value) ||
+      Object.prototype.toString.call(value) === '[object Object]'
+    ) {
       return JSON.stringify(value)
     }
   } catch {
@@ -30,8 +38,8 @@ export function toTemplateString(value: unknown): string {
   }
 
   // For other object-like values (functions, symbols, etc.) use a stable
-  // Object.prototype.toString representation which avoids default base-to-string
-  // usage in template expressions.
+  // Object.prototype.toString representation which avoids default
+  // base-to-string usage in template expressions.
   try {
     return Object.prototype.toString.call(value)
   } catch {

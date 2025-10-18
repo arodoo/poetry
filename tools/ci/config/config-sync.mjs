@@ -32,8 +32,8 @@ function updateEslint() {
 
   // Update max-lines rule
   s = s.replace(
-    /\{ max: \d+, skipBlankLines:/g,
-    `{ max: ${cfg.fileLineLimit}, skipBlankLines:`
+    /'max-lines': \['error', \{ max: \d+,/g,
+    `'max-lines': ['error', { max: ${cfg.fileLineLimit},`
   )
 
   write(p, s)

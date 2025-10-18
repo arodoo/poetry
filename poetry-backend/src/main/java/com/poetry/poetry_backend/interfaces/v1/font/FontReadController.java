@@ -27,19 +27,19 @@ public class FontReadController {
   }
 
   @GetMapping
-  public List<FontDtos.FontResponse> list() {
+  public List<FontDto.FontResponse> list() {
     return getAll.execute().stream().map(FontReadController::toDto).collect(Collectors.toList());
   }
 
   @GetMapping("/{key}")
-  public ResponseEntity<FontDtos.FontResponse> byKey(@PathVariable String key) {
+  public ResponseEntity<FontDto.FontResponse> byKey(@PathVariable String key) {
     return getByKey.execute(key)
         .map(f -> ResponseEntity.ok(toDto(f)))
         .orElse(ResponseEntity.notFound().build());
   }
 
-  private static FontDtos.FontResponse toDto(FontAsset a) {
-    return new FontDtos.FontResponse(
+  private static FontDto.FontResponse toDto(FontAsset a) {
+    return new FontDto.FontResponse(
         a.key(),
         a.label(),
         a.woff2Url(),

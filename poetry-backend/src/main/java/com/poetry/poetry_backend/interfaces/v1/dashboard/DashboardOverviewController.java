@@ -5,7 +5,7 @@
  */
 package com.poetry.poetry_backend.interfaces.v1.dashboard;
 
-import static com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.toResponse;
+import static com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.toResponse;
 
 import java.util.Optional;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardOverviewUseCase;
 import com.poetry.poetry_backend.domain.dashboard.model.DashboardOverview;
-import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.DashboardOverviewResponse;
+import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.DashboardOverviewResponse;
 
 @RestController
 @RequestMapping("/api/v1/dashboard")

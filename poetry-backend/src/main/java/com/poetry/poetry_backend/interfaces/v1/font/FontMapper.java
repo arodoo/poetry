@@ -9,8 +9,8 @@ import com.poetry.poetry_backend.domain.font.model.FontAsset;
 
 final class FontMapper {
   private FontMapper() {}
-  static FontDtos.FontResponse toDto(FontAsset font) {
-    return new FontDtos.FontResponse(
+  static FontDto.FontResponse toDto(FontAsset font) {
+    return new FontDto.FontResponse(
         font.key(),
         font.label(),
         font.woff2Url(),

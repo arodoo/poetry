@@ -28,7 +28,7 @@ public class ThemeActivateController {
 
   @PutMapping("/{id}/activate")
   @PreAuthorize("hasAuthority('admin')")
-  public ThemeDtos.ThemeResponse activate(@PathVariable Long id) {
+  public ThemeDto.ThemeResponse activate(@PathVariable Long id) {
     return themeMapper.map(activateUseCase.execute(id));
   }
 }

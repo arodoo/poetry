@@ -9,7 +9,7 @@
 
 package com.poetry.poetry_backend.interfaces.v1.zone;
 
-import static com.poetry.poetry_backend.interfaces.v1.zone.ZoneDtos.*;
+import static com.poetry.poetry_backend.interfaces.v1.zone.ZoneDto.*;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class ZoneController {
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @Operation(summary = "List all zones", operationId = "listAllZones")
   public List<ZoneResponse> listAll() {
-    return getAllZones.execute().stream().map(ZoneDtos::toResponse).toList();
+    return getAllZones.execute().stream().map(ZoneDto::toResponse).toList();
   }
 
   @GetMapping("/paged")
@@ -66,7 +66,7 @@ public class ZoneController {
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(required = false) String search) {
     PageResult<Zone> result = getZonesPage.execute(page, size, search);
-    return PageResponseDto.from(result, ZoneDtos::toResponse);
+    return PageResponseDto.from(result, ZoneDto::toResponse);
   }
 
   @GetMapping("/{id}")

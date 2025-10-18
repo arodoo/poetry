@@ -37,10 +37,10 @@ public class EventsGetController {
         @ApiResponse(responseCode = "404", description = "Event not found")
       })
   @GetMapping("/{id}")
-  public ResponseEntity<EventDtos.EventResponse> get(@PathVariable Long id) {
+  public ResponseEntity<EventDto.EventResponse> get(@PathVariable Long id) {
     return getEventById
         .execute(id)
-        .map(EventDtos::toResponse)
+  .map(EventDto::toResponse)
         .map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
   }

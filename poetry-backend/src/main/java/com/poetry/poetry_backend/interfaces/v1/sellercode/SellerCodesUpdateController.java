@@ -48,12 +48,12 @@ public class SellerCodesUpdateController {
       })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
-  public ResponseEntity<SellerCodeDtos.SellerCodeResponse> update(
+  public ResponseEntity<SellerCodeDto.SellerCodeResponse> update(
       @PathVariable Long id,
       @RequestHeader(value = "If-Match", required = false) String ifMatch,
-      @RequestBody SellerCodeDtos.SellerCodeUpdateRequest r) {
+      @RequestBody SellerCodeDto.SellerCodeUpdateRequest r) {
     long version = ifMatch == null ? 0L : Long.parseLong(ifMatch.replace("\"", ""));
     var sc = update.execute(id, version, r.code(), r.organizationId(), r.userId(), r.status());
-    return ResponseEntity.ok().body(SellerCodeDtos.toResponse(sc));
+    return ResponseEntity.ok().body(SellerCodeDto.toResponse(sc));
   }
 }

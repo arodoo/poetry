@@ -39,12 +39,12 @@ public class UsersCreateController {
   })
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
-  public ResponseEntity<UserDtos.UserResponse> create(
-      @RequestBody UserDtos.UserCreateRequest r) {
+  public ResponseEntity<UserDto.UserResponse> create(
+      @RequestBody UserDto.UserCreateRequest r) {
     var u = create.execute(
         r.firstName(), r.lastName(), r.email(),
         r.username(), r.locale(), r.password(), r.roles(),
         r.status());
-    return ResponseEntity.status(201).body(UserDtos.toResponse(u));
+    return ResponseEntity.status(201).body(UserDto.toResponse(u));
   }
 }

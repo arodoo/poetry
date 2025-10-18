@@ -35,9 +35,9 @@ public class EventsListController {
       description = "Get all events without pagination")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success")})
   @GetMapping("/list")
-  public ResponseEntity<List<EventDtos.EventResponse>> list() {
+  public ResponseEntity<List<EventDto.EventResponse>> list() {
     var events = getAllEvents.execute();
-    var responses = events.stream().map(EventDtos::toResponse).toList();
+  var responses = events.stream().map(EventDto::toResponse).toList();
     return ResponseEntity.ok(responses);
   }
 }

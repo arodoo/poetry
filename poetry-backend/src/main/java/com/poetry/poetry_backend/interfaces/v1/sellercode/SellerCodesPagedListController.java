@@ -32,11 +32,11 @@ public class SellerCodesPagedListController {
 
   @GetMapping("/paged")
   @Operation(summary = "Get paginated seller codes", description = "Retrieve page")
-  public PageResponseDto<SellerCodeDtos.SellerCodeResponse> getPaged(
+  public PageResponseDto<SellerCodeDto.SellerCodeResponse> getPaged(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(required = false) String search) {
     PageResult<SellerCode> result = getPageUseCase.execute(page, size, search);
-    return PageResponseDto.from(result, SellerCodeDtos::toResponse);
+  return PageResponseDto.from(result, SellerCodeDto::toResponse);
   }
 }

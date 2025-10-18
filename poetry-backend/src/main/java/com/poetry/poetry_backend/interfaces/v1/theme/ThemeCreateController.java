@@ -32,8 +32,8 @@ public class ThemeCreateController {
 
   @PostMapping
   @PreAuthorize("hasAuthority('admin')")
-  public ResponseEntity<ThemeDtos.ThemeResponse> create(
-      @RequestBody ThemeDtos.CreateRequest request) {
+  public ResponseEntity<ThemeDto.ThemeResponse> create(
+      @RequestBody ThemeDto.CreateRequest request) {
     String key = request.key;
     if (key == null || key.isBlank()) {
       key = request.name == null

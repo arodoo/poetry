@@ -12,13 +12,13 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.poetry.poetry_backend.application.events.port.EventsQueryPort;
+import com.poetry.poetry_backend.application.events.port.EventQueryPort;
 import com.poetry.poetry_backend.domain.events.model.Event;
 
 public class GetAllEventsUseCase {
-  private final EventsQueryPort queryPort;
+  private final EventQueryPort queryPort;
 
-  public GetAllEventsUseCase(EventsQueryPort queryPort) {
+  public GetAllEventsUseCase(EventQueryPort queryPort) {
     this.queryPort = queryPort;
   }
 

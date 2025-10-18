@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.i18n.usecase.GetSupportedLocalesUseCase;
 import com.poetry.poetry_backend.application.i18n.usecase.ResolveMessageUseCase;
-import com.poetry.poetry_backend.interfaces.v1.i18n.I18nDtos.LocalesResponse;
+import com.poetry.poetry_backend.interfaces.v1.i18n.I18nDto.LocalesResponse;
 
 @RestController
 @RequestMapping("/v1/i18n")

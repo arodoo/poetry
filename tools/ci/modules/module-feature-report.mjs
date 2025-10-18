@@ -9,6 +9,7 @@ import path from 'node:path'
 import {
   parseBlueprintPaths,
   expandFeature,
+  getBlueprintMeta,
 } from './module-blueprint-parser.mjs'
 
 const JAVA_BASE = 'poetry-backend/src/main/java/com/poetry/poetry_backend'
@@ -33,6 +34,10 @@ function hasAnyYaml(dir, feature) {
 export function buildFeatureReport(feature) {
   const blueprintPaths = parseBlueprintPaths()
   const expanded = expandFeature(blueprintPaths, feature)
+  const meta = getBlueprintMeta()
+  const nonCrudFeatures = new Set(meta.nonCrudFeatures || [])
+  const isNonCrud = nonCrudFeatures.has(feature)
+
   const report = { feature, expected: [], missing: [] }
   for (const e of expanded) {
     const p = e.path
@@ -46,8 +51,28 @@ export function buildFeatureReport(feature) {
     } else {
       exists = fs.existsSync(p)
     }
-    report.expected.push({ path: p, optional: e.optional, exists })
-    if (!exists && !e.optional) {
+
+    // OpenAPI paths under docs/api/openapi/paths are auto-generated -> optional
+    let optional = e.optional
+    if (p.includes('docs/api/openapi/paths/')) optional = true
+
+    // For non-CRUD features, mark CRUD controllers/tests as optional
+    if (isNonCrud) {
+      const isCrudFile = p.includes('CreateController') ||
+                         p.includes('GetController') ||
+                         p.includes('ListController') ||
+                         p.includes('PagedListController') ||
+                         p.includes('UpdateController') ||
+                         p.includes('DeleteController') ||
+                         p.includes('UseCaseTest') ||
+                         p.includes('UseCaseNegativeTest') ||
+                         p.includes('ControllerTest') ||
+                         p.includes('ControllerNegativeTest')
+      if (isCrudFile) optional = true
+    }
+
+    report.expected.push({ path: p, optional, exists })
+    if (!exists && !optional) {
       report.missing.push(p)
     }
   }

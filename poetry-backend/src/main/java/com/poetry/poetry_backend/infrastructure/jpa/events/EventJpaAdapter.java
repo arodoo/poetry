@@ -15,15 +15,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import com.poetry.poetry_backend.application.events.port.EventsCommandPort;
-import com.poetry.poetry_backend.application.events.port.EventsQueryPort;
+import com.poetry.poetry_backend.application.events.port.EventCommandPort;
+import com.poetry.poetry_backend.application.events.port.EventQueryPort;
 import com.poetry.poetry_backend.domain.events.model.Event;
 
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class EventJpaAdapter implements EventsQueryPort, EventsCommandPort {
+public class EventJpaAdapter implements EventQueryPort, EventCommandPort {
   private final EventJpaRepository repository;
   private final EventJpaMapper mapper;
 

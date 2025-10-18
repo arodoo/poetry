@@ -7,7 +7,7 @@
 
 package com.poetry.poetry_backend.interfaces.v1.membership;
 
-import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDtos.*;
+import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDto.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,7 +46,7 @@ public class MembershipsGetController {
   public ResponseEntity<MembershipResponse> byId(@PathVariable Long id)
       throws Exception {
     var membership = getById.execute(id);
-    var response = MembershipDtos.toResponse(membership);
+    var response = MembershipDto.toResponse(membership);
     String etag =
         etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);

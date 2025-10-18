@@ -41,9 +41,9 @@ public class AuthRefreshController {
     @ApiResponse(responseCode = "401", description = "Invalid refresh token")
   })
   @PostMapping("/refresh")
-  public ResponseEntity<AuthDtos.TokenResponse> refresh(
-      @Valid @RequestBody AuthDtos.RefreshRequest r) {
+  public ResponseEntity<AuthDto.TokenResponse> refresh(
+      @Valid @RequestBody AuthDto.RefreshRequest r) {
     var m = refresh.execute(r.refreshToken());
-    return ResponseEntity.ok(AuthDtos.toTokenResponse(m));
+    return ResponseEntity.ok(AuthDto.toTokenResponse(m));
   }
 }

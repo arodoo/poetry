@@ -9,13 +9,13 @@ package com.poetry.poetry_backend.application.events.usecase;
 
 import java.util.Optional;
 
-import com.poetry.poetry_backend.application.events.port.EventsQueryPort;
+import com.poetry.poetry_backend.application.events.port.EventQueryPort;
 import com.poetry.poetry_backend.domain.events.model.Event;
 
 public class GetEventByIdUseCase {
-  private final EventsQueryPort queryPort;
+  private final EventQueryPort queryPort;
 
-  public GetEventByIdUseCase(EventsQueryPort queryPort) {
+  public GetEventByIdUseCase(EventQueryPort queryPort) {
     this.queryPort = queryPort;
   }
 

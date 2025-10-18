@@ -17,6 +17,11 @@ function loadBlueprint() {
   }
 }
 
+export function getBlueprintMeta() {
+  const blueprint = loadBlueprint()
+  return blueprint?.meta || {}
+}
+
 export function parseBlueprintPaths() {
   const blueprint = loadBlueprint()
   if (!blueprint?.structure) return []
@@ -44,14 +49,28 @@ function pascal(n) {
     .map((s) => (s ? s[0].toUpperCase() + s.slice(1) : ''))
     .join('')
 }
+
+function singularize(word) {
+  // Simple English pluralization reversal for common patterns
+  // Handles: events→event, zones→zone, users→user, etc.
+  if (word.endsWith('ies')) return word.slice(0, -3) + 'y'
+  if (word.endsWith('ses') || word.endsWith('xes') || word.endsWith('ches') || word.endsWith('shes')) {
+    return word.slice(0, -2)
+  }
+  if (word.endsWith('s') && !word.endsWith('ss')) return word.slice(0, -1)
+  return word
+}
+
 export function expandFeature(entries, feature) {
-  const P = pascal(feature)
-  const PL = P.endsWith('s') ? P : P + 's'
+  // Generate singular Pascal class name from feature folder name
+  // e.g., "events" folder → "Event" class, "zones" → "Zone"
+  const featureSingular = singularize(feature)
+  const P = pascal(featureSingular)
   return entries.map((e) => ({
     optional: e.optional,
     path: e.pattern
       .replace(/<feature>/g, feature)
-      .replace(/Features/g, PL)
+      .replace(/Features/g, P + 's')  // for plural collections like GetAllEvents
       .replace(/Feature/g, P),
   }))
 }

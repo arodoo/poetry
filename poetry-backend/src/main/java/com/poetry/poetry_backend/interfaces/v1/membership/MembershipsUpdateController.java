@@ -7,7 +7,7 @@
 
 package com.poetry.poetry_backend.interfaces.v1.membership;
 
-import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDtos.*;
+import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDto.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -61,7 +61,7 @@ public class MembershipsUpdateController {
         request.zoneIds(),
         request.allZones(),
         request.status());
-    var response = MembershipDtos.toResponse(updated);
+    var response = MembershipDto.toResponse(updated);
     String etag =
         etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);

@@ -44,10 +44,10 @@ public class SubscriptionsListController {
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
-  public ResponseEntity<List<SubscriptionDtos.SubscriptionResponse>> all() {
+  public ResponseEntity<List<SubscriptionDto.SubscriptionResponse>> all() {
     var subs = getAll.execute();
     var response = subs.stream()
-        .map(SubscriptionDtos::toResponse)
+        .map(SubscriptionDto::toResponse)
         .toList();
     return ResponseEntity.ok(response);
   }

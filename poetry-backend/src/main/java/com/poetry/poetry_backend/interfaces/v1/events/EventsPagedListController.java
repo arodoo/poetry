@@ -35,9 +35,9 @@ public class EventsPagedListController {
       description = "Get events with page/size params")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success")})
   @GetMapping
-  public ResponseEntity<Page<EventDtos.EventResponse>> listPaged(Pageable pageable) {
+  public ResponseEntity<Page<EventDto.EventResponse>> listPaged(Pageable pageable) {
     var events = getAllEvents.execute(pageable);
-    var responses = events.map(EventDtos::toResponse);
+  var responses = events.map(EventDto::toResponse);
     return ResponseEntity.ok(responses);
   }
 }

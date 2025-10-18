@@ -51,10 +51,10 @@ public class SellerCodesGetController {
       })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
-  public ResponseEntity<SellerCodeDtos.SellerCodeResponse> byId(
+  public ResponseEntity<SellerCodeDto.SellerCodeResponse> byId(
       @PathVariable Long id) throws Exception {
     var sc = getById.execute(id);
-    var response = SellerCodeDtos.toResponse(sc);
+    var response = SellerCodeDto.toResponse(sc);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }

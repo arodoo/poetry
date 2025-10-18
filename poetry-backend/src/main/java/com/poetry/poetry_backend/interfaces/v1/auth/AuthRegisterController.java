@@ -44,7 +44,7 @@ public class AuthRegisterController {
   @PostMapping("/register")
   public ResponseEntity<Object> register(
       @RequestHeader(value = "Idempotency-Key", required = false) String key,
-      @Valid @RequestBody AuthDtos.RegisterEnvelope body) {
+      @Valid @RequestBody AuthDto.RegisterEnvelope body) {
     var user = body.user();
     var payload = user.asMap();
     var m = key == null 

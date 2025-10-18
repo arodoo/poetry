@@ -18,9 +18,9 @@ import com.poetry.poetry_backend.application.dashboard.usecase.CreateDashboardUs
 import com.poetry.poetry_backend.application.dashboard.usecase.DeleteDashboardUseCase;
 import com.poetry.poetry_backend.application.dashboard.usecase.UpdateDashboardUseCase;
 import com.poetry.poetry_backend.domain.dashboard.model.Dashboard;
-import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.CreateDashboardRequest;
-import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.DashboardResponse;
-import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.UpdateDashboardRequest;
+import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.CreateDashboardRequest;
+import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.DashboardResponse;
+import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.UpdateDashboardRequest;
 
 @RestController
 @RequestMapping("/api/v1/dashboard")
@@ -42,14 +42,14 @@ public class DashboardMutationController {
     Dashboard created = create.execute(request.name(), request.slug(), request.description());
     java.net.URI location = java.net.URI.create("/api/v1/dashboard/" + created.id());
     return ResponseEntity.created(location)
-        .body(DashboardDtos.toDashboardResponse(created));
+        .body(DashboardDto.toDashboardResponse(created));
   }
 
   @PutMapping("/{id}")
   public DashboardResponse updateDashboard(
       @PathVariable Long id, @RequestBody UpdateDashboardRequest request) {
     Dashboard updated = update.execute(id, request.name(), request.slug(), request.description());
-    return DashboardDtos.toDashboardResponse(updated);
+    return DashboardDto.toDashboardResponse(updated);
   }
 
   @DeleteMapping("/{id}")

@@ -35,12 +35,12 @@ public class EventsNearbyController {
       description = "Find events within radius using geospatial query")
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success")})
   @GetMapping("/nearby")
-  public ResponseEntity<List<EventDtos.EventResponse>> nearby(
+  public ResponseEntity<List<EventDto.EventResponse>> nearby(
       @RequestParam Double latitude,
       @RequestParam Double longitude,
       @RequestParam(defaultValue = "5000") Integer radiusMeters) {
     var events = getNearbyEvents.execute(latitude, longitude, radiusMeters);
-    var responses = events.stream().map(EventDtos::toResponse).toList();
+  var responses = events.stream().map(EventDto::toResponse).toList();
     return ResponseEntity.ok(responses);
   }
 }

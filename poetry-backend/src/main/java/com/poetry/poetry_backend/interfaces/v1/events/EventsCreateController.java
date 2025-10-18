@@ -41,8 +41,8 @@ public class EventsCreateController {
       })
   @PreAuthorize("isAuthenticated()")
   @PostMapping
-  public ResponseEntity<EventDtos.EventResponse> create(
-      @RequestBody EventDtos.EventCreateRequest r, Authentication auth) {
+  public ResponseEntity<EventDto.EventResponse> create(
+      @RequestBody EventDto.EventCreateRequest r, Authentication auth) {
     Long userId = Long.parseLong(auth.getName());
     var event =
         createEvent.execute(
@@ -54,6 +54,6 @@ public class EventsCreateController {
             r.longitude(),
             r.eventDate(),
             r.imageUrl());
-    return ResponseEntity.status(201).body(EventDtos.toResponse(event));
+    return ResponseEntity.status(201).body(EventDto.toResponse(event));
   }
 }

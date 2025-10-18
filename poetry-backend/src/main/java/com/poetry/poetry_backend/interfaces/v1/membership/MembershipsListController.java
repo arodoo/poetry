@@ -7,7 +7,7 @@
 
 package com.poetry.poetry_backend.interfaces.v1.membership;
 
-import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDtos.*;
+import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDto.*;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class MembershipsListController {
   @GetMapping
   public List<MembershipResponse> list() {
     return getAll.execute().stream()
-        .map(MembershipDtos::toResponse)
+        .map(MembershipDto::toResponse)
         .toList();
   }
 }

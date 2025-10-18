@@ -43,8 +43,8 @@ public class EventsUpdateController {
       })
   @PreAuthorize("isAuthenticated()")
   @PutMapping("/{id}")
-  public ResponseEntity<EventDtos.EventResponse> update(
-      @PathVariable Long id, @RequestBody EventDtos.EventUpdateRequest r) {
+  public ResponseEntity<EventDto.EventResponse> update(
+      @PathVariable Long id, @RequestBody EventDto.EventUpdateRequest r) {
     var status = r.status() != null ? EventStatus.valueOf(r.status()) : null;
     var event =
         updateEvent.execute(
@@ -57,6 +57,6 @@ public class EventsUpdateController {
             r.eventDate(),
             status,
             r.imageUrl());
-    return ResponseEntity.ok(EventDtos.toResponse(event));
+    return ResponseEntity.ok(EventDto.toResponse(event));
   }
 }

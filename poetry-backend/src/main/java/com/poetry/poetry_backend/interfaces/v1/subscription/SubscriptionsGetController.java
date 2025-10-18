@@ -52,10 +52,10 @@ public class SubscriptionsGetController {
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
-  public ResponseEntity<SubscriptionDtos.SubscriptionResponse> get(
+  public ResponseEntity<SubscriptionDto.SubscriptionResponse> get(
       @PathVariable Long id) throws Exception {
     var sub = getById.execute(id);
-    var response = SubscriptionDtos.toResponse(sub);
+    var response = SubscriptionDto.toResponse(sub);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }

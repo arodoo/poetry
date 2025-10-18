@@ -29,7 +29,7 @@ function validateEslint() {
   }
 
   // Check max-lines is present
-  const mLines = /\{ max: (\d+), skipBlankLines:/.exec(s)
+  const mLines = /'max-lines': \['error', \{ max: (\d+),/.exec(s)
   const exp = cfg.fileLineLimit
   if (!mLines || parseInt(mLines[1]) !== exp) {
     console.log(`❌ ESLint max-lines: expected ${exp}, found ${mLines?.[1]}`)

@@ -5,8 +5,8 @@
  */
 package com.poetry.poetry_backend.interfaces.v1.dashboard;
 
-import static com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.toDashboardResponse;
-import static com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.toDashboardResponses;
+import static com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.toDashboardResponse;
+import static com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.toDashboardResponses;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetAllDashboardsUseCase;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardByIdUseCase;
 import com.poetry.poetry_backend.domain.dashboard.model.Dashboard;
-import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.DashboardResponse;
+import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.DashboardResponse;
 
 @RestController
 @RequestMapping("/api/v1/dashboard")

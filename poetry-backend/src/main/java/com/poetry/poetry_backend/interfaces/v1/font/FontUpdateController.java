@@ -26,15 +26,15 @@ public class FontUpdateController {
     this.update = update;this.getByKey = getByKey;}
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{key}")
-  public ResponseEntity<FontDtos.FontResponse> update(
+  public ResponseEntity<FontDto.FontResponse> update(
       @PathVariable String key,
-      @RequestBody FontDtos.UpdateFontRequest req) {
+      @RequestBody FontDto.UpdateFontRequest req) {
     return getByKey.execute(key)
         .map(existing -> doUpdate(existing, req))
         .orElse(ResponseEntity.notFound().build());
   }
-  private ResponseEntity<FontDtos.FontResponse> doUpdate(
-      FontAsset existing, FontDtos.UpdateFontRequest r) {
+  private ResponseEntity<FontDto.FontResponse> doUpdate(
+      FontAsset existing, FontDto.UpdateFontRequest r) {
     FontAsset updated = update.execute(
         existing,
         r.label(),
