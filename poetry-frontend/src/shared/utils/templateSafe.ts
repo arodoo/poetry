@@ -1,11 +1,15 @@
 /*
- File: templateSafe.ts
- Purpose: Central helper to produce safe string values for template literals.
- Provides stable, predictable string conversions for primitives, arrays and
- plain objects. Avoids accidental '[object Object]' output and centralizes
- template-safety decisions to reduce repetitive guards across the codebase.
- All Rights Reserved.
-*/
+ * File: templateSafe.ts
+ * Purpose: Central helper to produce safe string values for template literals.
+ *
+ * This module provides stable, predictable string conversions for primitives,
+ * arrays and plain objects. It avoids accidental "[object Object]" output and
+ * centralizes template-safety decisions to reduce repetitive guards across the
+ * codebase. The helper is intentionally conservative and returns stable
+ * fallbacks for non-serializable values.
+ *
+ * Rights: Copyright (c) 2024-2025 Arodi Emmanuel. All Rights Reserved.
+ */
 /* eslint-disable @typescript-eslint/no-base-to-string */
 export function toTemplateString(value: unknown): string {
   if (value === null || value === undefined) return ''
