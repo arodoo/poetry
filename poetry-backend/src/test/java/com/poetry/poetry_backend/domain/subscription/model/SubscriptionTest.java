@@ -1,3 +1,10 @@
+/*
+ * File: SubscriptionTest.java
+ * Purpose: Unit tests for Subscription domain entity verifying happy-path
+ * behaviors and field validations.
+ * All Rights Reserved. Arodi Emmanuel
+ */
+
 package com.poetry.poetry_backend.domain.subscription.model;
 
 import java.math.BigDecimal;

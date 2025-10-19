@@ -1,3 +1,10 @@
+/*
+ * File: MembershipTest.java
+ * Purpose: Unit tests for Membership domain entity verifying core behaviors
+ * and ensuring correct invariants are enforced.
+ * All Rights Reserved. Arodi Emmanuel
+ */
+
 package com.poetry.poetry_backend.domain.membership.model;
 
 import java.time.Instant;
