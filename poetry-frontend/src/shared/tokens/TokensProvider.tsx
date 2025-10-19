@@ -11,8 +11,10 @@ import type { PropsWithChildren, ReactNode } from 'react'
 import { createContext, useEffect, useMemo } from 'react'
 import { useTokensQuery } from '../../features/tokens/hooks/useTokensQueries'
 import { mapBundleToCssVars } from '../../ui/theme/tokens'
-import { loadFontOffline } from '../fonts/loadFontOffline'
+import useApplyCssVars from './hooks/useApplyCssVars'
+import useLoadFontsFromBundle from './hooks/useLoadFontsFromBundle'
 import type { TokenBundle } from '../fonts/loadFontTypes'
+import TokensErrorView from './TokensErrorView'
 
 interface TokensContextValue {
   readonly isLoading: boolean
@@ -69,117 +71,18 @@ export function TokensProvider({ children }: TokensProviderProps): ReactNode {
     }
   }, [data])
 
-  useEffect((): void => {
-    const root: HTMLElement = document.documentElement
-    Object.entries(cssVars).forEach(([k, v]: [string, string]): void => {
-      root.style.setProperty(k, v)
-    })
-  }, [cssVars])
-
-  // Trigger offline font load when bundle present.
-  useEffect((): void => {
-    if (!data) return
-    const bundle: TokenBundle = data.bundle as TokenBundle
-    loadFontOffline(bundle)
-  }, [data])
+  useApplyCssVars(cssVars)
+  useLoadFontsFromBundle(data ? (data.bundle as TokenBundle) : undefined)
 
   const value: TokensContextValue = useMemo((): TokensContextValue => {
     const safeError: Error | null = error instanceof Error ? error : null
     return { isLoading, error: safeError }
   }, [isLoading, error])
 
-  // CRITICAL ERROR: Show visible error UI instead of silent failure
   if (error) {
     const errorMessage: string =
       error instanceof Error ? error.message : String(error)
-    return (
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'var(--color-surface)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px',
-          zIndex: 9999,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: '600px',
-            backgroundColor: 'var(--color-onSurface, white)',
-            border: '3px solid var(--color-error)',
-            borderRadius: '8px',
-            padding: '24px',
-            boxShadow: 'var(--shadow)',
-          }}
-        >
-          <h1
-            style={{
-              color: 'var(--color-error)',
-              marginTop: 0,
-              fontSize: '24px',
-            }}
-          >
-            🚨 Design Tokens Failed to Load
-          </h1>
-          <p style={{ fontSize: '16px', lineHeight: '1.5' }}>
-            The application cannot render properly without design system tokens.
-            This is a critical error that must be fixed.
-          </p>
-          <div
-            style={{
-              backgroundColor: 'var(--color-background)',
-              border: '1px solid var(--color-error)',
-              borderRadius: '4px',
-              padding: '12px',
-              marginTop: '16px',
-              fontFamily: 'monospace',
-              fontSize: '14px',
-              overflowX: 'auto',
-            }}
-          >
-            <strong>Error:</strong> {errorMessage}
-          </div>
-          <details style={{ marginTop: '16px' }}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>
-              Common Solutions
-            </summary>
-            <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
-              <li>Check that backend is running on port 8080</li>
-              <li>
-                Verify <code>/api/v1/tokens</code> endpoint is accessible
-              </li>
-              <li>Check browser console for Zod validation errors</li>
-              <li>Ensure backend data model matches frontend schema</li>
-              <li>Check network tab for failed requests</li>
-            </ul>
-          </details>
-          <button
-            onClick={(): void => {
-              window.location.reload()
-            }}
-            style={{
-              marginTop: '20px',
-              padding: '10px 20px',
-              backgroundColor: 'var(--color-error)',
-              color: 'var(--color-onPrimary, white)',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: 'bold',
-            }}
-          >
-            Reload Page
-          </button>
-        </div>
-      </div>
-    )
+    return <TokensErrorView errorMessage={errorMessage} />
   }
 
   const provider: ReactNode = (

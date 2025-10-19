@@ -6,7 +6,8 @@
  */
 import type { ReactElement } from 'react'
 import { useState } from 'react'
-import { Button } from '../../../ui/Button/Button'
+// ...existing imports...
+import SellerCodesListActions from '../components/SellerCodesListActions'
 import { Text } from '../../../ui/Text/Text'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { DataTable } from '../../../ui/DataTable/DataTable'
@@ -42,16 +43,7 @@ export default function SellerCodesListPage(): ReactElement {
     buildSellerCodesListColumns(locale, t)
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildSellerCodeListBreadcrumbs(locale, t)
-  const actions: ReactElement = (
-    <Button
-      to={`/${locale}/seller-codes/new`}
-      size="md"
-      width="fixed-large"
-      data-testid="create-seller-code-button"
-    >
-      {t('ui.sellerCodes.actions.new')}
-    </Button>
-  )
+  const actions: ReactElement = <SellerCodesListActions />
   return (
     <PageLayout
       title={t('ui.sellerCodes.list.title')}

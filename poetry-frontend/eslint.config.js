@@ -29,6 +29,7 @@ export default tseslint.config([
       'types/dev-logger-plugin.d.ts',
       'src/features/public/pages/HomePage.tsx',
       'src/api/generated/**',
+      'src/shared/i18n/generated/**',
     ],
   },
   {
@@ -88,6 +89,13 @@ export default tseslint.config([
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-inferrable-types': 'warn',
       'max-lines': ['error', { max: 80, skipBlankLines: true, skipComments: true }],
+    },
+  },
+  {
+    files: ['src/shared/i18n/generated/**'],
+    rules: {
+      // Generated files are allowed to exceed file length limits.
+      'max-lines': 'off',
     },
   },
   {

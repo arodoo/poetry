@@ -6,14 +6,14 @@
 import { type ReactElement } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Text } from '../../../ui/Text/Text'
-import { Button } from '../../../ui/Button/Button'
-import { Stack } from '../../../ui/Stack/Stack'
+// ...existing code...
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useToast } from '../../../shared/toast/toastContext'
 import { useDeleteSellerCodeMutation } from '../hooks/useDeleteSellerCodeMutation'
 import { useSellerCodeDetailQuery } from '../hooks/useSellerCodesQueries'
+import SellerCodeDeleteConfirm from '../components/SellerCodeDeleteConfirm'
 
 export default function SellerCodeDeletePage(): ReactElement {
   const params = useParams()
@@ -68,33 +68,7 @@ export default function SellerCodeDeletePage(): ReactElement {
         title={t('ui.sellerCodes.delete.title')}
         subtitle={t('ui.sellerCodes.delete.subtitle')}
       >
-        <Stack gap="lg">
-          <Text size="lg" weight="bold">
-            {t('ui.sellerCodes.delete.form.title')}
-          </Text>
-          <Text size="sm" className="text-error-600">
-            {t('ui.sellerCodes.delete.form.warning')}
-          </Text>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={handleCancel}
-              data-testid="cancel-delete-seller-code-button"
-            >
-              {t('ui.sellerCodes.actions.cancel')}
-            </Button>
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={handleConfirmDelete}
-              disabled={isSubmitting}
-              data-testid="confirm-delete-seller-code-button"
-            >
-              {t('ui.sellerCodes.actions.confirmDelete')}
-            </Button>
-          </div>
-        </Stack>
+        <SellerCodeDeleteConfirm onCancel={handleCancel} onConfirm={handleConfirmDelete} isSubmitting={isSubmitting} t={t} />
       </PageLayout>
     )
   }
@@ -104,33 +78,7 @@ export default function SellerCodeDeletePage(): ReactElement {
       title={t('ui.sellerCodes.delete.title')}
       subtitle={t('ui.sellerCodes.delete.subtitle')}
     >
-      <Stack gap="lg">
-        <Text size="lg" weight="bold">
-          {t('ui.sellerCodes.delete.form.title')}
-        </Text>
-        <Text size="sm" className="text-error-600">
-          {t('ui.sellerCodes.delete.form.warning')}
-        </Text>
-        <div className="flex gap-2">
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={handleCancel}
-            data-testid="cancel-delete-seller-code-button"
-          >
-            {t('ui.sellerCodes.actions.cancel')}
-          </Button>
-          <Button
-            size="sm"
-            variant="danger"
-            onClick={handleConfirmDelete}
-            disabled={isSubmitting}
-            data-testid="confirm-delete-seller-code-button"
-          >
-            {t('ui.sellerCodes.actions.confirmDelete')}
-          </Button>
-        </div>
-      </Stack>
+      <SellerCodeDeleteConfirm onCancel={handleCancel} onConfirm={handleConfirmDelete} isSubmitting={isSubmitting} t={t} />
     </PageLayout>
   )
 }

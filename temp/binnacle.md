@@ -61,3 +61,18 @@
 
 ---
 *Condensed from 112 detailed entries to focus on essential information and major achievements*
+
+## Manual Edit Log (incremental)
+
+Recent manual edits performed to reduce frontend lint failures (max-lines and a11y/type rules):
+
+- Created `poetry-frontend/src/shared/tokens/TokensErrorView.tsx` — extracted visible error UI from `TokensProvider` to reduce inline JSX and file size.
+- Created `poetry-frontend/src/shared/tokens/TokensErrorDetails.tsx` — helper for error UI details.
+- Created `poetry-frontend/src/shared/tokens/hooks/useApplyCssVars.ts` — hook to apply CSS variables to document root.
+- Created `poetry-frontend/src/shared/tokens/hooks/useLoadFontsFromBundle.ts` — hook to trigger offline font loading.
+- Updated `poetry-frontend/src/shared/tokens/TokensProvider.tsx` to use the new hooks and `TokensErrorView` (behavior preserved).
+- Split `poetry-frontend/src/features/users/api/usersMutations.ts` into `usersMutations.core.ts` and `usersMutations.misc.ts` and re-exported to keep public API identical and reduce per-file lines.
+- Split `poetry-frontend/src/features/memberships/components/MembershipFormFields.tsx` into smaller components: `UserSelect.tsx`, `SubscriptionSelect.tsx`, `SellerCodeInput.tsx`, `StatusSelect.tsx` and updated the original to compose them.
+
+These edits were made to strictly preserve runtime behavior and public function signatures. After these changes I re-ran frontend lint; remaining issues are primarily other files exceeding the 80-line max rule and one generated i18n file flagged by the rule.
+
