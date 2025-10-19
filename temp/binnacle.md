@@ -30,7 +30,7 @@
 ### Phase 3: Backend Refactoring (Oct 18)
 - **DTO Standardization**: Renamed all plural DTOs to singular (AuthDtos→AuthDto, etc.)
 - **Port Cleanup**: Removed old plural ports, updated to singular naming
-- **Controller Split**: Split ZoneController into separate CRUD controllers
+- **Controller Decentralization**: Decentralized ZoneController into separate CRUD controllers (ZonesGetController, ZonesListController, ZonesCreateController, ZonesUpdateController, ZonesDeleteController). Each controller now directly injects and calls its required use-cases instead of delegating to a centralized implementation. Removed the centralized `ZoneController.java` after verification.
 - **Events Domain**: Full implementation with ports, composition, DTOs, and tests
 
 ### Phase 4: Frontend Compliance (Oct 12-18)

@@ -1,8 +1,8 @@
 {
-  "ok": true,
+  "ok": false,
   "summary": {
     "features": 11,
-    "missing": 0
+    "missing": 1
   },
   "details": [
     {
@@ -2151,7 +2151,7 @@
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZoneController.java",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZonesCreateController.java",
@@ -2269,7 +2269,9 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZoneController.java"
+      ]
     }
   ]
 }
