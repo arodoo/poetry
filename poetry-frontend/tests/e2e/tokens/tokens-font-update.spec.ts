@@ -25,7 +25,9 @@ test.describe('Tokens Admin - Font Update', (): void => {
 
     const initialValue = await fontSelect.inputValue()
     const allOptions = await fontSelect.locator('option').allTextContents()
-    const otherOption = allOptions.find((opt): boolean => opt !== initialValue)
+    const otherOption = allOptions.find(
+      (opt): boolean => opt !== initialValue
+    )
     expect(otherOption).toBeDefined()
 
     const optionToSelect = await fontSelect

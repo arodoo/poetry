@@ -21,9 +21,9 @@ class FontListEmptyIT {
   TestRestTemplate rest;
   @Test
   void emptyList() {
-    ResponseEntity<FontDtos.FontResponse[]> r = rest.getForEntity(
-        "/api/v1/fonts",
-        FontDtos.FontResponse[].class);
+  ResponseEntity<FontDto.FontResponse[]> r = rest.getForEntity(
+    "/api/v1/fonts",
+    FontDto.FontResponse[].class);
     assertThat(r.getStatusCode().is2xxSuccessful()).isTrue();
     assertThat(List.of(r.getBody())).isEmpty();
   }

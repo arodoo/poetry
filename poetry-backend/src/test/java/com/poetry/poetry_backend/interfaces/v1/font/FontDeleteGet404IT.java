@@ -21,7 +21,7 @@ class FontDeleteGet404IT {
   TestRestTemplate rest;
   @Test
   void getAfterDeleteIs404() {
-  FontDtos.CreateFontRequest req = new FontDtos.CreateFontRequest(
+  FontDto.CreateFontRequest req = new FontDto.CreateFontRequest(
     "tmpfont",
     "Tmp Font",
     "https://f/tmp.woff2",
@@ -32,11 +32,11 @@ class FontDeleteGet404IT {
   rest.postForEntity(
     "/api/v1/fonts",
     req,
-    FontDtos.FontResponse.class);
+  FontDto.FontResponse.class);
   rest.delete("/api/v1/fonts/tmpfont");
-  ResponseEntity<FontDtos.FontResponse> g = rest.getForEntity(
+  ResponseEntity<FontDto.FontResponse> g = rest.getForEntity(
     "/api/v1/fonts/tmpfont",
-    FontDtos.FontResponse.class);
+    FontDto.FontResponse.class);
     assertThat(g.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
   }
 }

@@ -12,7 +12,7 @@ import com.poetry.poetry_backend.application.dashboard.port.DashboardQueryPort;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetAllDashboardsUseCase;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardByIdUseCase;
 import com.poetry.poetry_backend.domain.dashboard.model.Dashboard;
-import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDtos.DashboardResponse;
+import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.DashboardResponse;
 
 class DashboardControllerTest {
   private static final class QueryStub implements DashboardQueryPort {

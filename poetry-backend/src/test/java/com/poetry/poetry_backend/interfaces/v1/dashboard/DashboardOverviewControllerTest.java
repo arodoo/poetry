@@ -25,7 +25,7 @@ class DashboardOverviewControllerTest {
     DashboardOverviewQueryPort port = () -> Optional.of(model);
     GetDashboardOverviewUseCase useCase = new GetDashboardOverviewUseCase(port);
     DashboardOverviewController controller = new DashboardOverviewController(useCase);
-    ResponseEntity<DashboardDtos.DashboardOverviewResponse> response = controller.overview();
+  ResponseEntity<DashboardDto.DashboardOverviewResponse> response = controller.overview();
     assertEquals(200, response.getStatusCode().value());
     assertNotNull(response.getBody());
   }

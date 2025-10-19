@@ -21,7 +21,7 @@ class FontDeleteIT {
   TestRestTemplate rest;
   @Test
   void deleteFont() {
-  FontDtos.CreateFontRequest req = new FontDtos.CreateFontRequest(
+  FontDto.CreateFontRequest req = new FontDto.CreateFontRequest(
     "serif",
     "Serif",
     "https://f/s.woff2",
@@ -29,11 +29,11 @@ class FontDeleteIT {
     "x",
     false,
     null);
-  rest.postForEntity("/api/v1/fonts", req, FontDtos.FontResponse.class);
+  rest.postForEntity("/api/v1/fonts", req, FontDto.FontResponse.class);
   rest.delete("/api/v1/fonts/serif");
   var resp = rest.getForEntity(
-    "/api/v1/fonts",
-    FontDtos.FontResponse[].class);
+  "/api/v1/fonts",
+  FontDto.FontResponse[].class);
     assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.OK);
     var list = resp.getBody();
     assertThat(list).isNotNull();

@@ -21,7 +21,7 @@ class FontUpdateIT {
   TestRestTemplate rest;
   @Test
   void updateFont() {
-  FontDtos.CreateFontRequest req = new FontDtos.CreateFontRequest(
+  FontDto.CreateFontRequest req = new FontDto.CreateFontRequest(
     "ui",
     "UI",
     "https://f/u.woff2",
@@ -29,8 +29,8 @@ class FontUpdateIT {
     "hh",
     false,
     null);
-  rest.postForEntity("/api/v1/fonts", req, FontDtos.FontResponse.class);
-  FontDtos.UpdateFontRequest upd = new FontDtos.UpdateFontRequest(
+  rest.postForEntity("/api/v1/fonts", req, FontDto.FontResponse.class);
+  FontDto.UpdateFontRequest upd = new FontDto.UpdateFontRequest(
     "UI2",
     "https://f/u2.woff2",
     List.of(300,700),
@@ -39,10 +39,10 @@ class FontUpdateIT {
     null);
   rest.put("/api/v1/fonts/ui", upd);
   var resp = rest.getForEntity(
-    "/api/v1/fonts/ui",
-    FontDtos.FontResponse.class);
+  "/api/v1/fonts/ui",
+  FontDto.FontResponse.class);
     assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.OK);
-  FontDtos.FontResponse g = java.util.Objects.requireNonNull(resp.getBody());
+  FontDto.FontResponse g = java.util.Objects.requireNonNull(resp.getBody());
   assertThat(g.label()).isEqualTo("UI2");
   assertThat(g.weights()).containsExactly(300,700);
   }
