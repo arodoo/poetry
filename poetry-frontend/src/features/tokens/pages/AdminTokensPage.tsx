@@ -18,6 +18,7 @@ import { TokensSelectionCard } from '../components/TokensSelectionCard'
 import { TokensSelectionForm } from '../components/TokensSelectionForm'
 import { useTokensFormState } from './useTokensFormState'
 import { buildTokensBreadcrumbs } from './tokensPageHelpers'
+import { getSafeInitial } from './tokensUtils'
 import {
   createTokensSubmitHandler,
   createTokensCancelHandler,
@@ -31,28 +32,7 @@ export function AdminTokensPage(): ReactElement {
   const { data, isLoading, error } = useTokensQuery()
   const mutation = useUpdateSelectionMutation()
 
-  // Ensure hooks are called unconditionally (rules-of-hooks). Provide a safe
-  // default initial value when data is not yet available. This keeps behavior
-  // identical while satisfying lint rules.
-  // runtime-narrow data to extract bundle.current safely without causing
-  // compile-time assumptions about the generated SDK shape
-  // Safely coerce `data` to expected TokenBundleCurrent when available.
-  // Narrow `data` at runtime to extract bundle.current safely. Use optional
-  // chaining per linting guidance while keeping a safe fallback.
-  const safeInitial: import('../model/TokensSchemas.impl2').TokenBundleCurrent = (() => {
-    const cast = (data as unknown as { bundle?: { current?: import('../model/TokensSchemas.impl2').TokenBundleCurrent } } | undefined)
-    const current = cast?.bundle?.current
-    if (current) return current
-
-    return {
-      theme: 'light',
-      font: 'system',
-      fontSize: 'medium',
-      spacing: 'medium',
-      radius: 'medium',
-      shadow: 'none',
-    }
-  })()
+  const safeInitial = getSafeInitial(data)
 
   const { formState, setField, resetForm } = useTokensFormState(safeInitial)
 

@@ -4,12 +4,11 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { Link } from 'react-router-dom'
 import type { ReactElement } from 'react'
-import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import type { ZoneResponse } from '../model/ZonesSchemas'
 import { useT } from '../../../shared/i18n/useT'
-import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { ZonesListTopActions } from './ZonesListTopActions'
+import { ZoneRowActions } from './ZoneRowActions'
 
 interface ZonesListShellProps {
   readonly zones: readonly ZoneResponse[]
@@ -36,12 +35,7 @@ export function ZonesListShell({
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end">
-        <Link to={`/${locale}/zones/new`} className="btn btn-primary">
-          <PlusIcon className="h-5 w-5" aria-hidden="true" />
-          {t('list.actions.create')}
-        </Link>
-      </div>
+      <ZonesListTopActions locale={locale} t={t} />
 
       {zones.length === 0 ? (
         <div className="text-center py-12">
@@ -75,22 +69,11 @@ export function ZonesListShell({
                   </td>
                   <td className="px-6 py-4 text-sm">{zone.managerId}</td>
                   <td className="px-6 py-4 text-sm text-right">
-                    <Link
-                      to={`/${locale}/zones/edit/${toTemplateString(zone.id)}`}
-                      className="text-action-primary hover:text-action-hover"
-                    >
-                      <PencilIcon className="h-5 w-5" />
-                    </Link>
-                    <button
-                      onClick={() => {
-                        if (zone.id) {
-                          onDelete(zone.id)
-                        }
-                      }}
-                      className="ml-4 text-feedback-error"
-                    >
-                      <TrashIcon className="h-5 w-5" />
-                    </button>
+                    <ZoneRowActions
+                      locale={locale}
+                      id={zone.id}
+                      onDelete={onDelete}
+                    />
                   </td>
                 </tr>
               ))}

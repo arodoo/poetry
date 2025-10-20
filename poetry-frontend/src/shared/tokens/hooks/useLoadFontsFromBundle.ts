@@ -8,7 +8,9 @@ import { useEffect } from 'react'
 import { loadFontOffline } from '../../fonts/loadFontOffline'
 import type { TokenBundle } from '../../fonts/loadFontTypes'
 
-export default function useLoadFontsFromBundle(bundle?: TokenBundle | null): void {
+export default function useLoadFontsFromBundle(
+  bundle?: TokenBundle | null
+): void {
   useEffect((): void => {
     if (!bundle) return
     loadFontOffline(bundle)

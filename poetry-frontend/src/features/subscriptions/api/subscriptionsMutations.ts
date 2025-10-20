@@ -40,7 +40,7 @@ export async function updateSubscription(
   const response = await updateSubscriptionSdk({
     path: { id: Number(id) },
     body: payload,
-  headers: { 'If-Match': etag ?? '""' },
+    headers: { 'If-Match': etag ?? '""' },
   })
   if (!response.data) {
     throw new Error(`Failed to update subscription ${id}`)

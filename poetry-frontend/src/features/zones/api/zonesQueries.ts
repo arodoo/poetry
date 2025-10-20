@@ -15,7 +15,7 @@ import { parseZonesCollection, parseZoneDetail } from './zonesApiShared'
 
 export async function fetchZonesList(): Promise<ZonesCollection> {
   const response = await listZones()
-  const data = (response.data as unknown) as ZoneResponse[]
+  const data = response.data as unknown as ZoneResponse[]
   return parseZonesCollection(data)
 }
 

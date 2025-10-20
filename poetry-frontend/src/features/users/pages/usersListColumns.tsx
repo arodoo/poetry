@@ -4,12 +4,11 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Button } from '../../../ui/Button/Button'
 import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { UserSummary } from '../model/UsersSchemas'
-import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { UserListActions } from '../components/UserListActions'
 
 export function buildUsersListColumns(
   locale: string,
@@ -54,16 +53,7 @@ export function buildUsersListColumns(
       key: 'actions',
       header: t('ui.users.table.actions'),
       accessor: (row: UserSummary): ReactElement => (
-        <Inline gap="xs">
-            <Button
-            to={`/${locale}/users/${toTemplateString(row.id)}`}
-            size="sm"
-            width="fixed-small"
-            data-testid={`view-user-${toTemplateString(row.id)}`}
-          >
-            {t('ui.users.actions.view')}
-          </Button>
-        </Inline>
+        <UserListActions locale={locale} id={row.id} t={t} />
       ),
     },
   ]

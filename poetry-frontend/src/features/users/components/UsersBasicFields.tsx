@@ -8,7 +8,9 @@ import { Stack } from '../../../ui/Stack/Stack'
 import { Input } from '../../../ui/Input/Input'
 import { Text } from '../../../ui/Text/Text'
 import type { useT } from '../../../shared/i18n/useT'
-
+import { UserFirstNameField } from './fields/UserFirstNameField'
+import { UserLastNameField } from './fields/UserLastNameField'
+import { UserEmailField } from './fields/UserEmailField'
 export interface UsersBasicFieldsProps {
   readonly firstName: string
   readonly lastName: string
@@ -22,46 +24,18 @@ export interface UsersBasicFieldsProps {
 }
 
 export function UsersBasicFields(props: UsersBasicFieldsProps): ReactElement {
-  function handleFirstNameChange(e: ChangeEvent<HTMLInputElement>): void {
-    props.onFirstNameChange(e.target.value)
-  }
-  function handleLastNameChange(e: ChangeEvent<HTMLInputElement>): void {
-    props.onLastNameChange(e.target.value)
-  }
-  function handleUsernameChange(e: ChangeEvent<HTMLInputElement>): void {
-    props.onUsernameChange(e.target.value)
-  }
-  function handleEmailChange(e: ChangeEvent<HTMLInputElement>): void {
-    props.onEmailChange(e.target.value)
-  }
   return (
     <>
-      <Stack gap="xs">
-        <Text size="sm" className="font-medium">
-          {props.t('ui.users.form.firstName.label')}
-        </Text>
-        <Input
-          type="text"
-          value={props.firstName}
-          onChange={handleFirstNameChange}
-          placeholder={props.t('ui.users.form.firstName.placeholder')}
-          required
-          data-testid="user-firstname-input"
-        />
-      </Stack>
-      <Stack gap="xs">
-        <Text size="sm" className="font-medium">
-          {props.t('ui.users.form.lastName.label')}
-        </Text>
-        <Input
-          type="text"
-          value={props.lastName}
-          onChange={handleLastNameChange}
-          placeholder={props.t('ui.users.form.lastName.placeholder')}
-          required
-          data-testid="user-lastname-input"
-        />
-      </Stack>
+      <UserFirstNameField
+        firstName={props.firstName}
+        onFirstNameChange={props.onFirstNameChange}
+        t={props.t}
+      />
+      <UserLastNameField
+        lastName={props.lastName}
+        onLastNameChange={props.onLastNameChange}
+        t={props.t}
+      />
       <Stack gap="xs">
         <Text size="sm" className="font-medium">
           {props.t('ui.users.form.username.label')}
@@ -69,25 +43,19 @@ export function UsersBasicFields(props: UsersBasicFieldsProps): ReactElement {
         <Input
           type="text"
           value={props.username}
-          onChange={handleUsernameChange}
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            props.onUsernameChange(e.target.value)
+          }}
           placeholder={props.t('ui.users.form.username.placeholder')}
           required
           data-testid="user-username-input"
         />
       </Stack>
-      <Stack gap="xs">
-        <Text size="sm" className="font-medium">
-          {props.t('ui.users.form.email.label')}
-        </Text>
-        <Input
-          type="email"
-          value={props.email}
-          onChange={handleEmailChange}
-          placeholder={props.t('ui.users.form.email.placeholder')}
-          required
-          data-testid="user-email-input"
-        />
-      </Stack>
+      <UserEmailField
+        email={props.email}
+        onEmailChange={props.onEmailChange}
+        t={props.t}
+      />
     </>
   )
 }

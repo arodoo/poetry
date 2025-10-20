@@ -45,17 +45,21 @@ export function buildSellerCodeDetailSections(
         {
           label: t('ui.sellerCodes.detail.field.createdAt'),
           value:
-            typeof (sellerCode as unknown as { createdAt?: string }).createdAt ===
-            'string'
-              ? new Date((sellerCode as unknown as { createdAt: string }).createdAt).toLocaleString()
+            typeof (sellerCode as unknown as { createdAt?: string })
+              .createdAt === 'string'
+              ? new Date(
+                  (sellerCode as unknown as { createdAt: string }).createdAt
+                ).toLocaleString()
               : '-',
         },
         {
           label: t('ui.sellerCodes.detail.field.updatedAt'),
           value:
-            typeof (sellerCode as unknown as { updatedAt?: string }).updatedAt ===
-            'string'
-              ? new Date((sellerCode as unknown as { updatedAt: string }).updatedAt).toLocaleString()
+            typeof (sellerCode as unknown as { updatedAt?: string })
+              .updatedAt === 'string'
+              ? new Date(
+                  (sellerCode as unknown as { updatedAt: string }).updatedAt
+                ).toLocaleString()
               : '-',
         },
         {

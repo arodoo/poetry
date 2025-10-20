@@ -25,13 +25,17 @@ export function buildSubscriptionsListColumns(
       key: 'price',
       header: t('ui.subscriptions.table.price'),
       accessor: (row: SubscriptionSummary): string =>
-        toTemplateString(row.currency ?? 'USD') + ' ' + (row.price?.toFixed(2) ?? '0.00'),
+        toTemplateString(row.currency ?? 'USD') +
+        ' ' +
+        (row.price?.toFixed(2) ?? '0.00'),
     },
     {
       key: 'duration',
       header: t('ui.subscriptions.table.duration'),
       accessor: (row: SubscriptionSummary): string =>
-        toTemplateString(row.durationDays ?? 0) + ' ' + t('ui.subscriptions.table.days'),
+        toTemplateString(row.durationDays ?? 0) +
+        ' ' +
+        t('ui.subscriptions.table.days'),
     },
     {
       key: 'status',
@@ -47,7 +51,7 @@ export function buildSubscriptionsListColumns(
       header: t('ui.subscriptions.table.actions'),
       accessor: (row: SubscriptionSummary): ReactElement => (
         <Inline gap="xs">
-            <Button
+          <Button
             to={`/${locale}/subscriptions/${toTemplateString(row.id)}`}
             size="sm"
             width="fixed-small"

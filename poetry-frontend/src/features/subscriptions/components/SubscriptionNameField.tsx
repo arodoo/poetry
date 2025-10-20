@@ -14,11 +14,25 @@ interface Props {
   setName: (v: string) => void
 }
 
-export default function SubscriptionNameField({ t, name, setName }: Props): ReactElement {
+export default function SubscriptionNameField({
+  t,
+  name,
+  setName,
+}: Props): ReactElement {
   return (
     <Stack gap="xs">
-      <Text size="sm" className="font-medium">{t('ui.subscriptions.table.name')}</Text>
-      <Input type="text" value={name} onChange={(e) => { setName(e.target.value) }} required data-testid="subscription-name-input" />
+      <Text size="sm" className="font-medium">
+        {t('ui.subscriptions.table.name')}
+      </Text>
+      <Input
+        type="text"
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value)
+        }}
+        required
+        data-testid="subscription-name-input"
+      />
     </Stack>
   )
 }

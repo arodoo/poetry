@@ -6,7 +6,7 @@
  */
 import type { ReactElement } from 'react'
 import { useState } from 'react'
-import { Button } from '../../../ui/Button/Button'
+import { UsersListTopActions } from '../components/UsersListTopActions'
 import { Text } from '../../../ui/Text/Text'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { DataTable } from '../../../ui/DataTable/DataTable'
@@ -45,11 +45,7 @@ export default function UsersListPage(): ReactElement {
     locale,
     t
   )
-  const actions: ReactElement = (
-    <Button to={`/${locale}/users/new`} size="md" width="fixed-large">
-      {t('ui.users.actions.new')}
-    </Button>
-  )
+  const actions: ReactElement = <UsersListTopActions locale={locale} t={t} />
   return (
     <PageLayout
       title={t('ui.users.list.title')}

@@ -9,6 +9,7 @@ applyTo: '**'
 - backend endpoints require authentication
 - Frontend can't have types or schemas definitios if they are not fixed to generated SDK gems
 - don't adjust my app to your solution, adjust your solution to my app
+- When offering a solution, pick the one that considers scallable architecture and long term maintenance, and offer me to implement it with a simple 'GO'
 
 ## Architecture & Documentation
 

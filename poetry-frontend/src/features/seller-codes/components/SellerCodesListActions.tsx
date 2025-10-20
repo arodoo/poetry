@@ -12,7 +12,12 @@ export default function SellerCodesListActions(): ReactElement {
   const { locale } = useLocale()
   const t = useT()
   return (
-    <Button to={`/${locale}/seller-codes/new`} size="md" width="fixed-large" data-testid="create-seller-code-button">
+    <Button
+      to={`/${locale}/seller-codes/new`}
+      size="md"
+      width="fixed-large"
+      data-testid="create-seller-code-button"
+    >
       {t('ui.sellerCodes.actions.new')}
     </Button>
   )

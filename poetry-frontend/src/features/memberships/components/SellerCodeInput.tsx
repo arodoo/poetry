@@ -12,11 +12,22 @@ interface Props {
   placeholder: string
 }
 
-export default function SellerCodeInput({ value, onChange, placeholder }: Props): ReactElement {
+export default function SellerCodeInput({
+  value,
+  onChange,
+  placeholder,
+}: Props): ReactElement {
   return (
     <div>
-  <label className="block text-sm font-medium mb-1">Seller Code</label>
-  <Input value={value} onChange={(e) => { onChange(e.target.value) }} placeholder={placeholder} data-testid="membership-seller-code-input" />
+      <label className="block text-sm font-medium mb-1">Seller Code</label>
+      <Input
+        value={value}
+        onChange={(e) => {
+          onChange(e.target.value)
+        }}
+        placeholder={placeholder}
+        data-testid="membership-seller-code-input"
+      />
     </div>
   )
 }

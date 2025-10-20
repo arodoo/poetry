@@ -13,7 +13,7 @@ export async function getAccountLocaleRaw(): Promise<LocaleDto> {
   if (response.error || !response.data) {
     throw new Error('Failed to fetch locale')
   }
-  return (response.data as unknown) as LocaleDto
+  return response.data as unknown as LocaleDto
 }
 
 export async function postAccountPassword(

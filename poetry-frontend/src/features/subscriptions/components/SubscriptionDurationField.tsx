@@ -14,11 +14,26 @@ interface Props {
   setDurationDays: (v: number) => void
 }
 
-export default function SubscriptionDurationField({ t, durationDays, setDurationDays }: Props): ReactElement {
+export default function SubscriptionDurationField({
+  t,
+  durationDays,
+  setDurationDays,
+}: Props): ReactElement {
   return (
     <Stack gap="xs">
-      <Text size="sm" className="font-medium">{t('ui.subscriptions.table.duration')}</Text>
-      <Input type="number" value={durationDays} onChange={(e) => { setDurationDays(Number(e.target.value)) }} min="1" required data-testid="subscription-duration-input" />
+      <Text size="sm" className="font-medium">
+        {t('ui.subscriptions.table.duration')}
+      </Text>
+      <Input
+        type="number"
+        value={durationDays}
+        onChange={(e) => {
+          setDurationDays(Number(e.target.value))
+        }}
+        min="1"
+        required
+        data-testid="subscription-duration-input"
+      />
     </Stack>
   )
 }

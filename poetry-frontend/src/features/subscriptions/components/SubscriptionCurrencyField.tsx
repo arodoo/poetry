@@ -13,11 +13,22 @@ interface Props {
   setCurrency: (v: string) => void
 }
 
-export default function SubscriptionCurrencyField({ currency, setCurrency }: Props): ReactElement {
+export default function SubscriptionCurrencyField({
+  currency,
+  setCurrency,
+}: Props): ReactElement {
   return (
     <Stack gap="xs">
-      <Text size="sm" className="font-medium">Currency</Text>
-      <Select value={currency} onChange={(e) => { setCurrency(e.target.value) }} data-testid="subscription-currency-select">
+      <Text size="sm" className="font-medium">
+        Currency
+      </Text>
+      <Select
+        value={currency}
+        onChange={(e) => {
+          setCurrency(e.target.value)
+        }}
+        data-testid="subscription-currency-select"
+      >
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="GBP">GBP</option>

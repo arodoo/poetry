@@ -14,10 +14,17 @@ interface Props {
   t: (key: string) => string
 }
 
-export default function UserSelect({ users, value, onChange, t }: Props): ReactElement {
+export default function UserSelect({
+  users,
+  value,
+  onChange,
+  t,
+}: Props): ReactElement {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1">{t('ui.memberships.form.user.label')}</label>
+      <label className="block text-sm font-medium mb-1">
+        {t('ui.memberships.form.user.label')}
+      </label>
       <Select
         value={value}
         onChange={(e) => {
@@ -25,7 +32,9 @@ export default function UserSelect({ users, value, onChange, t }: Props): ReactE
         }}
       >
         {users.map((u) => (
-          <option key={u.id} value={u.id}>{u.username}</option>
+          <option key={u.id} value={u.id}>
+            {u.username}
+          </option>
         ))}
       </Select>
     </div>

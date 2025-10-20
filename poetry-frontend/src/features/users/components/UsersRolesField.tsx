@@ -68,7 +68,9 @@ export function UsersRolesField(props: UsersRolesFieldProps): ReactElement {
                 data-testid={`role-checkbox-${(role.key ?? '').toLowerCase()}`}
                 className="w-4 h-4"
               />
-              <Text size="sm">{props.t('ui.users.roles.' + (role.key ?? ''))}</Text>
+              <Text size="sm">
+                {props.t('ui.users.roles.' + (role.key ?? ''))}
+              </Text>
             </label>
           )
         )}

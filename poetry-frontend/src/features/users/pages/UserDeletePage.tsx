@@ -5,14 +5,13 @@
  */
 import { type ReactElement } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Text } from '../../../ui/Text/Text'
-import { Button } from '../../../ui/Button/Button'
-import { Stack } from '../../../ui/Stack/Stack'
+// Text import removed; moved UI to UserDeleteActions component
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useToast } from '../../../shared/toast/toastContext'
 import { UsersPageLayout } from '../components/UsersPageLayout'
 import { UsersFormShell } from '../components/UsersFormShell'
+import { UserDeleteActions } from '../components/UserDeleteActions'
 import { useDeleteUserMutation } from '../hooks/useUsersMutations'
 import { useUserDetailWithETag } from '../hooks/useUserDetailWithETag'
 
@@ -62,30 +61,12 @@ export default function UserDeletePage(): ReactElement {
         title={t('ui.users.delete.form.title')}
         description={t('ui.users.delete.form.subtitle')}
       >
-        <Stack gap="md">
-          <Text size="sm" className="text-error-600">
-            {t('ui.users.delete.form.warning')}
-          </Text>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={handleCancel}
-              data-testid="cancel-delete-user-button"
-            >
-              {t('ui.users.actions.cancel')}
-            </Button>
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={handleConfirmDelete}
-              disabled={isSubmitting}
-              data-testid="confirm-delete-user-button"
-            >
-              {t('ui.users.actions.confirmDelete')}
-            </Button>
-          </div>
-        </Stack>
+        <UserDeleteActions
+          isSubmitting={isSubmitting}
+          onCancel={handleCancel}
+          onConfirm={handleConfirmDelete}
+          t={t}
+        />
       </UsersFormShell>
     </UsersPageLayout>
   )

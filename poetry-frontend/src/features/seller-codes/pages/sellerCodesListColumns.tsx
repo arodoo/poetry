@@ -49,7 +49,7 @@ export function buildSellerCodesListColumns(
       header: t('ui.sellerCodes.table.actions'),
       accessor: (row: SellerCodeSummary): ReactElement => (
         <Inline gap="xs">
-            <Button
+          <Button
             to={`/${locale}/seller-codes/${toTemplateString(row.id)}`}
             size="sm"
             width="fixed-small"

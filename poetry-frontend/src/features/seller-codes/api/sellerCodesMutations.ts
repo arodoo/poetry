@@ -58,7 +58,7 @@ export async function deleteSellerCode(
   const responseUnknown = (await deleteSellerCodeSdk({
     path: { id: Number(id) },
     headers,
-  } as unknown as Parameters<typeof deleteSellerCodeSdk>[0]) ) as unknown
+  } as unknown as Parameters<typeof deleteSellerCodeSdk>[0])) as unknown
 
   const data = extractSdkData(responseUnknown) as SellerCodeResponse
   return parseSellerCodeDetail(data)

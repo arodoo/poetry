@@ -28,7 +28,7 @@ export async function getTokens(): Promise<TokensApiResponse> {
     const response = await getTokensSdk()
 
     const data = response.data
-  const etag = response.response.headers.get('ETag') ?? null
+    const etag = response.response.headers.get('ETag') ?? null
 
     // Validate with Zod schema - will throw if data doesn't match
     const bundle: TokenBundle = TokenBundleSchema.parse(data)

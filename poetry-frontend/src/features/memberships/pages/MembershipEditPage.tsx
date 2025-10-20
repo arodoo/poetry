@@ -12,10 +12,12 @@ import { useToast } from '../../../shared/toast/toastContext'
 import { useUpdateMembershipMutation } from '../hooks/useMembershipsMutations'
 import { useMembershipDetailWithETag } from '../hooks/useMembershipDetailWithETag'
 import type { MembershipResponse } from '../../../api/generated'
+import type { MutateOptions } from '@tanstack/react-query'
 // membership form values type intentionally unused in this module
 import { MembershipEditForm } from './MembershipEditForm'
 import { MembershipEditPageLoading } from './MembershipEditPageLoading'
 import { createEditSubmitHandler } from './membershipEditHandlers'
+import type { UpdateMembershipInput } from '../model/MembershipsSchemas'
 
 export default function MembershipEditPage(): ReactElement {
   const membershipId: string = useParams()['id'] ?? ''
@@ -40,7 +42,22 @@ export default function MembershipEditPage(): ReactElement {
   const handleSubmit = createEditSubmitHandler(
     membershipId,
     detailQuery.data.etag,
-    mutation.mutate,
+    (vars: unknown, callbacks: unknown): void => {
+      // wrap react-query mutate to match expected signature in handler
+      interface UpdateMembershipVariables {
+        readonly id: string
+        readonly input: UpdateMembershipInput
+        readonly etag?: string
+      }
+      mutation.mutate(
+        vars as UpdateMembershipVariables,
+        callbacks as MutateOptions<
+          MembershipResponse,
+          unknown,
+          UpdateMembershipVariables
+        >
+      )
+    },
     navigate,
     locale,
     push,

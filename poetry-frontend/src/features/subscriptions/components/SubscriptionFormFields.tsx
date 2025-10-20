@@ -30,15 +30,41 @@ interface FieldsProps {
   setStatus: (v: 'active' | 'inactive') => void
 }
 
-export default function SubscriptionFormFields(props: FieldsProps): ReactElement {
-  const { t, name, setName, description, setDescription, price, setPrice, currency, setCurrency, durationDays, setDurationDays, status, setStatus } = props
+export default function SubscriptionFormFields(
+  props: FieldsProps
+): ReactElement {
+  const {
+    t,
+    name,
+    setName,
+    description,
+    setDescription,
+    price,
+    setPrice,
+    currency,
+    setCurrency,
+    durationDays,
+    setDurationDays,
+    status,
+    setStatus,
+  } = props
   return (
     <Card padding="lg" shadow={true}>
       <SubscriptionNameField t={t} name={name} setName={setName} />
-      <SubscriptionDescriptionField description={description} setDescription={setDescription} />
+      <SubscriptionDescriptionField
+        description={description}
+        setDescription={setDescription}
+      />
       <SubscriptionPriceField t={t} price={price} setPrice={setPrice} />
-      <SubscriptionCurrencyField currency={currency} setCurrency={setCurrency} />
-      <SubscriptionDurationField t={t} durationDays={durationDays} setDurationDays={setDurationDays} />
+      <SubscriptionCurrencyField
+        currency={currency}
+        setCurrency={setCurrency}
+      />
+      <SubscriptionDurationField
+        t={t}
+        durationDays={durationDays}
+        setDurationDays={setDurationDays}
+      />
       <SubscriptionStatusField t={t} status={status} setStatus={setStatus} />
     </Card>
   )

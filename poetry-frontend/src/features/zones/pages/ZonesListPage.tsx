@@ -9,7 +9,7 @@ import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useT } from '../../../shared/i18n/useT'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { DataTable } from '../../../ui/DataTable/DataTable'
-import { Button } from '../../../ui/Button/Button'
+import { ZonesListTopActions } from '../components/ZonesListTopActions'
 import { Text } from '../../../ui/Text/Text'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useZonesPageQuery } from '../hooks/useZonesQueries'
@@ -40,16 +40,7 @@ export default function ZonesListPage(): ReactElement {
     locale,
     t
   )
-  const actions: ReactElement = (
-    <Button
-      to={`/${locale}/zones/new`}
-      size="md"
-      width="fixed-large"
-      data-testid="create-zone-button"
-    >
-      {t('ui.zones.actions.new')}
-    </Button>
-  )
+  const actions: ReactElement = <ZonesListTopActions locale={locale} t={t} />
   return (
     <PageLayout
       title={t('ui.zones.list.title')}

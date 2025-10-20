@@ -15,7 +15,7 @@ import {
 export async function fetchUsersList(): Promise<UserResponse[]> {
   const response = await listUsersSdk()
   if (!response.data) return []
-  return (response.data as unknown) as UserResponse[]
+  return response.data as unknown as UserResponse[]
 }
 
 export async function fetchUsersPage(

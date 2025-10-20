@@ -14,6 +14,10 @@ import { useToast } from '../../../shared/toast/toastContext'
 import { useDeleteSellerCodeMutation } from '../hooks/useDeleteSellerCodeMutation'
 import { useSellerCodeDetailQuery } from '../hooks/useSellerCodesQueries'
 import SellerCodeDeleteConfirm from '../components/SellerCodeDeleteConfirm'
+import {
+  buildHandleCancel,
+  buildHandleConfirmDelete,
+} from './sellerCodeDeleteHandlers'
 
 export default function SellerCodeDeletePage(): ReactElement {
   const params = useParams()
@@ -27,29 +31,17 @@ export default function SellerCodeDeletePage(): ReactElement {
   const sellerCodeDetail = detailQuery.data
   const isSubmitting: boolean = mutation.isPending
 
-  function handleConfirmDelete(): void {
-    if (sellerCodeDetail?.version == null) {
-      toast.push(t('ui.sellerCodes.delete.error'))
-      return
-    }
+  const handleConfirmDelete = buildHandleConfirmDelete(
+    mutation,
+    sellerCodeId,
+    sellerCodeDetail,
+    toast,
+    t,
+    navigate,
+    locale
+  )
 
-    mutation.mutate(
-      { id: sellerCodeId, version: sellerCodeDetail.version },
-      {
-        onSuccess: (): void => {
-          toast.push(t('ui.sellerCodes.delete.success'))
-          void navigate(`/${locale}/seller-codes`)
-        },
-        onError: (): void => {
-          toast.push(t('ui.sellerCodes.delete.error'))
-        },
-      }
-    )
-  }
-
-  function handleCancel(): void {
-    void navigate(`/${locale}/seller-codes/${sellerCodeId}`)
-  }
+  const handleCancel = buildHandleCancel(navigate, sellerCodeId, locale)
 
   if (detailQuery.isLoading) {
     return (
@@ -68,7 +60,12 @@ export default function SellerCodeDeletePage(): ReactElement {
         title={t('ui.sellerCodes.delete.title')}
         subtitle={t('ui.sellerCodes.delete.subtitle')}
       >
-        <SellerCodeDeleteConfirm onCancel={handleCancel} onConfirm={handleConfirmDelete} isSubmitting={isSubmitting} t={t} />
+        <SellerCodeDeleteConfirm
+          onCancel={handleCancel}
+          onConfirm={handleConfirmDelete}
+          isSubmitting={isSubmitting}
+          t={t}
+        />
       </PageLayout>
     )
   }
@@ -78,7 +75,12 @@ export default function SellerCodeDeletePage(): ReactElement {
       title={t('ui.sellerCodes.delete.title')}
       subtitle={t('ui.sellerCodes.delete.subtitle')}
     >
-      <SellerCodeDeleteConfirm onCancel={handleCancel} onConfirm={handleConfirmDelete} isSubmitting={isSubmitting} t={t} />
+      <SellerCodeDeleteConfirm
+        onCancel={handleCancel}
+        onConfirm={handleConfirmDelete}
+        isSubmitting={isSubmitting}
+        t={t}
+      />
     </PageLayout>
   )
 }

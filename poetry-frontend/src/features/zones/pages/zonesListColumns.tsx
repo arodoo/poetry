@@ -36,10 +36,13 @@ export function buildZonesListColumns(
           row.status === 'active'
             ? 'ui.zones.status.active'
             : row.status === 'inactive'
-            ? 'ui.zones.status.inactive'
-            : 'ui.zones.status.unknown'
+              ? 'ui.zones.status.inactive'
+              : 'ui.zones.status.unknown'
         return (
-          <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
+          <Badge
+            tone={row.status === 'active' ? 'success' : 'neutral'}
+            size="sm"
+          >
             {t(statusKey)}
           </Badge>
         )
@@ -48,7 +51,8 @@ export function buildZonesListColumns(
     {
       key: 'managerId',
       header: t('ui.zones.table.manager'),
-      accessor: (row: ZoneResponse): string => toTemplateString(row.managerId ?? '-'),
+      accessor: (row: ZoneResponse): string =>
+        toTemplateString(row.managerId ?? '-'),
     },
     {
       key: 'actions',

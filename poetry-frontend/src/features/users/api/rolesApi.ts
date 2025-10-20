@@ -12,5 +12,5 @@ export async function fetchRoles(): Promise<readonly RoleDto[]> {
   if (response.error || !response.data) {
     throw new Error('Failed to fetch roles')
   }
-  return (response.data as unknown) as readonly RoleDto[]
+  return response.data as unknown as readonly RoleDto[]
 }

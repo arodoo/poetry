@@ -43,11 +43,11 @@ describe('authApi', () => {
 describe('authApi headers', () => {
   it('sends Idempotency-Key on login', async () => {
     await postLogin('u', 'p')
-  const mockedLogin = vi.mocked(generatedSdk.login)
-  const call = mockedLogin.mock.calls[0]
-  const opts = call?.[0]
-  // ensure body has username/password and headers/object shape passed through
-  expect(opts?.body).toBeDefined()
+    const mockedLogin = vi.mocked(generatedSdk.login)
+    const call = mockedLogin.mock.calls[0]
+    const opts = call?.[0]
+    // ensure body has username/password and headers/object shape passed through
+    expect(opts?.body).toBeDefined()
     const body = opts?.body as unknown
     if (body && typeof body === 'object') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- test harness

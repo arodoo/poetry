@@ -14,13 +14,27 @@ interface Props {
   t: (key: string) => string
 }
 
-export default function SubscriptionSelect({ subscriptions, value, onChange, t }: Props): ReactElement {
+export default function SubscriptionSelect({
+  subscriptions,
+  value,
+  onChange,
+  t,
+}: Props): ReactElement {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1">{t('ui.memberships.form.subscription.label')}</label>
-  <Select value={value} onChange={(e) => { onChange(Number(e.target.value)) }}>
+      <label className="block text-sm font-medium mb-1">
+        {t('ui.memberships.form.subscription.label')}
+      </label>
+      <Select
+        value={value}
+        onChange={(e) => {
+          onChange(Number(e.target.value))
+        }}
+      >
         {subscriptions.map((s) => (
-          <option key={s.id} value={s.id}>{s.name}</option>
+          <option key={s.id} value={s.id}>
+            {s.name}
+          </option>
         ))}
       </Select>
     </div>

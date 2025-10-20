@@ -67,7 +67,9 @@ export function MembershipEditForm({
               size="sm"
               onClick={() =>
                 // intentionally fire-and-forget navigation from a button handler
-                void navigate(`/${locale}/memberships/${toTemplateString(membership.id)}`)
+                void navigate(
+                  `/${locale}/memberships/${toTemplateString(membership.id)}`
+                )
               }
             >
               {t('ui.memberships.actions.cancel')}

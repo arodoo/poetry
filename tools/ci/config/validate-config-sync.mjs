@@ -21,15 +21,17 @@ function validateEslint() {
   const s = fs.readFileSync(p, 'utf8')
 
   // Check that max-len is NOT present (Prettier handles line length)
-  const mLen = /'max-len': \['error', \{ code: (\d+),/.exec(s)
+  // Use a whitespace-tolerant regex to handle formatted config files
+  const mLen = /['"]max-len['"]\s*:\s*\[\s*['")]error['"]\s*,\s*\{\s*code\s*:\s*(\d+)/s.exec(s)
   if (mLen) {
     const msg = 'ESLint max-len found: should be removed (Prettier handles)'
     console.log(`❌ ${msg}`)
     hasErrors = true
   }
 
-  // Check max-lines is present
-  const mLines = /'max-lines': \['error', \{ max: (\d+),/.exec(s)
+  // Check max-lines is present and matches expected value
+  // This regex allows newlines and extra whitespace between tokens
+  const mLines = /['"]max-lines['"]\s*:\s*\[\s*['")]error['"]\s*,\s*\{[\s\S]*?max\s*:\s*(\d+)/s.exec(s)
   const exp = cfg.fileLineLimit
   if (!mLines || parseInt(mLines[1]) !== exp) {
     console.log(`❌ ESLint max-lines: expected ${exp}, found ${mLines?.[1]}`)

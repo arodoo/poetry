@@ -3,7 +3,10 @@
  * Purpose: Remaining user mutation operations split out to reduce file length.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { updateUser as updateUserSdk, type UserResponse } from '../../../api/generated'
+import {
+  updateUser as updateUserSdk,
+  type UserResponse,
+} from '../../../api/generated'
 import { type UserStatusToggleInput } from '../model/UsersSchemas'
 
 export async function disableUser(

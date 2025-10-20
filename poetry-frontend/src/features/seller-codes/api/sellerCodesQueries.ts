@@ -23,7 +23,7 @@ export async function fetchSellerCodesList(): Promise<SellerCodesCollection> {
   const response = await listSellerCodes()
   // `response.data` comes from generated SDK and can have differing shapes.
   // Cast via unknown first to satisfy TS and then parse safely.
-  const data = (response.data as unknown) as SellerCodeResponse[]
+  const data = response.data as unknown as SellerCodeResponse[]
   return parseSellerCodesCollection(data)
 }
 

@@ -34,9 +34,23 @@ export function MembershipFormFields({
 }: Props): ReactElement {
   return (
     <>
-      <UserSelect users={users} value={values.userId} onChange={onUserChange} t={t} />
-      <SubscriptionSelect subscriptions={subscriptions} value={values.subscriptionId} onChange={onSubscriptionChange} t={t} />
-      <SellerCodeInput value={values.sellerCode} onChange={onSellerCodeChange} placeholder={t('ui.memberships.form.sellerCode.placeholder')} />
+      <UserSelect
+        users={users}
+        value={values.userId}
+        onChange={onUserChange}
+        t={t}
+      />
+      <SubscriptionSelect
+        subscriptions={subscriptions}
+        value={values.subscriptionId}
+        onChange={onSubscriptionChange}
+        t={t}
+      />
+      <SellerCodeInput
+        value={values.sellerCode}
+        onChange={onSellerCodeChange}
+        placeholder={t('ui.memberships.form.sellerCode.placeholder')}
+      />
       <StatusSelect value={values.status} onChange={onStatusChange} t={t} />
     </>
   )

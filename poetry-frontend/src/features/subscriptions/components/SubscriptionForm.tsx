@@ -63,7 +63,12 @@ export default function SubscriptionForm({
         status={status}
         setStatus={setStatus}
       />
-      <SubscriptionFormFooter t={t} isPending={isPending} onCancel={onCancel} submitLabel={submitLabel} />
+      <SubscriptionFormFooter
+        t={t}
+        isPending={isPending}
+        onCancel={onCancel}
+        submitLabel={submitLabel}
+      />
     </div>
   )
 }

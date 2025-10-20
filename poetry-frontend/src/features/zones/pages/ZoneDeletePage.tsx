@@ -7,11 +7,12 @@
 import type { ReactElement } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Text } from '../../../ui/Text/Text'
-import { Button } from '../../../ui/Button/Button'
+// Button import removed; actions extracted to ZoneDeleteActions component
 import { Stack } from '../../../ui/Stack/Stack'
 import { Card } from '../../../ui/Card/Card'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { Heading } from '../../../ui/Heading/Heading'
+import { ZoneDeleteActions } from '../components/ZoneDeleteActions'
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useToast } from '../../../shared/toast/toastContext'
@@ -74,25 +75,12 @@ export default function ZoneDeletePage(): ReactElement {
           <Text size="sm" className="text-error-600 font-medium">
             {t('ui.zones.delete.form.warning')}
           </Text>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={handleCancel}
-              data-testid="cancel-delete-zone-button"
-            >
-              {t('ui.zones.actions.cancel')}
-            </Button>
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={handleConfirmDelete}
-              disabled={isSubmitting}
-              data-testid="confirm-delete-zone-button"
-            >
-              {t('ui.zones.actions.confirmDelete')}
-            </Button>
-          </div>
+          <ZoneDeleteActions
+            isSubmitting={isSubmitting}
+            onCancel={handleCancel}
+            onConfirm={handleConfirmDelete}
+            t={t}
+          />
         </Stack>
       </Card>
     </PageLayout>

@@ -29,9 +29,9 @@ test.describe('Zones Delete Navigation', (): void => {
     await page.waitForURL(`/en/zones/${zoneId}`)
     await page.waitForLoadState('networkidle')
 
-    await page.getByTestId('zone-detail-content').waitFor({ 
-      state: 'visible', 
-      timeout: 5000 
+    await page.getByTestId('zone-detail-content').waitFor({
+      state: 'visible',
+      timeout: 5000,
     })
 
     const deleteButton = page.getByTestId('delete-zone-button')

@@ -66,13 +66,29 @@
 
 Recent manual edits performed to reduce frontend lint failures (max-lines and a11y/type rules):
 
-- Created `poetry-frontend/src/shared/tokens/TokensErrorView.tsx` — extracted visible error UI from `TokensProvider` to reduce inline JSX and file size.
-- Created `poetry-frontend/src/shared/tokens/TokensErrorDetails.tsx` — helper for error UI details.
-- Created `poetry-frontend/src/shared/tokens/hooks/useApplyCssVars.ts` — hook to apply CSS variables to document root.
-- Created `poetry-frontend/src/shared/tokens/hooks/useLoadFontsFromBundle.ts` — hook to trigger offline font loading.
-- Updated `poetry-frontend/src/shared/tokens/TokensProvider.tsx` to use the new hooks and `TokensErrorView` (behavior preserved).
-- Split `poetry-frontend/src/features/users/api/usersMutations.ts` into `usersMutations.core.ts` and `usersMutations.misc.ts` and re-exported to keep public API identical and reduce per-file lines.
-- Split `poetry-frontend/src/features/memberships/components/MembershipFormFields.tsx` into smaller components: `UserSelect.tsx`, `SubscriptionSelect.tsx`, `SellerCodeInput.tsx`, `StatusSelect.tsx` and updated the original to compose them.
 
 These edits were made to strictly preserve runtime behavior and public function signatures. After these changes I re-ran frontend lint; remaining issues are primarily other files exceeding the 80-line max rule and one generated i18n file flagged by the rule.
+
+	- `poetry-frontend/src/features/users/components/fields/UserFirstNameField.tsx`
+	- `poetry-frontend/src/features/users/components/fields/UserLastNameField.tsx`
+	- `poetry-frontend/src/features/users/components/fields/UserEmailField.tsx`
+	- Updated `poetry-frontend/src/features/users/components/UsersBasicFields.tsx` to compose the new components. No runtime behavior changed.
+  
+	- `poetry-frontend/src/features/users/components/UserListActions.tsx` (table row actions)
+	- `poetry-frontend/src/features/users/components/UsersListTopActions.tsx` (page top actions)
+	- `poetry-frontend/src/features/users/components/UserDeleteActions.tsx` (delete confirm/cancel actions)
+	- `poetry-frontend/src/features/zones/components/ZonesListTopActions.tsx` (page top actions)
+	- `poetry-frontend/src/features/zones/components/ZoneRowActions.tsx` (row edit/delete actions)
+	- `poetry-frontend/src/features/zones/components/ZoneDeleteActions.tsx` (delete confirm/cancel actions)
+	- `poetry-frontend/src/features/zones/pages/zoneEditUtils.ts` (helper to create initial form state)
+	- Updated pages to compose the new components; behavior preserved.
+
+  
+- 2025-10-19: Extracted seller-code delete handlers to a helper module to reduce lines in the page file:
+	- `poetry-frontend/src/features/seller-codes/pages/sellerCodeDeleteHandlers.ts` (new)
+	- Updated `poetry-frontend/src/features/seller-codes/pages/SellerCodeDeletePage.tsx` to use the new helpers. No runtime behavior changed.
+
+	- 2025-10-19: Split subscription edit form to reduce file length and satisfy ESLint max-lines:
+	- `poetry-frontend/src/features/subscriptions/components/SubscriptionEditFormView.tsx` (new)
+	- Updated `poetry-frontend/src/features/subscriptions/components/SubscriptionEditForm.tsx` to render the new view. No runtime behavior changed.
 

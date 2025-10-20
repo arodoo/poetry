@@ -16,7 +16,7 @@ export async function getProfileSummaryRaw(): Promise<ProfileResponse> {
   if (response.error || !response.data) {
     throw new Error('Failed to fetch profile')
   }
-  return (response.data as unknown) as ProfileResponse
+  return response.data as unknown as ProfileResponse
 }
 
 export async function putProfileSummary(
@@ -26,5 +26,5 @@ export async function putProfileSummary(
   if (response.error || !response.data) {
     throw new Error('Failed to update profile')
   }
-  return (response.data as unknown) as ProfileResponse
+  return response.data as unknown as ProfileResponse
 }

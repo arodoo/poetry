@@ -19,7 +19,7 @@ export function useDeleteSellerCodeMutation(): UseMutationResult<
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ id, version, etag }) => {
-      const etagHeader = etag ?? ('"' + String(version) + '"')
+      const etagHeader = etag ?? '"' + String(version) + '"'
       return deleteSellerCode(id, {}, etagHeader)
     },
     onSuccess: () => {

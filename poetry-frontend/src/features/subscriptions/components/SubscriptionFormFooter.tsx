@@ -16,14 +16,29 @@ interface FooterProps {
   submitLabel: string
 }
 
-export default function SubscriptionFormFooter({ t, isPending, onCancel, submitLabel }: FooterProps): ReactElement {
+export default function SubscriptionFormFooter({
+  t,
+  isPending,
+  onCancel,
+  submitLabel,
+}: FooterProps): ReactElement {
   return (
     <div className="flex justify-end border-t border-[var(--color-border)] pt-4">
       <Inline gap="sm">
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isPending} data-testid="subscription-cancel-button">
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          disabled={isPending}
+          data-testid="subscription-cancel-button"
+        >
           {t('ui.subscriptions.actions.cancel')}
         </Button>
-        <Button type="submit" disabled={isPending} data-testid="subscription-submit-button">
+        <Button
+          type="submit"
+          disabled={isPending}
+          data-testid="subscription-submit-button"
+        >
           {isPending ? 'Saving...' : submitLabel}
         </Button>
       </Inline>

@@ -29,9 +29,9 @@ export default function SubscriptionDeletePage(): ReactElement {
   const handleDelete = (): void => {
     if (!id) return
     mutation.mutate(id, {
-        onSuccess: (): void => {
+      onSuccess: (): void => {
         toast.push(t('ui.subscriptions.toast.delete.success'))
-          void navigate(`/${locale}/subscriptions`)
+        void navigate(`/${locale}/subscriptions`)
       },
       onError: (): void => {
         toast.push(t('ui.subscriptions.toast.delete.error'))

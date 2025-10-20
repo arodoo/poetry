@@ -70,7 +70,9 @@ export function buildMembershipDetailSections(
         {
           label: t('ui.memberships.table.status'),
           value: (
-            <Badge tone={membership.status === 'active' ? 'success' : 'neutral'}>
+            <Badge
+              tone={membership.status === 'active' ? 'success' : 'neutral'}
+            >
               {t('ui.memberships.status.' + (membership.status ?? 'inactive'))}
             </Badge>
           ),

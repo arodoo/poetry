@@ -19,20 +19,41 @@ export function buildSubscriptionDetailSections(
     {
       title: t('ui.subscriptions.detail.section.plan'),
       items: [
-        { label: t('ui.subscriptions.table.name'), value: subscription.name ?? '' },
-        { label: 'Description', value: subscription.description ?? 'No description provided', fullWidth: true },
+        {
+          label: t('ui.subscriptions.table.name'),
+          value: subscription.name ?? '',
+        },
+        {
+          label: 'Description',
+          value: subscription.description ?? 'No description provided',
+          fullWidth: true,
+        },
       ] as readonly DetailViewItem[],
     },
     {
       title: t('ui.subscriptions.detail.section.pricing'),
       items: [
-        { label: t('ui.subscriptions.table.price'), value: formatCurrency(subscription.price ?? 0, subscription.currency ?? 'USD') },
-        { label: t('ui.subscriptions.table.duration'), value: formatDuration(subscription.durationDays ?? 30, t) },
+        {
+          label: t('ui.subscriptions.table.price'),
+          value: formatCurrency(
+            subscription.price ?? 0,
+            subscription.currency ?? 'USD'
+          ),
+        },
+        {
+          label: t('ui.subscriptions.table.duration'),
+          value: formatDuration(subscription.durationDays ?? 30, t),
+        },
         {
           label: t('ui.subscriptions.table.status'),
           value: (
-            <Badge tone={subscription.status === 'active' ? 'success' : 'neutral'} data-testid="subscription-status-display">
-              {subscription.status === 'active' ? t('ui.subscriptions.status.active') : t('ui.subscriptions.status.inactive')}
+            <Badge
+              tone={subscription.status === 'active' ? 'success' : 'neutral'}
+              data-testid="subscription-status-display"
+            >
+              {subscription.status === 'active'
+                ? t('ui.subscriptions.status.active')
+                : t('ui.subscriptions.status.inactive')}
             </Badge>
           ),
         },

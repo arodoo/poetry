@@ -14,11 +14,27 @@ interface Props {
   setPrice: (v: number) => void
 }
 
-export default function SubscriptionPriceField({ t, price, setPrice }: Props): ReactElement {
+export default function SubscriptionPriceField({
+  t,
+  price,
+  setPrice,
+}: Props): ReactElement {
   return (
     <Stack gap="xs">
-      <Text size="sm" className="font-medium">{t('ui.subscriptions.table.price')}</Text>
-      <Input type="number" value={price} onChange={(e) => { setPrice(Number(e.target.value)) }} min="0" step="0.01" required data-testid="subscription-price-input" />
+      <Text size="sm" className="font-medium">
+        {t('ui.subscriptions.table.price')}
+      </Text>
+      <Input
+        type="number"
+        value={price}
+        onChange={(e) => {
+          setPrice(Number(e.target.value))
+        }}
+        min="0"
+        step="0.01"
+        required
+        data-testid="subscription-price-input"
+      />
     </Stack>
   )
 }
