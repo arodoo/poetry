@@ -5,7 +5,7 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect } from '@playwright/test'
-import { injectTokens } from '../shared/providers/tokenProvider'
+import { injectTokens, waitForCssChange } from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Font Size Visual Update', () => {
   test('should visually update font sizes in UI after save', async ({
@@ -45,8 +45,7 @@ test.describe('Tokens UI - Font Size Visual Update', () => {
       page.getByText(/updated successfully|actualizados exitosamente/i)
     ).toBeVisible({ timeout: 5000 })
 
-    await page.waitForTimeout(500)
-
+    await waitForCssChange(page, 'h1', 'fontSize', h1Before)
     const h1After = await page.evaluate(() => {
       const h1 = document.querySelector('h1')
       if (!h1) return '0px'

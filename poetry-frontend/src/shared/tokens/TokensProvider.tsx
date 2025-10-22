@@ -71,6 +71,26 @@ export function TokensProvider({ children }: TokensProviderProps): ReactNode {
     }
   }, [data])
 
+  // E2E tracing aid: when running under e2e tests, emit a console log whenever
+  // a new bundle is applied so Playwright traces capture the timeline of token
+  // application. This is a test-only aid and is gated behind the test flag.
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((window as any).__E2E__ === true) {
+      // Avoid logging large objects; log a compact fingerprint
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      console.log('[E2E] TokensProvider applied bundle', {
+        // @ts-ignore may be undefined
+        theme: (data as any)?.bundle?.current?.theme,
+        font: (data as any)?.bundle?.current?.font,
+        // include etag if available
+        etag: (data as any)?.etag ?? null,
+      })
+    }
+  } catch (e) {
+    // noop
+  }
+
   useApplyCssVars(cssVars)
   useLoadFontsFromBundle(data ? (data.bundle as TokenBundle) : undefined)
 

@@ -5,7 +5,7 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect } from '@playwright/test'
-import { injectTokens } from '../shared/providers/tokenProvider'
+import { injectTokens, waitForCssChange } from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Shadow Visual Update', () => {
   test('should visually update box shadow in UI after save', async ({
@@ -45,8 +45,7 @@ test.describe('Tokens UI - Shadow Visual Update', () => {
       page.getByText(/updated successfully|actualizados exitosamente/i)
     ).toBeVisible({ timeout: 5000 })
 
-    await page.waitForTimeout(500)
-
+    await waitForCssChange(page, 'div[class*="card"]', 'boxShadow', cardBefore)
     const cardAfter = await page.evaluate(() => {
       const card = document.querySelector('div[class*="card"]')
       if (!card) return 'none'

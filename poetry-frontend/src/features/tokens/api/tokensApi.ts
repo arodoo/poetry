@@ -90,9 +90,28 @@ export async function getTokens(): Promise<TokensApiResponse> {
 export async function updateSelection(
   input: UpdateSelectionInput
 ): Promise<void> {
+  // E2E tracing: emit concise console logs when updating selection
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((window as any).__E2E__ === true) {
+      // eslint-disable-next-line no-console
+      console.log('[E2E] tokens.updateSelection: sending PUT', input)
+    }
+  } catch (e) {
+    // ignore
+  }
   // we don't need the response body; call without generic to avoid invalid void type lint
   await fetchJson('/api/v1/tokens/selection', {
     method: 'PUT',
     body: input,
   })
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((window as any).__E2E__ === true) {
+      // eslint-disable-next-line no-console
+      console.log('[E2E] tokens.updateSelection: PUT completed')
+    }
+  } catch (e) {
+    // ignore
+  }
 }

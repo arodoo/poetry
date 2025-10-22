@@ -1,0 +1,14 @@
+/* Local font-face fallbacks used by e2e/ci when CDN is unavailable.
+   Add @font-face entries for fonts present in this folder. Example:
+
+@font-face {
+  font-family: 'Inter Local';
+  src: url('/fonts/inter.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+Use font-family names that match application's font family mapping or
+ensure CSS variables point to the correct local font-family name.
+*/

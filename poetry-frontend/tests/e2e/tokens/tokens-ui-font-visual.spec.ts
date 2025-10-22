@@ -5,7 +5,7 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect } from '@playwright/test'
-import { injectTokens } from '../shared/providers/tokenProvider'
+import { injectTokens, waitForCssChange } from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Font Visual Update', () => {
   test('should visually update font family in UI after save', async ({
@@ -43,7 +43,8 @@ test.describe('Tokens UI - Font Visual Update', () => {
       page.getByText(/updated successfully|actualizados exitosamente/i)
     ).toBeVisible({ timeout: 5000 })
 
-    await page.waitForTimeout(500)
+    // Wait for the body font-family computed style to change
+    await waitForCssChange(page, 'document', 'fontFamily', bodyBefore)
 
     const bodyAfter = await page.evaluate(() => {
       const styles = getComputedStyle(document.body)

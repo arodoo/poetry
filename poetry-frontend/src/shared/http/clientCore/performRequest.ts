@@ -34,7 +34,26 @@ export async function performRequest<T>(
         body: resolveBody(execution.method, execution.body),
         signal: activeSignal,
       })
+      // E2E tracing: emit a compact console log when interacting with tokens API
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((window as any).__E2E__ === true && execution.url.includes('/api/v1/tokens')) {
+          // Non-blocking log to aid Playwright traces
+          // eslint-disable-next-line no-console
+          console.log('[E2E][HTTP] request', { method: execution.method, url: execution.url, attempt })
+        }
+      } catch (e) {
+        // ignore
+      }
       if (!response.ok) {
+        try {
+          if ((window as any).__E2E__ === true && execution.url.includes('/api/v1/tokens')) {
+            // eslint-disable-next-line no-console
+            console.log('[E2E][HTTP] response-not-ok', { status: response.status, url: execution.url })
+          }
+        } catch (e) {
+          // ignore
+        }
         const refreshed: boolean = await tryRefreshAuthorization(
           response,
           attempt,

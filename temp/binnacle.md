@@ -92,3 +92,19 @@ These edits were made to strictly preserve runtime behavior and public function 
 	- `poetry-frontend/src/features/subscriptions/components/SubscriptionEditFormView.tsx` (new)
 	- Updated `poetry-frontend/src/features/subscriptions/components/SubscriptionEditForm.tsx` to render the new view. No runtime behavior changed.
 
+	- 2025-10-19: Make e2e tests resilient to external CDN font resolution by short-circuiting font load in test-mode:
+	- Updated `tests/e2e/shared/providers/tokenProvider.ts` to set `window.__E2E__ = true` during test init.
+	- Updated `src/shared/fonts/loadFontOffline.ts` to immediately mark fonts as loaded when `window.__E2E__` is present (test-only behavior).
+	- Added `waitForFontLoaded` helper to `tests/e2e/shared/providers/tokenProvider.ts` and used it in token visual tests to wait for font application before assertions.
+
+	- 2025-10-19: Force immediate tokens refetch after update to make e2e visual token tests reliable:
+	- Updated `src/features/tokens/hooks/useTokensMutations.ts` to call `queryClient.fetchQuery` after mutation success (safe immediate GET).
+
+	- 2025-10-19: Add local font fallback for e2e/CI stability
+	- Created `poetry-frontend/public/fonts/` and added `fonts.css` and `README.md` explaining how to add .woff2 files.
+	- Updated `src/shared/fonts/loadFontOffline.ts` to prefer local `/fonts/<key>.woff2` when `window.__E2E__` is present; uses a quick HEAD fetch to detect local asset presence and falls back to CDN URL if not found.
+	- This keeps production behavior unchanged while removing external CDN flakiness from visual tests.
+
+	- 2025-10-19: Improve e2e determinism with optimistic UI cache update
+	- Updated `src/features/tokens/hooks/useTokensMutations.ts` to perform a small optimistic cache update via `queryClient.setQueryData` after successful PUT. This is a conservative, non-destructive change intended to make the UI re-apply CSS variables immediately while the refetch runs. A `data-tokens-refetched` DOM marker is still set after the real refetch completes.
+
