@@ -5,7 +5,7 @@
  Emmanuel
 */
 import { createContext, type Context } from 'react'
-import type { I18nState } from './index'
+import type { I18nState } from './types'
 
 export const I18nCtx: Context<I18nState | null> =
   createContext<I18nState | null>(null)

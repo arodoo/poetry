@@ -36,8 +36,7 @@ export function loadFontOffline(bundle: TokenBundle): LoadFontResult {
   // to avoid flaky external CDN resolution in CI while keeping production
   // behavior unchanged.
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const isE2E = (window as any).__E2E__ === true
+    const isE2E = typeof window !== 'undefined' && window.__E2E__ === true
     if (isE2E) {
       // Prefer a local font asset when running in E2E to avoid CDN flakiness.
       // Local path convention: /fonts/<key>.woff2
@@ -45,7 +44,6 @@ export function loadFontOffline(bundle: TokenBundle): LoadFontResult {
       try {
         // Use a synchronous-ish check: attempt a HEAD fetch to see if local asset exists.
         // If fetch succeeds quickly, prefer the local asset for preload.
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         fetch(localPath, { method: 'HEAD', cache: 'no-store' })
           .then((res) => {
             if (res.ok) link.href = localPath
@@ -53,7 +51,7 @@ export function loadFontOffline(bundle: TokenBundle): LoadFontResult {
           .catch(() => {
             // ignore and fall back to CDN URL
           })
-      } catch (e) {
+      } catch {
         // ignore fetch availability in restrictive environments
       }
       markCached(active)
@@ -63,7 +61,7 @@ export function loadFontOffline(bundle: TokenBundle): LoadFontResult {
       document.head.appendChild(link)
       return { requested: true, font: active.key }
     }
-  } catch (e) {
+  } catch {
     // ignore if access to window fails in some envs
   }
 

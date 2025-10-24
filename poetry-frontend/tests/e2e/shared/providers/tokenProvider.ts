@@ -55,7 +55,7 @@ export async function injectTokens(
   )
   // Signal app it's running in e2e test mode so loadFontOffline can operate in test-mode
   await page.addInitScript(() => {
-    ;(window as any).__E2E__ = true
+    ;(globalThis as unknown as { __E2E__?: boolean }).__E2E__ = true
   })
 }
 
@@ -87,7 +87,7 @@ export async function waitForTokensRefetch(
       { timeout: Math.max(2000, timeout) }
     )
     return
-  } catch (_) {
+  } catch {
     // fallback: wait for a DOM attribute toggled by the application after refetch
   }
 
@@ -104,13 +104,33 @@ export async function waitForCssChange(
   beforeValue: string,
   timeout = 15000
 ): Promise<void> {
+  // Fast-path: if the app is running in E2E mode and signals tokens refetch
+  // completion via `data-tokens-refetched`, prefer that as a quick proxy for
+  // token-driven CSS updates. This reduces flaky timing races when the
+  // application applies CSS variables after a successful refetch.
+  try {
+    await page.waitForFunction(
+      () =>
+        Boolean(
+          (document.documentElement as HTMLElement).hasAttribute(
+            'data-tokens-refetched'
+          )
+        ),
+      [],
+      { timeout: Math.min(3000, timeout) }
+    )
+    // let the normal CSS checks continue (the attribute is a fast signal)
+  } catch {
+    // ignore: fall back to the normal style polling below
+  }
   // property can be a normal computed style (e.g. 'fontFamily') or a CSS var marker 'cssVar:--color-background'
   if (property.startsWith('cssVar:')) {
     const varName = String(property.slice('cssVar:'.length))
     const before = String(beforeValue)
     await page.waitForFunction(
       (arg: { v: string; beforeVal: string }) =>
-        getComputedStyle(document.body).getPropertyValue(arg.v).trim() !== arg.beforeVal,
+        getComputedStyle(document.body).getPropertyValue(arg.v).trim() !==
+        arg.beforeVal,
       { v: varName, beforeVal: before },
       { timeout }
     )
@@ -131,7 +151,8 @@ export async function waitForCssChange(
     if (cssVar) {
       await page.waitForFunction(
         (arg: { v: string; beforeVal: string }) =>
-          document.documentElement.style.getPropertyValue(arg.v).trim() !== arg.beforeVal,
+          document.documentElement.style.getPropertyValue(arg.v).trim() !==
+          arg.beforeVal,
         { v: cssVar, beforeVal: beforeStr },
         { timeout }
       )
@@ -144,12 +165,16 @@ export async function waitForCssChange(
       const sel = arg.sel
       const prop = arg.prop
       const beforeVal = arg.beforeVal
-      const el = sel === 'document' || sel === 'documentElement' ? document.documentElement : document.querySelector(sel)
+      const el =
+        sel === 'document' || sel === 'documentElement'
+          ? document.documentElement
+          : document.querySelector(sel)
       if (!el) return false
       const styles = getComputedStyle(el as Element)
       // prefer direct property access, fallback to getPropertyValue
-      // @ts-ignore runtime access
-      const val = (styles as any)[prop] ?? styles.getPropertyValue(prop)
+      const val =
+        (styles as unknown as Record<string, string>)[prop] ??
+        styles.getPropertyValue(prop)
       return String(val).trim() !== beforeVal
     },
     { sel: selStr, prop: propStr, beforeVal: beforeStr },

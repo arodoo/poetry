@@ -5,7 +5,10 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect } from '@playwright/test'
-import { injectTokens, waitForCssChange } from '../shared/providers/tokenProvider'
+import {
+  injectTokens,
+  waitForCssChange,
+} from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Radius Visual Update', () => {
   test('should visually update border radius in UI after save', async ({
@@ -45,7 +48,12 @@ test.describe('Tokens UI - Radius Visual Update', () => {
       page.getByText(/updated successfully|actualizados exitosamente/i)
     ).toBeVisible({ timeout: 5000 })
 
-    await waitForCssChange(page, 'button[type="submit"]', 'borderRadius', buttonBefore)
+    await waitForCssChange(
+      page,
+      'button[type="submit"]',
+      'borderRadius',
+      buttonBefore
+    )
     const buttonAfter = await page.evaluate(() => {
       const button = document.querySelector('button[type="submit"]')
       if (!button) return '0px'

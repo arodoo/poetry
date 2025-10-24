@@ -5,7 +5,7 @@
 */
 import { useContext } from 'react'
 import { I18nCtx } from './context'
-import type { I18nState } from './index'
+import type { I18nState } from './types'
 import type { I18nKey } from './generated/keys'
 
 export function useT(): (

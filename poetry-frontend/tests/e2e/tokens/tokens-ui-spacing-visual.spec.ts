@@ -5,7 +5,10 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect } from '@playwright/test'
-import { injectTokens, waitForCssChange } from '../shared/providers/tokenProvider'
+import {
+  injectTokens,
+  waitForCssChange,
+} from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Spacing Visual Update', () => {
   test('should visually update spacing in UI after save', async ({ page }) => {
@@ -43,7 +46,12 @@ test.describe('Tokens UI - Spacing Visual Update', () => {
       page.getByText(/updated successfully|actualizados exitosamente/i)
     ).toBeVisible({ timeout: 5000 })
 
-    await waitForCssChange(page, 'button[type="submit"]', 'padding', buttonBefore)
+    await waitForCssChange(
+      page,
+      'button[type="submit"]',
+      'padding',
+      buttonBefore
+    )
     const buttonAfter = await page.evaluate(() => {
       const button = document.querySelector('button[type="submit"]')
       if (!button) return '0px'

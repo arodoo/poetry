@@ -5,7 +5,10 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect } from '@playwright/test'
-import { injectTokens, waitForCssChange } from '../shared/providers/tokenProvider'
+import {
+  injectTokens,
+  waitForCssChange,
+} from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Shadow Visual Update', () => {
   test('should visually update box shadow in UI after save', async ({

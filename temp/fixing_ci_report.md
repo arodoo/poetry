@@ -1,124 +1,85 @@
-# CI/CD Error Fixing Plan
-**Generated:** 2025-10-11  
-**Updated:** 2025-10-12 (marked completed tasks from binnacle)  
-**Status:** In Progress - Lint fixes ongoing  
-**Risk Level:** Low (non-breaking changes only)
+# CI Fixing Report (fresh)
 
-## ✅ Recent Completions (2025-10-12)
+Date: 2025-10-24
 
-**Frontend ESLint Fixes:**
-- Fixed: Referenced unused AbortSignal param in publicLoginApi.ts
-- Fixed: Used nullish coalescing in UserSelect.tsx and subscription detail helpers
-- Fixed: Tightened subscriptionsQueries.ts return casting to avoid TS complaints
-- Fixed: Removed unused helper in subscriptions-delete e2e spec
-- Fixed: Adjusted membership status fallback and profile version handling to avoid unnecessary conditional
-- Fixed: Simplified seller-code delete null checks
-- Fixed: Made ProfileSummarySection version parsing deterministic to avoid unnecessary-condition
-- Fixed: usersMutations - prefer nullish coalescing and narrow generated response for delete flow
-- Fixed: usersQueries - return early on missing data and narrow cast via unknown
-- Fixed: usersMutations - avoid require-await by returning rejected Promise and reference _etag
-- Fixed: ZoneDeletePage - simplified null/version check with optional chaining
-- Fixed: userCreateHandlers - prefer safe fallbacks for password/status
-- Fixed: AdminTokensPage - narrowed bundle.current at runtime to avoid type drift
-- Fixed: AdminTokensPage - removed redundant nullish fallbacks for cancel payload
-- Fixed: userCreateHandlers - clarified password/status handling before validation
-- Fixed: ZoneEditPage - normalized status union before initializing form state
-- Fixed: userCreateHandlers - pass status directly from form values (validated by schema)
-- Fixed: ZoneEditPage - removed unnecessary conditional when computing zoneStatus to satisfy linter
-- Fixed: ZoneEditPage - switched to ternary check for zone.status to remove no-unnecessary-condition
+Summary
+-------
+- Goal: Run CI checkers one-by-one and produce a current status report for follow-up fixes.
+- Scope: headers, frontend lint, frontend typecheck, frontend build, frontend unit tests, OpenAPI/SDK hash, Playwright E2E.
 
-**Current Lint Status:** 63 problems (0 errors, 63 warnings) ⬇️ from ~116 initial problems
+Results (per-check)
+-------------------
+1) Headers check
+   - Command: `node tools/ci/headers/check-headers.mjs`
+   - Result: PASS — "✅ Headers valid (1503 files checked)"
 
-****CRUCIAL*****
+2) Frontend lint (ESLint)
+   - Command: `npm --prefix poetry-frontend run lint`
+   - Result: PASS with deprecation warning
+   - Notes: ESLint ran and returned without reported rule failures in this run. A deprecation warning was emitted:
+     - "ESLintIgnoreWarning: The ".eslintignore" file is no longer supported. Switch to using the 'ignores' property in eslint.config.js"
+   - Action: Replace `.eslintignore` by declaring ignores in `eslint.config.js` to eliminate the warning (low risk, non-blocking).
 
-## 🔎 Individual CI Check Results (2025-10-12)
+3) Frontend typecheck
+   - Command: `npm --prefix poetry-frontend run typecheck`
+   - Result: PASS — TypeScript checks completed after i18n generation and verification (no errors printed).
 
-1) TypeScript typecheck (`npm --prefix poetry-frontend run typecheck`) — FIXED
-    - Summary: 10 type errors in 9 files. Key problems are unsafe casts from generated SDK response types to local DTO arrays and mismatched generated client return types.
-    - Files with errors (representative):
-       - `src/features/seller-codes/api/sellerCodesQueries.ts`
-       - `src/features/subscriptions/pages/SubscriptionDetailPage.tsx`
-       - `src/features/users/api/rolesApi.ts`
-       - `src/features/zones/api/zonesQueries.ts`
-       - `src/shared/sdk/*` (account/dashboard/profile/public clients)
-         - Completed: Applied safe `as unknown as` casts and small signature fixes in SDK wrappers and query files (seller-codes, zones, users roles, account/dashboard/profile/public helpers). Re-run typecheck now passes.
+4) Frontend build
+   - Command: `npm --prefix poetry-frontend run build`
+   - Result: PASS — Vite built production assets successfully (built in ~4.7s).
 
-2) Unit tests (`npm --prefix poetry-frontend run test`) — FIXED
-    - Summary: 3 failing tests in `src/tests/features/tokens/pages/TokensPage.test.tsx` — errors due to `AdminTokensPage` expecting `data.bundle` but test environment providing undefined `data` in some cases.
-         - Completed: Hardened `AdminTokensPage` initialization to safely handle missing `data` via optional chaining and safe defaults; re-ran tests, now all tests pass.
+5) Frontend unit tests (vitest)
+   - Command: `npm --prefix poetry-frontend run test`
+   - Result: PASS — 126 test files; 188 tests passed. Some i18n fetch warnings visible in test logs but not failing tests (tests use fallback locales).
 
-3) Hardcoded color check (`node tools/ci/colors/check-hardcoded-colors.mjs`) — PASSED
-    - No hardcoded colors found.
+6) OpenAPI / SDK hash check
+   - Command: `node tools/ci/openapi/check-openapi-hash.mjs`
+   - Result: PASS — SDK hash matches generated spec at `docs/api/backend-generated/v1/openapi.yaml`.
+   - Notes: There is an existing temporary `.redocly.lint-ignore.yaml` in the repo (created earlier). The OpenAPI linter was not explicitly executed here; if you want full linting, run Redocly linter and fix the generated spec or update generation.
 
-4) Frontend module structure check (`node tools/ci/modules/check-frontend-modules.mjs`) — FIXED
-   - Summary: Missing domain docs and OpenAPI path files for several features. JSON report saved to `frontend-module-check-report.json`.
-   - Root cause: Blueprint had incorrect requirement for hand-written OpenAPI path files (violates architecture principle: "API contracts are backend-generated").
-   - Completed: 
-     - Created missing domain docs: `docs/domains/seller-codes.md`, `docs/domains/users.md`, `docs/domains/zones.md`
-     - Fixed blueprint: removed incorrect `api/openapi/paths/<feature>-*.yaml` requirement from `docs/architecture/frontend-module-blueprint.json`
-     - Re-ran module checker: now passes ✅## ✅ Recommended next fixes (short)
-- Fix type errors in SDK wrapper files by using `as unknown as ...` and runtime checks (priority: typecheck failures).
-- Fix `AdminTokensPage` initialization to avoid test-time undefined `data` errors (small runtime-safe defaults).
-- Add missing domain docs `docs/domains/seller-codes.md`, `docs/domains/users.md`, `docs/domains/zones.md` and/or placeholder OpenAPI paths to satisfy module checker.
+7) Playwright E2E tests
+   - Command: `npm --prefix poetry-frontend run pw:test -- --reporter=list`
+   - Result: PARTIAL — 103 tests executed, 93 passed, 10 failed. (Command exited with code 1.)
+   - Failures (10):
+     1. `tests/e2e/memberships/membership-detail-delete-navigation.spec.ts` — Timeout waiting for `getByTestId('delete-membership-button')` to be visible
+     2. `tests/e2e/subscriptions/subscriptions-edit.spec.ts` — Timeout waiting for PUT `/api/v1/subscriptions/:id` response
+     3. `tests/e2e/tokens/tokens-ui-font-visual.spec.ts` — Timeout waiting for CSS change after saving tokens
+     4. `tests/e2e/tokens/tokens-ui-fontSize-visual.spec.ts` — Timeout waiting for CSS change
+     5. `tests/e2e/tokens/tokens-ui-radius-visual.spec.ts` — Timeout waiting for CSS change
+     6. `tests/e2e/tokens/tokens-ui-shadow-visual.spec.ts` — Timeout waiting for CSS change
+     7. `tests/e2e/tokens/tokens-ui-spacing-visual.spec.ts` — Timeout waiting for CSS change
+     8. `tests/e2e/tokens/tokens-ui-theme-visual.spec.ts` — Timeout waiting for CSS change
+     9. `tests/e2e/ui/button-vars/individual-buttons.spec.ts` — Expected delete button visible but locator not found
+     10. `tests/e2e/ui/button-vars/visual-diff.spec.ts` — Timeout evaluating locators for visual diff
 
-I will proceed to fix the highest priority items next: (A) TypeScript type errors in the SDK-wrapper query files, and (B) the failing TokensPage tests by hardening `AdminTokensPage` initialization. Each manual change will be recorded in `temp/binnacle.md` as a one-line entry and I'll re-run the relevant checks afterwards.
-all the changues must be documented super briefly at 'temp\binnacle.md' so we can track what was done and when.
----
+   - Common failure modes observed:
+     - Timeouts waiting for DOM visibility or network responses (likely flaky waits in tests).
+     - Several token-visual tests rely on CSS property changes; these can be brittle when fonts/styles load slower in CI or when optimistic UI updates are not applied.
 
-## 🔔 CI run results (2025-10-24)
+Immediate recommendations / next steps
+-----------------------------------
+1. Prioritize E2E fixes (high):
+   - Harden E2E wait helpers used by token tests: increase timeouts, use the `data-tokens-refetched` attribute (app-side marker) or explicit network response waits, and prefer computed style checks where appropriate.
+   - Make selectors less brittle: prefer explicit test ids for action buttons used in visual comparisons (e.g., ensure `data-testid` exists on the delete button locator used by tests).
+   - Ensure deterministic fonts for CI: confirm `poetry-frontend/public/fonts` contains committed `.woff2` files and that the test loader uses local first in CI.
 
-Command: `npm run ci`
+2. OpenAPI lint (medium):
+   - Remove the temporary `.redocly.lint-ignore.yaml` and resolve the problems, or regenerate the OpenAPI spec from backend (`npm run update:openapi`) and re-run the linter. Note: generated specs should be fixed upstream where practical.
 
-Summary: CI failed during the `lint` step. The run exited with code 1. Key findings from the lint output:
+3. Cleanup: replace `.eslintignore` usage by adding `ignores` to `eslint.config.js` to remove the deprecation warning.
 
-- ESLint: 51 problems found (19 errors, 32 warnings)
-- Files with errors/warnings (representative):
-  - `poetry-frontend/src/features/tokens/api/tokensApi.ts` — unused param `e`, unsafe `any` usages, file too long (88 > 80)
-  - `poetry-frontend/src/features/tokens/hooks/useTokensMutations.ts` — many `any` usages, `@ts-ignore` occurrences, several unused `e` variables
-  - `poetry-frontend/src/shared/fonts/loadFontOffline.ts` — unused vars, unsafe any
-  - `poetry-frontend/src/shared/http/clientCore/performRequest.ts` — unused vars, unsafe any
-  - `poetry-frontend/src/shared/tokens/TokensProvider.tsx` — `@ts-ignore` -> must use `@ts-expect-error`, file too long (84 > 80), unused `e`
-  - `poetry-frontend/tests/e2e/shared/providers/tokenProvider.ts` — `@ts-ignore` usages, unexpected any, unused `_` variables
+Appendix: commands I ran
+------------------------
+- node tools/ci/headers/check-headers.mjs
+- npm --prefix poetry-frontend run lint
+- npm --prefix poetry-frontend run typecheck
+- npm --prefix poetry-frontend run build
+- npm --prefix poetry-frontend run test
+- node tools/ci/openapi/check-openapi-hash.mjs
+- npm --prefix poetry-frontend run pw:test -- --reporter=list
 
-Root cause (high level):
+If you want I can now:
+- (A) Tackle the E2E failing tests one-by-one (conservative test-side fixes + rerun the failing tests).
+- (B) Run a full Redocly OpenAPI lint and generate a detailed list of issues to fix in the generated spec.
 
-- Several places use quick test-time workarounds (`any`, `@ts-ignore`, unused error params) to get code compiling during earlier fixes. ESLint flags these as errors under the current rules.
-- A few files exceed the enforced max-lines limit (80), which the CI rejects.
-
-Prioritized actionable fixes (small, safe, prioritized):
-
-1. Fix obvious unused vars and parameters (low risk, fast)
-  - Remove or rename unused `e` parameters where they are declared but not used. If the param is required for signature, rename to `_err` or `_` to indicate unused.
-  - Remove unused eslint-disable directives that are now unnecessary.
-
-2. Replace `@ts-ignore` with `@ts-expect-error` where appropriate (low risk)
-  - `@ts-expect-error` is stricter and preferred by our lint rules.
-
-3. Reduce file length to meet max-lines (80) (low-medium risk)
-  - Split large files (example: `tokensApi.ts` and `TokensProvider.tsx`) into focused modules (helpers/hooks/components). Keep changes mechanical and preserve runtime behavior.
-
-4. Narrow `any` usages and unsafe member access (medium risk)
-  - Add minimal type annotations or local `as unknown as` casts in a controlled way (example: when consuming generated SDK responses) or add runtime guards before accessing properties.
-  - Prefer `unknown` + narrow checks over pervasive `any`.
-
-5. Re-run `npm run lint` and iterate until no ESLint errors remain. Then continue the CI pipeline (typecheck/build/tests).
-
-Failing-file inventory (to be fixed in order):
-
-- `poetry-frontend/src/features/tokens/api/tokensApi.ts` (errors: unused `e`, file length)
-- `poetry-frontend/src/features/tokens/hooks/useTokensMutations.ts` (errors: `@ts-ignore`, unused `e`, unsafe any)
-- `poetry-frontend/src/shared/fonts/loadFontOffline.ts` (errors: unused `e`, unsafe any)
-- `poetry-frontend/src/shared/http/clientCore/performRequest.ts` (errors: unused `e`, unsafe any)
-- `poetry-frontend/src/shared/tokens/TokensProvider.tsx` (errors: `@ts-ignore` -> `@ts-expect-error`, file length)
-- `poetry-frontend/tests/e2e/shared/providers/tokenProvider.ts` (errors: unexpected any, `@ts-ignore`)
-
-Estimated effort and next steps
-
-- Quick fixes (30–90 minutes): remove unused vars, replace `@ts-ignore` with `@ts-expect-error` where appropriate, remove stale eslint-disable comments. (I can do these now.)
-- Medium fixes (1–3 hours): split files that exceed max-lines into smaller modules and add minimal types to remove `any` usage hotspots.
-- After the quick fixes: re-run `npm --prefix poetry-frontend run lint` then `npm run ci` and capture the next failing set (if any).
-
-I'll proceed to implement the quick fixes (unused vars and `@ts-ignore` → `@ts-expect-error` swaps) and re-run lint if you confirm. Each change will be one small commit and recorded in `temp/binnacle.md`.
-
-*** End of CI run summary (2025-10-24)
-
+— End of report

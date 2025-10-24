@@ -1,0 +1,120 @@
+name: Publish fonts artifact
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  publish-fonts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (if present)
+        run: |
+          npm ci --prefer-offline || true
+
+      - name: Run fetch-fonts script
+        run: |
+          node tools/scripts/fetch-fonts.mjs
+
+      - name: Upload fonts artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fonts-${{ github.sha }}
+          path: poetry-frontend/public/fonts
+
+      - name: Create release (optional, manual release will contain fonts)
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: fonts-${{ github.sha }}
+          release_name: Fonts ${{ github.sha }}
+          body: "Automated fonts release created by workflow"
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload release asset - Regular
+        if: steps.create_release.outputs.upload_url
+        uses: actions/upload-release-asset@v2
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: poetry-frontend/public/fonts/Inter-Regular.woff2
+          asset_name: Inter-Regular.woff2
+          asset_content_type: application/font-woff2
+
+      - name: Upload release asset - Bold
+        if: steps.create_release.outputs.upload_url
+        uses: actions/upload-release-asset@v2
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: poetry-frontend/public/fonts/Inter-Bold.woff2
+          asset_name: Inter-Bold.woff2
+          asset_content_type: application/font-woff2
+name: Publish fonts artifact
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (no-op if none)
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          npm ci --prefer-offline || true
+
+      - name: Run fetch-fonts script
+        run: |
+          node tools/scripts/fetch-fonts.mjs
+
+      - name: Upload fonts artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fonts-${{ github.sha }}
+          path: poetry-frontend/public/fonts
+
+      - name: Create GitHub release and attach fonts (optional)
+        if: always()
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          tag_name: fonts-${{ github.sha }}
+          release_name: Fonts ${{ github.sha }}
+          body: "Automated fonts release created by workflow"
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload release assets
+        if: steps.create_release.outputs.id != ''
+        uses: actions/upload-release-asset@v2
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: poetry-frontend/public/fonts/Inter-Regular.woff2
+          asset_name: Inter-Regular.woff2
+          asset_content_type: application/font-woff2
+
+      - name: Upload release asset - bold
+        if: steps.create_release.outputs.id != ''
+        uses: actions/upload-release-asset@v2
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: poetry-frontend/public/fonts/Inter-Bold.woff2
+          asset_name: Inter-Bold.woff2
+          asset_content_type: application/font-woff2

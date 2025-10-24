@@ -2,6 +2,10 @@
 applyTo: '**'
 ---
 
+### MUSTS
+- Quality over speed is a must always
+
+
 ## Global Considerations
 
 - Backend, Frontend and Mobile are always running in default ports and the three run with hot-reload

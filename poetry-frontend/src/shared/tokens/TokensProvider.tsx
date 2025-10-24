@@ -8,12 +8,12 @@
 */
 
 import type { PropsWithChildren, ReactNode } from 'react'
-import { createContext, useEffect, useMemo } from 'react'
+import { createContext, useMemo } from 'react'
 import { useTokensQuery } from '../../features/tokens/hooks/useTokensQueries'
 import { mapBundleToCssVars } from '../../ui/theme/tokens'
 import useApplyCssVars from './hooks/useApplyCssVars'
 import useLoadFontsFromBundle from './hooks/useLoadFontsFromBundle'
-import type { TokenBundle } from '../fonts/loadFontTypes'
+import useTokensErrorLogger from './useTokensErrorLogger'
 import TokensErrorView from './TokensErrorView'
 
 interface TokensContextValue {
@@ -29,34 +29,20 @@ export type TokensProviderProps = PropsWithChildren
 export function TokensProvider({ children }: TokensProviderProps): ReactNode {
   const { data, isLoading, error } = useTokensQuery()
 
-  // ERROR VISIBILITY: Log errors and show dev warnings
-  useEffect((): void => {
-    if (error) {
-      console.error(
-        '[TokensProvider] CRITICAL ERROR: Failed to load design tokens',
-        error
-      )
-      if (import.meta.env.DEV) {
-        console.error(
-          '%c🚨 TOKENS PROVIDER FAILURE 🚨',
-          'color: white; background: red; font-size: 16px; padding: 8px;',
-          '\nThe application cannot render properly without design tokens.\n' +
-            'Check the error above for details.\n' +
-            'Common causes:\n' +
-            '- Backend /api/v1/tokens endpoint not accessible\n' +
-            '- Data model mismatch (Zod validation failure)\n' +
-            '- Network error or CORS issue'
-        )
-      }
-    }
-  }, [error])
+  function isTokenData(
+    v: unknown
+  ): v is { bundle: { current?: Record<string, unknown> }; etag?: unknown } {
+    return !!v && typeof v === 'object' && 'bundle' in v
+  }
 
-  const cssVars: Record<string, string> = useMemo((): Record<
-    string,
-    string
-  > => {
+  // Centralized error logging (moved to helper to reduce file length)
+  useTokensErrorLogger(error)
+
+  const cssVars = useMemo<Record<string, string>>(() => {
     if (!data) return {}
     try {
+      // narrow data shape to avoid unsafe-any warnings
+      if (!isTokenData(data)) return {}
       return mapBundleToCssVars(data.bundle)
     } catch (err) {
       console.error('[TokensProvider] Error mapping bundle to CSS vars:', err)
@@ -71,33 +57,37 @@ export function TokensProvider({ children }: TokensProviderProps): ReactNode {
     }
   }, [data])
 
-  // E2E tracing aid: when running under e2e tests, emit a console log whenever
-  // a new bundle is applied so Playwright traces capture the timeline of token
-  // application. This is a test-only aid and is gated behind the test flag.
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if ((window as any).__E2E__ === true) {
-      // Avoid logging large objects; log a compact fingerprint
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      console.log('[E2E] TokensProvider applied bundle', {
-        // @ts-ignore may be undefined
-        theme: (data as any)?.bundle?.current?.theme,
-        font: (data as any)?.bundle?.current?.font,
-        // include etag if available
-        etag: (data as any)?.etag ?? null,
-      })
+  // E2E test instrumentation: emit a compact fingerprint for traces
+  if (typeof window !== 'undefined' && window.__E2E__ === true) {
+    try {
+      if (isTokenData(data)) {
+        console.log('[E2E] TokensProvider applied bundle', {
+          theme: data.bundle.current.theme,
+          font: data.bundle.current.font,
+          etag: data.etag ?? null,
+        })
+      } else {
+        console.log('[E2E] TokensProvider applied bundle', { etag: null })
+      }
+    } catch {
+      /* best-effort */
     }
-  } catch (e) {
-    // noop
   }
 
   useApplyCssVars(cssVars)
-  useLoadFontsFromBundle(data ? (data.bundle as TokenBundle) : undefined)
+  useLoadFontsFromBundle(
+    isTokenData(data)
+      ? (data.bundle as unknown as import('../fonts/loadFontTypes').TokenBundle)
+      : undefined
+  )
 
-  const value: TokensContextValue = useMemo((): TokensContextValue => {
-    const safeError: Error | null = error instanceof Error ? error : null
-    return { isLoading, error: safeError }
-  }, [isLoading, error])
+  const value: TokensContextValue = useMemo(
+    () => ({
+      isLoading,
+      error: error instanceof Error ? error : null,
+    }),
+    [isLoading, error]
+  )
 
   if (error) {
     const errorMessage: string =

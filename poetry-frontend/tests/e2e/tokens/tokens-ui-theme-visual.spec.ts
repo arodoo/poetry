@@ -5,7 +5,10 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect } from '@playwright/test'
-import { injectTokens, waitForCssChange } from '../shared/providers/tokenProvider'
+import {
+  injectTokens,
+  waitForCssChange,
+} from '../shared/providers/tokenProvider'
 
 test.describe('Tokens UI - Theme Visual Update', () => {
   test('should visually update theme colors in UI after save', async ({
@@ -46,8 +49,12 @@ test.describe('Tokens UI - Theme Visual Update', () => {
       page.getByText(/updated successfully|actualizados exitosamente/i)
     ).toBeVisible({ timeout: 5000 })
 
-
-    await waitForCssChange(page, 'document', 'cssVar:--color-background', bodyBefore.bg)
+    await waitForCssChange(
+      page,
+      'document',
+      'cssVar:--color-background',
+      bodyBefore.bg
+    )
     const bodyAfter = await page.evaluate(() => {
       const styles = getComputedStyle(document.body)
       return {

@@ -10,14 +10,10 @@ import { tryRefreshAuthorization } from './tokenRefresh'
 import { shouldRetryRequest } from './retryPolicy'
 import { type RequestExecution } from './requestTypes'
 
-function resolveBody(method: string, body: BodyInit | null): BodyInit | null {
-  const isGet: boolean = method === 'GET'
-  return isGet ? null : body
-}
-
-function normalizeError(error: unknown): Error {
-  return error instanceof Error ? error : new Error(String(error))
-}
+const resolveBody = (method: string, body: BodyInit | null): BodyInit | null =>
+  method === 'GET' ? null : body
+const normalizeError = (error: unknown): Error =>
+  error instanceof Error ? error : new Error(String(error))
 
 export async function performRequest<T>(
   execution: RequestExecution
@@ -25,8 +21,8 @@ export async function performRequest<T>(
   let lastError: Error | null = null
   const headers: Record<string, string> = { ...execution.headers }
   for (let attempt = 1; attempt <= execution.retryCfg.maxAttempts; attempt++) {
-    const controller: AbortController = new AbortController()
-    const activeSignal: AbortSignal = execution.signal ?? controller.signal
+    const controller = new AbortController()
+    const activeSignal = execution.signal ?? controller.signal
     try {
       const response: Response = await fetch(execution.url, {
         method: execution.method,
@@ -36,22 +32,31 @@ export async function performRequest<T>(
       })
       // E2E tracing: emit a compact console log when interacting with tokens API
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((window as any).__E2E__ === true && execution.url.includes('/api/v1/tokens')) {
-          // Non-blocking log to aid Playwright traces
-          // eslint-disable-next-line no-console
-          console.log('[E2E][HTTP] request', { method: execution.method, url: execution.url, attempt })
+        if (
+          window.__E2E__ === true &&
+          execution.url.includes('/api/v1/tokens')
+        ) {
+          console.log('[E2E][HTTP] request', {
+            method: execution.method,
+            url: execution.url,
+            attempt,
+          })
         }
-      } catch (e) {
+      } catch {
         // ignore
       }
       if (!response.ok) {
         try {
-          if ((window as any).__E2E__ === true && execution.url.includes('/api/v1/tokens')) {
-            // eslint-disable-next-line no-console
-            console.log('[E2E][HTTP] response-not-ok', { status: response.status, url: execution.url })
+          if (
+            window.__E2E__ === true &&
+            execution.url.includes('/api/v1/tokens')
+          ) {
+            console.log('[E2E][HTTP] response-not-ok', {
+              status: response.status,
+              url: execution.url,
+            })
           }
-        } catch (e) {
+        } catch {
           // ignore
         }
         const refreshed: boolean = await tryRefreshAuthorization(
