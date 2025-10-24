@@ -105,6 +105,15 @@ These edits were made to strictly preserve runtime behavior and public function 
 	- Updated `src/shared/fonts/loadFontOffline.ts` to prefer local `/fonts/<key>.woff2` when `window.__E2E__` is present; uses a quick HEAD fetch to detect local asset presence and falls back to CDN URL if not found.
 	- This keeps production behavior unchanged while removing external CDN flakiness from visual tests.
 
+	- 2025-10-22: Added fetch-fonts script and convenience package.json script
+	- Created `tools/scripts/fetch-fonts.mjs` — Node script to download a small set of .woff2 (Inter Regular/Bold) into `poetry-frontend/public/fonts` for deterministic CI.
+	- Added root npm script `fetch:fonts` to run the script: `node tools/scripts/fetch-fonts.mjs`.
+	- Updated `poetry-frontend/public/fonts/README.md` with usage and CI guidance.
+	- Note: If CI blocks external network, add the .woff2 binaries directly to `poetry-frontend/public/fonts` or vendor them into CI artifacts / LFS.
+	- 2025-10-22: Ran the fetch script locally and saved Inter-Regular.woff2 and Inter-Bold.woff2 into `poetry-frontend/public/fonts` to stabilize CI runs.
+	- 2025-10-24: Committed local font assets (`Inter-Regular.woff2`, `Inter-Bold.woff2`) into `poetry-frontend/public/fonts` to make clones deterministic and offline-friendly. Removed cloud workflow; the fetch script remains as an optional utility for future refreshes.
+	- 2025-10-23: Added GitHub Actions `publish-fonts` workflow to run the fetch script, upload fonts as a workflow artifact and create a release (manual dispatch). Script now supports `FONT_ARTIFACT_BASE` env var to prefer direct artifact downloads.
+
 	- 2025-10-19: Improve e2e determinism with optimistic UI cache update
 	- Updated `src/features/tokens/hooks/useTokensMutations.ts` to perform a small optimistic cache update via `queryClient.setQueryData` after successful PUT. This is a conservative, non-destructive change intended to make the UI re-apply CSS variables immediately while the refetch runs. A `data-tokens-refetched` DOM marker is still set after the real refetch completes.
 
