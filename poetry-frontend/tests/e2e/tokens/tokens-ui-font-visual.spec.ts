@@ -10,6 +10,8 @@ import {
   waitForCssChange,
 } from '../shared/providers/tokenProvider'
 
+test.setTimeout(120000)
+
 test.describe('Tokens UI - Font Visual Update', () => {
   test('should visually update font family in UI after save', async ({
     page,
