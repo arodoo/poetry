@@ -30,8 +30,12 @@ export class SerialRelayAdapter implements RelayPort {
         stopBits: 1,
       });
 
-      this.port.on('open', () => {
+      this.port.on('open', async () => {
         logger.info(`Serial port ${this.portPath} opened`);
+
+        await this.port!.set({ rts: false, dtr: false });
+        logger.info('RTS/DTR initialized to LOW (relays OFF)');
+
         resolve();
       });
 
@@ -43,17 +47,47 @@ export class SerialRelayAdapter implements RelayPort {
   }
 
   async turnOn(channelId: RelayChannelId): Promise<void> {
-    const command = this.buildCommand(channelId, true);
-    await this.sendCommand(command);
+    if (!this.port?.isOpen) {
+      throw new Error('Serial port not open');
+    }
+
+    if (channelId === 1) {
+      await this.port.set({ rts: true });
+    } else if (channelId === 2) {
+      await this.port.set({ dtr: true });
+    } else {
+      logger.warn(
+        `Channel ${channelId} not available with GPIO control`
+      );
+      throw new Error(
+        `Only channels 1-2 available with current hardware`
+      );
+    }
+
     this.channelStates.set(channelId, true);
-    logger.info(`Channel ${channelId} turned ON`);
+    logger.info(`Channel ${channelId} turned ON (RTS/DTR HIGH)`);
   }
 
   async turnOff(channelId: RelayChannelId): Promise<void> {
-    const command = this.buildCommand(channelId, false);
-    await this.sendCommand(command);
+    if (!this.port?.isOpen) {
+      throw new Error('Serial port not open');
+    }
+
+    if (channelId === 1) {
+      await this.port.set({ rts: false });
+    } else if (channelId === 2) {
+      await this.port.set({ dtr: false });
+    } else {
+      logger.warn(
+        `Channel ${channelId} not available with GPIO control`
+      );
+      throw new Error(
+        `Only channels 1-2 available with current hardware`
+      );
+    }
+
     this.channelStates.set(channelId, false);
-    logger.info(`Channel ${channelId} turned OFF`);
+    logger.info(`Channel ${channelId} turned OFF (RTS/DTR LOW)`);
   }
 
   async getStatus(channelId: RelayChannelId): Promise<boolean> {
@@ -70,32 +104,6 @@ export class SerialRelayAdapter implements RelayPort {
       } else {
         resolve();
       }
-    });
-  }
-
-  private buildCommand(
-    channelId: RelayChannelId,
-    state: boolean
-  ): Buffer {
-    const channelByte = 0x10 + channelId - 1;
-    const stateByte = state ? 0x01 : 0x00;
-    return Buffer.from([0xa0, channelByte, stateByte, 0x0f]);
-  }
-
-  private async sendCommand(command: Buffer): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (!this.port?.isOpen) {
-        reject(new Error('Serial port not open'));
-        return;
-      }
-
-      this.port.write(command, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
     });
   }
 }
