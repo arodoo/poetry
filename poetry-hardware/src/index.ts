@@ -4,7 +4,7 @@
 
 import dotenv from 'dotenv';
 import { createApp } from './config/app.js';
-import { composeRelayModule } from './config/composition.js';
+import { composeRelayModule, composeAccessModule } from './config/composition.js';
 import { logger } from './infrastructure/logging/logger.js';
 
 dotenv.config();
@@ -12,7 +12,8 @@ dotenv.config();
 async function bootstrap() {
   try {
     const relayController = await composeRelayModule();
-    const app = createApp(relayController);
+    const accessController = await composeAccessModule();
+    const app = createApp(relayController, accessController);
 
     const port = process.env.PORT || 3001;
 

@@ -27,3 +27,10 @@ orden:GND, IN1, IN2, IN3, IN4, VCC, K1, K2, K3, K4, JD-VCC, VCC
 
 4: Lector FingerPrint: Módulo De Identificación De Huellas Dactilares R503pro A
 Pru Características principales Marca generic Modelo OEM
+Especificación:
+tipo de artículo: módulo de identificación de huellas dactilares
+Material: semiconductor + acero inoxidable
+Capacidad de huellas dactilares
+: 1500 píxeles: 192 x 192
+Interfaz: USB
+Voltaje: 5 V

@@ -5,11 +5,14 @@
 import express from 'express';
 import cors from 'cors';
 import { createRelayRoutes } from '../interfaces/http/relayRoutes.js';
+import { createAccessRoutes } from '../interfaces/http/accessRoutes.js';
 import { RelayController } from '../interfaces/http/RelayController.js';
+import { AccessController } from '../interfaces/http/AccessController.js';
 import { logger } from '../infrastructure/logging/logger.js';
 
 export function createApp(
-  relayController: RelayController
+  relayController: RelayController,
+  accessController: AccessController
 ): express.Application {
   const app = express();
 
@@ -33,6 +36,7 @@ export function createApp(
   });
 
   app.use('/api/relay', createRelayRoutes(relayController));
+  app.use('/api/access', createAccessRoutes(accessController));
 
   return app;
 }

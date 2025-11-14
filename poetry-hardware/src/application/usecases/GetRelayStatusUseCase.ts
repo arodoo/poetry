@@ -2,8 +2,8 @@
 // Purpose: Use case to get all relay channels status
 // All Rights Reserved. Arodi Emmanuel
 
-import { RelayBoard } from '../domain/relay/RelayBoard.js';
-import { RelayChannelState } from '../domain/relay/RelayChannel.js';
+import { RelayBoard } from '../../domain/relay/RelayBoard.js';
+import { RelayChannelState } from '../../domain/relay/RelayChannel.js';
 
 export class GetRelayStatusUseCase {
   constructor(private relayBoard: RelayBoard) {}

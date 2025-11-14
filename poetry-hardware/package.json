@@ -6,7 +6,8 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "powershell -ExecutionPolicy Bypass -File ./scripts/safe-start.ps1",
+    "dev:direct": "tsx src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "jest",

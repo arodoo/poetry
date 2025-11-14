@@ -54,7 +54,8 @@ public class SecurityConfig {
         "/api/v1/auth/refresh",
         "/api/v1/auth/logout",
         "/api/v1/auth/status",
-        "/api/v1/public/forgot-password")
+        "/api/v1/public/forgot-password",
+        "/api/v1/fingerprints/verify")
       .permitAll()
       .requestMatchers(HttpMethod.GET,
         "/api/v1/tokens",

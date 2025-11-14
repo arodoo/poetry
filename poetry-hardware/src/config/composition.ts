@@ -10,16 +10,26 @@ import { MockRelayAdapter } from '../infrastructure/adapters/MockRelayAdapter.js
 import { SerialRelayAdapter } from '../infrastructure/adapters/SerialRelayAdapter.js';
 import { RelayPort } from '../application/ports/RelayPort.js';
 import { RelayController } from '../interfaces/http/RelayController.js';
+import { AccessController } from '../interfaces/http/AccessController.js';
+
+// Singleton relay port instance to avoid opening COM port twice
+let sharedRelayPort: RelayPort | null = null;
+
+async function getOrCreateRelayPort(): Promise<RelayPort> {
+  if (!sharedRelayPort) {
+    const isMockMode = process.env.MOCK_MODE === 'true';
+    sharedRelayPort = isMockMode
+      ? new MockRelayAdapter()
+      : new SerialRelayAdapter(process.env.USB_TTL_PORT || 'COM3');
+
+    await sharedRelayPort.initialize();
+  }
+  return sharedRelayPort;
+}
 
 export async function composeRelayModule(): Promise<RelayController> {
   const relayBoard = RelayBoard.create();
-
-  const isMockMode = process.env.MOCK_MODE === 'true';
-  const relayPort: RelayPort = isMockMode
-    ? new MockRelayAdapter()
-    : new SerialRelayAdapter(process.env.USB_TTL_PORT || 'COM3');
-
-  await relayPort.initialize();
+  const relayPort = await getOrCreateRelayPort();
 
   const activateUseCase = new ActivateRelayUseCase(
     relayBoard,
@@ -36,4 +46,20 @@ export async function composeRelayModule(): Promise<RelayController> {
     deactivateUseCase,
     getStatusUseCase
   );
+}
+
+export async function composeAccessModule(): Promise<AccessController> {
+  const relayBoard = RelayBoard.create();
+  const relayPort = await getOrCreateRelayPort();
+
+  const activateUseCase = new ActivateRelayUseCase(
+    relayBoard,
+    relayPort
+  );
+  const deactivateUseCase = new DeactivateRelayUseCase(
+    relayBoard,
+    relayPort
+  );
+
+  return new AccessController(activateUseCase, deactivateUseCase);
 }

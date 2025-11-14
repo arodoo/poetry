@@ -10,6 +10,7 @@ import { logger } from '../logging/logger.js';
 export class SerialRelayAdapter implements RelayPort {
   private port: SerialPort | null = null;
   private channelStates: Map<RelayChannelId, boolean>;
+  private initialized = false;
 
   constructor(private portPath: string) {
     this.channelStates = new Map([
@@ -20,7 +21,15 @@ export class SerialRelayAdapter implements RelayPort {
     ]);
   }
 
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
   async initialize(): Promise<void> {
+    if (this.initialized) {
+      return Promise.resolve();
+    }
+
     return new Promise((resolve, reject) => {
       this.port = new SerialPort({
         path: this.portPath,
@@ -36,6 +45,7 @@ export class SerialRelayAdapter implements RelayPort {
         await this.port!.set({ rts: false, dtr: false });
         logger.info('RTS/DTR initialized to LOW (relays OFF)');
 
+        this.initialized = true;
         resolve();
       });
 

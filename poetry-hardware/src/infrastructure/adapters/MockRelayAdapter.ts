@@ -8,6 +8,7 @@ import { logger } from '../logging/logger.js';
 
 export class MockRelayAdapter implements RelayPort {
   private channelStates: Map<RelayChannelId, boolean>;
+  private initialized = false;
 
   constructor() {
     this.channelStates = new Map([
@@ -18,7 +19,12 @@ export class MockRelayAdapter implements RelayPort {
     ]);
   }
 
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
   async initialize(): Promise<void> {
+    this.initialized = true;
     logger.info('Mock relay adapter initialized');
     return Promise.resolve();
   }
