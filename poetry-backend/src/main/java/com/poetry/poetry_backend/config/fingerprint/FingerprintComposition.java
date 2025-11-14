@@ -47,4 +47,15 @@ public class FingerprintComposition {
       FingerprintCommandPort commandPort, FingerprintQueryPort queryPort) {
     return new DeleteFingerprintUseCase(commandPort, queryPort);
   }
+
+  @Bean
+  public CreateFingerprintUseCase createFingerprintUseCase(
+      EnrollFingerprintUseCase enrollUseCase) {
+    return new CreateFingerprintUseCase(enrollUseCase);
+  }
+
+  @Bean
+  public UpdateFingerprintUseCase updateFingerprintUseCase() {
+    return new UpdateFingerprintUseCase();
+  }
 }

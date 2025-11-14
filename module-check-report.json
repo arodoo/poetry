@@ -1,8 +1,8 @@
 {
-  "ok": false,
+  "ok": true,
   "summary": {
     "features": 12,
-    "missing": 19
+    "missing": 0
   },
   "details": [
     {
@@ -659,12 +659,12 @@
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/CreateFingerprintUseCase.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/UpdateFingerprintUseCase.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/DeleteFingerprintUseCase.java",
@@ -714,12 +714,12 @@
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsCreateController.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsGetController.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsListController.java",
@@ -729,12 +729,12 @@
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsPagedListController.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsUpdateController.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsDeleteController.java",
@@ -764,90 +764,70 @@
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/fingerprint/model/FingerprintTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/fingerprint/model/FingerprintValidationTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/CreateFingerprintUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/CreateFingerprintUseCaseNegativeTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetAllFingerprintsUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetFingerprintByIdUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetFingerprintByIdUseCaseNegativeTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/UpdateFingerprintUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/UpdateFingerprintUseCaseNegativeTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/DeleteFingerprintUseCaseTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/DeleteFingerprintUseCaseNegativeTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintControllerTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintControllerNegativeTest.java",
           "optional": false,
-          "exists": false
+          "exists": true
         }
       ],
-      "missing": [
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/CreateFingerprintUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/UpdateFingerprintUseCase.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsCreateController.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsGetController.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsPagedListController.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsUpdateController.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/fingerprint/model/FingerprintTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/fingerprint/model/FingerprintValidationTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/CreateFingerprintUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/CreateFingerprintUseCaseNegativeTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetAllFingerprintsUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetFingerprintByIdUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetFingerprintByIdUseCaseNegativeTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/UpdateFingerprintUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/UpdateFingerprintUseCaseNegativeTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/DeleteFingerprintUseCaseTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/application/fingerprint/usecase/DeleteFingerprintUseCaseNegativeTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintControllerTest.java",
-        "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintControllerNegativeTest.java"
-      ]
+      "missing": []
     },
     {
       "feature": "font",
