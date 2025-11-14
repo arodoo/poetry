@@ -26,18 +26,26 @@ export class AccessController {
     res: Response
   ): Promise<void> => {
     try {
-      const backendUrl = process.env.BACKEND_URL || 'http://localhost:8080';
-      const capturedTemplate = 'DEV_BYPASS';
+      const backendUrl =
+        process.env.BACKEND_URL || 'http://localhost:8080';
+      const r503SlotId = 999;
 
       logger.info('Verifying fingerprint with backend...');
+      logger.info(
+        `Sending to backend: ${JSON.stringify({ r503SlotId })}`
+      );
 
       const verifyResponse = await fetch(
         `${backendUrl}/api/v1/fingerprints/verify`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ capturedTemplate }),
+          body: JSON.stringify({ r503SlotId }),
         }
+      );
+
+      logger.info(
+        `Backend response status: ${verifyResponse.status}`
       );
 
       if (!verifyResponse.ok) {
@@ -45,6 +53,7 @@ export class AccessController {
       }
 
       const result = (await verifyResponse.json()) as VerifyResponse;
+      logger.info(`Backend response: ${JSON.stringify(result)}`);
 
       if (!result.matched) {
         logger.warn('Fingerprint verification failed');

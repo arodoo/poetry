@@ -38,7 +38,8 @@ public class VersionedPlaceholderController {
     this.getAllThemes = getAllThemes;
   }
   @GetMapping("/health")
-  public ResponseEntity<Map<String, Object>> health() {
+  public ResponseEntity<Map<String, Object>> health() throws InterruptedException {
+    Thread.sleep(1000);
     Map<String, Object> body = new LinkedHashMap<>();
     String tag = LocaleContextHolder.getLocale().toLanguageTag();
     List<Theme> themes = getAllThemes.execute();

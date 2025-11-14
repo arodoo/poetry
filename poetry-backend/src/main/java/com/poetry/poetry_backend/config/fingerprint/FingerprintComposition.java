@@ -58,4 +58,16 @@ public class FingerprintComposition {
   public UpdateFingerprintUseCase updateFingerprintUseCase() {
     return new UpdateFingerprintUseCase();
   }
+
+  @Bean
+  public ArchiveFingerprintUseCase archiveFingerprintUseCase(
+      FingerprintCommandPort commandPort, FingerprintQueryPort queryPort) {
+    return new ArchiveFingerprintUseCase(commandPort, queryPort);
+  }
+
+  @Bean
+  public RestoreFingerprintUseCase restoreFingerprintUseCase(
+      FingerprintCommandPort commandPort, FingerprintQueryPort queryPort) {
+    return new RestoreFingerprintUseCase(commandPort, queryPort);
+  }
 }

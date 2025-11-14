@@ -16,7 +16,7 @@ public class CreateFingerprintUseCase {
     this.enrollUseCase = enrollUseCase;
   }
 
-  public Fingerprint execute(Long userId, String templateData) {
-    return enrollUseCase.execute(userId, templateData);
+  public Fingerprint execute(Long userId, Integer r503SlotId) {
+    return enrollUseCase.execute(userId, r503SlotId);
   }
 }

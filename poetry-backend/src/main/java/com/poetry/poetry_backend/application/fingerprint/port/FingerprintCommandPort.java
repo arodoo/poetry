@@ -14,6 +14,4 @@ public interface FingerprintCommandPort {
   Fingerprint save(Fingerprint fingerprint);
 
   void deleteById(Long id);
-
-  boolean existsByUserId(Long userId);
 }

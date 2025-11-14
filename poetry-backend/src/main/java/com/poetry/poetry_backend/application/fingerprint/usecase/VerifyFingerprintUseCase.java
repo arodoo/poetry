@@ -1,14 +1,14 @@
 /*
  * File: VerifyFingerprintUseCase.java
- * Purpose: Coordinates fingerprint verification by comparing captured template
- * against enrolled active fingerprints. Returns match result for access
- * control and hardware relay activation decisions.
+ * Purpose: Verifies fingerprint by R503 slot ID. Hardware service performs
+ * R503 search, returns slot ID, this use case maps slot to userId. DEV_BYPASS:
+ * r503SlotId=999 returns userId=1 for testing without physical sensor.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.fingerprint.usecase;
 
-import java.util.List;
+import java.util.Optional;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.domain.fingerprint.model.Fingerprint;
@@ -20,32 +20,29 @@ public class VerifyFingerprintUseCase {
     this.queryPort = queryPort;
   }
 
-  public VerifyFingerprintResult execute(String capturedTemplate) {
-    if (capturedTemplate == null || capturedTemplate.isBlank()) {
+  public VerifyFingerprintResult execute(Integer r503SlotId) {
+    if (r503SlotId == null || r503SlotId < 0) {
       return VerifyFingerprintResult.failure();
     }
 
-    if ("DEV_BYPASS".equals(capturedTemplate)) {
+    if (r503SlotId == 999) {
       return VerifyFingerprintResult.success(1L, 999L);
     }
 
-    List<Fingerprint> allFingerprints = queryPort.findAll();
+    Optional<Fingerprint> fingerprintOpt = queryPort.findByR503SlotId(
+        r503SlotId);
 
-    for (Fingerprint fingerprint : allFingerprints) {
-      if (!fingerprint.canVerify()) {
-        continue;
-      }
-
-      if (matchesTemplate(fingerprint.templateData(), capturedTemplate)) {
-        return VerifyFingerprintResult.success(
-            fingerprint.userId(), fingerprint.id());
-      }
+    if (fingerprintOpt.isEmpty()) {
+      return VerifyFingerprintResult.failure();
     }
 
-    return VerifyFingerprintResult.failure();
-  }
+    Fingerprint fingerprint = fingerprintOpt.get();
 
-  private boolean matchesTemplate(String stored, String captured) {
-    return stored.equals(captured);
+    if (!fingerprint.canVerify()) {
+      return VerifyFingerprintResult.failure();
+    }
+
+    return VerifyFingerprintResult.success(
+        fingerprint.userId(), fingerprint.id());
   }
 }

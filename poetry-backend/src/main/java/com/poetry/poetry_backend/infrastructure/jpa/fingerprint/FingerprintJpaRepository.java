@@ -10,6 +10,7 @@
 package com.poetry.poetry_backend.infrastructure.jpa.fingerprint;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -33,6 +34,12 @@ public interface FingerprintJpaRepository
           + "AND f.status = :status AND f.deletedAt IS NULL")
   List<FingerprintEntity> findByUserIdAndStatus(
       @Param("userId") Long userId, @Param("status") FingerprintStatus status);
+
+  @Query(
+      "SELECT f FROM FingerprintEntity f WHERE f.r503SlotId = :slotId "
+          + "AND f.deletedAt IS NULL")
+  Optional<FingerprintEntity> findByR503SlotId(
+      @Param("slotId") Integer slotId);
 
   boolean existsByUserId(Long userId);
 }

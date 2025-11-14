@@ -15,14 +15,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/public")
 public class PublicLandingController {
 
+  public record FeatureDto(String titleKey, String descriptionKey) {}
+
   public record PublicLandingResponse(
-      String title, String description, String version) {}
+      String heroTitleKey,
+      String heroBodyKey,
+      String loginCtaKey,
+      String registerCtaKey,
+      java.util.List<FeatureDto> features) {}
 
   @GetMapping("/landing")
   public ResponseEntity<PublicLandingResponse> getLanding() {
-    PublicLandingResponse response = new PublicLandingResponse(
-        "Poetry Platform",
-        "Creative writing platform for poets and writers", "1.0.0");
+    var features = java.util.List.of(
+        new FeatureDto("ui.public.home.features.creative", 
+            "ui.public.home.features.creative.desc"),
+        new FeatureDto("ui.public.home.features.collaborate", 
+            "ui.public.home.features.collaborate.desc"),
+        new FeatureDto("ui.public.home.features.publish", 
+            "ui.public.home.features.publish.desc"));
+    var response = new PublicLandingResponse(
+        "ui.public.home.hero.title",
+        "ui.public.home.hero.body",
+        "ui.public.home.cta.login",
+        "ui.public.home.cta.register",
+        features);
     return ResponseEntity.ok(response);
   }
 }

@@ -1,7 +1,7 @@
 /*
  * File: FingerprintTest.java
  * Purpose: Domain model tests for Fingerprint aggregate validating
- * business invariants and state transitions.
+ * business invariants and R503 slot assignment.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -14,10 +14,12 @@ import org.junit.jupiter.api.Test;
 class FingerprintTest {
   @Test
   void shouldCreateValidFingerprint() {
-    var fingerprint = FingerprintFactory.createNew(1L, "validTemplateData");
+    var fingerprint = FingerprintFactory.createNew(1L, 45);
     
     assertNotNull(fingerprint);
     assertEquals(1L, fingerprint.userId());
+    assertEquals(45, fingerprint.r503SlotId());
     assertTrue(fingerprint.isActive());
+    assertTrue(fingerprint.canVerify());
   }
 }

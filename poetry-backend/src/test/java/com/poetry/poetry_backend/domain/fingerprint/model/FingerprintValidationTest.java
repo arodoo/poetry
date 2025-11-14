@@ -1,7 +1,7 @@
 /*
  * File: FingerprintValidationTest.java
  * Purpose: Tests for FingerprintValidator ensuring domain rules enforcement
- * on template data format and user association requirements.
+ * on R503 slot ID range and user association requirements.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -15,14 +15,21 @@ class FingerprintValidationTest {
   @Test
   void shouldRejectNullUserId() {
     assertThrows(IllegalArgumentException.class, () -> {
-      FingerprintValidator.validateEnrollment(null, "templateData");
+      FingerprintValidator.validateEnrollment(null, 45);
     });
   }
   
   @Test
-  void shouldRejectBlankTemplate() {
+  void shouldRejectNullSlotId() {
     assertThrows(IllegalArgumentException.class, () -> {
-      FingerprintValidator.validateEnrollment(1L, "");
+      FingerprintValidator.validateEnrollment(1L, null);
+    });
+  }
+  
+  @Test
+  void shouldRejectSlotIdOutOfRange() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      FingerprintValidator.validateEnrollment(1L, 1500);
     });
   }
 }

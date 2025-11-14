@@ -1,8 +1,8 @@
 /*
  * File: FingerprintDto.java
- * Purpose: DTO classes for fingerprint enrollment and verification endpoints
- * separating API contracts from domain model. Includes security-sensitive
- * template data and verification result representations.
+ * Purpose: DTO classes for fingerprint enrollment and verification endpoints.
+ * Uses R503 slot IDs instead of raw template data. Verification request
+ * receives slot ID from hardware service after R503 search operation.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -20,23 +20,27 @@ public final class FingerprintDto {
   public record FingerprintResponse(
       @Schema(description = "Fingerprint ID", example = "1") Long id,
       @Schema(description = "User ID", example = "123") Long userId,
+      @Schema(description = "R503 slot ID", example = "45") Integer r503SlotId,
       @Schema(description = "Enrollment status", example = "ACTIVE") String status,
       @Schema(description = "Enrollment timestamp") Instant enrolledAt,
+      @Schema(description = "Archived timestamp") Instant archivedAt,
       @Schema(description = "Version", example = "1") Long version) {}
 
   @Schema(description = "Fingerprint enrollment request")
   public record EnrollRequest(
       @Schema(
-              description = "Fingerprint template data (base64)",
-              requiredMode = Schema.RequiredMode.REQUIRED)
-          String templateData) {}
+              description = "R503 slot ID assigned by hardware",
+              requiredMode = Schema.RequiredMode.REQUIRED,
+              example = "45")
+          Integer r503SlotId) {}
 
   @Schema(description = "Fingerprint verification request")
   public record VerifyRequest(
       @Schema(
-              description = "Captured fingerprint data (base64)",
-              requiredMode = Schema.RequiredMode.REQUIRED)
-          String capturedTemplate) {}
+              description = "R503 slot ID from hardware search",
+              requiredMode = Schema.RequiredMode.REQUIRED,
+              example = "45")
+          Integer r503SlotId) {}
 
   @Schema(description = "Fingerprint verification response")
   public record VerifyResponse(
@@ -46,8 +50,29 @@ public final class FingerprintDto {
       @Schema(description = "Result message key", example = "verification.success")
           String message) {}
 
+  @Schema(description = "Archive fingerprint request")
+  public record ArchiveRequest(
+      @Schema(
+              description = "Template backup from R503 download",
+              requiredMode = Schema.RequiredMode.REQUIRED)
+          byte[] templateBackup) {}
+
+  @Schema(description = "Restore fingerprint request")
+  public record RestoreRequest(
+      @Schema(
+              description = "New R503 slot ID for restoration",
+              requiredMode = Schema.RequiredMode.REQUIRED,
+              example = "120")
+          Integer newR503SlotId) {}
+
   public static FingerprintResponse toResponse(Fingerprint f) {
     return new FingerprintResponse(
-        f.id(), f.userId(), f.status().name(), f.enrolledAt(), f.version());
+        f.id(),
+        f.userId(),
+        f.r503SlotId(),
+        f.status().name(),
+        f.enrolledAt(),
+        f.archivedAt(),
+        f.version());
   }
 }

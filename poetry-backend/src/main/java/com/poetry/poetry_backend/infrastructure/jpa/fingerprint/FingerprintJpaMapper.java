@@ -1,8 +1,8 @@
 /*
  * File: FingerprintJpaMapper.java
  * Purpose: Converts between FingerprintEntity (JPA) and Fingerprint (domain)
- * using FingerprintRehydrator for persistence reconstruction. Maintains all
- * timestamps and version for optimistic locking.
+ * using FingerprintRehydrator. Maps R503 slot IDs and template backups for
+ * archiving support. Maintains timestamps and version for optimistic locking.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -20,9 +20,11 @@ public class FingerprintJpaMapper {
     FingerprintEntity entity = new FingerprintEntity();
     entity.setId(fingerprint.id());
     entity.setUserId(fingerprint.userId());
-    entity.setTemplateData(fingerprint.templateData());
+    entity.setR503SlotId(fingerprint.r503SlotId());
+    entity.setTemplateBackup(fingerprint.templateBackup());
     entity.setStatus(fingerprint.status());
     entity.setEnrolledAt(fingerprint.enrolledAt());
+    entity.setArchivedAt(fingerprint.archivedAt());
     entity.setCreatedAt(fingerprint.createdAt());
     entity.setUpdatedAt(fingerprint.updatedAt());
     entity.setDeletedAt(fingerprint.deletedAt());
@@ -34,9 +36,11 @@ public class FingerprintJpaMapper {
     return FingerprintRehydrator.rehydrate(
         entity.getId(),
         entity.getUserId(),
-        entity.getTemplateData(),
+        entity.getR503SlotId(),
+        entity.getTemplateBackup(),
         entity.getStatus(),
         entity.getEnrolledAt(),
+        entity.getArchivedAt(),
         entity.getCreatedAt(),
         entity.getUpdatedAt(),
         entity.getDeletedAt(),

@@ -1,8 +1,8 @@
 /*
  * File: EnrollFingerprintUseCase.java
- * Purpose: Orchestrates fingerprint enrollment process validating user
- * existence and creating new fingerprint record. Returns enrolled fingerprint
- * aggregate for further processing or relay activation.
+ * Purpose: Orchestrates fingerprint enrollment with R503 slot assignment.
+ * Receives slot ID from hardware service after successful R503 enrollment.
+ * DEV_BYPASS: r503SlotId=999 for testing without physical sensor.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -23,9 +23,9 @@ public class EnrollFingerprintUseCase {
     this.queryPort = queryPort;
   }
 
-  public Fingerprint execute(Long userId, String templateData) {
+  public Fingerprint execute(Long userId, Integer r503SlotId) {
     Fingerprint newFingerprint = FingerprintFactory.createNew(
-        userId, templateData);
+        userId, r503SlotId);
 
     return commandPort.save(newFingerprint);
   }

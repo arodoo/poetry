@@ -23,7 +23,7 @@ import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 class VersionedPlaceholderControllerTest {
   @Test
-  void healthReturnsLocalizedStatus() {
+  void healthReturnsLocalizedStatus() throws InterruptedException {
     I18nQueryPort i18nPort = new I18nQueryPort() {
       public String defaultLocale() { return "en"; }
       public List<String> supportedLocales() { return List.of("en", "es"); }
@@ -38,7 +38,12 @@ class VersionedPlaceholderControllerTest {
     GetAllThemesUseCase getAllThemes = new GetAllThemesUseCase(themePort);
     
     var controller = new VersionedPlaceholderController(resolveMessage, getAllThemes);
-    ResponseEntity<Map<String, Object>> response = controller.health();
+    ResponseEntity<Map<String, Object>> response;
+    try {
+      response = controller.health();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
     
     assertEquals(200, response.getStatusCode().value());
     var body = response.getBody();

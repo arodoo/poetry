@@ -1,8 +1,8 @@
 /*
  * File: FingerprintEntity.java
- * Purpose: JPA entity for fingerprint enrollment persistence. Maps domain
- * Fingerprint to database with indexed user association and status filtering
- * for efficient verification queries.
+ * Purpose: JPA entity for fingerprint enrollment persistence. Maps R503
+ * sensor slot IDs to users. Supports archiving: templateBackup stores
+ * downloaded template when slot freed, r503SlotId null when archived.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -25,7 +25,8 @@ import lombok.Setter;
     name = "fingerprints",
     indexes = {
       @Index(name = "idx_fingerprints_user", columnList = "user_id"),
-      @Index(name = "idx_fingerprints_status", columnList = "status")
+      @Index(name = "idx_fingerprints_status", columnList = "status"),
+      @Index(name = "idx_fingerprints_slot", columnList = "r503_slot_id")
     })
 @Getter
 @Setter
@@ -39,8 +40,12 @@ public class FingerprintEntity {
   @Column(nullable = false)
   private Long userId;
 
-  @Column(nullable = false, columnDefinition = "TEXT")
-  private String templateData;
+  @Column(name = "r503_slot_id")
+  private Integer r503SlotId;
+
+  @Lob
+  @Column(name = "template_backup")
+  private byte[] templateBackup;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 20)
@@ -48,6 +53,9 @@ public class FingerprintEntity {
 
   @Column(nullable = false)
   private Instant enrolledAt;
+
+  @Column(name = "archived_at")
+  private Instant archivedAt;
 
   @CreationTimestamp
   @Column(nullable = false, updatable = false)

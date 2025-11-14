@@ -1,8 +1,9 @@
 /*
  * File: Fingerprint.java
- * Purpose: Immutable aggregate root representing a fingerprint enrollment
- * record. Contains user association, template data (base64 encoded binary),
- * and status for access control. Validation enforced via FingerprintValidator.
+ * Purpose: Immutable aggregate root representing a fingerprint enrollment.
+ * Maps user to R503 sensor slot ID for verification. Supports archiving:
+ * templateBackup stores downloaded template when slot freed, r503SlotId null
+ * when archived. Validation enforced via FingerprintValidator.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -13,9 +14,11 @@ import java.time.Instant;
 public record Fingerprint(
     Long id,
     Long userId,
-    String templateData,
+    Integer r503SlotId,
+    byte[] templateBackup,
     FingerprintStatus status,
     Instant enrolledAt,
+    Instant archivedAt,
     Instant createdAt,
     Instant updatedAt,
     Instant deletedAt,
@@ -29,7 +32,15 @@ public record Fingerprint(
     return status == FingerprintStatus.ACTIVE && !isDeleted();
   }
 
+  public boolean isArchived() {
+    return status == FingerprintStatus.ARCHIVED && !isDeleted();
+  }
+
   public boolean canVerify() {
-    return isActive();
+    return isActive() && r503SlotId != null;
+  }
+
+  public boolean hasBackup() {
+    return templateBackup != null && templateBackup.length > 0;
   }
 }

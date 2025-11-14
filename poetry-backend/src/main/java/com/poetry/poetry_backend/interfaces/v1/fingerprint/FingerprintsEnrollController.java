@@ -33,11 +33,12 @@ public class FingerprintsEnrollController {
   @Operation(
       operationId = "enrollFingerprint",
       summary = "Enroll a new fingerprint",
-      description = "Register fingerprint template for authenticated user")
+      description =
+          "Register fingerprint with R503 slot ID from hardware service")
   @ApiResponses(
       value = {
         @ApiResponse(responseCode = "201", description = "Enrolled successfully"),
-        @ApiResponse(responseCode = "400", description = "Invalid template data"),
+        @ApiResponse(responseCode = "400", description = "Invalid slot ID"),
         @ApiResponse(responseCode = "401", description = "Unauthorized")
       })
   @PreAuthorize("isAuthenticated()")
@@ -46,7 +47,7 @@ public class FingerprintsEnrollController {
       @RequestBody FingerprintDto.EnrollRequest request, Authentication auth) {
 
     Long userId = Long.parseLong(auth.getName());
-    var fingerprint = enrollUseCase.execute(userId, request.templateData());
+    var fingerprint = enrollUseCase.execute(userId, request.r503SlotId());
 
     return ResponseEntity.status(201).body(FingerprintDto.toResponse(fingerprint));
   }

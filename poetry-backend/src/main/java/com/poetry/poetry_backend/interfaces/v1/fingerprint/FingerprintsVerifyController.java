@@ -32,17 +32,18 @@ public class FingerprintsVerifyController {
   @Operation(
       operationId = "verifyFingerprint",
       summary = "Verify a fingerprint",
-      description = "Match captured template against enrolled fingerprints")
+      description =
+          "Lookup user by R503 slot ID from hardware service search")
   @ApiResponses(
       value = {
         @ApiResponse(responseCode = "200", description = "Verification completed"),
-        @ApiResponse(responseCode = "400", description = "Invalid template data")
+        @ApiResponse(responseCode = "400", description = "Invalid slot ID")
       })
   @PostMapping("/verify")
   public ResponseEntity<FingerprintDto.VerifyResponse> verify(
       @RequestBody FingerprintDto.VerifyRequest request) {
 
-    VerifyFingerprintResult result = verifyUseCase.execute(request.capturedTemplate());
+    VerifyFingerprintResult result = verifyUseCase.execute(request.r503SlotId());
 
     var response =
         new FingerprintDto.VerifyResponse(

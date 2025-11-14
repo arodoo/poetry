@@ -32,52 +32,60 @@ public class FingerprintJpaAdapter
 
   @Override
   public Optional<Fingerprint> findById(Long id) {
-    return repository
-        .findById(id)
-        .filter(entity -> entity.getDeletedAt() == null)
-        .map(mapper::toDomain);
+    return filterNotDeleted(repository.findById(id));
   }
 
   @Override
   public List<Fingerprint> findAll() {
-    return repository.findAllNotDeleted().stream()
-        .map(mapper::toDomain)
-        .collect(Collectors.toList());
+    return mapEntitiesToDomain(repository.findAllNotDeleted());
   }
 
   @Override
   public List<Fingerprint> findByUserId(Long userId) {
-    return repository.findByUserId(userId).stream()
-        .map(mapper::toDomain)
-        .collect(Collectors.toList());
+    return mapEntitiesToDomain(repository.findByUserId(userId));
   }
 
   @Override
   public List<Fingerprint> findActiveByUserId(Long userId) {
-    return repository
-        .findByUserIdAndStatus(userId, FingerprintStatus.ACTIVE)
-        .stream()
-        .map(mapper::toDomain)
-        .collect(Collectors.toList());
+    return mapEntitiesToDomain(
+        repository.findByUserIdAndStatus(userId, FingerprintStatus.ACTIVE));
+  }
+
+  @Override
+  public Optional<Fingerprint> findByR503SlotId(Integer r503SlotId) {
+    return filterNotDeleted(repository.findByR503SlotId(r503SlotId));
   }
 
   @Override
   public Fingerprint save(Fingerprint fingerprint) {
     FingerprintEntity entity = mapper.toEntity(fingerprint);
-    FingerprintEntity saved = repository.save(entity);
-    return mapper.toDomain(saved);
+    return mapper.toDomain(repository.save(entity));
   }
 
   @Override
   public void deleteById(Long id) {
-    repository.findById(id).ifPresent(entity -> {
-      entity.setDeletedAt(Instant.now());
-      repository.save(entity);
-    });
+    repository.findById(id).ifPresent(this::softDelete);
   }
 
   @Override
   public boolean existsByUserId(Long userId) {
     return repository.existsByUserId(userId);
+  }
+
+  private List<Fingerprint> mapEntitiesToDomain(
+      List<FingerprintEntity> entities) {
+    return entities.stream().map(mapper::toDomain).collect(Collectors.toList());
+  }
+
+  private Optional<Fingerprint> filterNotDeleted(
+      Optional<FingerprintEntity> entity) {
+    return entity
+        .filter(e -> e.getDeletedAt() == null)
+        .map(mapper::toDomain);
+  }
+
+  private void softDelete(FingerprintEntity entity) {
+    entity.setDeletedAt(Instant.now());
+    repository.save(entity);
   }
 }

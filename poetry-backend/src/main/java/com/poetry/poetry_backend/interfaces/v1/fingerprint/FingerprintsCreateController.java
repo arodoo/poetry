@@ -32,7 +32,7 @@ public class FingerprintsCreateController {
       @RequestBody FingerprintDto.EnrollRequest request, Authentication auth) {
 
     Long userId = Long.parseLong(auth.getName());
-    var fingerprint = createUseCase.execute(userId, request.templateData());
+    var fingerprint = createUseCase.execute(userId, request.r503SlotId());
 
     return ResponseEntity.status(201).body(FingerprintDto.toResponse(fingerprint));
   }
