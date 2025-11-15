@@ -4,9 +4,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import {
-  listAllZones as listZones,
-  listPagedZones as getZonesPaged,
-  getZoneById as getZoneById,
+  listAll,
+  listPaged,
+  getById,
   type ZoneResponse,
   type PageResponseDtoZoneResponse,
 } from '../../../api/generated'
@@ -14,7 +14,7 @@ import type { ZonesCollection, ZoneDetail } from '../model/ZonesSchemas'
 import { parseZonesCollection, parseZoneDetail } from './zonesApiShared'
 
 export async function fetchZonesList(): Promise<ZonesCollection> {
-  const response = await listZones()
+  const response = await listAll()
   const data = response.data as unknown as ZoneResponse[]
   return parseZonesCollection(data)
 }
@@ -24,7 +24,7 @@ export async function fetchZonesPage(
   size: number,
   search?: string
 ): Promise<PageResponseDtoZoneResponse> {
-  const response = await getZonesPaged({
+  const response = await listPaged({
     query: {
       page,
       size,
@@ -35,7 +35,7 @@ export async function fetchZonesPage(
 }
 
 export async function fetchZoneById(id: string): Promise<ZoneDetail> {
-  const response = await getZoneById({
+  const response = await getById({
     path: { id: Number(id) },
   })
   const data = response.data as unknown as ZoneResponse

@@ -23,7 +23,7 @@ export async function fetchMembershipDetailWithETag(
   if (!response.data) {
     throw new Error(`Membership ${id} not found`)
   }
-  const membership: MembershipResponse = response.data as MembershipResponse
+  const membership: MembershipResponse = response.data
   const etag: string | null = response.response.headers.get('ETag')
   return { membership, etag }
 }

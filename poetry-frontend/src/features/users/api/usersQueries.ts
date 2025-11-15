@@ -33,7 +33,7 @@ export async function fetchUsersPage(
   if (!response.data) {
     throw new Error('Failed to fetch users page')
   }
-  return response.data as PageResponseDtoUserResponse
+  return response.data
 }
 
 export async function fetchUserById(id: string): Promise<UserResponse> {
@@ -41,5 +41,5 @@ export async function fetchUserById(id: string): Promise<UserResponse> {
   if (!response.data) {
     throw new Error(`User ${id} not found`)
   }
-  return response.data as UserResponse
+  return response.data
 }

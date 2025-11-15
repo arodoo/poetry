@@ -5,11 +5,7 @@
  */
 
 import type { LoginForm } from '../model/PublicLoginSchemas'
-import {
-  login as loginSdk,
-  type LoginRequest,
-  type TokenResponse,
-} from '../../../api/generated'
+import { login as loginSdk, type LoginRequest } from '../../../api/generated'
 import {
   AuthTokensSchema,
   type AuthTokens,
@@ -23,9 +19,11 @@ export async function loginRequest(
     username: payload.username,
     password: payload.password,
   }
-  // reference the optional AbortSignal parameter so linters don't mark it as unused
+  // reference optional AbortSignal param
   void _
   const response = await loginSdk({ body: requestBody })
-  const data = response.data as TokenResponse
-  return AuthTokensSchema.parse(data)
+  if (!response.data) {
+    throw new Error('Login response missing data')
+  }
+  return AuthTokensSchema.parse(response.data)
 }

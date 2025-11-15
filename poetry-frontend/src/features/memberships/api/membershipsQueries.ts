@@ -33,7 +33,7 @@ export async function fetchMembershipsPage(
   if (!response.data) {
     throw new Error('Failed to fetch memberships page')
   }
-  return response.data as PageResponseDtoMembershipResponse
+  return response.data
 }
 
 export async function fetchMembershipById(
@@ -45,5 +45,5 @@ export async function fetchMembershipById(
   if (!response.data) {
     throw new Error(`Membership ${id} not found`)
   }
-  return response.data as MembershipResponse
+  return response.data
 }

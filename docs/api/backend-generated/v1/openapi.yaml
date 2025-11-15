@@ -5,733 +5,736 @@ info:
     name: Proprietary
   version: 1.0.0
 servers:
-- url: http://localhost:8080
-  description: Generated server url
+  - url: http://localhost:8080
+    description: Generated server url
 security:
-- bearerAuth: []
+  - bearerAuth: []
 tags:
-- name: Zones
-  description: Zone management endpoints
-- name: subscriptions
-  description: Subscription plan management
-- name: users
-  description: User management
-- name: auth
-  description: Authentication endpoints
-- name: events
-  description: Event management
-- name: seller-codes
-  description: Seller code management
-- name: Seller Codes
-  description: Seller code management
-- name: memberships
-  description: Membership management
+  - name: fingerprints
+    description: Fingerprint management
+  - name: subscriptions
+    description: Subscription plan management
+  - name: users
+    description: User management
+  - name: auth
+    description: Authentication endpoints
+  - name: events
+    description: Event management
+  - name: seller-codes
+    description: Seller code management
+  - name: fingerprints
+    description: Fingerprint verification
+  - name: fingerprints
+    description: Fingerprint enrollment
+  - name: Seller Codes
+    description: Seller code management
+  - name: memberships
+    description: Membership management
 paths:
   /api/v1/zones/{id}:
     get:
       tags:
-      - Zones
-      summary: Get zone by ID
-      operationId: getZoneById
+        - Zones
+      operationId: getById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ZoneResponse"
+                $ref: '#/components/schemas/ZoneResponse'
     put:
       tags:
-      - Zones
+        - Zones
       summary: Update existing zone
       operationId: updateZone
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ZoneUpdateRequest"
+              $ref: '#/components/schemas/ZoneUpdateRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ZoneResponse"
+                $ref: '#/components/schemas/ZoneResponse'
     delete:
       tags:
-      - Zones
+        - Zones
       summary: Delete zone (soft delete)
       operationId: deleteZone
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: version
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: version
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "204":
+        '204':
           description: No Content
   /api/v1/users/{id}:
     get:
       tags:
-      - users
+        - users
       summary: Get user by ID
       description: Retrieve single user with ETag for caching
       operationId: getUserById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "200":
+        '200':
           description: User found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "404":
+                $ref: '#/components/schemas/UserResponse'
+        '404':
           description: Not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "403":
+                $ref: '#/components/schemas/UserResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "401":
+                $ref: '#/components/schemas/UserResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
+                $ref: '#/components/schemas/UserResponse'
     put:
       tags:
-      - users
+        - users
       summary: Update user
       description: Update user with optimistic locking via If-Match
       operationId: updateUser
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: If-Match
-        in: header
-        required: true
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: If-Match
+          in: header
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserUpdateRequest"
+              $ref: '#/components/schemas/UserUpdateRequest'
         required: true
       responses:
-        "404":
+        '404':
           description: Not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "403":
+                $ref: '#/components/schemas/UserResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "200":
+                $ref: '#/components/schemas/UserResponse'
+        '200':
           description: Successfully updated
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "409":
+                $ref: '#/components/schemas/UserResponse'
+        '409':
           description: Version conflict
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "400":
+                $ref: '#/components/schemas/UserResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "401":
+                $ref: '#/components/schemas/UserResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
+                $ref: '#/components/schemas/UserResponse'
     delete:
       tags:
-      - users
+        - users
       summary: Delete user
       description: Soft delete user with optimistic locking
       operationId: deleteUser
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: If-Match
-        in: header
-        required: true
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: If-Match
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
-        "204":
+        '204':
           description: Successfully deleted
-        "404":
+        '404':
           description: Not found
-        "403":
+        '403':
           description: Forbidden
-        "409":
+        '409':
           description: Version conflict
-        "401":
+        '401':
           description: Unauthorized
   /api/v1/tokens/selection:
     put:
       tags:
-      - ui-tokens-controller
+        - ui-tokens-controller
       operationId: updateSelection
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateSelectionRequest"
+              $ref: '#/components/schemas/UpdateSelectionRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
   /api/v1/themes/{id}:
     get:
       tags:
-      - theme-read-controller
+        - theme-read-controller
       operationId: byId
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "404":
+        '404':
           description: Not Found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "200":
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ThemeResponse"
+                $ref: '#/components/schemas/ThemeResponse'
     put:
       tags:
-      - theme-update-controller
+        - theme-update-controller
       operationId: update
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateRequest"
+              $ref: '#/components/schemas/UpdateRequest'
         required: true
       responses:
-        "404":
+        '404':
           description: Not Found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "200":
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ThemeResponse"
+                $ref: '#/components/schemas/ThemeResponse'
     delete:
       tags:
-      - theme-delete-controller
+        - theme-delete-controller
       operationId: delete
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "404":
+        '404':
           description: Not Found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "200":
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
           description: OK
   /api/v1/themes/{id}/activate:
     put:
       tags:
-      - theme-activate-controller
+        - theme-activate-controller
       operationId: activate
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "404":
+        '404':
           description: Not Found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "200":
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ThemeResponse"
+                $ref: '#/components/schemas/ThemeResponse'
   /api/v1/subscriptions/{id}:
     get:
       tags:
-      - subscriptions
+        - subscriptions
       summary: Get subscription by ID
       description: Retrieve single subscription with ETag for caching
       operationId: getSubscriptionById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "200":
+        '200':
           description: Subscription found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "404":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '404':
           description: Not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "403":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "401":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
+                $ref: '#/components/schemas/SubscriptionResponse'
     put:
       tags:
-      - subscriptions
+        - subscriptions
       summary: Update a subscription
       description: Update subscription plan with optimistic locking
       operationId: updateSubscription
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: If-Match
-        in: header
-        required: true
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: If-Match
+          in: header
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SubscriptionUpdateRequest"
+              $ref: '#/components/schemas/SubscriptionUpdateRequest'
         required: true
       responses:
-        "404":
+        '404':
           description: Not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "200":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '200':
           description: Updated
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "412":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '412':
           description: Precondition Failed
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "403":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "400":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "401":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
+                $ref: '#/components/schemas/SubscriptionResponse'
     delete:
       tags:
-      - subscriptions
+        - subscriptions
       summary: Delete a subscription
       description: Soft-delete subscription plan by ID
       operationId: deleteSubscription
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "204":
+        '204':
           description: Deleted
-        "404":
+        '404':
           description: Not found
-        "403":
+        '403':
           description: Forbidden
-        "401":
+        '401':
           description: Unauthorized
   /api/v1/seller-codes/{id}:
     get:
       tags:
-      - seller-codes
+        - seller-codes
       summary: Get seller code by ID
       description: Retrieve single seller code with ETag for caching
       operationId: getSellerCodeById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "404":
+        '404':
           description: Not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "403":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "200":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '200':
           description: Seller code found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "401":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
+                $ref: '#/components/schemas/SellerCodeResponse'
     put:
       tags:
-      - seller-codes
+        - seller-codes
       summary: Update seller code
       description: Update seller code with optimistic locking via If-Match
       operationId: updateSellerCode
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: If-Match
-        in: header
-        required: false
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: If-Match
+          in: header
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SellerCodeUpdateRequest"
+              $ref: '#/components/schemas/SellerCodeUpdateRequest'
         required: true
       responses:
-        "404":
+        '404':
           description: Not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "403":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "200":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '200':
           description: Successfully updated
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "409":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '409':
           description: Version conflict
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "400":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "401":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
+                $ref: '#/components/schemas/SellerCodeResponse'
     delete:
       tags:
-      - seller-codes
+        - seller-codes
       summary: Delete seller code
       description: Soft delete seller code with optimistic locking
       operationId: deleteSellerCode
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: If-Match
-        in: header
-        required: false
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: If-Match
+          in: header
+          required: false
+          schema:
+            type: string
       responses:
-        "204":
+        '204':
           description: Successfully deleted
-        "404":
+        '404':
           description: Not found
-        "403":
+        '403':
           description: Forbidden
-        "409":
+        '409':
           description: Version conflict
-        "401":
+        '401':
           description: Unauthorized
   /api/v1/memberships/{id}:
     get:
       tags:
-      - memberships
+        - memberships
       summary: Get membership by ID
       description: Retrieve single membership with ETag
       operationId: getMembershipById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/MembershipResponse"
+                $ref: '#/components/schemas/MembershipResponse'
     put:
       tags:
-      - memberships
+        - memberships
       summary: Update membership
       description: Update membership with version check
       operationId: updateMembership
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MembershipUpdateRequest"
+              $ref: '#/components/schemas/MembershipUpdateRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/MembershipResponse"
+                $ref: '#/components/schemas/MembershipResponse'
     delete:
       tags:
-      - memberships
+        - memberships
       summary: Delete membership
       description: Soft delete membership
       operationId: deleteMembership
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "204":
+        '204':
           description: No Content
   /api/v1/me/profile:
     get:
       tags:
-      - me-profile-controller
+        - me-profile-controller
       operationId: getProfile
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProfileResponse"
+                $ref: '#/components/schemas/ProfileResponse'
     put:
       tags:
-      - me-profile-controller
+        - me-profile-controller
       operationId: updateProfile
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProfileUpdateRequest"
+              $ref: '#/components/schemas/ProfileUpdateRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProfileResponse"
+                $ref: '#/components/schemas/ProfileResponse'
   /api/v1/fonts/{key}:
     get:
       tags:
-      - font-read-controller
+        - font-read-controller
       operationId: byKey
       parameters:
-      - name: key
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/FontResponse"
+                $ref: '#/components/schemas/FontResponse'
     put:
       tags:
-      - font-update-controller
+        - font-update-controller
       operationId: update_1
       parameters:
-      - name: key
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateFontRequest"
+              $ref: '#/components/schemas/UpdateFontRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/FontResponse"
+                $ref: '#/components/schemas/FontResponse'
     delete:
       tags:
-      - font-delete-controller
+        - font-delete-controller
       operationId: delete_1
       parameters:
-      - name: key
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
@@ -740,225 +743,224 @@ paths:
   /api/v1/events/{id}:
     get:
       tags:
-      - events
+        - events
       summary: Get event by ID
       description: Retrieve single event details including location
       operationId: getEvent
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "404":
+        '404':
           description: Event not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
-        "200":
+                $ref: '#/components/schemas/EventResponse'
+        '200':
           description: Success
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
+                $ref: '#/components/schemas/EventResponse'
     put:
       tags:
-      - events
+        - events
       summary: Update an event
       description: Update event details with optimistic locking
       operationId: updateEvent
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EventUpdateRequest"
+              $ref: '#/components/schemas/EventUpdateRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: Updated
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
-        "404":
+                $ref: '#/components/schemas/EventResponse'
+        '404':
           description: Event not found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
-        "409":
+                $ref: '#/components/schemas/EventResponse'
+        '409':
           description: Conflict/version mismatch
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
-        "400":
+                $ref: '#/components/schemas/EventResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
-        "401":
+                $ref: '#/components/schemas/EventResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
+                $ref: '#/components/schemas/EventResponse'
     delete:
       tags:
-      - events
+        - events
       summary: Delete an event
       description: Soft delete event (sets deletedAt timestamp)
       operationId: deleteEvent
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "204":
+        '204':
           description: Deleted
-        "404":
+        '404':
           description: Event not found
-        "401":
+        '401':
           description: Unauthorized
   /api/v1/dashboard/{id}:
     get:
       tags:
-      - dashboard-controller
+        - dashboard-controller
       operationId: getDashboard
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/DashboardResponse"
+                $ref: '#/components/schemas/DashboardResponse'
     put:
       tags:
-      - dashboard-mutation-controller
+        - dashboard-mutation-controller
       operationId: updateDashboard
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateDashboardRequest"
+              $ref: '#/components/schemas/UpdateDashboardRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/DashboardResponse"
+                $ref: '#/components/schemas/DashboardResponse'
     delete:
       tags:
-      - dashboard-mutation-controller
+        - dashboard-mutation-controller
       operationId: deleteDashboard
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "200":
+        '200':
           description: OK
   /api/v1/zones:
     get:
       tags:
-      - Zones
-      summary: List all zones
-      operationId: listAllZones
+        - Zones
+      operationId: listAll
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ZoneResponse"
+                  $ref: '#/components/schemas/ZoneResponse'
     post:
       tags:
-      - Zones
+        - Zones
       summary: Create new zone
       operationId: createZone
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ZoneCreateRequest"
+              $ref: '#/components/schemas/ZoneCreateRequest'
         required: true
       responses:
-        "201":
+        '201':
           description: Created
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ZoneResponse"
+                $ref: '#/components/schemas/ZoneResponse'
   /api/v1/users:
     get:
       tags:
-      - users
+        - users
       summary: List all users
       description: Retrieve all users with ETag for caching
       operationId: listUsers
       responses:
-        "200":
+        '200':
           description: Users list
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/UserResponse"
-        "403":
+                  $ref: '#/components/schemas/UserResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/UserResponse"
-        "401":
+                  $ref: '#/components/schemas/UserResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/UserResponse"
+                  $ref: '#/components/schemas/UserResponse'
     post:
       tags:
-      - users
+        - users
       summary: Create a new user
       description: Create user with role assignment
       operationId: createUser
@@ -966,111 +968,111 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserCreateRequest"
+              $ref: '#/components/schemas/UserCreateRequest'
         required: true
       responses:
-        "403":
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "201":
+                $ref: '#/components/schemas/UserResponse'
+        '201':
           description: Created
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "400":
+                $ref: '#/components/schemas/UserResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
-        "401":
+                $ref: '#/components/schemas/UserResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UserResponse"
+                $ref: '#/components/schemas/UserResponse'
   /api/v1/themes:
     get:
       tags:
-      - theme-read-controller
+        - theme-read-controller
       operationId: list
       responses:
-        "404":
+        '404':
           description: Not Found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "200":
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
           description: OK
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ThemeResponse"
+                  $ref: '#/components/schemas/ThemeResponse'
     post:
       tags:
-      - theme-create-controller
+        - theme-create-controller
       operationId: create
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateRequest"
+              $ref: '#/components/schemas/CreateRequest'
         required: true
       responses:
-        "404":
+        '404':
           description: Not Found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "200":
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ThemeResponse"
+                $ref: '#/components/schemas/ThemeResponse'
   /api/v1/subscriptions:
     get:
       tags:
-      - subscriptions
+        - subscriptions
       summary: List all subscriptions
       description: Retrieve all active subscription plans
       operationId: listSubscriptions
       responses:
-        "200":
+        '200':
           description: Subscriptions list
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SubscriptionResponse"
-        "403":
+                  $ref: '#/components/schemas/SubscriptionResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SubscriptionResponse"
-        "401":
+                  $ref: '#/components/schemas/SubscriptionResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SubscriptionResponse"
+                  $ref: '#/components/schemas/SubscriptionResponse'
     post:
       tags:
-      - subscriptions
+        - subscriptions
       summary: Create a new subscription
       description: Create subscription plan with pricing and features
       operationId: createSubscription
@@ -1078,68 +1080,68 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SubscriptionCreateRequest"
+              $ref: '#/components/schemas/SubscriptionCreateRequest'
         required: true
       responses:
-        "403":
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "201":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '201':
           description: Created
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "400":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
-        "401":
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SubscriptionResponse"
+                $ref: '#/components/schemas/SubscriptionResponse'
   /api/v1/seller-codes:
     get:
       tags:
-      - seller-codes
+        - seller-codes
       summary: List all seller codes
       description: Retrieve all seller codes with ETag for caching
       operationId: listSellerCodes
       responses:
-        "403":
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SellerCodeResponse"
-        "200":
+                  $ref: '#/components/schemas/SellerCodeResponse'
+        '200':
           description: Seller codes list
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SellerCodeResponse"
-        "401":
+                  $ref: '#/components/schemas/SellerCodeResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SellerCodeResponse"
+                  $ref: '#/components/schemas/SellerCodeResponse'
     post:
       tags:
-      - seller-codes
+        - seller-codes
       summary: Create a new seller code
       description: Create seller code with user assignment
       operationId: createSellerCode
@@ -1147,70 +1149,70 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SellerCodeCreateRequest"
+              $ref: '#/components/schemas/SellerCodeCreateRequest'
         required: true
       responses:
-        "403":
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "201":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '201':
           description: Created
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "400":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
-        "401":
+                $ref: '#/components/schemas/SellerCodeResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/SellerCodeResponse"
+                $ref: '#/components/schemas/SellerCodeResponse'
   /api/v1/public/forgot-password:
     post:
       tags:
-      - public-forgot-password-controller
+        - public-forgot-password-controller
       operationId: forgotPassword
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ForgotPasswordRequest"
+              $ref: '#/components/schemas/ForgotPasswordRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ForgotPasswordResponse"
+                $ref: '#/components/schemas/ForgotPasswordResponse'
   /api/v1/memberships:
     get:
       tags:
-      - memberships
+        - memberships
       summary: List all memberships
       description: Retrieve all active memberships
       operationId: listMemberships
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/MembershipResponse"
+                  $ref: '#/components/schemas/MembershipResponse'
     post:
       tags:
-      - memberships
+        - memberships
       summary: Create membership
       description: Create new membership with validation
       operationId: createMembership
@@ -1218,83 +1220,174 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MembershipCreateRequest"
+              $ref: '#/components/schemas/MembershipCreateRequest'
         required: true
       responses:
-        "201":
+        '201':
           description: Created
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/MembershipResponse"
+                $ref: '#/components/schemas/MembershipResponse'
   /api/v1/me/password:
     post:
       tags:
-      - me-password-controller
+        - me-password-controller
       operationId: changePassword
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PasswordChangeRequest"
+              $ref: '#/components/schemas/PasswordChangeRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
   /api/v1/fonts:
     get:
       tags:
-      - font-read-controller
+        - font-read-controller
       operationId: list_1
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/FontResponse"
+                  $ref: '#/components/schemas/FontResponse'
     post:
       tags:
-      - font-create-controller
+        - font-create-controller
       operationId: create_1
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateFontRequest"
+              $ref: '#/components/schemas/CreateFontRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/FontResponse"
-  /api/v1/events:
+                $ref: '#/components/schemas/FontResponse'
+  /api/v1/fingerprints:
     get:
       tags:
-      - events
-      summary: List events with pagination
-      description: Get events with page/size params
-      operationId: listEventsPaged
-      parameters:
-      - name: pageable
-        in: query
-        required: true
-        schema:
-          $ref: "#/components/schemas/Pageable"
+        - fingerprints
+      summary: List all fingerprints
+      description: Retrieve enrolled fingerprints
+      operationId: listFingerprints
       responses:
-        "200":
+        '200':
           description: Success
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageEventResponse"
+                type: array
+                items:
+                  $ref: '#/components/schemas/FingerprintResponse'
     post:
       tags:
-      - events
+        - fingerprints
+      operationId: create_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
+  /api/v1/fingerprints/verify:
+    post:
+      tags:
+        - fingerprints
+      summary: Verify a fingerprint
+      description: Lookup user by R503 slot ID from hardware service search
+      operationId: verifyFingerprint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRequest'
+        required: true
+      responses:
+        '200':
+          description: Verification completed
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VerifyResponse'
+        '400':
+          description: Invalid slot ID
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VerifyResponse'
+  /api/v1/fingerprints/enroll:
+    post:
+      tags:
+        - fingerprints
+      summary: Enroll a new fingerprint
+      description: Register fingerprint with R503 slot ID from hardware service
+      operationId: enrollFingerprint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollRequest'
+        required: true
+      responses:
+        '400':
+          description: Invalid slot ID
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
+        '201':
+          description: Enrolled successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
+  /api/v1/events:
+    get:
+      tags:
+        - events
+      summary: List events with pagination
+      description: Get events with page/size params
+      operationId: listEventsPaged
+      parameters:
+        - name: pageable
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Pageable'
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageEventResponse'
+    post:
+      tags:
+        - events
       summary: Create a new event
       description: Create event with location data for map display
       operationId: createEvent
@@ -1302,91 +1395,91 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EventCreateRequest"
+              $ref: '#/components/schemas/EventCreateRequest'
         required: true
       responses:
-        "201":
+        '201':
           description: Created
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
-        "400":
+                $ref: '#/components/schemas/EventResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
-        "401":
+                $ref: '#/components/schemas/EventResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EventResponse"
+                $ref: '#/components/schemas/EventResponse'
   /api/v1/dashboard:
     get:
       tags:
-      - dashboard-controller
+        - dashboard-controller
       operationId: getDashboards
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/DashboardResponse"
+                  $ref: '#/components/schemas/DashboardResponse'
     post:
       tags:
-      - dashboard-mutation-controller
+        - dashboard-mutation-controller
       operationId: createDashboard
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateDashboardRequest"
+              $ref: '#/components/schemas/CreateDashboardRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/DashboardResponse"
+                $ref: '#/components/schemas/DashboardResponse'
   /api/v1/auth/register:
     post:
       tags:
-      - auth
+        - auth
       summary: Register new user
       description: Create new user account with idempotency support
       operationId: register
       parameters:
-      - name: Idempotency-Key
-        in: header
-        required: false
-        schema:
-          type: string
+        - name: Idempotency-Key
+          in: header
+          required: false
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RegisterEnvelope"
+              $ref: '#/components/schemas/RegisterEnvelope'
         required: true
       responses:
-        "409":
+        '409':
           description: User already exists
           content:
             '*/*':
               schema:
                 type: object
-        "200":
+        '200':
           description: Registration successful
           content:
             '*/*':
               schema:
                 type: object
-        "400":
+        '400':
           description: Invalid request
           content:
             '*/*':
@@ -1395,7 +1488,7 @@ paths:
   /api/v1/auth/refresh:
     post:
       tags:
-      - auth
+        - auth
       summary: Refresh access token
       description: Get new access token using refresh token
       operationId: refresh
@@ -1403,31 +1496,31 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RefreshRequest"
+              $ref: '#/components/schemas/RefreshRequest'
         required: true
       responses:
-        "401":
+        '401':
           description: Invalid refresh token
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TokenResponse"
-        "200":
+                $ref: '#/components/schemas/TokenResponse'
+        '200':
           description: Token refreshed
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TokenResponse"
-        "400":
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TokenResponse"
+                $ref: '#/components/schemas/TokenResponse'
   /api/v1/auth/logout:
     post:
       tags:
-      - auth
+        - auth
       summary: User logout
       description: Invalidate refresh token and log out user
       operationId: logout
@@ -1435,19 +1528,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RefreshRequest"
+              $ref: '#/components/schemas/RefreshRequest'
         required: true
       responses:
-        "401":
+        '401':
           description: Invalid token
-        "204":
+        '204':
           description: Logout successful
-        "400":
+        '400':
           description: Invalid request
   /api/v1/auth/login:
     post:
       tags:
-      - auth
+        - auth
       summary: User login
       description: Authenticate user and return tokens
       operationId: login
@@ -1455,63 +1548,63 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LoginRequest"
+              $ref: '#/components/schemas/LoginRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: Login successful
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TokenResponse"
-        "401":
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
           description: Invalid credentials
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TokenResponse"
-        "400":
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
           description: Invalid request
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TokenResponse"
+                $ref: '#/components/schemas/TokenResponse'
   /api/v1/admin/echo:
     post:
       tags:
-      - admin-echo-controller
+        - admin-echo-controller
       operationId: echo
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EchoRequest"
+              $ref: '#/components/schemas/EchoRequest'
         required: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/EchoResponse"
+                $ref: '#/components/schemas/EchoResponse'
   /v1/i18n/messages/{key}:
     get:
       tags:
-      - i-18n-controller
+        - i-18n-controller
       operationId: message
       parameters:
-      - name: key
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: locale
-        in: query
-        required: false
-        schema:
-          type: string
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: locale
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
@@ -1520,22 +1613,22 @@ paths:
   /v1/i18n/locales:
     get:
       tags:
-      - i-18n-controller
+        - i-18n-controller
       operationId: locales
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/LocalesResponse"
+                $ref: '#/components/schemas/LocalesResponse'
   /api:
     get:
       tags:
-      - api-index-controller
+        - api-index-controller
       operationId: index
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
@@ -1546,298 +1639,297 @@ paths:
   /api/v1/zones/paged:
     get:
       tags:
-      - Zones
-      summary: List zones with pagination
-      operationId: listPagedZones
+        - Zones
+      operationId: listPaged
       parameters:
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 10
-      - name: search
-        in: query
-        required: false
-        schema:
-          type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoZoneResponse"
+                $ref: '#/components/schemas/PageResponseDtoZoneResponse'
   /api/v1/users/paged:
     get:
       tags:
-      - users
+        - users
       summary: List users with pagination
       description: Retrieve users page-by-page for performance
       operationId: listUsersPaged
       parameters:
-      - name: page
-        in: query
-        description: Page number
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-        example: 0
-      - name: size
-        in: query
-        description: Page size
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 10
-        example: 10
-      - name: search
-        in: query
-        description: Search term
-        required: false
-        schema:
-          type: string
-        example: john
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+          example: 0
+        - name: size
+          in: query
+          description: Page size
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+          example: 10
+        - name: search
+          in: query
+          description: Search term
+          required: false
+          schema:
+            type: string
+          example: john
       responses:
-        "200":
+        '200':
           description: Users page
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoUserResponse"
-        "403":
+                $ref: '#/components/schemas/PageResponseDtoUserResponse'
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoUserResponse"
-        "401":
+                $ref: '#/components/schemas/PageResponseDtoUserResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoUserResponse"
-        "400":
+                $ref: '#/components/schemas/PageResponseDtoUserResponse'
+        '400':
           description: Invalid page params
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoUserResponse"
+                $ref: '#/components/schemas/PageResponseDtoUserResponse'
   /api/v1/tokens:
     get:
       tags:
-      - ui-tokens-controller
+        - ui-tokens-controller
       operationId: getTokens
       parameters:
-      - name: If-None-Match
-        in: header
-        required: false
-        schema:
-          type: string
+        - name: If-None-Match
+          in: header
+          required: false
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/UITokensDto"
+                $ref: '#/components/schemas/UITokensDto'
   /api/v1/themes/active:
     get:
       tags:
-      - theme-read-controller
+        - theme-read-controller
       operationId: active
       responses:
-        "404":
+        '404':
           description: Not Found
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ProblemDetail"
-        "200":
+                $ref: '#/components/schemas/ProblemDetail'
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/ThemeResponse"
+                $ref: '#/components/schemas/ThemeResponse'
   /api/v1/subscriptions/paged:
     get:
       tags:
-      - subscriptions
+        - subscriptions
       summary: List subscriptions with pagination
       description: Retrieve paginated subscription plans with search
       operationId: listSubscriptionsPaged
       parameters:
-      - name: page
-        in: query
-        description: Page number (0-based)
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        description: Page size
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 20
-      - name: search
-        in: query
-        description: Search term
-        required: false
-        schema:
-          type: string
+        - name: page
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          description: Page size
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+        - name: search
+          in: query
+          description: Search term
+          required: false
+          schema:
+            type: string
       responses:
-        "403":
+        '403':
           description: Forbidden
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoSubscriptionResponse"
-        "200":
+                $ref: '#/components/schemas/PageResponseDtoSubscriptionResponse'
+        '200':
           description: Paged results
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoSubscriptionResponse"
-        "401":
+                $ref: '#/components/schemas/PageResponseDtoSubscriptionResponse'
+        '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoSubscriptionResponse"
+                $ref: '#/components/schemas/PageResponseDtoSubscriptionResponse'
   /api/v1/seller-codes/paged:
     get:
       tags:
-      - Seller Codes
+        - Seller Codes
       summary: Get paginated seller codes
       description: Retrieve page
       operationId: getPaged
       parameters:
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 10
-      - name: search
-        in: query
-        required: false
-        schema:
-          type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoSellerCodeResponse"
+                $ref: '#/components/schemas/PageResponseDtoSellerCodeResponse'
   /api/v1/roles:
     get:
       tags:
-      - roles-controller
+        - roles-controller
       operationId: listRoles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/RoleDto"
+                  $ref: '#/components/schemas/RoleDto'
   /api/v1/public/landing:
     get:
       tags:
-      - public-landing-controller
+        - public-landing-controller
       operationId: getLanding
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PublicLandingResponse"
+                $ref: '#/components/schemas/PublicLandingResponse'
   /api/v1/memberships/paged:
     get:
       tags:
-      - memberships
+        - memberships
       summary: List memberships (paged)
       description: Retrieve memberships with pagination
       operationId: listMembershipsPaged
       parameters:
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 20
-      - name: search
-        in: query
-        required: false
-        schema:
-          type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PageResponseDtoMembershipResponse"
+                $ref: '#/components/schemas/PageResponseDtoMembershipResponse'
   /api/v1/me/locale:
     get:
       tags:
-      - me-locale-controller
+        - me-locale-controller
       operationId: getLocale
       parameters:
-      - name: X-User-Id
-        in: header
-        required: false
-        schema:
-          type: string
+        - name: X-User-Id
+          in: header
+          required: false
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/LocaleDto"
+                $ref: '#/components/schemas/LocaleDto'
   /api/v1/health:
     get:
       tags:
-      - versioned-placeholder-controller
+        - versioned-placeholder-controller
       operationId: health
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
@@ -1845,99 +1937,138 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
-  /api/v1/events/nearby:
+  /api/v1/fingerprints/{id}:
     get:
       tags:
-      - events
-      summary: Get nearby events
-      description: Find events within radius using geospatial query
-      operationId: getNearbyEvents
+        - fingerprints
+      operationId: getById_1
       parameters:
-      - name: latitude
-        in: query
-        required: true
-        schema:
-          type: number
-          format: double
-      - name: longitude
-        in: query
-        required: true
-        schema:
-          type: number
-          format: double
-      - name: radiusMeters
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 5000
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        "200":
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EventResponse"
-  /api/v1/events/list:
-    get:
-      tags:
-      - events
-      summary: List all events
-      description: Get all events without pagination
-      operationId: listEvents
-      responses:
-        "200":
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EventResponse"
-  /api/v1/dashboard/overview:
-    get:
-      tags:
-      - dashboard-overview-controller
-      operationId: overview
-      responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/DashboardOverviewResponse"
+                $ref: '#/components/schemas/FingerprintResponse'
+    delete:
+      tags:
+        - fingerprints
+      summary: Delete a fingerprint
+      description: Soft-delete fingerprint enrollment
+      operationId: deleteFingerprint
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '404':
+          description: Not found
+        '204':
+          description: Deleted successfully
+        '401':
+          description: Unauthorized
+  /api/v1/events/nearby:
+    get:
+      tags:
+        - events
+      summary: Get nearby events
+      description: Find events within radius using geospatial query
+      operationId: getNearbyEvents
+      parameters:
+        - name: latitude
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: longitude
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: radiusMeters
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 5000
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventResponse'
+  /api/v1/events/list:
+    get:
+      tags:
+        - events
+      summary: List all events
+      description: Get all events without pagination
+      operationId: listEvents
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventResponse'
+  /api/v1/dashboard/overview:
+    get:
+      tags:
+        - dashboard-overview-controller
+      operationId: overview
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DashboardOverviewResponse'
   /api/v1/auth/status:
     get:
       tags:
-      - auth
+        - auth
       summary: Check authentication status
       description: Check if user is currently authenticated
       operationId: status
       responses:
-        "200":
+        '200':
           description: Status retrieved
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/StatusResponse"
+                $ref: '#/components/schemas/StatusResponse'
   /api/v1/auth/me:
     get:
       tags:
-      - auth
+        - auth
       summary: Get current user
       description: Get authenticated user information
       operationId: me
       responses:
-        "401":
+        '401':
           description: Not authenticated
           content:
             '*/*':
               schema:
                 type: object
-        "200":
+        '200':
           description: User information retrieved
           content:
             '*/*':
@@ -2046,12 +2177,12 @@ components:
           type: array
           description: User roles
           example:
-          - admin
-          - user
+            - admin
+            - user
           items:
             type: string
             description: User roles
-            example: "[\"admin\",\"user\"]"
+            example: '["admin","user"]'
         status:
           type: string
           description: Status
@@ -2094,25 +2225,25 @@ components:
           type: array
           description: User roles
           example:
-          - admin
-          - user
+            - admin
+            - user
           items:
             type: string
             description: User roles
-            example: "[\"admin\",\"user\"]"
+            example: '["admin","user"]'
       description: User response representation
     UpdateSelectionRequest:
       required:
-      - font
-      - fontSize
-      - radius
-      - shadow
-      - spacing
-      - theme
+        - font
+        - fontSize
+        - radius
+        - shadow
+        - spacing
+        - theme
       type: object
       properties:
         theme:
-          pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
           type: string
         font:
           type: string
@@ -2219,11 +2350,11 @@ components:
           type: array
           description: Features
           example:
-          - feature1
+            - feature1
           items:
             type: string
             description: Features
-            example: "[\"feature1\"]"
+            example: '["feature1"]'
         status:
           type: string
           description: Status
@@ -2234,53 +2365,33 @@ components:
       properties:
         code:
           type: string
-          description: Seller code
-          example: SC-2024-001
         organizationId:
           type: string
-          description: Organization ID
-          example: default-org
         userId:
           type: integer
-          description: User ID owner
           format: int64
-          example: 1
         status:
           type: string
-          description: Current status
-          example: active
-      description: Update seller code request payload
+      description: Update seller code request
     SellerCodeResponse:
       type: object
       properties:
         id:
           type: integer
-          description: Unique identifier
           format: int64
-          example: 1
         code:
           type: string
-          description: Seller code
-          example: ADMIN-SC-001
         organizationId:
           type: string
-          description: Organization ID
-          example: default-org
         userId:
           type: integer
-          description: User ID owner
           format: int64
-          example: 1
         status:
           type: string
-          description: Status
-          example: active
         version:
           type: integer
-          description: Version for locking
           format: int64
-          example: 0
-      description: Seller code response with all fields
+      description: Seller code response
     MembershipUpdateRequest:
       type: object
       properties:
@@ -2303,9 +2414,9 @@ components:
           type: array
           description: Zone IDs
           example:
-          - 1
-          - 3
-          - 5
+            - 1
+            - 3
+            - 5
           items:
             type: integer
             description: Zone IDs
@@ -2346,9 +2457,9 @@ components:
           type: array
           description: Zone IDs
           example:
-          - 1
-          - 3
-          - 5
+            - 1
+            - 3
+            - 5
           items:
             type: integer
             description: Zone IDs
@@ -2369,9 +2480,9 @@ components:
       description: Membership response representation
     ProfileUpdateRequest:
       required:
-      - email
-      - locale
-      - username
+        - email
+        - locale
+        - username
       type: object
       properties:
         username:
@@ -2567,11 +2678,11 @@ components:
       description: Create zone request payload
     UserCreateRequest:
       required:
-      - email
-      - firstName
-      - lastName
-      - password
-      - username
+        - email
+        - firstName
+        - lastName
+        - password
+        - username
       type: object
       properties:
         firstName:
@@ -2603,11 +2714,11 @@ components:
           type: array
           description: User roles
           example:
-          - user
+            - user
           items:
             type: string
             description: User roles
-            example: "[\"user\"]"
+            example: '["user"]'
         status:
           type: string
           description: Status
@@ -2626,9 +2737,9 @@ components:
             type: string
     SubscriptionCreateRequest:
       required:
-      - durationDays
-      - name
-      - price
+        - durationDays
+        - name
+        - price
       type: object
       properties:
         name:
@@ -2669,25 +2780,17 @@ components:
       properties:
         code:
           type: string
-          description: Seller code
-          example: SC-2024-001
         organizationId:
           type: string
-          description: Organization ID
-          example: default-org
         userId:
           type: integer
-          description: User ID owner
           format: int64
-          example: 1
         status:
           type: string
-          description: Initial status
-          example: active
-      description: Create seller code request payload
+      description: Create seller code request
     ForgotPasswordRequest:
       required:
-      - email
+        - email
       type: object
       properties:
         email:
@@ -2699,9 +2802,9 @@ components:
           type: string
     MembershipCreateRequest:
       required:
-      - sellerCode
-      - subscriptionId
-      - userId
+        - sellerCode
+        - subscriptionId
+        - userId
       type: object
       properties:
         userId:
@@ -2723,9 +2826,9 @@ components:
           type: array
           description: Zone IDs
           example:
-          - 1
-          - 3
-          - 5
+            - 1
+            - 3
+            - 5
           items:
             type: integer
             description: Zone IDs
@@ -2741,8 +2844,8 @@ components:
       description: Membership creation request
     PasswordChangeRequest:
       required:
-      - currentPassword
-      - newPassword
+        - currentPassword
+        - newPassword
       type: object
       properties:
         currentPassword:
@@ -2769,12 +2872,92 @@ components:
           type: boolean
         integrity:
           type: string
+    EnrollRequest:
+      required:
+        - r503SlotId
+      type: object
+      properties:
+        r503SlotId:
+          type: integer
+          description: R503 slot ID assigned by hardware
+          format: int32
+          example: 45
+      description: Fingerprint enrollment request
+    FingerprintResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Fingerprint ID
+          format: int64
+          example: 1
+        userId:
+          type: integer
+          description: User ID
+          format: int64
+          example: 123
+        r503SlotId:
+          type: integer
+          description: R503 slot ID
+          format: int32
+          example: 45
+        status:
+          type: string
+          description: Enrollment status
+          example: ACTIVE
+        enrolledAt:
+          type: string
+          description: Enrollment timestamp
+          format: date-time
+        archivedAt:
+          type: string
+          description: Archived timestamp
+          format: date-time
+        version:
+          type: integer
+          description: Version
+          format: int64
+          example: 1
+      description: Fingerprint enrollment response
+    VerifyRequest:
+      required:
+        - r503SlotId
+      type: object
+      properties:
+        r503SlotId:
+          type: integer
+          description: R503 slot ID from hardware search
+          format: int32
+          example: 45
+      description: Fingerprint verification request
+    VerifyResponse:
+      type: object
+      properties:
+        matched:
+          type: boolean
+          description: Verification success
+          example: true
+        userId:
+          type: integer
+          description: Matched user ID (if success)
+          format: int64
+          example: 123
+        fingerprintId:
+          type: integer
+          description: Matched fingerprint ID
+          format: int64
+          example: 5
+        message:
+          type: string
+          description: Result message key
+          example: verification.success
+      description: Fingerprint verification response
     EventCreateRequest:
       required:
-      - eventDate
-      - latitude
-      - longitude
-      - title
+        - eventDate
+        - latitude
+        - longitude
+        - title
       type: object
       properties:
         title:
@@ -2813,17 +2996,17 @@ components:
           type: string
     RegisterEnvelope:
       required:
-      - user
+        - user
       type: object
       properties:
         user:
-          $ref: "#/components/schemas/RegisterRequest"
+          $ref: '#/components/schemas/RegisterRequest'
       description: Registration envelope wrapping user data
     RegisterRequest:
       required:
-      - email
-      - password
-      - username
+        - email
+        - password
+        - username
       type: object
       properties:
         username:
@@ -2841,7 +3024,7 @@ components:
       description: User registration request
     RefreshRequest:
       required:
-      - refreshToken
+        - refreshToken
       type: object
       properties:
         refreshToken:
@@ -2872,8 +3055,8 @@ components:
       description: Authentication token response
     LoginRequest:
       required:
-      - password
-      - username
+        - password
+        - username
       type: object
       properties:
         username:
@@ -2887,7 +3070,7 @@ components:
       description: Login request with credentials
     EchoRequest:
       required:
-      - message
+        - message
       type: object
       properties:
         message:
@@ -2913,7 +3096,7 @@ components:
           type: array
           description: Page content
           items:
-            $ref: "#/components/schemas/ZoneResponse"
+            $ref: '#/components/schemas/ZoneResponse'
         totalElements:
           type: integer
           description: Total number of elements
@@ -2950,7 +3133,7 @@ components:
           type: array
           description: Page content
           items:
-            $ref: "#/components/schemas/UserResponse"
+            $ref: '#/components/schemas/UserResponse'
         totalElements:
           type: integer
           description: Total number of elements
@@ -3085,15 +3268,15 @@ components:
         themes:
           type: array
           items:
-            $ref: "#/components/schemas/Theme"
+            $ref: '#/components/schemas/Theme'
         fonts:
           type: array
           items:
-            $ref: "#/components/schemas/Font"
+            $ref: '#/components/schemas/Font'
         fontFamilies:
           type: array
           items:
-            $ref: "#/components/schemas/FontFamily"
+            $ref: '#/components/schemas/FontFamily'
         fontWeights:
           type: array
           items:
@@ -3101,21 +3284,21 @@ components:
         fontSizes:
           type: array
           items:
-            $ref: "#/components/schemas/FontSizeSet"
+            $ref: '#/components/schemas/FontSizeSet'
         spacings:
           type: array
           items:
-            $ref: "#/components/schemas/SpacingSet"
+            $ref: '#/components/schemas/SpacingSet'
         radius:
           type: array
           items:
-            $ref: "#/components/schemas/RadiusSet"
+            $ref: '#/components/schemas/RadiusSet'
         shadows:
           type: array
           items:
-            $ref: "#/components/schemas/ShadowSet"
+            $ref: '#/components/schemas/ShadowSet'
         current:
-          $ref: "#/components/schemas/Current"
+          $ref: '#/components/schemas/Current'
     PageResponseDtoSubscriptionResponse:
       type: object
       properties:
@@ -3123,7 +3306,7 @@ components:
           type: array
           description: Page content
           items:
-            $ref: "#/components/schemas/SubscriptionResponse"
+            $ref: '#/components/schemas/SubscriptionResponse'
         totalElements:
           type: integer
           description: Total number of elements
@@ -3160,7 +3343,7 @@ components:
           type: array
           description: Page content
           items:
-            $ref: "#/components/schemas/SellerCodeResponse"
+            $ref: '#/components/schemas/SellerCodeResponse'
         totalElements:
           type: integer
           description: Total number of elements
@@ -3197,15 +3380,28 @@ components:
           type: string
         name:
           type: string
+    FeatureDto:
+      type: object
+      properties:
+        titleKey:
+          type: string
+        descriptionKey:
+          type: string
     PublicLandingResponse:
       type: object
       properties:
-        title:
+        heroTitleKey:
           type: string
-        description:
+        heroBodyKey:
           type: string
-        version:
+        loginCtaKey:
           type: string
+        registerCtaKey:
+          type: string
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureDto'
     PageResponseDtoMembershipResponse:
       type: object
       properties:
@@ -3213,7 +3409,7 @@ components:
           type: array
           description: Page content
           items:
-            $ref: "#/components/schemas/MembershipResponse"
+            $ref: '#/components/schemas/MembershipResponse'
         totalElements:
           type: integer
           description: Total number of elements
@@ -3278,21 +3474,21 @@ components:
         content:
           type: array
           items:
-            $ref: "#/components/schemas/EventResponse"
+            $ref: '#/components/schemas/EventResponse'
         number:
           type: integer
           format: int32
         sort:
-          $ref: "#/components/schemas/SortObject"
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: "#/components/schemas/PageableObject"
+          $ref: '#/components/schemas/SortObject'
         first:
           type: boolean
         last:
           type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     PageableObject:
@@ -3302,15 +3498,15 @@ components:
           type: integer
           format: int64
         sort:
-          $ref: "#/components/schemas/SortObject"
-        pageSize:
-          type: integer
-          format: int32
+          $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
         pageNumber:
           type: integer
           format: int32
-        paged:
-          type: boolean
+        pageSize:
+          type: integer
+          format: int32
         unpaged:
           type: boolean
     SortObject:

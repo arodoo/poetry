@@ -9,7 +9,6 @@ import {
   logout as logoutSdk,
   status as statusSdk,
   me as meSdk,
-  type TokenResponse,
   type LoginRequest,
   type RefreshRequest,
 } from '../../../api/generated'
@@ -32,15 +31,19 @@ export async function postLogin(
 ): Promise<AuthTokens> {
   const requestBody: LoginRequest = { username, password }
   const response = await loginSdk({ body: requestBody })
-  const data = response.data as TokenResponse
-  return AuthTokensSchema.parse(data)
+  if (!response.data) {
+    throw new Error('Login response missing data')
+  }
+  return AuthTokensSchema.parse(response.data)
 }
 
 export async function postRefresh(refreshToken: string): Promise<AuthTokens> {
   const requestBody: RefreshRequest = { refreshToken }
   const response = await refreshSdk({ body: requestBody })
-  const data = response.data as TokenResponse
-  return AuthTokensSchema.parse(data)
+  if (!response.data) {
+    throw new Error('Refresh response missing data')
+  }
+  return AuthTokensSchema.parse(response.data)
 }
 
 export async function postLogout(refreshToken: string): Promise<void> {

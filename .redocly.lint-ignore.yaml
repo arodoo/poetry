@@ -48,6 +48,9 @@ docs/api/backend-generated/v1/openapi.yaml:
     - '#/paths/~1api~1v1~1events~1list/get/responses'
     - '#/paths/~1api~1v1~1dashboard~1overview/get/responses'
     - '#/paths/~1api~1v1~1auth~1status/get/responses'
+    - '#/paths/~1api~1v1~1fingerprints/get/responses'
+    - '#/paths/~1api~1v1~1fingerprints/post/responses'
+    - '#/paths/~1api~1v1~1fingerprints~1{id}/get/responses'
   operation-summary:
     - '#/paths/~1api~1v1~1tokens~1selection/put/summary'
     - '#/paths/~1api~1v1~1themes~1{id}/get/summary'
@@ -81,3 +84,8 @@ docs/api/backend-generated/v1/openapi.yaml:
     - '#/paths/~1api~1v1~1me~1locale/get/summary'
     - '#/paths/~1api~1v1~1health/get/summary'
     - '#/paths/~1api~1v1~1dashboard~1overview/get/summary'
+    - '#/paths/~1api~1v1~1zones~1{id}/get/summary'
+    - '#/paths/~1api~1v1~1zones/get/summary'
+    - '#/paths/~1api~1v1~1zones~1paged/get/summary'
+    - '#/paths/~1api~1v1~1fingerprints/post/summary'
+    - '#/paths/~1api~1v1~1fingerprints~1{id}/get/summary'

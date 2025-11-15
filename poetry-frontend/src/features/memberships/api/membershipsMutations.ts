@@ -26,7 +26,7 @@ export async function createMembership(
   if (!response.data) {
     throw new Error('Failed to create membership')
   }
-  return response.data as MembershipResponse
+  return response.data
 }
 
 export async function updateMembership(
@@ -43,7 +43,7 @@ export async function updateMembership(
   if (!response.data) {
     throw new Error(`Failed to update membership ${id}`)
   }
-  return response.data as MembershipResponse
+  return response.data
 }
 
 export async function deleteMembership(

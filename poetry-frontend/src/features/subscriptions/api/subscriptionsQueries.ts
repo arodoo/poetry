@@ -35,7 +35,7 @@ export async function fetchSubscriptionsPage(
   if (!response.data) {
     throw new Error('Failed to fetch subscriptions page')
   }
-  return response.data as PageResponseDtoSubscriptionResponse
+  return response.data
 }
 
 export async function fetchSubscriptionById(
@@ -47,5 +47,5 @@ export async function fetchSubscriptionById(
   if (!response.data) {
     throw new Error(`Subscription ${id} not found`)
   }
-  return response.data as SubscriptionResponse
+  return response.data
 }

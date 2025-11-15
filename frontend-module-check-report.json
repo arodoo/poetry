@@ -1,7 +1,7 @@
 {
   "ok": true,
   "summary": {
-    "features": 15,
+    "features": 16,
     "missing": 0
   },
   "details": [
@@ -463,6 +463,122 @@
         },
         {
           "path": "poetry-frontend/src/tests/features/dashboard/pages/DashboardPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "fingerprint",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/fingerprint/model/FingerprintSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/api/fingerprintApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/hooks/useFingerprintQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/hooks/useFingerprintMutations.ts",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/routing/fingerprintRoutes.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/fingerprint/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/fingerprint.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/fingerprint/model/FingerprintSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/fingerprint/api/fingerprintApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/fingerprint/hooks/fingerprintQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/fingerprint/hooks/fingerprintMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/fingerprint/pages/FingerprintPage.test.ts",
           "optional": false,
           "exists": true
         }

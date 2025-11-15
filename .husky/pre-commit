@@ -71,7 +71,7 @@ npm --prefix poetry-frontend run i18n:verify || {
 }
 
 echo "🎨 Formatting files..."
-npx lint-staged || {
+npx lint-staged --no-stash || {
   echo "❌ File formatting failed!"
   exit 1
 }

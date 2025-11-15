@@ -13,11 +13,9 @@ import {
   CreateUserSchema,
   UpdateUserRolesSchema,
   UpdateUserSchema,
-  UpdateUserSecuritySchema,
   type CreateUserInput,
   type UpdateUserInput,
   type UpdateUserRolesInput,
-  type UpdateUserSecurityInput,
 } from '../model/UsersSchemas'
 
 export async function createUser(
@@ -29,7 +27,7 @@ export async function createUser(
   if (!response.data) {
     throw new Error('Failed to create user')
   }
-  return response.data as UserResponse
+  return response.data
 }
 
 export async function updateUser(
@@ -46,7 +44,7 @@ export async function updateUser(
   if (!response.data) {
     throw new Error(`Failed to update user ${id}`)
   }
-  return response.data as UserResponse
+  return response.data
 }
 
 export async function updateUserRoles(
@@ -63,21 +61,5 @@ export async function updateUserRoles(
   if (!response.data) {
     throw new Error(`Failed to update user roles for ${id}`)
   }
-  return response.data as UserResponse
-}
-
-export async function updateUserSecurity(
-  id: string,
-  input: UpdateUserSecurityInput,
-  _etag?: string
-): Promise<UserResponse> {
-  // Keep function signature for future implementation. The input is validated
-  // now to keep behavior consistent. This remains intentionally unimplemented.
-  UpdateUserSecuritySchema.parse(input)
-  void _etag
-  return Promise.reject(
-    new Error(
-      `Password update endpoint not yet implemented in backend OpenAPI for user ${id}`
-    )
-  )
+  return response.data
 }

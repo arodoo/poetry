@@ -28,7 +28,7 @@ export async function createSubscription(
   if (!response.data) {
     throw new Error('Failed to create subscription')
   }
-  return response.data as SubscriptionResponse
+  return response.data
 }
 
 export async function updateSubscription(
@@ -45,7 +45,7 @@ export async function updateSubscription(
   if (!response.data) {
     throw new Error(`Failed to update subscription ${id}`)
   }
-  return response.data as SubscriptionResponse
+  return response.data
 }
 
 export async function deleteSubscription(id: string): Promise<void> {

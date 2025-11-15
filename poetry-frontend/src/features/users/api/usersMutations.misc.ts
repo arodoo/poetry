@@ -22,7 +22,7 @@ export async function disableUser(
   if (!response.data) {
     throw new Error(`Failed to disable user ${id}`)
   }
-  return response.data as UserResponse
+  return response.data
 }
 
 export async function enableUser(
@@ -38,7 +38,7 @@ export async function enableUser(
   if (!response.data) {
     throw new Error(`Failed to enable user ${id}`)
   }
-  return response.data as UserResponse
+  return response.data
 }
 
 export async function deleteUser(
@@ -73,5 +73,5 @@ export async function deleteUser(
   if (!response.data) {
     throw new Error(`Failed to delete user ${id}`)
   }
-  return response.data as UserResponse
+  return response.data
 }

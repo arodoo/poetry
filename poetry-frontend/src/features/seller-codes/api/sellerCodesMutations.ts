@@ -27,8 +27,10 @@ export async function createSellerCode(
   const response = await createSellerCodeSdk({
     body: validatedInput,
   })
-  const data = response.data as SellerCodeResponse
-  return parseSellerCodeDetail(data)
+  if (!response.data) {
+    throw new Error('Create seller code response missing data')
+  }
+  return parseSellerCodeDetail(response.data)
 }
 
 export async function updateSellerCode(
@@ -44,8 +46,10 @@ export async function updateSellerCode(
     body: validatedInput,
     headers,
   })
-  const data = response.data as SellerCodeResponse
-  return parseSellerCodeDetail(data)
+  if (!response.data) {
+    throw new Error('Update seller code response missing data')
+  }
+  return parseSellerCodeDetail(response.data)
 }
 
 export async function deleteSellerCode(
@@ -54,7 +58,7 @@ export async function deleteSellerCode(
   etag?: string
 ): Promise<SellerCodeDetail> {
   const headers = etag ? { 'If-Match': etag } : {}
-  // The generated SDK has a broad options signature for delete; only pass path and headers
+  // SDK delete signature: pass path and headers
   const responseUnknown = (await deleteSellerCodeSdk({
     path: { id: Number(id) },
     headers,

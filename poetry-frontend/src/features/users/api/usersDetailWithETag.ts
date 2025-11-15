@@ -22,7 +22,7 @@ export async function fetchUserDetailWithETag(
   if (!response.data) {
     throw new Error(`User ${id} not found`)
   }
-  const user: UserResponse = response.data as UserResponse
+  const user: UserResponse = response.data
   const etag: string | null = response.response.headers.get('ETag')
   return { user, etag }
 }

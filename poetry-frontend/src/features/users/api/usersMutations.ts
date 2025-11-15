@@ -6,3 +6,4 @@
  */
 export * from './usersMutations.core'
 export * from './usersMutations.misc'
+export * from './usersMutations.security'
