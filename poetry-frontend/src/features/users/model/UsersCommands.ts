@@ -23,7 +23,7 @@ export const CreateUserSchema: z.ZodType<CreateUserInput> = z.object({
   lastName: z.string().min(1, 'users.validation.lastName'),
   username: z.string().min(3, 'users.validation.username'),
   email: z.string().email('users.validation.email'),
-  password: z.string().min(10, 'users.validation.password'),
+  password: z.string().min(10, 'users.validation.password').optional(),
   locale: z.string().min(2, 'users.validation.locale').optional(),
   roles: z.array(z.string()).optional(),
   status: z.enum(['active', 'inactive']).default('active'),

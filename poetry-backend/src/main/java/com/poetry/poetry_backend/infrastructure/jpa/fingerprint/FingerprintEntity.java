@@ -57,6 +57,9 @@ public class FingerprintEntity {
   @Column(name = "archived_at")
   private Instant archivedAt;
 
+  @Column(name = "last_activity_at")
+  private Instant lastActivityAt;
+
   @CreationTimestamp
   @Column(nullable = false, updatable = false)
   private Instant createdAt;

@@ -13,6 +13,7 @@ export type ItemId =
   | 'subscriptions'
   | 'zones'
   | 'memberships'
+  | 'fingerprint'
 
 export interface SidebarProps {
   isOpen: boolean

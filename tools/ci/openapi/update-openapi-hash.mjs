@@ -10,7 +10,7 @@ import fs from 'node:fs'
 import crypto from 'node:crypto'
 import path from 'node:path'
 
-const specPath = path.resolve('docs/api/openapi-v1.yaml')
+const specPath = path.resolve('docs/api/backend-generated/v1/openapi.yaml')
 const hashFile = path.resolve('poetry-frontend/src/sdk/.openapi.hash')
 
 function sha256(data) {

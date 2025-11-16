@@ -59,7 +59,8 @@ if (!result.valid) {
   console.error('❌ Line limit violations found:')
   result.errors.forEach((e) => console.error(`  ${e}`))
   console.error('\n💡 Lines should be read and organized')
-  console.error('   Split if too long, use helpers, etc.')
+  console.error('   into smaller modular files')
+  console.error('   Don\'t compress.')
 
   process.exit(1)
 }

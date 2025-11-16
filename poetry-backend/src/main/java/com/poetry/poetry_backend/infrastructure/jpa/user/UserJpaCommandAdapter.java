@@ -30,7 +30,9 @@ public class UserJpaCommandAdapter implements UserCommandPort {
     UserEntity entity = new UserEntity();
     applyProfile(entity, firstName, lastName, email, locale);
     entity.setUsername(username);
-    entity.setPasswordHash(password);
+    if (password != null && !password.isBlank()) {
+      entity.setPasswordHash(password);
+    }
     entity.setRoles(roles);
     entity.setStatus(status != null ? status : "active");
     return persist(repository, entity);

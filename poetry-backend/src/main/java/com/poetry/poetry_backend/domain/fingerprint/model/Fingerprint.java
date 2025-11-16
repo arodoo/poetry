@@ -19,6 +19,7 @@ public record Fingerprint(
     FingerprintStatus status,
     Instant enrolledAt,
     Instant archivedAt,
+    Instant lastActivityAt,
     Instant createdAt,
     Instant updatedAt,
     Instant deletedAt,

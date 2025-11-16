@@ -59,10 +59,10 @@ public class UsersUpdateController {
   })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
-  public ResponseEntity<UserDto.UserResponse> update(
+  public ResponseEntity<UserResponse> update(
       @PathVariable Long id,
       @RequestHeader("If-Match") String ifMatch,
-      @RequestBody UserDto.UserUpdateRequest r) throws Exception {
+      @RequestBody UserUpdateRequest r) throws Exception {
     // Get current user to extract version - IfMatchFilter already validated ETag
     var currentUser = getUser.execute(id);
     long version = currentUser.version();

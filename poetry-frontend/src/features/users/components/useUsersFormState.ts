@@ -40,7 +40,7 @@ export function useUsersFormState(
   const [email, setEmail] = useState<string>(initialValues?.email ?? '')
   const [locale, setLocale] = useState<string>(initialValues?.locale ?? 'en')
   const [rolesString, setRolesString] = useState<string>(
-    initialValues?.roles?.join(',') ?? 'admin'
+    initialValues?.roles?.join(',') ?? ''
   )
   const [password, setPassword] = useState<string>(
     initialValues?.password ?? ''
@@ -48,6 +48,7 @@ export function useUsersFormState(
   const [status, setStatus] = useState<'active' | 'inactive'>(
     initialValues?.status ?? 'active'
   )
+
   return {
     firstName,
     lastName,

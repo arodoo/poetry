@@ -22,6 +22,8 @@ tags:
     description: Event management
   - name: seller-codes
     description: Seller code management
+  - name: Fingerprint Enrollment
+    description: Fingerprint wizard
   - name: fingerprints
     description: Fingerprint verification
   - name: fingerprints
@@ -995,6 +997,45 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/UserResponse'
+  /api/v1/users/{userId}/fingerprints/enroll:
+    post:
+      tags:
+        - Fingerprint Enrollment
+      summary: Enroll fingerprint with auto-assigned slot
+      description: Auto-assigns first available slot (0-1500) and links to user
+      operationId: enrollFingerprintForUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: No slots available
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
+        '201':
+          description: Enrolled
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
   /api/v1/themes:
     get:
       tags:
@@ -2681,7 +2722,6 @@ components:
         - email
         - firstName
         - lastName
-        - password
         - username
       type: object
       properties:
@@ -2707,7 +2747,8 @@ components:
           example: en
         password:
           type: string
-          description: Password
+          description:
+            'Password (required for ADMIN/MANAGER, optional for USER)'
           example: SecurePass123!
         roles:
           uniqueItems: true
@@ -2724,6 +2765,17 @@ components:
           description: Status
           example: active
       description: User creation request
+    FingerprintEnrollmentResponse:
+      type: object
+      properties:
+        fingerprintId:
+          type: integer
+          format: int64
+        slotId:
+          type: integer
+          format: int32
+        status:
+          type: string
     CreateRequest:
       type: object
       properties:
@@ -3501,10 +3553,10 @@ components:
           $ref: '#/components/schemas/SortObject'
         paged:
           type: boolean
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
         unpaged:

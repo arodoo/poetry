@@ -39,12 +39,27 @@ public class UsersCreateController {
   })
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
-  public ResponseEntity<UserDto.UserResponse> create(
-      @RequestBody UserDto.UserCreateRequest r) {
+  public ResponseEntity<UserResponse> create(
+      @RequestBody UserCreateRequest r) {
+    validatePasswordRequirement(r.roles(), r.password());
     var u = create.execute(
         r.firstName(), r.lastName(), r.email(),
         r.username(), r.locale(), r.password(), r.roles(),
         r.status());
     return ResponseEntity.status(201).body(UserDto.toResponse(u));
+  }
+
+  private void validatePasswordRequirement(
+      java.util.Set<String> roles, String password) {
+    if (roles == null || roles.isEmpty()) {
+      return;
+    }
+    boolean needsPassword = roles.stream()
+        .anyMatch(r -> "ADMIN".equalsIgnoreCase(r) 
+            || "MANAGER".equalsIgnoreCase(r));
+    if (needsPassword && (password == null || password.isBlank())) {
+      throw new IllegalArgumentException(
+          "Password is required for ADMIN and MANAGER roles");
+    }
   }
 }

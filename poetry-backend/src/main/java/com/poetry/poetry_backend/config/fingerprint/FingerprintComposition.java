@@ -1,8 +1,6 @@
 /*
  * File: FingerprintComposition.java
- * Purpose: Composition root for Fingerprint domain wiring all use cases with
- * command and query ports. Enables Spring dependency injection for clean
- * architecture enforcement.
+ * Purpose: Composition root for Fingerprint enrollment use cases.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -13,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
+import com.poetry.poetry_backend.application.fingerprint.port.FingerprintSlotHistoryCommandPort;
+import com.poetry.poetry_backend.application.fingerprint.port.UserFingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.usecase.*;
 
 @Configuration
@@ -20,32 +20,10 @@ public class FingerprintComposition {
 
   @Bean
   public EnrollFingerprintUseCase enrollFingerprintUseCase(
-      FingerprintCommandPort commandPort, FingerprintQueryPort queryPort) {
-    return new EnrollFingerprintUseCase(commandPort, queryPort);
-  }
-
-  @Bean
-  public VerifyFingerprintUseCase verifyFingerprintUseCase(
-      FingerprintQueryPort queryPort) {
-    return new VerifyFingerprintUseCase(queryPort);
-  }
-
-  @Bean
-  public GetAllFingerprintsUseCase getAllFingerprintsUseCase(
-      FingerprintQueryPort queryPort) {
-    return new GetAllFingerprintsUseCase(queryPort);
-  }
-
-  @Bean
-  public GetFingerprintByIdUseCase getFingerprintByIdUseCase(
-      FingerprintQueryPort queryPort) {
-    return new GetFingerprintByIdUseCase(queryPort);
-  }
-
-  @Bean
-  public DeleteFingerprintUseCase deleteFingerprintUseCase(
-      FingerprintCommandPort commandPort, FingerprintQueryPort queryPort) {
-    return new DeleteFingerprintUseCase(commandPort, queryPort);
+      FingerprintCommandPort cmd,
+      FingerprintQueryPort qry,
+      FingerprintSlotHistoryCommandPort historyCmd) {
+    return new EnrollFingerprintUseCase(cmd, qry, historyCmd);
   }
 
   @Bean
@@ -55,19 +33,12 @@ public class FingerprintComposition {
   }
 
   @Bean
-  public UpdateFingerprintUseCase updateFingerprintUseCase() {
-    return new UpdateFingerprintUseCase();
-  }
-
-  @Bean
-  public ArchiveFingerprintUseCase archiveFingerprintUseCase(
-      FingerprintCommandPort commandPort, FingerprintQueryPort queryPort) {
-    return new ArchiveFingerprintUseCase(commandPort, queryPort);
-  }
-
-  @Bean
-  public RestoreFingerprintUseCase restoreFingerprintUseCase(
-      FingerprintCommandPort commandPort, FingerprintQueryPort queryPort) {
-    return new RestoreFingerprintUseCase(commandPort, queryPort);
+  public EnrollFingerprintForUserUseCase enrollForUserUseCase(
+      FingerprintCommandPort fpCmd,
+      FingerprintQueryPort fpQry,
+      FingerprintSlotHistoryCommandPort historyCmd,
+      UserFingerprintCommandPort userFpCmd) {
+    return new EnrollFingerprintForUserUseCase(
+        fpCmd, fpQry, historyCmd, userFpCmd);
   }
 }

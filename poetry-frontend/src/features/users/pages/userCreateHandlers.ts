@@ -17,30 +17,34 @@ export function createUserSubmitHandler(
 ): (event: FormEvent<HTMLFormElement>) => void {
   return function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault()
-    const values: UsersFormValues = buildFormData(
-      formState.firstName,
-      formState.lastName,
-      formState.username,
-      formState.email,
-      formState.locale,
-      formState.rolesString,
-      formState.password,
-      true,
-      formState.status
-    )
-    const validatedInput: CreateUserInput = CreateUserSchema.parse({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      username: values.username,
-      email: values.email,
-      locale: values.locale,
-      roles: values.roles,
-      // passwords may be optional in the form, but CreateUserSchema will validate
-      password: values.password ?? '',
-      // status is always present on UsersFormValues; pass through directly
-      status: values.status,
-    })
-    onSuccess(validatedInput)
+    try {
+      const values: UsersFormValues = buildFormData(
+        formState.firstName,
+        formState.lastName,
+        formState.username,
+        formState.email,
+        formState.locale,
+        formState.rolesString,
+        formState.password,
+        true,
+        formState.status
+      )
+
+      const validatedInput: CreateUserInput = CreateUserSchema.parse({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        username: values.username,
+        email: values.email,
+        locale: values.locale,
+        roles: values.roles,
+        password: values.password ?? undefined,
+        status: values.status,
+      })
+      onSuccess(validatedInput)
+    } catch (error) {
+      console.error('Validation error:', error)
+      throw error
+    }
   }
 }
 

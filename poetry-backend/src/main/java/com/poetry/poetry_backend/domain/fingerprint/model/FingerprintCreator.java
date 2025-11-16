@@ -26,6 +26,7 @@ public class FingerprintCreator {
         null,
         now,
         now,
+        now,
         null,
         0L);
   }
@@ -39,6 +40,7 @@ public class FingerprintCreator {
         FingerprintStatus.INACTIVE,
         fingerprint.enrolledAt(),
         fingerprint.archivedAt(),
+        fingerprint.lastActivityAt(),
         fingerprint.createdAt(),
         Instant.now(),
         fingerprint.deletedAt(),

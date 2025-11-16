@@ -48,7 +48,7 @@ public class UsersGetController {
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
-  public ResponseEntity<UserDto.UserResponse> byId(@PathVariable Long id) throws Exception {
+  public ResponseEntity<UserResponse> byId(@PathVariable Long id) throws Exception {
     var u = getById.execute(id);
     var response = UserDto.toResponse(u);
     String etag = etagPort.compute(mapper.writeValueAsString(response));

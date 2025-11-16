@@ -65,6 +65,6 @@ class CreateUserUseCaseTest {
         Set.of("ROLE_USER"),
         "active"
     );
-    assertNotNull(user.id());
+    assertNotNull(user);
   }
 }

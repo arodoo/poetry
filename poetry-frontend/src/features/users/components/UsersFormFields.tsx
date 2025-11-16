@@ -20,6 +20,11 @@ export interface UsersFormFieldsProps
   readonly t: ReturnType<typeof useT>
 }
 
+function shouldShowPassword(rolesString: string): boolean {
+  const roles = rolesString.toUpperCase()
+  return roles.includes('ADMIN') || roles.includes('MANAGER')
+}
+
 export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
   function handleLocaleChange(e: ChangeEvent<HTMLSelectElement>): void {
     props.setLocale(e.target.value)
@@ -61,7 +66,7 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
         onStatusChange={props.setStatus}
         t={props.t}
       />
-      {props.showPassword ? (
+      {props.showPassword && shouldShowPassword(props.rolesString) ? (
         <UsersPasswordField
           value={props.password}
           onChange={props.setPassword}

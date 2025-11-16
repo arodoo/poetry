@@ -42,7 +42,7 @@ public class UsersListController {
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
-  public ResponseEntity<List<UserDto.UserResponse>> all() {
+  public ResponseEntity<List<UserResponse>> all() {
     var users = getAll.execute();
     var out = users.stream()
   .map(UserDto::toResponse)

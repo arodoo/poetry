@@ -25,6 +25,7 @@ public class FingerprintJpaMapper {
     entity.setStatus(fingerprint.status());
     entity.setEnrolledAt(fingerprint.enrolledAt());
     entity.setArchivedAt(fingerprint.archivedAt());
+    entity.setLastActivityAt(fingerprint.lastActivityAt());
     entity.setCreatedAt(fingerprint.createdAt());
     entity.setUpdatedAt(fingerprint.updatedAt());
     entity.setDeletedAt(fingerprint.deletedAt());
@@ -41,6 +42,7 @@ public class FingerprintJpaMapper {
         entity.getStatus(),
         entity.getEnrolledAt(),
         entity.getArchivedAt(),
+        entity.getLastActivityAt(),
         entity.getCreatedAt(),
         entity.getUpdatedAt(),
         entity.getDeletedAt(),

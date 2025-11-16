@@ -11,39 +11,27 @@ import { useToast } from '../../../shared/toast/toastContext'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { FormLayout } from '../../../ui/FormLayout/FormLayout'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
-import { useUsersFormState } from '../components/useUsersFormState'
-import { useCreateUserMutation } from '../hooks/useUsersMutations'
-import type { CreateUserInput } from '../model/UsersSchemas'
 import { buildCreateFormSections } from './userFormSections'
 import { buildUserCreateBreadcrumbs } from './userBreadcrumbHelpers'
-import {
-  createUserSubmitHandler,
-  createUserCancelHandler,
-} from './userCreateHandlers'
+import { UsersCreateFingerprintSection } from './UsersCreateFingerprintSection'
+import { useUsersCreatePage } from './useUsersCreatePage'
+
 export default function UsersCreatePage(): ReactElement {
-  const t: ReturnType<typeof useT> = useT()
-  const { locale }: ReturnType<typeof useLocale> = useLocale()
-  const navigate: ReturnType<typeof useNavigate> = useNavigate()
-  const toast: ReturnType<typeof useToast> = useToast()
-  const mutation: ReturnType<typeof useCreateUserMutation> =
-    useCreateUserMutation()
-  const isSubmitting: boolean = mutation.isPending
-  const formState: ReturnType<typeof useUsersFormState> = useUsersFormState()
-  const breadcrumbs: readonly { label: string; href?: string }[] =
-    buildUserCreateBreadcrumbs(locale, t)
-  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
-    createUserSubmitHandler(formState, (input: CreateUserInput): void => {
-      mutation.mutate(input, {
-        onSuccess: (): void => {
-          toast.push(t('ui.users.toast.create.success'))
-          void navigate(`/${locale}/users`)
-        },
-        onError: (): void => {
-          toast.push(t('ui.users.toast.create.error'))
-        },
-      })
-    })
-  const handleCancel: () => void = createUserCancelHandler(navigate, locale)
+  const t = useT()
+  const { locale } = useLocale()
+  const navigate = useNavigate()
+  const toast = useToast()
+  const breadcrumbs = buildUserCreateBreadcrumbs(locale, t)
+
+  const {
+    formState,
+    createdUserId,
+    isSubmitting,
+    handleSubmit,
+    handleCancel,
+    handleFingerprintSuccess,
+    handleSkipFingerprint,
+  } = useUsersCreatePage(locale, navigate, toast, t)
 
   return (
     <PageLayout
@@ -61,6 +49,14 @@ export default function UsersCreatePage(): ReactElement {
         onCancel={handleCancel}
         isSubmitting={isSubmitting}
       />
+      {createdUserId !== null && (
+        <UsersCreateFingerprintSection
+          userId={createdUserId}
+          onSuccess={handleFingerprintSuccess}
+          onSkip={handleSkipFingerprint}
+          t={t}
+        />
+      )}
     </PageLayout>
   )
 }

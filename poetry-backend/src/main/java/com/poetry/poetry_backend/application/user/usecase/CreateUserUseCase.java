@@ -2,8 +2,8 @@
  * File: CreateUserUseCase.java
  * Purpose: Coordinate the creation of new users by validating input, using
  * domain rules and interacting with user command ports to persist the new
- * user. The use case returns the created domain object and isolates side-
- * effects from controllers so the logic can be tested in isolation.
+ * user. The use case returns the created domain object and isolates
+ * side-effects from controllers so logic can be tested in isolation.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -30,8 +30,10 @@ public class CreateUserUseCase {
       String password,
       Set<String> roles,
       String status) {
-    return commands.create(
+    User created = commands.create(
         firstName, lastName, email, username, locale, password, roles,
         status);
+
+    return created;
   }
 }
