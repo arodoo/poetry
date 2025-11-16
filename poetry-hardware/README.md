@@ -92,6 +92,20 @@ POST /api/relay/channel/:id/off
 GET  /api/relay/status
 ```
 
+### Fingerprint Operations
+
+```
+POST /api/fingerprint/enroll
+  Body: { "slotId": 1 }
+  
+POST /api/fingerprint/verify
+  Returns: { "matched": true, "slotId": 1, "confidence": 90 }
+
+DELETE /api/fingerprint/template/:slotId
+
+GET /api/fingerprint/template-count
+```
+
 ## Hardware Connections
 
 ### USB-TTL to Relay Board

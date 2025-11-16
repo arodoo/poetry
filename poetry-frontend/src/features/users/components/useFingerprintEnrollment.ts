@@ -1,19 +1,16 @@
 /*
  * File: useFingerprintEnrollment.ts
- * Purpose: Hook for managing fingerprint enrollment state and API calls.
+ * Purpose: Hook for managing fingerprint enrollment via hardware service.
+ * Gets slot assignment from backend, enrolls via hardware, returns slotId.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 import { useState } from 'react'
+import { reserveSlotFromBackend, enrollWithHardware } from './fingerprintEnrollmentApi'
 
 type EnrollmentState = 'idle' | 'capturing' | 'processing' | 'success' | 'error'
 
-interface EnrollmentResult {
-  slotId: number
-  status: string
-}
-
-export function useFingerprintEnrollment(userId: number): {
+export function useFingerprintEnrollment(): {
   state: EnrollmentState
   slotId: number | null
   errorMessage: string
@@ -31,20 +28,18 @@ export function useFingerprintEnrollment(userId: number): {
     setErrorMessage('')
 
     try {
-      const url = '/api/v1/users/' + userId.toString() + '/fingerprints/enroll'
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      })
+      const assignedSlot = await reserveSlotFromBackend()
+      setState('processing')
 
-      if (!response.ok) {
-        throw new Error('HTTP ' + String(response.status))
+      const enrollData = await enrollWithHardware(assignedSlot)
+
+      if (!enrollData.success) {
+        throw new Error(enrollData.message || 'Enrollment failed')
       }
 
-      const data = (await response.json()) as EnrollmentResult
-      setSlotId(data.slotId)
+      setSlotId(enrollData.slotId)
       setState('success')
-      onSuccess?.(data.slotId)
+      onSuccess?.(enrollData.slotId)
     } catch (error) {
       setState('error')
       setErrorMessage(error instanceof Error ? error.message : 'Unknown error')
@@ -53,6 +48,7 @@ export function useFingerprintEnrollment(userId: number): {
 
   function reset(): void {
     setState('idle')
+    setSlotId(null)
     setErrorMessage('')
   }
 

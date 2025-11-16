@@ -230,16 +230,36 @@ curl -X POST http://localhost:3001/api/relay/channel/1/off
 ## Future Integration Notes
 
 ### R503 Fingerprint Reader
-**Expected Delivery:** December 2025 (shipping from China)  
-**Protocol:** UART commands (different from relay GPIO)  
-**Baud Rate:** 57600 (default) or 9600  
-**Wiring:** TXD/RXD pins (separate from relay RTS/DTR)
+**Delivery Status:** Received and integrated  
+**Protocol:** UART packet-based commands  
+**Baud Rate:** 57600 (default)  
+**Wiring:** TXD/RXD pins (requires second USB-TTL adapter)
 
-**Challenge:** FT232RL has only ONE UART channel (TXD/RXD).  
-**Solution Options:**
-1. Use second USB-TTL adapter for fingerprint reader
-2. Implement I2C relay expansion (frees TXD/RXD for UART)
-3. Time-multiplex UART (switch devices via relay control) - NOT RECOMMENDED
+**Implementation Complete:**
+- Packet structure with header, checksum validation
+- Enrollment flow: capture 2x, create template, store in slot
+- Verification: scan and search against stored templates
+- Template management: delete, count operations
+
+**Integration Architecture:**
+- `R503Protocol.ts`: Low-level packet building and parsing
+- `SerialFingerprintAdapter.ts`: Hardware communication layer
+- `FingerprintController.ts`: HTTP API endpoint handler
+- Mock mode available for development without hardware
+
+**Enrollment Flow (Wizard Integration):**
+1. Frontend wizard requests slot from backend
+2. Backend assigns slot (e.g., slot 5)
+3. Frontend calls `POST /api/fingerprint/enroll` with slotId
+4. Hardware service captures fingerprint 2x
+5. Template stored in R503 sensor at assigned slot
+6. Success returned to frontend → User creation completes
+
+**Hardware Setup Notes:**
+- Requires second USB-TTL adapter (separate from relay)
+- Cross TX/RX wiring: R503 TX → Adapter RX
+- Power: 5V from USB-TTL VCC pin
+- COM port configured in FINGERPRINT_PORT env var
 
 ### Backend Java Integration
 **Architecture:** RestTemplate HTTP client  

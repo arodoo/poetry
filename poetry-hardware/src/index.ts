@@ -4,7 +4,11 @@
 
 import dotenv from 'dotenv';
 import { createApp } from './config/app.js';
-import { composeRelayModule, composeAccessModule } from './config/composition.js';
+import {
+  composeRelayModule,
+  composeAccessModule,
+  composeFingerprintModule,
+} from './config/composition.js';
 import { logger } from './infrastructure/logging/logger.js';
 
 dotenv.config();
@@ -13,7 +17,12 @@ async function bootstrap() {
   try {
     const relayController = await composeRelayModule();
     const accessController = await composeAccessModule();
-    const app = createApp(relayController, accessController);
+    const fingerprintController = await composeFingerprintModule();
+    const app = createApp(
+      relayController,
+      accessController,
+      fingerprintController
+    );
 
     const port = process.env.PORT || 3001;
 

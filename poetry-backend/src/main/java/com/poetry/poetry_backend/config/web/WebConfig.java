@@ -33,8 +33,7 @@ public class WebConfig {
     c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     c.setAllowedHeaders(List.of("*"));
     c.setExposedHeaders(List.of("ETag", "Content-Type"));
-    // We use bearer tokens, no cookies required.
-    c.setAllowCredentials(false);
+    c.setAllowCredentials(true);
     c.setMaxAge(3600L);
     
     var source = new UrlBasedCorsConfigurationSource();

@@ -1,6 +1,7 @@
 /*
  * File: UsersCreateFingerprintSection.tsx
- * Purpose: Inline fingerprint enrollment section after user creation.
+ * Purpose: Inline fingerprint enrollment wizard BEFORE user creation.
+ * Calls hardware service directly to enroll and get slotId.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -9,8 +10,7 @@ import type { useT } from '../../../shared/i18n/useT'
 import { FingerprintEnrollmentWizard } from '../components/FingerprintWizard'
 
 interface UsersCreateFingerprintSectionProps {
-  readonly userId: number
-  readonly onSuccess: () => void
+  readonly onSuccess: (slotId: number) => void
   readonly onSkip: () => void
   readonly t: ReturnType<typeof useT>
 }
@@ -21,7 +21,6 @@ export function UsersCreateFingerprintSection(
   return (
     <div className="mt-8 p-6 border border-[var(--color-border)] rounded-lg">
       <FingerprintEnrollmentWizard
-        userId={props.userId}
         onSuccess={props.onSuccess}
         onCancel={props.onSkip}
         t={props.t}

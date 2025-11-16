@@ -9,11 +9,11 @@ import type { useT } from '../../../shared/i18n/useT'
 import type { useToast } from '../../../shared/toast/toastContext'
 import { useUsersFormState } from '../components/useUsersFormState'
 import { useCreateUserMutation } from '../hooks/useUsersMutations'
-import type { CreateUserInput } from '../model/UsersSchemas'
 import {
   createUserSubmitHandler,
   createUserCancelHandler,
 } from './userCreateHandlers'
+import { createMutationHandler } from './userCreateFingerprintHandlers'
 
 export function useUsersCreatePage(
   locale: string,
@@ -22,53 +22,43 @@ export function useUsersCreatePage(
   t: ReturnType<typeof useT>
 ): {
   formState: ReturnType<typeof useUsersFormState>
-  createdUserId: number | null
   isSubmitting: boolean
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
-  handleCancel: () => void
-  handleFingerprintSuccess: () => void
+  handleCreateUser: (e: React.FormEvent<HTMLFormElement>) => void
+  handleFingerprintComplete: (slotId: number) => void
   handleSkipFingerprint: () => void
+  handleCancel: () => void
 } {
   const mutation = useCreateUserMutation()
-  const [createdUserId, setCreatedUserId] = useState<number | null>(null)
+  const [pendingSlotId, setPendingSlotId] = useState<number | null>(null)
   const formState = useUsersFormState()
 
-  const handleSubmit = createUserSubmitHandler(
-    formState,
-    (input: CreateUserInput): void => {
-      mutation.mutate(input, {
-        onSuccess: (user): void => {
-          toast.push(t('ui.users.toast.create.success'))
-          setCreatedUserId(user.id ?? 0)
-        },
-        onError: (error): void => {
-          const errorMessage =
-            error instanceof Error
-              ? error.message
-              : t('ui.users.toast.create.error')
-          toast.push(errorMessage)
-        },
-      })
-    }
-  )
+  const handleCreateUser = createUserSubmitHandler(formState, (input) => {
+    const handlers = createMutationHandler(
+      pendingSlotId,
+      locale,
+      navigate,
+      toast,
+      t
+    )
+    mutation.mutate(input, handlers)
+  })
 
-  const handleCancel = createUserCancelHandler(navigate, locale)
-
-  function handleFingerprintSuccess(): void {
-    void navigate(`/${locale}/users`)
+  function handleFingerprintComplete(slotId: number): void {
+    setPendingSlotId(slotId)
   }
 
   function handleSkipFingerprint(): void {
-    void navigate(`/${locale}/users`)
+    setPendingSlotId(null)
   }
+
+  const handleCancel = createUserCancelHandler(navigate, locale)
 
   return {
     formState,
-    createdUserId,
     isSubmitting: mutation.isPending,
-    handleSubmit,
-    handleCancel,
-    handleFingerprintSuccess,
+    handleCreateUser,
+    handleFingerprintComplete,
     handleSkipFingerprint,
+    handleCancel,
   }
 }

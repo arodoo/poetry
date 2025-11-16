@@ -6,13 +6,16 @@ import express from 'express';
 import cors from 'cors';
 import { createRelayRoutes } from '../interfaces/http/relayRoutes.js';
 import { createAccessRoutes } from '../interfaces/http/accessRoutes.js';
+import { createFingerprintRoutes } from '../interfaces/http/fingerprintRoutes.js';
 import { RelayController } from '../interfaces/http/RelayController.js';
 import { AccessController } from '../interfaces/http/AccessController.js';
+import { FingerprintController } from '../interfaces/http/FingerprintController.js';
 import { logger } from '../infrastructure/logging/logger.js';
 
 export function createApp(
   relayController: RelayController,
-  accessController: AccessController
+  accessController: AccessController,
+  fingerprintController: FingerprintController
 ): express.Application {
   const app = express();
 
@@ -37,6 +40,7 @@ export function createApp(
 
   app.use('/api/relay', createRelayRoutes(relayController));
   app.use('/api/access', createAccessRoutes(accessController));
+  app.use('/api/fingerprint', createFingerprintRoutes(fingerprintController));
 
   return app;
 }

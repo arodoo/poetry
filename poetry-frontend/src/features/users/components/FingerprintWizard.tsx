@@ -14,9 +14,9 @@ import { useFingerprintEnrollment } from './useFingerprintEnrollment'
 import * as States from './FingerprintWizardStates'
 
 export interface FingerprintEnrollmentWizardProps {
-  readonly userId: number
   readonly onSuccess?: (slotId: number) => void
   readonly onCancel?: () => void
+  readonly onValidate?: (startFn: () => void) => void
   readonly t: ReturnType<typeof useT>
 }
 
@@ -24,10 +24,14 @@ export function FingerprintEnrollmentWizard(
   props: FingerprintEnrollmentWizardProps
 ): ReactElement {
   const { state, slotId, errorMessage, startEnrollment, reset } =
-    useFingerprintEnrollment(props.userId)
+    useFingerprintEnrollment()
 
   function handleStart(): void {
-    void startEnrollment(props.onSuccess)
+    if (props.onValidate) {
+      props.onValidate(() => void startEnrollment(props.onSuccess))
+    } else {
+      void startEnrollment(props.onSuccess)
+    }
   }
 
   function handleCancel(): void {

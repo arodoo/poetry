@@ -41,4 +41,17 @@ public class FingerprintComposition {
     return new EnrollFingerprintForUserUseCase(
         fpCmd, fpQry, historyCmd, userFpCmd);
   }
+
+  @Bean
+  public ReserveSlotUseCase reserveSlotUseCase(FingerprintQueryPort fpQry) {
+    return new ReserveSlotUseCase(fpQry);
+  }
+
+  @Bean
+  public LinkFingerprintToUserUseCase linkFingerprintToUserUseCase(
+      FingerprintCommandPort fpCmd,
+      FingerprintSlotHistoryCommandPort historyCmd,
+      UserFingerprintCommandPort userFpCmd) {
+    return new LinkFingerprintToUserUseCase(fpCmd, historyCmd, userFpCmd);
+  }
 }
