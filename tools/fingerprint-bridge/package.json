@@ -1,0 +1,18 @@
+{
+  "name": "fingerprint-bridge",
+  "version": "1.0.0",
+  "description": "32-bit bridge for R503Pro fingerprint module using SynoAPIEx.dll",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --watch src src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "koffi": "^2.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

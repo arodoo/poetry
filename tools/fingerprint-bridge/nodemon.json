@@ -1,0 +1,8 @@
+{
+  "watch": ["src"],
+  "ext": "js,json",
+  "execMap": {
+    "js": "node32.cmd"
+  },
+  "delay": 500
+}

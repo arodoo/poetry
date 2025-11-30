@@ -1,0 +1,72 @@
+; R503Pro.inf - Driver for R503Pro-USB Fingerprint Module
+; Modified from GROW/Syno SDK for VID_4612&PID_04B4
+; 
+[Version]
+Signature="$CHICAGO$"
+Class=SYNO
+ClassGuid={77989ADF-06DB-4025-92E8-40D902C03B1B}
+Provider=%MFG%
+DriverVer=11/30/2025,1.0.0.0
+CatalogFile=R503Pro.cat
+
+[ClassInstall32]
+Addreg=SYNOReg
+
+[ClassInstall]
+Addreg=SYNOReg
+
+[SYNOReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-1
+HKR,,NoInstallClass,,1
+
+[Manufacturer]
+%MFG%=DeviceList,NTamd64,NTx86
+
+[DeviceList.NTx86]
+%DeviceDesc%=DriverInstall,USB\VID_4612&PID_04B4
+
+[DeviceList.NTamd64]
+%DeviceDesc%=DriverInstall,USB\VID_4612&PID_04B4
+
+[DestinationDirs]
+DefaultDestDir=12
+DriverCopyFiles=12
+
+[DriverInstall]
+CopyFiles=DriverCopyFiles
+AddReg=DriverAddReg
+
+[DriverInstall.NT]
+CopyFiles=DriverCopyFiles
+AddReg=DriverAddReg
+
+[DriverInstall.NT.Services]
+AddService=MyUSBUSB,0x00000002,DriverService
+
+[DriverService]
+DisplayName=%SvcDesc%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\MyUsb.sys
+
+[DriverAddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,MyUsb.sys
+
+[DriverCopyFiles]
+MyUsb.sys
+
+[SourceDisksNames]
+1=%DiskName%,,,
+
+[SourceDisksFiles]
+MyUsb.sys=1
+
+[Strings]
+ClassName="Fingerprint Device"
+MFG="GROW Technology"
+DeviceDesc="R503Pro USB Fingerprint Module"
+SvcDesc="R503Pro Fingerprint Driver"
+DiskName="R503Pro Driver Disk"

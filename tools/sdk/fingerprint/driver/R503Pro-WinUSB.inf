@@ -1,0 +1,37 @@
+; R503Pro-WinUSB.inf
+; WinUSB driver for R503Pro-USB Fingerprint Module (VID_4612&PID_04B4)
+;
+[Version]
+Signature="$Windows NT$"
+Class=USBDevice
+ClassGuid={88BAE032-5A81-49f0-BC3D-A4FF138216D6}
+Provider=%ManufacturerName%
+DriverVer=11/30/2025,1.0.0.0
+CatalogFile=R503Pro-WinUSB.cat
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64,NTx86
+
+[Standard.NTx86]
+%DeviceName%=USB_Install,USB\VID_4612&PID_04B4
+
+[Standard.NTamd64]
+%DeviceName%=USB_Install,USB\VID_4612&PID_04B4
+
+[USB_Install]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install.Services]
+Include=winusb.inf
+Needs=WINUSB.NT.Services
+
+[USB_Install.HW]
+AddReg=Dev_AddReg
+
+[Dev_AddReg]
+HKR,,DeviceInterfaceGUIDs,0x10000,"{A5DCBF10-6530-11D2-901F-00C04FB951ED}"
+
+[Strings]
+ManufacturerName="GROW Technology"
+DeviceName="R503Pro USB Fingerprint Module"

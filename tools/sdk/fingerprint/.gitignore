@@ -1,5 +1,5 @@
 # Fingerprint SDK - Ignore large/unnecessary files
-# Only lib/ folder is tracked
+# Tracked: lib/, demo/
 
 # Original SDK archives
 *.rar
@@ -8,12 +8,9 @@
 # Original Chinese-named SDK folder
 指纹系列开发资料/
 
-# Extracted SDK folders (keep only lib/)
+# Extracted SDK folders (only demo/ and lib/ tracked)
 win-sdk/
 demo-r503/
-
-# Binary demos
-*.exe
 
 # x86 binaries (we only use x64)
 x86/
@@ -22,5 +19,4 @@ x86/
 *.pdf
 
 # Temporary files
-*.bmp
 *.log
