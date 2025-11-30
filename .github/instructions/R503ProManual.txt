@@ -1,0 +1,3072 @@
+R503Pro Fingerprint Module
+ User Manual
+ Hangzhou GrowTechnology Co., Ltd.
+ 2023.08 Ver: 1.1
+ www.hzgrow.com
+ 1
+Preface & Declaration
+ Thank you for you selection of R503Pro Fingerprint Identification Module of GROW.
+ The Manual is targeted for hardware & software development engineer, covering
+ module function, hardware and software interface etc. To ensure the developing process
+ goes smoothly, it is highly recommended the Manual is read through carefully.
+ Because of the products constantly upgraded and improved, module and the manual
+ content may be changed without prior notice. If you want to get the latest information,
+ please visit our company website (www.hzgrow.com).
+ We have been trying our best to ensure you the correctness of the Manual. However, if
+ you have any question or find error, feel free to contact us or the authorized agent. We
+ would be very grateful.
+ The Manual contains proprietary information of Hangzhou Grow Technology Co., Ltd.,
+ which shall not be used by or disclosed to third parties without the permission of GROW,
+ nor for any reproduction and alteration of information without any associated warranties,
+ conditions, limitations, or notices.
+ No responsibility or liability is assumed by GROW for the application or use, nor for
+ any infringements of patents or other intellectual property rights of third parties that may
+ result from its use.
+ www.hzgrow.com
+ www.hzgrow.com
+ I
+Revised Version
+ Version
+ Number
+ Date
+ Revise Content
+ Modifier
+ V1.1
+ 2023.08
+ Create a new version
+ Grow Tech
+ II
+ www.hzgrow.com
+III www.hzgrow.com
+ Catalog
+ I Introduction...................................................................................................................................-1
+OperationPrinciple.....................................................................................................................-1
+II HardwareInterface.......................................................................................................................-2
+ExteriorInterface........................................................................................................................-2
+SerialCommunication................................................................................................................-3
+HardwareConnection.................................................................................................................-3
+Serialcommunicationprotocol...................................................................................................-3
+Power-ondelaytime...................................................................................................................-4
+PowerSupplyRequirements......................................................................................................-4
+Ripplenoise................................................................................................................................-4
+III SystemResources.......................................................................................................................-5
+Notepad.......................................................................................................................................-5
+Buffer..........................................................................................................................................-5
+FingerprintLibrary.....................................................................................................................-5
+SystemConfigurationParameters..............................................................................................-5
+Baudratecontrol(ParameterNumber:4)..........................................................................-6
+SecurityLevel(ParameterNumber:5)..............................................................................-6
+Datapackagelength(ParameterNumber:6).....................................................................-6
+Systemstatusregister.................................................................................................................-6
+Modulepassword........................................................................................................................-6
+Moduleaddress...........................................................................................................................-6
+Randomnumbergenerator.........................................................................................................-7
+Featuresandtemplates................................................................................................................-7
+IV CommunicationProtocol............................................................................................................-8
+Datapackageformat...................................................................................................................-8
+InstructionTable.........................................................................................................................-9
+Checkandacknowledgementofdatapackage...........................................................................-9
+V ModuleInstructionSystem........................................................................................................-11
+System-relatedinstructions.......................................................................................................-11
+Verifypassword VfyPwd...............................................................................................-11
+Setpassword SetPwd...................................................................................................-11
+SetModuleaddress SetAdder..............................................................-12
+Setmodulesystem’sbasicparameter SetSysPara.......................................................-12
+ReadsystemParameter ReadSysPara.......................................................-13
+Readvalidtemplatenumber TempleteNum..............................................................-13
+Readfingerprinttemplateindextable ReadIndexTable(0x1F)..............................-14
+Getthealgorithmlibraryversion GetAlgVer(0x39)..............................................-15
+Getthefirmwareversion GetFwVer(0x3A).............................................................-15
+Fingerprint-processinginstructions..........................................................................................-16
+Tocollectfingerimage GetImg.................................................................................-16
+Touploadimage UpImage......................................................................................-16
+Todownloadtheimage DownImage.......................................................................-17
+Togeneratecharacterfilefromimage GenChar.......................................................-17
+Togeneratetemplate RegModel............................................................................-18
+IV www.hzgrow.com
+ Touploadtemplate UpChar.......................................................................................-19
+Todownloadtemplate DownChar...............................................................................-19
+Tostoretemplate Store............................................................................................-20
+ToreadtemplatefromFlashlibrary LoadChar.......................................................-21
+Todeletetemplate DeletChar..............................................................................-21
+Toemptyfingerlibrary Empty..............................................................................-22
+Tocarryoutprecisematchingoftwofingertemplates Match.............................-22
+Tosearchfingerlibrary Search...........................................................................-23
+Cancelinstruction Cancel(0x30).........................................................................-23
+HandShake HandShake (0x40)......................................................................-24
+Auracontrol AuraLedConfig (0x35).............................................................-24
+Automaticregistrationtemplate AutoEnroll (0x31).......................................-25
+Automaticfingerprintverification AutoIdentify (0x32).................................-28
+Otherinstructions......................................................................................................................-30
+Togeneratearandomcode GetRandomCode.......................................-30
+Toreadinformationpage ReadInfPage.......................................................................-30
+Towritenotepad WriteNotepad..............................................................................-31
+Toreadnotepad ReadNotepad................................................................................-31
+Ⅵ OperationProcess.....................................................................................................................-33
+6.1Basiccommunicationflow.................................................................................................-33
+6.1.1ProcessoftheUARTcommandpackage................................................................-33
+6.1.2UARTPacketSendingProcess...............................................................................-34
+6.1.3UARTpacketreceivingprocess..............................................................................-35
+6.2Generalinstructioncommunicationflow...........................................................................-36
+6.2.1Generalinstructionregisterfingerprintprocess......................................................-36
+6.2.2Generalinstructionverityfingerprintprocess.........................................................-37
+6.2.3Thefingerprintisobtainedfromthesensorandthefeatureisgeneratedthenuploadto
+ themaincontrol................................................................................................................-38
+6.2.4ReadaspecifiedtemplateuploadtoFlashFingerprintDatabase...........................-39
+6.2.5Themain control downloads a fingerprint feature and searches the fingerprint
+ databasebasedonthefeature...........................................................................................-40
+6.3AutomaticRegisterFingerprint..........................................................................................-41
+6.4AutomaticFingerprintVerification(Search).......................................................................-42
+6.5Lowpowerstandby.............................................................................................................-43
+ⅦReferenceCircuit.....................................................................................................................-44
+I Introduction
+ Power
+ R503Pro-UART:
+ DC3.3V
+ R503Pro-USB: DC 5V
+ Interface
+ UART(3.3V TTL
+ logical level)/USB
+ Working current
+ (Fingerprint
+ acquisition)
+ 20mA
+ Matching Mode
+ Matching Time
+ 1:1 and 1:N
+ 1:N<10ms/Fingerprint
+ Standby current
+ (finger detection)
+ Typical touch standby
+ voltage: 3.3V
+ Average current: 2uA
+ Template size
+ 512 bytes
+ Baud rate
+ (9600*N)bps,
+ N=1～6 (default N=6）
+Waterproof level
+ IP65
+ Image acquiring time <0.2s
+ Image resolution
+ 508dpi
+ Sensing Array
+ 192*192 pixel
+ Detection Area
+ Diameter 15mm
+ Storage capacity
+ 1500
+ Security level
+ 3 (1, 2, 3, 4, 5(highest))
+ FAR
+ <0.001%
+ FRR
+ <1%
+ Generate feature
+ point time
+ < 500ms
+ Starting time
+ ≤50ms
+ Working
+ environment
+ Temp:-20℃- +60℃
+ RH: 10%-85%
+ Operation Principle
+ Storage
+ environment
+ Temp:-40℃- +75℃
+ RH: <85%
+ Fingerprint processing includes two parts: fingerprint enrollment and fingerprint matching (the
+ matching can be 1:1 or 1:N).
+ When enrolling, user needs to enter the finger two times. The system will process the two time
+ finger images, generate a template of the finger based on processing results and store the template.
+ When matching, user enters the finger through optical sensor and system will generate a template
+ of the finger and compare it with templates of the finger library. For 1:1 matching, system will
+ compare the live finger with specific template designated in the Module; for 1:N matching, or
+ searching, system will search the whole finger library for the matching finger. In both
+ circumstances, system will return the matching result, success or failure.
+ www.hzgrow.com- 1
+II HardwareInterface
+ Exterior Interface
+ Connector: SH1.0--6P
+ R503Pro have R503Pro-UARTtype and R503Pro-USB type.
+ R503Pro standard Size:
+ Thread:M25 Product external diameter: 28mm Inner diameter:25mm Height:19mm
+ Enclosure material: Zinc Alloy
+ (If need R503Pro-UART DC5V, M25-15mm size or M25-32mm size or M22-15mm size or black
+ aluminium alloy enclosure, pls contact sales, support customized)
+ R503Pro-UART
+ R503Pro-USB
+ www.hzgrow.com- 2
+Serial Communication
+ Connector: SH1.0--6P
+ Pin
+ Name
+ Description
+ Pic
+ 1
+ Power Supply R503Pro-UART: DC 3.3V
+ 2
+ GND
+ Signal ground.
+ Connected to power ground.
+ 3
+ TXD
+ Data output. TTL logical level
+ 4
+ RXD
+ Data input. TTL logical level
+ Finger Detection Signal. Standby-high level,
+ have finger-output low level.
+ 5
+ WAKEUP
+ 6
+ 3.3VT
+ Touch induction power supply, DC3—5V
+ Hardware Connection
+ Note:
+ The line order has nothing
+ to do with color.
+ The RX of the module is connected with the TX of the upper computer, and the TX of the module
+ is connected with the RX of the upper computer. The IRQ signal can be connected with the middle
+ fracture or IO port of the upper computer.
+ To reduce the system standby power consumption,when the upper computer needs to use the
+ fingerprint module,then power on the main power supply of the fingerprint module. At this time,
+ the fingerprint module is powered on,and complete the corresponding instructions sent by the upper
+ computer.When the upper computer does not need to use the fingerprint module, disconnect the
+ fingerprint module from the main power supply.
+ When the upper computer is in standby mode, in order to keep the finger touch detection, the touch
+ power supply needs to be powered all the time. The working voltage of the touch power supply is
+ 3V~5V, and the average current of the touch power supply is about 2uA. When there is no finger
+ touch, the default touch sensing signal outputs high level; When a finger touches, the default touch
+ sensing signal outputs low level. After detecting the touch sensing signal, the upper computer
+ supplies power to the fingerprint module and the fingerprint module starts to work.
+ The maximum response time of the touch function is about 120mS @vt =3.3V. When the module is
+ not touched, the recalibration period is about 4.0sec; the touch signal output is CMOS output, and
+ the output voltage is roughly the same as the input voltage.
+ Serial communication protocol
+ The mode is semiduplex asychronism serial communication. And the default baud rate is 57600bps.
+ User may set the baud rate in 9600～115200bps。
+Transferring frame format is 10 bit: the low-level starting bit, 8-bit data with the LSB first, and an
+ ending bit. There is no check bit.- 3
+www.hzgrow.com
+Power-on delay time
+ At power on, it takes about 50ms for initialization. During this period, the Module can’t accept
+ commands for upper computer.After completing the initialization, the module will immediately
+ send a byte (0x55) to the upper computer, indicating that the module can work normally and
+ receive instructions from the upper computer.
+ Power Supply Requirements
+ The power supply is DC +3.3V. The power input is allowed only after the R503Pro is properly
+ connected.
+ Electrical components of the R503Pro may be damaged if you insert or remove the cable (with the
+ electric plug) when the cable is live. Ensure that the power supply is switched off when you insert
+ or remove the cable.
+ The R503Pro may not work properly due to poor power connections, short power off/on intervals,
+ or excessive voltage drop pulses. So pls keep the power is stable. After the power is turned off, the
+ power must be turned on at least two seconds later.
+ Ripple noise
+ Since the power input of R503Pro is directly supplied to the image sensor and decoding chip.
+ To ensure stable operation, pls use low ripple noise power input.
+ It is recommended that the ripple noise not exceed 50mV (peak-to-peak).
+ www.hzgrow.com- 4
+III System Resources
+ To address demands of different customer, Module system provides abundant resources at user’s
+ use.
+ Notepad
+ The system sets aside a 512-bytes memory (16 pages* 32 bytes) for user’s notepad, where data
+ requiring power-off protection can be stored. The host can access the page by instructions of
+ PS_WriteNotepad and PS_Read Notepad.
+ Note: when write on one page of the pad, the entire 32 bytes will be written in wholly covering the
+ original contents.
+ The user can run the module address or random number command to configure the unique
+ matching between the module and the system. That is, the system identifies only the unique module.
+ If a module of the same type is replaced, the system cannot access the system.
+ Buffer
+ The module RAM resources are as follows:
+ An ImageBuffer: ImageBuffer
+ 6 feature buffers: CharBuffer[1:6]
+ All buffer contents are not saved without power.
+ The user can read and write any buffer by instruction. CharBuffer can be used to store normal
+ feature files or store template feature files.
+ When uploading or downloading images through the UART port, only the high four bits of pixel
+ bytes are used to speed up the transmission, that is, use gray level 16, two pixels are combined into one
+ byte. (The high four bits are a pixel, the low four bits are a pixel in the next adjacent column of the same
+ row, that is, two pixels are combined into one byte and transmitted)
+ Since the image has 16 gray levels, when it is uploaded to PC for display (corresponding to BMP
+ format), the gray level should be extended (256 gray levels, that is, 8bit bitmap format).
+ Fingerprint Library
+ System sets aside a certain space within Flash for fingerprint template storage, that’s fingerprint
+ library. The contents of the fingerprint database are protected by power-off, and the serial number
+ of the fingerprint database starts from 0.
+ Capacity of the library changes with the capacity of Flash, system will recognize the latter
+ automatically. Fingerprint template’s storage in Flash is in sequential order. Assume the fingerprint
+ capacity N, then the serial number of template in library is 0, 1, 2, 3 … N. User can only access
+ library by template number.
+ System Configuration Parameters
+ The system allows the user to individually modify a specified parameter value (by parameter serial
+ www.hzgrow.com- 5
+number) by command. Refer to SetSysPara. After the upper computer sets the system parameter
+ instructions, the system must be powered on again so that the module can work according to the new
+ configuration.
+ Baud rate control (Parameter Number: 4)
+ The Parameter controls the UART communication speed of the Module. Its value is an integer N,
+ N=[1/2/4/6/12]. Corresponding baud rate is 9600*N bps。
+Security Level (Parameter Number: 5)
+ The Parameter controls the matching threshold value of fingerprint searching and matching.
+ Security level is divided into 5 grades, and corresponding value is 1, 2, 3, 4, 5. At level 1, FAR is
+ the highest and FRR is the lowest; however at level 5, FAR is the lowest and FRR is the highest.
+ Data package length (Parameter Number: 6)
+ The parameter decides the max length of the transferring data package when communicating with
+ upper computer. Its value is 0, 1, 2, 3, corresponding to 32 bytes, 64 bytes, 128 bytes, 256 bytes
+ respectively.
+ System status register
+ System status register indicates the current operation status of the Module. Its length is 1 word, and
+ can be read via instruction ReadSysPara. Definition of the register is as follows:
+ Bit Num
+ 15
+ 4
+ 3
+ 2
+ 1
+ 0
+ Description
+ Note:
+ Reserved
+ ImgBufStat
+ PWD Pass Busy
+ Busy：1 bit. 1: system is executing commands; 0: system is free;
+ Pass：1 bit. 1: find the matching finger; 0: wrong finger;
+ PWD：1bit. 1:Verified device’s handshaking password.
+ ImgBufStat：1 bit. 1: image buffer contains valid image.
+ Module password
+ The default password of the module is 0x00000000. If the default password is modified, after the
+ module is powered on,the first instruction of the upper computer to communicate with the module
+ must be verify password. Only after the password verification is passed, the module will enter the
+ normal working state and receive other instructions.
+ The new modified password is stored in Flash and remains at power off.(the modified password
+ cannot be obtained through the communication instruction. If forgotten by mistake, the module
+ cannot communicate, please use with caution)
+ Refer to instruction SetPwd and VfyPwd.
+ Module address
+ Each module has an identifying address. When communicating with upper computer, each
+ instruction/data is transferred in data package form, which contains the address item. Module
+ www.hzgrow.com- 6
+system only responds to data package whose address item value is the same with its identifying
+ address.
+ The address length is 4 bytes, and its default factory value is 0xFFFFFFFF. User may modify the
+ address via instruction SetAddr. The new modified address remains at power off.
+ Random number generator
+ Module integrates a hardware 32-bit random number generator (RNG) (without seed). Via
+ instruction GetRandomCode, system will generate a random number and upload it.
+ Features and templates
+ The chip has one image buffer and six feature file buffers,all buffer contents are not saved after
+ power failure.
+ Atemplate can be composed of 2-6 feature files. The more feature files in the synthesis template,
+ the better the quality of the fingerprint template.
+ It is recommended to take at least four templates to synthesize features.
+ www.hzgrow.com- 7
+-8-www.hzgrow.com
+ IV CommunicationProtocol
+ Theprotocoldefines thedataexchangingformatwhenR503Proseriescommunicateswithupper
+ computer.TheprotocolandinstructionsetsapplesforbothUARTcommunicationmode.
+ Baudrate57600,databit8,stopbit1,paritybitnone.
+ Datapackageformat
+ Whencommunicating, the transferringandreceivingof command/data/result areallwrapped in
+ datapackageformat.Formulti-bytes, thehighbyteprecedesthelowbyte(forexample,a2bytes
+ 0006indicates0006,not0600).
+ Datapackageformat
+ Header Adder Package
+ identifier
+ Package
+ length
+ Packagecontent
+ (instruction/data/Parameter）
+Checksum
+ DefinitionofDatapackage
+ Name Symbol Length Description
+ Header Start 2bytes Fixedvalueof0xEF01;Highbytetransferredfirst.
+ Adder ADDER 4bytes
+ Default value is 0xFFFFFFFF, which can be modified by
+ command.Highbytetransferredfirstandatwrongaddervalue,
+ modulewillrejecttotransfer.
+ Package
+ identifier PID 1byte
+ 01H Commandpacket;
+ 02H
+ Data packet; Data packet shall not appear alone in
+ executing process, must followcommandpacket or
+ acknowledgepacket.
+ 07H Acknowledgepacket;
+ 08H EndofDatapacket.
+ Package
+ length LENGTH 2bytes
+ Referstothelengthofpackagecontent (commandpacketsand
+ datapackets) plus the lengthofChecksum( 2bytes).Unit is
+ byte.Maxlengthis256bytes.Andhighbyteistransferredfirst.
+ Package
+ contents DATA
+It can be commands, data, command’s parameters,
+ acknowledge result, etc. (fingerprint charactervalue, template
+ arealldeemedasdata);
+ Checksum SUM 2bytes
+ Thearithmetic sumofpackage identifier, package lengthand
+ allpackagecontents.Overflowingbitsareomitted.highbyteis
+ transferredfirst.
+-9-www.hzgrow.com
+ InstructionTable
+ Code Identifier Description Code Identifier Description
+ 01H GenImg Collectfingerimage 12H SetPwd Tosetpassword
+ 02H Img2Tz Togeneratecharacter file
+ fromimage
+ 13H VfyPwd Toverifypassword
+ 03H Match Carry out precise
+ matching of two
+ templates;
+ 14H GetRandomCo
+ de
+ togetrandomcode
+ 04H Search Searchthefingerlibrary 15H SetAdder Tosetdeviceaddress
+ 05H RegModel Tocombinecharacterfiles
+ andgeneratetemplate
+ 16H ReadInfPage Readinformationpage
+ 06H Store Tostoretemplate; 18H WriteNotepad towritenotepad
+ 07H LoadChar toread/loadtemplate 19H ReadNotepad Toreadnotepad
+ 08H UpChar touploadtemplate 1DH TempleteNum To read finger template
+ numbers
+ 09H DownChr todownloadtemplate 1FH ReadIndexTabl
+ e
+ Read-fingerprint
+ templateindextable
+ 0AH UpImage Touploadimage 0x30 Cancel Cancelinstruction
+ 0BH DownImage Todownloadimage 0x40 HandShake HandShake
+ 0CH DeletChar todeletetemplates 0x39 GetAlgVer Getthealgorithmlibrary
+ version
+ 0DH Empty toemptythelibrary 0x3A GetFwVer Get the firmware
+ version
+ 0EH SetSysPara TosetsystemParameter 0x35 Auracontrol AuraLedConfig
+ 0FH ReadSysPar
+ a
+ ToreadsystemParameter 0x31 AutoEnroll Automatic registration
+ template
+ 0x32 AutoIdentify Automatic fingerprint
+ verification
+ Checkandacknowledgementofdatapackage
+ Note: Commands shall only be sent fromupper computer to theModule, and theModule
+ acknowledgesthecommands.
+ Uponreceiptofcommands,Modulewillreportthecommandsexecutionstatusandresultstoupper
+ computer throughacknowledgepacket.Acknowledgepacket hasparametersandmayalsohave
+ following data packet. Upper computer can’t ascertainModule’s package receiving status or
+ commandexecutionresultsunless throughacknowledgepacket sent fromModule.Acknowledge
+ packetincludes1byteconfirmationcodeandmaybealsothereturnedparameter.
+ Confirmationcode’sdefinitionis:
+ 00h:commandexecutioncomplete;
+ 01h:errorwhenreceivingdatapackage;
+ 02h:nofingeronthesensor;
+ 03h:failtoenrollthefinger;
+ 06h:failtogeneratecharacterfileduetotheover-disorderlyfingerprintimage;
+ 07h: fail to generate character file due to lackness of character point or over-smallness of
+fingerprint image
+ 08h: finger doesn’t match;
+ 09h: fail to find the matching finger;
+ 0Ah: fail to combine the character files;
+ 0Bh: addressing PageID is beyond the finger library;
+ 0Ch: error when reading template from library or the template is invalid;
+ 0Dh: error when uploading template;
+ 0Eh: Module can’t receive the following data packages.
+ 0Fh: error when uploading image;
+ 10h: fail to delete the template;
+ 11h: fail to clear finger library;
+ 13h: wrong password!
+ 15h: fail to generate the image for the lackness of valid primary image;
+ 18h: error when writing flash;
+ 19h: No definition error;
+ 20h: the address code is incorrect;
+ 21h: password must be verified;
+ 22h: fingerprint template is empty;
+ 24h: fingerprint library is empty;
+ 26h: timeout
+ 27h: fingerprints already exist;
+ 29h: sensor hardware error;
+ 1Ah: invalid register number;
+ 1Bh: incorrect configuration of register;
+ 1Ch: wrong notepad page number;
+ 1Dh: fail to operate the communication port;
+ 1Fh: fingerprint library is full;
+ FCh: unsupported command;
+ FDh: hardware error;
+ FEh: command execution failure;
+ others: system reserved;
+ www.hzgrow.com- 10
+V ModuleInstruction System
+ System-related instructions
+ Verify password VfyPwd
+ Description: Verify Module’s handshaking password.
+ Input Parameter: PassWord (4 bytes)
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 13H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 4 byte
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ Length
+ Instruction
+ code
+ Password
+ 2 bytes
+ Checksum
+ 0xEF01
+ xxxx
+ 01H
+ Acknowledge package format:
+ 2 bytes
+ 0007H
+ 13H
+ PassWord
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module address
+ Package
+ identifier
+ Package
+ Length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ Note: Confirmation code = 00H: Correct password;
+ Confirmation code = 01H: error when receiving package;
+ Confirmation code = 13H: Wrong password;
+ Set password SetPwd
+ Description: Set Module’s handshaking password.
+ Input Parameter: PassWord (4 bytes)
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 12H
+ Command (or instruction) package format:
+ xxH
+ sum
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 4 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Password
+ Checksum
+ 0xEF01
+ xxxx
+ 01H
+ Acknowledge package format:
+ 2 bytes
+ 0007H
+ 12H
+ PassWord
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module address
+ Package
+ identifier
+ Package
+ Length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ Note: Confirmation code=00H: password setting complete;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=21H: have to verify password
+ Confirmation code=18H: error when write FLASH
+ xxH
+ sum- 11
+www.hzgrow.com
+Set Module address SetAdder
+ Description: Set Module address.
+ Input Parameter: Addr
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 15H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ Header
+ Original
+ Module address
+ Package
+ identifier
+ Package
+ length
+ 0xEF01
+ xxxx
+ Acknowledge package format:
+ 2 bytes
+ 01H
+ 0007H
+ 1 byte
+ Instruction
+ code
+ 15H
+ 4 bytes
+ New Module
+ address
+ Addr
+ 2 bytes
+ Checksum
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ New Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ Note: Confirmation code=00H: address setting complete;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=18H: error when write FLASH
+ Set module system’s basic parameter SetSysPara
+ Description: Operation parameter settings.
+ Input Parameter: Parameter number+Contents
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 0eH
+ Command (or instruction) package format:
+ xxH
+ Sum
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1byte
+ 1byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Parameter
+ number
+ Contents
+ Checksum
+ 0xEF01 Xxxx
+ 01H
+ Acknowledge package format:
+ 2 bytes
+ 0005H
+ 0eH
+ 4/5/6
+ xx
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ Xxxx
+ 07H
+ 0003H
+ Note: Confirmation code=00H: parameter setting complete;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=1aH: wrong register number;
+ Confirmation code=18H: error when write FLASH
+ xxH
+ Sum- 12
+www.hzgrow.com
+-13-www.hzgrow.com
+ ReadsystemParameter ReadSysPara
+ Description:ReadModule’sstatusregisterandsystembasicconfigurationparameters;
+ InputParameter：none
+ ReturnParameter：Confirmationcode(1byte)+basicparameter（16bytes）
+Instructioncode:0fH
+ Command(orinstruction)packageformat:
+ 2bytes 4bytes 1byte 2bytes 1byte 2bytes
+ Header Module
+ address
+ Package
+ identifier
+ Packagelength Instruction
+ code
+ Checksum
+ 0xEF01 Xxxx 01H 0003H 0fH 0013H
+ Acknowledgepackageformat:
+ 2bytes 4bytes 1byte 2bytes 1byte 16bytes 2bytes
+ Header Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Basicparameter
+ list
+ Checksum
+ 0xEF01 xxxx 07H 0013H xxH Seefollowing
+ table
+ sum
+ Note:Confirmationcode=00H:readcomplete;
+ Confirmationcode=01H:errorwhenreceivingpackage;
+ Confirmationcode=18H:errorwhenwriteFLASH
+ Name Description Offset(word) Size(word)
+ Statusregister Contentsofsystemstatusregister 0 2
+ Systemidentifiercode Fixedvalue:0x0000 1 2
+ Fingerlibrarysize Fingerlibrarysize 2 2
+ Securitylevel Securitylevel(1,2,3,4,5) 3 2
+ Deviceaddress 32-bitdeviceaddress 4 4
+ Datapacketsize Sizecode(0,1,2,3) 6 2
+ Baudsettings N(baud=9600*Nbps) 7 2
+ Readvalidtemplatenumber TempleteNum
+ Description:readthecurrentvalidtemplatenumberoftheModule
+ InputParameter:none
+ ReturnParameter: Confirmationcode(1byte)，templatenumber:N
+ Instructioncode:1dH
+ Command(orinstruction)packageformat:
+ Name Parameternumber Content
+ Baudrate 4
+ Datarange:1,2/4/6/12,
+ indicatesthatbaudrateis9600*Nbps
+ Securitylevel 5 Datarange:1,2,3,4,5
+ Packetcontentlength 6
+ Datarange:0,1,2,3thecorrespondinglengths(bytes)
+ areasfollows:32,64,128,256
+-14-www.hzgrow.com
+ 2bytes 4bytes 1byte 2bytes 1byte 2bytes
+ Header Moduleaddress Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Checksum
+ 0xEF01 xxxx 01H 0003H 1dH 0021H
+ Acknowledgepackageformat:
+ 2bytes 4bytes 1byte 2bytes 1byte 2bytes 2bytes
+ Header Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Template
+ number
+ Checksum
+ 0xEF01 xxxx 07H 0005H xxH Num sum
+ Note:Confirmationcode=0x00:readsuccess;
+ Confirmationcode=0x01:errorwhenreceivingpackage;
+ Readfingerprinttemplateindextable ReadIndexTable(0x1F)
+ Description:Readthefingerprint template indextableof themodule, readthe indextableof the
+ fingerprinttemplateupto256atatime(32bytes)
+ InputParameter:Indexpage
+ ReturnParameter: Confirmationcode+Fingerprinttemplateindextable
+ Instructioncode:0x1F
+ Command(orinstruction)packageformat:
+ 2bytes 4bytes 1byte 2bytes 1byte 1byte 2bytes
+ Header Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Indexpage Checksum
+ 0xEF01 xxxx 0x01 0x0004 0x1F 0/1/2/3 Sum
+ Indextablesarereadperpage,256templatesperpage
+ Indexpage0meanstoread0~255fingerprinttemplateindextable
+ Indexpage1meanstoread256~511fingerprinttemplateindextable
+ Indexpage2meanstoread512~767fingerprinttemplateindextable
+ Indexpage3meanstoread768~1023fingerprinttemplateindextable
+ Acknowledgepackageformat:
+ 2bytes 4bytes 1byte 2bytes 1byte 32bytes 2bytes
+ Header Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Indexpage Check
+sum
+ 0xEF01 xxxx 0x07 0x0023 X Seethetablebelow sum
+ Note:Confirmationcode=0x00:readcomplete;
+ Confirmationcode=0x01:errorwhenreceivingpackage;
+ Index table structure: every8bits is agroup, andeachgroup is output starting fromthehigh
+ position.
+ transport
+ order
+ Theoutputissequentialfromlowbytetohighbyte,andeachbytestartsatahighbyte.
+ T[0] Templatenumber 7 6 5 4 3 2 1 0
+ Indextabledata 0/1 0/1 0/1 0/1 0/1 0/1 0/1 0/1
+ T[1] Templatenumber 15 14 13 12 11 10 9 8
+0/1
+ 0/1
+ 0/1
+ 0/1
+ 0/1
+ 0/1
+ …
+ T[31]
+ Index table data
+ …
+ Template number
+ Index table data
+ 0/1
+ 0/1
+ 255
+ 0/1
+ 254
+ 0/1
+ 253
+ 0/1
+ 252
+ 0/1
+ 251
+ 0/1
+ 250
+ 0/1
+ 249
+ 0/1
+ Data "0" in the index table means that there is no valid template in the corresponding position;"1"
+ means that there is a valid template in the corresponding position.
+ Get the algorithm library version
+ GetAlgVer (0x39)
+ Description: Get the algorithm library version
+ Input Parameter: none
+ Return Parameter: Confirmation code+AlgVer(algorithm library version string)
+ Instruction code: 0x39
+ Command (or instruction) package format:
+ 2 bytes
+ 248
+ 0/1
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction code
+ Checksum
+ 0xEF01
+ xxxx
+ Acknowledge package format:
+ 2 bytes
+ 0x01
+ 0x0003
+ 0x39
+ 003DH
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 32 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Algorithm
+ library
+ version
+ Checksum
+ 0xEF01
+ xxxx
+ 0x07
+ 0x0023
+ X
+ AlgVer
+ Note 1: Confirmation code=0x00: success;
+ Confirmation code=0x01: error when receiving package;
+ Get the firmware version
+ GetFwVer (0x3A)
+ Description: Get the firmware version
+ Input Parameter: none
+ Return Parameter: Confirmation code+FwVer(Firmware version string)
+ Instruction code: 0x3A
+ Command (or instruction) package format:
+ 2 bytes
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction code
+ Checksum
+ 0xEF01
+ xxxx
+ Acknowledge package format:
+ 2 bytes
+ 0x01
+ 0x0003
+ 0x3A
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 32 bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Firmware
+ version
+ Checksum
+ 0xEF01
+ xxxx
+ 0x07
+ 0x0023
+ Note 1: Confirmation code=0x00: success;
+ X
+ FwVer
+ Confirmation code=0x01: error when receiving package;
+ sum
+ 003EH- 15
+www.hzgrow.com
+Fingerprint-processing instructions
+ To collect finger image
+ GetImg
+ Description: detecting finger and store the detected finger image in ImageBuffer while
+ returning successfully confirmation code; If there is no finger, returned confirmation code
+ would be “can’t detect finger”.
+ Input Parameter: none
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 01H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction
+ code
+ Checksum
+ 0xEF01
+ Xxxx
+ 01H
+ Acknowledge package format:
+ 0003H
+ 01H
+ 0005H
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ Xxxx
+ 07H
+ 0003H
+ Note: Confirmation code=00H: finger collection success;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=02H: can’t detect finger;
+ Confirmation code=03H: fail to collect finger;
+ To upload image
+ UpImage
+ Description: to upload the image in Img_Buffer to upper computer.
+ Input Parameter: none
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 0aH
+ Command (or instruction) package format:
+ 2 bytes
+ xxH
+ Sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module address
+ Package
+ identifier
+ Package length Instruction code
+ Checksum
+ 0xEF01
+ Xxxx
+ Acknowledge package format:
+ 2 bytes
+ 01H
+ 0003H
+ 0aH
+ 000eH
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ Xxxx
+ 07H
+ 0003H
+ xxH
+ sum
+ Note 1： Confirmation code=00H: ready to transfer the following data packet;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=0fH: fail to transfer the following data packet;
+ 2. The upper computer sends the command packet, the module sends the acknowledge
+ packet first, and then sends several data packet.
+ www.hzgrow.com- 16
+3. Packet Bytes N is determined by Packet Length. The value is 128 Bytes before
+ delivery.
+ Data package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ Nbyte
+ 2 bytes
+ Header
+ Module
+ address
+ Package identifier
+ Package
+ length
+ Package
+ content
+ Checksum
+ 0xEF01
+ xxxx
+ To download the image
+ 0x02- have
+ following packet
+ 0x08- end packet
+ DownImage
+ N+2
+ Image data
+ Description: to download image from upper computer to Img_Buffer.
+ Input Parameter: none
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 0bH
+ Command (or instruction) package format:
+ 2 bytes
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Checksum
+ 0xEF01
+ Xxxx
+ Acknowledge package format:
+ 2 bytes
+ 01H
+ 0003H
+ 0bH
+ 000fH
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ Xxxx
+ 07H
+ 0003H
+ xxH
+ sum
+ Note: 1：Confirmation code=00H: ready to transfer the following data packet;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=0eH: fail to transfer the following data packet;
+ 2.The upper computer sends the command packet, the module sends the acknowledge
+ packet first, and then sends several data packet.
+ 3.Packet Bytes N is determined by Packet Length. The value is 128 Bytes before delivery.
+ Data package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ Nbyte
+ 2 bytes
+ Header
+ Module
+ address
+ Package identifier
+ Package
+ length
+ Package
+ content
+ Checksum
+ 0xEF01
+ xxxx
+ 0x02- have
+ following packet
+ 0x08- end packet
+ To generate character file from image
+ N+2
+ Image data
+ GenChar
+ sum
+ Description: to generate character file from the original finger image in ImageBuffer
+ Input Parameter: BufferID (character file buffer number)
+ Return Parameter: Confirmation code (1 byte)
+ www.hzgrow.com- 17
+2 bytes
+ Header
+ Instruction code: 02H
+ Command (or instruction) package format:
+ 4bytes
+ 1 byte
+ 2 bytes
+ Module
+ address
+ 0xEF01
+ xxxx
+ Package
+ identifier
+ 01H
+ Package
+ length
+ 0004H
+ 1 byte
+ Instruction
+ code
+ 02H
+ CharBufferID: Character buffer number, range 1-6.
+ Acknowledge package format:
+ 1 byte
+ Buffer
+ number
+ CharBuffer
+ ID
+ 2 bytes
+ Checksum
+ sum
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ XxH
+ sum
+ Note: Confirmation code=00H: generate character file complete;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=06H: fail to generate character file due to the over-disorderly
+ fingerprint image;
+ Confirmation code=07H: fail to generate character file due to lackness of character
+ point or over-smallness of fingerprint image;
+ Confirmation code=15H: fail to generate the image for the lackness of valid primary
+ image;
+ To generate template
+ RegModel
+ Description: To combine information of character files from CharBuffer1 and CharBuffer2 and
+ generate a template which is stored back in both CharBuffer1 and CharBuffer2.
+ Input Parameter：none
+ Return Parameter：Confirmation code (1 byte)
+ Instruction code: 05H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 01H
+ Acknowledge package format:
+ 0003H
+ 05H
+ 0009H
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ xxH
+ Note: Confirmation code=00H: operation success;
+ Confirmation code=01H: error when receiving package;
+ sum
+ Confirmation code=0aH: fail to combine the character files. That’s, the character files
+ don’t belong to one finger.- 18
+www.hzgrow.com
+UpChar
+ To upload template
+ Description: Upload the data in the template buffer ModelBuffer to the upper computer.
+ Input Parameter: CharBufferID
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 08H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Buffer
+ number
+ Checksum
+ 0xEF01
+ xxxx
+ 01H
+ 0004H
+ 08H
+ CharBuffer
+ ID
+ sum
+ Note: This command don’t need to use the CharBufferID, so the CharBufferID can be
+ any value between 1 and 6.
+ Acknowledge package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ xxH
+ sum
+ Note 1: Confirmation code=00H: ready to transfer the following data packet;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=0dH: error when uploading template;
+ Confirmation code=0fH: can not receive the following data packet
+ 4. The upper computer sends the command packet, the module sends the acknowledge
+ packet first, and then sends several data packet.
+ 5. Packet Bytes N is determined by Packet Length. The value is 128 Bytes before
+ delivery.
+ 6: The instruction doesn’t affect buffer contents.
+ Data package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ Nbyte
+ 2 bytes
+ Header
+ Module
+ address
+ Package identifier
+ Package
+ length
+ Package
+ content
+ Checksum
+ 0xEF01
+ xxxx
+ 0x02- have
+ following packet
+ 0x08- end packet
+ To download template DownChar
+ N+2
+ Template
+ data
+ Description: upper computer download template to module buffer
+ Input Parameter: CharBufferID (Buffer number)
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 09H
+ Command (or instruction) package format:
+ 2 bytes
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ Package
+ Package Instruction Buffer number Checksum
+ www.hzgrow.com- 19
+length
+ CharBufferID
+ sum
+ 0xEF01
+ address
+ xxxx
+ identifier
+ 01H
+ 0004H
+ code
+ 09H
+ Note: This command don’t need to use the CharBufferID, so the CharBufferID can be
+ any value between 1 and 6.
+ Acknowledge package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ xxH
+ sum
+ Note 1: Confirmation code=00H: ready to transfer the following data packet;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=0eH: can not receive the following data packet
+ Data package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ Nbyte
+ 2 bytes
+ Header
+ Module
+ address
+ Package identifier
+ Package
+ length
+ Package
+ content
+ Checksum
+ 0xEF01
+ xxxx
+ 0x02- have
+ following packet
+ 0x08- end packet
+ N+2
+ Template
+ data
+ sum
+ Note 2. The upper computer sends the command packet, the module sends the acknowledge
+ packet first, and then sends several data packet.
+ 3.Packet Bytes N is determined by Packet Length. The value is 128 Bytes before
+ delivery.
+ 4. The instruction doesn’t affect buffer contents.
+ To store template
+ Store
+ Description: to store the template of specified buffer (Buffer1/Buffer2) at the designated location of
+ Flash library.
+ Input Parameter: CharBufferID, ModelID
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 06H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 2 bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ buffer
+ number
+ Location
+ number
+ Checksum
+ 0xEF01 xxxx
+ 01H
+ 0006H
+ Note: CharBufferID is filled with 0x01
+ Acknowledge package format:
+ 2 bytes
+ 06H
+ CharBuffer
+ ID
+ ModelID
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ Xxxx
+ 07H
+ 0003H
+ xxH
+ sum- 20
+www.hzgrow.com
+Note: Confirmation code=00H: storage success;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=0bH: addressing ModelID is beyond the finger library;
+ Confirmation code=18H: error when writing Flash.
+ To read template from Flash library
+ LoadChar
+ Description: to load template at the specified location (PageID) of Flash library to template buffer
+ CharBuffer1/CharBuffer2
+ Input Parameter: CharBufferID, ModelID
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 07H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 2 bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ buffer
+ number
+ Page
+ number
+ Checksum
+ 0xEF01 xxxx
+ 01H
+ 0006H
+ Note: CharBufferID is filled with 0x01
+ Acknowledge package format:
+ 2 bytes
+ 07H
+ CharBuffer
+ ID
+ ModelID
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ XxH
+ sum
+ Note: Confirmation code=00H: load success;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=0cH: error when reading template from library or the readout template is
+ invalid;
+ Confirmation code=0BH: addressing ModelID is beyond the finger library;
+ To delete template
+ DeletChar
+ Description: to delete a segment (N) of templates of Flash library started from the specified
+ location (or PageID);
+ Input Parameter: StartID + Num
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 0cH
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ 2bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Page
+ number
+ number of
+ templates to
+ be deleted
+ Checksum
+ 0xEF01 Xxxx
+ 01H
+ Acknowledge package format:
+ 2 bytes
+ 0007H
+ 0cH
+ StartID
+ Num
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ www.hzgrow.com- 21
+Checksum
+ Header
+ 0xEF01
+ Module
+ address
+ Xxxx
+ Package identifier
+ Package
+ length
+ 0003H
+ 07H
+ Note: Confirmation code=00H: delete success;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=10H: faile to delete templates;
+ Confirmation code=18H: error when write FLASH
+ Confirmation
+ code
+ xxH
+ To empty finger library
+ Empty
+ Description: to delete all the templates in the Flash library
+ Input Parameter: none
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 0dH
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ 0xEF01
+ Xxxx
+ Acknowledge package format:
+ 2 bytes
+ 01H
+ 0003H
+ 0dH
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ 0xEF01
+ Xxxx
+ 07H
+ 0003H
+ xxH
+ Note: Confirmation code=00H: empty success;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=11H: fail to clear finger library;
+ Confirmation code=18H: error when write FLASH
+ To carry out precise matching of two finger templates
+ sum
+ 2 bytes
+ Checksum
+ 0011H
+ 2 bytes
+ Checksum
+ sum
+ Match
+ Description: Compare the recently extracted character with the templates in the ModelBuffer,
+ providing matching results.
+ Input Parameter: none
+ Return Parameter: Confirmation code (1 byte)，matching score.
+ Instruction code: 03H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction code
+ Checksum
+ 0xEF01
+ Xxxx
+ Acknowledge package format:
+ 2 bytes 4bytes
+ 01H
+ 0003H
+ 03H
+ 0007H
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ 2 bytes
+ Header Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Matching
+ score
+ Checksum- 22
+www.hzgrow.com
+07H
+ XxH
+ MatchScore
+ sum
+ 0xEF01 Xxxx
+ 0005H
+ Note 1: Confirmation code=00H: templates of the two buffers are matching!
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=08H: templates of the two buffers aren’t matching;
+ 2: The instruction doesn’t affect the contents of the buffers.
+ To search finger library
+ Search
+ Description: to search the whole finger library for the template that matches the one in CharBuffer1
+ or CharBuffer2. When found, PageID will be returned.
+ Input Parameter: CharBufferID + StartID + Num
+ Return Parameter: Confirmation code+ModelID(template number)+ MatchScore
+ Instruction code: 04H
+ Command (or instruction) package format:
+ 2 bytes 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 2 bytes
+ 2 bytes
+ 2 bytes
+ Header Module
+ address
+ Package
+ identifie
+ r
+ Package
+ length
+ Instructio
+ n code
+ buffer
+ number
+ Parameter
+ Parameter Checks
+ um
+ 0xEF01 xxxx
+ 01H
+ 0008H
+ Note: CharBufferID is filled with 0x01
+ Acknowledge package format:
+ 2 bytes
+ 04H
+ CharBuff
+ erID
+ StartID
+ Num
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ 2 bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Page
+ Score
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0007H
+ xxH
+ Model
+ ID
+ MatchScore
+ sum
+ Note 1: Confirmation code=00H: found the matching finer;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=09H: No matching in the library (both the PageID and
+ matching score are 0);
+ 2: The instruction doesn’t affect the contents of the buffers.
+ Cancel instruction
+ Cancel(0x30)
+ Description: Cancel instruction
+ Input Parameter: none
+ Return Parameter: Confirmation code
+ Instruction code: 0x30
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction code
+ Checksum
+ 0xEF01
+ xxxx
+ 0x01
+ 0x0003
+ 0x30
+ 0034H
+ sum- 23
+www.hzgrow.com
+Acknowledge package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ Header
+ Module
+ address
+ Package
+ identifier
+ 0xEF01
+ xxxx
+ 0x07
+ 2 bytes
+ Package
+ length
+ 0x0003
+ 1 byte
+ Confirmation
+ code
+ X
+ 2 bytes
+ Checksum
+ sum
+ Note 1: Confirmation code=0x00: cancel setting successful
+ Confirmation code=other: cancel setting failed
+ HandShake
+ HandShake (0x40)
+ Description: Send handshake instructions to the module. If the module works normally, the
+ confirmation code 0x00 will be returned. The upper computer can continue to send instructions to
+ the module.If the confirmation code is other or no reply, it means that the device is abnormal.
+ Input Parameter: none
+ Return Parameter: Confirmation code
+ Instruction code: 0x40
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction code
+ Checksum
+ 0xEF01
+ xxxx
+ Acknowledge package format:
+ 2 bytes
+ 0x01
+ 0x0003
+ 0x40
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 0x07
+ 0x0003
+ X
+ 0044H
+ sum
+ Note 1: Confirmation code=0x00: the device is normal and can receive instructions;
+ Confirmation code=other: the device is abnormal.
+ In addition, after the module is powered on, 0x55 will be automatically sent as a handshake sign. After
+ the single-chip microcomputer detects 0x55, it can immediately send commands to enter the working
+ state.
+ Aura control
+ AuraLedConfig (0 x35)
+ Description: Aura LED control
+ Input Parameter: Control code:Ctrl; Speed; ColorIndex;Times
+ Return Parameter: Confirmation code
+ Instruction code: 0x35
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 1 byte 1byte 1byte 2bytes
+ Header Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Control
+ code
+ Speed Color
+ Index
+ Times Checks
+ um
+ www.hzgrow.com- 24
+Ctrl
+ Count
+ 0xEF0
+ 1
+ xxxx
+ 0x01
+ 0x0007
+ 0x35
+ Speed Color
+ Index
+ Control Code:
+ Control
+ code
+ 0x01
+ 0x02
+ 0x03
+ 0x04
+ 0x05
+ 0x06
+ Function breathing
+ light
+ Flashing
+ light
+ Light
+ Always
+ on
+ Light
+ Always
+ off
+ Light
+ gradually
+ on
+ Light
+ gradually
+ off
+ Speed: 0x00-0xff, 256 gears,Minimum 5s cycle.
+ It is effective for breathing lamp and flashing lamp,Light gradually on,Light gradually off.
+ ColorIndex:
+ Code
+ sum
+ 0x01
+ 0x02
+ 0x03
+ 0x04
+ 0x05
+ 0x06
+ 0x07
+ 0x20
+ 0x30
+ Color
+ Red
+ Blue
+ Purple
+ Green Yellow Cyan White 3-Color
+ (Red,Gre
+ en,Blue)
+ Number of cycles: 0- infinite, 1-255.
+ It is effective for breathing lamp and flashing lamp,Light gradually on,Light gradually off.
+ 3-color flashing sequence: Blue→Red→Green
+ 7-color flashing sequence: Cyan→White→Red→Green→Yellow→Blue→Purple
+ Example: Set 7-Color breathing light:
+ EF 01 FF FF FF FF010007350150
+ 30 00 00 BE (Speed 50)
+ Acknowledge package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 0x07
+ 0x0003
+ Note 1: Confirmation code=0x00: success;
+ X
+ sum
+ Confirmation code=0x01:error when receiving package;
+ Automatic registration template
+ AutoEnroll (0 x31)
+ 7-color
+ When a fingerprint is recorded using an automatic registration template, the fingerprint image needs to
+ be recorded six times for each fingerprint template. The blue light blinks when the fingerprint image is
+ collected. The yellow light is on means the fingerprint image is collected successfully,the green light
+ blinks means the fingerprint characteristic is generated successfully. If the finger is required to leave
+ during image collection, the image will be collected again after the finger is lifted. During the process of
+ waiting for the finger to leave, the white light flashes. After fingerprint images are collected for 6 times
+ and features are generated successfully, features are synthesized and store fingerprint template. If the
+ operation succeeds, the green light is on; if the operation fails, the red light is on. If the finger is away
+ from the sensor for more than 10 seconds when in collecting the fingerprint image each time, it will
+ automatically exits the automatic template registration process.
+ Input Parameter:ModelID- Fingerprint library location number- 25
+www.hzgrow.com
+Config1: Whether to allow cover ID number
+ Config2: Whether to allow duplicate fingerprints
+ Config3: Whether the module return the status in the critical step
+ Config4: Whether to allow ask the finger to leave
+ Return Parameter:Confirmation code ModelID(Fingerprint library location number)
+ Instruction code: 0x31
+ Command (or instruction) package format:
+ 2 bytes
+ 4
+ bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 1 byte
+ 1 byte
+ 2
+ bytes
+ Header
+ Package
+ identifier
+ Module
+ address
+ Package
+ length
+ Instruction
+ code
+ Location
+ ID
+ Whether
+ Duplicate
+ ID
+ Whether
+ Duplicate
+ Fingerprin
+ t
+ Whether
+ return
+ status in
+ registrat
+ ion
+ process
+ Whether
+ ask
+ finger to
+ leave in
+ registrati
+ on
+ process
+ Check
+ sum
+ 0xEF0
+ 1
+ 0x01
+ xxxx
+ 0x0009
+ 0x31
+ ID
+ Config1
+ Config2
+ Config4
+ Config
+ 3
+ sum
+ Model ID: Location ID : 0x0000-0x05DB
+ 0x05DC-0xFFFF is automatic filling(The ID number is assigned by the
+ system. The system will be starting from template 0 to searches the empty templates.)
+ Whether to allow cover ID number: 0:Not allowed 1:Allow
+ Whether to allow register duplicate fingerprints: 0:Not allowed 1: Allow
+ Whether to return to the critical step status during registration: 0:Not allowed 1: Allow
+ Whether the finger is required to leave during the registration process in order to enter the next
+ fingerprint image collection: 0: don’t need to leave 1: have to leave
+ Example:
+ EF 01 FF FF FF FF0100093105DC 000101
+ 01 01 1F (allow to return step status)
+ Response:
+ EF 01 FF FF FF FF 07 00 06 00 01 00 03 00 11 EF 01 FF FF FF FF 07 00 06 00 02 00 03 00 12 EF 01
+ FF FF FF FF 07 00 06 00 03 00 03 00 13 EF 01 FF FF FF FF 07 00 06 00 04 00 03 00 14 EF 01 FF FF
+ FF FF 07 00 06 00 05 00 03 00 15 EF 01 FF FF FF FF 07 00 06 00 06 00 03 00 16 EF 01 FF FF FF FF
+ 07 00 06 00 07 00 03 00 17 EF 01 FF FF FF FF 07 00 06 00 08 00 03 00 18 EF 01 FF FF FF FF 07 00
+ 06 00 09 00 03 00 19 EF 01 FF FF FF FF 07 00 06 00 0A00 03 00 1AEF 01 FF FF FF FF 07 00 06 00
+ 0B 00 03 00 1B EF01FFFF FF FF070006000C0003001CEF01FF FF FFFF 070006000D00
+ 03 00 1D EF 01 FF FF FF FF 0700 06 00 0E 00 0300 1E EF 01 FF FF FF FF 07 00 06 00 0F00 03
+ 1F (Fingerprint ID)
+ Acknowledge package format:
+ 2 bytes
+ 00
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 bytes
+ 2 bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Parameter
+ 1
+ Parameter
+ 2
+ Checksum
+ 0xEF01
+ xxxx
+ 0x07
+ 0x0006
+ X
+ X
+ X
+ sum- 26
+www.hzgrow.com
+-27-www.hzgrow.com
+ Parameter1:StepProcess:
+ 0x01:Collectimageforthefirsttime
+ 0x02:GenerateFeatureforthefirsttime
+ 0x03:Collectimageforthesecondtime
+ 0x04:GenerateFeatureforthesecondtime
+ 0x05:Collectimageforthethirdtime
+ 0x06:GenerateFeatureforthethirdtime
+ 0x07:Collectimageforthefourthtime
+ 0x08:GenerateFeatureforthefourthtime
+ 0x09:Collectimageforthefifthtime
+ 0x0A:GenerateFeatureforthefifthtime
+ 0x0B:Collectimageforthesixthtime
+ 0x0C:GenerateFeatureforthesixthtime
+ 0x0D:Repeatfingerprintcheck
+ 0x0E:Mergefeature
+ 0x0F:Storagetemplate
+ Parameter2:fingerprintID
+ SpecificAcknowledgepackageformat:
+ Header Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirm
+ ation
+ code
+ Step Fingerprint
+ ID
+ CheckSum Note
+ 2Bytes 4Bytes 1Byte 2Bytes 1Byte 1Byte 2Bytes 2Bytes
+ 0xEF01 XXXX 0x07 0x0006 X 0x01 0x0000 Sum Collectimagefor
+ thefirsttime
+ 0xEF01 XXXX 0x07 0x0006 X 0x02 0x0000 Sum GenerateFeaturefor
+ thefirsttime
+ 0xEF01 XXXX 0x07 0x0006 X 0x03 0x0000 Sum Collectimagefor
+ thesecondtime
+ 0xEF01 XXXX
+ 0x07
+ 0x0006 X 0x04 0x0000 Sum GenerateFeaturefor
+ thesecondtime
+ 0xEF01 XXXX
+ 0x07
+ 0x0006 X 0x05 0x0000 Sum Collectimagefor
+ thethirdtime
+ 0xEF01 XXXX
+ 0x07
+ 0x0006 X 0x06 0x0000 Sum GenerateFeaturefor
+ thethirdtime
+ 0xEF01 XXXX
+ 0x07
+ 0x0006 X 0x07 0x0000 Sum Collectimagefor
+ thefourthtime
+ 0xEF01 XXXX 0x07 0x0006 X 0x08 0x0000 Sum GenerateFeaturefor
+ thefourthtime
+ 0xEF01 XXXX 0x07 0x0006 X 0x09 0x0000 Sum Collectimagefor
+ thefifthtime
+ 0xEF01 XXXX
+ 0x07
+ 0x0006 X 0x0A 0x0000 Sum GenerateFeature
+ forthefifthtime
+ 0xEF01 XXXX 0x07 0x0006 X 0x0B 0x0000 Sum Collectimagefor
+0x0C
+ 0x0000
+ Sum
+ the sixth time
+ 0xEF01
+ XXXX
+ 0x0006
+ 0x07
+ X
+ 0xEF01
+ XXXX
+ 0x0006
+ 0x07
+ X
+ 0x0D
+ 0x0000
+ Sum
+ 0xEF01
+ XXXX
+ 0x07
+ 0x0006
+ X
+ 0x0E
+ 0x0000
+ Sum
+ 0xEF01
+ XXXX
+ 0x07
+ 0x0006
+ X
+ 0x0F
+ modelID
+ Sum
+ Generate Feature
+ for the sixth time
+ Repeat fingerprint
+ check
+ Merge feature
+ Storage template
+ If the status of return key step is set to 0 during registration, only returned the the last
+ acknowledge packet.
+ Confirmation code=0x00 set successfully
+ Confirmation code=0x01 set fails
+ Confirmation code=0x07 failed to generate a feature
+ Confirmation code=0x0a failed to merge templates
+ Confirmation code=0x0b the ID is out of range
+ Confirmation code=0x1f fingerprint library is full
+ Confirmation code=0x22 fingerprint template is empty
+ Confirmation code=0x26 times out
+ Confirmation code=0x27 fingerprint already exists
+ Automatic fingerprint verification
+ AutoIdentify (0 x32)
+ When the automatic fingerprint verification command is used to search and verify a fingerprint, the
+ system automatically collects a fingerprint image and generates features, and compares the image with
+ the fingerprint template in the fingerprint database. If the comparison is successful, the system returns
+ the template ID number and the comparison score. If the comparison fails, the system returns the
+ corresponding error code.
+ When obtaining the fingerprint image, the fingerprint head will light up with a white breathing light.
+ After the image collection is successful, the yellow light will light up, and the green light will light up
+ after the comparison is successful. If there is a fingerprint image collection error or no fingerprint search,
+ the red light will be on to prompt.
+ If the system does not detect the finger for more than 10 seconds after sending the command or
+ collecting the fingerprint image again after reporting an error, it will automatically exit the command.
+ Input Parameter:
+ SafeGrade (1-5 level)
+ StartID
+ Num-Number of searches
+ Config1 Whether the module returns to the status in key steps
+ Config2 Number of fingerprint search error
+ Return Parameter:Confirmation code ModelID MarchScore
+ Instruction code: 0x32
+ Command (or instruction) package format:- 28
+www.hzgrow.com
+1 byte
+ 2 bytes
+ 2 bytes
+ 1 byte
+ 1 byte
+ 2
+ bytes
+ 4
+ bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2
+ bytes
+ Heade
+ r
+ Package
+ identifier
+ Module
+ address
+ Package
+ length
+ Instructio
+ n code
+ Security
+ Level
+ Start
+ Position
+ Number of
+ searches
+ Whether
+ return
+ key step
+ Check
+ sum
+ Number
+ of
+ fingerpri
+ nt
+ search
+ error
+ 0xEF
+ 01
+ 0x01
+ xxxx
+ 0x000A
+ 0x32
+ Start ID
+ Safe
+ Grade
+ num
+ Config2
+ Config
+ 1
+ sum
+ Security level: 1-5
+ Starting position: 0-1499
+ End position: 1-1500
+ Return search steps: 0: not allowed 1: Allowed
+ Fingerprint search error times:
+ 0-0xFF: 0: the operation of image collection and feature search is carried out all the time. If the same
+ feature ID number is found in the fingerprint database, the operation will exit (0 means the cycle
+ continues until the matching ID is found or the power is cut off).
+ 1-0xFF: The generated features and fingerprint search were performed on the collected images. If the
+ match is successful, the ID number and score of the match will be returned, and exit this instruction at
+ the same time. If the match fails, repeat the previous operations for 1-0xff times. Exit after
+ corresponding error times.
+ No matter what way, if the system does not detect the finger after sending the command or collecting the
+ image again for more than 10 seconds, it will exit the command.
+ Example:
+ EF 01 FF FF FF FF01000A32030000
+ 05 DC
+ 01 01 01 23 (Start at 0 and search for 1,500)
+ Response:
+ EF 01 FF FF FF FF 07 00 08 00 01 00 00 00 00 00 10 EF 01 FF FF FF FF 07 00 08 00 02 00 00 00 00
+ 00 11 EF 01 FF FF FF FF 07000800 030002
+ 00 BD
+ Acknowledge package format:
+ 00 D1 (Fingerprint ID and score）
+2 bytes
+ 4
+ bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1 byte
+ 2 bytes
+ 2 bytes
+ 2 bytes
+ Note
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmat
+ ion code
+ Step
+ Position
+ Number
+ Score
+ Check
+ Sum
+ 0xEF01
+ 0x07
+ xxxx
+ 0x0008
+ X
+ 1
+ 0x0000
+ 0x0000
+ Sum
+ Collect
+ Image
+ 0xEF01
+ 0x07
+ xxxx
+ 0x0008
+ X
+ 2
+ 0x0000
+ 0x0000
+ Sum
+ Generate
+ Feature
+ 0xEF01
+ 0x07
+ xxxx
+ 0x0008
+ X
+ Confirmation code=0x00 set successfully
+ Confirmation code=0x01 set fails
+ 3
+ Confirmation code=0x09 failed to search fingerprint
+ Confirmation code=0x0b the ID is out of range
+ Model
+ ID
+ Match
+ score
+ Sum
+ Search- 29
+www.hzgrow.com
+Confirmation code=0x22 fingerprint template is empty
+ Confirmation code=0x24 fingerprint library is empty
+ Confirmation code=0x26 times out
+ Other instructions
+ To generate a random code
+ GetRandomCode
+ Description: to command the Module to generate a random number and return it to upper computer;
+ Input Parameter: none
+ Return Parameter: Confirmation code (1 byte)+RandomCode
+ Instruction code: 14H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ Acknowledge package format:
+ 2 bytes
+ 01H
+ 0003H
+ 14H
+ 0018H
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 4 bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Random
+ number
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0007H
+ xxH
+ Note: Confirmation code=00H: generation success;
+ Confirmation code=01H: error when receiving package;
+ To read information page ReadInfPage
+ Description: read information page(512bytes)
+ Input Parameter: none
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 16H
+ Command (or instruction) package format:
+ 2 bytes
+ RandomC
+ ode
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package length
+ Instruction
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ Acknowledge package format:
+ 2 bytes
+ 01H
+ 0003H
+ 16H
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ xxH
+ sum
+ Note 1: Confirmation code=00H: ready to transfer the following data packet;
+ 001AH
+ www.hzgrow.com- 30
+Confirmation code=01H: error when receiving package;
+ Confirmation code=0fH: can not transfer the following data packet;
+ 2. The upper computer sends the command packet, the module sends the acknowledge
+ packet first, and then sends several data packet.
+ 3.Packet Bytes N is determined by Packet Length. The value is 128 Bytes before
+ delivery.
+ 4: The instruction doesn’t affect buffer contents.
+ Data package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ Nbyte
+ 2 bytes
+ Header
+ Module
+ address
+ Package identifier
+ Package
+ length
+ Package
+ content
+ Checksum
+ 0xEF01
+ xxxx
+ To write note pad
+ 0x02- have
+ following packet
+ 0x08- end packet
+ WriteNotepad
+ N+2
+ Information
+ page
+ sum
+ Description: for upper computer to write data to the specified Flash page.Also see ReadNotepad;
+ Input Parameter: NotePageNum, user content (or data content)
+ Return Parameter: Confirmation code (1 byte)
+ Instruction code: 18H
+ Command (or instruction) package format:
+ 2 bytes
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1byte
+ 32 bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Instruction
+ code
+ Page
+ number
+ Data
+ content
+ Checksum
+ 0xEF01
+ xxxx
+ 01H
+ Acknowledge package format:
+ 2 bytes
+ 0x0024
+ 18H
+ 0x00-0
+ x0F
+ content
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 2 bytes
+ Header
+ Module address
+ Package
+ identifier
+ Package
+ length
+ Confirmation code
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0003H
+ Note: Confirmation code=00H: write success;
+ Confirmation code=01H: error when receiving package;
+ Confirmation code=18H: error when write FLASH
+ To read note pad
+ ReadNotepad
+ xxH
+ Description: to read the specified page’s data content;Also see WriteNotepad.
+ Input Parameter: NotePageNum
+ Return Parameter: Confirmation code (1 byte) + User content
+ Instruction code: 19H
+ Command (or instruction) package format:
+ 2 bytes
+ sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 1byte
+ 2 bytes
+ www.hzgrow.com- 31
+Checksum
+ Header
+ 0xEF01
+ Module
+ address
+ xxxx
+ Package
+ identifier
+ 01H
+ Package
+ length
+ 0004H
+ Instruction
+ code
+ 19H
+ Acknowledge package format:
+ 2 bytes
+ Page
+ number
+ 0x00-0x
+ 0F
+ Sum
+ 4bytes
+ 1 byte
+ 2 bytes
+ 1 byte
+ 32bytes
+ 2 bytes
+ Header
+ Module
+ address
+ Package
+ identifier
+ Package
+ length
+ Confirmation
+ code
+ User content
+ Checksum
+ 0xEF01
+ xxxx
+ 07H
+ 0x0023
+ Note: Confirmation code=00H: read success;
+ xxH
+ Confirmation code=01H: error when receiving package;
+ User content
+ sum- 32
+www.hzgrow.com
+Ⅵ Operation Process
+ 6.1 Basic communication flow
+ 6.1.1 Process of the UART command package
+ Acknowledge package send failed
+ Receiving instruction packet
+ Execute instruction
+ Handle successful
+ Acknowledge package send succeed
+ Finish
+ www.hzgrow.com- 33
+6.1.2 UARTPacket Sending Process
+ Before transmitting data packets, the UART should be received the instruction packet for
+ transmitting data packets first, makes preparations for transmission, then sends a successful response
+ packet, and finally starts transmitting the data packets. Packet mainly includes: packet header, chip
+ address, packet identity, packet length, data and checksum.
+ There are two types of packet identifiers: 02H and 08H. 02H: indicates the data packet and
+ subsequent packets. 08H: indicates the last packet, that is, the end packet. Data length is pre-set, mainly
+ divided into: 32, 64, 128, and 256 four types.
+ For example, if the length of the data to be transmitted is 1K bytes and the preset length of the data
+ packet is 128 bytes, the 1K bytes of data must be divided into eight data packets. Each packet includes:
+ 2 bytes header, 4 bytes chip address, 1 bytes packet identifier, 2 bytes packet length, 128 bytes data and
+ 2 bytes check sum, each packet length is 139 bytes.
+ In addition, of the eight packets, the packet ID of the first seven packets is 02H and the packet ID
+ of the last end data packet is 08H. Finally, note that if the end packet does not reach 139 bytes in length,
+ it is transmitted at the actual length and is not otherwise expanded to 139 bytes.
+ Receiving instruction packet
+ Execute instruction
+ Assemble a set of packets,sending.
+ Acknowledge package send failed
+ Handle successful
+ Acknowledge package send succeed
+ End packet
+ Finish
+ www.hzgrow.com- 34
+6.1.3 UARTpacket receiving process
+ Before transmitting data packets, the UART should be received the instruction packet for
+ transmitting data packets first, makes preparations for transmission, then sends a successful response
+ packet, and finally starts transmitting the data packets. Packet mainly includes: packet header, chip
+ address, packet identity, packet length, data and checksum.
+ There are two types of packet identifiers: 02H and 08H. 02H: indicates the data packet and
+ subsequent packets. 08H: indicates the last packet, that is, the end packet. Data length is pre-set, mainly
+ divided into: 32, 64, 128, and 256 four types.
+ For example, if the length of the data to be transmitted is 1K bytes and the preset length of the data
+ packet is 128 bytes, the 1K bytes of data must be divided into eight data packets. Each packet includes:
+ 2 bytes header, 4 bytes chip address, 1 bytes packet identifier, 2 bytes packet length, 128 bytes data and
+ 2 bytes check sum, each packet length is 139 bytes.
+ In addition, of the eight packets, the packet ID of the first seven packets is 02H and the packet ID
+ of the last end data packet is 08H. Finally, note that if the end packet does not reach 139 bytes in length,
+ it is transmitted at the actual length and is not otherwise expanded to 139 bytes.
+ Receiving instruction packet
+ Execute instruction
+ Acknowledge package send failed
+ Handle successful
+ Acknowledge package send succeed
+ Receive a set of packets and parse
+ them
+ End packet
+ Finish
+ www.hzgrow.com- 35
+6.2 General instruction communication flow
+ 6.2.1 General instruction register fingerprint process
+ The fingerprint registration process mainly includes: obtaining images for registration, generating
+ features, merging features and storing templates. Usually N = 2 times.
+ Start
+ Send acquire image command
+ Return successfully
+ Send generate feature command
+ Return successfully
+ Send merging features command
+ Return successfully
+ Send store templates command
+ Return successfully
+ Finish
+ When the registration logic is set to 1, register fingerprint. If the current fingerprint is similar to the
+ fingerprint that has been included before,the confirmation code in the response packet that generates the
+ feature command does not show success, but returns 28H, indicating that there is a correlation between
+ the current fingerprint feature and the previous feature. It should be noted that the mutual comparison
+ correlation is limited to the fingerprints included in this registration process, and will not be compared
+ with the fingerprints in the fingerprint library.
+ When the registration logic is set to 2, register fingerprint. If the current fingerprint is not similar to
+ the fingerprint that has been included before,the confirmation code in the response packet that generates
+ the feature command does not show success, but returns 08H, indicating that there is no correlation
+ between the current fingerprint feature and the previous feature. It should be noted that the mutual
+ comparison correlation is limited to the fingerprints included in this registration process, and will not be
+ compared with the fingerprints in the fingerprint library.
+ Whether it returns 28H or 08H, the current fingerprint feature has been successfully extracted, you
+ can take a new map and generate features without changing the BufferID, or you can skip the current
+ BufferID and include the next round of fingerprints.
+ www.hzgrow.com- 36
+6.2.2 General instruction verity fingerprint process
+ The fingerprint verification process of general instructions mainly includes: obtaining images for
+ verification, generating features and searching fingerprints. When sending generated features and
+ searching for fingerprints, BufferID is set to 1 by default.
+ Start
+ Send acquire image command
+ Return successfully
+ Send generate feature command
+ Return successfully
+ Send search fingerprint command
+ Finish
+ www.hzgrow.com- 37
+6.2.3 The fingerprint is obtained from the sensor and the feature is generated then upload to the
+ main control
+ The whole process mainly includes: verify acquire image, generate features and upload features.
+ BufferID is set to the default value 1 when sending the generate feature and uploading features.
+ Start
+ Send acquire image command
+ Return successfully
+ Send generate feature command
+ Send upload feature command
+ Return successfully
+ Receive data packet
+ Finish packet
+ Return successfully
+ Finish
+ www.hzgrow.com- 38
+6.2.4 Read a specified template upload to Flash Fingerprint Database
+ The whole process mainly includes: read template and upload feature.
+ BufferID is set to the default value 2 when reading template and uploading feature.
+ Start
+ Send read template command
+ Return successfully
+ Send upload feature command
+ Return successfully
+ Receive data packet
+ Finish packet
+ Finish
+ www.hzgrow.com- 39
+6.2.5 The main control downloads a fingerprint feature and searches the fingerprint database
+ based on the feature
+ The whole process mainly includes: download template and search fingerprint.
+ BufferID is set to the default value 1 when downloading template and searching fingerprint.
+ Start
+ Send download feature command
+ Return successfully
+ Send data packet
+ Finish packet
+ Send search fingerprint command
+ Finish
+ www.hzgrow.com- 40
+6.3 Automatic Register Fingerprint
+ Instruction error,did not return the reply packet
+ Overwriting
+ ID
+ numbers is not
+ allowed,
+ Error
+ code 22 or Error
+ code
+ 0B
+ is
+ returned when the
+ ID is full
+ Error
+ respond
+ If no image is captured for
+ more than 15 seconds, error
+ code 26 is returned
+ Red light turn on 500ms
+ Send instruction
+ Start collect image
+ Failed to generate features Generate feature successfully
+ Duplicate fingerprints return error code 27
+ Red light turn on 500ms
+ Merger fail return error code 0A
+ Red light turn on 500ms
+ If the override ID is not
+ allowed, check whether
+ the ID already exists. If
+ the ID does not exist,
+ skip it
+ Blue light flashing
+ Collected image Yellow light turn on 500ms
+ Green light flash 200ms
+ White light turn on
+ If need wait the finger remove
+ Repeat 6 times successfully
+ Green light flash
+ Check duplicate fingerprint, if don’t have,skip it
+ Store fail return error code 18
+ Red light turn on 500ms
+ Merge feature
+ Store template successfully
+ Green
+ turn
+ 500ms
+ light
+ on
+ www.hzgrow.com
+ Repeat
+ 6
+ times
+ successf
+ ully- 41
+6.4 Automatic Fingerprint Verification(Search)
+ Fingerprint error,no respond
+ Level parameter error, return 01
+ Position erroe, return 0B
+ Error
+ respond
+ If no image is captured for
+ more than 15 seconds, the
+ system automatically exits,
+ return error code 26
+ Send instruction
+ Collect image
+ Check the security
+ level and Start end
+ position parameters
+ Collect image successfully
+ Generate feature fail
+ Search fail
+ Fail: red light turn on
+ Generate feature successfully
+ Fingerprint search
+ Search successfully
+ Return ID and Score
+ Finish
+ White breathing light
+ Yellow light
+ turn
+ on
+ 500ms
+ Green light turn on 500ms
+ www.hzgrow.com- 42
+6.5 Low powerstandby
+ For low-power standby scenarios, the host can cut off the main power supply of the module (can
+ not cut off the touch-sensitive power supply). Once the module detects a finger, it outputs a signal
+ in the IRQ signal. Then the host can power on the module to perform fingerprint identification.
+ Start
+ Power on the main power supply(VCC) of the module
+ Perform fingerprint registration and identification and so on
+ Whether to enter to low-power standby mode
+ Power off the main power supply(VCC) of the module
+ If the IRQ is high
+ www.hzgrow.com- 43
+Ⅶ ReferenceCircuit
+ In low-power supply mode, the whole circuit is normally powered off. Use the finger detection function
+ of the module to power on the whole machine. Please refer to the circuit form of R307 (R307 is 5V
+ power supply).
+ www.hzgrow.com- 44
