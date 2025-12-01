@@ -33,4 +33,5 @@ Material: semiconductor + acero inoxidable
 Capacidad de huellas dactilares
 : 1500 píxeles: 192 x 192
 Interfaz: USB
-Voltaje: 5 V
+Voltaje: 5 V.
+Conector USB únicamente.

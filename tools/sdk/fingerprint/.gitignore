@@ -20,3 +20,6 @@ x86/
 
 # Temporary files
 *.log
+
+# Demo-generated fingerprint images
+demo/Finger*.bmp
