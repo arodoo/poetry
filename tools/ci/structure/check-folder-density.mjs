@@ -3,7 +3,7 @@
  * File: check-folder-density.mjs
  * Purpose: Validates folder file count limits following cognitive load
  * principles. Industry standard: 7-10 files max per folder for easy
- * navigation. Uses 10 as default threshold with configurable overrides.
+ * navigation. Uses 10 as default with scalable exceptions for special cases.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -13,24 +13,31 @@ import { join, relative } from 'path';
 const ROOT = process.cwd();
 const DEFAULT_MAX_FILES = 10;
 
+/**
+ * Scalable exceptions: folders that naturally accumulate more files.
+ * Format: { pattern: maxFiles }
+ * Tiers: 15 (moderate), 20 (high), 25 (very high)
+ */
+const SCALABLE_EXCEPTIONS = {
+  // Only truly unavoidable cases (e.g., barrel exports)
+  // Everything else MUST be split into subfolders
+};
+
 const CONFIG = {
   frontend: {
     basePath: 'poetry-frontend/src',
     maxFiles: DEFAULT_MAX_FILES,
     excludeDirs: ['node_modules', 'dist', '.git', 'generated'],
-    overrides: { 'features': 20, 'ui': 30, 'shared': 15 },
   },
   hardware: {
     basePath: 'poetry-hardware/src',
     maxFiles: DEFAULT_MAX_FILES,
     excludeDirs: ['node_modules', 'dist', '.git'],
-    overrides: {},
   },
   backend: {
     basePath: 'poetry-backend/src/main/java',
     maxFiles: DEFAULT_MAX_FILES,
     excludeDirs: ['target', '.git'],
-    overrides: {},
   },
 };
 
@@ -40,11 +47,11 @@ function countFilesInDir(dirPath) {
   return entries.filter((e) => e.isFile()).length;
 }
 
-function getMaxForDir(dirPath, config) {
-  for (const [key, max] of Object.entries(config.overrides)) {
-    if (dirPath.includes(key)) return max;
+function getMaxForDir(dirPath, baseMax) {
+  for (const [pattern, max] of Object.entries(SCALABLE_EXCEPTIONS)) {
+    if (dirPath.includes(pattern)) return max;
   }
-  return config.maxFiles;
+  return baseMax;
 }
 
 function walkDirs(basePath, config, violations) {
@@ -61,7 +68,7 @@ function walkDirs(basePath, config, violations) {
       if (config.excludeDirs.some((ex) => relPath.includes(ex))) continue;
 
       const fileCount = countFilesInDir(fullPath);
-      const maxAllowed = getMaxForDir(relPath, config);
+      const maxAllowed = getMaxForDir(relPath, config.maxFiles);
 
       if (fileCount > maxAllowed) {
         violations.push({

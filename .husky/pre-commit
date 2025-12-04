@@ -55,6 +55,12 @@ npm run modules:check || {
   exit 1
 }
 
+echo "📁 Checking folder density..."
+node tools/ci/structure/check-folder-density.mjs || {
+  echo "❌ Folder density check failed! Split large folders into sub-features."
+  exit 1
+}
+
 # === MEDIUM SPEED TASKS (2-10 seconds) ===
 # These tasks process and transform files
 
