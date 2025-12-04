@@ -5,9 +5,7 @@
  */
 import { useSellerCodesFormState } from '../components/useSellerCodesFormState'
 import type { SellerCodeDetail } from '../model/SellerCodesSchemas'
-import {
-  buildSellerCodeEditBreadcrumbs,
-} from '../model/sellerCodeBreadcrumbHelpers'
+import { buildSellerCodeEditBreadcrumbs } from '../model/sellerCodeBreadcrumbHelpers'
 import { buildEditSubmitHandler } from './buildSellerCodeEditSubmit'
 import { updateSellerCodeCancelHandler } from './sellerCodeEditHandlers'
 import { useSellerCodeEditDependencies } from './useSellerCodeEditDependencies'

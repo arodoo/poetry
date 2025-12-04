@@ -17,7 +17,7 @@ import SellerCodeDeleteConfirm from '../components/SellerCodeDeleteConfirm'
 import {
   buildHandleCancel,
   buildHandleConfirmDelete,
-} from './sellerCodeDeleteHandlers'
+} from '../hooks/sellerCodeDeleteHandlers'
 
 export default function SellerCodeDeletePage(): ReactElement {
   const params = useParams()

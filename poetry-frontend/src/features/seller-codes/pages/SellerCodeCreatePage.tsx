@@ -14,12 +14,12 @@ import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useSellerCodesFormState } from '../components/useSellerCodesFormState'
 import { useCreateSellerCodeMutation } from '../hooks/useSellerCodesMutations'
 import type { CreateSellerCodeInput } from '../model/SellerCodesSchemas'
-import { buildCreateFormSections } from './sellerCodeFormSections'
-import { buildSellerCodeCreateBreadcrumbs } from './sellerCodeBreadcrumbHelpers'
+import { buildCreateFormSections } from '../model/sellerCodeFormSections'
+import { buildSellerCodeCreateBreadcrumbs } from '../model/sellerCodeBreadcrumbHelpers'
 import {
   createSellerCodeSubmitHandler,
   createSellerCodeCancelHandler,
-} from './sellerCodeCreateHandlers'
+} from '../hooks/sellerCodeCreateHandlers'
 
 export default function SellerCodeCreatePage(): ReactElement {
   const t: ReturnType<typeof useT> = useT()

@@ -4,12 +4,12 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { buildEditFormSections } from './sellerCodeFormSections'
-import { useSellerCodeEditPage } from './useSellerCodeEditPage'
+import { buildEditFormSections } from '../model/sellerCodeFormSections'
+import { useSellerCodeEditPage } from '../hooks/useSellerCodeEditPage'
 import {
   SellerCodeEditPageLoading,
   SellerCodeEditForm,
-} from './SellerCodeEditPageHelpers'
+} from '../components/SellerCodeEditPageHelpers'
 
 export default function SellerCodeEditPage(): ReactElement {
   const {

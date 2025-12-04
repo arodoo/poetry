@@ -17,8 +17,8 @@ import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useSellerCodeDetailQuery } from '../hooks/useSellerCodesQueries'
 import type { SellerCodeDetail } from '../model/SellerCodesSchemas'
 import { useT } from '../../../shared/i18n/useT'
-import { buildSellerCodeDetailSections } from './sellerCodeDetailHelpers'
-import { buildSellerCodeDetailBreadcrumbs } from './sellerCodeBreadcrumbHelpers'
+import { buildSellerCodeDetailSections } from '../model/sellerCodeDetailHelpers'
+import { buildSellerCodeDetailBreadcrumbs } from '../model/sellerCodeBreadcrumbHelpers'
 
 export default function SellerCodeDetailPage(): ReactElement {
   const params: Readonly<Record<string, string | undefined>> = useParams()

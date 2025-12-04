@@ -11,7 +11,7 @@ import type { NavigateFunction } from 'react-router-dom'
 // type imports across many files. These helpers are tiny behavior-only
 // adapters and should not introduce new compile-time coupling.
 interface MutationLike {
-  // Accept any arguments for react-query UseMutateFunction compatibility
+  // Accept any arguments to remain compatible with react-query's UseMutateFunction
   mutate: (...args: any[]) => void
   isPending?: boolean
 }

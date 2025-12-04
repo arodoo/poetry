@@ -18,8 +18,8 @@ import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useSellerCodesPageQuery } from '../hooks/useSellerCodesQueries'
 import type { SellerCodeResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
-import { buildSellerCodesListColumns } from './sellerCodesListColumns'
-import { buildSellerCodeListBreadcrumbs } from './sellerCodeBreadcrumbHelpers'
+import { buildSellerCodesListColumns } from '../model/sellerCodesListColumns'
+import { buildSellerCodeListBreadcrumbs } from '../model/sellerCodeBreadcrumbHelpers'
 
 export default function SellerCodesListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
