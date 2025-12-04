@@ -13,7 +13,7 @@ import type { useT } from '../../../shared/i18n/useT'
 import type { UserDetail } from '../model/UsersSchemas'
 import type { UsersFormValues } from '../components/UsersForm'
 import { useUsersFormState } from '../components/useUsersFormState'
-import { buildEditFormSections } from '../model/userFormSections'
+import { buildEditFormSections } from '../pages/userFormSections'
 import { buildUserEditBreadcrumbs } from '../model/userBreadcrumbHelpers'
 import {
   createSubmitHandler,

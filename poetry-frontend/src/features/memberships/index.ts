@@ -5,7 +5,7 @@
  */
 
 // Routes
-export { membershipsRoutes } from './routing/membershipsRoutes'
+export { MembershipsRoutes } from './routing/membershipsRoutes'
 
 // Types
 export type {

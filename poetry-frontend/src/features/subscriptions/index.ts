@@ -5,7 +5,7 @@
  */
 export * from './model/SubscriptionsSchemas'
 export * from './hooks'
-export { subscriptionsRoutes } from './routing/subscriptionsRoutes'
+export { SubscriptionsRoutes } from './routing/subscriptionsRoutes'
 export { default as SubscriptionsListPage } from './pages/SubscriptionsListPage'
 export { default as SubscriptionsCreatePage } from './pages/SubscriptionsCreatePage'
 export { default as SubscriptionDetailPage } from './pages/SubscriptionDetailPage'

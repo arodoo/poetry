@@ -4,6 +4,7 @@
  * Organized by domain for better maintainability.
  * All Rights Reserved. Arodi Emmanuel
  */
+export * from './account'
 export * from './admin'
 export * from './auth'
 export * from './dashboard'
