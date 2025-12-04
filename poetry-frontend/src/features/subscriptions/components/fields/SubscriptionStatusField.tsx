@@ -3,10 +3,10 @@
  * Purpose: Status select for subscription form.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Select } from '../../../ui/Select/Select'
-import { Text } from '../../../ui/Text/Text'
+import type { ReactElement, ChangeEvent } from 'react'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Select } from '../../../../ui/Select/Select'
+import { Text } from '../../../../ui/Text/Text'
 
 interface Props {
   t: (k: string) => string
@@ -26,7 +26,7 @@ export default function SubscriptionStatusField({
       </Text>
       <Select
         value={status}
-        onChange={(e) => {
+        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
           setStatus(e.target.value as 'active' | 'inactive')
         }}
         data-testid="subscription-status-select"

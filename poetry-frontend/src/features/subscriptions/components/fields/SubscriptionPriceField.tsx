@@ -3,10 +3,10 @@
  * Purpose: Price input for subscription form.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Input } from '../../../ui/Input/Input'
-import { Text } from '../../../ui/Text/Text'
+import type { ReactElement, ChangeEvent } from 'react'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Input } from '../../../../ui/Input/Input'
+import { Text } from '../../../../ui/Text/Text'
 
 interface Props {
   t: (k: string) => string
@@ -27,7 +27,7 @@ export default function SubscriptionPriceField({
       <Input
         type="number"
         value={price}
-        onChange={(e) => {
+        onChange={(e: ChangeEvent<HTMLInputElement>): void => {
           setPrice(Number(e.target.value))
         }}
         min="0"

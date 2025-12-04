@@ -3,10 +3,10 @@
  * Purpose: Currency select for subscription form.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Select } from '../../../ui/Select/Select'
-import { Text } from '../../../ui/Text/Text'
+import type { ReactElement, ChangeEvent } from 'react'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Select } from '../../../../ui/Select/Select'
+import { Text } from '../../../../ui/Text/Text'
 
 interface Props {
   currency: string
@@ -24,7 +24,7 @@ export default function SubscriptionCurrencyField({
       </Text>
       <Select
         value={currency}
-        onChange={(e) => {
+        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
           setCurrency(e.target.value)
         }}
         data-testid="subscription-currency-select"

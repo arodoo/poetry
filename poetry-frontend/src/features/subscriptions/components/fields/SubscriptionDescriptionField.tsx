@@ -3,10 +3,10 @@
  * Purpose: Description textarea for subscription form.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { TextArea } from '../../../ui/TextArea/TextArea'
-import { Text } from '../../../ui/Text/Text'
+import type { ReactElement, ChangeEvent } from 'react'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { TextArea } from '../../../../ui/TextArea/TextArea'
+import { Text } from '../../../../ui/Text/Text'
 
 interface Props {
   description: string
@@ -24,7 +24,7 @@ export default function SubscriptionDescriptionField({
       </Text>
       <TextArea
         value={description}
-        onChange={(e) => {
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>): void => {
           setDescription(e.target.value)
         }}
         rows={3}

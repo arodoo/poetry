@@ -7,12 +7,12 @@
 
 import type { ReactElement } from 'react'
 import { Card } from '../../../ui/Card/Card'
-import SubscriptionNameField from './SubscriptionNameField'
-import SubscriptionDescriptionField from './SubscriptionDescriptionField'
-import SubscriptionPriceField from './SubscriptionPriceField'
-import SubscriptionCurrencyField from './SubscriptionCurrencyField'
-import SubscriptionDurationField from './SubscriptionDurationField'
-import SubscriptionStatusField from './SubscriptionStatusField'
+import SubscriptionNameField from './fields/SubscriptionNameField'
+import SubscriptionDescriptionField from './fields/SubscriptionDescriptionField'
+import SubscriptionPriceField from './fields/SubscriptionPriceField'
+import SubscriptionCurrencyField from './fields/SubscriptionCurrencyField'
+import SubscriptionDurationField from './fields/SubscriptionDurationField'
+import SubscriptionStatusField from './fields/SubscriptionStatusField'
 
 interface FieldsProps {
   t: (k: string) => string

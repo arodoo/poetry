@@ -3,10 +3,10 @@
  * Purpose: Duration input for subscription form.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Input } from '../../../ui/Input/Input'
-import { Text } from '../../../ui/Text/Text'
+import type { ReactElement, ChangeEvent } from 'react'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Input } from '../../../../ui/Input/Input'
+import { Text } from '../../../../ui/Text/Text'
 
 interface Props {
   t: (k: string) => string
@@ -27,7 +27,7 @@ export default function SubscriptionDurationField({
       <Input
         type="number"
         value={durationDays}
-        onChange={(e) => {
+        onChange={(e: ChangeEvent<HTMLInputElement>): void => {
           setDurationDays(Number(e.target.value))
         }}
         min="1"
