@@ -6,7 +6,9 @@
  */
 
 export async function reserveSlotFromBackend(): Promise<number> {
-  const baseUrl = import.meta.env['VITE_API_URL'] || 'http://localhost:8080'
+  const baseUrl =
+    (import.meta.env['VITE_API_URL'] as string | undefined) ??
+    'http://localhost:8080'
   const response = await fetch(`${baseUrl}/api/v1/fingerprints/reserve-slot`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

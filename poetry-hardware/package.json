@@ -17,12 +17,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "setup:drivers": "powershell -ExecutionPolicy Bypass -File ./scripts/install-drivers.ps1",
-    "setup:r503": "powershell -ExecutionPolicy Bypass -File ./scripts/install-r503-driver.ps1",
-    "force:serial": "powershell -ExecutionPolicy Bypass -File ./scripts/force-r503-serial.ps1",
-    "detect:ports": "powershell -ExecutionPolicy Bypass -File ./scripts/detect-com-ports.ps1",
-    "diagnose:usb": "node scripts/diagnose-usb.mjs",
-    "setup:env": "powershell -ExecutionPolicy Bypass -File ./scripts/setup-environment.ps1"
+    "detect:ports": "powershell -ExecutionPolicy Bypass -File ./scripts/detect-com-ports.ps1"
   },
   "dependencies": {
     "cors": "^2.8.5",
