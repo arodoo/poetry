@@ -17,8 +17,8 @@ import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useMembershipsPageQuery } from '../hooks/useMembershipsQueries'
 import type { MembershipResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
-import { buildMembershipsListColumns } from './membershipsListColumns'
-import { buildMembershipListBreadcrumbs } from './membershipBreadcrumbHelpers'
+import { buildMembershipsListColumns } from '../model/membershipsListColumns'
+import { buildMembershipListBreadcrumbs } from '../model/membershipBreadcrumbHelpers'
 
 export default function MembershipsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)

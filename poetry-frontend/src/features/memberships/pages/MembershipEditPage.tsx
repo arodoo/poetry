@@ -14,9 +14,9 @@ import { useMembershipDetailWithETag } from '../hooks/useMembershipDetailWithETa
 import type { MembershipResponse } from '../../../api/generated'
 import type { MutateOptions } from '@tanstack/react-query'
 // membership form values type intentionally unused in this module
-import { MembershipEditForm } from './MembershipEditForm'
-import { MembershipEditPageLoading } from './MembershipEditPageLoading'
-import { createEditSubmitHandler } from './membershipEditHandlers'
+import { MembershipEditForm } from '../components/MembershipEditForm'
+import { MembershipEditPageLoading } from '../components/MembershipEditPageLoading'
+import { createEditSubmitHandler } from '../hooks/membershipEditHandlers'
 import type { UpdateMembershipInput } from '../model/MembershipsSchemas'
 
 export default function MembershipEditPage(): ReactElement {

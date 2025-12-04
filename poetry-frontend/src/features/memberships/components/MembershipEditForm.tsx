@@ -4,12 +4,15 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { Stack } from '../../../ui/Stack/Stack'
+import { Button } from '../../../ui/Button/Button'
+import { useLocale } from '../../../shared/i18n/hooks/useLocale'
+import { toTemplateString } from '../../../shared/utils/templateSafe'
 import type { MembershipResponse } from '../../../api/generated'
 import type { MembershipFormValues } from '../components/MembershipFormValues'
 import { MembershipFormFields } from '../components/MembershipFormFields'
-import { MembershipEditFormActions } from './MembershipEditFormActions'
 import { useMembershipFormData } from '../hooks/useMembershipFormData'
 import { useMembershipFormState } from '../hooks/useMembershipFormState'
 
@@ -26,6 +29,8 @@ export function MembershipEditForm({
   isSubmitting,
   t,
 }: Props): ReactElement {
+  const { locale } = useLocale()
+  const navigate = useNavigate()
   const formData = useMembershipFormData()
   const formState = useMembershipFormState(membership)
 
@@ -55,11 +60,29 @@ export function MembershipEditForm({
             onStatusChange={formState.setStatus}
             t={t}
           />
-          <MembershipEditFormActions
-            membershipId={membership.id}
-            isSubmitting={isSubmitting}
-            t={t}
-          />
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() =>
+                // intentionally fire-and-forget navigation from a button handler
+                void navigate(
+                  `/${locale}/memberships/${toTemplateString(membership.id)}`
+                )
+              }
+            >
+              {t('ui.memberships.actions.cancel')}
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              size="sm"
+              disabled={isSubmitting}
+            >
+              {t('ui.memberships.actions.save')}
+            </Button>
+          </div>
         </Stack>
       </form>
     </PageLayout>

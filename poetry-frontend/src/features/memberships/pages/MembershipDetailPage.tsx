@@ -17,8 +17,8 @@ import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useMembershipDetailQuery } from '../hooks/useMembershipsQueries'
 import type { MembershipResponse } from '../../../api/generated'
-import { buildMembershipDetailSections } from './membershipDetailHelpers'
-import { buildMembershipDetailBreadcrumbs } from './membershipBreadcrumbHelpers'
+import { buildMembershipDetailSections } from '../model/membershipDetailHelpers'
+import { buildMembershipDetailBreadcrumbs } from '../model/membershipBreadcrumbHelpers'
 
 export default function MembershipDetailPage(): ReactElement {
   const params: Readonly<Record<string, string | undefined>> = useParams()
