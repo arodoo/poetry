@@ -37,7 +37,7 @@ function main() {
     }
   }
 
-  console.log('\n💡 See .github/instructions/ddd-file-organization.md');
+  console.log('\n💡 See docs/architecture/ddd-file-organization.md');
   process.exit(1);
 }
 
