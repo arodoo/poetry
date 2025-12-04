@@ -8,7 +8,7 @@
 export * from './model/SellerCodesSchemas'
 export * from './api/seller-codesApi'
 export * from './hooks/useSellerCodesQueries'
-export * from './hooks/useSellerCodesMutations'
+export * from './hooks/mutations/useSellerCodesMutations'
 export * from './routing/seller-codesRoutes'
 export { default as SellerCodesListPage } from './pages/SellerCodesListPage'
 export { default as SellerCodeCreatePage } from './pages/SellerCodeCreatePage'

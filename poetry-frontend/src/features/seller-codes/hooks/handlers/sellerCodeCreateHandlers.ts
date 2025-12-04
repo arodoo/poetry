@@ -1,22 +1,21 @@
 /*
- * File: sellerCodeEditHandlers.ts
- * Purpose: Event handlers for seller code edit form.
+ * File: sellerCodeCreateHandlers.ts
+ * Purpose: Event handlers for seller code create page (submit,
+ * cancel, etc.).
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { FormEvent } from 'react'
 import type { NavigateFunction } from 'react-router-dom'
-import type * as SC from '../components/useSellerCodesFormState'
-import type { UpdateSellerCodeInput } from '../model/SellerCodesSchemas'
+import type * as SC from '../../components/useSellerCodesFormState'
+import type { CreateSellerCodeInput } from '../../model/SellerCodesSchemas'
 
-export function updateSellerCodeSubmitHandler(
+export function createSellerCodeSubmitHandler(
   formState: SC.SellerCodesFormState,
-  _userId: number,
-  _version: string,
-  onSuccess: (input: UpdateSellerCodeInput) => void
+  onSuccess: (input: CreateSellerCodeInput) => void
 ): (event: FormEvent<HTMLFormElement>) => void {
   return (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    const input: UpdateSellerCodeInput = {
+    const input: CreateSellerCodeInput = {
       code: formState.code,
       userId: Number(formState.userId),
       status: formState.status,
@@ -28,12 +27,11 @@ export function updateSellerCodeSubmitHandler(
   }
 }
 
-export function updateSellerCodeCancelHandler(
+export function createSellerCodeCancelHandler(
   navigate: NavigateFunction,
-  sellerCodeId: string,
   locale: string
 ): () => void {
   return (): void => {
-    void navigate(`/${locale}/seller-codes/${sellerCodeId}`)
+    void navigate(`/${locale}/seller-codes`)
   }
 }

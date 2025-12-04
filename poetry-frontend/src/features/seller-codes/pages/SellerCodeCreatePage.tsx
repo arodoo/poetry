@@ -12,14 +12,14 @@ import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { FormLayout } from '../../../ui/FormLayout/FormLayout'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useSellerCodesFormState } from '../components/useSellerCodesFormState'
-import { useCreateSellerCodeMutation } from '../hooks/useSellerCodesMutations'
+import { useCreateSellerCodeMutation } from '../hooks/mutations/useSellerCodesMutations'
 import type { CreateSellerCodeInput } from '../model/SellerCodesSchemas'
 import { buildCreateFormSections } from '../model/sellerCodeFormSections'
 import { buildSellerCodeCreateBreadcrumbs } from '../model/sellerCodeBreadcrumbHelpers'
 import {
   createSellerCodeSubmitHandler,
   createSellerCodeCancelHandler,
-} from '../hooks/sellerCodeCreateHandlers'
+} from '../hooks/handlers/sellerCodeCreateHandlers'
 
 export default function SellerCodeCreatePage(): ReactElement {
   const t: ReturnType<typeof useT> = useT()

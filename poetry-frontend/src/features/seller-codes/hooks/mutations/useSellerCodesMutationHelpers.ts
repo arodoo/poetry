@@ -8,8 +8,8 @@ import {
   useQueryClient,
   type UseMutationResult,
 } from '@tanstack/react-query'
-import type { SellerCodeDetail } from '../model/SellerCodesSchemas'
-import { sellerCodesQueryKeys } from './useSellerCodesQueries'
+import type { SellerCodeDetail } from '../../model/SellerCodesSchemas'
+import { sellerCodesQueryKeys } from '../useSellerCodesQueries'
 
 export interface MutationVariables<TInput> {
   readonly id: string

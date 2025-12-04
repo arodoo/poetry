@@ -11,13 +11,13 @@ import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useToast } from '../../../shared/toast/toastContext'
-import { useDeleteSellerCodeMutation } from '../hooks/useDeleteSellerCodeMutation'
+import { useDeleteSellerCodeMutation } from '../hooks/mutations/useDeleteSellerCodeMutation'
 import { useSellerCodeDetailQuery } from '../hooks/useSellerCodesQueries'
 import SellerCodeDeleteConfirm from '../components/SellerCodeDeleteConfirm'
 import {
   buildHandleCancel,
   buildHandleConfirmDelete,
-} from '../hooks/sellerCodeDeleteHandlers'
+} from '../hooks/handlers/sellerCodeDeleteHandlers'
 
 export default function SellerCodeDeletePage(): ReactElement {
   const params = useParams()

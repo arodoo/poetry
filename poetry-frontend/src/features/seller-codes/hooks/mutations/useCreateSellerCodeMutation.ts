@@ -4,11 +4,11 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useMutation, type UseMutationResult } from '@tanstack/react-query'
-import { createSellerCode } from '../api/seller-codesApi'
+import { createSellerCode } from '../../api/seller-codesApi'
 import type {
   CreateSellerCodeInput,
   SellerCodeDetail,
-} from '../model/SellerCodesSchemas'
+} from '../../model/SellerCodesSchemas'
 import { useSellerCodesMutationSuccess } from './useSellerCodesMutationHelpers'
 
 export function useCreateSellerCodeMutation(): UseMutationResult<

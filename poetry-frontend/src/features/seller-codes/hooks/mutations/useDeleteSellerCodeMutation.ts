@@ -8,8 +8,8 @@ import {
   useQueryClient,
   type UseMutationResult,
 } from '@tanstack/react-query'
-import { deleteSellerCode } from '../api/seller-codesApi'
-import { sellerCodesQueryKeys } from './useSellerCodesQueries'
+import { deleteSellerCode } from '../../api/seller-codesApi'
+import { sellerCodesQueryKeys } from '../useSellerCodesQueries'
 
 export function useDeleteSellerCodeMutation(): UseMutationResult<
   unknown,

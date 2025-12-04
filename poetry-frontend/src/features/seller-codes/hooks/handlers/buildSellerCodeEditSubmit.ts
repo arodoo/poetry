@@ -8,9 +8,9 @@
  */
 import type { NavigateFunction } from 'react-router-dom'
 import type { UseMutationResult } from '@tanstack/react-query'
-import type * as SC from '../components/useSellerCodesFormState'
-import type { UpdateSellerCodeInput } from '../model/SellerCodesSchemas'
-import type { MutationVariables } from '../hooks/useSellerCodesMutationHelpers'
+import type * as SC from '../../components/useSellerCodesFormState'
+import type { UpdateSellerCodeInput } from '../../model/SellerCodesSchemas'
+import type { MutationVariables } from '../mutations/useSellerCodesMutationHelpers'
 type MutationVars<T> = MutationVariables<T>
 import { updateSellerCodeSubmitHandler } from './sellerCodeEditHandlers'
 

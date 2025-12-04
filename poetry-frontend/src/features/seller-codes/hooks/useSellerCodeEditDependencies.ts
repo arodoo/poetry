@@ -8,7 +8,7 @@ import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useToast } from '../../../shared/toast/toastContext'
 import { useMeQuery } from '../../auth/hooks/useMe'
-import { useUpdateSellerCodeMutation } from '../hooks/useSellerCodesMutations'
+import { useUpdateSellerCodeMutation } from './mutations/useSellerCodesMutations'
 import { useSellerCodeDetailQuery } from '../hooks/useSellerCodesQueries'
 
 export function useSellerCodeEditDependencies(): {
