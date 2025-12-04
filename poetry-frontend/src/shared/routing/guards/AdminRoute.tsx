@@ -7,7 +7,7 @@ import type { ReactElement, ReactNode } from 'react'
 import { Suspense } from 'react'
 import { RequireAuth } from './RequireAuth'
 import { RequireRoles } from './RequireRoles'
-import { AppShell } from '../layout'
+import { AppShell } from '../../layout'
 
 export function AdminRoute({
   children,

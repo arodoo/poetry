@@ -9,8 +9,8 @@ All Rights Reserved. Arodi Emmanuel
 
 import { type ReactNode, useEffect } from 'react'
 import { useNavigate, type NavigateFunction } from 'react-router-dom'
-import { useSession } from '../security/useSession'
-import { buildLocalePath } from './localeUtils'
+import { useSession } from '../../security/useSession'
+import { buildLocalePath } from '../localeUtils'
 
 export interface RequireRoleProps {
   role: string

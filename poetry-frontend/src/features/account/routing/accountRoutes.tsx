@@ -6,7 +6,7 @@
 import type { ReactElement } from 'react'
 import { Suspense } from 'react'
 import { Route } from 'react-router-dom'
-import { RequireAuth } from '../../../shared/routing/RequireAuth'
+import { RequireAuth } from '../../../shared/routing/guards/RequireAuth'
 import { AppShell } from '../../../shared/layout'
 import { AccountPageLazy } from '../../../shared/routing/lazyAdapters'
 

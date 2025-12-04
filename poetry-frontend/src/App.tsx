@@ -9,7 +9,7 @@
 import { type ReactElement } from 'react'
 import './App.css'
 import { BrowserRouter } from 'react-router-dom'
-import { AppRouteTree } from './routes'
+import { AppRouteTree } from './shared/routing/AppRoutes'
 import { ToastProvider } from './shared/toast/ToastProvider'
 
 function App(): ReactElement {

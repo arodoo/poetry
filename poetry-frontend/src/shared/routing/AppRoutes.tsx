@@ -5,11 +5,11 @@
  */
 import type { ReactElement } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { PublicRoutes } from './routesPublic'
-import { AdminRoutes } from './routesAdmin'
-import { PublicAuthRoutes } from './routesAuthPublic'
+import { PublicRoutes } from './config/routesPublic'
+import { AdminRoutes } from './config/routesAdmin'
+import { PublicAuthRoutes } from './config/routesAuthPublic'
 import { getEnv } from '../config/env'
-import { AuthenticatedRoutes } from './routesAuthenticated'
+import { AuthenticatedRoutes } from './config/routesAuthenticated'
 
 export function AppRouteTree(): ReactElement {
   const defaultLocale: string = getEnv().VITE_DEFAULT_LOCALE

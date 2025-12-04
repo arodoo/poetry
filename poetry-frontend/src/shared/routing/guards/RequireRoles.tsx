@@ -5,8 +5,8 @@
 */
 import { type ReactNode, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSession } from '../security/useSession'
-import { buildLocalePath } from './localeUtils'
+import { useSession } from '../../security/useSession'
+import { buildLocalePath } from '../localeUtils'
 
 export interface RequireRolesProps {
   roles: readonly string[]

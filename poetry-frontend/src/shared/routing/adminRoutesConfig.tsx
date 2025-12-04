@@ -5,8 +5,8 @@
  */
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
-import { AdminRoute } from './AdminRoute'
-import { RequireRole } from './RequireRole'
+import { AdminRoute } from './guards/AdminRoute'
+import { RequireRole } from './guards/RequireRole'
 import { AdminTokensPageLazy } from './lazyAdapters'
 import { UsersRoutes } from '../../features/users/routing/usersRoutes'
 import {

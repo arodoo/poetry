@@ -5,7 +5,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { AdminRoutesConfig } from './adminRoutesConfig'
+import { AdminRoutesConfig } from '../adminRoutesConfig'
 
 export function AdminRoutes(): ReactElement[] {
   return AdminRoutesConfig()

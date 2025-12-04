@@ -5,7 +5,7 @@
  */
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
-import { AdminRoute } from '../../../shared/routing/AdminRoute'
+import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
 import MembershipsListPage from '../pages/MembershipsListPage'
 import MembershipsCreatePage from '../pages/MembershipsCreatePage'
 import MembershipDetailPage from '../pages/MembershipDetailPage'
