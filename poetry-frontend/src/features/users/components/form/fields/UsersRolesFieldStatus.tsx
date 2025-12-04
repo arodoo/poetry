@@ -4,8 +4,8 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { type ReactElement } from 'react'
-import { Stack } from '../../../../ui/Stack/Stack'
-import { Text } from '../../../../ui/Text/Text'
+import { Stack } from '../../../../../ui/Stack/Stack'
+import { Text } from '../../../../../ui/Text/Text'
 
 export interface UsersRolesFieldStatusProps {
   readonly message: string

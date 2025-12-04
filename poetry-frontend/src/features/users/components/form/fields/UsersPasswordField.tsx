@@ -4,10 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { type ReactElement, type ChangeEvent } from 'react'
-import { Stack } from '../../../../ui/Stack/Stack'
-import { Input } from '../../../../ui/Input/Input'
-import { Text } from '../../../../ui/Text/Text'
-import type { useT } from '../../../../shared/i18n/useT'
+import { Stack } from '../../../../../ui/Stack/Stack'
+import { Input } from '../../../../../ui/Input/Input'
+import { Text } from '../../../../../ui/Text/Text'
+import type { useT } from '../../../../../shared/i18n/useT'
 
 export interface UsersPasswordFieldProps {
   readonly value: string

@@ -4,11 +4,11 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { type ReactElement, type ChangeEvent } from 'react'
-import { Stack } from '../../../../ui/Stack/Stack'
-import { Text } from '../../../../ui/Text/Text'
-import type { useT } from '../../../../shared/i18n/useT'
-import { useRolesQuery } from '../../hooks/useRolesQuery'
-import type { RoleDto } from '../../../../api/generated'
+import { Stack } from '../../../../../ui/Stack/Stack'
+import { Text } from '../../../../../ui/Text/Text'
+import type { useT } from '../../../../../shared/i18n/useT'
+import { useRolesQuery } from '../../../hooks/useRolesQuery'
+import type { RoleDto } from '../../../../../api/generated'
 import { UsersRolesFieldStatus } from './UsersRolesFieldStatus'
 
 export interface UsersRolesFieldProps {
