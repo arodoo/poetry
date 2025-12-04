@@ -4,11 +4,11 @@
  TokensSelectionForm. Keeps the parent form file short and preserves
  runtime behavior. All Rights Reserved. Arodi Emmanuel
 */
-import type { ReactElement } from 'react'
-import { Select } from '../../../ui/Select/Select'
-import { Label } from '../../../ui/Label/Label'
-import type { I18nKey } from '../../../shared/i18n/generated/keys'
-import { formatTokenLabel } from '../pages/tokensPageHelpers'
+import type { ReactElement, ChangeEvent } from 'react'
+import { Select } from '../../../../ui/Select/Select'
+import { Label } from '../../../../ui/Label/Label'
+import type { I18nKey } from '../../../../shared/i18n/generated/keys'
+import { formatTokenLabel } from '../../pages/tokensPageHelpers'
 
 export interface TokensFieldSelectProps {
   id: string
@@ -27,7 +27,7 @@ export function TokensFieldSelect(props: TokensFieldSelectProps): ReactElement {
       <Select
         id={props.id}
         value={props.value}
-        onChange={(e): void => {
+        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
           props.onChange(e.currentTarget.value)
         }}
         disabled={props.disabled}

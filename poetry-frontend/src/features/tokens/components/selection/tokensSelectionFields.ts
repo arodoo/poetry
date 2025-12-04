@@ -4,8 +4,8 @@
  * form stays within the repo max-lines limit. Pure data-only module.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { TokenBundle } from '../model/TokensSchemas'
-import type { I18nKey } from '../../../shared/i18n/generated/keys'
+import type { TokenBundle } from '../../model/TokensSchemas'
+import type { I18nKey } from '../../../../shared/i18n/generated/keys'
 
 export function buildTokenFields(bundle: TokenBundle): readonly {
   key: string

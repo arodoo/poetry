@@ -10,8 +10,8 @@
 import { type ReactElement, useCallback, useState, useEffect } from 'react'
 import { useTokensQuery } from '../hooks/useTokensQueries'
 import { applyCss } from './applyCss'
-import type { TokenBundle } from '../../tokens/model/TokensSchemas'
-import { TokenSelectors } from './TokenSelectors'
+import type { TokenBundle } from '../model/TokensSchemas'
+import { TokenSelectors } from './selection/TokenSelectors'
 import type { OverridesState } from './OverridesState'
 
 export function TokenSwitcherPanel(): ReactElement | null {

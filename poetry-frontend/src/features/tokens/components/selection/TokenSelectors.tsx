@@ -7,7 +7,7 @@
  */
 import { type ReactElement } from 'react'
 import { SelectRow } from './SelectRow'
-import type { TokenBundle } from '../../tokens/model/TokensSchemas'
+import type { TokenBundle } from '../../model/TokensSchemas'
 
 export interface TokenSelectorsProps {
   bundle: TokenBundle

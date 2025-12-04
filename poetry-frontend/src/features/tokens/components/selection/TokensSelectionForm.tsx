@@ -5,11 +5,11 @@
  inputs with validation. All Rights Reserved. Arodi Emmanuel
 */
 import type { ReactElement, FormEvent } from 'react'
-import { TokensFormFooter } from './TokensFormFooter'
+import { TokensFormFooter } from '../TokensFormFooter'
 import { TokensFieldSelect } from './TokensFieldSelect'
-import type { TokenBundle } from '../model/TokensSchemas'
-import type { I18nKey } from '../../../shared/i18n/generated/keys'
-import type { TokensFormState } from '../pages/useTokensFormState'
+import type { TokenBundle } from '../../model/TokensSchemas'
+import type { I18nKey } from '../../../../shared/i18n/generated/keys'
+import type { TokensFormState } from '../../pages/useTokensFormState'
 import { buildTokenFields } from './tokensSelectionFields'
 
 export interface TokensSelectionFormProps {
