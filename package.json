@@ -53,7 +53,7 @@
     "lint:mobile": "npm --prefix poetry-mobile run lint"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,md,json,yaml,yml}": [
+    "*.{json,yaml,yml}": [
       "prettier --write"
     ]
   },

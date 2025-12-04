@@ -27,10 +27,7 @@ test.describe('User Creation with Fingerprint', () => {
     await page.getByTestId('user-username-input').fill('johndoe')
     await page.getByTestId('user-email-input').fill('john.doe@example.com')
 
-    await page
-      .getByRole('button', { name: /start/i })
-      .first()
-      .click()
+    await page.getByRole('button', { name: /start/i }).first().click()
 
     await page.screenshot({ path: 'test-results/after-click.png' })
 
@@ -42,9 +39,9 @@ test.describe('User Creation with Fingerprint', () => {
       page.getByText(/enrolled successfully|enrolling fingerprint/i)
     ).toBeVisible({ timeout: 15000 })
 
-    await expect(
-      page.getByText(/enrolled successfully/i)
-    ).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/enrolled successfully/i)).toBeVisible({
+      timeout: 10000,
+    })
 
     await page.getByRole('button', { name: /create/i }).click()
 

@@ -5,10 +5,10 @@
 
 import { RelayPort } from '../../application/ports/RelayPort.js';
 import { FingerprintPort } from '../../application/ports/FingerprintPort.js';
-import { MockRelayAdapter } from '../../infrastructure/adapters/MockRelayAdapter.js';
-import { SerialRelayAdapter } from '../../infrastructure/adapters/SerialRelayAdapter.js';
-import { MockFingerprintAdapter } from '../../infrastructure/adapters/MockFingerprintAdapter.js';
-import { BridgeFingerprintAdapter } from '../../infrastructure/adapters/BridgeFingerprintAdapter.js';
+import { MockRelayAdapter } from '../../infrastructure/adapters/relay/MockRelayAdapter.js';
+import { SerialRelayAdapter } from '../../infrastructure/adapters/relay/SerialRelayAdapter.js';
+import { MockFingerprintAdapter } from '../../infrastructure/adapters/fingerprint/MockFingerprintAdapter.js';
+import { BridgeFingerprintAdapter } from '../../infrastructure/adapters/fingerprint/BridgeFingerprintAdapter.js';
 
 let sharedRelayPort: RelayPort | null = null;
 let sharedFingerprintPort: FingerprintPort | null = null;

@@ -39,7 +39,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/account/routing/accountRoutes.ts",
+          "path": "poetry-frontend/src/features/account/routing/accountRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -155,7 +155,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/admin/routing/adminRoutes.ts",
+          "path": "poetry-frontend/src/features/admin/routing/adminRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -271,7 +271,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/auth/routing/authRoutes.ts",
+          "path": "poetry-frontend/src/features/auth/routing/authRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -387,7 +387,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/dashboard/routing/dashboardRoutes.ts",
+          "path": "poetry-frontend/src/features/dashboard/routing/dashboardRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -503,7 +503,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/fingerprint/routing/fingerprintRoutes.ts",
+          "path": "poetry-frontend/src/features/fingerprint/routing/fingerprintRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -619,7 +619,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/memberships/routing/membershipsRoutes.ts",
+          "path": "poetry-frontend/src/features/memberships/routing/membershipsRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -735,7 +735,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/profile/routing/profileRoutes.ts",
+          "path": "poetry-frontend/src/features/profile/routing/profileRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -851,7 +851,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/public/routing/publicRoutes.ts",
+          "path": "poetry-frontend/src/features/public/routing/publicRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -967,7 +967,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/public-forgot-password/routing/public-forgot-passwordRoutes.ts",
+          "path": "poetry-frontend/src/features/public-forgot-password/routing/public-forgot-passwordRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -1083,7 +1083,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/public-login/routing/public-loginRoutes.ts",
+          "path": "poetry-frontend/src/features/public-login/routing/public-loginRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -1199,7 +1199,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/public-register/routing/public-registerRoutes.ts",
+          "path": "poetry-frontend/src/features/public-register/routing/public-registerRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -1315,7 +1315,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/seller-codes/routing/seller-codesRoutes.ts",
+          "path": "poetry-frontend/src/features/seller-codes/routing/seller-codesRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -1431,7 +1431,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/subscriptions/routing/subscriptionsRoutes.ts",
+          "path": "poetry-frontend/src/features/subscriptions/routing/subscriptionsRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -1547,7 +1547,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/tokens/routing/tokensRoutes.ts",
+          "path": "poetry-frontend/src/features/tokens/routing/tokensRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -1663,7 +1663,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/users/routing/usersRoutes.ts",
+          "path": "poetry-frontend/src/features/users/routing/usersRoutes.tsx",
           "optional": false,
           "exists": true
         },
@@ -1779,7 +1779,7 @@
           "exists": true
         },
         {
-          "path": "poetry-frontend/src/features/zones/routing/zonesRoutes.ts",
+          "path": "poetry-frontend/src/features/zones/routing/zonesRoutes.tsx",
           "optional": false,
           "exists": true
         },

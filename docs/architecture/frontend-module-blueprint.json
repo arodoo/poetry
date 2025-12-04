@@ -55,7 +55,7 @@
           "description": "Route-level pages folder"
         },
         {
-          "path": "<feature>/routing/<feature>Routes.ts",
+          "path": "<feature>/routing/<feature>Routes.tsx",
           "required": true,
           "description": "RouteObject export with locale-prefixed paths"
         },
