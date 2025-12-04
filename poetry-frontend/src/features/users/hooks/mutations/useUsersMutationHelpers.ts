@@ -9,8 +9,8 @@ import {
   useQueryClient,
   type UseMutationResult,
 } from '@tanstack/react-query'
-import type { UserResponse } from '../../../api/generated'
-import { usersQueryKeys } from './useUsersQueries'
+import type { UserResponse } from '../../../../api/generated'
+import { usersQueryKeys } from '../useUsersQueries'
 
 export interface MutationVariables<TInput> {
   readonly id: string

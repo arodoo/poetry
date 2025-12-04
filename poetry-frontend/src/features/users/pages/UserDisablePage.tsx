@@ -11,7 +11,7 @@ import { Stack } from '../../../ui/Stack/Stack'
 import { useT } from '../../../shared/i18n/useT'
 import { UsersPageLayout } from '../components/UsersPageLayout'
 import { UsersFormShell } from '../components/form/UsersFormShell'
-import { useDisableUserMutation } from '../hooks/useUsersMutations'
+import { useDisableUserMutation } from '../hooks/mutations/useUsersMutations'
 
 export default function UserDisablePage(): ReactElement {
   const params: Readonly<Record<string, string | undefined>> = useParams()

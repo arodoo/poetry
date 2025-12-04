@@ -5,9 +5,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { NavigateFunction } from 'react-router-dom'
-import type { useT } from '../../../shared/i18n/useT'
-import type { useToast } from '../../../shared/toast/toastContext'
-import type { UserResponse } from '../../../api/generated/types.gen'
+import type { useT } from '../../../../shared/i18n/useT'
+import type { useToast } from '../../../../shared/toast/toastContext'
+import type { UserResponse } from '../../../../api/generated/types.gen'
 
 export async function linkFingerprintToUser(
   userId: number,

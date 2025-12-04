@@ -12,7 +12,7 @@ import { useToast } from '../../../shared/toast/toastContext'
 import { UsersPageLayout } from '../components/UsersPageLayout'
 import { UsersFormShell } from '../components/form/UsersFormShell'
 import { UserDeleteActions } from '../components/UserDeleteActions'
-import { useDeleteUserMutation } from '../hooks/useUsersMutations'
+import { useDeleteUserMutation } from '../hooks/mutations/useUsersMutations'
 import { useUserDetailWithETag } from '../hooks/useUserDetailWithETag'
 
 export default function UserDeletePage(): ReactElement {

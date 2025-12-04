@@ -4,9 +4,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { UseMutationResult } from '@tanstack/react-query'
-import { disableUser } from '../api/usersApi'
-import type { UserStatusToggleInput } from '../model/UsersSchemas'
-import type { UserResponse } from '../../../api/generated'
+import { disableUser } from '../../api/usersApi'
+import type { UserStatusToggleInput } from '../../model/UsersSchemas'
+import type { UserResponse } from '../../../../api/generated'
 import {
   type MutationVariables,
   useUsersEntityMutation,

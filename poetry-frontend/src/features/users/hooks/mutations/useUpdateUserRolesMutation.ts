@@ -4,9 +4,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { UseMutationResult } from '@tanstack/react-query'
-import { updateUserRoles } from '../api/usersApi'
-import type { UpdateUserRolesInput } from '../model/UsersSchemas'
-import type { UserResponse } from '../../../api/generated'
+import { updateUserRoles } from '../../api/usersApi'
+import type { UpdateUserRolesInput } from '../../model/UsersSchemas'
+import type { UserResponse } from '../../../../api/generated'
 import {
   type MutationVariables,
   useUsersEntityMutation,

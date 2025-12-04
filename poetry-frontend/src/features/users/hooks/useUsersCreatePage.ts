@@ -8,12 +8,12 @@ import type { NavigateFunction } from 'react-router-dom'
 import type { useT } from '../../../shared/i18n/useT'
 import type { useToast } from '../../../shared/toast/toastContext'
 import { useUsersFormState } from '../components/form/useUsersFormState'
-import { useCreateUserMutation } from '../hooks/useUsersMutations'
+import { useCreateUserMutation } from './mutations/useUsersMutations'
 import {
   createUserSubmitHandler,
   createUserCancelHandler,
-} from './userCreateHandlers'
-import { createMutationHandler } from './userCreateFingerprintHandlers'
+} from './handlers/userCreateHandlers'
+import { createMutationHandler } from './handlers/userCreateFingerprintHandlers'
 
 export function useUsersCreatePage(
   locale: string,
