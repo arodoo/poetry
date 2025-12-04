@@ -5,7 +5,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Button } from '../../../ui/Button/Button'
+import { Button } from '../../../../ui/Button/Button'
 
 export interface UsersListTopActionsProps {
   locale: string

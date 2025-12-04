@@ -7,7 +7,9 @@
 import type { ReactElement } from 'react'
 import { Button } from '../../../ui/Button/Button'
 import type { useT } from '../../../shared/i18n/useT'
-import { FingerprintEnrollmentWizard } from '../components/FingerprintWizard'
+import {
+  FingerprintEnrollmentWizard,
+} from '../components/fingerprint/FingerprintWizard'
 
 interface UsersCreateFingerprintSectionProps {
   readonly onSuccess: (slotId: number) => void

@@ -5,8 +5,8 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement, FormEvent } from 'react'
-import { Button } from '../../../ui/Button/Button'
-import type { useT } from '../../../shared/i18n/useT'
+import { Button } from '../../../../ui/Button/Button'
+import type { useT } from '../../../../shared/i18n/useT'
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void

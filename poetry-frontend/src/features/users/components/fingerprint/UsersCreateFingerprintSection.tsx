@@ -5,9 +5,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Button } from '../../../ui/Button/Button'
-import type { useT } from '../../../shared/i18n/useT'
-import { FingerprintEnrollmentWizard } from '../components/FingerprintWizard'
+import { Button } from '../../../../ui/Button/Button'
+import type { useT } from '../../../../shared/i18n/useT'
+import { FingerprintEnrollmentWizard } from './FingerprintWizard'
 
 interface UsersCreateFingerprintSectionProps {
   readonly onSuccess: (slotId: number) => void

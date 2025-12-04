@@ -5,9 +5,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Inline } from '../../../ui/Inline/Inline'
-import { Button } from '../../../ui/Button/Button'
-import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { Inline } from '../../../../ui/Inline/Inline'
+import { Button } from '../../../../ui/Button/Button'
+import { toTemplateString } from '../../../../shared/utils/templateSafe'
 
 export interface UserListActionsProps {
   locale: string

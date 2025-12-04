@@ -4,10 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { type ReactElement, type ChangeEvent } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Select } from '../../../ui/Select/Select'
-import { Text } from '../../../ui/Text/Text'
-import type { useT } from '../../../shared/i18n/useT'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Select } from '../../../../ui/Select/Select'
+import { Text } from '../../../../ui/Text/Text'
+import type { useT } from '../../../../shared/i18n/useT'
 import { UsersBasicFields } from './UsersBasicFields'
 import { UsersPasswordField } from './UsersPasswordField'
 import { UsersRolesField } from './UsersRolesField'

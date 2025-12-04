@@ -14,8 +14,8 @@ import { buildCreateFormSections } from './userFormSections'
 import { buildUserCreateBreadcrumbs } from './userBreadcrumbHelpers'
 import { UsersCreateFingerprintSection } from './UsersCreateFingerprintSection'
 import { useUsersCreatePage } from './useUsersCreatePage'
-import { UserFormSectionsRenderer } from '../components/FormSectionsRenderer'
-import { UserCreateFormActions } from '../components/UserCreateFormActions'
+import { UserFormSectionsRenderer } from '../components/form/FormSectionsRenderer'
+import { UserCreateFormActions } from '../components/form/UserCreateFormActions'
 
 export default function UsersCreatePage(): ReactElement {
   const t = useT()

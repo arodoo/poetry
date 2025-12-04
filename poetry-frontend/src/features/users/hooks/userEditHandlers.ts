@@ -6,9 +6,9 @@
  */
 import type { FormEvent } from 'react'
 import type { NavigateFunction } from 'react-router-dom'
-import { buildFormData } from '../components/usersFormHelpers'
-import type { UsersFormValues } from '../components/UsersForm'
-import type { UsersFormState } from '../components/useUsersFormState'
+import { buildFormData } from '../components/form/usersFormHelpers'
+import type { UsersFormValues } from '../components/form/UsersForm'
+import type { UsersFormState } from '../components/form/useUsersFormState'
 
 export function createSubmitHandler(
   formState: UsersFormState,

@@ -5,7 +5,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import type { FormLayoutSection } from '../../../ui/FormLayout/FormLayout'
+import type { FormLayoutSection } from '../../../../ui/FormLayout/FormLayout'
 
 interface Props {
   readonly sections: readonly FormLayoutSection[]

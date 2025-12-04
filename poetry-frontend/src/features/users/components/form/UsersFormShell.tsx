@@ -4,10 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement, ReactNode } from 'react'
-import { Card } from '../../../ui/Card/Card'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Heading } from '../../../ui/Heading/Heading'
-import { Text } from '../../../ui/Text/Text'
+import { Card } from '../../../../ui/Card/Card'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Heading } from '../../../../ui/Heading/Heading'
+import { Text } from '../../../../ui/Text/Text'
 
 export interface UsersFormShellProps {
   readonly title: string

@@ -4,13 +4,13 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { type FormEvent, type ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Button } from '../../../ui/Button/Button'
-import type { useT } from '../../../shared/i18n/useT'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Button } from '../../../../ui/Button/Button'
+import type { useT } from '../../../../shared/i18n/useT'
 import { UsersFormFields } from './UsersFormFields'
 import { buildFormData } from './usersFormHelpers'
 import { useUsersFormState, type UsersFormState } from './useUsersFormState'
-import type { UserResponse } from '../../../api/generated'
+import type { UserResponse } from '../../../../api/generated'
 
 export type UsersFormValues = Required<
   Pick<

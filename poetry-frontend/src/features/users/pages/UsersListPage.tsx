@@ -6,7 +6,7 @@
  */
 import type { ReactElement } from 'react'
 import { useState } from 'react'
-import { UsersListTopActions } from '../components/UsersListTopActions'
+import { UsersListTopActions } from '../components/list/UsersListTopActions'
 import { Text } from '../../../ui/Text/Text'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { DataTable } from '../../../ui/DataTable/DataTable'

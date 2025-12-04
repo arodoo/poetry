@@ -10,7 +10,7 @@ import { Button } from '../../../ui/Button/Button'
 import { Stack } from '../../../ui/Stack/Stack'
 import { useT } from '../../../shared/i18n/useT'
 import { UsersPageLayout } from '../components/UsersPageLayout'
-import { UsersFormShell } from '../components/UsersFormShell'
+import { UsersFormShell } from '../components/form/UsersFormShell'
 import { useUpdateUserRolesMutation } from '../hooks/useUsersMutations'
 
 export default function UserRolesPage(): ReactElement {

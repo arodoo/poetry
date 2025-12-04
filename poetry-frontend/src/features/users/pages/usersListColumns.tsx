@@ -8,7 +8,7 @@ import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { UserSummary } from '../model/UsersSchemas'
-import { UserListActions } from '../components/UserListActions'
+import { UserListActions } from '../components/list/UserListActions'
 
 export function buildUsersListColumns(
   locale: string,

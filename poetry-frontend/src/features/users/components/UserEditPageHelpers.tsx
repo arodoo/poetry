@@ -4,7 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { UsersPageLayout } from '../components/UsersPageLayout'
+import { UsersPageLayout } from './UsersPageLayout'
 import { Text } from '../../../ui/Text/Text'
 
 export function UserEditPageLoading({

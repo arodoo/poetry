@@ -4,12 +4,12 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Card } from '../../../ui/Card/Card'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Text } from '../../../ui/Text/Text'
-import { Heading } from '../../../ui/Heading/Heading'
-import { Button } from '../../../ui/Button/Button'
-import { useT } from '../../../shared/i18n/useT'
+import { Card } from '../../../../ui/Card/Card'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Text } from '../../../../ui/Text/Text'
+import { Heading } from '../../../../ui/Heading/Heading'
+import { Button } from '../../../../ui/Button/Button'
+import { useT } from '../../../../shared/i18n/useT'
 
 export function UsersListShell(): ReactElement {
   const t: ReturnType<typeof useT> = useT()

@@ -4,10 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Text } from '../../../ui/Text/Text'
-import { Button } from '../../../ui/Button/Button'
-import type { useT } from '../../../shared/i18n/useT'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Text } from '../../../../ui/Text/Text'
+import { Button } from '../../../../ui/Button/Button'
+import type { useT } from '../../../../shared/i18n/useT'
 
 interface StateProps {
   readonly t: ReturnType<typeof useT>

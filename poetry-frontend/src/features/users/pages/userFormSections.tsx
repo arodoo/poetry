@@ -4,8 +4,8 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { FormLayoutSection } from '../../../ui/FormLayout/FormLayout'
-import { UsersFormFields } from '../components/UsersFormFields'
-import type { UsersFormState } from '../components/useUsersFormState'
+import { UsersFormFields } from '../components/form/UsersFormFields'
+import type { UsersFormState } from '../components/form/useUsersFormState'
 
 export function buildEditFormSections(
   formState: UsersFormState,

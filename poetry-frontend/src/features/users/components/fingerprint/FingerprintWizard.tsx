@@ -6,10 +6,10 @@
  */
 
 import type { ReactElement } from 'react'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Text } from '../../../ui/Text/Text'
-import { Button } from '../../../ui/Button/Button'
-import type { useT } from '../../../shared/i18n/useT'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Text } from '../../../../ui/Text/Text'
+import { Button } from '../../../../ui/Button/Button'
+import type { useT } from '../../../../shared/i18n/useT'
 import { useFingerprintEnrollment } from './useFingerprintEnrollment'
 import * as States from './FingerprintWizardStates'
 
