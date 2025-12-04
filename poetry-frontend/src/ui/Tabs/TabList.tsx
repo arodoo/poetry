@@ -13,7 +13,7 @@ import {
 } from 'react'
 import clsx from 'clsx'
 import { useTabsContext } from './TabsContext'
-import { useTabListKeydown } from './useTabListKeydown'
+import { useTabListKeydown } from './hooks/useTabListKeydown'
 
 export interface TabListProps {
   children?: ReactNode

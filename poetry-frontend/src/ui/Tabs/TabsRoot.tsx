@@ -5,8 +5,8 @@
 */
 import { type ReactElement, type ReactNode, type KeyboardEvent } from 'react'
 import { useState } from 'react'
-import { useTabsKeyHandler } from './useTabsKeyHandler'
-import { makeGetPanelId, makeGetTabId } from './useTabsIds'
+import { useTabsKeyHandler } from './hooks/useTabsKeyHandler'
+import { makeGetPanelId, makeGetTabId } from './hooks/useTabsIds'
 import { TabsPanelsView } from './TabsPanelsView'
 import { TabsHeader } from './TabsHeader'
 

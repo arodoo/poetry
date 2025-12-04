@@ -4,7 +4,7 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { type ReactElement, type KeyboardEvent } from 'react'
-import { tabClass } from './tabsHelpers'
+import { tabClass } from './hooks/tabsHelpers'
 import type { TabItem } from './TabsRoot'
 
 export interface TabsHeaderProps {

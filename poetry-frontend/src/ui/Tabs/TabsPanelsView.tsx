@@ -4,7 +4,7 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { type ReactElement } from 'react'
-import { panelProps } from './tabsHelpers'
+import { panelProps } from './hooks/tabsHelpers'
 import type { TabItem } from './TabsRoot'
 
 interface Props {
