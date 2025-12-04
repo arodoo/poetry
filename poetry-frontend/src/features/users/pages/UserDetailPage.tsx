@@ -17,8 +17,8 @@ import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUserDetailQuery } from '../hooks/useUsersQueries'
 import type { UserResponse } from '../../../api/generated'
-import { buildUserDetailSections } from './userDetailHelpers'
-import { buildUserDetailBreadcrumbs } from './userBreadcrumbHelpers'
+import { buildUserDetailSections } from '../model/userDetailHelpers'
+import { buildUserDetailBreadcrumbs } from '../model/userBreadcrumbHelpers'
 
 export default function UserDetailPage(): ReactElement {
   const params: Readonly<Record<string, string | undefined>> = useParams()

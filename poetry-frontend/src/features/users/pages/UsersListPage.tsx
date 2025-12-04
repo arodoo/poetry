@@ -17,8 +17,8 @@ import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useUsersPageQuery } from '../hooks/useUsersQueries'
 import type { UserResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
-import { buildUsersListColumns } from './usersListColumns'
-import { buildUserListBreadcrumbs } from './userBreadcrumbHelpers'
+import { buildUsersListColumns } from '../model/usersListColumns'
+import { buildUserListBreadcrumbs } from '../model/userBreadcrumbHelpers'
 
 export default function UsersListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)

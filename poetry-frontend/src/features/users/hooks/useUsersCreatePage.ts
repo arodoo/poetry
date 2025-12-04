@@ -8,7 +8,7 @@ import type { NavigateFunction } from 'react-router-dom'
 import type { useT } from '../../../shared/i18n/useT'
 import type { useToast } from '../../../shared/toast/toastContext'
 import { useUsersFormState } from '../components/form/useUsersFormState'
-import { useCreateUserMutation } from './useUsersMutations'
+import { useCreateUserMutation } from '../hooks/useUsersMutations'
 import {
   createUserSubmitHandler,
   createUserCancelHandler,

@@ -14,8 +14,8 @@ import { useUpdateUserMutation } from '../hooks/useUsersMutations'
 import { useUserDetailWithETag } from '../hooks/useUserDetailWithETag'
 import type { UserResponse } from '../../../api/generated'
 import { UpdateUserSchema, type UpdateUserInput } from '../model/UsersSchemas'
-import { UserEditPageLoading } from './UserEditPageHelpers'
-import { UserEditForm } from './UserEditForm'
+import { UserEditPageLoading } from '../components/UserEditPageHelpers'
+import { UserEditForm } from '../components/form/UserEditForm'
 
 export default function UserEditPage(): ReactElement {
   const userId: string = useParams()['id'] ?? ''

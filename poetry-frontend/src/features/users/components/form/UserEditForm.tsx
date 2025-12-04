@@ -5,20 +5,17 @@
  */
 import type { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PageLayout } from '../../../ui/PageLayout/PageLayout'
-import { FormLayout } from '../../../ui/FormLayout/FormLayout'
-import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
-import { useLocale } from '../../../shared/i18n/hooks/useLocale'
-import type { useT } from '../../../shared/i18n/useT'
-import type { UserDetail } from '../model/UsersSchemas'
-import type { UsersFormValues } from './form/UsersForm'
-import { useUsersFormState } from './form/useUsersFormState'
-import { buildEditFormSections } from '../pages/userFormSections'
-import { buildUserEditBreadcrumbs } from '../model/userBreadcrumbHelpers'
-import {
-  createSubmitHandler,
-  createCancelHandler,
-} from '../hooks/userEditHandlers'
+import { PageLayout } from '../../../../ui/PageLayout/PageLayout'
+import { FormLayout } from '../../../../ui/FormLayout/FormLayout'
+import { Breadcrumb } from '../../../../ui/Breadcrumb/Breadcrumb'
+import { useLocale } from '../../../../shared/i18n/hooks/useLocale'
+import type { useT } from '../../../../shared/i18n/useT'
+import type { UserDetail } from '../../model/UsersSchemas'
+import type { UsersFormValues } from './UsersForm'
+import { useUsersFormState } from './useUsersFormState'
+import { buildEditFormSections } from '../../model/userFormSections'
+import { buildUserEditBreadcrumbs } from '../../model/userBreadcrumbHelpers'
+import { createSubmitHandler, createCancelHandler } from '../../hooks/userEditHandlers'
 
 export interface UserEditFormProps {
   readonly userId: string
