@@ -18,8 +18,8 @@ import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useZoneDetailQuery } from '../hooks/useZonesQueries'
 import type { ZoneDetail } from '../model/ZonesSchemas'
 import { useT } from '../../../shared/i18n/useT'
-import { buildZoneDetailSections } from './zoneDetailHelpers'
-import { buildZoneDetailBreadcrumbs } from './zoneBreadcrumbHelpers'
+import { buildZoneDetailSections } from '../model/zoneDetailHelpers'
+import { buildZoneDetailBreadcrumbs } from '../model/zoneBreadcrumbHelpers'
 
 export default function ZoneDetailPage(): ReactElement {
   const params = useParams()

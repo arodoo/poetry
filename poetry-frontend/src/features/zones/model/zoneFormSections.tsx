@@ -1,6 +1,6 @@
 /*
  * File: zoneFormSections.tsx
- * Purpose: Form section builders for zone create and edit pages.
+ * Purpose: Builders for form sections in zone create and edit pages, using the FormLayout component. Returns readonly section arrays with title, description, and ZonesFormFields as field content. Improves modularity and reusability of form layouts.
  * All Rights Reserved. Arodi Emmanuel
  */
 

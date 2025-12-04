@@ -1,6 +1,6 @@
 /*
  * File: zoneBreadcrumbHelpers.ts
- * Purpose: Build breadcrumb navigation for zones feature pages.
+ * Purpose: Helper functions to build breadcrumb navigation trails for all zones feature pages, including list, create, edit, and detail views. Returns locale-aware BreadcrumbItem arrays for use in UI components. Improves navigation consistency and user experience.
  * All Rights Reserved. Arodi Emmanuel
  */
 

@@ -15,12 +15,12 @@ import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useZonesFormState } from '../components/useZonesFormState'
 import { useCreateZoneMutation } from '../hooks/useZonesMutations'
 import type { CreateZoneInput } from '../model/ZonesSchemas'
-import { buildCreateFormSections } from './zoneFormSections'
-import { buildZoneCreateBreadcrumbs } from './zoneBreadcrumbHelpers'
+import { buildCreateFormSections } from '../model/zoneFormSections'
+import { buildZoneCreateBreadcrumbs } from '../model/zoneBreadcrumbHelpers'
 import {
   createZoneSubmitHandler,
   createZoneCancelHandler,
-} from './zoneCreateHandlers'
+} from '../hooks/zoneCreateHandlers'
 
 export default function ZoneCreatePage(): ReactElement {
   const t = useT()

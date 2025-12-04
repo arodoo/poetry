@@ -1,6 +1,6 @@
 /*
  * File: zoneDetailHelpers.tsx
- * Purpose: Build detail view sections for zone detail page.
+ * Purpose: Helper functions to build detail view sections for the zone detail page. Formats zone properties into DetailView section structures for display. Supports modular UI and improves maintainability of detail views.
  * All Rights Reserved. Arodi Emmanuel
  */
 

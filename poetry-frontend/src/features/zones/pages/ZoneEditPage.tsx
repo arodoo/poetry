@@ -14,12 +14,12 @@ import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useToast } from '../../../shared/toast/toastContext'
 import { useZonesFormState } from '../components/useZonesFormState'
-import { createInitialZoneFormState } from './zoneEditUtils'
+import { createInitialZoneFormState } from '../hooks/zoneEditUtils'
 import { useZoneDetailQuery } from '../hooks/useZonesQueries'
 import { useUpdateZoneMutation } from '../hooks/useZonesMutations'
-import { buildEditFormSections } from './zoneFormSections'
-import { buildZoneEditBreadcrumbs } from './zoneBreadcrumbHelpers'
-import { buildZoneEditSubmitHandler } from './zoneEditHandlers'
+import { buildEditFormSections } from '../model/zoneFormSections'
+import { buildZoneEditBreadcrumbs } from '../model/zoneBreadcrumbHelpers'
+import { buildZoneEditSubmitHandler } from '../hooks/zoneEditHandlers'
 
 export default function ZoneEditPage(): ReactElement {
   const params = useParams()

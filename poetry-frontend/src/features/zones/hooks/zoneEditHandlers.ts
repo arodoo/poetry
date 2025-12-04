@@ -1,6 +1,6 @@
 /*
  * File: zoneEditHandlers.ts
- * Purpose: Submit handler for zone edit page with optimistic locking.
+ * Purpose: Event handler for zone edit page submit. Transforms form state into UpdateZoneInput with version from the existing zone entity and triggers mutation with navigation and toast callbacks. Supports optimistic locking and user feedback.
  * All Rights Reserved. Arodi Emmanuel
  */
 
