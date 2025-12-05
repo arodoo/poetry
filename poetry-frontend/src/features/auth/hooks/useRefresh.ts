@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { QueryClient, UseMutationResult } from '@tanstack/react-query'
 import { postRefresh } from '../api/authApi'
 import type { AuthTokens } from '../model/AuthTokensSchemas'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 export function useRefresh(): UseMutationResult<AuthTokens, Error, string> {
   const qc: QueryClient = useQueryClient()

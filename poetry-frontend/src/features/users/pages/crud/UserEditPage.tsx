@@ -13,7 +13,10 @@ import type { UsersFormValues } from '../../components/form/UsersForm'
 import { useUpdateUserMutation } from '../../hooks/mutations/useUsersMutations'
 import { useUserDetailWithETag } from '../../hooks/useUserDetailWithETag'
 import type { UserResponse } from '../../../../api/generated'
-import { UpdateUserSchema, type UpdateUserInput } from '../../model/UsersSchemas'
+import {
+  UpdateUserSchema,
+  type UpdateUserInput,
+} from '../../model/UsersSchemas'
 import { UserEditPageLoading } from '../../components/UserEditPageHelpers'
 import { UserEditForm } from '../../components/form/UserEditForm'
 

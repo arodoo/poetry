@@ -6,8 +6,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { QueryClient, UseMutationResult } from '@tanstack/react-query'
 import { postLogout } from '../api/authApi'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
-import type { TokenBundle } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
+import type { TokenBundle } from '../../../shared/security/tokens/tokenStorage'
 
 export function useLogout(): UseMutationResult<undefined, Error, void> {
   const qc: QueryClient = useQueryClient()

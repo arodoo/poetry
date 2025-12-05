@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 class DeleteUserUseCaseTest {
   @Test

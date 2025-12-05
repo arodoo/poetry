@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class UserRehydratorSmokeTest {
     @Test
     void classExists() throws ClassNotFoundException {
-        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.UserRehydrator");
+        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.core.UserRehydrator");
         assertNotNull(cls);
         assertTrue(cls.getDeclaredConstructors().length >= 0);
     }

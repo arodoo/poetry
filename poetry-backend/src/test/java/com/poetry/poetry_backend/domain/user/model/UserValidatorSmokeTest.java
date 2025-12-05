@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class UserValidatorSmokeTest {
     @Test
     void classExists() throws ClassNotFoundException {
-        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.UserValidator");
+        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.core.UserValidator");
         assertNotNull(cls);
         assertTrue(cls.getDeclaredConstructors().length >= 0);
     }

@@ -12,8 +12,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.model.User;
-import com.poetry.poetry_backend.domain.user.model.UserRehydrator;
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
 
 class CreateUserUseCaseTest {
   @Test

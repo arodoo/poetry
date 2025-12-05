@@ -12,7 +12,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 class UpdateUserUseCaseTest {
   @Test
@@ -39,14 +39,15 @@ class UpdateUserUseCaseTest {
           String loc,
           Set<String> r,
           String status) {
-  return new User(id, f, l, e, "u", loc, status, r, null, null, null, version);
+        return new User(id, f, l, e, "u", loc, status, r, null, null, null, version);
       }
 
       public User updatePassword(Long id, long version, String password) {
         return null;
       }
 
-      public void softDelete(Long id, long version) { }
+      public void softDelete(Long id, long version) {
+      }
     };
     var uc = new UpdateUserUseCase(commands);
     var updated = uc.execute(
@@ -57,9 +58,8 @@ class UpdateUserUseCaseTest {
         "ne",
         "en",
         Set.of("R"),
-        "inactive"
-    );
-  assertEquals(7L, updated.id());
-  assertEquals("inactive", updated.status());
+        "inactive");
+    assertEquals(7L, updated.id());
+    assertEquals("inactive", updated.status());
   }
 }

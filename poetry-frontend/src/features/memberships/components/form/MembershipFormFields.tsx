@@ -4,7 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import type { UserResponse, SubscriptionResponse } from '../../../../api/generated'
+import type {
+  UserResponse,
+  SubscriptionResponse,
+} from '../../../../api/generated'
 import type { MembershipFormValues } from '../MembershipFormValues'
 import UserSelect from '../UserSelect'
 import SubscriptionSelect from '../SubscriptionSelect'

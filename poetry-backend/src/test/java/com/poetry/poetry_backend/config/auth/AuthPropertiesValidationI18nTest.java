@@ -20,6 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.test.context.TestPropertySource;
 
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 
@@ -29,7 +31,8 @@ import jakarta.validation.Validator;
     "app.supported-locales=es,en"
 })
 class AuthPropertiesValidationI18nTest {
-  @Autowired private Validator validator; // backed by LocalValidatorFactoryBean with MessageSource
+  @Autowired
+  private Validator validator; // backed by LocalValidatorFactoryBean with MessageSource
   private AuthProperties props;
   private Locale original;
 
@@ -41,7 +44,9 @@ class AuthPropertiesValidationI18nTest {
   }
 
   @AfterEach
-  void tearDown() { LocaleContextHolder.setLocale(original); }
+  void tearDown() {
+    LocaleContextHolder.setLocale(original);
+  }
 
   @Test
   void defaultSpanishMessage() {

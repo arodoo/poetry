@@ -6,7 +6,7 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { getMe } from '../api/authApi'
 import type { Me } from '../model/AuthTokensSchemas'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 export const meQueryKey: readonly ['auth', 'me'] = ['auth', 'me'] as const
 

@@ -4,9 +4,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { type ChangeEvent, type ReactElement } from 'react'
-import { Label } from '../../../ui/Label/Label'
-import { Text } from '../../../ui/Text/Text'
-import PasswordInput from '../../../ui/PasswordInput/PasswordInput'
+import { Label } from '../../../../ui/Label/Label'
+import { Text } from '../../../../ui/Text/Text'
+import PasswordInput from '../../../../ui/PasswordInput/PasswordInput'
 
 export interface AccountPasswordFieldProps {
   readonly fieldId: string

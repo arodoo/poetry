@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 class GetUserByIdUseCaseTest {
   @Test

@@ -11,10 +11,11 @@ import java.util.Set;
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public final class TestUserStubs {
-  private TestUserStubs() {}
+  private TestUserStubs() {
+  }
 
   public static UserCommandPort simpleCommandPort() {
     return new UserCommandPort() {
@@ -27,8 +28,7 @@ public final class TestUserStubs {
           String locale,
           String password,
           Set<String> roles,
-          String status
-      ) {
+          String status) {
         return new User(
             1L,
             firstName,
@@ -41,8 +41,7 @@ public final class TestUserStubs {
             null,
             null,
             null,
-            0L
-        );
+            0L);
       }
 
       @Override
@@ -54,8 +53,7 @@ public final class TestUserStubs {
           String email,
           String locale,
           Set<String> roles,
-          String status
-      ) {
+          String status) {
         throw new UnsupportedOperationException();
       }
 

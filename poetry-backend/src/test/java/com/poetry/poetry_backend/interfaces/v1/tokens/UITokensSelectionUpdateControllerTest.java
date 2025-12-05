@@ -21,15 +21,18 @@ import org.springframework.http.ResponseEntity;
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UpdateSelectionRequest;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UITokensSelectionUpdateControllerTest {
-  @Autowired private TestRestTemplate rest;
-  @Autowired private ThemeCommandPort themeCmd;
+  @Autowired
+  private TestRestTemplate rest;
+  @Autowired
+  private ThemeCommandPort themeCmd;
 
   @Test
   void updatesSelection() {
-    Theme t = themeCmd.save(Theme.createNew("upd-key","Upd Key", Map.of("p","#111111")));
+    Theme t = themeCmd.save(Theme.createNew("upd-key", "Upd Key", Map.of("p", "#111111")));
     UpdateSelectionRequest req = new UpdateSelectionRequest(
         t.getKey(), "Inter", "default", "default", "default", "default");
     ResponseEntity<Void> putResp = rest.exchange("/api/v1/tokens/selection",
