@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.poetry.poetry_backend.application.auth.exception.PasswordPolicyViolationException;
-import com.poetry.poetry_backend.application.auth.port.PasswordPolicyPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordPolicyPort;
 
 public class PasswordPolicySimpleAdapter implements PasswordPolicyPort {
   private static final Pattern UPPER = Pattern.compile(".*[A-Z].*");

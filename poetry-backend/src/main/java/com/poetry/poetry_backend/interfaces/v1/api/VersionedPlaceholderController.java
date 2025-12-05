@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.i18n.usecase.ResolveMessageUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.GetAllThemesUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetAllThemesUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 @RestController

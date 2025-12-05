@@ -9,7 +9,7 @@ package com.poetry.poetry_backend.infrastructure.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
 
 public class BCryptPasswordHasherAdapter implements PasswordHasherPort {

@@ -11,7 +11,7 @@ package com.poetry.poetry_backend.infrastructure.memory.auth.support;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
 
 public class InMemoryAuditLogger implements AuditLoggerPort {
   private final List<String> events = new ArrayList<>();

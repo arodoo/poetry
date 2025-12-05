@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poetry.poetry_backend.application.theme.usecase.ActivateThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.ActivateThemeUseCase;
 
 @RestController
 @RequestMapping("/api/v1/themes")

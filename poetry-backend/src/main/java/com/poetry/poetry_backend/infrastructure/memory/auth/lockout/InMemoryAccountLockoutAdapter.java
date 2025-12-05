@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.poetry.poetry_backend.application.auth.exception.AccountLockedException;
-import com.poetry.poetry_backend.application.auth.port.AccountLockoutPort;
+import com.poetry.poetry_backend.application.auth.port.security.AccountLockoutPort;
 
 public class InMemoryAccountLockoutAdapter implements AccountLockoutPort {
   private final Map<String, LockState> states = new ConcurrentHashMap<>();

@@ -8,7 +8,7 @@
  */
 package com.poetry.poetry_backend.infrastructure.security;
 
-import com.poetry.poetry_backend.application.auth.port.EmailNormalizerPort;
+import com.poetry.poetry_backend.application.auth.port.support.EmailNormalizerPort;
 
 public class EmailNormalizerSimpleAdapter implements EmailNormalizerPort {
   public String normalize(String rawEmail) {

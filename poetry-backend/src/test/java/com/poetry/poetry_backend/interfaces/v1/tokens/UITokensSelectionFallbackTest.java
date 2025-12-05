@@ -16,7 +16,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
-import com.poetry.poetry_backend.application.theme.usecase.SaveSystemSelectionUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.selection.SaveSystemSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
 

@@ -9,8 +9,8 @@ package com.poetry.poetry_backend.infrastructure.monitoring;
 
 import com.poetry.poetry_backend.application.auth.exception.AccountLockedException;
 import com.poetry.poetry_backend.application.auth.exception.RateLimitExceededException;
-import com.poetry.poetry_backend.application.auth.port.AccountLockoutPort;
-import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
+import com.poetry.poetry_backend.application.auth.port.security.AccountLockoutPort;
+import com.poetry.poetry_backend.application.auth.port.security.RateLimiterPort;
 
 import io.micrometer.core.instrument.MeterRegistry;
 

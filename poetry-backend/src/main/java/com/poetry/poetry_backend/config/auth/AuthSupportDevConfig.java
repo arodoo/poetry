@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
-import com.poetry.poetry_backend.application.auth.port.AccountLockoutPort;
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
-import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
+import com.poetry.poetry_backend.application.auth.port.security.AccountLockoutPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.security.RateLimiterPort;
 import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
 import com.poetry.poetry_backend.infrastructure.jpa.audit.AuditEventRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.audit.CorrelationIdProvider;

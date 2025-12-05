@@ -10,7 +10,7 @@ package com.poetry.poetry_backend.infrastructure.memory.auth.adapter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.poetry.poetry_backend.application.auth.port.ClockPort;
+import com.poetry.poetry_backend.application.auth.port.support.ClockPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
 
 class InMemoryTokenResponseBuilder {

@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.poetry.poetry_backend.application.theme.usecase.SaveSystemSelectionUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.selection.SaveSystemSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
 
 

@@ -15,7 +15,7 @@ import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
-import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
+import com.poetry.poetry_backend.application.auth.port.support.TokenGeneratorPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
 
 import io.jsonwebtoken.Jwts;

@@ -8,7 +8,7 @@
 
 package com.poetry.poetry_backend.infrastructure.memory.auth.ratelimit;
 
-import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
+import com.poetry.poetry_backend.application.auth.port.security.RateLimiterPort;
 
 public class NoOpRateLimiter implements RateLimiterPort {
   public void acquire(String key) {

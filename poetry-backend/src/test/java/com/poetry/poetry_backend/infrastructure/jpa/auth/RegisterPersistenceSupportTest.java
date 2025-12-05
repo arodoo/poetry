@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poetry.poetry_backend.application.theme.usecase.DeleteThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.DeleteThemeUseCase;
 
 @RestController
 @RequestMapping("/api/v1/themes")

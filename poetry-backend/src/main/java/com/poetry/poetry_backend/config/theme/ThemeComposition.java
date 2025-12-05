@@ -11,16 +11,16 @@ import org.springframework.context.annotation.Configuration;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
-import com.poetry.poetry_backend.application.theme.usecase.ActivateThemeUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.CreateThemeUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.DeleteThemeUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.GetActiveThemeUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.GetAllThemesUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.GetThemeByIdUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.UpdateThemeUseCase;
-import com.poetry.poetry_backend.infrastructure.jpa.theme.ThemeJpaAdapter;
-import com.poetry.poetry_backend.infrastructure.jpa.theme.ThemeJpaRepository;
-import com.poetry.poetry_backend.infrastructure.jpa.theme.ThemeSeeder;
+import com.poetry.poetry_backend.application.theme.usecase.crud.ActivateThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.CreateThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.DeleteThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetActiveThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetAllThemesUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetThemeByIdUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.UpdateThemeUseCase;
+import com.poetry.poetry_backend.infrastructure.jpa.theme.entity.ThemeJpaAdapter;
+import com.poetry.poetry_backend.infrastructure.jpa.theme.entity.ThemeJpaRepository;
+import com.poetry.poetry_backend.infrastructure.jpa.theme.seeder.ThemeSeeder;
 import com.poetry.poetry_backend.infrastructure.startup.ThemeStartupSeeder;
 
 @Configuration

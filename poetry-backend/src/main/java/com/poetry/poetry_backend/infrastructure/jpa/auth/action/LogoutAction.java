@@ -5,7 +5,7 @@
  */
 package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
-import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
+import com.poetry.poetry_backend.application.auth.port.security.RateLimiterPort;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.token.RefreshTokenManager;
 
 public class LogoutAction {

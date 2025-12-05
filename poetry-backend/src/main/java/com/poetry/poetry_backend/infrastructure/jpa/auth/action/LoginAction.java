@@ -10,11 +10,11 @@ package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 import java.util.Map;
 
 import com.poetry.poetry_backend.application.auth.exception.InvalidCredentialsException;
-import com.poetry.poetry_backend.application.auth.port.AccountLockoutPort;
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
-import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
-import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
-import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
+import com.poetry.poetry_backend.application.auth.port.security.AccountLockoutPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
+import com.poetry.poetry_backend.application.auth.port.security.RateLimiterPort;
+import com.poetry.poetry_backend.application.auth.port.support.TokenGeneratorPort;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.token.RefreshTokenManager;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.token.TokenResponseFactory;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;

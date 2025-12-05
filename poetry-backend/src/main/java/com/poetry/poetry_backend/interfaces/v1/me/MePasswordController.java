@@ -11,8 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
-import com.poetry.poetry_backend.application.auth.port.PasswordPolicyPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordPolicyPort;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 

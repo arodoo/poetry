@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.poetry.poetry_backend.application.auth.exception.DuplicateUserException;
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
-import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 
 class InMemoryUserStore {
   private final PasswordHasherPort hasher;

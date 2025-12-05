@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.poetry.poetry_backend.application.theme.usecase.GetActiveThemeUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.GetAllThemesUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.GetThemeByIdUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetActiveThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetAllThemesUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetThemeByIdUseCase;
 
 @RestController
 @RequestMapping("/api/v1/themes")

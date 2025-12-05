@@ -7,7 +7,7 @@
  */
 package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
-import com.poetry.poetry_backend.application.auth.port.PasswordPolicyPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordPolicyPort;
 
 final class RegisterActionSupport {
   void validateInputs(

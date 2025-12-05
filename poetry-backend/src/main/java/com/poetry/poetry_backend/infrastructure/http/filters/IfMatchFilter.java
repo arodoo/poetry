@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
-import com.poetry.poetry_backend.interfaces.v1.user.UserDto;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserDto;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

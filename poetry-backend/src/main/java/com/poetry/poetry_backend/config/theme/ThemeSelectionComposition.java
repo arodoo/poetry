@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Primary;
 
 import com.poetry.poetry_backend.application.theme.port.CustomizationSelectionCommandPort;
 import com.poetry.poetry_backend.application.theme.port.CustomizationSelectionQueryPort;
-import com.poetry.poetry_backend.application.theme.usecase.GetSystemSelectionUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.ResolveCurrentSelectionUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.SaveSystemSelectionUseCase;
-import com.poetry.poetry_backend.infrastructure.jpa.theme.UiCustomizationSelectionJpaAdapter;
-import com.poetry.poetry_backend.infrastructure.jpa.theme.UiCustomizationSelectionRepository;
+import com.poetry.poetry_backend.application.theme.usecase.selection.GetSystemSelectionUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.selection.ResolveCurrentSelectionUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.selection.SaveSystemSelectionUseCase;
+import com.poetry.poetry_backend.infrastructure.jpa.theme.selection.UiCustomizationSelectionJpaAdapter;
+import com.poetry.poetry_backend.infrastructure.jpa.theme.selection.UiCustomizationSelectionRepository;
 
 @Configuration
 public class ThemeSelectionComposition {

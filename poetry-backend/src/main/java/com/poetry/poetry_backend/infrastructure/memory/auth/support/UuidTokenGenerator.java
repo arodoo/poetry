@@ -10,7 +10,7 @@ package com.poetry.poetry_backend.infrastructure.memory.auth.support;
 
 import java.util.UUID;
 
-import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
+import com.poetry.poetry_backend.application.auth.port.support.TokenGeneratorPort;
 
 public class UuidTokenGenerator implements TokenGeneratorPort {
   public String newAccessToken(String subject, java.util.List<String> roles) {

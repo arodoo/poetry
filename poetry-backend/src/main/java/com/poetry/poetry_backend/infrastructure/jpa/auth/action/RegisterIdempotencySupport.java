@@ -12,7 +12,7 @@ package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 import java.util.Map;
 import java.util.Optional;
 
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
 import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
 
 class RegisterIdempotencySupport {

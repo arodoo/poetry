@@ -13,9 +13,9 @@ package com.poetry.poetry_backend.config.auth;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
-import com.poetry.poetry_backend.application.auth.port.EmailNormalizerPort;
-import com.poetry.poetry_backend.application.auth.port.PasswordPolicyPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.support.EmailNormalizerPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordPolicyPort;
 import com.poetry.poetry_backend.infrastructure.monitoring.SecretAgeRotationJob;
 import com.poetry.poetry_backend.infrastructure.security.EmailNormalizerSimpleAdapter;
 import com.poetry.poetry_backend.infrastructure.security.PasswordPolicySimpleAdapter;

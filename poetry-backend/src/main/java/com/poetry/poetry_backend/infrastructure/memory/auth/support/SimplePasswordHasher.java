@@ -9,7 +9,7 @@
 
 package com.poetry.poetry_backend.infrastructure.memory.auth.support;
 
-import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 
 public class SimplePasswordHasher implements PasswordHasherPort {
   public String hash(String rawPassword) {

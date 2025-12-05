@@ -7,7 +7,7 @@
 package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
 import com.poetry.poetry_backend.application.auth.exception.DuplicateUserException;
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 final class RegisterUniquenessSupport {

@@ -7,8 +7,8 @@
  */
 package com.poetry.poetry_backend.infrastructure.jpa.auth.token;
 
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
-import com.poetry.poetry_backend.application.auth.port.ClockPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.support.ClockPort;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.RefreshTokenEntity;
 

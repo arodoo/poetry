@@ -11,7 +11,7 @@ package com.poetry.poetry_backend.infrastructure.jpa.audit;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
+import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
 
 @Transactional
 public class PersistentAuditLoggerAdapter implements AuditLoggerPort {

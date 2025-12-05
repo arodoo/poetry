@@ -13,8 +13,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.theme.port.CustomizationSelectionQueryPort;
-import com.poetry.poetry_backend.application.theme.usecase.GetActiveThemeUseCase;
-import com.poetry.poetry_backend.application.theme.usecase.ResolveCurrentSelectionUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetActiveThemeUseCase;
+import com.poetry.poetry_backend.application.theme.usecase.selection.ResolveCurrentSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;

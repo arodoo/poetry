@@ -8,7 +8,7 @@
 
 package com.poetry.poetry_backend.infrastructure.memory.auth.lockout;
 
-import com.poetry.poetry_backend.application.auth.port.AccountLockoutPort;
+import com.poetry.poetry_backend.application.auth.port.security.AccountLockoutPort;
 
 public class NoOpAccountLockout implements AccountLockoutPort {
   @Override

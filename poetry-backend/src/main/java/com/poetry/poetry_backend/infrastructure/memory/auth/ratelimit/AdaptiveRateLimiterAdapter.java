@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.poetry.poetry_backend.application.auth.exception.RateLimitExceededException;
-import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
+import com.poetry.poetry_backend.application.auth.port.security.RateLimiterPort;
 
 public class AdaptiveRateLimiterAdapter implements RateLimiterPort {
   private final RateLimiterPort delegate;

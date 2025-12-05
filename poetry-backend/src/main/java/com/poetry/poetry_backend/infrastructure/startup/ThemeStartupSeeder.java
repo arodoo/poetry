@@ -9,7 +9,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.poetry.poetry_backend.infrastructure.jpa.theme.ThemeSeeder;
+import com.poetry.poetry_backend.infrastructure.jpa.theme.seeder.ThemeSeeder;
 
 @Component
 public class ThemeStartupSeeder {
