@@ -3,7 +3,7 @@
  Purpose: Hook fetch to capture errors and non-OK HTTP to dev log.
  All Rights Reserved. Arodi Emmanuel
 */
-import { post } from './post'
+import { post } from '../post'
 
 export function hookFetch(): void {
   interface FetchHookWindow {

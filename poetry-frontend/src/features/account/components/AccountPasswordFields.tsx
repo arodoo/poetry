@@ -5,9 +5,9 @@
  */
 import { type ReactElement } from 'react'
 import { Stack } from '../../../ui/Stack/Stack'
-import { AccountConfirmPasswordField } from './AccountConfirmPasswordField'
-import { AccountCurrentPasswordField } from './AccountCurrentPasswordField'
-import { AccountNewPasswordField } from './AccountNewPasswordField'
+import { AccountConfirmPasswordField } from './password/AccountConfirmPasswordField'
+import { AccountCurrentPasswordField } from './password/AccountCurrentPasswordField'
+import { AccountNewPasswordField } from './password/AccountNewPasswordField'
 import type { useT } from '../../../shared/i18n/useT'
 import {
   type AccountPasswordChangeHandler,

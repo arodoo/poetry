@@ -5,9 +5,9 @@
  */
 import type { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../../../ui/Button/Button'
-import { useLocale } from '../../../shared/i18n/hooks/useLocale'
-import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { Button } from '../../../../ui/Button/Button'
+import { useLocale } from '../../../../shared/i18n/hooks/useLocale'
+import { toTemplateString } from '../../../../shared/utils/templateSafe'
 
 interface Props {
   readonly membershipId: number | undefined

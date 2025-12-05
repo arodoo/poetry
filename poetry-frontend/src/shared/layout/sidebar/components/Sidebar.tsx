@@ -6,7 +6,7 @@
 import type { ReactElement } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { useT } from '../../../i18n/useT'
-import { useSession } from '../../../security/useSession'
+import { useSession } from '../../../security/session/useSession'
 import { SidebarItem } from './SidebarItem'
 import { getNavigationItems } from '../config/navigationConfig'
 import type { SidebarProps } from '../types'

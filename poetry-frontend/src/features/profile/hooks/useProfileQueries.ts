@@ -10,7 +10,7 @@ import {
   type UseMutationResult,
   type UseQueryResult,
 } from '@tanstack/react-query'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 import { fetchProfileSummary, updateProfileSummary } from '../api/profileApi'
 import {
   type ProfileSummary,

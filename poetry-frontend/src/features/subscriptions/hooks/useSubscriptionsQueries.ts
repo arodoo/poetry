@@ -5,7 +5,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 import {
   fetchSubscriptionById,
   fetchSubscriptionsList,

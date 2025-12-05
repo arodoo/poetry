@@ -15,7 +15,7 @@ import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useCreateSubscriptionMutation } from '../hooks/useSubscriptionsMutations'
 import type { CreateSubscriptionInput } from '../model/SubscriptionsSchemas'
 import { buildSubscriptionCreateBreadcrumbs } from '../model/subscriptionBreadcrumbHelpers'
-import SubscriptionForm from '../components/SubscriptionForm'
+import SubscriptionForm from '../components/form/SubscriptionForm'
 
 export default function SubscriptionsCreatePage(): ReactElement {
   const t: ReturnType<typeof useT> = useT()

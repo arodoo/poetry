@@ -3,7 +3,7 @@
  Purpose: Hook XHR send to capture errors and non-OK HTTP.
  All Rights Reserved. Arodi Emmanuel
 */
-import { post } from './post'
+import { post } from '../post'
 
 export function hookXHRSend(): void {
   const w: { __xhrSendHook?: boolean } = window as unknown as {

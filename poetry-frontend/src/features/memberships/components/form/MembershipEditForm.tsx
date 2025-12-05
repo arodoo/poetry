@@ -5,16 +5,16 @@
  */
 import type { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PageLayout } from '../../../ui/PageLayout/PageLayout'
-import { Stack } from '../../../ui/Stack/Stack'
-import { Button } from '../../../ui/Button/Button'
-import { useLocale } from '../../../shared/i18n/hooks/useLocale'
-import { toTemplateString } from '../../../shared/utils/templateSafe'
-import type { MembershipResponse } from '../../../api/generated'
-import type { MembershipFormValues } from '../components/MembershipFormValues'
-import { MembershipFormFields } from '../components/MembershipFormFields'
-import { useMembershipFormData } from '../hooks/useMembershipFormData'
-import { useMembershipFormState } from '../hooks/useMembershipFormState'
+import { PageLayout } from '../../../../ui/PageLayout/PageLayout'
+import { Stack } from '../../../../ui/Stack/Stack'
+import { Button } from '../../../../ui/Button/Button'
+import { useLocale } from '../../../../shared/i18n/hooks/useLocale'
+import { toTemplateString } from '../../../../shared/utils/templateSafe'
+import type { MembershipResponse } from '../../../../api/generated'
+import type { MembershipFormValues } from '../MembershipFormValues'
+import { MembershipFormFields } from './MembershipFormFields'
+import { useMembershipFormData } from '../../hooks/useMembershipFormData'
+import { useMembershipFormState } from '../../hooks/useMembershipFormState'
 
 interface Props {
   readonly membership: MembershipResponse

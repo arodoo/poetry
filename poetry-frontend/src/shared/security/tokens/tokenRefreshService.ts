@@ -4,7 +4,7 @@
  * Checks JWT exp claim before requests and refreshes with buffer time.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { postRefresh } from '../../features/auth/api/authApi'
+import { postRefresh } from '../../../features/auth/api/authApi'
 import { tokenStorage } from './tokenStorage'
 import { isTokenExpiringSoon } from './tokenExpiry'
 import type { TokenBundle } from './tokenStorage'

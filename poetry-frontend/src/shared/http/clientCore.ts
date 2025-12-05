@@ -8,8 +8,8 @@
 import { delay } from './timeout'
 import { type HttpOptions } from './httpTypes'
 import { type Env } from '../config/env'
-import { tokenStorage } from '../security/tokenStorage'
-import { refreshTokenIfNeeded } from '../security/tokenRefreshService'
+import { tokenStorage } from '../security/tokens/tokenStorage'
+import { refreshTokenIfNeeded } from '../security/tokens/tokenRefreshService'
 import {
   type RequestExecution,
   type RetryConfig,

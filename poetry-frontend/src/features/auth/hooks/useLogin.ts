@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { QueryClient, UseMutationResult } from '@tanstack/react-query'
 import { postLogin } from '../api/authApi'
 import type { AuthTokens } from '../model/AuthTokensSchemas'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 export function useLogin(): UseMutationResult<
   AuthTokens,

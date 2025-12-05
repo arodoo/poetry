@@ -4,7 +4,7 @@
  focused. Extracted to satisfy line limits without changing behaviour.
  All Rights Reserved. Arodi Emmanuel
 */
-import { tokenStorage, type TokenBundle } from './tokenStorage'
+import { tokenStorage, type TokenBundle } from '../tokens/tokenStorage'
 
 export function subscribeTokenStore(listener: () => void): () => void {
   return tokenStorage.subscribe(listener)

@@ -7,7 +7,7 @@
  */
 
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 import { fetchFingerprints } from '../api/fingerprintApi'
 import type { FingerprintResponse } from '../model/FingerprintSchemas'
 

@@ -17,8 +17,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { initEnv } from './shared/bootstrap/initEnv'
 import './shared/polyfills/responseStatusProperty'
 import { client } from './api/generated/client.gen'
-import { tokenStorage } from './shared/security/tokenStorage'
-import { startTokenRefreshScheduler } from './shared/security/tokenRefreshScheduler'
+import { tokenStorage } from './shared/security/tokens/tokenStorage'
+import { startTokenRefreshScheduler } from './shared/security/tokens/tokenRefreshScheduler'
 
 // Dev-only: install client error bridge synchronously
 if (import.meta.env.DEV) {

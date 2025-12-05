@@ -4,7 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useMutation, type UseMutationResult } from '@tanstack/react-query'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 import { submitPublicLogin } from '../api/public-loginApi'
 import {
   type PublicLoginRequest,

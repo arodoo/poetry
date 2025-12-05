@@ -5,11 +5,11 @@
  */
 import { type ReactElement } from 'react'
 import { AccountPasswordField } from './AccountPasswordField'
-import type { useT } from '../../../shared/i18n/useT'
+import type { useT } from '../../../../shared/i18n/useT'
 import {
   type AccountPasswordChangeHandler,
   type AccountPasswordFieldErrors,
-} from '../model/AccountPasswordTypes'
+} from '../../model/AccountPasswordTypes'
 
 type TranslateFn = ReturnType<typeof useT>
 

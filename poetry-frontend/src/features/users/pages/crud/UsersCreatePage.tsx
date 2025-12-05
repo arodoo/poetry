@@ -5,17 +5,17 @@
  */
 import type { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useT } from '../../../shared/i18n/useT'
-import { useLocale } from '../../../shared/i18n/hooks/useLocale'
-import { useToast } from '../../../shared/toast/toastContext'
-import { PageLayout } from '../../../ui/PageLayout/PageLayout'
-import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
-import { buildCreateFormSections } from '../model/userFormSections'
-import { buildUserCreateBreadcrumbs } from '../model/userBreadcrumbHelpers'
-import { UsersCreateFingerprintSection } from '../components/fingerprint/UsersCreateFingerprintSection'
-import { useUsersCreatePage } from '../hooks/useUsersCreatePage'
-import { UserFormSectionsRenderer } from '../components/form/fields/FormSectionsRenderer'
-import { UserCreateFormActions } from '../components/form/UserCreateFormActions'
+import { useT } from '../../../../shared/i18n/useT'
+import { useLocale } from '../../../../shared/i18n/hooks/useLocale'
+import { useToast } from '../../../../shared/toast/toastContext'
+import { PageLayout } from '../../../../ui/PageLayout/PageLayout'
+import { Breadcrumb } from '../../../../ui/Breadcrumb/Breadcrumb'
+import { buildCreateFormSections } from '../../model/userFormSections'
+import { buildUserCreateBreadcrumbs } from '../../model/userBreadcrumbHelpers'
+import { UsersCreateFingerprintSection } from '../../components/fingerprint/UsersCreateFingerprintSection'
+import { useUsersCreatePage } from '../../hooks/useUsersCreatePage'
+import { UserFormSectionsRenderer } from '../../components/form/fields/FormSectionsRenderer'
+import { UserCreateFormActions } from '../../components/form/UserCreateFormActions'
 
 export default function UsersCreatePage(): ReactElement {
   const t = useT()

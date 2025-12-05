@@ -8,7 +8,7 @@ import type { ReactElement, ChangeEvent } from 'react'
 import { Select } from '../../../../ui/Select/Select'
 import { Label } from '../../../../ui/Label/Label'
 import type { I18nKey } from '../../../../shared/i18n/generated/keys'
-import { formatTokenLabel } from '../../pages/tokensPageHelpers'
+import { formatTokenLabel } from '../../model/tokensPageHelpers'
 
 export interface TokensFieldSelectProps {
   id: string

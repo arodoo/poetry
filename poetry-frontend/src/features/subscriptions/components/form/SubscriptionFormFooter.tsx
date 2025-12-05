@@ -6,8 +6,8 @@
  */
 
 import type { ReactElement } from 'react'
-import { Inline } from '../../../ui/Inline/Inline'
-import { Button } from '../../../ui/Button/Button'
+import { Inline } from '../../../../ui/Inline/Inline'
+import { Button } from '../../../../ui/Button/Button'
 
 interface FooterProps {
   t: (k: string) => string

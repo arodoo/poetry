@@ -13,7 +13,7 @@ interface UserDeleteModule {
 const lazyLoader: () => Promise<{ default: () => ReactElement }> = (): Promise<{
   default: () => ReactElement
 }> =>
-  import('../../../../features/users/pages/UserDeletePage').then(
+  import('../../../../features/users/pages/crud/UserDeletePage').then(
     (module: unknown): { default: () => ReactElement } => {
       const typed: UserDeleteModule = module as UserDeleteModule
       return {

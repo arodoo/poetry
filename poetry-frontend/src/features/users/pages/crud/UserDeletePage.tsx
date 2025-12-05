@@ -6,14 +6,14 @@
 import { type ReactElement } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 // Text import removed; moved UI to UserDeleteActions component
-import { useT } from '../../../shared/i18n/useT'
-import { useLocale } from '../../../shared/i18n/hooks/useLocale'
-import { useToast } from '../../../shared/toast/toastContext'
-import { UsersPageLayout } from '../components/UsersPageLayout'
-import { UsersFormShell } from '../components/form/UsersFormShell'
-import { UserDeleteActions } from '../components/UserDeleteActions'
-import { useDeleteUserMutation } from '../hooks/mutations/useUsersMutations'
-import { useUserDetailWithETag } from '../hooks/useUserDetailWithETag'
+import { useT } from '../../../../shared/i18n/useT'
+import { useLocale } from '../../../../shared/i18n/hooks/useLocale'
+import { useToast } from '../../../../shared/toast/toastContext'
+import { UsersPageLayout } from '../../components/UsersPageLayout'
+import { UsersFormShell } from '../../components/form/UsersFormShell'
+import { UserDeleteActions } from '../../components/UserDeleteActions'
+import { useDeleteUserMutation } from '../../hooks/mutations/useUsersMutations'
+import { useUserDetailWithETag } from '../../hooks/useUserDetailWithETag'
 
 export default function UserDeletePage(): ReactElement {
   const params: Readonly<Record<string, string | undefined>> = useParams()

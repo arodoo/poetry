@@ -8,7 +8,7 @@ import type { ReactElement } from 'react'
 import { Text } from '../../../../ui/Text/Text'
 import type { TokenBundle } from '../../model/TokensSchemas'
 import type { I18nKey } from '../../../../shared/i18n/generated/keys'
-import { formatTokenLabel } from '../../pages/tokensPageHelpers'
+import { formatTokenLabel } from '../../model/tokensPageHelpers'
 
 export interface TokensSelectionCardProps {
   current: TokenBundle['current']

@@ -9,7 +9,7 @@ import { TokensFormFooter } from '../TokensFormFooter'
 import { TokensFieldSelect } from './TokensFieldSelect'
 import type { TokenBundle } from '../../model/TokensSchemas'
 import type { I18nKey } from '../../../../shared/i18n/generated/keys'
-import type { TokensFormState } from '../../pages/useTokensFormState'
+import type { TokensFormState } from '../../hooks/useTokensFormState'
 import { buildTokenFields } from './tokensSelectionFields'
 
 export interface TokensSelectionFormProps {

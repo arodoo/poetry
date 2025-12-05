@@ -6,10 +6,10 @@
  Arodi Emmanuel
 */
 import { useEffect, useMemo, useSyncExternalStore } from 'react'
-import { HttpError } from '../http/clientCore/httpErrors'
-import { useMeQuery } from '../../features/auth/hooks/useMe'
-import type { TokenBundle } from './tokenStorage'
-import { tokenStorage } from './tokenStorage'
+import { HttpError } from '../../http/clientCore/httpErrors'
+import { useMeQuery } from '../../../features/auth/hooks/useMe'
+import type { TokenBundle } from '../tokens/tokenStorage'
+import { tokenStorage } from '../tokens/tokenStorage'
 import { subscribeTokenStore, getTokenSnapshot } from './sessionHelpers'
 import type { SessionHookResult, UserSession } from './useSession.types'
 import { unauthenticatedResult, loadingResult } from './sessionConstants'

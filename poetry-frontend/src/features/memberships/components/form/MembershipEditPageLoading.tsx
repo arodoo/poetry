@@ -4,8 +4,8 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { PageLayout } from '../../../ui/PageLayout/PageLayout'
-import { Text } from '../../../ui/Text/Text'
+import { PageLayout } from '../../../../ui/PageLayout/PageLayout'
+import { Text } from '../../../../ui/Text/Text'
 
 interface MembershipEditPageLoadingProps {
   readonly message: string

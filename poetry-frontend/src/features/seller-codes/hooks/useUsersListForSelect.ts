@@ -6,7 +6,7 @@
  */
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { listUsers, type UserResponse } from '../../../api/generated'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 export function useUsersListForSelect(): UseQueryResult<
   readonly UserResponse[]

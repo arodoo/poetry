@@ -9,7 +9,7 @@ import type { UseMutationResult } from '@tanstack/react-query'
 import { loginRequest } from '../api/publicLoginApi'
 import type { LoginForm } from '../model/PublicLoginSchemas'
 import type { AuthTokens } from '../../auth/model/AuthTokensSchemas'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 export function useLogin(): UseMutationResult<AuthTokens, Error, LoginForm> {
   async function mutationFn(payload: LoginForm): Promise<AuthTokens> {

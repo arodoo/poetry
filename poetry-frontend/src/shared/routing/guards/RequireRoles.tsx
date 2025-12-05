@@ -5,7 +5,7 @@
 */
 import { type ReactNode, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSession } from '../../security/useSession'
+import { useSession } from '../../security/session/useSession'
 import { buildLocalePath } from '../localeUtils'
 
 export interface RequireRolesProps {

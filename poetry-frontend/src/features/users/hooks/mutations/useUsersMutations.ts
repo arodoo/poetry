@@ -3,13 +3,13 @@
  * Purpose: Aggregated exports for users mutation hooks.
  * All Rights Reserved. Arodi Emmanuel
  */
-export { useCreateUserMutation } from './useCreateUserMutation'
-export { useUpdateUserMutation } from './useUpdateUserMutation'
+export { useCreateUserMutation } from './crud/useCreateUserMutation'
+export { useUpdateUserMutation } from './crud/useUpdateUserMutation'
 export { useUpdateUserRolesMutation } from './useUpdateUserRolesMutation'
 export { useUpdateUserSecurityMutation } from './useUpdateUserSecurityMutation'
 export { useDisableUserMutation } from './useDisableUserMutation'
 export { useEnableUserMutation } from './useEnableUserMutation'
-export { useDeleteUserMutation } from './useDeleteUserMutation'
+export { useDeleteUserMutation } from './crud/useDeleteUserMutation'
 export {
   type MutationVariables,
   useUsersEntityMutation,

@@ -13,7 +13,7 @@ interface UserEditModule {
 const lazyLoader: () => Promise<{ default: () => ReactElement }> = (): Promise<{
   default: () => ReactElement
 }> =>
-  import('../../../../features/users/pages/UserEditPage').then(
+  import('../../../../features/users/pages/crud/UserEditPage').then(
     (module: unknown): { default: () => ReactElement } => {
       const typed: UserEditModule = module as UserEditModule
       return {

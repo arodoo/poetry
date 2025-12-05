@@ -4,12 +4,12 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import type { UserResponse, SubscriptionResponse } from '../../../api/generated'
-import type { MembershipFormValues } from './MembershipFormValues'
-import UserSelect from './UserSelect'
-import SubscriptionSelect from './SubscriptionSelect'
-import SellerCodeInput from './SellerCodeInput'
-import StatusSelect from './StatusSelect'
+import type { UserResponse, SubscriptionResponse } from '../../../../api/generated'
+import type { MembershipFormValues } from '../MembershipFormValues'
+import UserSelect from '../UserSelect'
+import SubscriptionSelect from '../SubscriptionSelect'
+import SellerCodeInput from '../SellerCodeInput'
+import StatusSelect from '../StatusSelect'
 
 interface Props {
   readonly values: MembershipFormValues

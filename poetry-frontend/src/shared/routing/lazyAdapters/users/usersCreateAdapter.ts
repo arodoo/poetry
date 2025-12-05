@@ -13,7 +13,7 @@ interface UsersCreateModule {
 const lazyLoader: () => Promise<{ default: () => ReactElement }> = (): Promise<{
   default: () => ReactElement
 }> =>
-  import('../../../../features/users/pages/UsersCreatePage').then(
+  import('../../../../features/users/pages/crud/UsersCreatePage').then(
     (module: unknown): { default: () => ReactElement } => {
       const typed: UsersCreateModule = module as UsersCreateModule
       return {

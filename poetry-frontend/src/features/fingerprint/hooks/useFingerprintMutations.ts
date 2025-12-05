@@ -11,7 +11,7 @@ import {
   useQueryClient,
   type UseMutationResult,
 } from '@tanstack/react-query'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 import { enrollFingerprint, verifyFingerprint } from '../api/fingerprintApi'
 import { fingerprintQueryKeys } from './useFingerprintQueries'
 import type {

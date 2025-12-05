@@ -6,7 +6,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import SubscriptionForm from './SubscriptionForm'
+import SubscriptionForm from './form/SubscriptionForm'
 // No direct model imports here; this is a small presentational view
 
 interface Props {

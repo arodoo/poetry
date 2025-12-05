@@ -4,7 +4,7 @@
  * handle onSuccess/onError notifications. Keeps the form file concise.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { UpdateSubscriptionInput } from '../model/SubscriptionsSchemas'
+import type { UpdateSubscriptionInput } from '../../model/SubscriptionsSchemas'
 
 interface MutationLike {
   mutate: (...args: any[]) => void

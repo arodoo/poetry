@@ -13,7 +13,7 @@ interface UserDetailModule {
 const lazyLoader: () => Promise<{ default: () => ReactElement }> = (): Promise<{
   default: () => ReactElement
 }> =>
-  import('../../../../features/users/pages/UserDetailPage').then(
+  import('../../../../features/users/pages/crud/UserDetailPage').then(
     (module: unknown): { default: () => ReactElement } => {
       const typed: UserDetailModule = module as UserDetailModule
       return {

@@ -7,7 +7,7 @@
  */
 import { tokenStorage } from './tokenStorage'
 import { isTokenExpiringSoon, getTokenExpiryTime } from './tokenExpiry'
-import { postRefresh } from '../../features/auth/api/authApi'
+import { postRefresh } from '../../../features/auth/api/authApi'
 
 const CHECK_INTERVAL_MS = 60000
 let intervalId: ReturnType<typeof setInterval> | null = null
