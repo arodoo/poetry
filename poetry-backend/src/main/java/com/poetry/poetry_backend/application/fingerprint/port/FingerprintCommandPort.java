@@ -8,7 +8,7 @@
 
 package com.poetry.poetry_backend.application.fingerprint.port;
 
-import com.poetry.poetry_backend.domain.fingerprint.model.Fingerprint;
+import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 
 public interface FingerprintCommandPort {
   Fingerprint save(Fingerprint fingerprint);

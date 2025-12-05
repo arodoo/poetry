@@ -11,7 +11,7 @@ package com.poetry.poetry_backend.application.fingerprint.usecase;
 import java.util.Optional;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
-import com.poetry.poetry_backend.domain.fingerprint.model.Fingerprint;
+import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 
 public class VerifyFingerprintUseCase {
   private final FingerprintQueryPort queryPort;

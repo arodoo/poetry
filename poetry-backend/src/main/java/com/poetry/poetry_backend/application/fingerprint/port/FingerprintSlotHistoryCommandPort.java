@@ -7,7 +7,7 @@
 
 package com.poetry.poetry_backend.application.fingerprint.port;
 
-import com.poetry.poetry_backend.domain.fingerprint.model.FingerprintSlotHistory;
+import com.poetry.poetry_backend.domain.fingerprint.model.slot.FingerprintSlotHistory;
 
 public interface FingerprintSlotHistoryCommandPort {
   FingerprintSlotHistory save(FingerprintSlotHistory history);

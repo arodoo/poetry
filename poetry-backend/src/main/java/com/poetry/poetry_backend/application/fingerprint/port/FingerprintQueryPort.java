@@ -11,7 +11,7 @@ package com.poetry.poetry_backend.application.fingerprint.port;
 import java.util.List;
 import java.util.Optional;
 
-import com.poetry.poetry_backend.domain.fingerprint.model.Fingerprint;
+import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 
 public interface FingerprintQueryPort {
   Optional<Fingerprint> findById(Long id);
