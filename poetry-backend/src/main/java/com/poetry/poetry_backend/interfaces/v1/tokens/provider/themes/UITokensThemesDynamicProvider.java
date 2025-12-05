@@ -6,8 +6,6 @@
  */
 package com.poetry.poetry_backend.interfaces.v1.tokens.provider.themes;
 
-import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.theme.usecase.crud.GetAllThemesUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
 
 @Component

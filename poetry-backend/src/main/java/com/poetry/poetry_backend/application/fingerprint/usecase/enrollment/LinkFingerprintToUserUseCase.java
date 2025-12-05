@@ -11,11 +11,11 @@ package com.poetry.poetry_backend.application.fingerprint.usecase.enrollment;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintSlotHistoryCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.UserFingerprintCommandPort;
+import com.poetry.poetry_backend.domain.fingerprint.model.UserFingerprint;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintFactory;
 import com.poetry.poetry_backend.domain.fingerprint.model.slot.FingerprintSlotHistory;
 import com.poetry.poetry_backend.domain.fingerprint.model.slot.FingerprintSlotHistoryFactory;
-import com.poetry.poetry_backend.domain.fingerprint.model.UserFingerprint;
 
 public class LinkFingerprintToUserUseCase {
   private final FingerprintCommandPort fingerprintCmd;

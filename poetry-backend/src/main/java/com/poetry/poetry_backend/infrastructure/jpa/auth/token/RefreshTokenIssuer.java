@@ -13,8 +13,8 @@ import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
 import com.poetry.poetry_backend.application.auth.port.support.ClockPort;
 import com.poetry.poetry_backend.application.auth.port.support.TokenGeneratorPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
-import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.RefreshTokenEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
 
 class RefreshTokenIssuer {
   private final RefreshTokenRepository repository;

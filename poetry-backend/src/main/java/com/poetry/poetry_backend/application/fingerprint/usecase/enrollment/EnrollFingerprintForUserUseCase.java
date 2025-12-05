@@ -15,11 +15,11 @@ import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommand
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintSlotHistoryCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.UserFingerprintCommandPort;
+import com.poetry.poetry_backend.domain.fingerprint.model.UserFingerprint;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintFactory;
 import com.poetry.poetry_backend.domain.fingerprint.model.slot.FingerprintSlotHistory;
 import com.poetry.poetry_backend.domain.fingerprint.model.slot.FingerprintSlotHistoryFactory;
-import com.poetry.poetry_backend.domain.fingerprint.model.UserFingerprint;
 
 public class EnrollFingerprintForUserUseCase {
   private final FingerprintCommandPort fingerprintCmd;

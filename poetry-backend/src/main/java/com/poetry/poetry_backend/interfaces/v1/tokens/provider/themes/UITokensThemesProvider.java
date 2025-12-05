@@ -5,9 +5,9 @@
  */
 package com.poetry.poetry_backend.interfaces.v1.tokens.provider.themes;
 
-import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
-
 import java.util.List;
+
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 
 @Deprecated
 public class UITokensThemesProvider {
