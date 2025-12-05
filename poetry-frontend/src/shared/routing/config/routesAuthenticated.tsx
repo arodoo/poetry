@@ -4,9 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import {
-  DashboardRoutes,
-} from '../../../features/dashboard/routing/dashboardRoutes'
+import { DashboardRoutes } from '../../../features/dashboard/routing/dashboardRoutes'
 import { ProfileRoutes } from '../../../features/profile/routing/profileRoutes'
 
 export function AuthenticatedRoutes(): ReactElement[] {

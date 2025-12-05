@@ -14,12 +14,13 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-final class JsonHelper {
+public final class JsonHelper {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private JsonHelper() { }
+    private JsonHelper() {
+    }
 
-    static String write(Map<String, Object> map) {
+    public static String write(Map<String, Object> map) {
         try {
             return MAPPER.writeValueAsString(map);
         } catch (JsonProcessingException e) {
@@ -28,7 +29,7 @@ final class JsonHelper {
     }
 
     @SuppressWarnings("unchecked")
-    static Map<String, Object> readMap(String json) {
+    public static Map<String, Object> readMap(String json) {
         try {
             return MAPPER.readValue(json, Map.class);
         } catch (Exception e) {

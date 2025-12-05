@@ -16,7 +16,17 @@ import com.poetry.poetry_backend.application.theme.usecase.selection.ResolveCurr
 import com.poetry.poetry_backend.application.theme.usecase.selection.SaveSystemSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensCurrentProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensDataProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensRadiusProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensShadowsProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensSpacingsProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.fonts.UITokensFontFamiliesProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.fonts.UITokensFontSizesProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.fonts.UITokensFontWeightsProvider;
+import com.poetry.poetry_backend.interfaces.v1.tokens.provider.fonts.UITokensFontsProvider;
 
 
 class UITokensControllerConditionalGetTest {

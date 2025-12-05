@@ -9,6 +9,10 @@ package com.poetry.poetry_backend.domain.fingerprint.model.lifecycle;
 
 import java.time.Instant;
 
+import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
+import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintStatus;
+import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintValidator;
+
 public class FingerprintArchiver {
 
   public static Fingerprint markArchived(

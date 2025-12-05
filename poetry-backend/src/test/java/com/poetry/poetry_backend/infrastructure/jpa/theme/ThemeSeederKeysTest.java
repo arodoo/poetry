@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.poetry.poetry_backend.infrastructure.jpa.theme.entity.ThemeConstants;
+
 class ThemeSeederKeysTest {
   @Test
   void defaultThemeKeysMatchExpectation() {
@@ -19,7 +21,7 @@ class ThemeSeederKeysTest {
         .map(r -> r.split("\\|")[0]).toList();
     // Snapshot of first and last keys only to avoid brittle full list coupling.
     assertEquals("default", keys.get(0));
-    assertEquals("mono", keys.get(keys.size()-1));
+    assertEquals("mono", keys.get(keys.size() - 1));
     // Ensure uniqueness size.
     assertEquals(keys.size(), keys.stream().distinct().count());
   }

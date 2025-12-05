@@ -8,6 +8,7 @@ package com.poetry.poetry_backend.interfaces.v1.tokens.provider;
 
 import org.springframework.stereotype.Component;
 
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontFamiliesProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontSizesProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontWeightsProviderPort;

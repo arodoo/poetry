@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.poetry.poetry_backend.application.fingerprint.usecase.VerifyFingerprintResult;
 import com.poetry.poetry_backend.application.fingerprint.usecase.VerifyFingerprintUseCase;
+import com.poetry.poetry_backend.interfaces.v1.fingerprint.dto.FingerprintDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

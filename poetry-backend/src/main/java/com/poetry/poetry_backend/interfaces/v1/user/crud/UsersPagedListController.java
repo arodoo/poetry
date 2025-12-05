@@ -19,6 +19,8 @@ import com.poetry.poetry_backend.application.user.usecase.GetUsersPageUseCase;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.user.model.User;
 import com.poetry.poetry_backend.interfaces.v1.shared.PageResponseDto;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserDto;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

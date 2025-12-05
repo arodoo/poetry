@@ -11,7 +11,13 @@ import org.springframework.context.annotation.Configuration;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
-import com.poetry.poetry_backend.application.fingerprint.usecase.*;
+import com.poetry.poetry_backend.application.fingerprint.usecase.VerifyFingerprintUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.ArchiveFingerprintUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.DeleteFingerprintUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.RestoreFingerprintUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.UpdateFingerprintUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.query.GetAllFingerprintsUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.query.GetFingerprintByIdUseCase;
 
 @Configuration
 public class FingerprintBasicBeans {

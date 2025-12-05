@@ -14,16 +14,16 @@ import com.poetry.poetry_backend.domain.auth.model.Role;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
-final class RegisterPersistenceSupport {
+public final class RegisterPersistenceSupport {
   private final UserJpaRepository users;
   private final PasswordHasherPort hasher;
 
-  RegisterPersistenceSupport(UserJpaRepository users, PasswordHasherPort hasher) {
+  public RegisterPersistenceSupport(UserJpaRepository users, PasswordHasherPort hasher) {
     this.users = users;
     this.hasher = hasher;
   }
 
-  UserEntity persistUser(String username, String email, String password) {
+  public UserEntity persistUser(String username, String email, String password) {
     var ent = new UserEntity();
     ent.setUsername(username);
     ent.setEmail(email);

@@ -22,8 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poetry.poetry_backend.infrastructure.jpa.auth.RefreshTokenEntity;
-import com.poetry.poetry_backend.infrastructure.jpa.auth.RefreshTokenRepository;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.RefreshTokenEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc

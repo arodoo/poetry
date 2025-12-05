@@ -9,19 +9,11 @@ import { AdminRoute } from './guards/AdminRoute'
 import { RequireRole } from './guards/RequireRole'
 import { AdminTokensPageLazy } from './lazyAdapters'
 import { UsersRoutes } from '../../features/users/routing/usersRoutes'
-import {
-  SellerCodesRoutes,
-} from '../../features/seller-codes/routing/seller-codesRoutes'
-import {
-  SubscriptionsRoutes,
-} from '../../features/subscriptions/routing/subscriptionsRoutes'
+import { SellerCodesRoutes } from '../../features/seller-codes/routing/seller-codesRoutes'
+import { SubscriptionsRoutes } from '../../features/subscriptions/routing/subscriptionsRoutes'
 import { ZonesRoutes } from '../../features/zones/routing/zonesRoutes'
-import {
-  MembershipsRoutes,
-} from '../../features/memberships/routing/membershipsRoutes'
-import {
-  FingerprintRoutes,
-} from '../../features/fingerprint/routing/fingerprintRoutes'
+import { MembershipsRoutes } from '../../features/memberships/routing/membershipsRoutes'
+import { FingerprintRoutes } from '../../features/fingerprint/routing/fingerprintRoutes'
 
 function AdminTokensRoute(): ReactElement {
   return (

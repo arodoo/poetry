@@ -20,8 +20,8 @@ import com.poetry.poetry_backend.infrastructure.jpa.audit.CorrelationIdProvider;
 import com.poetry.poetry_backend.infrastructure.jpa.audit.PersistentAuditLoggerAdapter;
 import com.poetry.poetry_backend.infrastructure.jpa.common.IdempotencyJpaAdapter;
 import com.poetry.poetry_backend.infrastructure.jpa.common.IdempotencyRepository;
-import com.poetry.poetry_backend.infrastructure.memory.auth.NoOpAccountLockout;
-import com.poetry.poetry_backend.infrastructure.memory.auth.NoOpRateLimiter;
+import com.poetry.poetry_backend.infrastructure.memory.auth.lockout.NoOpAccountLockout;
+import com.poetry.poetry_backend.infrastructure.memory.auth.ratelimit.NoOpRateLimiter;
 import com.poetry.poetry_backend.infrastructure.monitoring.AuthMetricsPublisher;
 
 import io.micrometer.core.instrument.MeterRegistry;

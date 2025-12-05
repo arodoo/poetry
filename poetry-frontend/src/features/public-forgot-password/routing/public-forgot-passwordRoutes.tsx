@@ -6,9 +6,7 @@
 import type { ReactElement } from 'react'
 import { Suspense } from 'react'
 import { Route } from 'react-router-dom'
-import {
-  PublicForgotPasswordPageLazy as ForgotPwdLazy,
-} from '../../../shared/routing/lazyAdapters'
+import { PublicForgotPasswordPageLazy as ForgotPwdLazy } from '../../../shared/routing/lazyAdapters'
 
 export function PublicForgotPasswordRoutes(): ReactElement[] {
   return [

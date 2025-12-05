@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
+import com.poetry.poetry_backend.infrastructure.jpa.theme.entity.ThemeConstants;
 
 @Transactional
 public class ThemeSeeder {

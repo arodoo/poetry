@@ -13,7 +13,11 @@ import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommand
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintSlotHistoryCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.UserFingerprintCommandPort;
-import com.poetry.poetry_backend.application.fingerprint.usecase.*;
+import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.EnrollFingerprintForUserUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.EnrollFingerprintUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.LinkFingerprintToUserUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.ReserveSlotUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.CreateFingerprintUseCase;
 
 @Configuration
 public class FingerprintComposition {

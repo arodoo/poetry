@@ -7,6 +7,9 @@
 
 package com.poetry.poetry_backend.domain.fingerprint.model.core;
 
+import com.poetry.poetry_backend.domain.fingerprint.model.lifecycle.FingerprintArchiver;
+import com.poetry.poetry_backend.domain.fingerprint.model.lifecycle.FingerprintCreator;
+
 public class FingerprintFactory {
 
   public static Fingerprint createNew(Long userId, Integer r503SlotId) {

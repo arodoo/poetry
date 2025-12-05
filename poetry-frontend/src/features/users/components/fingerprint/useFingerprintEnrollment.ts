@@ -6,7 +6,10 @@
  */
 
 import { useState } from 'react'
-import { reserveSlotFromBackend, enrollWithHardware } from './fingerprintEnrollmentApi'
+import {
+  reserveSlotFromBackend,
+  enrollWithHardware,
+} from './fingerprintEnrollmentApi'
 
 type EnrollmentState = 'idle' | 'capturing' | 'processing' | 'success' | 'error'
 

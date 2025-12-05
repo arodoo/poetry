@@ -127,9 +127,10 @@ All log files are hot reloaded in changues
 9. Config Sync: ESLint/Checkstyle match `code-standards.config.json`
 10. Theme checker (`npm run check:hardcoded-colors`): No hardcoded colors, use
     theme tokens
-11. SDK FrontEnd generation (`npm run sdk:generate`): SDK up to date with
-    OpenAPI. Command at poetry-frontend\package.json
-12. Mobile SDK generation (`npm run mobile-sdk:generate`): Mobile SDK up to date
+11. SDK FrontEnd generation (`npm run sdk:generate`): SDK up to date with OpenAPI. Command at poetry-frontend\package.json
+12. Folder density and structure (`npm run check:folder-density`): no more than 10 files per folder. Command at package.json
+13. DDD folder structure (`npm run check:ddd-organization`): DDD folder structure per blueprints. Comand at package.json
+14. Mobile SDK generation (`npm run mobile-sdk:generate`): Mobile SDK up to date
     with OpenAPI. Command at poetry-mobile\package.json
 
 ## Pre-Push Checks

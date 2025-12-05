@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.poetry.poetry_backend.application.fingerprint.usecase.query.GetFingerprintByIdUseCase;
+import com.poetry.poetry_backend.interfaces.v1.fingerprint.dto.FingerprintDto;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 

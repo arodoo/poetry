@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetAllThemesUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 class GetAllThemesUseCaseTest {
@@ -20,8 +21,7 @@ class GetAllThemesUseCaseTest {
     ThemeQueryPort query = new ThemeQueryPort() {
       public List<Theme> findAll() {
         return List.of(
-            Theme.createNew("a","A", java.util.Map.of("p", "#fff"))
-        );
+            Theme.createNew("a", "A", java.util.Map.of("p", "#fff")));
       }
 
       public java.util.Optional<Theme> findById(Long id) {

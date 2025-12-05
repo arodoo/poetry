@@ -9,7 +9,10 @@ import type { NavigateFunction } from 'react-router-dom'
 import { buildFormData } from '../../components/form/usersFormHelpers'
 import type { UsersFormValues } from '../../components/form/UsersForm'
 import type { UsersFormState } from '../../components/form/useUsersFormState'
-import { CreateUserSchema, type CreateUserInput } from '../../model/UsersSchemas'
+import {
+  CreateUserSchema,
+  type CreateUserInput,
+} from '../../model/UsersSchemas'
 
 export function createUserSubmitHandler(
   formState: UsersFormState,

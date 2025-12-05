@@ -7,6 +7,7 @@
 
 package com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle;
 
+import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.EnrollFingerprintUseCase;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 
 public class CreateFingerprintUseCase {

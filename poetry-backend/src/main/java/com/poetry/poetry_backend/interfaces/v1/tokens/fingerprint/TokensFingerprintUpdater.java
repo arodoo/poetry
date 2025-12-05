@@ -9,6 +9,8 @@ import java.security.MessageDigest;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
+
 public class TokensFingerprintUpdater {
   public static void updateThemes(MessageDigest d, UITokensDto dto) {
     if (dto.themes == null) {

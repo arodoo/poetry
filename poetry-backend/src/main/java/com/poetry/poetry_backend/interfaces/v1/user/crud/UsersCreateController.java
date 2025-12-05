@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.user.usecase.CreateUserUseCase;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserCreateRequest;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserDto;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

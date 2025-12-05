@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poetry.poetry_backend.application.auth.port.*;
+import com.poetry.poetry_backend.application.auth.port.AuthCommandPort;
+import com.poetry.poetry_backend.application.auth.port.AuthQueryPort;
 import com.poetry.poetry_backend.domain.auth.model.Auth;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.AuthEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.AuthJpaRepository;

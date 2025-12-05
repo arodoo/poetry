@@ -11,6 +11,8 @@ import java.util.HexFormat;
 
 import org.springframework.stereotype.Component;
 
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
+
 @Component
 public class TokensFingerprintBuilder {
   public String build(UITokensDto dto) {

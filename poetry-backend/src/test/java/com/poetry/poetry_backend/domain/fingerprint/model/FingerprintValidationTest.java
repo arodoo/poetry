@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintValidator;
+
 class FingerprintValidationTest {
   @Test
   void shouldRejectNullUserId() {
@@ -18,14 +20,14 @@ class FingerprintValidationTest {
       FingerprintValidator.validateEnrollment(null, 45);
     });
   }
-  
+
   @Test
   void shouldRejectNullSlotId() {
     assertThrows(IllegalArgumentException.class, () -> {
       FingerprintValidator.validateEnrollment(1L, null);
     });
   }
-  
+
   @Test
   void shouldRejectSlotIdOutOfRange() {
     assertThrows(IllegalArgumentException.class, () -> {

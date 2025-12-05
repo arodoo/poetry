@@ -39,7 +39,7 @@ public class ThemeSelectionComposition {
 
   @Bean
   ResolveCurrentSelectionUseCase resolveCurrentSelectionUseCase(
-      com.poetry.poetry_backend.application.theme.usecase.GetActiveThemeUseCase activeTheme,
+      com.poetry.poetry_backend.application.theme.usecase.crud.GetActiveThemeUseCase activeTheme,
       CustomizationSelectionQueryPort selectionQuery) {
     return new ResolveCurrentSelectionUseCase(activeTheme, selectionQuery);
   }

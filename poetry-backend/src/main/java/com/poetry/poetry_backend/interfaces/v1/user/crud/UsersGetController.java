@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserDto;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

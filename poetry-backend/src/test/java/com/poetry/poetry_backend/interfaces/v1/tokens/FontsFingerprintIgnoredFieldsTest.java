@@ -12,6 +12,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
+
 class FontsFingerprintIgnoredFieldsTest {
   private String fp(UITokensDto dto) {
     try {

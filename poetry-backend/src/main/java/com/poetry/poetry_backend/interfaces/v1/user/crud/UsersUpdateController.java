@@ -18,6 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poetry.poetry_backend.application.common.port.ETagPort;
 import com.poetry.poetry_backend.application.user.usecase.GetUserByIdUseCase;
 import com.poetry.poetry_backend.application.user.usecase.UpdateUserUseCase;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserDto;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserResponse;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.UserUpdateRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,30 +35,26 @@ public class UsersUpdateController {
   private final GetUserByIdUseCase getUser;
   private final ETagPort etagPort;
   private final ObjectMapper mapper;
-  
+
   public UsersUpdateController(
       UpdateUserUseCase update,
       GetUserByIdUseCase getUser,
       ETagPort etagPort,
-      ObjectMapper mapper
-  ) {
+      ObjectMapper mapper) {
     this.update = update;
     this.getUser = getUser;
     this.etagPort = etagPort;
     this.mapper = mapper;
   }
 
-  @Operation(
-      operationId = "updateUser",
-      summary = "Update user",
-      description = "Update user with optimistic locking via If-Match")
+  @Operation(operationId = "updateUser", summary = "Update user", description = "Update user with optimistic locking via If-Match")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Successfully updated"),
-    @ApiResponse(responseCode = "400", description = "Invalid request"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden"),
-    @ApiResponse(responseCode = "404", description = "Not found"),
-    @ApiResponse(responseCode = "409", description = "Version conflict")
+      @ApiResponse(responseCode = "200", description = "Successfully updated"),
+      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden"),
+      @ApiResponse(responseCode = "404", description = "Not found"),
+      @ApiResponse(responseCode = "409", description = "Version conflict")
   })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
@@ -66,11 +65,11 @@ public class UsersUpdateController {
     // Get current user to extract version - IfMatchFilter already validated ETag
     var currentUser = getUser.execute(id);
     long version = currentUser.version();
-    
+
     var u = update.execute(
         id, version, r.firstName(), r.lastName(), r.email(),
         r.locale(), r.roles(), r.status());
-    
+
     var response = UserDto.toResponse(u);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
