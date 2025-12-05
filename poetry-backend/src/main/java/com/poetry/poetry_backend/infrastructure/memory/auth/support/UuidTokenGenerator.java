@@ -6,7 +6,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.support;
 
 import java.util.UUID;
 

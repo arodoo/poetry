@@ -5,7 +5,7 @@
  * Extracted from InMemoryAuthAdapter to comply with file size limits.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.adapter;
 
 import java.util.HashMap;
 import java.util.Map;

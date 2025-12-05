@@ -4,7 +4,7 @@
  * dynamic theme service via injected strategy bean.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.provider;
 
 import org.springframework.stereotype.Component;
 

@@ -6,7 +6,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.support;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,14 @@ import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
 
 public class InMemoryAuditLogger implements AuditLoggerPort {
   private final List<String> events = new ArrayList<>();
+
   public void record(String eventType, String subject, String detail) {
     events.add(eventType + ":" + subject + ":" + detail);
   }
-  public List<String> events() { return events; }
+
+  public List<String> events() {
+    return events;
+  }
   // Note: no longer auto-wired in tests; retained for potential unit test
   // scenarios where context-less audit capture is needed.
 }

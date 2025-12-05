@@ -5,6 +5,9 @@
  * in main adapter without altering behavior. All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.ratelimit;
 
-final class AdaptiveWindow { int nearHits; long penaltyUntil; }
+final class AdaptiveWindow {
+    int nearHits;
+    long penaltyUntil;
+}

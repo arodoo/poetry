@@ -3,7 +3,7 @@
  * Purpose: Component resolving current UI token selections dynamically.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.provider;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.theme.usecase.ResolveCurrentSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
-
 
 @Component
 public class UITokensCurrentProvider {

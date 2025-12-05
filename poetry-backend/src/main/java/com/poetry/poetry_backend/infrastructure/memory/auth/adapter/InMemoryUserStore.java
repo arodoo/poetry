@@ -5,7 +5,7 @@
  * temporary credential storage for testing and development environments.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.adapter;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

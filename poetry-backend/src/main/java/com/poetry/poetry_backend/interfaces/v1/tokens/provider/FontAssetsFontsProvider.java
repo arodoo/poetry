@@ -3,7 +3,7 @@
  * Purpose: Fonts provider backed by FontAsset JPA storage.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.provider;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +26,9 @@ public class FontAssetsFontsProvider implements FontsProviderPort {
 
   @Override
   public List<UITokensDto.Font> getFonts() {
-  return fontQuery.findAllActive().stream()
-    .map(FontAssetsFontsProvider::map)
-    .collect(Collectors.toList());
+    return fontQuery.findAllActive().stream()
+        .map(FontAssetsFontsProvider::map)
+        .collect(Collectors.toList());
   }
 
   private static UITokensDto.Font map(FontAsset a) {

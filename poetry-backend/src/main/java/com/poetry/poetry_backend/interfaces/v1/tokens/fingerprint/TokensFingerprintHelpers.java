@@ -3,7 +3,7 @@
  * Purpose: Utility methods for fingerprint generation.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.fingerprint;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -47,5 +47,7 @@ public class TokensFingerprintHelpers {
     d.update((byte) '\n');
   }
 
-  public static String safe(String v) { return v == null ? "" : v; }
+  public static String safe(String v) {
+    return v == null ? "" : v;
+  }
 }

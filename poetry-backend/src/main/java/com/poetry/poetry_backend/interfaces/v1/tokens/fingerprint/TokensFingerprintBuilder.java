@@ -3,7 +3,7 @@
  * Purpose: Build fingerprint hash for UI tokens payload ETag caching.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.fingerprint;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,8 +25,10 @@ public class TokensFingerprintBuilder {
       TokensFingerprintHelpers.updateSets(digest, "sh", dto.shadows, s -> s.key, s -> s.values);
       TokensFingerprintUpdater.updateCurrent(digest, dto);
       String hex = HexFormat.of().formatHex(digest.digest());
-      // Return a proper weak ETag token. Spring's ResponseEntity#eTag expects the value
-      // *without* adding quotes if they are already present. Providing W/"hash" is the
+      // Return a proper weak ETag token. Spring's ResponseEntity#eTag expects the
+      // value
+      // *without* adding quotes if they are already present. Providing W/"hash" is
+      // the
       // canonical weak form per RFC 7232.
       return "W/\"" + hex + "\"";
     } catch (NoSuchAlgorithmException e) {

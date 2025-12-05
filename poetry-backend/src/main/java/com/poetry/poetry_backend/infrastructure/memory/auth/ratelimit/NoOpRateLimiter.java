@@ -6,10 +6,11 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.ratelimit;
 
 import com.poetry.poetry_backend.application.auth.port.RateLimiterPort;
 
 public class NoOpRateLimiter implements RateLimiterPort {
-  public void acquire(String key) { /* no-op */ }
+  public void acquire(String key) {
+    /* no-op */ }
 }

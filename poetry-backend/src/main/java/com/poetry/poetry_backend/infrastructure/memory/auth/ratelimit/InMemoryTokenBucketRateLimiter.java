@@ -6,7 +6,7 @@
  * production replace with a distributed store (e.g., Redis) adapter.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.ratelimit;
 
 import java.time.Instant;
 import java.util.Map;
@@ -63,5 +63,7 @@ public class InMemoryTokenBucketRateLimiter implements RateLimiterPort {
     }
   }
 
-  private long now() { return Instant.now().getEpochSecond(); }
+  private long now() {
+    return Instant.now().getEpochSecond();
+  }
 }

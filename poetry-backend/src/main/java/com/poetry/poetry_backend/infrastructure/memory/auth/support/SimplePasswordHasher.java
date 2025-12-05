@@ -7,12 +7,15 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.support;
 
 import com.poetry.poetry_backend.application.auth.port.PasswordHasherPort;
 
 public class SimplePasswordHasher implements PasswordHasherPort {
-  public String hash(String rawPassword) { return "h$" + rawPassword; }
+  public String hash(String rawPassword) {
+    return "h$" + rawPassword;
+  }
+
   public boolean matches(String rawPassword, String hashedPassword) {
     return hashedPassword.equals(hash(rawPassword));
   }

@@ -7,17 +7,25 @@
  * thread safety enhancements without touching adapter logic.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.lockout;
 
 final class LockMetrics {
     private long locks;
     private long failures;
 
-    void lock() { locks++; }
+    void lock() {
+        locks++;
+    }
 
-    void fail() { failures++; }
+    void fail() {
+        failures++;
+    }
 
-    long getLocks() { return locks; }
+    long getLocks() {
+        return locks;
+    }
 
-    long getFailures() { return failures; }
+    long getFailures() {
+        return failures;
+    }
 }

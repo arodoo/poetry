@@ -4,7 +4,7 @@
  * Designed for dev/testing; production should externalize to shared cache.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.lockout;
 
 import java.time.Instant;
 import java.util.Map;
@@ -66,11 +66,23 @@ public class InMemoryAccountLockoutAdapter implements AccountLockoutPort {
     }
   }
 
-  public long getTotalLockEvents() { return metrics.getLocks(); }
-  public long getTotalFailures() { return metrics.getFailures(); }
+  public long getTotalLockEvents() {
+    return metrics.getLocks();
+  }
+
+  public long getTotalFailures() {
+    return metrics.getFailures();
+  }
+
   public long getActiveLockCount() {
     return states.values().stream().filter(s -> s.lockUntil > now()).count();
   }
-  private String key(String u, String ip) { return u + "|" + (ip == null ? "-" : ip); }
-  private long now() { return Instant.now().getEpochSecond(); }
+
+  private String key(String u, String ip) {
+    return u + "|" + (ip == null ? "-" : ip);
+  }
+
+  private long now() {
+    return Instant.now().getEpochSecond();
+  }
 }

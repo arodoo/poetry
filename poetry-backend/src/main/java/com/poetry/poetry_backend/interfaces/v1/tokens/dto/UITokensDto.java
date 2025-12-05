@@ -6,7 +6,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.dto;
 
 import java.util.List;
 import java.util.Map;

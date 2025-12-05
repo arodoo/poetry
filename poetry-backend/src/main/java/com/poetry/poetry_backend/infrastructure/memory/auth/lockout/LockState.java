@@ -5,6 +5,9 @@
  * class below max line threshold. All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.lockout;
 
-final class LockState { int failures; long lockUntil; }
+final class LockState {
+    int failures;
+    long lockUntil;
+}

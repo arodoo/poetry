@@ -4,7 +4,7 @@
  * Applies temporary cool-down delays after repeated near-threshold usage.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.ratelimit;
 
 import java.time.Instant;
 import java.util.Map;
@@ -66,12 +66,24 @@ public class AdaptiveRateLimiterAdapter implements RateLimiterPort {
     metrics.penalty();
   }
 
-  public long getPenaltyEvents() { return metrics.getPenalties(); }
-  public long getBlockedRequests() { return metrics.getBlocked(); }
-  public long getAcquired() { return metrics.getAcquired(); }
+  public long getPenaltyEvents() {
+    return metrics.getPenalties();
+  }
+
+  public long getBlockedRequests() {
+    return metrics.getBlocked();
+  }
+
+  public long getAcquired() {
+    return metrics.getAcquired();
+  }
+
   public long getActivePenaltyWindows() {
     long n = now();
     return windows.values().stream().filter(w -> w.penaltyUntil > n).count();
   }
-  private long now() { return Instant.now().getEpochSecond(); }
+
+  private long now() {
+    return Instant.now().getEpochSecond();
+  }
 }

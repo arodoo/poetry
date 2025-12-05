@@ -6,7 +6,7 @@
  * accessToken, refreshToken, expiresIn (OpenAPI) plus username when present.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.adapter;
 
 import java.util.*;
 

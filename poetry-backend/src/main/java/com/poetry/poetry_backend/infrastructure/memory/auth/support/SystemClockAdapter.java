@@ -6,12 +6,14 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.support;
 
 import java.time.Instant;
 
 import com.poetry.poetry_backend.application.auth.port.ClockPort;
 
 public class SystemClockAdapter implements ClockPort {
-  public Instant now() { return Instant.now(); }
+  public Instant now() {
+    return Instant.now();
+  }
 }

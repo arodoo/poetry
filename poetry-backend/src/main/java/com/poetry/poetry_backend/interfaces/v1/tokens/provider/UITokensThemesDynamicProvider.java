@@ -4,7 +4,7 @@
  * DTOs replacing previous hardcoded provider.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.provider;
 
 import java.util.Comparator;
 import java.util.List;

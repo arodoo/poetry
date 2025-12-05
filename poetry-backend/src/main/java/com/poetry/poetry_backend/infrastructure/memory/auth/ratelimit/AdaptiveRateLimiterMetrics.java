@@ -7,22 +7,34 @@
  * for tests and instrumentation without leaking mutability.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.ratelimit;
 
 final class AdaptiveRateLimiterMetrics {
     private long penalties;
     private long blocked;
     private long acquired;
 
-    void penalty() { penalties++; }
+    void penalty() {
+        penalties++;
+    }
 
-    void blocked() { blocked++; }
+    void blocked() {
+        blocked++;
+    }
 
-    void acquired() { acquired++; }
+    void acquired() {
+        acquired++;
+    }
 
-    long getPenalties() { return penalties; }
+    long getPenalties() {
+        return penalties;
+    }
 
-    long getBlocked() { return blocked; }
+    long getBlocked() {
+        return blocked;
+    }
 
-    long getAcquired() { return acquired; }
+    long getAcquired() {
+        return acquired;
+    }
 }

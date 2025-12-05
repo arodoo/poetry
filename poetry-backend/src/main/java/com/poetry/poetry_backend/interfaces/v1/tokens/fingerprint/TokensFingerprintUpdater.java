@@ -3,7 +3,7 @@
  * Purpose: Helper class for updating fingerprint digest with token data.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.tokens;
+package com.poetry.poetry_backend.interfaces.v1.tokens.fingerprint;
 
 import java.security.MessageDigest;
 import java.util.Comparator;

@@ -6,17 +6,20 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.infrastructure.memory.auth;
+package com.poetry.poetry_backend.infrastructure.memory.auth.lockout;
 
 import com.poetry.poetry_backend.application.auth.port.AccountLockoutPort;
 
 public class NoOpAccountLockout implements AccountLockoutPort {
   @Override
-  public void ensureNotLocked(String username, String clientIp) { /* no-op */ }
+  public void ensureNotLocked(String username, String clientIp) {
+    /* no-op */ }
 
   @Override
-  public void onFailure(String username, String clientIp) { /* no-op */ }
+  public void onFailure(String username, String clientIp) {
+    /* no-op */ }
 
   @Override
-  public void onSuccess(String username, String clientIp) { /* no-op */ }
+  public void onSuccess(String username, String clientIp) {
+    /* no-op */ }
 }
