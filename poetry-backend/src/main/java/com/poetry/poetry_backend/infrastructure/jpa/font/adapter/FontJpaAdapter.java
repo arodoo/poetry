@@ -15,12 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.poetry.poetry_backend.application.font.port.FontCommandPort;
 import com.poetry.poetry_backend.application.font.port.FontQueryPort;
 import com.poetry.poetry_backend.domain.font.model.FontAsset;
+import com.poetry.poetry_backend.infrastructure.jpa.font.entity.FontAssetEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.font.entity.FontAssetRepository;
 
 @Transactional
 public class FontJpaAdapter implements FontQueryPort, FontCommandPort {
 	private final FontAssetRepository repo;
 
-	public FontJpaAdapter(FontAssetRepository repo) { this.repo = repo; }
+	public FontJpaAdapter(FontAssetRepository repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public List<FontAsset> findAll() {
@@ -36,12 +40,14 @@ public class FontJpaAdapter implements FontQueryPort, FontCommandPort {
 	}
 
 	@Override
+	@SuppressWarnings("null")
 	public FontAsset save(FontAsset asset) {
 		FontAssetEntity saved = repo.save(FontAssetMapper.toEntity(asset));
 		return FontAssetMapper.toDomain(saved);
 	}
 
 	@Override
+	@SuppressWarnings("null")
 	public void deleteSoft(Long id) {
 		repo.findById(id).ifPresent(e -> {
 			e.setActive(false);

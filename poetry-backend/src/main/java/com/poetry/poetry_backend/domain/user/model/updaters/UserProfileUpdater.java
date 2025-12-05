@@ -7,8 +7,13 @@
 
 package com.poetry.poetry_backend.domain.user.model.updaters;
 
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
+import com.poetry.poetry_backend.domain.user.model.core.UserValidator;
+
 public final class UserProfileUpdater {
-  private UserProfileUpdater() { }
+  private UserProfileUpdater() {
+  }
 
   public static User update(User base, String firstName, String lastName, String email) {
     return UserRehydrator.rehydrate(

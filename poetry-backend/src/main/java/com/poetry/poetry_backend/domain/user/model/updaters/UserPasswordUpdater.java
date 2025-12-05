@@ -8,8 +8,12 @@
 
 package com.poetry.poetry_backend.domain.user.model.updaters;
 
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserValidator;
+
 public final class UserPasswordUpdater {
-  private UserPasswordUpdater() { }
+  private UserPasswordUpdater() {
+  }
 
   public static User update(User base, String passwordHash) {
     UserValidator.requirePasswordHash(passwordHash);

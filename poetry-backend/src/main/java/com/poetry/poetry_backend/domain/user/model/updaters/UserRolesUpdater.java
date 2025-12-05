@@ -8,8 +8,13 @@ package com.poetry.poetry_backend.domain.user.model.updaters;
 
 import java.util.Set;
 
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
+import com.poetry.poetry_backend.domain.user.model.core.UserValidator;
+
 public final class UserRolesUpdater {
-  private UserRolesUpdater() { }
+  private UserRolesUpdater() {
+  }
 
   public static User update(User base, Set<String> roles) {
     return UserRehydrator.rehydrate(

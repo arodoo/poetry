@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.poetry.poetry_backend.application.auth.port.support.ClockPort;
-import com.poetry.poetry_backend.config.auth.AuthProperties;
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
 
 class InMemoryTokenResponseBuilder {
   private final ClockPort clock;

@@ -7,7 +7,7 @@
  * adapters (JWT, hashing, refresh storage). All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.config.auth;
+package com.poetry.poetry_backend.config.auth.support;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;

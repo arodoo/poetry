@@ -23,20 +23,20 @@ public class UserJpaQueryAdapter implements UserQueryPort {
     this.repo = repo;
   }
 
-  public List<com.poetry.poetry_backend.domain.user.model.User> findAll() {
+  public List<com.poetry.poetry_backend.domain.user.model.core.User> findAll() {
     return repo.findAllActive().stream()
         .map(UserJpaMapper::toDomain)
         .toList();
   }
 
-  public PageResult<com.poetry.poetry_backend.domain.user.model.User>
+  public PageResult<com.poetry.poetry_backend.domain.user.model.core.User>
       findAllPaged(int page, int size, String search) {
     Pageable pageable = PageRequest.of(page, size);
     Page<UserEntity> pageResult =
         (search == null || search.isEmpty())
             ? repo.findAllActive(pageable)
             : repo.searchActive(search, pageable);
-    List<com.poetry.poetry_backend.domain.user.model.User> users =
+    List<com.poetry.poetry_backend.domain.user.model.core.User> users =
         pageResult.getContent().stream()
             .map(UserJpaMapper::toDomain)
             .toList();
@@ -48,7 +48,7 @@ public class UserJpaQueryAdapter implements UserQueryPort {
         pageResult.getSize());
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User findById(Long id) {
+  public com.poetry.poetry_backend.domain.user.model.core.User findById(Long id) {
     return repo.findActiveById(id)
         .map(UserJpaMapper::toDomain)
         .orElseThrow(() -> new UserNotFoundException(id));

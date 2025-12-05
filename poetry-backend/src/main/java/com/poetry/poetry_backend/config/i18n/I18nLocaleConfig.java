@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import com.poetry.poetry_backend.application.common.config.AppConfigPort;
+import com.poetry.poetry_backend.config.i18n.resolver.PathAwareLocaleResolver;
 
 @Configuration
 public class I18nLocaleConfig {
-  @Bean AcceptHeaderLocaleResolver localeResolver(AppConfigPort cfg) {
+  @Bean
+  AcceptHeaderLocaleResolver localeResolver(AppConfigPort cfg) {
     var base = new PathAwareLocaleResolver();
     base.setDefaultLocale(java.util.Locale.forLanguageTag(cfg.defaultLocale()));
     return base;

@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
-import com.poetry.poetry_backend.config.auth.AuthProperties;
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
 
 import io.micrometer.core.instrument.MeterRegistry;
 

@@ -14,6 +14,9 @@ package com.poetry.poetry_backend.config.auth;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
+
 @Configuration
 @EnableConfigurationProperties(AuthProperties.class)
-public class AuthComposition { }
+public class AuthComposition {
+}

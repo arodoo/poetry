@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 import com.poetry.poetry_backend.application.auth.port.support.ClockPort;
 import com.poetry.poetry_backend.application.auth.port.support.TokenGeneratorPort;
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
 import com.poetry.poetry_backend.infrastructure.memory.auth.support.SystemClockAdapter;
 import com.poetry.poetry_backend.infrastructure.security.BCryptPasswordHasherAdapter;
 import com.poetry.poetry_backend.infrastructure.security.JwtTokenGeneratorAdapter;
@@ -23,10 +24,14 @@ class AuthCoreBeans {
   PasswordHasherPort passwordHasher(AuthProperties p) {
     return new BCryptPasswordHasherAdapter(p);
   }
+
   @Bean
   TokenGeneratorPort tokenGenerator(AuthProperties p) {
     return new JwtTokenGeneratorAdapter(p);
   }
+
   @Bean
-  ClockPort clockPort() { return new SystemClockAdapter(); }
+  ClockPort clockPort() {
+    return new SystemClockAdapter();
+  }
 }

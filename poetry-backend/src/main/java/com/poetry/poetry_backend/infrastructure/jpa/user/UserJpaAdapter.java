@@ -24,20 +24,20 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     this.commandAdapter = new UserJpaCommandAdapter(repo);
   }
 
-  public List<com.poetry.poetry_backend.domain.user.model.User> findAll() {
+  public List<com.poetry.poetry_backend.domain.user.model.core.User> findAll() {
     return queryAdapter.findAll();
   }
 
-  public PageResult<com.poetry.poetry_backend.domain.user.model.User>
+  public PageResult<com.poetry.poetry_backend.domain.user.model.core.User>
       findAllPaged(int page, int size, String search) {
     return queryAdapter.findAllPaged(page, size, search);
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User findById(Long id) {
+  public com.poetry.poetry_backend.domain.user.model.core.User findById(Long id) {
     return queryAdapter.findById(id);
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User create(
+  public com.poetry.poetry_backend.domain.user.model.core.User create(
       String f,
       String l,
       String e,
@@ -49,7 +49,7 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     return commandAdapter.create(f, l, e, u, locale, p, r, status);
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User update(
+  public com.poetry.poetry_backend.domain.user.model.core.User update(
       Long id,
       long version,
       String f,
@@ -61,7 +61,7 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     return commandAdapter.update(id, version, f, l, e, locale, r, status);
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User updatePassword(
+  public com.poetry.poetry_backend.domain.user.model.core.User updatePassword(
       Long id, long version, String password) {
     return commandAdapter.updatePassword(id, version, password);
   }

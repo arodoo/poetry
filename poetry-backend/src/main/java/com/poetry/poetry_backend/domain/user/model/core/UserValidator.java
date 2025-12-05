@@ -12,35 +12,36 @@ package com.poetry.poetry_backend.domain.user.model.core;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-final class UserValidator {
-  private UserValidator() { }
+public final class UserValidator {
+  private UserValidator() {
+  }
 
-  static String requireName(String label, String value) {
+  public static String requireName(String label, String value) {
     if (value == null || value.isBlank()) {
       throw new IllegalArgumentException(label + " must not be blank");
     }
     return value.trim();
   }
 
-  static String requireEmail(String value) {
+  public static String requireEmail(String value) {
     if (value == null || value.isBlank() || !value.contains("@") || !value.contains(".")) {
       throw new IllegalArgumentException("email must be provided and valid");
     }
     return value.trim();
   }
 
-  static String requireUsername(String value) {
+  public static String requireUsername(String value) {
     return requireName("username", value);
   }
 
-  static String requireLocale(String value) {
+  public static String requireLocale(String value) {
     if (value == null || value.isBlank()) {
       throw new IllegalArgumentException("locale must not be blank");
     }
     return value.trim();
   }
 
-  static Set<String> requireRoles(Set<String> roles) {
+  public static Set<String> requireRoles(Set<String> roles) {
     Set<String> sanitized = roles == null
         ? Set.of()
         : roles.stream().map(String::trim).filter(v -> !v.isEmpty()).collect(Collectors.toSet());
@@ -50,7 +51,7 @@ final class UserValidator {
     return Set.copyOf(sanitized);
   }
 
-  static String requirePasswordHash(String value) {
+  public static String requirePasswordHash(String value) {
     if (value == null || value.isBlank()) {
       throw new IllegalArgumentException("password hash must not be blank");
     }

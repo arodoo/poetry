@@ -15,7 +15,7 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-final class PathAwareLocaleResolver extends AcceptHeaderLocaleResolver {
+public final class PathAwareLocaleResolver extends AcceptHeaderLocaleResolver {
   @Override
   public @NonNull Locale resolveLocale(@NonNull HttpServletRequest request) {
     Object attr = request.getAttribute(PathLocaleFilter.ATTR);

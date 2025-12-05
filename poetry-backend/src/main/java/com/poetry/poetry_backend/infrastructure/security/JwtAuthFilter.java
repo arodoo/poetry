@@ -18,7 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.poetry.poetry_backend.config.auth.AuthProperties;
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -37,27 +37,28 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(
-    @NonNull HttpServletRequest req,
-    @NonNull HttpServletResponse res,
-    @NonNull FilterChain chain) throws ServletException, IOException {
+      @NonNull HttpServletRequest req,
+      @NonNull HttpServletResponse res,
+      @NonNull FilterChain chain) throws ServletException, IOException {
     String h = req.getHeader("Authorization");
     if (h != null && h.startsWith("Bearer ")) {
       String token = h.substring(7);
       try {
         Claims c = Jwts.parserBuilder().setSigningKey(key)
-          .build().parseClaimsJws(token).getBody();
+            .build().parseClaimsJws(token).getBody();
         String sub = c.getSubject();
         if (sub != null && !sub.isBlank()) {
           @SuppressWarnings("unchecked")
           List<String> roles = c.get("roles", List.class);
           List<GrantedAuthority> authorities = roles == null ? List.of()
-            : roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+              : roles.stream()
+                  .map(SimpleGrantedAuthority::new)
+                  .collect(Collectors.toList());
           var auth = new UsernamePasswordAuthenticationToken(sub, null, authorities);
           SecurityContextHolder.getContext().setAuthentication(auth);
         }
-      } catch (Exception _e) { /* ignore invalid tokens */ }
+      } catch (Exception _e) {
+        /* ignore invalid tokens */ }
     }
     chain.doFilter(req, res);
   }

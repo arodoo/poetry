@@ -10,8 +10,12 @@ package com.poetry.poetry_backend.domain.user.model.updaters;
 
 import java.util.Set;
 
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserLifecycleManager;
+
 public final class UserMutations {
-  private UserMutations() { }
+  private UserMutations() {
+  }
 
   public static User updateProfile(User base, String firstName, String lastName, String email) {
     return UserProfileUpdater.update(base, firstName, lastName, email);

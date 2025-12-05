@@ -10,6 +10,8 @@ package com.poetry.poetry_backend.config.auth;
 
 import org.springframework.stereotype.Component;
 
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
+
 import jakarta.annotation.PostConstruct;
 
 @Component

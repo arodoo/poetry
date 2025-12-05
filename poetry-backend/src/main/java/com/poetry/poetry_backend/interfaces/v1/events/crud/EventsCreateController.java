@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.poetry.poetry_backend.application.events.usecase.CreateEventUseCase;
+import com.poetry.poetry_backend.interfaces.v1.events.EventDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,31 +30,26 @@ public class EventsCreateController {
     this.createEvent = createEvent;
   }
 
-  @Operation(
-      operationId = "createEvent",
-      summary = "Create a new event",
-      description = "Create event with location data for map display")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "201", description = "Created"),
-        @ApiResponse(responseCode = "400", description = "Invalid request"),
-        @ApiResponse(responseCode = "401", description = "Unauthorized")
-      })
+  @Operation(operationId = "createEvent", summary = "Create a new event", description = "Create event with location data for map display")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "Created"),
+      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized")
+  })
   @PreAuthorize("isAuthenticated()")
   @PostMapping
   public ResponseEntity<EventDto.EventResponse> create(
       @RequestBody EventDto.EventCreateRequest r, Authentication auth) {
     Long userId = Long.parseLong(auth.getName());
-    var event =
-        createEvent.execute(
-            userId,
-            r.title(),
-            r.description(),
-            r.locationName(),
-            r.latitude(),
-            r.longitude(),
-            r.eventDate(),
-            r.imageUrl());
+    var event = createEvent.execute(
+        userId,
+        r.title(),
+        r.description(),
+        r.locationName(),
+        r.latitude(),
+        r.longitude(),
+        r.eventDate(),
+        r.imageUrl());
     return ResponseEntity.status(201).body(EventDto.toResponse(event));
   }
 }

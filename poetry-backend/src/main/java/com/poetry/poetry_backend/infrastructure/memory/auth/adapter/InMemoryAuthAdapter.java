@@ -17,7 +17,7 @@ import com.poetry.poetry_backend.application.auth.port.security.RateLimiterPort;
 import com.poetry.poetry_backend.application.auth.port.support.AuditLoggerPort;
 import com.poetry.poetry_backend.application.auth.port.support.ClockPort;
 import com.poetry.poetry_backend.application.auth.port.support.TokenGeneratorPort;
-import com.poetry.poetry_backend.config.auth.AuthProperties;
+import com.poetry.poetry_backend.config.auth.support.AuthProperties;
 
 public class InMemoryAuthAdapter implements AuthPort {
   private final TokenGeneratorPort tokens;

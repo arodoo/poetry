@@ -14,12 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.poetry.poetry_backend.application.font.port.FontAssetCommandPort;
 import com.poetry.poetry_backend.application.font.port.FontAssetQueryPort;
 import com.poetry.poetry_backend.domain.font.model.FontAsset;
+import com.poetry.poetry_backend.infrastructure.jpa.font.entity.FontAssetEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.font.entity.FontAssetRepository;
 
 @Transactional
 public class FontAssetJpaAdapter implements FontAssetQueryPort, FontAssetCommandPort {
 	private final FontAssetRepository repo;
 
-	public FontAssetJpaAdapter(FontAssetRepository repo) { this.repo = repo; }
+	public FontAssetJpaAdapter(FontAssetRepository repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public List<FontAsset> findAllActive() {
@@ -38,6 +42,7 @@ public class FontAssetJpaAdapter implements FontAssetQueryPort, FontAssetCommand
 	}
 
 	@Override
+	@SuppressWarnings("null")
 	public FontAsset save(FontAsset asset) {
 		FontAssetEntity saved = repo.save(FontAssetMapper.toEntity(asset));
 		return FontAssetMapper.toDomain(saved);

@@ -73,7 +73,7 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
     r != null ? r : null, status)).orElseThrow(() -> new UserNotFoundException(id));
   }
 
-  public com.poetry.poetry_backend.domain.user.model.User updatePassword(
+  public com.poetry.poetry_backend.domain.user.model.core.User updatePassword(
       Long id, long version, String password) {
     return Optional.ofNullable(InMemoryUserStore.updatePassword(store, id, password))
         .orElseThrow(() -> new UserNotFoundException(id));

@@ -8,6 +8,7 @@ package com.poetry.poetry_backend.infrastructure.jpa.font.adapter;
 import java.util.ArrayList;
 
 import com.poetry.poetry_backend.domain.font.model.FontAsset;
+import com.poetry.poetry_backend.infrastructure.jpa.font.entity.FontAssetEntity;
 
 public class FontAssetMapper {
 	public static FontAssetEntity toEntity(FontAsset asset) {
