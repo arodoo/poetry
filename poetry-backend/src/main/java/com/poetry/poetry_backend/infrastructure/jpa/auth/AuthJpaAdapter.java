@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.auth.port.*;
 import com.poetry.poetry_backend.domain.auth.model.Auth;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.AuthEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.AuthJpaRepository;
 
 @Repository
 @Transactional
@@ -47,6 +49,9 @@ public class AuthJpaAdapter implements AuthQueryPort, AuthCommandPort {
   }
 
   public void delete(String id) {
-    repo.findById(id).ifPresent(e -> { e.setDeleted(true); repo.save(e); });
+    repo.findById(id).ifPresent(e -> {
+      e.setDeleted(true);
+      repo.save(e);
+    });
   }
 }

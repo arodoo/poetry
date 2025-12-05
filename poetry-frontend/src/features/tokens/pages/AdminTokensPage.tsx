@@ -16,13 +16,13 @@ import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { TokensSelectionCard } from '../components/selection/TokensSelectionCard'
 import { TokensSelectionForm } from '../components/selection/TokensSelectionForm'
-import { useTokensFormState } from './useTokensFormState'
-import { buildTokensBreadcrumbs } from './tokensPageHelpers'
-import { getSafeInitial } from './tokensUtils'
+import { useTokensFormState } from '../hooks/useTokensFormState'
+import { buildTokensBreadcrumbs } from '../model/tokensPageHelpers'
+import { getSafeInitial } from '../model/tokensUtils'
 import {
   createTokensSubmitHandler,
   createTokensCancelHandler,
-} from './tokensSubmitHandlers'
+} from '../hooks/tokensSubmitHandlers'
 import type { UpdateSelectionInput } from '../api/tokensApi'
 
 export function AdminTokensPage(): ReactElement {

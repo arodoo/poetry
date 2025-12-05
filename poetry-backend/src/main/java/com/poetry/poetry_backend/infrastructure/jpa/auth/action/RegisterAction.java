@@ -5,15 +5,17 @@
  * focused support components. Keeps constructor wiring compact while preserving
  * behavioral parity with prior monolithic version. All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
 import java.util.Map;
 
 import com.poetry.poetry_backend.application.auth.port.*;
 import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.token.RefreshTokenManager;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.token.TokenResponseFactory;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
-class RegisterAction { // Orchestrator only (thin facade over dedicated steps).
+public class RegisterAction { // Orchestrator only (thin facade over dedicated steps).
   private final RateLimiterPort limiter;
   private final PasswordPolicyPort passwordPolicy;
   private final EmailNormalizerPort emailNormalizer;
@@ -24,7 +26,7 @@ class RegisterAction { // Orchestrator only (thin facade over dedicated steps).
   private final RegisterPersistenceSupport persistence;
   private final RegisterTokenIssuanceSupport issuance;
 
-  RegisterAction(
+  public RegisterAction(
       UserJpaRepository users,
       PasswordHasherPort hasher,
       TokenGeneratorPort tokens,
@@ -45,7 +47,7 @@ class RegisterAction { // Orchestrator only (thin facade over dedicated steps).
     this.issuance = new RegisterTokenIssuanceSupport(tokens, manager, audit, factory);
   }
 
-  Map<String, Object> execute(Map<String, Object> payload, String key) {
+  public Map<String, Object> execute(Map<String, Object> payload, String key) {
     String username = (String) payload.get("username");
     String email = (String) payload.get("email");
     String password = (String) payload.get("password");
@@ -54,8 +56,7 @@ class RegisterAction { // Orchestrator only (thin facade over dedicated steps).
     limiter.acquire("register:" + username);
     String normEmail = emailNormalizer.normalize(email);
 
-    String requestHash =
-        support.hash(username + "|" + normEmail + "|" + password.length());
+    String requestHash = support.hash(username + "|" + normEmail + "|" + password.length());
     var replay = idem.replay(key, requestHash);
     if (replay.isPresent()) {
       return replay.get();

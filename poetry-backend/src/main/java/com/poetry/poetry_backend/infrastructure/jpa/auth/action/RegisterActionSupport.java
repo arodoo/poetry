@@ -5,7 +5,7 @@
  * lightweight logic (validation, simple hashing). All Rights Reserved.
  * Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
 import com.poetry.poetry_backend.application.auth.port.PasswordPolicyPort;
 

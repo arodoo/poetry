@@ -14,7 +14,7 @@ import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 // UI components moved to SubscriptionForm
 import { useCreateSubscriptionMutation } from '../hooks/useSubscriptionsMutations'
 import type { CreateSubscriptionInput } from '../model/SubscriptionsSchemas'
-import { buildSubscriptionCreateBreadcrumbs } from './subscriptionBreadcrumbHelpers'
+import { buildSubscriptionCreateBreadcrumbs } from '../model/subscriptionBreadcrumbHelpers'
 import SubscriptionForm from '../components/SubscriptionForm'
 
 export default function SubscriptionsCreatePage(): ReactElement {

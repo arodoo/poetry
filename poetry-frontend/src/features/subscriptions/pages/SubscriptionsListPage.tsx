@@ -16,8 +16,8 @@ import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useSubscriptionsPageQuery } from '../hooks/useSubscriptionsQueries'
 import type { SubscriptionResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
-import { buildSubscriptionsListColumns } from './subscriptionsListColumns'
-import { buildSubscriptionListBreadcrumbs } from './subscriptionBreadcrumbHelpers'
+import { buildSubscriptionsListColumns } from '../model/subscriptionsListColumns'
+import { buildSubscriptionListBreadcrumbs } from '../model/subscriptionBreadcrumbHelpers'
 
 export default function SubscriptionsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)

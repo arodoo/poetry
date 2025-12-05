@@ -5,7 +5,7 @@
  * logic to keep RefreshTokenManager focused on lifecycle orchestration.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.token;
 
 import java.time.Instant;
 
@@ -13,6 +13,8 @@ import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
 import com.poetry.poetry_backend.application.auth.port.ClockPort;
 import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.RefreshTokenEntity;
 
 class RefreshTokenIssuer {
   private final RefreshTokenRepository repository;

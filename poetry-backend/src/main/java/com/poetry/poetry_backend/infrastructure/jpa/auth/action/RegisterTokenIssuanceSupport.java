@@ -4,11 +4,13 @@
  * users and records audit trail entries. Keeps security token
  * concerns cohesive and decoupled from orchestration. All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
 import java.util.Map;
 
 import com.poetry.poetry_backend.application.auth.port.*;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.token.RefreshTokenManager;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.token.TokenResponseFactory;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
 
 final class RegisterTokenIssuanceSupport {
@@ -29,8 +31,8 @@ final class RegisterTokenIssuanceSupport {
   }
 
   Map<String, Object> issue(String username, String email, UserEntity user) {
-    java.util.List<String> rolesList = user.getRoles() == null 
-        ? java.util.List.of() 
+    java.util.List<String> rolesList = user.getRoles() == null
+        ? java.util.List.of()
         : new java.util.ArrayList<>(user.getRoles());
     String access = tokens.newAccessToken(username, rolesList);
     String refresh = manager.issue(user.getId(), null);

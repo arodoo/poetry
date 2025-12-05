@@ -14,6 +14,7 @@ import com.poetry.poetry_backend.application.auth.port.*;
 import com.poetry.poetry_backend.application.auth.usecase.*;
 import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.*;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 @Configuration
@@ -37,11 +38,22 @@ public class AuthUseCaseBeans {
   }
 
   @Bean
-  public LoginUseCase loginUseCase(AuthPort a) { return new LoginUseCase(a); }
+  public LoginUseCase loginUseCase(AuthPort a) {
+    return new LoginUseCase(a);
+  }
+
   @Bean
-  public RefreshTokenUseCase refreshTokenUseCase(AuthPort a) { return new RefreshTokenUseCase(a); }
+  public RefreshTokenUseCase refreshTokenUseCase(AuthPort a) {
+    return new RefreshTokenUseCase(a);
+  }
+
   @Bean
-  public LogoutUseCase logoutUseCase(AuthPort a) { return new LogoutUseCase(a); }
+  public LogoutUseCase logoutUseCase(AuthPort a) {
+    return new LogoutUseCase(a);
+  }
+
   @Bean
-  public RegisterUseCase registerUseCase(AuthPort a) { return new RegisterUseCase(a); }
+  public RegisterUseCase registerUseCase(AuthPort a) {
+    return new RegisterUseCase(a);
+  }
 }

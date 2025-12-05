@@ -6,7 +6,7 @@
  * file size constraints while preserving all lifecycle logic.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.token;
 
 import java.time.Instant;
 
@@ -15,10 +15,13 @@ import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;
 import com.poetry.poetry_backend.application.auth.port.ClockPort;
 import com.poetry.poetry_backend.application.auth.port.TokenGeneratorPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.RefreshTokenEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
 
-class RefreshTokenManager {
+public class RefreshTokenManager {
 
-  record RotateResult(Long userId, String newToken) { }
+  public record RotateResult(Long userId, String newToken) {
+  }
 
   private final RefreshTokenRepository repository;
   private final ClockPort clock;
@@ -26,7 +29,7 @@ class RefreshTokenManager {
   private final RefreshTokenIssuer issuer;
   private final RefreshTokenRevoker revoker;
 
-  RefreshTokenManager(
+  public RefreshTokenManager(
       RefreshTokenRepository repository,
       ClockPort clock,
       TokenGeneratorPort tokenGenerator,
@@ -40,13 +43,12 @@ class RefreshTokenManager {
     this.revoker = new RefreshTokenRevoker(repository, clock, auditLogger);
   }
 
-  String issue(Long userId, String parentTokenValue) {
+  public String issue(Long userId, String parentTokenValue) {
     return issuer.issue(userId, parentTokenValue);
   }
 
-  RotateResult rotate(String tokenValue) {
-    RefreshTokenEntity entity =
-        repository.findByTokenValue(tokenValue).orElseThrow(() -> fail("not_found"));
+  public RotateResult rotate(String tokenValue) {
+    RefreshTokenEntity entity = repository.findByTokenValue(tokenValue).orElseThrow(() -> fail("not_found"));
     Instant now = clock.now();
     if (!"ACTIVE".equals(entity.getStatus()) || entity.getExpiresAt().isBefore(now)) {
       return misuse(entity, now, "inactive_or_expired");
@@ -59,7 +61,7 @@ class RefreshTokenManager {
     return new RotateResult(entity.getUserId(), newValue);
   }
 
-  void logout(String refreshToken) {
+  public void logout(String refreshToken) {
     revoker.logout(refreshToken);
   }
 

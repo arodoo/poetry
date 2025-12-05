@@ -9,7 +9,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import * as i18n from '../../../../shared/i18n/useT'
 import * as hook from '../../../../features/tokens/hooks/useTokensQueries'
-import { AdminTokensPage } from '../../../../features/tokens/pages'
+import { AdminTokensPage } from '../../../../features/tokens/pages/AdminTokensPage'
 
 const mockUseT = <T extends string>(k: T): string => k
 vi.spyOn(i18n, 'useT').mockReturnValue(mockUseT)

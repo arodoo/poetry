@@ -15,6 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.poetry.poetry_backend.application.auth.port.*;
 import com.poetry.poetry_backend.application.common.port.IdempotencyPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.action.LoginAction;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.action.LogoutAction;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.action.RefreshAction;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.action.RegisterAction;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.token.RefreshTokenManager;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.token.TokenResponseFactory;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 @Transactional

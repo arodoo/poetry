@@ -4,7 +4,7 @@
  * Abstracts repository queries and audit side effects so orchestrator stays
  * linear and compact while enforcing uniqueness invariants. All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
 import com.poetry.poetry_backend.application.auth.exception.DuplicateUserException;
 import com.poetry.poetry_backend.application.auth.port.AuditLoggerPort;

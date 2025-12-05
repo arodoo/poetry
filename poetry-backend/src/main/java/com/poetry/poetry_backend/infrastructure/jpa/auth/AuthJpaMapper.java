@@ -6,6 +6,7 @@
 package com.poetry.poetry_backend.infrastructure.jpa.auth;
 
 import com.poetry.poetry_backend.domain.auth.model.Auth;
+import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.AuthEntity;
 
 public class AuthJpaMapper {
   public Auth toDomain(AuthEntity e) {

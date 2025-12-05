@@ -15,8 +15,8 @@ import { Inline } from '../../../ui/Inline/Inline'
 import { DetailView } from '../../../ui/DetailView/DetailView'
 import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
 import { useSubscriptionDetailQuery } from '../hooks/useSubscriptionsQueries'
-import { buildSubscriptionDetailBreadcrumbs } from './subscriptionBreadcrumbHelpers'
-import { buildSubscriptionDetailSections } from './subscriptionDetailHelpers.tsx'
+import { buildSubscriptionDetailBreadcrumbs } from '../model/subscriptionBreadcrumbHelpers'
+import { buildSubscriptionDetailSections } from '../model/subscriptionDetailHelpers'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
 
 export default function SubscriptionDetailPage(): ReactElement {

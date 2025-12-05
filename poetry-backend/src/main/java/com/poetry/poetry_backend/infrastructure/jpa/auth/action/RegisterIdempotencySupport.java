@@ -7,7 +7,7 @@
  * This enables deterministic client retries without duplication.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
 import java.util.Map;
 import java.util.Optional;

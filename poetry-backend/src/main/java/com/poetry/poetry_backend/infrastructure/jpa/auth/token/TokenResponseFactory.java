@@ -6,7 +6,7 @@
  * with OpenAPI schema while allowing extension (id, email for register).
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.token;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -15,16 +15,16 @@ import java.util.Map;
 import com.poetry.poetry_backend.application.auth.port.ClockPort;
 import com.poetry.poetry_backend.config.auth.AuthProperties;
 
-class TokenResponseFactory {
+public class TokenResponseFactory {
   private final ClockPort clock;
   private final AuthProperties props;
 
-  TokenResponseFactory(ClockPort clock, AuthProperties props) {
+  public TokenResponseFactory(ClockPort clock, AuthProperties props) {
     this.clock = clock;
     this.props = props;
   }
 
-  Map<String, Object> tokens(String username, String access, String refresh) {
+  public Map<String, Object> tokens(String username, String access, String refresh) {
     Map<String, Object> m = base(access, refresh);
     if (username != null) {
       m.put("username", username);
@@ -32,7 +32,7 @@ class TokenResponseFactory {
     return m;
   }
 
-  Map<String, Object> register(
+  public Map<String, Object> register(
       String username, String email, Long id, String access, String refresh) {
     Map<String, Object> m = tokens(username, access, refresh);
     if (id != null) {

@@ -5,7 +5,7 @@
  */
 import type { ReactElement } from 'react'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
-import { buildSubscriptionEditBreadcrumbs } from '../pages/subscriptionBreadcrumbHelpers'
+import { buildSubscriptionEditBreadcrumbs } from '../model/subscriptionBreadcrumbHelpers'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useT } from '../../../shared/i18n/useT'
 

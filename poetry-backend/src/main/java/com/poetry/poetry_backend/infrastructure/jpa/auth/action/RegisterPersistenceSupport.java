@@ -4,7 +4,7 @@
  * registration. Isolates entity construction and hashing to keep
  * orchestration surface minimal and test focused. All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.auth;
+package com.poetry.poetry_backend.infrastructure.jpa.auth.action;
 
 import java.util.HashSet;
 import java.util.Set;
