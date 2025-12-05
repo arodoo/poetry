@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import com.poetry.poetry_backend.application.theme.port.CustomizationSelectionQueryPort;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
-import com.poetry.poetry_backend.interfaces.v1.tokens.UITokensDto;
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 
 /**
  * Contract:

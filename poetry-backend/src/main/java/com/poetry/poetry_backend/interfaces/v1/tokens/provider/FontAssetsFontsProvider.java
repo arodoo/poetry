@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.font.port.FontAssetQueryPort;
 import com.poetry.poetry_backend.domain.font.model.FontAsset;
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontsProviderPort;
 
 @Component

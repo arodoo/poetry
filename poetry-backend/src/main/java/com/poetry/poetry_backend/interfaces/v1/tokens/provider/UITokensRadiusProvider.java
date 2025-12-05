@@ -7,6 +7,8 @@
 
 package com.poetry.poetry_backend.interfaces.v1.tokens.provider;
 
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
+
 import java.util.List;
 import java.util.Map;
 

@@ -7,7 +7,7 @@ package com.poetry.poetry_backend.interfaces.v1.tokens.ports;
 
 import java.util.List;
 
-import com.poetry.poetry_backend.interfaces.v1.tokens.UITokensDto;
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 
 public interface RadiusProviderPort {
   List<UITokensDto.RadiusSet> getRadius();

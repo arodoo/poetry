@@ -1,8 +1,8 @@
 {
-  "ok": true,
+  "ok": false,
   "summary": {
     "features": 12,
-    "missing": 0
+    "missing": 2
   },
   "details": [
     {
@@ -56,12 +56,12 @@
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthEntity.java",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaRepository.java",
           "optional": false,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaMapper.java",
@@ -76,7 +76,7 @@
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/auth/InMemoryAuthAdapter.java",
           "optional": true,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/auth/InMemoryAuthStore.java",
@@ -209,7 +209,10 @@
           "exists": true
         }
       ],
-      "missing": []
+      "missing": [
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthEntity.java",
+        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaRepository.java"
+      ]
     },
     {
       "feature": "dashboard",

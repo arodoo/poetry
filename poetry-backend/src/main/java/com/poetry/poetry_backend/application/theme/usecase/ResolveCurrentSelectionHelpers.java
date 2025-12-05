@@ -9,7 +9,7 @@ package com.poetry.poetry_backend.application.theme.usecase;
 import java.util.List;
 import java.util.function.Function;
 
-import com.poetry.poetry_backend.interfaces.v1.tokens.UITokensDto;
+import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 
 public class ResolveCurrentSelectionHelpers {
   public static String resolveThemeKey(GetActiveThemeUseCase getActiveThemeUseCase,
