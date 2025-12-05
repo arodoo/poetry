@@ -2,7 +2,21 @@
   "meta": {
     "version": "1.5",
     "description": "Canonical backend feature file & folder structure (structure-only). Class names are singular (Event, Zone, User) regardless of folder plurality. Controllers split by operation (Create/Get/List/PagedList/Update/Delete). Negative test file expectations included. Semantic rules enforced by dedicated CI scripts.",
-    "nonCrudFeatures": ["auth", "dashboard", "font", "i18n", "theme", "publics", "me", "roles", "tokens", "admin", "api", "shared"],
+    "nonCrudFeatures": [
+      "auth",
+      "dashboard",
+      "font",
+      "i18n",
+      "theme",
+      "publics",
+      "me",
+      "roles",
+      "tokens",
+      "admin",
+      "api",
+      "shared",
+      "sellercode"
+    ],
     "notes": "nonCrudFeatures are utility/auth/config features with custom controllers, not full CRUD. They are excluded from CRUD controller/test/OpenAPI requirements. Standard CRUD features like events, membership, subscription, user, zone use singular class names."
   },
   "structure": {
@@ -10,7 +24,8 @@
       "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain",
       "files": [
         {
-          "path": "<feature>/model/Feature.java",
+          "path": "<feature>/model/**/Feature.java",
+          "pattern": true,
           "required": true,
           "description": "Aggregate root"
         },
@@ -36,27 +51,32 @@
           "description": "Command port"
         },
         {
-          "path": "<feature>/usecase/GetAllFeaturesUseCase.java",
+          "path": "<feature>/usecase/**/GetAllFeaturesUseCase.java",
+          "pattern": true,
           "required": true,
           "description": "List use case"
         },
         {
-          "path": "<feature>/usecase/GetFeatureByIdUseCase.java",
+          "path": "<feature>/usecase/**/GetFeatureByIdUseCase.java",
+          "pattern": true,
           "required": true,
           "description": "Get by id use case"
         },
         {
-          "path": "<feature>/usecase/CreateFeatureUseCase.java",
+          "path": "<feature>/usecase/**/CreateFeatureUseCase.java",
+          "pattern": true,
           "required": true,
           "description": "Create use case"
         },
         {
-          "path": "<feature>/usecase/UpdateFeatureUseCase.java",
+          "path": "<feature>/usecase/**/UpdateFeatureUseCase.java",
+          "pattern": true,
           "required": true,
           "description": "Update use case"
         },
         {
-          "path": "<feature>/usecase/DeleteFeatureUseCase.java",
+          "path": "<feature>/usecase/**/DeleteFeatureUseCase.java",
+          "pattern": true,
           "required": true,
           "description": "Delete use case"
         }
@@ -66,22 +86,26 @@
       "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure",
       "files": [
         {
-          "path": "jpa/<feature>/FeatureEntity.java",
+          "path": "jpa/<feature>/**/FeatureEntity.java",
+          "pattern": true,
           "required": true,
           "description": "JPA entity"
         },
         {
-          "path": "jpa/<feature>/FeatureJpaRepository.java",
+          "path": "jpa/<feature>/**/FeatureJpaRepository.java",
+          "pattern": true,
           "required": true,
           "description": "Repository"
         },
         {
-          "path": "jpa/<feature>/FeatureJpaMapper.java",
+          "path": "jpa/<feature>/**/FeatureJpaMapper.java",
+          "pattern": true,
           "required": true,
           "description": "Mapper"
         },
         {
-          "path": "jpa/<feature>/FeatureJpaAdapter.java",
+          "path": "jpa/<feature>/**/FeatureJpaAdapter.java",
+          "pattern": true,
           "required": true,
           "description": "Adapter"
         },
@@ -111,37 +135,44 @@
           "description": "Placeholder controller (final, empty)"
         },
         {
-          "path": "v1/<feature>/FeaturesCreateController.java",
+          "path": "v1/<feature>/**/FeaturesCreateController.java",
+          "pattern": true,
           "required": true,
           "description": "Create endpoint controller"
         },
         {
-          "path": "v1/<feature>/FeaturesGetController.java",
+          "path": "v1/<feature>/**/FeaturesGetController.java",
+          "pattern": true,
           "required": true,
           "description": "Get by ID endpoint controller"
         },
         {
-          "path": "v1/<feature>/FeaturesListController.java",
+          "path": "v1/<feature>/**/FeaturesListController.java",
+          "pattern": true,
           "required": true,
           "description": "List all endpoint controller"
         },
         {
-          "path": "v1/<feature>/FeaturesPagedListController.java",
+          "path": "v1/<feature>/**/FeaturesPagedListController.java",
+          "pattern": true,
           "required": true,
           "description": "Paged list endpoint controller"
         },
         {
-          "path": "v1/<feature>/FeaturesUpdateController.java",
+          "path": "v1/<feature>/**/FeaturesUpdateController.java",
+          "pattern": true,
           "required": true,
           "description": "Update endpoint controller"
         },
         {
-          "path": "v1/<feature>/FeaturesDeleteController.java",
+          "path": "v1/<feature>/**/FeaturesDeleteController.java",
+          "pattern": true,
           "required": true,
           "description": "Delete endpoint controller"
         },
         {
-          "path": "v1/<feature>/FeatureDto.java",
+          "path": "v1/<feature>/**/FeatureDto.java",
+          "pattern": true,
           "required": true,
           "description": "DTOs (singular naming)"
         }

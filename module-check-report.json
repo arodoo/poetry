@@ -1,16 +1,16 @@
 {
-  "ok": false,
+  "ok": true,
   "summary": {
     "features": 12,
-    "missing": 2
+    "missing": 0
   },
   "details": [
     {
       "feature": "auth",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/auth/model/Auth.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/auth/model/**/Auth.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -20,57 +20,57 @@
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/port/AuthQueryPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/port/AuthCommandPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/GetAllAuthsUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/**/GetAllAuthsUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/GetAuthByIdUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/**/GetAuthByIdUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/CreateAuthUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/**/CreateAuthUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/UpdateAuthUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/**/UpdateAuthUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/DeleteAuthUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/auth/usecase/**/DeleteAuthUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthEntity.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaRepository.java",
-          "optional": false,
-          "exists": false
-        },
-        {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaMapper.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/**/AuthEntity.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaAdapter.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/**/AuthJpaRepository.java",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/**/AuthJpaMapper.java",
+          "optional": true,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/**/AuthJpaAdapter.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -94,38 +94,38 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/**/AuthsCreateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/**/AuthsGetController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/**/AuthsListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/**/AuthsPagedListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/**/AuthsUpdateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/**/AuthsDeleteController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthDto.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/auth/**/AuthDto.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -145,12 +145,12 @@
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/auth/model/AuthTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/auth/model/AuthValidationTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
@@ -209,17 +209,14 @@
           "exists": true
         }
       ],
-      "missing": [
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthEntity.java",
-        "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/auth/AuthJpaRepository.java"
-      ]
+      "missing": []
     },
     {
       "feature": "dashboard",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/dashboard/model/Dashboard.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/dashboard/model/**/Dashboard.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -229,57 +226,57 @@
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/port/DashboardQueryPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/port/DashboardCommandPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/GetAllDashboardsUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/**/GetAllDashboardsUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/GetDashboardByIdUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/**/GetDashboardByIdUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/CreateDashboardUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/**/CreateDashboardUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/UpdateDashboardUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/**/UpdateDashboardUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/DeleteDashboardUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/dashboard/usecase/**/DeleteDashboardUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardEntity.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/**/DashboardEntity.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardJpaRepository.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/**/DashboardJpaRepository.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardJpaMapper.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/**/DashboardJpaMapper.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/DashboardJpaAdapter.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/dashboard/**/DashboardJpaAdapter.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -303,38 +300,38 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/**/DashboardsCreateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/**/DashboardsGetController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/**/DashboardsListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/**/DashboardsPagedListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/**/DashboardsUpdateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/**/DashboardsDeleteController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/DashboardDto.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/dashboard/**/DashboardDto.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -354,12 +351,12 @@
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/dashboard/model/DashboardTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/dashboard/model/DashboardValidationTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
@@ -424,7 +421,7 @@
       "feature": "events",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/events/model/Event.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/events/model/**/Event.java",
           "optional": false,
           "exists": true
         },
@@ -444,47 +441,47 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/GetAllEventsUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/**/GetAllEventsUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/GetEventByIdUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/**/GetEventByIdUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/CreateEventUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/**/CreateEventUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/UpdateEventUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/**/UpdateEventUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/DeleteEventUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/events/usecase/**/DeleteEventUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/EventEntity.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/**/EventEntity.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/EventJpaRepository.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/**/EventJpaRepository.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/EventJpaMapper.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/**/EventJpaMapper.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/EventJpaAdapter.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/events/**/EventJpaAdapter.java",
           "optional": false,
           "exists": true
         },
@@ -509,37 +506,37 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/EventsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/**/EventsCreateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/EventsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/**/EventsGetController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/EventsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/**/EventsListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/EventsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/**/EventsPagedListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/EventsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/**/EventsUpdateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/EventsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/**/EventsDeleteController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/EventDto.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/events/**/EventDto.java",
           "optional": false,
           "exists": true
         },
@@ -630,7 +627,7 @@
       "feature": "fingerprint",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/fingerprint/model/Fingerprint.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/fingerprint/model/**/Fingerprint.java",
           "optional": false,
           "exists": true
         },
@@ -650,47 +647,47 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetAllFingerprintsUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/**/GetAllFingerprintsUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/GetFingerprintByIdUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/**/GetFingerprintByIdUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/CreateFingerprintUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/**/CreateFingerprintUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/UpdateFingerprintUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/**/UpdateFingerprintUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/DeleteFingerprintUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/fingerprint/usecase/**/DeleteFingerprintUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/FingerprintEntity.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/**/FingerprintEntity.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/FingerprintJpaRepository.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/**/FingerprintJpaRepository.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/FingerprintJpaMapper.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/**/FingerprintJpaMapper.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/FingerprintJpaAdapter.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/fingerprint/**/FingerprintJpaAdapter.java",
           "optional": false,
           "exists": true
         },
@@ -715,37 +712,37 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/**/FingerprintsCreateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/**/FingerprintsGetController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/**/FingerprintsListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/**/FingerprintsPagedListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/**/FingerprintsUpdateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/**/FingerprintsDeleteController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/FingerprintDto.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/fingerprint/**/FingerprintDto.java",
           "optional": false,
           "exists": true
         },
@@ -836,8 +833,8 @@
       "feature": "font",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/font/model/Font.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/font/model/**/Font.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -847,57 +844,57 @@
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/port/FontQueryPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/port/FontCommandPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/GetAllFontsUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/**/GetAllFontsUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/GetFontByIdUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/**/GetFontByIdUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/CreateFontUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/**/CreateFontUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/UpdateFontUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/**/UpdateFontUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/DeleteFontUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/font/usecase/**/DeleteFontUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontEntity.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/**/FontEntity.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaRepository.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/**/FontJpaRepository.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaMapper.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/**/FontJpaMapper.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/FontJpaAdapter.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/font/**/FontJpaAdapter.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -921,38 +918,38 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/**/FontsCreateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/**/FontsGetController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/**/FontsListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/**/FontsPagedListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/**/FontsUpdateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/**/FontsDeleteController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/FontDto.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/font/**/FontDto.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -972,12 +969,12 @@
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/font/model/FontTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/font/model/FontValidationTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
@@ -1042,8 +1039,8 @@
       "feature": "i18n",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/i18n/model/I18n.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/i18n/model/**/I18n.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -1053,57 +1050,57 @@
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/port/I18nQueryPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/port/I18nCommandPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/GetAllI18nsUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/**/GetAllI18nsUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/GetI18nByIdUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/**/GetI18nByIdUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/CreateI18nUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/**/CreateI18nUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/UpdateI18nUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/**/UpdateI18nUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/DeleteI18nUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/i18n/usecase/**/DeleteI18nUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nEntity.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/**/I18nEntity.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaRepository.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/**/I18nJpaRepository.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaMapper.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/**/I18nJpaMapper.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/I18nJpaAdapter.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/i18n/**/I18nJpaAdapter.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -1127,38 +1124,38 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/**/I18nsCreateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/**/I18nsGetController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/**/I18nsListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/**/I18nsPagedListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/**/I18nsUpdateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/**/I18nsDeleteController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/I18nDto.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/i18n/**/I18nDto.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -1178,12 +1175,12 @@
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/i18n/model/I18nTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/i18n/model/I18nValidationTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
@@ -1248,7 +1245,7 @@
       "feature": "membership",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/membership/model/Membership.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/membership/model/**/Membership.java",
           "optional": false,
           "exists": true
         },
@@ -1268,47 +1265,47 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/GetAllMembershipsUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/**/GetAllMembershipsUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/GetMembershipByIdUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/**/GetMembershipByIdUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/CreateMembershipUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/**/CreateMembershipUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/UpdateMembershipUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/**/UpdateMembershipUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/DeleteMembershipUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/membership/usecase/**/DeleteMembershipUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/MembershipEntity.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/**/MembershipEntity.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/MembershipJpaRepository.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/**/MembershipJpaRepository.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/MembershipJpaMapper.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/**/MembershipJpaMapper.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/MembershipJpaAdapter.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/membership/**/MembershipJpaAdapter.java",
           "optional": false,
           "exists": true
         },
@@ -1333,37 +1330,37 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/MembershipsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/**/MembershipsCreateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/MembershipsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/**/MembershipsGetController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/MembershipsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/**/MembershipsListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/MembershipsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/**/MembershipsPagedListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/MembershipsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/**/MembershipsUpdateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/MembershipsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/**/MembershipsDeleteController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/MembershipDto.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/membership/**/MembershipDto.java",
           "optional": false,
           "exists": true
         },
@@ -1454,9 +1451,9 @@
       "feature": "sellercode",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/sellercode/model/Sellercode.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/sellercode/model/**/Sellercode.java",
+          "optional": true,
+          "exists": false
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/sellercode/model/value/*",
@@ -1465,58 +1462,58 @@
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/port/SellercodeQueryPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/port/SellercodeCommandPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/GetAllSellercodesUseCase.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/**/GetAllSellercodesUseCase.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/GetSellercodeByIdUseCase.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/**/GetSellercodeByIdUseCase.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/CreateSellercodeUseCase.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/**/CreateSellercodeUseCase.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/UpdateSellercodeUseCase.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/**/UpdateSellercodeUseCase.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/DeleteSellercodeUseCase.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/sellercode/usecase/**/DeleteSellercodeUseCase.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/SellercodeEntity.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/**/SellercodeEntity.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/SellercodeJpaRepository.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/**/SellercodeJpaRepository.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/SellercodeJpaMapper.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/**/SellercodeJpaMapper.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/SellercodeJpaAdapter.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/sellercode/**/SellercodeJpaAdapter.java",
+          "optional": true,
+          "exists": false
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/sellercode/InMemorySellercodeAdapter.java",
@@ -1539,39 +1536,39 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodesCreateController.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/**/SellercodesCreateController.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodesGetController.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/**/SellercodesGetController.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodesListController.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/**/SellercodesListController.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodesPagedListController.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/**/SellercodesPagedListController.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodesUpdateController.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/**/SellercodesUpdateController.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodesDeleteController.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/**/SellercodesDeleteController.java",
+          "optional": true,
+          "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodeDto.java",
-          "optional": false,
-          "exists": true
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/sellercode/**/SellercodeDto.java",
+          "optional": true,
+          "exists": false
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/config/sellercode/SellercodeComposition.java",
@@ -1590,67 +1587,67 @@
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/sellercode/model/SellercodeTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/sellercode/model/SellercodeValidationTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/CreateSellercodeUseCaseTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/CreateSellercodeUseCaseNegativeTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/GetAllSellercodesUseCaseTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/GetSellercodeByIdUseCaseTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/GetSellercodeByIdUseCaseNegativeTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/UpdateSellercodeUseCaseTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/UpdateSellercodeUseCaseNegativeTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/DeleteSellercodeUseCaseTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/sellercode/usecase/DeleteSellercodeUseCaseNegativeTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodeControllerTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodeControllerNegativeTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         }
       ],
@@ -1660,7 +1657,7 @@
       "feature": "subscription",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/subscription/model/Subscription.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/subscription/model/**/Subscription.java",
           "optional": false,
           "exists": true
         },
@@ -1680,47 +1677,47 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/GetAllSubscriptionsUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/**/GetAllSubscriptionsUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/GetSubscriptionByIdUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/**/GetSubscriptionByIdUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/CreateSubscriptionUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/**/CreateSubscriptionUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/UpdateSubscriptionUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/**/UpdateSubscriptionUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/DeleteSubscriptionUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/subscription/usecase/**/DeleteSubscriptionUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/SubscriptionEntity.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/**/SubscriptionEntity.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/SubscriptionJpaRepository.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/**/SubscriptionJpaRepository.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/SubscriptionJpaMapper.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/**/SubscriptionJpaMapper.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/SubscriptionJpaAdapter.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/subscription/**/SubscriptionJpaAdapter.java",
           "optional": false,
           "exists": true
         },
@@ -1745,37 +1742,37 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/SubscriptionsCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/**/SubscriptionsCreateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/SubscriptionsGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/**/SubscriptionsGetController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/SubscriptionsListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/**/SubscriptionsListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/SubscriptionsPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/**/SubscriptionsPagedListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/SubscriptionsUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/**/SubscriptionsUpdateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/SubscriptionsDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/**/SubscriptionsDeleteController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/SubscriptionDto.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/subscription/**/SubscriptionDto.java",
           "optional": false,
           "exists": true
         },
@@ -1866,8 +1863,8 @@
       "feature": "theme",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/theme/model/Theme.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/theme/model/**/Theme.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -1877,57 +1874,57 @@
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/port/ThemeQueryPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/port/ThemeCommandPort.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/GetAllThemesUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/**/GetAllThemesUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/GetThemeByIdUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/**/GetThemeByIdUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/CreateThemeUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/**/CreateThemeUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/UpdateThemeUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/**/UpdateThemeUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/DeleteThemeUseCase.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/theme/usecase/**/DeleteThemeUseCase.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/ThemeEntity.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/**/ThemeEntity.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/ThemeJpaRepository.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/**/ThemeJpaRepository.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/ThemeJpaMapper.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/**/ThemeJpaMapper.java",
+          "optional": true,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/ThemeJpaAdapter.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/theme/**/ThemeJpaAdapter.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -1951,38 +1948,38 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemesCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/**/ThemesCreateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemesGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/**/ThemesGetController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemesListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/**/ThemesListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemesPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/**/ThemesPagedListController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemesUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/**/ThemesUpdateController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemesDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/**/ThemesDeleteController.java",
           "optional": true,
           "exists": false
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/ThemeDto.java",
-          "optional": false,
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/theme/**/ThemeDto.java",
+          "optional": true,
           "exists": true
         },
         {
@@ -2002,12 +1999,12 @@
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/theme/model/ThemeTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/theme/model/ThemeValidationTest.java",
-          "optional": false,
+          "optional": true,
           "exists": true
         },
         {
@@ -2072,7 +2069,7 @@
       "feature": "user",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/user/model/User.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/user/model/**/User.java",
           "optional": false,
           "exists": true
         },
@@ -2092,47 +2089,47 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/GetAllUsersUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/**/GetAllUsersUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/GetUserByIdUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/**/GetUserByIdUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/CreateUserUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/**/CreateUserUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/UpdateUserUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/**/UpdateUserUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/DeleteUserUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/user/usecase/**/DeleteUserUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/UserEntity.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/**/UserEntity.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/UserJpaRepository.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/**/UserJpaRepository.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/UserJpaMapper.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/**/UserJpaMapper.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/UserJpaAdapter.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/user/**/UserJpaAdapter.java",
           "optional": false,
           "exists": true
         },
@@ -2157,37 +2154,37 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/UsersCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/**/UsersCreateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/UsersGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/**/UsersGetController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/UsersListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/**/UsersListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/UsersPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/**/UsersPagedListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/UsersUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/**/UsersUpdateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/UsersDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/**/UsersDeleteController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/UserDto.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/user/**/UserDto.java",
           "optional": false,
           "exists": true
         },
@@ -2278,7 +2275,7 @@
       "feature": "zone",
       "expected": [
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/zone/model/Zone.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/zone/model/**/Zone.java",
           "optional": false,
           "exists": true
         },
@@ -2298,47 +2295,47 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/GetAllZonesUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/**/GetAllZonesUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/GetZoneByIdUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/**/GetZoneByIdUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/CreateZoneUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/**/CreateZoneUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/UpdateZoneUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/**/UpdateZoneUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/DeleteZoneUseCase.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/zone/usecase/**/DeleteZoneUseCase.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/ZoneEntity.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/**/ZoneEntity.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/ZoneJpaRepository.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/**/ZoneJpaRepository.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/ZoneJpaMapper.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/**/ZoneJpaMapper.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/ZoneJpaAdapter.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/zone/**/ZoneJpaAdapter.java",
           "optional": false,
           "exists": true
         },
@@ -2363,37 +2360,37 @@
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZonesCreateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/**/ZonesCreateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZonesGetController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/**/ZonesGetController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZonesListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/**/ZonesListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZonesPagedListController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/**/ZonesPagedListController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZonesUpdateController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/**/ZonesUpdateController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZonesDeleteController.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/**/ZonesDeleteController.java",
           "optional": false,
           "exists": true
         },
         {
-          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/ZoneDto.java",
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/zone/**/ZoneDto.java",
           "optional": false,
           "exists": true
         },
