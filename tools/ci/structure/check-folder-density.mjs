@@ -11,7 +11,7 @@ import { readdirSync, statSync, existsSync } from 'fs';
 import { join, relative } from 'path';
 
 const ROOT = process.cwd();
-const DEFAULT_MAX_FILES = 10;
+const DEFAULT_MAX_FILES = 8;
 
 /**
  * Scalable exceptions: folders that naturally accumulate more files.
@@ -37,6 +37,11 @@ const CONFIG = {
   backend: {
     basePath: 'poetry-backend/src/main/java',
     maxFiles: DEFAULT_MAX_FILES,
+    excludeDirs: ['target', '.git'],
+  },
+  backendTest: {
+    basePath: 'poetry-backend/src/test/java',
+    maxFiles: 12,
     excludeDirs: ['target', '.git'],
   },
 };

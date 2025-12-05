@@ -17,10 +17,10 @@ import com.poetry.poetry_backend.application.font.usecase.DeleteFontUseCase;
 import com.poetry.poetry_backend.application.font.usecase.GetAllFontsUseCase;
 import com.poetry.poetry_backend.application.font.usecase.GetFontByIdUseCase;
 import com.poetry.poetry_backend.application.font.usecase.UpdateFontUseCase;
-import com.poetry.poetry_backend.infrastructure.jpa.font.FontAssetJpaAdapter;
-import com.poetry.poetry_backend.infrastructure.jpa.font.FontAssetRepository;
-import com.poetry.poetry_backend.infrastructure.jpa.font.FontAssetSeeder;
-import com.poetry.poetry_backend.infrastructure.jpa.font.FontJpaAdapter;
+import com.poetry.poetry_backend.infrastructure.jpa.font.adapter.FontAssetJpaAdapter;
+import com.poetry.poetry_backend.infrastructure.jpa.font.adapter.FontAssetSeeder;
+import com.poetry.poetry_backend.infrastructure.jpa.font.adapter.FontJpaAdapter;
+import com.poetry.poetry_backend.infrastructure.jpa.font.entity.FontAssetRepository;
 
 @Configuration
 public class FontComposition {

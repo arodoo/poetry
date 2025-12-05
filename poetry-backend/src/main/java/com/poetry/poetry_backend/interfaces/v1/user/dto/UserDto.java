@@ -7,7 +7,7 @@
 
 package com.poetry.poetry_backend.interfaces.v1.user.dto;
 
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public final class UserDto {
   private UserDto() {}

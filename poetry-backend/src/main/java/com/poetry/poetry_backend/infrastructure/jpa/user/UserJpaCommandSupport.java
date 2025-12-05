@@ -8,7 +8,7 @@ package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
 import com.poetry.poetry_backend.domain.user.exception.UserVersionMismatchException;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 final class UserJpaCommandSupport {
   private UserJpaCommandSupport() {}

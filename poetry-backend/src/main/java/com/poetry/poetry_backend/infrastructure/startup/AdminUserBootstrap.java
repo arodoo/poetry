@@ -18,7 +18,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.auth.exception.DuplicateUserException;
-import com.poetry.poetry_backend.application.auth.usecase.RegisterUseCase;
+import com.poetry.poetry_backend.application.auth.usecase.session.RegisterUseCase;
 import com.poetry.poetry_backend.application.sellercode.usecase.CreateSellerCodeUseCase;
 import com.poetry.poetry_backend.domain.auth.model.Role;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;

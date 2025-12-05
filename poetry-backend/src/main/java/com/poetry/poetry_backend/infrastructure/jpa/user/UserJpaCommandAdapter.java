@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.util.Set;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public class UserJpaCommandAdapter implements UserCommandPort {
   private final UserJpaRepository repository;

@@ -12,7 +12,7 @@ package com.poetry.poetry_backend.application.user.port;
 import java.util.List;
 
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public interface UserQueryPort {
   List<User> findAll();

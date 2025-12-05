@@ -9,7 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.poetry.poetry_backend.infrastructure.jpa.font.FontAssetSeeder;
+import com.poetry.poetry_backend.infrastructure.jpa.font.adapter.FontAssetSeeder;
 
 @Component
 public class FontAssetStartupSeeder implements ApplicationRunner {

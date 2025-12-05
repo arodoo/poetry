@@ -9,7 +9,7 @@ package com.poetry.poetry_backend.interfaces.v1.user.dto;
 
 import java.util.Set;
 
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

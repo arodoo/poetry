@@ -10,8 +10,8 @@ package com.poetry.poetry_backend.infrastructure.memory.user;
 
 import java.util.Set;
 
-import com.poetry.poetry_backend.domain.user.model.User;
-import com.poetry.poetry_backend.domain.user.model.UserRehydrator;
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
 
 public final class InMemoryUserFactory {
   private InMemoryUserFactory() {

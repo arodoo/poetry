@@ -12,7 +12,7 @@ package com.poetry.poetry_backend.application.user.usecase;
 import java.util.List;
 
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public class GetAllUsersUseCase {
   private final UserQueryPort query;

@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.poetry.poetry_backend.domain.user.model.User;
-import com.poetry.poetry_backend.domain.user.model.UserFactory;
-import com.poetry.poetry_backend.domain.user.model.UserMutations;
-import com.poetry.poetry_backend.domain.user.model.UserRehydrator;
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserFactory;
+import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
+import com.poetry.poetry_backend.domain.user.model.updaters.UserMutations;
 
 public final class InMemoryUserCreate {
   private InMemoryUserCreate() {}

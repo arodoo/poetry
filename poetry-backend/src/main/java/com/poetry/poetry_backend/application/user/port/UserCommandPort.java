@@ -12,7 +12,7 @@ package com.poetry.poetry_backend.application.user.port;
 
 import java.util.Set;
 
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public interface UserCommandPort {
   User create(

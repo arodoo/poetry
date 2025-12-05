@@ -26,7 +26,7 @@ import com.poetry.poetry_backend.application.user.usecase.CreateUserUseCase;
 import com.poetry.poetry_backend.application.zone.usecase.CreateZoneUseCase;
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
 import com.poetry.poetry_backend.domain.subscription.model.Subscription;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 import com.poetry.poetry_backend.domain.zone.model.Zone;
 
 @Component

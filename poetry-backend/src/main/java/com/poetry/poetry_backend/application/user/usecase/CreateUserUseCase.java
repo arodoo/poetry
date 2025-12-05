@@ -12,7 +12,7 @@ package com.poetry.poetry_backend.application.user.usecase;
 import java.util.Set;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.model.User;
+import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public class CreateUserUseCase {
   private final UserCommandPort commands;

@@ -10,8 +10,8 @@ import java.time.Instant;
 import java.util.Map;
 
 import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
-import com.poetry.poetry_backend.domain.user.model.User;
-import com.poetry.poetry_backend.domain.user.model.UserMutations;
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.updaters.UserMutations;
 
 public final class InMemoryUserMutations {
   private InMemoryUserMutations() {}

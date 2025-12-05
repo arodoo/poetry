@@ -9,8 +9,8 @@
 
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
-import com.poetry.poetry_backend.domain.user.model.User;
-import com.poetry.poetry_backend.domain.user.model.UserRehydrator;
+import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
 
 public final class UserJpaMapper {
     private UserJpaMapper() {
