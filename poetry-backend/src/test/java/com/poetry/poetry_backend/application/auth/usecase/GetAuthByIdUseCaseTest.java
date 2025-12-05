@@ -12,13 +12,18 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.auth.port.AuthQueryPort;
+import com.poetry.poetry_backend.application.auth.usecase.crud.GetAuthByIdUseCase;
 import com.poetry.poetry_backend.domain.auth.exception.AuthNotFoundException;
 import com.poetry.poetry_backend.domain.auth.model.Auth;
 
 class GetAuthByIdUseCaseTest {
-  @Test void returnsAuth() {
+  @Test
+  void returnsAuth() {
     AuthQueryPort q = new AuthQueryPort() {
-      public java.util.List<Auth> findAll() { return java.util.List.of(); }
+      public java.util.List<Auth> findAll() {
+        return java.util.List.of();
+      }
+
       public Optional<Auth> findById(String id) {
         return Optional.of(new Auth(id, "u", false));
       }
@@ -27,10 +32,16 @@ class GetAuthByIdUseCaseTest {
     assertEquals("1", uc.execute("1").id());
   }
 
-  @Test void whenMissingShouldReturn404() {
+  @Test
+  void whenMissingShouldReturn404() {
     AuthQueryPort q = new AuthQueryPort() {
-      public java.util.List<Auth> findAll() { return java.util.List.of(); }
-      public Optional<Auth> findById(String id) { return Optional.empty(); }
+      public java.util.List<Auth> findAll() {
+        return java.util.List.of();
+      }
+
+      public Optional<Auth> findById(String id) {
+        return Optional.empty();
+      }
     };
     var uc = new GetAuthByIdUseCase(q);
     assertThrows(AuthNotFoundException.class, () -> uc.execute("x"));

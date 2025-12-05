@@ -10,18 +10,31 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
+import com.poetry.poetry_backend.application.theme.usecase.crud.DeleteThemeUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 class DeleteThemeUseCaseTest {
   @Test
   void deletesWhenCalled() {
-    final long[] deleted = {0};
+    final long[] deleted = { 0 };
     ThemeCommandPort cmd = new ThemeCommandPort() {
-      public Theme save(Theme theme) { return theme; }
-      public void deleteSoft(Long id) { deleted[0] = id; }
-      public void restore(Long id) { }
-      public void deactivateAll() { }
-      public long count() { return 0; }
+      public Theme save(Theme theme) {
+        return theme;
+      }
+
+      public void deleteSoft(Long id) {
+        deleted[0] = id;
+      }
+
+      public void restore(Long id) {
+      }
+
+      public void deactivateAll() {
+      }
+
+      public long count() {
+        return 0;
+      }
     };
     var uc = new DeleteThemeUseCase(cmd);
     uc.execute(3L);

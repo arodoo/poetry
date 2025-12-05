@@ -15,6 +15,7 @@ import com.poetry.poetry_backend.application.theme.usecase.selection.ResolveCurr
 import com.poetry.poetry_backend.application.theme.usecase.selection.SaveSystemSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
+import com.poetry.poetry_backend.interfaces.v1.tokens.fingerprint.TokensFingerprintBuilder;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensCurrentProvider;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensDataProvider;
@@ -31,38 +32,38 @@ class UITokensControllerEtagNormalizationTest {
   void returns304ForQuotedAndUnquotedEtag() {
     ThemesProviderPort themesProvider = java.util.List::of;
     GetActiveThemeUseCase active = new GetActiveThemeUseCase(
-      new com.poetry.poetry_backend.application.theme.port.ThemeQueryPort() {
-        @Override
-        public java.util.List<Theme> findAll() {
-          return java.util.List.of();
-        }
-        @Override
-        public java.util.Optional<Theme> findById(Long id) {
-          return java.util.Optional.empty();
-        }
-        @Override
-        public java.util.Optional<Theme> findActive() {
-          return java.util.Optional.empty();
-        }
-      }
-    );
-    CustomizationSelectionQueryPort selectionQuery =
-      java.util.Optional::<UiCustomizationSelection>empty;
+        new com.poetry.poetry_backend.application.theme.port.ThemeQueryPort() {
+          @Override
+          public java.util.List<Theme> findAll() {
+            return java.util.List.of();
+          }
+
+          @Override
+          public java.util.Optional<Theme> findById(Long id) {
+            return java.util.Optional.empty();
+          }
+
+          @Override
+          public java.util.Optional<Theme> findActive() {
+            return java.util.Optional.empty();
+          }
+        });
+    CustomizationSelectionQueryPort selectionQuery = java.util.Optional::<UiCustomizationSelection>empty;
     var resolve = new ResolveCurrentSelectionUseCase(active, selectionQuery);
     var dataProvider = new UITokensDataProvider(
-      themesProvider,
-      new UITokensFontsProvider(),
-      new UITokensFontFamiliesProvider(),
-      new UITokensFontSizesProvider(),
-      new UITokensFontWeightsProvider(),
-      new UITokensSpacingsProvider(),
-      new UITokensRadiusProvider(),
-      new UITokensShadowsProvider(),
-      new UITokensCurrentProvider(resolve));
+        themesProvider,
+        new UITokensFontsProvider(),
+        new UITokensFontFamiliesProvider(),
+        new UITokensFontSizesProvider(),
+        new UITokensFontWeightsProvider(),
+        new UITokensSpacingsProvider(),
+        new UITokensRadiusProvider(),
+        new UITokensShadowsProvider(),
+        new UITokensCurrentProvider(resolve));
     var controller = new UITokensController(
-      dataProvider,
-      new TokensFingerprintBuilder(),
-      new SaveSystemSelectionUseCase(sel -> sel));
+        dataProvider,
+        new TokensFingerprintBuilder(),
+        new SaveSystemSelectionUseCase(sel -> sel));
     var first = controller.getTokens(null);
     String quoted = first.getHeaders().getETag();
     assertNotNull(quoted);

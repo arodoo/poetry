@@ -11,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintFactory;
+
 class FingerprintTest {
   @Test
   void shouldCreateValidFingerprint() {
     var fingerprint = FingerprintFactory.createNew(1L, 45);
-    
+
     assertNotNull(fingerprint);
     assertEquals(1L, fingerprint.userId());
     assertEquals(45, fingerprint.r503SlotId());

@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetThemeByIdUseCase;
 import com.poetry.poetry_backend.domain.theme.exception.ThemeNotFoundException;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 
@@ -23,7 +24,7 @@ class GetThemeByIdUseCaseTest {
 
       public java.util.Optional<Theme> findById(Long id) {
         return java.util.Optional
-            .of(Theme.createNew("x","X", java.util.Map.of("p", "#000")))
+            .of(Theme.createNew("x", "X", java.util.Map.of("p", "#000")))
             .map(t -> t.withId(id));
       }
 

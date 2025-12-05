@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
+import com.poetry.poetry_backend.interfaces.v1.tokens.fingerprint.TokensFingerprintUpdater;
 
 class FontsFingerprintIncludedFieldsTest {
   private String fp(UITokensDto dto) {
@@ -20,8 +21,11 @@ class FontsFingerprintIncludedFieldsTest {
       MessageDigest d = MessageDigest.getInstance("SHA-256");
       TokensFingerprintUpdater.updateFonts(d, dto);
       return java.util.HexFormat.of().formatHex(d.digest());
-    } catch (Exception e) { throw new RuntimeException(e); }
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
+
   private UITokensDto base() {
     UITokensDto dto = new UITokensDto();
     UITokensDto.Font a = new UITokensDto.Font();
@@ -41,6 +45,7 @@ class FontsFingerprintIncludedFieldsTest {
     dto.fonts = List.of(a, b);
     return dto;
   }
+
   @Test
   void changingHashChanges() {
     UITokensDto dto = base();
@@ -49,6 +54,7 @@ class FontsFingerprintIncludedFieldsTest {
     String after = fp(dto);
     assertNotEquals(before, after);
   }
+
   @Test
   void changingPreloadDefaultChanges() {
     UITokensDto dto = base();

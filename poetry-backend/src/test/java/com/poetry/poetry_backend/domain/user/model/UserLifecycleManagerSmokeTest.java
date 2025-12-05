@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class UserLifecycleManagerSmokeTest {
     @Test
     void classExists() throws ClassNotFoundException {
-        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.UserLifecycleManager");
+        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.core.UserLifecycleManager");
         assertNotNull(cls);
         assertTrue(cls.getDeclaredConstructors().length > 0);
     }

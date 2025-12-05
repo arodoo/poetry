@@ -16,6 +16,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeQueryPort;
+import com.poetry.poetry_backend.application.theme.usecase.crud.GetThemeByIdUseCase;
 import com.poetry.poetry_backend.domain.theme.exception.ThemeNotFoundException;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 

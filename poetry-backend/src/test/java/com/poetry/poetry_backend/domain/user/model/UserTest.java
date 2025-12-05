@@ -12,6 +12,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import com.poetry.poetry_backend.domain.user.model.core.UserFactory;
+
 class UserTest {
   @Test
   void factoryCreatesActiveUserWithCanonicalData() {
@@ -21,7 +23,7 @@ class UserTest {
         "ada@example.com",
         "ada",
         "en",
-    Set.of("admin"));
+        Set.of("admin"));
 
     assertEquals("Ada", user.firstName());
     assertEquals("ada@example.com", user.email());

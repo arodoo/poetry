@@ -12,6 +12,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import com.poetry.poetry_backend.domain.user.model.core.UserFactory;
+
 class UserValidationTest {
     @Test
     void createNewRejectsBlankEmail() {
@@ -23,6 +25,6 @@ class UserValidationTest {
                         " ",
                         "ada",
                         "en",
-                                Set.of("admin")));
+                        Set.of("admin")));
     }
 }

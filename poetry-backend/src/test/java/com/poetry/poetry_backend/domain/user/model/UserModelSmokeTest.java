@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class UserModelSmokeTest {
     @Test
     void classExists() throws ClassNotFoundException {
-        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.User");
+        Class<?> cls = Class.forName("com.poetry.poetry_backend.domain.user.model.core.User");
         assertNotNull(cls);
         assertTrue(cls.isRecord());
     }
