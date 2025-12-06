@@ -12,9 +12,8 @@ import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { RequireRole } from '../../../shared/routing/guards/RequireRole'
 import * as session from '../../../shared/security/session/useSession'
-import type {
-  SessionHookResult,
-} from '../../../shared/security/session/useSession'
+import type { SessionHookResult }
+  from '../../../shared/security/session/useSession'
 
 afterEach(() => {
   vi.restoreAllMocks()

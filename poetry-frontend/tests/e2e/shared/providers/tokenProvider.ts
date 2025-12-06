@@ -55,7 +55,7 @@ export async function injectTokens(
   )
   // Signal app it's running in e2e test mode so loadFontOffline can operate in test-mode
   await page.addInitScript(() => {
-    ; (globalThis as unknown as { __E2E__?: boolean }).__E2E__ = true
+    ;(globalThis as unknown as { __E2E__?: boolean }).__E2E__ = true
   })
 }
 

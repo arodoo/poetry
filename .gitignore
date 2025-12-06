@@ -40,6 +40,9 @@ poetry-frontend/test-results/
 .vscode/
 .idea/
 
+# Test artifacts (root level)
+test-results/
+
 # Misc
 *.tmp
 *.swp

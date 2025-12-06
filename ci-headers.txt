@@ -1,5 +1,0 @@
-
-> poetry-repo-tools@0.1.0 check:file-headers
-> node tools/ci/headers/check-headers.mjs
-
-✅ Headers valid (1634 files checked)
