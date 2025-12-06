@@ -5,13 +5,22 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
+import { tokenStorage } from '../../../../shared/security/tokens/tokenStorage'
+
 export async function reserveSlotFromBackend(): Promise<number> {
   const baseUrl =
     (import.meta.env['VITE_API_URL'] as string | undefined) ??
     'http://localhost:8080'
+
+  const token = tokenStorage.load()?.accessToken
+  const headers: HeadersInit = { 'Content-Type': 'application/json' }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   const response = await fetch(`${baseUrl}/api/v1/fingerprints/reserve-slot`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     credentials: 'include',
   })
 
