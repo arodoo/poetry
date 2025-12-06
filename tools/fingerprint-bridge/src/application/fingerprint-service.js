@@ -23,7 +23,7 @@ export function initialize(dllPath) {
 export function openDevice() {
   const bindings = getBindings();
   const handlePtr = Buffer.alloc(8);
-  
+
   // Check USB device count (like Demo.exe does)
   const usbCountPtr = Buffer.alloc(4);
   let usbCount = 0;
@@ -34,7 +34,7 @@ export function openDevice() {
   } catch (e) {
     log.error('SERVICE', `PSGetUSBDevNum failed: ${e.message}`);
   }
-  
+
   // Check UDisk device count (like Demo.exe does)
   const udiskCountPtr = Buffer.alloc(4);
   let udiskCount = 0;
@@ -45,7 +45,7 @@ export function openDevice() {
   } catch (e) {
     log.error('SERVICE', `PSGetUDiskNum failed: ${e.message}`);
   }
-  
+
   // Determine device type (same logic as Demo.exe)
   let deviceType = DEVICE_USB;
   if (usbCount <= 0) {
@@ -56,16 +56,16 @@ export function openDevice() {
     deviceType = DEVICE_COM;
     log.debug('SERVICE', 'No UDisk devices, trying COM');
   }
-  
+
   log.debug('SERVICE', `Device type: ${deviceType}`);
-  
+
   // Try PSOpenDeviceEx
   const params = { type: deviceType, com: 1, baud: 6, packSize: 2, devId: 0 };
   log.debug('SERVICE', `Trying PSOpenDeviceEx with: ${JSON.stringify(params)}`);
-  
+
   let result = bindings.PSOpenDeviceEx(handlePtr, deviceType, 1, 6, 2, 0);
   log.sdk('PSOpenDeviceEx', params, { code: result, buf: handlePtr.toString('hex') });
-  
+
   // If PSOpenDeviceEx fails, try PSAutoOpen as fallback
   if (result !== 0) {
     log.debug('SERVICE', 'PSOpenDeviceEx failed, trying PSAutoOpen...');
@@ -73,11 +73,11 @@ export function openDevice() {
     result = bindings.PSAutoOpen(handlePtr, typePtr, DEVICE_ADDR, 0, 1);
     log.sdk('PSAutoOpen', { addr: DEVICE_ADDR }, { code: result, type: typePtr[0] });
   }
-  
+
   if (result === 0) {
     deviceHandle = handlePtr.readUInt32LE(0);
     log.info('SERVICE', `Handle obtained: 0x${deviceHandle.toString(16)}`);
-    
+
     // Use default address like Demo.exe does
     deviceAddr = 0xFFFFFFFF;
     log.info('SERVICE', `Using default address: 0x${deviceAddr.toString(16)}`);
@@ -85,7 +85,7 @@ export function openDevice() {
   } else {
     log.error('SERVICE', `All open methods failed. Final code: ${result}`);
   }
-  
+
   return { code: result, handle: deviceHandle };
 }
 

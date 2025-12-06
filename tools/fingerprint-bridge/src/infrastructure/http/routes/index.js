@@ -6,3 +6,4 @@
 export { default as deviceRoutes } from './device-routes.js';
 export { default as captureRoutes } from './capture-routes.js';
 export { default as workflowRoutes } from './workflow-routes.js';
+export { default as templateRoutes } from './template-routes.js';

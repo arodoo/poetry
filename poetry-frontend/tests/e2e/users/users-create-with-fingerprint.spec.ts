@@ -1,18 +1,16 @@
 /*
  * File: users-create-with-fingerprint.spec.ts
  * Purpose: E2E test for user creation with fingerprint enrollment.
- * Mocks hardware service responses, validates complete workflow.
+ * Tests real hardware workflow with human-in-the-loop prompts.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import { mockFingerprintRoutes } from './fingerprintMockRoutes'
 
-test.describe('User Creation with Fingerprint', () => {
+test.describe('User Creation with Fingerprint (Real Hardware)', () => {
   test.beforeEach(async ({ page }) => {
     await injectTokens(page)
-    await mockFingerprintRoutes(page)
   })
 
   test('should create user with fingerprint', async ({ page }) => {
@@ -22,30 +20,30 @@ test.describe('User Creation with Fingerprint', () => {
       page.getByRole('heading', { name: 'Create user' })
     ).toBeVisible({ timeout: 15000 })
 
-    await page.getByTestId('user-firstname-input').fill('John')
-    await page.getByTestId('user-lastname-input').fill('Doe')
-    await page.getByTestId('user-username-input').fill('johndoe')
-    await page.getByTestId('user-email-input').fill('john.doe@example.com')
+    await page.getByTestId('user-firstname-input').fill('Test')
+    await page.getByTestId('user-lastname-input').fill('Fingerprint')
+    const timestamp = Date.now()
+    const username = `testfp${timestamp}`
+    await page.getByTestId('user-username-input').fill(username)
+    await page.getByTestId('user-email-input').fill(`${username}@test.com`)
 
     await page.getByRole('button', { name: /start/i }).first().click()
 
-    await page.screenshot({ path: 'test-results/after-click.png' })
+    // Wait for enrollment - finger placement required
+    await expect(
+      page.getByText(/place.*finger|enrolling/i)
+    ).toBeVisible({ timeout: 30000 })
 
-    await page.waitForTimeout(2000)
-
-    await page.screenshot({ path: 'test-results/after-wait.png' })
+    // Allow time for physical finger placement
+    await page.waitForTimeout(15000)
 
     await expect(
-      page.getByText(/enrolled successfully|enrolling fingerprint/i)
-    ).toBeVisible({ timeout: 15000 })
-
-    await expect(page.getByText(/enrolled successfully/i)).toBeVisible({
-      timeout: 10000,
-    })
+      page.getByText(/enrolled successfully|success/i)
+    ).toBeVisible({ timeout: 30000 })
 
     await page.getByRole('button', { name: /create/i }).click()
 
-    await expect(page).toHaveURL(/\/en\/users$/)
+    await expect(page).toHaveURL(/\/en\/users$/, { timeout: 15000 })
   })
 
   test('should skip fingerprint enrollment', async ({ page }) => {
@@ -55,15 +53,16 @@ test.describe('User Creation with Fingerprint', () => {
       page.getByRole('heading', { name: 'Create user' })
     ).toBeVisible({ timeout: 15000 })
 
-    await page.getByTestId('user-firstname-input').fill('Jane')
-    await page.getByTestId('user-lastname-input').fill('Smith')
-    await page.getByTestId('user-username-input').fill('janesmith')
-    await page.getByTestId('user-email-input').fill('jane.smith@example.com')
+    await page.getByTestId('user-firstname-input').fill('Skip')
+    await page.getByTestId('user-lastname-input').fill('Fingerprint')
+    const timestamp = Date.now()
+    const username = `skipfp${timestamp}`
+    await page.getByTestId('user-username-input').fill(username)
+    await page.getByTestId('user-email-input').fill(`${username}@test.com`)
 
     await page.getByRole('button', { name: 'Skip' }).click()
-
     await page.getByRole('button', { name: 'Create' }).click()
 
-    await expect(page).toHaveURL(/\/en\/users$/)
+    await expect(page).toHaveURL(/\/en\/users$/, { timeout: 15000 })
   })
 })

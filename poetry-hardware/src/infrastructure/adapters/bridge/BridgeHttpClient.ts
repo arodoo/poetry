@@ -3,7 +3,6 @@
 // Handles all REST calls to the 32-bit bridge service on port 3001.
 // All Rights Reserved. Arodi Emmanuel
 
-import { logger } from '../../logging/logger.js';
 
 const BRIDGE_URL =
   process.env.FINGERPRINT_BRIDGE_URL || 'http://localhost:3001';
@@ -13,6 +12,7 @@ export interface BridgeResponse {
   code?: number;
   id?: number;
   score?: number;
+  template?: string;
 }
 
 export async function checkBridgeHealth(): Promise<void> {
@@ -26,7 +26,7 @@ export async function openDevice(): Promise<BridgeResponse> {
   const response = await fetch(`${BRIDGE_URL}/device/open`, {
     method: 'POST',
   });
-  return response.json();
+  return response.json() as Promise<BridgeResponse>;
 }
 
 export async function closeDevice(): Promise<void> {
@@ -41,12 +41,39 @@ export async function enrollFingerprint(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ templateId }),
   });
-  return response.json();
+  return response.json() as Promise<BridgeResponse>;
 }
 
 export async function identifyFingerprint(): Promise<BridgeResponse> {
   const response = await fetch(`${BRIDGE_URL}/fingerprint/identify`, {
     method: 'POST',
   });
-  return response.json();
+  return response.json() as Promise<BridgeResponse>;
+}
+
+export async function downloadTemplate(
+  slotId: number
+): Promise<BridgeResponse> {
+  const response = await fetch(
+    `${BRIDGE_URL}/fingerprint/template/${slotId}`
+  );
+  return response.json() as Promise<BridgeResponse>;
+}
+
+export async function uploadTemplate(
+  slotId: number,
+  template: Buffer
+): Promise<BridgeResponse> {
+  const response = await fetch(
+    `${BRIDGE_URL}/fingerprint/template`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slotId,
+        template: template.toString('base64'),
+      }),
+    }
+  );
+  return response.json() as Promise<BridgeResponse>;
 }

@@ -14,12 +14,12 @@ export function initBindings() {
   // Device enumeration
   funcs.PSGetUSBDevNum = lib.func('int __stdcall PSGetUSBDevNum(int* nums)');
   funcs.PSGetUDiskNum = lib.func('int __stdcall PSGetUDiskNum(int* nums)');
-  
+
   // Device info
   funcs.PSReadInfPage = lib.func(
     'int __stdcall PSReadInfPage(int h, int addr, uint8* inf)'
   );
-  
+
   // Use uint8* for handle output (we'll pass Buffer)
   funcs.PSAutoOpen = lib.func(
     'int __stdcall PSAutoOpen(uint8* h, int* type, int addr, int pwd, int vfy)'
@@ -34,7 +34,7 @@ export function initBindings() {
   funcs.PSGetImage = lib.func('int __stdcall PSGetImage(int h, uint32 addr)');
   funcs.PSGenChar = lib.func('int __stdcall PSGenChar(int h, uint32 addr, int b)');
   funcs.PSRegModule = lib.func('int __stdcall PSRegModule(int h, uint32 addr)');
-  
+
   // High-level functions (handle everything internally)
   funcs.PSEnroll = lib.func('int __stdcall PSEnroll(void* h, int* id)');
   funcs.PSIdentify = lib.func('int __stdcall PSIdentify(void* h, int* id, int* sc)');
@@ -57,6 +57,20 @@ export function initBindings() {
   funcs.PSEmpty = lib.func('int __stdcall PSEmpty(int h, uint32 addr)');
   funcs.PSTemplateNum = lib.func(
     'int __stdcall PSTemplateNum(int h, uint32 addr, int* cnt)'
+  );
+
+  // Template upload/download for backup functionality
+  // PSUpChar: Upload template from CharBuffer to host (returns 768 bytes)
+  funcs.PSUpChar = lib.func(
+    'int __stdcall PSUpChar(int h, uint32 addr, int bufID, uint8* data)'
+  );
+  // PSDownChar: Download template from host to CharBuffer (needs length)
+  funcs.PSDownChar = lib.func(
+    'int __stdcall PSDownChar(int h, uint32 addr, int bufID, uint8* data, int len)'
+  );
+  // PSLoadChar: Load template from flash storage to CharBuffer
+  funcs.PSLoadChar = lib.func(
+    'int __stdcall PSLoadChar(int h, uint32 addr, int bufID, int pageID)'
   );
 
   console.log('[FFI] Bindings initialized');

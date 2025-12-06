@@ -4,7 +4,9 @@
 // All Rights Reserved. Arodi Emmanuel
 
 import express from 'express';
-import { deviceRoutes, captureRoutes, workflowRoutes } from './routes/index.js';
+import {
+  deviceRoutes, captureRoutes, workflowRoutes, templateRoutes
+} from './routes/index.js';
 
 export function createServer() {
   const app = express();
@@ -17,6 +19,7 @@ export function createServer() {
   app.use('/device', deviceRoutes);
   app.use('/capture', captureRoutes);
   app.use('/fingerprint', workflowRoutes);
+  app.use('/fingerprint/template', templateRoutes);
 
   return app;
 }

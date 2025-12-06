@@ -47,6 +47,19 @@ export class BridgeFingerprintAdapter implements FingerprintPort {
     return ops.getTemplateCount();
   }
 
+  async downloadTemplate(slotId: number): Promise<Buffer | null> {
+    this.ensureInitialized();
+    return ops.downloadTemplate(slotId);
+  }
+
+  async uploadTemplate(
+    slotId: number,
+    template: Buffer
+  ): Promise<boolean> {
+    this.ensureInitialized();
+    return ops.uploadTemplate(slotId, template);
+  }
+
   async close(): Promise<void> {
     if (!this.initialized) return;
     await lifecycle.disconnectBridge();

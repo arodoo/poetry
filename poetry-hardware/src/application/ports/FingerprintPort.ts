@@ -24,5 +24,7 @@ export interface FingerprintPort {
   verify(): Promise<VerifyResult>;
   deleteTemplate(templateId: number): Promise<boolean>;
   getTemplateCount(): Promise<number>;
+  downloadTemplate(slotId: number): Promise<Buffer | null>;
+  uploadTemplate(slotId: number, template: Buffer): Promise<boolean>;
   close(): Promise<void>;
 }

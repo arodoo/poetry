@@ -15,6 +15,8 @@ export function createFingerprintRoutes(
   router.post('/verify', controller.verify);
   router.delete('/template/:slotId', controller.deleteTemplate);
   router.get('/template-count', controller.getTemplateCount);
+  router.get('/template/:slotId', controller.downloadTemplate);
+  router.post('/template', controller.uploadTemplate);
 
   return router;
 }

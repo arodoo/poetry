@@ -5,20 +5,22 @@
 
 import { Request, Response } from 'express';
 import { FingerprintPort } from '../../application/ports/FingerprintPort.js';
-import { FingerprintEnrollmentHandler } from './FingerprintEnrollmentHandler.js';
-import { FingerprintTemplateHandler } from './FingerprintTemplateHandler.js';
+import { FingerprintEnrollmentHandler } from './fingerprint/FingerprintEnrollmentHandler.js';
+import { FingerprintTemplateHandler } from './fingerprint/FingerprintTemplateHandler.js';
+import { TemplateDownloadHandler } from './fingerprint/TemplateDownloadHandler.js';
+import { TemplateUploadHandler } from './fingerprint/TemplateUploadHandler.js';
 
 export class FingerprintController {
   private enrollmentHandler: FingerprintEnrollmentHandler;
   private templateHandler: FingerprintTemplateHandler;
+  private downloadHandler: TemplateDownloadHandler;
+  private uploadHandler: TemplateUploadHandler;
 
   constructor(fingerprintPort: FingerprintPort) {
-    this.enrollmentHandler = new FingerprintEnrollmentHandler(
-      fingerprintPort
-    );
-    this.templateHandler = new FingerprintTemplateHandler(
-      fingerprintPort
-    );
+    this.enrollmentHandler = new FingerprintEnrollmentHandler(fingerprintPort);
+    this.templateHandler = new FingerprintTemplateHandler(fingerprintPort);
+    this.downloadHandler = new TemplateDownloadHandler(fingerprintPort);
+    this.uploadHandler = new TemplateUploadHandler(fingerprintPort);
   }
 
   enroll = (req: Request, res: Response): Promise<void> => {
@@ -36,4 +38,13 @@ export class FingerprintController {
   getTemplateCount = (req: Request, res: Response): Promise<void> => {
     return this.templateHandler.getTemplateCount(req, res);
   };
+
+  downloadTemplate = (req: Request, res: Response): Promise<void> => {
+    return this.downloadHandler.handle(req, res);
+  };
+
+  uploadTemplate = (req: Request, res: Response): Promise<void> => {
+    return this.uploadHandler.handle(req, res);
+  };
 }
+

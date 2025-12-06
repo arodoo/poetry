@@ -50,6 +50,23 @@ export class MockFingerprintAdapter implements FingerprintPort {
     return this.templates.size;
   }
 
+  async downloadTemplate(slotId: number): Promise<Buffer | null> {
+    if (!this.templates.has(slotId)) {
+      return null;
+    }
+    logger.info(`Mock: Downloaded template ${slotId}`);
+    return Buffer.from(`mock-template-${slotId}`);
+  }
+
+  async uploadTemplate(
+    slotId: number,
+    _template: Buffer
+  ): Promise<boolean> {
+    logger.info(`Mock: Uploaded template to slot ${slotId}`);
+    this.templates.add(slotId);
+    return true;
+  }
+
   async close(): Promise<void> {
     logger.info('Mock fingerprint adapter closed');
     return Promise.resolve();

@@ -4,11 +4,11 @@
 // All Rights Reserved. Arodi Emmanuel
 
 import { Request, Response } from 'express';
-import { FingerprintPort } from '../../application/ports/FingerprintPort.js';
-import { logger } from '../../infrastructure/logging/logger.js';
+import { FingerprintPort } from '../../../application/ports/FingerprintPort.js';
+import { logger } from '../../../infrastructure/logging/logger.js';
 
 export class FingerprintEnrollmentHandler {
-  constructor(private fingerprintPort: FingerprintPort) {}
+  constructor(private fingerprintPort: FingerprintPort) { }
 
   async enroll(req: Request, res: Response): Promise<void> {
     try {

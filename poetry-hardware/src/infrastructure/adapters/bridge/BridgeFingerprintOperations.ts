@@ -41,3 +41,21 @@ export async function getTemplateCount(): Promise<number> {
   logger.warn('getTemplateCount not implemented');
   return 0;
 }
+
+export async function downloadTemplate(
+  slotId: number
+): Promise<Buffer | null> {
+  const data = await bridge.downloadTemplate(slotId);
+  if (!data.success || !data.template) {
+    return null;
+  }
+  return Buffer.from(data.template, 'base64');
+}
+
+export async function uploadTemplate(
+  slotId: number,
+  template: Buffer
+): Promise<boolean> {
+  const data = await bridge.uploadTemplate(slotId, template);
+  return data.success === true;
+}
