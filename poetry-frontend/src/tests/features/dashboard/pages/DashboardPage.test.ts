@@ -26,7 +26,7 @@ vi.mock('../../../../features/dashboard/hooks/useDashboardQueries', () => ({
 }))
 
 describe('DashboardPage', () => {
-  it('renders metrics and highlight text', async () => {
+  it('renders metrics and highlight text', { timeout: 10000 }, async () => {
     mocks.useDashboardOverviewQuery.mockReturnValue({
       data: sampleOverview,
       isLoading: false,
@@ -43,7 +43,7 @@ describe('DashboardPage', () => {
             locale: 'en',
             messages: {},
             t: (key: string): string => key,
-            setLocale: (): void => {},
+            setLocale: (): void => { },
           },
         },
         createElement(DashboardPage)

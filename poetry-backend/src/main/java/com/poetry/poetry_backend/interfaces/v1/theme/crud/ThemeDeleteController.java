@@ -3,7 +3,7 @@
  * Purpose: REST endpoint to delete themes.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.theme;
+package com.poetry.poetry_backend.interfaces.v1.theme.crud;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

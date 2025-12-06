@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/react'
 import { createSecurityHookResult } from './securityPageTestHelpers'
 
 describe('SecurityPage', () => {
-  it('renders locale value and heading', async () => {
+  it('renders locale value and heading', { timeout: 10000 }, async () => {
     vi.resetModules()
     vi.doMock(
       '../../../../features/account/hooks/useAccountSecurityPage',

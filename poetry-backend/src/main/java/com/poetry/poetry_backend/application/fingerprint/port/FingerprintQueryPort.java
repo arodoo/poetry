@@ -8,6 +8,7 @@
 
 package com.poetry.poetry_backend.application.fingerprint.port;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,4 +26,6 @@ public interface FingerprintQueryPort {
   Optional<Fingerprint> findByR503SlotId(Integer r503SlotId);
 
   boolean existsByUserId(Long userId);
+
+  List<Fingerprint> findInactiveOlderThan(Instant cutoff, int limit);
 }

@@ -3,7 +3,7 @@
  * Purpose: REST endpoint to create themes.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.theme;
+package com.poetry.poetry_backend.interfaces.v1.theme.crud;
 
 import java.net.URI;
 
@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.theme.usecase.crud.CreateThemeUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
+import com.poetry.poetry_backend.interfaces.v1.theme.ThemeDto;
+import com.poetry.poetry_backend.interfaces.v1.theme.ThemeMapper;
 
 @RestController
 @RequestMapping("/api/v1/themes")

@@ -30,16 +30,16 @@ test.describe('User Creation with Fingerprint (Real Hardware)', () => {
     await page.getByRole('button', { name: /start/i }).first().click()
 
     // Wait for enrollment - finger placement required
-    await expect(
-      page.getByText(/place.*finger|enrolling/i)
-    ).toBeVisible({ timeout: 30000 })
+    await expect(page.getByText(/place.*finger|enrolling/i)).toBeVisible({
+      timeout: 30000,
+    })
 
     // Allow time for physical finger placement
     await page.waitForTimeout(15000)
 
-    await expect(
-      page.getByText(/enrolled successfully|success/i)
-    ).toBeVisible({ timeout: 30000 })
+    await expect(page.getByText(/enrolled successfully|success/i)).toBeVisible({
+      timeout: 30000,
+    })
 
     await page.getByRole('button', { name: /create/i }).click()
 

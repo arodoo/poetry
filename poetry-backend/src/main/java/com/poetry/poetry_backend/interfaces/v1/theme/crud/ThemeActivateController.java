@@ -3,7 +3,7 @@
  * Purpose: REST endpoint to activate a theme.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.interfaces.v1.theme;
+package com.poetry.poetry_backend.interfaces.v1.theme.crud;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.theme.usecase.crud.ActivateThemeUseCase;
+import com.poetry.poetry_backend.interfaces.v1.theme.ThemeDto;
+import com.poetry.poetry_backend.interfaces.v1.theme.ThemeMapper;
 
 @RestController
 @RequestMapping("/api/v1/themes")
