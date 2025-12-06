@@ -6,9 +6,9 @@
 import {
   EnrollResult,
   VerifyResult,
-} from '../../application/ports/FingerprintPort.js';
-import { logger } from '../logging/logger.js';
-import * as bridge from './bridge/BridgeHttpClient.js';
+} from '../../../application/ports/FingerprintPort.js';
+import { logger } from '../../logging/logger.js';
+import * as bridge from './BridgeHttpClient.js';
 
 export async function enrollFingerprint(
   templateId: number

@@ -7,7 +7,6 @@ import { RelayBoard } from '../../domain/relay/RelayBoard.js';
 import { ActivateRelayUseCase } from '../../application/usecases/ActivateRelayUseCase.js';
 import { DeactivateRelayUseCase } from '../../application/usecases/DeactivateRelayUseCase.js';
 import { GetRelayStatusUseCase } from '../../application/usecases/GetRelayStatusUseCase.js';
-import { RelayPort } from '../../application/ports/RelayPort.js';
 import { RelayController } from '../../interfaces/http/RelayController.js';
 import { getOrCreateRelayPort } from './shared-ports.js';
 
