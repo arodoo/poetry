@@ -32,7 +32,7 @@ export function UserCreateFormActions({
   return (
     <div className="mt-6 flex gap-4">
       <Button onClick={handleClick} variant="primary" disabled={isSubmitting}>
-        {t('ui.users.actions.create')}
+        {t('ui.users.actions.submit')}
       </Button>
       <Button onClick={onCancel} variant="secondary">
         {t('ui.users.actions.cancel')}

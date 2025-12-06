@@ -5,7 +5,7 @@
  */
 import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import { TOKEN_STORAGE_KEY } from '../../../src/shared/security/tokenStorage'
+import { TOKEN_STORAGE_KEY } from '../../../src/shared/security/tokens/tokenStorage'
 
 test('logout triggers API, clears tokens, and invalidates auth session', async ({
   page,

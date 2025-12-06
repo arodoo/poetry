@@ -17,8 +17,10 @@ async function createTestUser(
   await page.getByTestId('user-lastname-input').fill('Test')
   await page.getByTestId('user-username-input').fill(username)
   await page.getByTestId('user-email-input').fill(`${username}@example.com`)
-  await page.getByTestId('user-password-input').fill('SecurePass123!')
   await page.getByTestId('role-checkbox-admin').check()
+  // Wait for React state update to make password field visible  
+  await page.getByTestId('user-password-input').waitFor({ state: 'visible', timeout: 5000 })
+  await page.getByTestId('user-password-input').fill('SecurePass123!')
   const createApiPromise: Promise<Response> = page.waitForResponse(
     (response: Response): boolean =>
       response.url().includes('/api/v1/users') &&

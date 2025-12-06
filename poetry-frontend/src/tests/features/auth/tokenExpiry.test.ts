@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest'
 import {
   isTokenExpiringSoon,
   getTokenExpiryTime,
-} from '../../../shared/security/tokenExpiry'
+} from '../../../shared/security/tokens/tokenExpiry'
 
 function createMockJwt(expiresInSeconds: number): string {
   const now = Math.floor(Date.now() / 1000)

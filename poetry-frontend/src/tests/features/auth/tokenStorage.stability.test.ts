@@ -5,7 +5,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect, beforeEach } from 'vitest'
-import { tokenStorage } from '../../../shared/security/tokenStorage'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 describe('tokenStorage object stability', () => {
   beforeEach(() => {

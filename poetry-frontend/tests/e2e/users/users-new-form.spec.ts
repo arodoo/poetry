@@ -27,10 +27,12 @@ test('loads create user form with roles checkboxes', async ({
   expect(rolesResponse.status()).toBe(200)
   await expect(page.getByTestId('user-username-input')).toBeVisible()
   await expect(page.getByTestId('user-email-input')).toBeVisible()
-  await expect(page.getByTestId('user-password-input')).toBeVisible()
   await expect(page.getByTestId('role-checkbox-admin')).toBeVisible({
     timeout: 15000,
   })
+  // Check admin role to make password field appear (password is conditional)
+  await page.getByTestId('role-checkbox-admin').check()
+  await expect(page.getByTestId('user-password-input')).toBeVisible()
   await expect(page.getByTestId('role-checkbox-manager')).toBeVisible({
     timeout: 15000,
   })

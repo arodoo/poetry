@@ -51,8 +51,10 @@ test('submits form with selected roles', async ({
   await lastNameInput.fill('User')
   await usernameInput.fill(`testuser${String(timestamp)}`)
   await emailInput.fill(`test${String(timestamp)}@example.com`)
-  await passwordInput.fill('SecurePass123!')
   await adminCheckbox.check()
+  // Wait for React state update to make password field visible
+  await passwordInput.waitFor({ state: 'visible', timeout: 5000 })
+  await passwordInput.fill('SecurePass123!')
   const createApiPromise: Promise<Response> = page.waitForResponse(
     (response: Response): boolean =>
       response.url().includes('/api/v1/users') &&

@@ -4,7 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { login, refresh } from './tokenService'
-import { TOKEN_STORAGE_KEY } from '../../../../src/shared/security/tokenStorage'
+import { TOKEN_STORAGE_KEY } from '../../../../src/shared/security/tokens/tokenStorage'
 
 export interface CachedTokens {
   accessToken: string
@@ -55,7 +55,7 @@ export async function injectTokens(
   )
   // Signal app it's running in e2e test mode so loadFontOffline can operate in test-mode
   await page.addInitScript(() => {
-    ;(globalThis as unknown as { __E2E__?: boolean }).__E2E__ = true
+    ; (globalThis as unknown as { __E2E__?: boolean }).__E2E__ = true
   })
 }
 

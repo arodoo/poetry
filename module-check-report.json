@@ -201,12 +201,12 @@
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthControllerTest.java",
           "optional": true,
-          "exists": true
+          "exists": false
         },
         {
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/auth/AuthControllerNegativeTest.java",
           "optional": true,
-          "exists": true
+          "exists": false
         }
       ],
       "missing": []

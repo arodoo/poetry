@@ -6,9 +6,9 @@
 import { describe, it, expect } from 'vitest'
 import React from 'react'
 import { render } from '@testing-library/react'
-import { I18nProvider } from '../../shared/i18n'
-import { useT } from '../../shared/i18n/useT'
-import type { I18nKey } from '../../shared/i18n/generated/keys'
+import { I18nProvider } from '../../../shared/i18n'
+import { useT } from '../../../shared/i18n/useT'
+import type { I18nKey } from '../../../shared/i18n/generated/keys'
 
 function Bad() {
   const t = useT()

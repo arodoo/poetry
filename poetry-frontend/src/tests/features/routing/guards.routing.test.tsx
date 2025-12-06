@@ -6,9 +6,11 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import { RequireAuth } from '../../../shared/routing/RequireAuth'
-import * as session from '../../../shared/security/useSession'
-import type { SessionHookResult } from '../../../shared/security/useSession'
+import { RequireAuth } from '../../../shared/routing/guards/RequireAuth'
+import * as session from '../../../shared/security/session/useSession'
+import type {
+  SessionHookResult,
+} from '../../../shared/security/session/useSession'
 
 const navigateMock = vi.fn()
 

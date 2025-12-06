@@ -6,10 +6,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import React from 'react'
 import { render, waitFor, screen } from '@testing-library/react'
-import { I18nProvider } from '../../shared/i18n'
-import { useT } from '../../shared/i18n/useT'
-import { I18N_KEYS } from '../../shared/i18n/generated/keys'
-import { localeService } from '../../shared/i18n/services/localeService'
+import { I18nProvider } from '../../../shared/i18n'
+import { useT } from '../../../shared/i18n/useT'
+import { I18N_KEYS } from '../../../shared/i18n/generated/keys'
+import { localeService } from '../../../shared/i18n/services/localeService'
 
 function AllKeysProbe() {
   const t = useT()
