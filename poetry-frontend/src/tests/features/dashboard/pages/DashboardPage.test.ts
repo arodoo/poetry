@@ -43,7 +43,7 @@ describe('DashboardPage', () => {
             locale: 'en',
             messages: {},
             t: (key: string): string => key,
-            setLocale: (): void => { },
+            setLocale: (): void => {},
           },
         },
         createElement(DashboardPage)

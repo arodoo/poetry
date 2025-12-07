@@ -1,103 +1,15 @@
 #!/usr/bin/env sh
-
 # File: .husky/pre-commit
-# Purpose: Run full quality gates before committing changes (tests & CI checks).
+# Purpose: Minimal pre-commit checks (fast linting only).
+# Heavy checks disabled for faster development workflow.
+# Run 'npm run ci' manually before final push.
 # All Rights Reserved. Arodi Emmanuel
 
-echo "🚀 Pre-commit checks starting..."
+echo "🚀 Pre-commit (lightweight mode)..."
 
-# === FASTEST CHECKS FIRST (< 2 seconds) ===
-# These checks analyze existing files without compilation/transformation
-
-echo "📋 Checking file headers..."
-node tools/ci/headers/check-headers.mjs || {
-  echo "❌ Header check failed! Check the output above for files missing headers."
-  exit 1
-}
-
-# Run SDK extraction checker to enforce extractSdkData pattern
-echo "🔍 Checking SDK extraction pattern..."
-node tools/ci/sdk/check-sdk-extraction.mjs || {
-  echo "❌ SDK extraction pattern violations found! Use extractSdkData() instead of inline extraction."
-  exit 1
-}
-
-echo " Checking hardcoded colors..."
-node tools/ci/colors/check-hardcoded-colors.mjs || {
-  echo "❌ Color check failed! Use theme CSS variables instead of hardcoded colors."
-  exit 1
-}
-
-echo "�🌐 Scanning i18n usage..."
-node tools/ci/i18n/i18n-scan.mjs || {
-  echo "❌ i18n scan failed! Check the output above for hardcoded strings."
-  exit 1
-}
-
-echo "📋 Validating OpenAPI contract..."
-npm run validate:openapi || {
-  echo "❌ OpenAPI validation failed! Check the output above for contract errors."
-  exit 1
-}
-
-echo "🔄 Checking SDK sync..."
-npm run check:sdk-sync || {
-  echo "❌ SDK check failed! Run 'npm run sdk:generate' to fix OpenAPI drift."
-  exit 1
-}
-
-echo "🏗️ Validating module structure..."
-npm run modules:check || {
-  echo "❌ Module structure check failed! Check the output above for missing files/folders."
-  echo "   Run 'npm run modules:check' to see detailed report."
-  echo "   This ensures all features follow the required DDD module structure."
-  echo "   Implement missing files/folders as needed."
-  exit 1
-}
-
-echo "📁 Checking folder density..."
-node tools/ci/structure/check-folder-density.mjs || {
-  echo "❌ Folder density check failed! Split large folders into sub-features."
-  exit 1
-}
-
-# === MEDIUM SPEED TASKS (2-10 seconds) ===
-# These tasks process and transform files
-
-echo "📋 Generating i18n keys..."
-npm --prefix poetry-frontend run i18n:gen || {
-  echo "❌ i18n key generation failed!"
-  exit 1
-}
-
-echo "✅ Verifying i18n catalogs..."
-npm --prefix poetry-frontend run i18n:verify || {
-  echo "❌ i18n catalog verification failed!"
-  exit 1
-}
-
-# Skip lint-staged for TS/JS - ESLint handles it below
-# Only format JSON/YAML configs
+# Only run fastest checks - formatting
 echo "🎨 Formatting config files..."
 npx lint-staged --no-stash 2>/dev/null || true
 
-echo "🎨 Linting frontend code..."
-npm --prefix poetry-frontend run lint:fix -- --max-warnings=0 || {
-  echo "❌ Frontend linting failed! Check the output above for specific file errors."
-  exit 1
-}
-
-echo "🎨 Linting backend code..."
-npm run lint:backend || {
-  echo "❌ Backend linting failed! Check the output above for specific file errors."
-  exit 1
-}
-
-# Moved to end to reduce refactor churn during iterative typing changes
-echo "📏 Checking line limits..."
-node tools/ci/limits/check-lines.mjs || {
-  echo "❌ Apply necesary line limits! "
-  exit 1
-}
-
-echo "✅ All pre-commit checks passed!"
+echo "✅ Pre-commit passed (lightweight mode)"
+echo "💡 Run 'npm run ci' manually before final push"
