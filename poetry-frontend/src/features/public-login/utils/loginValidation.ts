@@ -13,10 +13,10 @@ export function mapLoginErrors(errors: unknown[]): {
     errors.forEach(function (err: unknown): void {
       const e: { path?: unknown[] } = err as { path?: unknown[] }
       if (Array.isArray(e.path) && e.path[0] === 'username') {
-        out.username = 'Username is required'
+        out.username = 'ui.publicLogin.errors.username'
       }
       if (Array.isArray(e.path) && e.path[0] === 'password') {
-        out.password = 'Password is required'
+        out.password = 'ui.publicLogin.errors.password'
       }
     })
   } catch (_err: unknown) {

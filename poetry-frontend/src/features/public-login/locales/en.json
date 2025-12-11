@@ -8,5 +8,9 @@
   "ui.publicLogin.forgotLink": "Forgot your password?",
   "ui.publicLogin.error": "Sign in failed. Check your credentials.",
   "ui.publicLogin.errors.username": "Enter your username.",
-  "ui.publicLogin.errors.password": "Enter your password."
+  "ui.publicLogin.errors.password": "Enter your password.",
+  "ui.publicLogin.error.invalid": "Invalid username or password",
+  "ui.publicLogin.error.network": "Network error. Please try again.",
+  "ui.publicLogin.error.server": "Server error. Please try again.",
+  "ui.publicLogin.error.generic": "Login failed. Please try again."
 }

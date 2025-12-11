@@ -34,7 +34,7 @@ function scanFile(file) {
     let m
     while ((m = STRING_REGEX.exec(line)) !== null) {
       const text = m[1] ?? m[2] ?? ''
-      if (shouldFlag(text)) {
+      if (shouldFlag(text, line, 'QUOTE')) {
         violations.push({ file, line: idx + 1, text })
       }
     }
@@ -42,7 +42,7 @@ function scanFile(file) {
     // Scan for JSX text content
     while ((m = JSX_TEXT_REGEX.exec(line)) !== null) {
       const text = m[1]
-      if (shouldFlag(text)) {
+      if (shouldFlag(text, line, 'JSX')) {
         violations.push({ file, line: idx + 1, text })
       }
     }

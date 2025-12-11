@@ -4,7 +4,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import React from 'react'
+import { useT } from '../../../shared/i18n/useT'
 
 export function PublicRegisterForm(): React.ReactElement {
-  return React.createElement('div', null, 'Public register form placeholder')
+  const t = useT()
+  return <div>{t('ui.public.register.placeholder')}</div>
 }

@@ -48,15 +48,19 @@ export function useLoginPage(): UseLoginPageReturn {
         LoginFormSchema.safeParse(form)
       if (!parsed.success) {
         const errs: unknown[] = parsed.error.errors
-        setFieldErrors(mapLoginErrors(errs))
-        setGeneralError(classifyError('validation'))
+        const raw = mapLoginErrors(errs)
+        const newErrors: { username?: string; password?: string } = {}
+        if (raw.username) newErrors.username = t(raw.username)
+        if (raw.password) newErrors.password = t(raw.password)
+        setFieldErrors(newErrors)
+        setGeneralError(t(classifyError('validation')))
         return
       }
       const ok: () => void = (): void => {
         navigate('/' + locale + '/dashboard', { replace: true })
       }
       const fail: (err: Error) => void = (err: Error): void => {
-        setGeneralError(classifyError(String(err)))
+        setGeneralError(t(classifyError(String(err))))
       }
       mutation.mutate(form, { onSuccess: ok, onError: fail })
     },

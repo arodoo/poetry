@@ -20,19 +20,19 @@ public record PageResult<T>(
 
   public PageResult {
     if (content == null) {
-      throw new IllegalArgumentException("content must not be null");
+      throw new IllegalArgumentException("page.result.content.null");
     }
     if (totalElements < 0) {
-      throw new IllegalArgumentException("totalElements must not be negative");
+      throw new IllegalArgumentException("page.result.totalElements.negative");
     }
     if (totalPages < 0) {
-      throw new IllegalArgumentException("totalPages must not be negative");
+      throw new IllegalArgumentException("page.result.totalPages.negative");
     }
     if (currentPage < 0) {
-      throw new IllegalArgumentException("currentPage must not be negative");
+      throw new IllegalArgumentException("page.result.currentPage.negative");
     }
     if (pageSize <= 0) {
-      throw new IllegalArgumentException("pageSize must be positive");
+      throw new IllegalArgumentException("page.result.pageSize.positive");
     }
   }
 

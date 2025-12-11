@@ -6,7 +6,8 @@
         "username": "Username",
         "email": "Email",
         "password": "Password",
-        "submit": "Register"
+        "submit": "Register",
+        "placeholder": "Public register form placeholder"
       }
     }
   }

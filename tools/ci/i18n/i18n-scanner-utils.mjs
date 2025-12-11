@@ -21,6 +21,8 @@ const EXCLUDE_PATTERNS = [
   // also ignore package-relative paths and src-prefixed layouts
   'src/shared/i18n/',
   'poetry-frontend/src/shared/i18n/',
+  '.json',
+  '.css',
 ]
 
 export function isExcluded(file) {
