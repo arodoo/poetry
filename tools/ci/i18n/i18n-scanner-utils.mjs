@@ -24,6 +24,12 @@ const EXCLUDE_PATTERNS = [
   '.json',
   '.css',
   '/generated/',
+  '/dev/',
+  'mockData',
+  'validTokenBundle',
+  '/ui/',             // Primitive UI components with Tailwind classes
+  '/startup/',        // Bootstrap seed data
+  '/infrastructure/jpa/', // JPA repository SQL fragments
 ]
 
 export function isExcluded(file) {

@@ -44,7 +44,37 @@ export function shouldFlag(str, line, type) {
   }
 
   // Skip Swagger/OpenAPI annotations
-  if (line && (line.includes('@Schema') || line.includes('@Operation') || line.includes('@ApiResponse') || line.includes('@Parameter'))) {
+  if (line && (line.includes('@Schema') || line.includes('@Operation') || line.includes('@ApiResponse') || line.includes('@Parameter') || line.includes('@Tag'))) {
+    return false
+  }
+
+  // Skip @PreAuthorize and hasAnyAuthority (Spring Security)
+  if (line && (line.includes('@PreAuthorize') || line.includes('hasAnyAuthority') || line.includes('hasAuthority'))) {
+    return false
+  }
+
+  // Skip SVG path data (d attribute values)
+  if (/^[MmLlHhVvCcSsQqTtAaZz0-9\s.,+-]+$/.test(str)) {
+    return false
+  }
+
+  // Skip console logs in frontend
+  if (line && (line.includes('console.log') || line.includes('console.error') || line.includes('console.warn') || line.includes('console.info'))) {
+    return false
+  }
+
+  // Skip debug prefixes like [E2E], [tokensApi], etc.
+  if (/^\[[A-Za-z0-9_-]+\]/.test(str)) {
+    return false
+  }
+
+  // Skip strings with emojis (typically debug output)
+  if (/[\u{1F300}-\u{1F9FF}]|✅|❌|⚠️|ℹ️/u.test(str)) {
+    return false
+  }
+
+  // Skip throw new Error in TS/JS API files (developer-facing errors)
+  if (line && line.includes('throw new Error')) {
     return false
   }
 
