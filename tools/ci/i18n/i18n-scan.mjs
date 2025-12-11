@@ -15,11 +15,12 @@ import { isExcluded, walk } from './i18n-scanner-utils.mjs'
 import { shouldFlag, isSuppress } from './i18n-filters.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const ROOT = path.resolve(__dirname, '../..')
+const ROOT = path.resolve(__dirname, '../../..')
 
 const INCLUDED_DIRS = ['poetry-backend/src/main/java', 'poetry-frontend/src']
 
 const STRING_REGEX = /"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'/g
+const JSX_TEXT_REGEX = />([^<]+)</g
 
 function scanFile(file) {
   const content = fs.readFileSync(file, 'utf8')
@@ -28,9 +29,19 @@ function scanFile(file) {
   lines.forEach((line, idx) => {
     const prevLine = idx > 0 ? lines[idx - 1] : ''
     if (isSuppress(line) || isSuppress(prevLine)) return
+
+    // Scan for quoted strings
     let m
     while ((m = STRING_REGEX.exec(line)) !== null) {
       const text = m[1] ?? m[2] ?? ''
+      if (shouldFlag(text)) {
+        violations.push({ file, line: idx + 1, text })
+      }
+    }
+
+    // Scan for JSX text content
+    while ((m = JSX_TEXT_REGEX.exec(line)) !== null) {
+      const text = m[1]
       if (shouldFlag(text)) {
         violations.push({ file, line: idx + 1, text })
       }

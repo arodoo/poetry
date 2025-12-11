@@ -1,4 +1,5 @@
 {
   "ui.admin.title": "Admin",
-  "ui.admin.echo": "Echo"
+  "ui.admin.echo": "Echo",
+  "ui.admin.placeholder": "Admin section placeholder"
 }

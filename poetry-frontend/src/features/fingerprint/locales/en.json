@@ -45,5 +45,19 @@
   "ui.fingerprints.simulator.database.quickTest": "Quick Test",
   "ui.fingerprints.simulator.log.title": "Access Log",
   "ui.fingerprints.simulator.log.clear": "Clear",
-  "ui.fingerprints.simulator.log.empty": "No activity yet"
+  "ui.fingerprints.simulator.log.empty": "No activity yet",
+  "ui.fingerprints.admin.title": "Fingerprint Administration",
+  "ui.fingerprints.admin.activeCount": "active fingerprints",
+  "ui.fingerprints.admin.slotUsage.title": "R503 Slot Usage",
+  "ui.fingerprints.admin.slotUsage.used": "used",
+  "ui.fingerprints.admin.archived.title": "Archived Fingerprints",
+  "ui.fingerprints.admin.archived.empty": "No archived fingerprints",
+  "ui.fingerprints.admin.archived.restore": "Restore",
+  "ui.fingerprints.admin.archived.restoring": "Restoring...",
+  "ui.fingerprints.admin.archived.table.id": "ID",
+  "ui.fingerprints.admin.archived.table.userId": "User ID",
+  "ui.fingerprints.admin.archived.table.archivedAt": "Archived At",
+  "ui.fingerprints.admin.archived.table.action": "Action",
+  "ui.fingerprints.admin.loading": "Loading...",
+  "ui.fingerprints.admin.error": "Failed to load"
 }

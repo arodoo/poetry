@@ -10,16 +10,20 @@ import { Card } from '../../../../ui/Card/Card'
 import { Text } from '../../../../ui/Text/Text'
 import { useArchivedFingerprintsQuery } from '../../hooks/useFingerprintAdminQueries'
 import { useRestoreFingerprintMutation } from '../../hooks/useFingerprintAdminMutations'
+import { useT } from '../../../../shared/i18n/useT'
 import { ArchivedTable } from './ArchivedTable'
 
 export function ArchivedFingerprintsList(): ReactElement {
+  const t = useT()
   const { data, isLoading, error } = useArchivedFingerprintsQuery()
   const restoreMutation = useRestoreFingerprintMutation()
 
   if (isLoading) {
     return (
       <Card padding="md">
-        <Text className="text-[var(--color-textMuted)]">Loading...</Text>
+        <Text className="text-[var(--color-textMuted)]">
+          {t('ui.fingerprints.admin.loading')}
+        </Text>
       </Card>
     )
   }
@@ -27,7 +31,9 @@ export function ArchivedFingerprintsList(): ReactElement {
   if (error) {
     return (
       <Card padding="md">
-        <Text className="text-[var(--color-danger)]">Failed to load</Text>
+        <Text className="text-[var(--color-danger)]">
+          {t('ui.fingerprints.admin.error')}
+        </Text>
       </Card>
     )
   }
@@ -35,7 +41,9 @@ export function ArchivedFingerprintsList(): ReactElement {
   if (!data || data.length === 0) {
     return (
       <Card padding="md">
-        <Text className="text-[var(--color-textMuted)]">No archived</Text>
+        <Text className="text-[var(--color-textMuted)]">
+          {t('ui.fingerprints.admin.archived.empty')}
+        </Text>
       </Card>
     )
   }
@@ -43,7 +51,7 @@ export function ArchivedFingerprintsList(): ReactElement {
   return (
     <Card padding="md">
       <Text className="text-sm text-[var(--color-textMuted)] mb-3">
-        Archived Fingerprints
+        {t('ui.fingerprints.admin.archived.title')}
       </Text>
       <ArchivedTable data={data} mutation={restoreMutation} />
     </Card>

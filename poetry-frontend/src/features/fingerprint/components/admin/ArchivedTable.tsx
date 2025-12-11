@@ -10,21 +10,24 @@ import type { UseMutationResult } from '@tanstack/react-query'
 import { Button } from '../../../../ui/Button/Button'
 import type { FingerprintResponse } from '../../model/FingerprintSchemas'
 
+import { useT } from '../../../../shared/i18n/useT'
+
 interface Props {
   data: FingerprintResponse[]
   mutation: UseMutationResult<FingerprintResponse, Error, number>
 }
 
 export function ArchivedTable({ data, mutation }: Props): ReactElement {
+  const t = useT()
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-[var(--color-border)]">
-            <Th>ID</Th>
-            <Th>User ID</Th>
-            <Th>Archived At</Th>
-            <Th>Action</Th>
+            <Th>{t('ui.fingerprints.admin.archived.table.id')}</Th>
+            <Th>{t('ui.fingerprints.admin.archived.table.userId')}</Th>
+            <Th>{t('ui.fingerprints.admin.archived.table.archivedAt')}</Th>
+            <Th>{t('ui.fingerprints.admin.archived.table.action')}</Th>
           </tr>
         </thead>
         <tbody>
@@ -61,6 +64,7 @@ interface RowProps {
 }
 
 function Row({ fp, onRestore, restoring }: RowProps): ReactElement {
+  const t = useT()
   return (
     <tr className="border-b border-[var(--color-border)]">
       <td className="p-2 text-[var(--color-text)]">{fp.id}</td>
@@ -68,7 +72,9 @@ function Row({ fp, onRestore, restoring }: RowProps): ReactElement {
       <td className="p-2 text-[var(--color-text)]">{fp.archivedAt ?? '-'}</td>
       <td className="p-2">
         <Button size="sm" onClick={onRestore} disabled={restoring}>
-          {restoring ? 'Restoring...' : 'Restore'}
+          {restoring
+            ? t('ui.fingerprints.admin.archived.restoring')
+            : t('ui.fingerprints.admin.archived.restore')}
         </Button>
       </td>
     </tr>

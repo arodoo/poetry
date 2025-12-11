@@ -6,9 +6,11 @@
  */
 
 import type { ReactElement } from 'react'
+import { useT } from '../../../shared/i18n/useT'
 
 export function AdminPlaceholderPage(): ReactElement {
-  return <div>Admin section placeholder</div>
+  const t = useT()
+  return <div>{t('ui.admin.placeholder')}</div>
 }
 
 export default AdminPlaceholderPage

@@ -12,9 +12,11 @@ import { useFingerprintsListQuery } from '../hooks/useFingerprintQueries'
 import { Heading } from '../../../ui/Heading/Heading'
 import { Badge } from '../../../ui/Badge/Badge'
 import { Stack } from '../../../ui/Stack/Stack'
+import { useT } from '../../../shared/i18n/useT'
 import type { FingerprintResponse } from '../model/FingerprintSchemas'
 
 export function FingerprintAdminPage(): ReactElement {
+  const t = useT()
   const { data: fingerprints } = useFingerprintsListQuery()
   const activeCount = fingerprints?.filter(
     (f: FingerprintResponse): boolean => f.status === 'ACTIVE'
@@ -23,8 +25,10 @@ export function FingerprintAdminPage(): ReactElement {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
-        <Heading level={1}>Fingerprint Administration</Heading>
-        <Badge tone="success">{activeCount ?? 0} active fingerprints</Badge>
+        <Heading level={1}>{t('ui.fingerprints.admin.title')}</Heading>
+        <Badge tone="success">
+          {activeCount ?? 0} {t('ui.fingerprints.admin.activeCount')}
+        </Badge>
       </div>
 
       <Stack gap="md">

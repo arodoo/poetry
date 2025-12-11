@@ -8,15 +8,19 @@
 import type { ReactElement } from 'react'
 import { Card } from '../../../../ui/Card/Card'
 import { Text } from '../../../../ui/Text/Text'
+import { useT } from '../../../../shared/i18n/useT'
 import { useSlotUsageQuery } from '../../hooks/useFingerprintAdminQueries'
 
 export function SlotUsageCard(): ReactElement {
+  const t = useT()
   const { data, isLoading, error } = useSlotUsageQuery()
 
   if (isLoading) {
     return (
       <Card padding="md">
-        <Text className="text-[var(--color-textMuted)]">Loading...</Text>
+        <Text className="text-[var(--color-textMuted)]">
+          {t('ui.fingerprints.admin.loading')}
+        </Text>
       </Card>
     )
   }
@@ -24,7 +28,9 @@ export function SlotUsageCard(): ReactElement {
   if (error || !data) {
     return (
       <Card padding="md">
-        <Text className="text-[var(--color-danger)]">Failed to load</Text>
+        <Text className="text-[var(--color-danger)]">
+          {t('ui.fingerprints.admin.error')}
+        </Text>
       </Card>
     )
   }
@@ -32,7 +38,7 @@ export function SlotUsageCard(): ReactElement {
   return (
     <Card padding="lg">
       <Text className="text-[var(--color-textMuted)] text-sm mb-3">
-        R503 Slot Usage
+        {t('ui.fingerprints.admin.slotUsage.title')}
       </Text>
       <div className="flex items-baseline gap-1 mb-3">
         <span className="text-2xl font-bold text-[var(--color-primary)]">
@@ -50,7 +56,7 @@ export function SlotUsageCard(): ReactElement {
         />
       </div>
       <Text className="text-xs text-[var(--color-textMuted)]">
-        {data.percentage}% used
+        {data.percentage}% {t('ui.fingerprints.admin.slotUsage.used')}
       </Text>
     </Card>
   )
