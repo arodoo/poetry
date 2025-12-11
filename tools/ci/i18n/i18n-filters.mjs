@@ -58,6 +58,31 @@ export function shouldFlag(str, line, type) {
     return false
   }
 
+  // Skip @Scheduled cron expressions
+  if (line && line.includes('@Scheduled')) {
+    return false
+  }
+
+  // Skip Swagger summary and description attributes
+  if (line && (line.includes('summary =') || line.includes('description ='))) {
+    return false
+  }
+
+  // Skip console CSS styling
+  if (str.includes('color:') && str.includes('background:')) {
+    return false
+  }
+
+  // Skip font family strings
+  if (str.includes('sans-serif') || str.includes('monospace')) {
+    return false
+  }
+
+  // Skip technical strings like [object Object]
+  if (str.includes('[object Object]')) {
+    return false
+  }
+
   // Skip console logs in frontend
   if (line && (line.includes('console.log') || line.includes('console.error') || line.includes('console.warn') || line.includes('console.info'))) {
     return false

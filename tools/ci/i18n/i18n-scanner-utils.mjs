@@ -30,6 +30,9 @@ const EXCLUDE_PATTERNS = [
   '/ui/',             // Primitive UI components with Tailwind classes
   '/startup/',        // Bootstrap seed data
   '/infrastructure/jpa/', // JPA repository SQL fragments
+  '/shared/error/',   // Developer error boundaries
+  '/shared/tokens/',  // Token provider debug messages
+  '/shared/fonts/',   // Font utility debug messages
 ]
 
 export function isExcluded(file) {
