@@ -9,6 +9,6 @@ import com.poetry.poetry_backend.domain.shared.exception.AbstractNotFoundExcepti
 
 public class UserNotFoundException extends AbstractNotFoundException {
   public UserNotFoundException(Long id) {
-    super("user", String.valueOf(id), "User not found: " + id);
+    super("user", String.valueOf(id), "error.notfound.user");
   }
 }

@@ -9,6 +9,6 @@ package com.poetry.poetry_backend.domain.subscription.exception;
 
 public class SubscriptionVersionMismatchException extends RuntimeException {
   public SubscriptionVersionMismatchException(Long id) {
-    super("Subscription version mismatch: " + id);
+    super("error.subscription.version.mismatch");
   }
 }

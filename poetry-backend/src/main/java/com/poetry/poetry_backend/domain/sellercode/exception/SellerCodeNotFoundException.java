@@ -11,6 +11,6 @@ import com.poetry.poetry_backend.domain.shared.exception.AbstractNotFoundExcepti
 
 public class SellerCodeNotFoundException extends AbstractNotFoundException {
   public SellerCodeNotFoundException(Long id) {
-    super("sellercode", String.valueOf(id), "Seller code not found: " + id);
+    super("sellercode", String.valueOf(id), "error.notfound.sellercode");
   }
 }

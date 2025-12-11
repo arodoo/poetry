@@ -9,6 +9,6 @@ package com.poetry.poetry_backend.domain.subscription.exception;
 
 public class SubscriptionNotFoundException extends RuntimeException {
   public SubscriptionNotFoundException(Long id) {
-    super("Subscription not found: " + id);
+    super("error.notfound.subscription");
   }
 }

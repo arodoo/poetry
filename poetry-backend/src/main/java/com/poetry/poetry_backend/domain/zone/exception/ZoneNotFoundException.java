@@ -12,6 +12,6 @@ import com.poetry.poetry_backend.domain.shared.exception.AbstractNotFoundExcepti
 
 public class ZoneNotFoundException extends AbstractNotFoundException {
   public ZoneNotFoundException(Long id) {
-    super("zone", String.valueOf(id), "Zone not found: " + id);
+    super("zone", String.valueOf(id), "error.notfound.zone");
   }
 }

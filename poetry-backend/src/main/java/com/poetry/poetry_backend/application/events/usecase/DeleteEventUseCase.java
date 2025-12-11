@@ -25,24 +25,22 @@ public class DeleteEventUseCase {
   }
 
   public void execute(Long id) {
-    Event existing =
-        queryPort.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found"));
-    Event deleted =
-        EventRehydrator.rehydrate(
-            existing.id(),
-            existing.userId(),
-            existing.title(),
-            existing.description(),
-            existing.locationName(),
-            existing.latitude(),
-            existing.longitude(),
-            existing.eventDate(),
-            existing.status(),
-            existing.imageUrl(),
-            existing.createdAt(),
-            Instant.now(),
-            Instant.now(),
-            existing.version() + 1);
+    Event existing = queryPort.findById(id).orElseThrow(() -> new IllegalArgumentException("error.notfound.event"));
+    Event deleted = EventRehydrator.rehydrate(
+        existing.id(),
+        existing.userId(),
+        existing.title(),
+        existing.description(),
+        existing.locationName(),
+        existing.latitude(),
+        existing.longitude(),
+        existing.eventDate(),
+        existing.status(),
+        existing.imageUrl(),
+        existing.createdAt(),
+        Instant.now(),
+        Instant.now(),
+        existing.version() + 1);
     commandPort.save(deleted);
   }
 }

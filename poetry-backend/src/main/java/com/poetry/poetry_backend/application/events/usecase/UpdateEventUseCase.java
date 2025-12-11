@@ -35,24 +35,22 @@ public class UpdateEventUseCase {
       Instant eventDate,
       EventStatus status,
       String imageUrl) {
-    Event existing =
-        queryPort.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found"));
-    Event updated =
-        EventRehydrator.rehydrate(
-            existing.id(),
-            existing.userId(),
-            title,
-            description,
-            locationName,
-            latitude,
-            longitude,
-            eventDate,
-            status,
-            imageUrl,
-            existing.createdAt(),
-            Instant.now(),
-            existing.deletedAt(),
-            existing.version() + 1);
+    Event existing = queryPort.findById(id).orElseThrow(() -> new IllegalArgumentException("error.notfound.event"));
+    Event updated = EventRehydrator.rehydrate(
+        existing.id(),
+        existing.userId(),
+        title,
+        description,
+        locationName,
+        latitude,
+        longitude,
+        eventDate,
+        status,
+        imageUrl,
+        existing.createdAt(),
+        Instant.now(),
+        existing.deletedAt(),
+        existing.version() + 1);
     return commandPort.save(updated);
   }
 }

@@ -9,6 +9,6 @@ import com.poetry.poetry_backend.domain.shared.exception.AbstractNotFoundExcepti
 
 public class ThemeNotFoundException extends AbstractNotFoundException {
   public ThemeNotFoundException(Long id) {
-    super("theme", String.valueOf(id), "Theme not found: " + id);
+    super("theme", String.valueOf(id), "error.notfound.theme");
   }
 }

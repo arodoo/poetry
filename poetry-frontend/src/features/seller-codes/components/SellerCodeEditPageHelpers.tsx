@@ -9,14 +9,16 @@ import { FormLayout } from '../../../ui/FormLayout/FormLayout'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { Text } from '../../../ui/Text/Text'
 import type { FormLayoutSection } from '../../../ui/FormLayout/FormLayout'
+import { useT } from '../../../shared/i18n/useT'
 
 export function SellerCodeEditPageLoading(props: {
   message: string
 }): ReactElement {
+  const t = useT()
   return (
     <PageLayout
-      title="Edit seller code"
-      subtitle="Update seller code information"
+      title={t('ui.sellerCodes.edit.title')}
+      subtitle={t('ui.sellerCodes.edit.subtitle')}
     >
       <Text size="sm">{props.message}</Text>
     </PageLayout>

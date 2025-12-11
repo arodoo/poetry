@@ -14,6 +14,6 @@ public class MembershipNotFoundException
     extends AbstractNotFoundException {
   public MembershipNotFoundException(Long id) {
     super("membership", String.valueOf(id),
-        "Membership not found: " + id);
+        "error.notfound.membership");
   }
 }

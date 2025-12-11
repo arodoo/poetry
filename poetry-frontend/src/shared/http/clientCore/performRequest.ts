@@ -86,5 +86,5 @@ export async function performRequest<T>(
       await execution.delay(execution.retryCfg.backoffMs)
     }
   }
-  throw lastError ?? new Error('Unknown HTTP error')
+  throw lastError ?? new Error('Unknown HTTP error') // i18n-ignore
 }

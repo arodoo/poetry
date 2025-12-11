@@ -41,20 +41,17 @@ public class EnrollFingerprintForUserUseCase {
   public Fingerprint execute(Long userId) {
     Integer availableSlot = findFirstAvailableSlot();
     if (availableSlot == null) {
-      throw new IllegalStateException("No available slots (0-1500)");
+      throw new IllegalStateException("error.fingerprint.slots.unavailable");
     }
 
-    Fingerprint newFingerprint =
-        FingerprintFactory.createNew(userId, availableSlot);
+    Fingerprint newFingerprint = FingerprintFactory.createNew(userId, availableSlot);
     Fingerprint saved = fingerprintCmd.save(newFingerprint);
 
-    FingerprintSlotHistory history =
-        FingerprintSlotHistoryFactory.createEnrollmentRecord(
-            saved.id(), userId, availableSlot);
+    FingerprintSlotHistory history = FingerprintSlotHistoryFactory.createEnrollmentRecord(
+        saved.id(), userId, availableSlot);
     slotHistoryCmd.save(history);
 
-    UserFingerprint association =
-        UserFingerprint.createNew(userId, saved.id());
+    UserFingerprint association = UserFingerprint.createNew(userId, saved.id());
     userFingerprintCmd.save(association);
 
     return saved;
@@ -62,8 +59,7 @@ public class EnrollFingerprintForUserUseCase {
 
   private Integer findFirstAvailableSlot() {
     List<Fingerprint> allFingerprints = fingerprintQuery.findAll();
-    List<Integer> usedSlots =
-        allFingerprints.stream().map(Fingerprint::r503SlotId).toList();
+    List<Integer> usedSlots = allFingerprints.stream().map(Fingerprint::r503SlotId).toList();
 
     return IntStream.range(0, 1501)
         .filter(slot -> !usedSlots.contains(slot))

@@ -28,6 +28,7 @@
   "ui.memberships.list.placeholder.subtitle": "Create first one",
   "ui.memberships.create.title": "Create membership",
   "ui.memberships.create.subtitle": "Assign subscription to user",
+  "ui.memberships.create.pending": "Form implementation pending",
   "ui.memberships.form.user.label": "User",
   "ui.memberships.form.user.placeholder": "Select user",
   "ui.memberships.form.user.loading": "Loading users…",

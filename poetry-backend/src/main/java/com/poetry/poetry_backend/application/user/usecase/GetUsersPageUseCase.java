@@ -21,10 +21,10 @@ public class GetUsersPageUseCase {
   public PageResult<User> execute(
       final int page, final int size, final String search) {
     if (page < 0) {
-      throw new IllegalArgumentException("Page must be >= 0");
+      throw new IllegalArgumentException("page.number.negative");
     }
     if (size < 1 || size > 100) {
-      throw new IllegalArgumentException("Size must be between 1 and 100");
+      throw new IllegalArgumentException("page.size.invalid");
     }
     String sanitizedSearch = search == null ? "" : search.trim();
     return query.findAllPaged(page, size, sanitizedSearch);

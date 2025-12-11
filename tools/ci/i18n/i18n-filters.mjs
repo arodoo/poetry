@@ -38,6 +38,25 @@ export function shouldFlag(str, line, type) {
     }
   }
 
+  // Skip Tailwind CSS patterns (common utility classes)
+  if (/^[a-z0-9-:\[\]\.]+(\s+[a-z0-9-:\[\]\.]+)*$/.test(str) && !str.includes(' ')) {
+    return false
+  }
+  // Skip Tailwind multi-class strings
+  if (/^(grid|flex|inline|block|fixed|absolute|relative|opacity|focus:|hover:|text-|px-|py-|gap-|sm:|md:|lg:|xl:)/.test(str)) {
+    return false
+  }
+
+  // Skip JSX template expressions containing variables
+  if (str.includes('??') || str.includes('{') || str.includes('}')) {
+    return false
+  }
+
+  // Skip strings that are already using t() translation
+  if (line && line.includes("t('")) {
+    return false
+  }
+
   // Skip log messages (if line context is available)
   if (line && (line.includes('log.') || line.includes('logger.') || line.includes('System.out.') || line.includes('System.err.'))) {
     return false

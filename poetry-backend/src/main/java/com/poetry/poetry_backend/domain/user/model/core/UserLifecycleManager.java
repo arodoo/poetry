@@ -9,11 +9,12 @@ package com.poetry.poetry_backend.domain.user.model.core;
 import java.time.Instant;
 
 public final class UserLifecycleManager {
-  private UserLifecycleManager() { }
+  private UserLifecycleManager() {
+  }
 
   public static User updateStatus(User base, String status) {
     if (base.isDeleted()) {
-      throw new IllegalStateException("Deleted users cannot change status");
+      throw new IllegalStateException("error.user.deleted.status");
     }
     return UserRehydrator.rehydrate(
         base.id(),

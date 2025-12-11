@@ -13,7 +13,7 @@ export default function MembershipsCreatePage(): ReactElement {
     <div>
       <h1>{t('ui.memberships.create.title')}</h1>
       <p>{t('ui.memberships.create.subtitle')}</p>
-      <p>Form implementation pending</p>
+      <p>{t('ui.memberships.create.pending')}</p>
     </div>
   )
 }

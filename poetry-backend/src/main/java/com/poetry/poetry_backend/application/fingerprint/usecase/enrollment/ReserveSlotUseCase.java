@@ -24,18 +24,17 @@ public class ReserveSlotUseCase {
   public Integer execute() {
     Integer availableSlot = findFirstAvailableSlot();
     if (availableSlot == null) {
-      throw new IllegalStateException("No available slots (0-1500)");
+      throw new IllegalStateException("error.fingerprint.slots.unavailable");
     }
     return availableSlot;
   }
 
   private Integer findFirstAvailableSlot() {
     List<Fingerprint> allFingerprints = fingerprintQuery.findAll();
-    List<Integer> usedSlots =
-        allFingerprints.stream()
-            .map(Fingerprint::r503SlotId)
-            .filter(java.util.Objects::nonNull)
-            .toList();
+    List<Integer> usedSlots = allFingerprints.stream()
+        .map(Fingerprint::r503SlotId)
+        .filter(java.util.Objects::nonNull)
+        .toList();
 
     return IntStream.range(0, 1501)
         .filter(slot -> !usedSlots.contains(slot))
