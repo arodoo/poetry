@@ -33,18 +33,14 @@ public class FingerprintEnrollmentController {
     this.enrollUseCase = enrollUseCase;
   }
 
-  @Operation(
-      operationId = "enrollFingerprintForUser",
-      summary = "Enroll fingerprint with auto-assigned slot",
-      description =
-          "Auto-assigns first available slot (0-1500) and links to user")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "201", description = "Enrolled"),
-        @ApiResponse(responseCode = "400", description = "No slots available"),
-        @ApiResponse(responseCode = "401", description = "Unauthorized"),
-        @ApiResponse(responseCode = "403", description = "Forbidden")
-      })
+  @Operation(operationId = "enrollFingerprintForUser", summary = "Enroll fingerprint with auto-assigned slot", // i18n-ignore
+      description = "Auto-assigns first available slot (0-1500) and links to user") // i18n-ignore
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "Enrolled"),
+      @ApiResponse(responseCode = "400", description = "No slots available"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden")
+  })
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping("/enroll")
   public ResponseEntity<FingerprintEnrollmentResponse> enrollForUser(
@@ -59,5 +55,6 @@ public class FingerprintEnrollmentController {
   }
 
   public record FingerprintEnrollmentResponse(
-      Long fingerprintId, Integer slotId, String status) {}
+      Long fingerprintId, Integer slotId, String status) {
+  }
 }

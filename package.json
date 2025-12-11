@@ -38,6 +38,7 @@
     "check:folder-density": "node tools/ci/structure/check-folder-density.mjs",
     "fix:comment-unused-files": "node tools/ci/unused-files/comment-out-unused.mjs",
     "fix:delete-deprecated-files": "node tools/ci/unused-files/delete-deprecated.mjs",
+    "cd": "npm run build && npm run test",
     "ci": "npm run sync:config && npm run check:file-length && npm run check:file-headers && npm run check:hardcoded-colors && npm run check:hardcoded-strings && npm run check:backend-modules && npm run check:frontend-modules && npm run check:sdk-extraction && npm run check:folder-density && npm run check:ddd-organization && npm run lint && npm run typecheck && npm run build && npm run test && npm run validate:openapi && npm run check:sdk-sync && npm run test:e2e",
     "dev:backend": "node tools/logs/backend/dev-with-log.mjs",
     "build:backend:log": "node tools/logs/backend/build-with-log.mjs",

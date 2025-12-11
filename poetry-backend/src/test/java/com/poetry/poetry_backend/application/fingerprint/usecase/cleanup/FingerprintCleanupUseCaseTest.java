@@ -70,7 +70,7 @@ class FingerprintCleanupUseCaseTest {
 
     private Fingerprint createActiveFingerprint(Long id, Integer slotId) {
         Instant now = Instant.now();
-        return new Fingerprint(id, 1L, slotId, null,
+        return new Fingerprint(id, 1L, slotId, new byte[256],
                 FingerprintStatus.ACTIVE, now, null, now, now, now, null, 1L);
     }
 }

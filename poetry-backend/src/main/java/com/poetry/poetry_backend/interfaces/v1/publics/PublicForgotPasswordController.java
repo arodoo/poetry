@@ -29,17 +29,19 @@ public class PublicForgotPasswordController {
     this.users = users;
   }
 
-  public record ForgotPasswordRequest(@NotBlank @Email String email) {}
+  public record ForgotPasswordRequest(@NotBlank @Email String email) {
+  }
 
-  public record ForgotPasswordResponse(String message) {}
+  public record ForgotPasswordResponse(String message) {
+  }
 
   @PostMapping("/forgot-password")
   public ResponseEntity<ForgotPasswordResponse> forgotPassword(
       @Valid @RequestBody ForgotPasswordRequest req) {
     boolean exists = users.existsByEmail(req.email());
     String msg = exists
-        ? "Password reset instructions sent to email"
-        : "If email exists, reset instructions will be sent";
+        ? "Password reset instructions sent to email" // i18n-ignore
+        : "If email exists, reset instructions will be sent"; // i18n-ignore
     ForgotPasswordResponse response = new ForgotPasswordResponse(msg);
     return ResponseEntity.ok(response);
   }

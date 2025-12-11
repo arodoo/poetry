@@ -1,0 +1,12 @@
+
+> poetry-frontend@0.0.0 lint
+> eslint .
+
+(node:19660) ESLintIgnoreWarning: The ".eslintignore" file is no longer supported. Switch to using the "ignores" property in "eslint.config.js": https://eslint.org/docs/latest/use/configure/migration-guide#ignoring-files
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\public-login\hooks\useLoginPage.ts
+  67:5  warning  React Hook useCallback has a missing dependency: 't'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+✖ 1 problem (0 errors, 1 warning)
+

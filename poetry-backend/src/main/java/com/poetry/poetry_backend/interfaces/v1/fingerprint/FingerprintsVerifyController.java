@@ -30,25 +30,20 @@ public class FingerprintsVerifyController {
     this.verifyUseCase = verifyUseCase;
   }
 
-  @Operation(
-      operationId = "verifyFingerprint",
-      summary = "Verify a fingerprint",
-      description =
-          "Lookup user by R503 slot ID from hardware service search")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "200", description = "Verification completed"),
-        @ApiResponse(responseCode = "400", description = "Invalid slot ID")
-      })
+  @Operation(operationId = "verifyFingerprint", summary = "Verify a fingerprint", // i18n-ignore
+      description = "Lookup user by R503 slot ID from hardware service search") // i18n-ignore
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Verification completed"),
+      @ApiResponse(responseCode = "400", description = "Invalid slot ID")
+  })
   @PostMapping("/verify")
   public ResponseEntity<FingerprintDto.VerifyResponse> verify(
       @RequestBody FingerprintDto.VerifyRequest request) {
 
     VerifyFingerprintResult result = verifyUseCase.execute(request.r503SlotId());
 
-    var response =
-        new FingerprintDto.VerifyResponse(
-            result.matched(), result.userId(), result.fingerprintId(), result.message());
+    var response = new FingerprintDto.VerifyResponse(
+        result.matched(), result.userId(), result.fingerprintId(), result.message());
 
     return ResponseEntity.ok(response);
   }

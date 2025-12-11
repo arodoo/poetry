@@ -25,7 +25,9 @@ export function buildSubscriptionDetailSections(
         },
         {
           label: t('ui.subscriptions.detail.description'),
-          value: subscription.description ?? t('ui.subscriptions.detail.noDescription'),
+          value:
+            subscription.description ??
+            t('ui.subscriptions.detail.noDescription'),
           fullWidth: true,
         },
       ] as readonly DetailViewItem[],

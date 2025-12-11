@@ -31,17 +31,13 @@ public class FingerprintsEnrollController {
     this.enrollUseCase = enrollUseCase;
   }
 
-  @Operation(
-      operationId = "enrollFingerprint",
-      summary = "Enroll a new fingerprint",
-      description =
-          "Register fingerprint with R503 slot ID from hardware service")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "201", description = "Enrolled successfully"),
-        @ApiResponse(responseCode = "400", description = "Invalid slot ID"),
-        @ApiResponse(responseCode = "401", description = "Unauthorized")
-      })
+  @Operation(operationId = "enrollFingerprint", summary = "Enroll a new fingerprint", // i18n-ignore
+      description = "Register fingerprint with R503 slot ID from hardware service") // i18n-ignore
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "Enrolled successfully"),
+      @ApiResponse(responseCode = "400", description = "Invalid slot ID"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized")
+  })
   @PreAuthorize("isAuthenticated()")
   @PostMapping("/enroll")
   public ResponseEntity<FingerprintDto.FingerprintResponse> enroll(

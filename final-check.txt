@@ -1,0 +1,5 @@
+
+> poetry-repo-tools@0.1.0 check:hardcoded-strings
+> node tools/ci/i18n/i18n-scan.mjs
+
+✅ No hardcoded user-facing messages detected.

@@ -64,7 +64,7 @@ export function useLoginPage(): UseLoginPageReturn {
       }
       mutation.mutate(form, { onSuccess: ok, onError: fail })
     },
-    [form, mutation, navigate, locale]
+    [form, mutation, navigate, locale, t]
   )
 
   return {

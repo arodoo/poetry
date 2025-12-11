@@ -34,7 +34,7 @@ public class TokensFingerprintBuilder {
       // canonical weak form per RFC 7232.
       return "W/\"" + hex + "\"";
     } catch (NoSuchAlgorithmException e) {
-      throw new IllegalStateException("Missing SHA-256 algorithm", e);
+      throw new IllegalStateException("Missing SHA-256 algorithm", e); // i18n-ignore
     }
   }
 }
