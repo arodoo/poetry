@@ -24,8 +24,11 @@ export function shouldFlag(str, line, type) {
   if (/%s|\{\}|\{\d+\}/.test(str)) return false
   // Skip CSS classes with variables
   if (str.includes('[var(--')) return false
+  // Skip color values
+  if (str.includes('hsl(') || str.includes('rgb(') || str.includes('rgba(') || str.includes('#')) return false
   // Skip SQL queries
-  if (/^(SELECT|INSERT|UPDATE|DELETE|FROM|WHERE|ORDER BY|GROUP BY) /i.test(str)) return false
+  // Skip SQL queries
+  if (/^(SELECT|INSERT|UPDATE|DELETE|FROM|WHERE|ORDER BY|GROUP BY|AND|OR|JOIN|LEFT JOIN|RIGHT JOIN|HAVING|LIMIT|OFFSET|SET|VALUES) /i.test(str)) return false
 
   // Skip CSS classes in className attributes (only for quoted strings)
   if (type === 'QUOTE' && line && (line.includes('className') || line.includes('class='))) {
@@ -33,6 +36,16 @@ export function shouldFlag(str, line, type) {
     if (str.includes('-') || str === str.toLowerCase()) {
       return false
     }
+  }
+
+  // Skip log messages (if line context is available)
+  if (line && (line.includes('log.') || line.includes('logger.') || line.includes('System.out.') || line.includes('System.err.'))) {
+    return false
+  }
+
+  // Skip Swagger/OpenAPI annotations
+  if (line && (line.includes('@Schema') || line.includes('@Operation') || line.includes('@ApiResponse') || line.includes('@Parameter'))) {
+    return false
   }
 
   return true

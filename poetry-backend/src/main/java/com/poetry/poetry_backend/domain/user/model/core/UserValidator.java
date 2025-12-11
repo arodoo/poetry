@@ -18,14 +18,14 @@ public final class UserValidator {
 
   public static String requireName(String label, String value) {
     if (value == null || value.isBlank()) {
-      throw new IllegalArgumentException(label + " must not be blank");
+      throw new IllegalArgumentException(label + ".blank");
     }
     return value.trim();
   }
 
   public static String requireEmail(String value) {
     if (value == null || value.isBlank() || !value.contains("@") || !value.contains(".")) {
-      throw new IllegalArgumentException("email must be provided and valid");
+      throw new IllegalArgumentException("email.invalid");
     }
     return value.trim();
   }
@@ -36,7 +36,7 @@ public final class UserValidator {
 
   public static String requireLocale(String value) {
     if (value == null || value.isBlank()) {
-      throw new IllegalArgumentException("locale must not be blank");
+      throw new IllegalArgumentException("locale.blank");
     }
     return value.trim();
   }
@@ -46,14 +46,14 @@ public final class UserValidator {
         ? Set.of()
         : roles.stream().map(String::trim).filter(v -> !v.isEmpty()).collect(Collectors.toSet());
     if (sanitized.isEmpty()) {
-      throw new IllegalArgumentException("At least one role must be assigned");
+      throw new IllegalArgumentException("roles.empty");
     }
     return Set.copyOf(sanitized);
   }
 
   public static String requirePasswordHash(String value) {
     if (value == null || value.isBlank()) {
-      throw new IllegalArgumentException("password hash must not be blank");
+      throw new IllegalArgumentException("password.hash.blank");
     }
     return value;
   }

@@ -23,6 +23,7 @@ const EXCLUDE_PATTERNS = [
   'poetry-frontend/src/shared/i18n/',
   '.json',
   '.css',
+  '/generated/',
 ]
 
 export function isExcluded(file) {

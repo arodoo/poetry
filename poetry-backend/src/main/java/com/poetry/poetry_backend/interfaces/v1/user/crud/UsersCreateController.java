@@ -28,17 +28,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/v1/users")
 public class UsersCreateController {
   private final CreateUserUseCase create;
-  public UsersCreateController(CreateUserUseCase create) { this.create = create; }
 
-  @Operation(
-      operationId = "createUser",
-      summary = "Create a new user",
-      description = "Create user with role assignment")
+  public UsersCreateController(CreateUserUseCase create) {
+    this.create = create;
+  }
+
+  @Operation(operationId = "createUser", summary = "Create a new user", description = "Create user with role assignment")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "201", description = "Created"),
-    @ApiResponse(responseCode = "400", description = "Invalid request"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden")
+      @ApiResponse(responseCode = "201", description = "Created"),
+      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden")
   })
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
@@ -58,11 +58,11 @@ public class UsersCreateController {
       return;
     }
     boolean needsPassword = roles.stream()
-        .anyMatch(r -> "ADMIN".equalsIgnoreCase(r) 
+        .anyMatch(r -> "ADMIN".equalsIgnoreCase(r)
             || "MANAGER".equalsIgnoreCase(r));
     if (needsPassword && (password == null || password.isBlank())) {
       throw new IllegalArgumentException(
-          "Password is required for ADMIN and MANAGER roles");
+          "user.password.required.admin");
     }
   }
 }

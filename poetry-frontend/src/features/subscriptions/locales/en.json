@@ -32,6 +32,8 @@
   "ui.subscriptions.detail.subtitle": "Plan overview",
   "ui.subscriptions.detail.name": "Name",
   "ui.subscriptions.detail.section.plan": "Plan Information",
+  "ui.subscriptions.detail.description": "Description",
+  "ui.subscriptions.detail.noDescription": "No description provided",
   "ui.subscriptions.detail.section.pricing": "Pricing & Status",
   "ui.subscriptions.breadcrumb.list": "Subscriptions",
   "ui.subscriptions.breadcrumb.detail": "Detail",

@@ -39,11 +39,13 @@ function scanFile(file) {
       }
     }
 
-    // Scan for JSX text content
-    while ((m = JSX_TEXT_REGEX.exec(line)) !== null) {
-      const text = m[1]
-      if (shouldFlag(text, line, 'JSX')) {
-        violations.push({ file, line: idx + 1, text })
+    // Scan for JSX text content (only for JS/JSX/TSX files - TS usually has no JSX)
+    if (/\.(tsx|jsx|js)$/.test(file)) {
+      while ((m = JSX_TEXT_REGEX.exec(line)) !== null) {
+        const text = m[1]
+        if (shouldFlag(text, line, 'JSX')) {
+          violations.push({ file, line: idx + 1, text })
+        }
       }
     }
   })
