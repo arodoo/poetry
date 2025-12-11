@@ -143,6 +143,9 @@ All log files are hot reloaded in changues
 2. Tests: `npm run test:frontend`, `npm run test:backend` (all pass)
 3. Builds: Frontend (Vite), Backend (Maven package)
 
+## Hardware considerations
+ - Hardware components might be replaced for better components in the future. app code must be as much disengaged from the hardware as possible to be migration easy.
+
 ## Commit Format
 
 Use one `-m` flag with plain ASCII: `type: subject` (no scope/body)

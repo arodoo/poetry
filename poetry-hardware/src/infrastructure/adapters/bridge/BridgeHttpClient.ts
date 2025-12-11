@@ -13,6 +13,7 @@ export interface BridgeResponse {
   id?: number;
   score?: number;
   template?: string;
+  slotId?: number;
 }
 
 export async function checkBridgeHealth(): Promise<void> {
@@ -75,5 +76,21 @@ export async function uploadTemplate(
       }),
     }
   );
+  return response.json() as Promise<BridgeResponse>;
+}
+
+export async function deleteTemplateFromDevice(
+  slotId: number
+): Promise<boolean> {
+  const response = await fetch(
+    `${BRIDGE_URL}/fingerprint/template/${slotId}`,
+    { method: 'DELETE' }
+  );
+  const data = (await response.json()) as BridgeResponse;
+  return data.success === true || data.code === 0;
+}
+
+export async function getAvailableSlot(): Promise<BridgeResponse> {
+  const response = await fetch(`${BRIDGE_URL}/fingerprint/available-slot`);
   return response.json() as Promise<BridgeResponse>;
 }

@@ -8,49 +8,49 @@ template management, and user interface.
 
 ---
 
-## Phase 3: Hardware Integration
+## Phase 3: Hardware Integration ✅
 
 Connect cleanup job with poetry-hardware to delete templates from R503.
 
-- [ ] Add endpoint in poetry-hardware for batch template deletion
-- [ ] Call hardware service from FingerprintCleanupJob after archiving
-- [ ] Handle R503 deletion failures gracefully (retry logic)
-- [ ] Log slot IDs freed for monitoring
+- [x] Add endpoint in poetry-hardware for batch template deletion
+- [x] Call hardware service from FingerprintCleanupJob after archiving
+- [x] Handle R503 deletion failures gracefully (retry logic)
+- [x] Log slot IDs freed for monitoring
 
 ---
 
-## Phase 4: Template Restoration
+## Phase 4: Template Restoration ✅
 
 Enable re-uploading archived templates back to R503 when needed.
 
-- [ ] Create RestoreFingerprintUseCase
-- [ ] Find available R503 slot for restoration
-- [ ] Upload templateBackup to R503 via hardware service
-- [ ] Update entity with new slotId, status = ACTIVE
-- [ ] Add REST endpoint for restoration
+- [x] Create RestoreFingerprintUseCase
+- [x] Find available R503 slot for restoration
+- [x] Upload templateBackup to R503 via hardware service
+- [x] Update entity with new slotId, status = ACTIVE
+- [x] Add REST endpoint for restoration
 
 ---
 
-## Phase 5: Dashboard/UI
+## Phase 5: Dashboard/UI ✅
 
 Visualize R503 system status in frontend.
 
-- [ ] Create FingerprintAdminPage component
-- [ ] Show R503 slot usage (used/available out of 1500)
-- [ ] List archived templates with restore option
-- [ ] Show cleanup job history/logs
-- [ ] Add SDK types and queries
+- [x] Create FingerprintAdminPage component
+- [x] Show R503 slot usage (used/available out of 1500)
+- [x] List archived templates with restore option
+- [ ] Show cleanup job history/logs (deferred - requires backend actuator)
+- [x] Add SDK types and queries
 
 ---
 
-## Phase 6: E2E Tests
+## Phase 6: E2E Tests ✅
 
 Complete integration testing of full fingerprint flow.
 
-- [ ] Test enroll -> verify -> archive -> restore cycle
-- [ ] Test cleanup job execution
-- [ ] Test hardware communication failures
-- [ ] Test slot exhaustion scenarios
+- [x] Test enroll -> verify -> archive -> restore cycle
+- [x] Test cleanup job execution
+- [x] Test hardware communication failures
+- [x] Test slot exhaustion scenarios
 
 ---
 

@@ -13,6 +13,7 @@ import ListPage from '../pages/FingerprintsListPage'
 import EnrollPage from '../pages/EnrollFingerprintPage'
 import VerifyPage from '../pages/VerifyFingerprintPage'
 import SimPage from '../pages/FingerprintSimulatorPage'
+import AdminPage from '../pages/FingerprintAdminPage'
 
 export function FingerprintRoutes(): ReactElement[] {
   return [
@@ -49,6 +50,15 @@ export function FingerprintRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <SimPage />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="fingerprints-admin"
+      path=":locale/fingerprints/admin"
+      element={
+        <AdminRoute>
+          <AdminPage />
         </AdminRoute>
       }
     />,

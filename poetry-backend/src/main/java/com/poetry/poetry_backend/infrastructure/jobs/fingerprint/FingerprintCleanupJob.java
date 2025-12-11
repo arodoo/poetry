@@ -48,7 +48,15 @@ public class FingerprintCleanupJob {
 
         FingerprintCleanupResult result = cleanupUseCase.execute(cutoff, batchSize);
 
-        log.info("Cleanup complete: archived={} slots={}",
+        log.info("Cleanup complete: archived={} slots freed={}",
                 result.archivedCount(), result.slotIdsToDelete());
+
+        if (result.hardwareDeletionSucceeded()) {
+            log.info("Hardware deletion successful: {} slots deleted from R503",
+                    result.slotIdsToDelete().size());
+        } else if (!result.hardwareFailedSlots().isEmpty()) {
+            log.warn("Hardware deletion partial: failed slots={}",
+                    result.hardwareFailedSlots());
+        }
     }
 }

@@ -8,6 +8,7 @@ import {
   EnrollResult,
   VerifyResult,
 } from '../../../application/ports/FingerprintPort.js';
+import { BatchDeleteResult } from '../../../application/ports/BatchDeleteResult.js';
 import { logger } from '../../logging/logger.js';
 import * as lifecycle from '../bridge/BridgeLifecycle.js';
 import * as ops from '../bridge/BridgeFingerprintOperations.js';
@@ -42,9 +43,19 @@ export class BridgeFingerprintAdapter implements FingerprintPort {
     return ops.deleteTemplate(templateId);
   }
 
+  async deleteTemplates(slotIds: number[]): Promise<BatchDeleteResult> {
+    this.ensureInitialized();
+    return ops.deleteTemplates(slotIds);
+  }
+
   async getTemplateCount(): Promise<number> {
     this.ensureInitialized();
     return ops.getTemplateCount();
+  }
+
+  async findAvailableSlot(): Promise<number> {
+    this.ensureInitialized();
+    return ops.findAvailableSlot();
   }
 
   async downloadTemplate(slotId: number): Promise<Buffer | null> {

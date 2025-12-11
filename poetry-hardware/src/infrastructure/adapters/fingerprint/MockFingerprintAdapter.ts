@@ -7,6 +7,10 @@ import {
   EnrollResult,
   VerifyResult,
 } from '../../../application/ports/FingerprintPort.js';
+import {
+  BatchDeleteResult,
+  createBatchResult,
+} from '../../../application/ports/BatchDeleteResult.js';
 import { logger } from '../../logging/logger.js';
 
 export class MockFingerprintAdapter implements FingerprintPort {
@@ -46,8 +50,29 @@ export class MockFingerprintAdapter implements FingerprintPort {
     return true;
   }
 
+  async deleteTemplates(slotIds: number[]): Promise<BatchDeleteResult> {
+    const successful: number[] = [];
+    for (const id of slotIds) {
+      this.templates.delete(id);
+      successful.push(id);
+    }
+    logger.info(`Mock: Batch deleted ${successful.length} templates`);
+    return createBatchResult(successful, [], slotIds.length);
+  }
+
   async getTemplateCount(): Promise<number> {
     return this.templates.size;
+  }
+
+  async findAvailableSlot(): Promise<number> {
+    const maxSlot = 1500;
+    for (let i = 1; i <= maxSlot; i++) {
+      if (!this.templates.has(i)) {
+        logger.info(`Mock: Found available slot ${i}`);
+        return i;
+      }
+    }
+    throw new Error('No available slots');
   }
 
   async downloadTemplate(slotId: number): Promise<Buffer | null> {

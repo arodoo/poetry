@@ -7,6 +7,11 @@ import {
   EnrollResult,
   VerifyResult,
 } from '../../../application/ports/FingerprintPort.js';
+import {
+  BatchDeleteResult,
+  SlotError,
+  createBatchResult,
+} from '../../../application/ports/BatchDeleteResult.js';
 import { logger } from '../../logging/logger.js';
 import * as bridge from './BridgeHttpClient.js';
 
@@ -37,9 +42,42 @@ export async function deleteTemplate(
   return false;
 }
 
+export async function deleteTemplates(
+  slotIds: number[]
+): Promise<BatchDeleteResult> {
+  const successful: number[] = [];
+  const failed: SlotError[] = [];
+
+  for (const slotId of slotIds) {
+    try {
+      const success = await bridge.deleteTemplateFromDevice(slotId);
+      if (success) {
+        successful.push(slotId);
+      } else {
+        failed.push({ slotId, error: 'Device returned failure' });
+      }
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      failed.push({ slotId, error: msg });
+      logger.error(`Failed to delete slot ${slotId}: ${msg}`);
+    }
+  }
+
+  logger.info(`Batch delete: ${successful.length}/${slotIds.length} succeeded`);
+  return createBatchResult(successful, failed, slotIds.length);
+}
+
 export async function getTemplateCount(): Promise<number> {
   logger.warn('getTemplateCount not implemented');
   return 0;
+}
+
+export async function findAvailableSlot(): Promise<number> {
+  const data = await bridge.getAvailableSlot();
+  if (data.slotId === undefined || data.slotId === null) {
+    throw new Error('No available slots');
+  }
+  return data.slotId;
 }
 
 export async function downloadTemplate(
