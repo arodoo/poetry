@@ -5,31 +5,32 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { SlotUsageCard } from '../components/SlotUsageCard'
-import { ArchivedFingerprintsList } from '../components/ArchivedFingerprintsList'
+import type { ReactElement } from 'react'
+import { SlotUsageCard } from '../components/admin/SlotUsageCard'
+import { ArchivedFingerprintsList } from '../components/admin/ArchivedFingerprintsList'
 import { useFingerprintsListQuery } from '../hooks/useFingerprintQueries'
-import './FingerprintAdminPage.css'
+import { Heading } from '../../../ui/Heading/Heading'
+import { Badge } from '../../../ui/Badge/Badge'
+import { Stack } from '../../../ui/Stack/Stack'
+import type { FingerprintResponse } from '../model/FingerprintSchemas'
 
-export function FingerprintAdminPage() {
+export function FingerprintAdminPage(): ReactElement {
   const { data: fingerprints } = useFingerprintsListQuery()
-  const activeCount = fingerprints?.filter((f) => f.status === 'ACTIVE').length
+  const activeCount = fingerprints?.filter(
+    (f: FingerprintResponse): boolean => f.status === 'ACTIVE'
+  ).length
 
   return (
-    <div className="fingerprint-admin-page">
-      <header className="admin-header">
-        <h1>Fingerprint Administration</h1>
-        <span className="active-badge">
-          {activeCount ?? 0} active fingerprints
-        </span>
-      </header>
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="flex justify-between items-center mb-6">
+        <Heading level={1}>Fingerprint Administration</Heading>
+        <Badge tone="success">{activeCount ?? 0} active fingerprints</Badge>
+      </div>
 
-      <section className="admin-stats">
+      <Stack gap="md">
         <SlotUsageCard />
-      </section>
-
-      <section className="admin-archived">
         <ArchivedFingerprintsList />
-      </section>
+      </Stack>
     </div>
   )
 }

@@ -12,47 +12,49 @@ import { fetchFingerprints } from '../api/fingerprintApi'
 import type { FingerprintResponse } from '../model/FingerprintSchemas'
 
 export const fingerprintAdminQueryKeys = {
-    archived: ['fingerprints', 'archived'] as const,
-    slotUsage: ['fingerprints', 'slot-usage'] as const,
+  archived: ['fingerprints', 'archived'] as const,
+  slotUsage: ['fingerprints', 'slot-usage'] as const,
 } as const
 
 export function useArchivedFingerprintsQuery(): UseQueryResult<
-    FingerprintResponse[]
+  FingerprintResponse[]
 > {
-    const token = tokenStorage.load()?.accessToken
-    return useQuery({
-        queryKey: fingerprintAdminQueryKeys.archived,
-        queryFn: () => {
-            if (!token) throw new Error('No authentication token')
-            return fetchArchivedFingerprints(token)
-        },
-        enabled: Boolean(token),
-        staleTime: 1000 * 30,
-    })
+  const token = tokenStorage.load()?.accessToken
+  return useQuery({
+    queryKey: fingerprintAdminQueryKeys.archived,
+    queryFn: (): Promise<FingerprintResponse[]> => {
+      if (!token) throw new Error('No authentication token')
+      return fetchArchivedFingerprints(token)
+    },
+    enabled: Boolean(token),
+    staleTime: 1000 * 30,
+  })
 }
 
 export interface SlotUsageStats {
-    usedSlots: number
-    totalSlots: number
-    percentage: number
+  usedSlots: number
+  totalSlots: number
+  percentage: number
 }
 
 export function useSlotUsageQuery(): UseQueryResult<SlotUsageStats> {
-    const token = tokenStorage.load()?.accessToken
-    return useQuery({
-        queryKey: fingerprintAdminQueryKeys.slotUsage,
-        queryFn: async () => {
-            if (!token) throw new Error('No authentication token')
-            const all = await fetchFingerprints(token)
-            const active = all.filter((fp) => fp.status === 'ACTIVE')
-            const totalSlots = 1500
-            return {
-                usedSlots: active.length,
-                totalSlots,
-                percentage: Math.round((active.length / totalSlots) * 100),
-            }
-        },
-        enabled: Boolean(token),
-        staleTime: 1000 * 30,
-    })
+  const token = tokenStorage.load()?.accessToken
+  return useQuery({
+    queryKey: fingerprintAdminQueryKeys.slotUsage,
+    queryFn: async (): Promise<SlotUsageStats> => {
+      if (!token) throw new Error('No authentication token')
+      const all = await fetchFingerprints(token)
+      const active = all.filter(
+        (fp: FingerprintResponse): boolean => fp.status === 'ACTIVE'
+      )
+      const totalSlots = 1500
+      return {
+        usedSlots: active.length,
+        totalSlots,
+        percentage: Math.round((active.length / totalSlots) * 100),
+      }
+    },
+    enabled: Boolean(token),
+    staleTime: 1000 * 30,
+  })
 }
