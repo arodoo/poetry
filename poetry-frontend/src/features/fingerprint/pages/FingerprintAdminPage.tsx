@@ -23,10 +23,10 @@ export function FingerprintAdminPage(): ReactElement {
   ).length
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="fingerprint-admin-page max-w-4xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <Heading level={1}>{t('ui.fingerprints.admin.title')}</Heading>
-        <Badge tone="success">
+        <Badge tone="success" className="active-badge">
           {activeCount ?? 0} {t('ui.fingerprints.admin.activeCount')}
         </Badge>
       </div>

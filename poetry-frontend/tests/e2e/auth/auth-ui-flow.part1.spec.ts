@@ -34,10 +34,10 @@ test.describe('Login UI Flow Part1', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/es/login')
+    await page.goto('/en/login')
     await page.locator('button[type="submit"]').click()
-    await expect(page.locator('text=Username is required')).toBeVisible()
-    await expect(page.locator('text=Password is required')).toBeVisible()
+    await expect(page.locator('text=Enter your username.')).toBeVisible()
+    await expect(page.locator('text=Enter your password.')).toBeVisible()
   })
 
   test('shows error for invalid credentials', async ({

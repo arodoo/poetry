@@ -40,7 +40,7 @@ export function ArchivedFingerprintsList(): ReactElement {
 
   if (!data || data.length === 0) {
     return (
-      <Card padding="md">
+      <Card padding="md" className="archived-empty">
         <Text className="text-[var(--color-textMuted)]">
           {t('ui.fingerprints.admin.archived.empty')}
         </Text>
@@ -49,7 +49,7 @@ export function ArchivedFingerprintsList(): ReactElement {
   }
 
   return (
-    <Card padding="md">
+    <Card padding="md" className="archived-list">
       <Text className="text-sm text-[var(--color-textMuted)] mb-3">
         {t('ui.fingerprints.admin.archived.title')}
       </Text>

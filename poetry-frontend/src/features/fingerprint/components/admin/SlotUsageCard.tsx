@@ -36,16 +36,16 @@ export function SlotUsageCard(): ReactElement {
   }
 
   return (
-    <Card padding="lg">
+    <Card padding="lg" className="slot-usage-card">
       <Text className="text-[var(--color-textMuted)] text-sm mb-3">
         {t('ui.fingerprints.admin.slotUsage.title')}
       </Text>
-      <div className="flex items-baseline gap-1 mb-3">
+      <div className="slot-usage-stats flex items-baseline gap-1 mb-3">
         <span className="text-2xl font-bold text-[var(--color-primary)]">
           {data.usedSlots}
         </span>
         <span className="text-[var(--color-textMuted)]">/</span>
-        <span className="text-lg text-[var(--color-textMuted)]">
+        <span className="slot-total text-lg text-[var(--color-textMuted)]">
           {data.totalSlots}
         </span>
       </div>

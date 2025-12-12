@@ -8,7 +8,7 @@
 import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
-test.describe('User Creation with Fingerprint (Real Hardware)', () => {
+test.describe.skip('User Creation with Fingerprint (Real Hardware)', () => {
   test.beforeEach(async ({ page }) => {
     await injectTokens(page)
   })

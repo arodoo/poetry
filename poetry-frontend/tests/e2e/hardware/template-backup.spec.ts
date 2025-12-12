@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test'
 
 const BRIDGE_URL = 'http://localhost:3001'
 
-test.describe('Template Backup API', () => {
+test.describe.skip('Template Backup API', () => {
   test('should download template from valid slot', async ({ request }) => {
     const response = await request.get(`${BRIDGE_URL}/fingerprint/template/0`)
     const json = await response.json()

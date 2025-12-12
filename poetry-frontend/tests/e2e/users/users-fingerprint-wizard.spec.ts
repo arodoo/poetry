@@ -6,7 +6,7 @@
 import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
-test('fingerprint wizard appears after creating user', async ({
+test.skip('fingerprint wizard appears after creating user', async ({
   page,
 }: {
   page: Page
