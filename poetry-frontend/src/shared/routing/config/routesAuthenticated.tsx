@@ -4,11 +4,12 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
+import { AccountRoutes } from '../../../features/account/routing/accountRoutes'
 import { DashboardRoutes } from '../../../features/dashboard/routing/dashboardRoutes'
 import { ProfileRoutes } from '../../../features/profile/routing/profileRoutes'
 
 export function AuthenticatedRoutes(): ReactElement[] {
-  return [...DashboardRoutes(), ...ProfileRoutes()]
+  return [...AccountRoutes(), ...DashboardRoutes(), ...ProfileRoutes()]
 }
 
 export default AuthenticatedRoutes

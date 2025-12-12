@@ -37,8 +37,10 @@ public class FingerprintBasicBeans {
 
   @Bean
   public DeleteFingerprintUseCase deleteFingerprintUseCase(
-      FingerprintCommandPort cmd, FingerprintQueryPort qry) {
-    return new DeleteFingerprintUseCase(cmd, qry);
+      FingerprintCommandPort cmd,
+      FingerprintQueryPort qry,
+      HardwareServicePort hwPort) {
+    return new DeleteFingerprintUseCase(cmd, qry, hwPort);
   }
 
   @Bean

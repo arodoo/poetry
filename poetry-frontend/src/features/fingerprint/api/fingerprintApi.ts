@@ -60,3 +60,16 @@ export async function verifyFingerprint(
   }
   return response.data
 }
+
+export async function deleteFingerprint(
+  id: number,
+  token: string
+): Promise<void> {
+  const response = await fetch(`/api/v1/fingerprints/${String(id)}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!response.ok) {
+    throw new Error(`Delete failed: ${String(response.status)}`)
+  }
+}

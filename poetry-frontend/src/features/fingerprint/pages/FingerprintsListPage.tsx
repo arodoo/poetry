@@ -26,6 +26,9 @@ export default function FingerprintsListPage(): ReactElement {
 
   const actions: ReactElement = (
     <div className="flex gap-2">
+      <Button to={`/${locale}/fingerprints/admin`} variant="secondary" size="md">
+        {t('ui.fingerprints.actions.admin')}
+      </Button>
       <Button to={`/${locale}/fingerprints/simulator`} size="md">
         {t('ui.fingerprints.actions.simulator')}
       </Button>

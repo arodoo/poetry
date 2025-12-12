@@ -12,7 +12,11 @@ import {
   type UseMutationResult,
 } from '@tanstack/react-query'
 import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
-import { enrollFingerprint, verifyFingerprint } from '../api/fingerprintApi'
+import {
+  enrollFingerprint,
+  verifyFingerprint,
+  deleteFingerprint,
+} from '../api/fingerprintApi'
 import { fingerprintQueryKeys } from './useFingerprintQueries'
 import type {
   EnrollRequest,
@@ -53,6 +57,27 @@ export function useVerifyFingerprintMutation(): UseMutationResult<
     mutationFn: (data: VerifyRequest) => {
       if (!token) throw new Error('No authentication token')
       return verifyFingerprint(data, token)
+    },
+  })
+}
+
+export function useDeleteFingerprintMutation(): UseMutationResult<
+  void,
+  unknown,
+  number
+> {
+  const queryClient = useQueryClient()
+  const token = tokenStorage.load()?.accessToken
+
+  return useMutation({
+    mutationFn: (id: number) => {
+      if (!token) throw new Error('No authentication token')
+      return deleteFingerprint(id, token)
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: fingerprintQueryKeys.root,
+      })
     },
   })
 }

@@ -15,6 +15,8 @@ export function createFingerprintRoutes(
   router.post('/verify', controller.verify);
   router.delete('/template/:slotId', controller.deleteTemplate);
   router.post('/templates/delete-batch', controller.deleteBatch);
+  router.post('/clear-all', controller.clearAll);
+  router.get('/used-slots', controller.getUsedSlots);
   router.get('/template-count', controller.getTemplateCount);
   router.get('/available-slot', controller.getAvailableSlot);
   router.get('/template/:slotId', controller.downloadTemplate);

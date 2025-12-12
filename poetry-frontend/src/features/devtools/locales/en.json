@@ -1,0 +1,9 @@
+{
+  "ui.devtools.sidebar.title": "Dev Tools",
+  "ui.devtools.hardware.title": "Hardware Debug",
+  "ui.devtools.hardware.subtitle": "Direct R503 sensor inspection and control",
+  "ui.devtools.hardware.scanSlots": "Scan Used Slots",
+  "ui.devtools.hardware.clearAll": "Clear All Templates",
+  "ui.devtools.hardware.usedCount": "Used Slots Count",
+  "ui.devtools.hardware.slots": "Slot IDs"
+}

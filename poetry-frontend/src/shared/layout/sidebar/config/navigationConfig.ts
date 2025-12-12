@@ -12,6 +12,7 @@ import {
   UserGroupIcon,
   KeyIcon,
   FingerPrintIcon,
+  WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline'
 import type { ItemId, NavigationItem } from '../types'
 
@@ -25,6 +26,7 @@ export function getLabelKey(id: ItemId): string {
     sellerCodes: 'ui.route.sellerCodes.title',
     adminTokens: 'ui.route.admin.tokens.title',
     fingerprint: 'ui.fingerprint.sidebar.title',
+    devtools: 'ui.devtools.sidebar.title',
   }
   return map[id]
 }
@@ -73,6 +75,12 @@ export function getNavigationItems(): NavigationItem[] {
       p: '/fingerprints',
       roles: ['admin', 'manager'],
       icon: FingerPrintIcon,
+    },
+    {
+      id: 'devtools',
+      p: '/devtools/hardware',
+      roles: ['admin'],
+      icon: WrenchScrewdriverIcon,
     },
   ]
 }

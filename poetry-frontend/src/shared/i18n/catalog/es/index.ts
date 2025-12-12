@@ -19,6 +19,7 @@ import zonesEs from '../../../../features/zones/locales/es.json'
 import membershipsEs from '../../../../features/memberships/locales/es.json'
 import tokensEs from '../../../../features/tokens/locales/es.json'
 import fingerprintEs from '../../../../features/fingerprint/locales/es.json'
+import devtoolsEs from '../../../../features/devtools/locales/es.json'
 
 export const esCatalog: Record<string, string> = {
   ...commonEs,
@@ -37,4 +38,5 @@ export const esCatalog: Record<string, string> = {
   ...membershipsEs,
   ...tokensEs,
   ...fingerprintEs,
+  ...devtoolsEs,
 }

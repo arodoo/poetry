@@ -11,6 +11,7 @@
   "ui.fingerprints.actions.enroll": "Enroll New Fingerprint",
   "ui.fingerprints.actions.verify": "Verify Access",
   "ui.fingerprints.actions.simulator": "Hardware Simulator",
+  "ui.fingerprints.actions.admin": "Admin Dashboard",
   "ui.fingerprints.form.slotId": "R503 Slot ID",
   "ui.fingerprints.form.slotIdPlaceholder": "Enter slot ID (0-1500)",
   "ui.fingerprints.form.enroll": "Enroll Fingerprint",
