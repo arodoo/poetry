@@ -14,6 +14,7 @@ export interface BridgeResponse {
   score?: number;
   template?: string;
   slotId?: number;
+  count?: number;
 }
 
 export async function checkBridgeHealth(): Promise<void> {
@@ -92,5 +93,10 @@ export async function deleteTemplateFromDevice(
 
 export async function getAvailableSlot(): Promise<BridgeResponse> {
   const response = await fetch(`${BRIDGE_URL}/fingerprint/available-slot`);
+  return response.json() as Promise<BridgeResponse>;
+}
+
+export async function getTemplateCount(): Promise<BridgeResponse> {
+  const response = await fetch(`${BRIDGE_URL}/fingerprint/template-count`);
   return response.json() as Promise<BridgeResponse>;
 }

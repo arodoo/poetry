@@ -4,7 +4,7 @@
 // All Rights Reserved. Arodi Emmanuel
 
 import { Router } from 'express';
-import { manualEnroll as autoEnroll, autoIdentify } from '../../../application/index.js';
+import { manualEnroll as autoEnroll, autoIdentify, getTemplateCount } from '../../../application/index.js';
 
 const router = Router();
 // Trigger nodemon reload - timestamp: 2025-12-13 12:35
@@ -36,6 +36,19 @@ router.post('/identify', (req, res) => {
     const result = autoIdentify();
     if (result.code === 0) {
       res.json({ success: true, id: result.id, score: result.score });
+    } else {
+      res.status(400).json({ success: false, code: result.code });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.get('/template-count', (req, res) => {
+  try {
+    const result = getTemplateCount();
+    if (result.code === 0) {
+      res.json({ success: true, count: result.count });
     } else {
       res.status(400).json({ success: false, code: result.code });
     }

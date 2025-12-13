@@ -5,7 +5,7 @@
 
 import { getBindings } from '../infrastructure/ffi/index.js';
 import * as log from '../infrastructure/logging/index.js';
-import { getDeviceHandle, getDeviceAddr } from './fingerprint-service.js';
+import { getDeviceHandle, getDeviceAddr } from './device-lifecycle.js';
 
 const TEMPLATE_SIZE = 768;
 

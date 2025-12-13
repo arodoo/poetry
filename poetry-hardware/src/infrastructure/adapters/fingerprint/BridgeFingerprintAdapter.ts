@@ -11,7 +11,8 @@ import {
 import { BatchDeleteResult } from '../../../application/ports/BatchDeleteResult.js';
 import { logger } from '../../logging/logger.js';
 import * as lifecycle from '../bridge/BridgeLifecycle.js';
-import * as ops from '../bridge/BridgeFingerprintOperations.js';
+import * as enrollment from '../bridge/enrollment-operations.js';
+import * as verification from '../bridge/verification-operations.js';
 
 export class BridgeFingerprintAdapter implements FingerprintPort {
   private initialized = false;
@@ -30,37 +31,39 @@ export class BridgeFingerprintAdapter implements FingerprintPort {
 
   async enroll(templateId: number): Promise<EnrollResult> {
     this.ensureInitialized();
-    return ops.enrollFingerprint(templateId);
+    return enrollment.enrollFingerprint(templateId);
   }
 
   async verify(): Promise<VerifyResult> {
     this.ensureInitialized();
-    return ops.verifyFingerprint();
+    return verification.verifyFingerprint();
   }
 
   async deleteTemplate(templateId: number): Promise<boolean> {
     this.ensureInitialized();
-    return ops.deleteTemplate(templateId);
+    return verification.deleteTemplate(templateId);
   }
 
   async deleteTemplates(slotIds: number[]): Promise<BatchDeleteResult> {
     this.ensureInitialized();
-    return ops.deleteTemplates(slotIds);
+    return verification.deleteTemplates(slotIds);
   }
 
   async getTemplateCount(): Promise<number> {
     this.ensureInitialized();
-    return ops.getTemplateCount();
+    return verification.getTemplateCount();
   }
 
   async findAvailableSlot(): Promise<number> {
     this.ensureInitialized();
-    return ops.findAvailableSlot();
+    const slot = await enrollment.findAvailableSlot();
+    if (slot === null) throw new Error('No available slots');
+    return slot;
   }
 
   async downloadTemplate(slotId: number): Promise<Buffer | null> {
     this.ensureInitialized();
-    return ops.downloadTemplate(slotId);
+    return verification.downloadTemplate(slotId);
   }
 
   async uploadTemplate(
@@ -68,7 +71,7 @@ export class BridgeFingerprintAdapter implements FingerprintPort {
     template: Buffer
   ): Promise<boolean> {
     this.ensureInitialized();
-    return ops.uploadTemplate(slotId, template);
+    return verification.uploadTemplate(slotId, template);
   }
 
   async close(): Promise<void> {

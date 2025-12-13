@@ -1,12 +1,18 @@
 // File: index.js
 // Purpose: Exports application layer services
-// Provides fingerprint operations orchestration
 // All Rights Reserved. Arodi Emmanuel
 
 export {
-  initialize, openDevice, closeDevice, captureImage, generateChar,
-  autoIdentify, autoEnroll, manualEnroll, getDeviceHandle, getDeviceAddr
-} from './fingerprint-service.js';
+  initialize, openDevice, closeDevice,
+  getDeviceHandle, getDeviceAddr
+} from './device-lifecycle.js';
+
+export { captureImage, generateChar } from './image-operations.js';
+
+export { autoEnroll, autoIdentify } from './auto-enrollment.js';
+
+export { manualEnroll } from './manual-enrollment.js';
 
 export { downloadTemplate } from './template-download.js';
 export { uploadTemplate } from './template-upload.js';
+export { getTemplateCount } from './template-management.js';

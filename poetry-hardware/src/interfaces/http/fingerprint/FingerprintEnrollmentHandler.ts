@@ -6,6 +6,7 @@
 import { Request, Response } from 'express';
 import { FingerprintPort } from '../../../application/ports/FingerprintPort.js';
 import { logger } from '../../../infrastructure/logging/logger.js';
+import { getErrorMessage } from './enrollment-errors.js';
 
 export class FingerprintEnrollmentHandler {
   constructor(private fingerprintPort: FingerprintPort) { }
@@ -39,19 +40,7 @@ export class FingerprintEnrollmentHandler {
         });
       } else {
         logger.error(`Enrollment failed for slot ${slotId}`);
-
-        // Provide specific error message based on common R503 error codes
-        let errorMessage = 'Enrollment failed';
-        if (result.templateId === 32) {
-          errorMessage = 'Timeout: No finger detected on sensor. Please place your finger and try again.';
-        } else if (result.templateId === 1) {
-          errorMessage = 'Communication error with sensor';
-        } else if (result.templateId === 6) {
-          errorMessage = 'Failed to generate character file';
-        } else if (result.templateId === 7) {
-          errorMessage = 'Failed to generate template';
-        }
-
+        const errorMessage = getErrorMessage(result.templateId);
         res.status(500).json({
           success: false,
           error: errorMessage,
