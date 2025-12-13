@@ -8,11 +8,9 @@ export {
 } from './device-lifecycle.js';
 
 export { captureImage, generateChar } from './image-operations.js';
-
 export { autoEnroll, autoIdentify } from './auto-enrollment.js';
-
 export { manualEnroll } from './manual-enrollment.js';
-
 export { downloadTemplate } from './template-download.js';
 export { uploadTemplate } from './template-upload.js';
 export { getTemplateCount, deleteTemplate } from './template-management.js';
+export { getAvailableSlot, getAvailableSlots } from './slot-availability.js';
