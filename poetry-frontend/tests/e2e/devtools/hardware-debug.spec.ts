@@ -46,9 +46,9 @@ test.describe('Hardware Debug Page', () => {
     await page.getByRole('button', { name: /scan/i }).click()
     await page.waitForTimeout(1000)
 
-    const content = await page.locator('pre').textContent()
-    expect(content).toBeDefined()
-    expect(content).toContain('[')
+    // Check that hardware data is displayed
+    await expect(page.getByText(/Used Slots Count/i)).toBeVisible()
+    await expect(page.getByText(/Database/i)).toBeVisible()
   })
 
   // UC3: Hardware debug page loads
@@ -93,7 +93,7 @@ test.describe('Hardware Debug Page', () => {
     // Verify modal appears
     const modal = page.locator('[role="dialog"]')
     await expect(modal).toBeVisible()
-    await expect(modal).toContainText(/Are you sure/i)
+    await expect(modal).toContainText(/Clear All Fingerprints/i)
 
     // Click cancel
     await page.getByRole('button', { name: /cancel/i }).click()
