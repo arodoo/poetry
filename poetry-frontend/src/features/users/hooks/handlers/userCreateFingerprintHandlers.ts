@@ -8,6 +8,7 @@ import type { NavigateFunction } from 'react-router-dom'
 import type { useT } from '../../../../shared/i18n/useT'
 import type { useToast } from '../../../../shared/toast/toastContext'
 import type { UserResponse } from '../../../../api/generated/types.gen'
+import { rollbackFingerprint } from '../../components/fingerprint/rollback-fingerprint'
 
 export async function linkFingerprintToUser(
   userId: number,
@@ -53,6 +54,9 @@ export function createMutationHandler(
       void navigate(`/${locale}/users`)
     },
     onError: (error): void => {
+      if (slotId !== null) {
+        void rollbackFingerprint(slotId)
+      }
       toast.push(
         error instanceof Error
           ? error.message

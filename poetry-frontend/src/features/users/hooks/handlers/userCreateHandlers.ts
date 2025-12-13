@@ -6,9 +6,12 @@
  */
 import type { FormEvent } from 'react'
 import type { NavigateFunction } from 'react-router-dom'
+import { ZodError } from 'zod'
 import { buildFormData } from '../../components/form/usersFormHelpers'
 import type { UsersFormValues } from '../../components/form/UsersForm'
 import type { UsersFormState } from '../../components/form/useUsersFormState'
+import type { useT } from '../../../../shared/i18n/useT'
+import type { useToast } from '../../../../shared/toast/toastContext'
 import {
   CreateUserSchema,
   type CreateUserInput,
@@ -16,7 +19,9 @@ import {
 
 export function createUserSubmitHandler(
   formState: UsersFormState,
-  onSuccess: (input: CreateUserInput) => void
+  onSuccess: (input: CreateUserInput) => void,
+  toast: ReturnType<typeof useToast>,
+  t: ReturnType<typeof useT>
 ): (event: FormEvent<HTMLFormElement>) => void {
   return function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault()
@@ -45,8 +50,13 @@ export function createUserSubmitHandler(
       })
       onSuccess(validatedInput)
     } catch (error) {
-      console.error('Validation error:', error)
-      throw error
+      if (error instanceof ZodError) {
+        const firstError = error.errors[0]
+        const message = t(firstError?.message ?? 'users.validation.error')
+        toast.push(message)
+      } else {
+        toast.push(t('ui.users.toast.create.error'))
+      }
     }
   }
 }
@@ -59,3 +69,4 @@ export function createUserCancelHandler(
     void navigate(`/${locale}/users`)
   }
 }
+

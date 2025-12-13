@@ -2,90 +2,75 @@
  * File: useHardwareDebug.ts
  * Purpose: Hook for hardware debug logic and state management.
  * All Rights Reserved. Arodi Emmanuel
- * Updated: 2025-12-12 - Fixed API endpoints
  */
 import { useState } from 'react'
 import { useT } from '../../../shared/i18n/useT'
 import { useToast } from '../../../shared/toast/toastContext'
+import * as api from './hardware-api'
 
 interface SensorState {
     count: number
     slots: number[]
+    availableSlots: number[]
+    capacity: number
     loading: boolean
     error: string | null
 }
 
-const HARDWARE_URL = '/hardware'
-
 export function useHardwareDebug(): {
     sensor: SensorState
     fetchUsedSlots: () => Promise<void>
+    fetchAvailableSlots: () => Promise<void>
     clearAllTemplates: () => Promise<void>
     deleteSlot: (slotId: number) => Promise<void>
 } {
     const t = useT()
     const toast = useToast()
     const [sensor, setSensor] = useState<SensorState>({
-        count: 0,
-        slots: [],
-        loading: false,
-        error: null,
+        count: 0, slots: [], availableSlots: [], capacity: 0, loading: false, error: null,
     })
 
     const fetchUsedSlots = async (): Promise<void> => {
         setSensor((s) => ({ ...s, loading: true, error: null }))
         try {
-            const res = await fetch(`${HARDWARE_URL}/fingerprint/used-slots`)
-            const data = await res.json()
-            setSensor({
-                count: data.count,
-                slots: data.slots,
-                loading: false,
-                error: null,
-            })
-            // Success feedback
-            if (data.count === 0) {
-                toast.push('No fingerprints found in sensor')
-            } else {
-                toast.push(`Found ${data.count} fingerprint${data.count > 1 ? 's' : ''} in sensor`)
-            }
+            const data = await api.fetchUsedSlotsApi()
+            setSensor((s) => ({ ...s, ...data, loading: false }))
+            toast.push(`Found ${data.count} fingerprint(s)`)
         } catch (e) {
             setSensor((s) => ({ ...s, loading: false, error: String(e) }))
-            toast.push('Failed to scan sensor')
+        }
+    }
+
+    const fetchAvailableSlots = async (): Promise<void> => {
+        setSensor((s) => ({ ...s, loading: true, error: null }))
+        try {
+            const data = await api.fetchAvailableSlotsApi()
+            const slots = data.slots ?? []
+            const capacity = data.capacity ?? 0
+            setSensor((s) => ({ ...s, availableSlots: slots, capacity, loading: false }))
+            toast.push(`Found ${slots.length} available (capacity: ${capacity})`)
+        } catch (e) {
+            const msg = e instanceof Error ? e.message : String(e)
+            setSensor((s) => ({ ...s, loading: false, error: msg }))
+            toast.push('Failed to fetch available slots')
         }
     }
 
     const clearAllTemplates = async (): Promise<void> => {
-        setSensor((s) => ({ ...s, loading: true, error: null }))
+        setSensor((s) => ({ ...s, loading: true }))
         try {
-            await fetch(`${HARDWARE_URL}/fingerprint/clear-all`, { method: 'POST' })
+            await api.clearAllApi()
             toast.push(t('ui.devtools.hardware.clearSuccess'))
             await fetchUsedSlots()
-        } catch (e) {
-            const msg = String(e)
-            setSensor((s) => ({ ...s, loading: false, error: msg }))
-            toast.push(t('ui.devtools.hardware.clearError'))
+        } catch { setSensor((s) => ({ ...s, loading: false })) }
+    }
+
+    const deleteSlot = async (slotId: number): Promise<void> => {
+        if (await api.deleteSlotApi(slotId)) {
+            toast.push(`Deleted slot ${slotId}`)
+            await fetchUsedSlots()
         }
     }
 
-    return {
-        sensor,
-        fetchUsedSlots,
-        clearAllTemplates,
-        deleteSlot: async (slotId: number): Promise<void> => {
-            try {
-                const res = await fetch(`${HARDWARE_URL}/fingerprint/template/${slotId}`, {
-                    method: 'DELETE'
-                })
-                if (res.ok) {
-                    toast.push(`Deleted slot ${slotId}`)
-                    await fetchUsedSlots()
-                } else {
-                    toast.push(`Failed to delete slot ${slotId}`)
-                }
-            } catch (e) {
-                toast.push(`Error deleting slot: ${String(e)}`)
-            }
-        }
-    }
+    return { sensor, fetchUsedSlots, fetchAvailableSlots, clearAllTemplates, deleteSlot }
 }

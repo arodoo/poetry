@@ -4,37 +4,21 @@
  * Shows used slots from sensor, sync check vs database, and control.
  * All Rights Reserved. Arodi Emmanuel
  */
-
 import type { ReactElement } from 'react'
-import { useState } from 'react'
 import { Heading } from '../../../ui/Heading/Heading'
 import { Text } from '../../../ui/Text/Text'
 import { Stack } from '../../../ui/Stack/Stack'
 import { useT } from '../../../shared/i18n/useT'
-import { useFingerprintsListQuery } from '../../fingerprint/hooks/useFingerprintQueries'
-import { useHardwareDebug } from '../hooks/useHardwareDebug'
+import { useHardwarePageState } from '../hooks/useHardwarePageState'
 import { ClearTemplatesModal } from '../components/ClearTemplatesModal'
 import { HardwareStats } from '../components/HardwareStats'
 import { SyncIssues } from '../components/SyncIssues'
 import { HardwareControls } from '../components/HardwareControls'
+import { AvailableSlotsCard } from '../components/AvailableSlotsCard'
 
 export function HardwareDebugPage(): ReactElement {
   const t = useT()
-  const { data: dbFingerprints } = useFingerprintsListQuery()
-  const { sensor, fetchUsedSlots, clearAllTemplates, deleteSlot } = useHardwareDebug()
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
-
-  const dbSlots = (dbFingerprints ?? [])
-    .map((fp) => fp.r503SlotId)
-    .filter((s): s is number => s !== undefined && s !== null)
-
-  const orphanedInSensor = sensor.slots.filter((s) => !dbSlots.includes(s))
-  const missingInSensor = dbSlots.filter((s) => !sensor.slots.includes(s))
-
-  const handleConfirmClear = async () => {
-    setIsConfirmOpen(false)
-    await clearAllTemplates()
-  }
+  const state = useHardwarePageState()
 
   return (
     <div className="hardware-debug-page max-w-6xl mx-auto p-6">
@@ -44,38 +28,30 @@ export function HardwareDebugPage(): ReactElement {
           {t('ui.devtools.hardware.subtitle')}
         </Text>
       </div>
-
       <Stack gap="lg">
         <HardwareControls
-          loading={sensor.loading}
-          onScan={fetchUsedSlots}
-          onClear={() => { setIsConfirmOpen(true); }}
+          loading={state.sensor.loading}
+          onScan={state.fetchUsedSlots}
+          onScanAvailable={state.fetchAvailableSlots}
+          onClear={state.openConfirm}
         />
-
-        {sensor.error && (
-          <Text size="sm" className="text-[var(--color-error)]">
-            {sensor.error}
-          </Text>
+        {state.sensor.error && (
+          <Text size="sm" className="text-[var(--color-error)]">{state.sensor.error}</Text>
         )}
-
         <HardwareStats
-          sensorCount={sensor.count}
-          sensorSlots={sensor.slots}
-          dbSlots={dbSlots}
-          loading={sensor.loading}
-          onDeleteSlot={deleteSlot}
+          sensorCount={state.sensor.count}
+          sensorSlots={state.sensor.slots}
+          dbSlots={state.dbSlots}
+          loading={state.sensor.loading}
+          onDeleteSlot={state.deleteSlot}
         />
-
-        <SyncIssues
-          orphanedInSensor={orphanedInSensor}
-          missingInSensor={missingInSensor}
-        />
+        <AvailableSlotsCard slots={state.sensor.availableSlots} capacity={state.sensor.capacity} />
+        <SyncIssues orphanedInSensor={state.orphanedInSensor} missingInSensor={state.missingInSensor} />
       </Stack>
-
       <ClearTemplatesModal
-        open={isConfirmOpen}
-        onClose={() => { setIsConfirmOpen(false); }}
-        onConfirm={() => void handleConfirmClear()}
+        open={state.isConfirmOpen}
+        onClose={state.closeConfirm}
+        onConfirm={() => void state.handleClear()}
       />
     </div>
   )

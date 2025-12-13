@@ -9,11 +9,9 @@ import type { useT } from '../../../shared/i18n/useT'
 import type { useToast } from '../../../shared/toast/toastContext'
 import { useUsersFormState } from '../components/form/useUsersFormState'
 import { useCreateUserMutation } from './mutations/useUsersMutations'
-import {
-  createUserSubmitHandler,
-  createUserCancelHandler,
-} from './handlers/userCreateHandlers'
+import { createUserSubmitHandler } from './handlers/userCreateHandlers'
 import { createMutationHandler } from './handlers/userCreateFingerprintHandlers'
+import { rollbackFingerprint } from '../components/fingerprint/rollback-fingerprint'
 
 export function useUsersCreatePage(
   locale: string,
@@ -32,16 +30,21 @@ export function useUsersCreatePage(
   const [pendingSlotId, setPendingSlotId] = useState<number | null>(null)
   const formState = useUsersFormState()
 
-  const handleCreateUser = createUserSubmitHandler(formState, (input) => {
-    const handlers = createMutationHandler(
-      pendingSlotId,
-      locale,
-      navigate,
-      toast,
-      t
-    )
-    mutation.mutate(input, handlers)
-  })
+  const handleCreateUser = createUserSubmitHandler(
+    formState,
+    (input) => {
+      const handlers = createMutationHandler(
+        pendingSlotId,
+        locale,
+        navigate,
+        toast,
+        t
+      )
+      mutation.mutate(input, handlers)
+    },
+    toast,
+    t
+  )
 
   function handleFingerprintComplete(slotId: number): void {
     setPendingSlotId(slotId)
@@ -51,7 +54,12 @@ export function useUsersCreatePage(
     setPendingSlotId(null)
   }
 
-  const handleCancel = createUserCancelHandler(navigate, locale)
+  function handleCancel(): void {
+    if (pendingSlotId !== null) {
+      void rollbackFingerprint(pendingSlotId)
+    }
+    navigate(`/${locale}/users`)
+  }
 
   return {
     formState,

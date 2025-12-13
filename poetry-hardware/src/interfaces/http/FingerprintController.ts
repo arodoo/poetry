@@ -11,6 +11,7 @@ import { TemplateDownloadHandler } from './fingerprint/TemplateDownloadHandler.j
 import { TemplateUploadHandler } from './fingerprint/TemplateUploadHandler.js';
 import { BatchDeleteHandler } from './fingerprint/BatchDeleteHandler.js';
 import { AvailableSlotHandler } from './fingerprint/AvailableSlotHandler.js';
+import { AvailableSlotsHandler } from './fingerprint/AvailableSlotsHandler.js';
 import { ClearAllHandler } from './fingerprint/ClearAllHandler.js';
 import { GetUsedSlotsHandler } from './fingerprint/GetUsedSlotsHandler.js';
 
@@ -21,6 +22,7 @@ export class FingerprintController {
   private uploadHandler: TemplateUploadHandler;
   private batchDeleteHandler: BatchDeleteHandler;
   private availableSlotHandler: AvailableSlotHandler;
+  private availableSlotsHandler: AvailableSlotsHandler;
   private clearAllHandler: ClearAllHandler;
   private getUsedSlotsHandler: GetUsedSlotsHandler;
 
@@ -31,6 +33,7 @@ export class FingerprintController {
     this.uploadHandler = new TemplateUploadHandler(fingerprintPort);
     this.batchDeleteHandler = new BatchDeleteHandler(fingerprintPort);
     this.availableSlotHandler = new AvailableSlotHandler(fingerprintPort);
+    this.availableSlotsHandler = new AvailableSlotsHandler();
     this.clearAllHandler = new ClearAllHandler(fingerprintPort);
     this.getUsedSlotsHandler = new GetUsedSlotsHandler(fingerprintPort);
   }
@@ -65,6 +68,10 @@ export class FingerprintController {
 
   getAvailableSlot = (req: Request, res: Response): Promise<void> => {
     return this.availableSlotHandler.handle(req, res);
+  };
+
+  getAvailableSlots = (req: Request, res: Response): Promise<void> => {
+    return this.availableSlotsHandler.handle(req, res);
   };
 
   clearAll = (req: Request, res: Response): Promise<void> => {

@@ -10,6 +10,7 @@ import {
   reserveSlotFromBackend,
   enrollWithHardware,
 } from './fingerprintEnrollmentApi'
+import { rollbackFingerprint } from './rollback-fingerprint'
 
 type EnrollmentState = 'idle' | 'capturing' | 'processing' | 'success' | 'error'
 
@@ -50,6 +51,9 @@ export function useFingerprintEnrollment(): {
   }
 
   function reset(): void {
+    if (slotId !== null) {
+      void rollbackFingerprint(slotId)
+    }
     setState('idle')
     setSlotId(null)
     setErrorMessage('')

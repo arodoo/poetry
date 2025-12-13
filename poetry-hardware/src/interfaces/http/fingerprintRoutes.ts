@@ -19,6 +19,7 @@ export function createFingerprintRoutes(
   router.get('/used-slots', controller.getUsedSlots);
   router.get('/template-count', controller.getTemplateCount);
   router.get('/available-slot', controller.getAvailableSlot);
+  router.get('/available-slots', controller.getAvailableSlots);
   router.get('/template/:slotId', controller.downloadTemplate);
   router.post('/template', controller.uploadTemplate);
 

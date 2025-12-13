@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintSlotHistoryCommandPort;
+import com.poetry.poetry_backend.application.fingerprint.port.HardwareServicePort;
 import com.poetry.poetry_backend.application.fingerprint.port.UserFingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.EnrollFingerprintForUserUseCase;
 import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.EnrollFingerprintUseCase;
@@ -47,8 +48,8 @@ public class FingerprintComposition {
   }
 
   @Bean
-  public ReserveSlotUseCase reserveSlotUseCase(FingerprintQueryPort fpQry) {
-    return new ReserveSlotUseCase(fpQry);
+  public ReserveSlotUseCase reserveSlotUseCase(HardwareServicePort hardwareService) {
+    return new ReserveSlotUseCase(hardwareService);
   }
 
   @Bean
