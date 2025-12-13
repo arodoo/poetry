@@ -11,6 +11,7 @@ export const commonEs: Record<string, string> = {
   'ui.common.loading': 'Cargando…',
   'ui.common.error': 'Error',
   'ui.common.retry': 'Intentar de nuevo',
+  'ui.common.back': 'Volver',
   'ui.dashboard.welcome.title': 'Bienvenido al Panel',
   'ui.dashboard.welcome.message': 'Has iniciado sesión correctamente.',
   'ui.table.pagination.showing': 'Mostrando',

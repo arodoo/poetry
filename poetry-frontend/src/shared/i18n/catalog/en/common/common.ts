@@ -11,6 +11,7 @@ export const commonEn: Record<string, string> = {
   'ui.common.loading': 'Loading…',
   'ui.common.error': 'Error',
   'ui.common.retry': 'Try again',
+  'ui.common.back': 'Go Back',
   'ui.dashboard.welcome.title': 'Welcome to Dashboard',
   'ui.dashboard.welcome.message': 'You have successfully logged in.',
   'ui.table.pagination.showing': 'Showing',
