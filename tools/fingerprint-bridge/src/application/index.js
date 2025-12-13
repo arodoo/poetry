@@ -15,4 +15,4 @@ export { manualEnroll } from './manual-enrollment.js';
 
 export { downloadTemplate } from './template-download.js';
 export { uploadTemplate } from './template-upload.js';
-export { getTemplateCount } from './template-management.js';
+export { getTemplateCount, deleteTemplate } from './template-management.js';

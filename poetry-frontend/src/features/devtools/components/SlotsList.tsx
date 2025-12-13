@@ -11,12 +11,14 @@ interface SlotsListProps {
   slots: number[]
   label: string
   emptyMessage?: string
+  onDelete?: ((slot: number) => void) | undefined
 }
 
 export function SlotsList({
   slots,
   label,
   emptyMessage = 'No slots',
+  onDelete,
 }: SlotsListProps): ReactElement {
   return (
     <div className="space-y-2">
@@ -32,6 +34,15 @@ export function SlotsList({
           {slots.map((slot) => (
             <Badge key={slot} tone="primary" size="md">
               Slot {slot}
+              {onDelete && (
+                <button
+                  onClick={() => { onDelete(slot) }}
+                  className="ml-1 text-red-400 hover:text-red-600"
+                  title="Delete slot"
+                >
+                  ×
+                </button>
+              )}
             </Badge>
           ))}
         </div>

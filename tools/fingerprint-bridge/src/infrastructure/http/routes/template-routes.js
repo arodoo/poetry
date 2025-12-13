@@ -5,7 +5,7 @@
 
 import { Router } from 'express';
 import {
-    downloadTemplate, uploadTemplate
+    downloadTemplate, uploadTemplate, deleteTemplate
 } from '../../../application/index.js';
 
 const router = Router();
@@ -50,6 +50,31 @@ router.post('/', (req, res) => {
         }
 
         const result = uploadTemplate(slotId, template);
+        if (result.code === 0) {
+            res.json({ success: true, slotId: result.slotId });
+        } else {
+            res.status(400).json({
+                success: false,
+                code: result.code,
+                message: result.message
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.delete('/:slotId', (req, res) => {
+    try {
+        const slotId = parseInt(req.params.slotId, 10);
+        if (isNaN(slotId) || slotId < 0) {
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid slotId'
+            });
+        }
+
+        const result = deleteTemplate(slotId);
         if (result.code === 0) {
             res.json({ success: true, slotId: result.slotId });
         } else {

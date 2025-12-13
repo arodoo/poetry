@@ -21,7 +21,7 @@ import { HardwareControls } from '../components/HardwareControls'
 export function HardwareDebugPage(): ReactElement {
   const t = useT()
   const { data: dbFingerprints } = useFingerprintsListQuery()
-  const { sensor, fetchUsedSlots, clearAllTemplates } = useHardwareDebug()
+  const { sensor, fetchUsedSlots, clearAllTemplates, deleteSlot } = useHardwareDebug()
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
   const dbSlots = (dbFingerprints ?? [])
@@ -63,6 +63,7 @@ export function HardwareDebugPage(): ReactElement {
           sensorSlots={sensor.slots}
           dbSlots={dbSlots}
           loading={sensor.loading}
+          onDeleteSlot={deleteSlot}
         />
 
         <SyncIssues

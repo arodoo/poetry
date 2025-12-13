@@ -21,6 +21,7 @@ export function useHardwareDebug(): {
     sensor: SensorState
     fetchUsedSlots: () => Promise<void>
     clearAllTemplates: () => Promise<void>
+    deleteSlot: (slotId: number) => Promise<void>
 } {
     const t = useT()
     const toast = useToast()
@@ -71,5 +72,20 @@ export function useHardwareDebug(): {
         sensor,
         fetchUsedSlots,
         clearAllTemplates,
+        deleteSlot: async (slotId: number): Promise<void> => {
+            try {
+                const res = await fetch(`${HARDWARE_URL}/fingerprint/template/${slotId}`, {
+                    method: 'DELETE'
+                })
+                if (res.ok) {
+                    toast.push(`Deleted slot ${slotId}`)
+                    await fetchUsedSlots()
+                } else {
+                    toast.push(`Failed to delete slot ${slotId}`)
+                }
+            } catch (e) {
+                toast.push(`Error deleting slot: ${String(e)}`)
+            }
+        }
     }
 }

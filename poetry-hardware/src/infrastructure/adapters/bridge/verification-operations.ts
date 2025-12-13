@@ -24,8 +24,11 @@ export async function verifyFingerprint(): Promise<VerifyResult> {
 }
 
 export async function deleteTemplate(templateId: number): Promise<boolean> {
-    logger.warn(`deleteTemplate(${templateId}) not implemented`);
-    return false;
+    const success = await bridge.deleteTemplateFromDevice(templateId);
+    if (!success) {
+        logger.error(`[BRIDGE] Failed to delete template ${templateId}`);
+    }
+    return success;
 }
 
 export async function deleteTemplates(

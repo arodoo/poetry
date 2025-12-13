@@ -14,6 +14,7 @@ interface HardwareStatsProps {
   sensorSlots: number[]
   dbSlots: number[]
   loading?: boolean
+  onDeleteSlot?: (slotId: number) => void
 }
 
 export function HardwareStats({
@@ -21,6 +22,7 @@ export function HardwareStats({
   sensorSlots,
   dbSlots,
   loading = false,
+  onDeleteSlot,
 }: HardwareStatsProps): ReactElement {
   const t = useT()
 
@@ -52,6 +54,7 @@ export function HardwareStats({
             slots={sensorSlots}
             label={t('ui.devtools.hardware.slots')}
             emptyMessage="No fingerprints in sensor"
+            onDelete={onDeleteSlot}
           />
         </div>
       </Card>
