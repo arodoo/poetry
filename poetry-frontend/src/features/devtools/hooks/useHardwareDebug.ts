@@ -2,6 +2,7 @@
  * File: useHardwareDebug.ts
  * Purpose: Hook for hardware debug logic and state management.
  * All Rights Reserved. Arodi Emmanuel
+ * Updated: 2025-12-12 - Fixed API endpoints
  */
 import { useState } from 'react'
 import { useT } from '../../../shared/i18n/useT'
