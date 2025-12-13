@@ -18,13 +18,19 @@ export default defineConfig(async (): Promise<UserConfig> => {
     mod as { default: () => PluginOption }
   ).default
   const plugins: PluginOption[] = [react(), i18nKeyGen(), devLoggerFactory()]
-  // Dev proxy to backend API
+  // Dev proxy to backend API and hardware service
   const server: UserConfig['server'] = {
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
         secure: false,
+      },
+      '/hardware': {
+        target: 'http://localhost:3002',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/hardware/, '/api'),
       },
     },
   }

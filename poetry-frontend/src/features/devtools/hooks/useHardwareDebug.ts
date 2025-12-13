@@ -15,7 +15,7 @@ interface SensorState {
     error: string | null
 }
 
-const HARDWARE_URL = 'http://localhost:3002'
+const HARDWARE_URL = '/hardware'
 
 export function useHardwareDebug(): {
     sensor: SensorState
