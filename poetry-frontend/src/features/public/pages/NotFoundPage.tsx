@@ -46,7 +46,7 @@ export default function NotFoundPage(): ReactElement {
               {t('ui.common.back')}
             </Button>
             <Button to={`/${locale}/dashboard`} variant="primary" size="md">
-              {t('ui.nav.home')}
+              {t('ui.route.home.title')}
             </Button>
           </div>
         </div>
