@@ -30,7 +30,7 @@ export function SlotsList({
       ) : (
         <div className="flex flex-wrap gap-2">
           {slots.map((slot) => (
-            <Badge key={slot} variant="primary" size="md">
+            <Badge key={slot} tone="primary" size="md">
               Slot {slot}
             </Badge>
           ))}

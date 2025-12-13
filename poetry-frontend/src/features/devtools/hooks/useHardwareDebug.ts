@@ -42,8 +42,15 @@ export function useHardwareDebug(): {
                 loading: false,
                 error: null,
             })
+            // Success feedback
+            if (data.count === 0) {
+                toast.push('No fingerprints found in sensor')
+            } else {
+                toast.push(`Found ${data.count} fingerprint${data.count > 1 ? 's' : ''} in sensor`)
+            }
         } catch (e) {
             setSensor((s) => ({ ...s, loading: false, error: String(e) }))
+            toast.push('Failed to scan sensor')
         }
     }
 

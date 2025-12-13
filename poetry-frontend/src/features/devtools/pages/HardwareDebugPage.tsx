@@ -37,13 +37,15 @@ export function HardwareDebugPage(): ReactElement {
   }
 
   return (
-    <div className="hardware-debug-page max-w-4xl mx-auto p-6">
-      <Heading level={1}>{t('ui.devtools.hardware.title')}</Heading>
-      <Text size="sm" className="mb-6">
-        {t('ui.devtools.hardware.subtitle')}
-      </Text>
+    <div className="hardware-debug-page max-w-6xl mx-auto p-6">
+      <div className="mb-8">
+        <Heading level={1} className="mb-2">{t('ui.devtools.hardware.title')}</Heading>
+        <Text size="md" className="text-[var(--color-text-muted)]">
+          {t('ui.devtools.hardware.subtitle')}
+        </Text>
+      </div>
 
-      <Stack gap="md">
+      <Stack gap="lg">
         <HardwareControls
           loading={sensor.loading}
           onScan={fetchUsedSlots}
