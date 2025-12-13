@@ -15,7 +15,7 @@ const overlayClassList: readonly string[] = [
   'flex-col',
   'items-center',
   'justify-center',
-  'bg-white/70',
+  'bg-[var(--color-surface)]/70',
   'backdrop-blur-sm',
 ]
 

@@ -28,6 +28,10 @@ class GetAllThemesUseCaseTest {
         return java.util.Optional.empty();
       }
 
+      public java.util.Optional<Theme> findByKey(String key) {
+        return java.util.Optional.empty();
+      }
+
       public java.util.Optional<Theme> findActive() {
         return java.util.Optional.empty();
       }

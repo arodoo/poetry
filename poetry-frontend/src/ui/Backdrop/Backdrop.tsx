@@ -11,9 +11,9 @@ export interface BackdropProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const opacityMap: Record<string, string> = {
-  light: 'bg-black/25',
-  medium: 'bg-black/40',
-  dark: 'bg-black/60',
+  light: 'bg-[var(--color-overlay)]/25',
+  medium: 'bg-[var(--color-overlay)]/40',
+  dark: 'bg-[var(--color-overlay)]/60',
 }
 
 export function Backdrop({

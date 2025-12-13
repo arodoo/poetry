@@ -12,6 +12,10 @@ import com.poetry.poetry_backend.domain.theme.model.Theme;
 
 public interface ThemeQueryPort {
   List<Theme> findAll();
+
   Optional<Theme> findById(Long id);
+
+  Optional<Theme> findByKey(String key);
+
   Optional<Theme> findActive();
 }

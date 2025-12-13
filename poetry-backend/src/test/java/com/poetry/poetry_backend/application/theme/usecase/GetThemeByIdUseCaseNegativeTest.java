@@ -32,6 +32,10 @@ class GetThemeByIdUseCaseNegativeTest {
                 return Optional.empty();
             }
 
+            public Optional<Theme> findByKey(String key) {
+                return Optional.empty();
+            }
+
             public Optional<Theme> findActive() {
                 return Optional.empty();
             }

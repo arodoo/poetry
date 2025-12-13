@@ -46,6 +46,7 @@ class UITokensPreloadDefaultFontSelectionBehaviorTest
         public java.util.List<Theme> findAll() { return java.util.List.of(); }
         @Override
         public java.util.Optional<Theme> findById(Long id) { return java.util.Optional.empty(); }
+      public java.util.Optional<Theme> findByKey(String key) { return java.util.Optional.empty(); }
         @Override
         public java.util.Optional<Theme> findActive() { return java.util.Optional.empty(); }
       }

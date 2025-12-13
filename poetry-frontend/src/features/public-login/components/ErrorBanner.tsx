@@ -16,7 +16,7 @@ export function ErrorBanner({ message }: { message: string }): ReactElement {
         'p-3',
       ].join(' ')}
     >
-      <p className="text-white text-sm">{message}</p>
+      <p className="text-[var(--color-onPrimary)] text-sm">{message}</p>
     </div>
   )
 }

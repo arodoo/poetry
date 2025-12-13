@@ -8,7 +8,7 @@ import { UserMenu } from '../user-menu'
 
 export function Navbar(): ReactElement {
   return (
-    <header className="border-b border-[var(--color-border)] bg-white h-14">
+    <header className="border-b border-[var(--color-border)] bg-[var(--color-surface)] h-14">
       <div className="h-full flex items-center justify-end px-4">
         <UserMenu />
       </div>

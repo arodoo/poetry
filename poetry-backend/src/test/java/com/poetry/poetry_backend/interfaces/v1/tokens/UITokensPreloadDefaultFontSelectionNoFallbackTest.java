@@ -42,6 +42,7 @@ class UITokensPreloadDefaultFontSelectionNoFallbackTest {
       new com.poetry.poetry_backend.application.theme.port.ThemeQueryPort() {
         @Override public List<Theme> findAll() { return List.of(); }
         @Override public Optional<Theme> findById(Long id) { return Optional.empty(); }
+        @Override public Optional<Theme> findByKey(String key) { return Optional.empty(); }
         @Override public Optional<Theme> findActive() { return Optional.empty(); }
       }
     );

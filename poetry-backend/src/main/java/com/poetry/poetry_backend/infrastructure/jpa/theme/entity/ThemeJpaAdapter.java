@@ -20,7 +20,9 @@ import com.poetry.poetry_backend.domain.theme.model.Theme;
 public class ThemeJpaAdapter implements ThemeQueryPort, ThemeCommandPort {
   private final ThemeJpaRepository repo;
 
-  public ThemeJpaAdapter(ThemeJpaRepository r) { this.repo = r; }
+  public ThemeJpaAdapter(ThemeJpaRepository r) {
+    this.repo = r;
+  }
 
   public List<Theme> findAll() {
     return repo.findAllActive().stream().map(ThemeJpaMapper::toDomain).toList();
@@ -28,6 +30,10 @@ public class ThemeJpaAdapter implements ThemeQueryPort, ThemeCommandPort {
 
   public Optional<Theme> findById(Long id) {
     return repo.findActiveById(id).map(ThemeJpaMapper::toDomain);
+  }
+
+  public Optional<Theme> findByKey(String key) {
+    return repo.findActiveByKey(key).map(ThemeJpaMapper::toDomain);
   }
 
   public Optional<Theme> findActive() {
@@ -61,5 +67,7 @@ public class ThemeJpaAdapter implements ThemeQueryPort, ThemeCommandPort {
     repo.bulkDeactivateAllActive();
   }
 
-  public long count() { return repo.count(); }
+  public long count() {
+    return repo.count();
+  }
 }

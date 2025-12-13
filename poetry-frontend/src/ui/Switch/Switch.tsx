@@ -26,7 +26,7 @@ export function Switch({
   const internalId: string = useId()
   const switchId: string = id ?? internalId
   const knob: string =
-    'absolute left-0 top-0 h-4 w-4 rounded-full bg-white ' +
+    'absolute left-0 top-0 h-4 w-4 rounded-full bg-[var(--color-surface)] ' +
     'transition-transform shadow translate-x-0 data-[on=true]:translate-x-4'
   const track: string =
     'relative h-4 w-8 rounded-full transition-colors ' +

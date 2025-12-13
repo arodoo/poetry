@@ -31,13 +31,13 @@ export function pickTextColor(
   variant: 'primary' | 'secondary' | 'danger',
   tone: TextTone
 ): string {
-  if (variant === 'primary') return '!text-white'
-  if (variant === 'danger') return '!text-white'
+  if (variant === 'primary') return 'text-onPrimary'
+  if (variant === 'danger') return 'text-onPrimary'
   // Secondary variant uses tone to determine text color.
-  if (tone === 'primary') return 'text-[var(--color-primary)]'
-  if (tone === 'error') return 'text-[var(--color-error)]'
-  if (tone === 'muted') return 'text-[var(--color-textMuted)]'
-  return 'text-[var(--color-text)]'
+  if (tone === 'primary') return 'text-primary'
+  if (tone === 'error') return 'text-error'
+  if (tone === 'muted') return 'text-textMuted'
+  return 'text-text'
 }
 
 export function buildClassName(props: ButtonProps): string {
@@ -51,14 +51,14 @@ export function buildClassName(props: ButtonProps): string {
   ).className
   let bg: string
   if (variant === 'primary') {
-    bg = 'bg-[var(--color-primary)] hover:opacity-90'
+    bg = 'bg-primary hover:opacity-90'
   } else if (variant === 'danger') {
-    bg = 'bg-[var(--color-error)] hover:opacity-90'
+    bg = 'bg-error hover:opacity-90'
   } else {
-    bg = 'bg-[var(--color-background)] hover:bg-[var(--color-border)]'
+    bg = 'bg-background hover:bg-border'
   }
   const border: string | undefined =
-    variant === 'secondary' ? 'border border-[var(--color-border)]' : undefined
+    variant === 'secondary' ? 'border border-border' : undefined
   return clsx(
     base,
     bg,

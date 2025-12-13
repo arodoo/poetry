@@ -56,6 +56,11 @@ class UITokensCurrentSelectionTest {
           }
 
           @Override
+          public java.util.Optional<Theme> findByKey(String key) {
+            return java.util.Optional.empty();
+          }
+
+          @Override
           public java.util.Optional<Theme> findActive() {
             return java.util.Optional.empty();
           }

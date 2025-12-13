@@ -28,6 +28,10 @@ class GetThemeByIdUseCaseTest {
             .map(t -> t.withId(id));
       }
 
+      public java.util.Optional<Theme> findByKey(String key) {
+        return java.util.Optional.empty();
+      }
+
       public java.util.Optional<Theme> findActive() {
         return java.util.Optional.empty();
       }
@@ -44,6 +48,10 @@ class GetThemeByIdUseCaseTest {
       }
 
       public java.util.Optional<Theme> findById(Long id) {
+        return java.util.Optional.empty();
+      }
+
+      public java.util.Optional<Theme> findByKey(String key) {
         return java.util.Optional.empty();
       }
 

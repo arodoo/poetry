@@ -36,6 +36,22 @@ export function checkTailwindColors(line, num, path, issues) {
   return true
 }
 
+export function checkTailwindRawColors(line, num, path, issues) {
+  const matches = [...line.matchAll(PATTERNS.tailwindRawColors)]
+  if (matches.length === 0) return false
+
+  matches.forEach((match) => {
+    issues.push({
+      file: path,
+      line: num,
+      type: 'tailwind-raw-color',
+      value: match[0],
+      context: line.trim(),
+    })
+  })
+  return true
+}
+
 function checkPattern(line, num, path, issues, pattern, type) {
   const matches = [...line.matchAll(pattern)]
   if (matches.length === 0) return false

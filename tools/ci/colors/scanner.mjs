@@ -15,6 +15,7 @@ import {
   checkRgbColors,
   checkHslColors,
   checkTailwindColors,
+  checkTailwindRawColors,
 } from './scanner-helpers.mjs'
 
 export class ColorScanner {
@@ -58,6 +59,7 @@ export class ColorScanner {
         checkRgbColors,
         checkHslColors,
         checkTailwindColors,
+        checkTailwindRawColors,
       ]
       checks.forEach((check) => {
         hasIssues = check(line, num, relativePath, this.issues) || hasIssues

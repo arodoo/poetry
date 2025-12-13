@@ -16,8 +16,13 @@ import org.springframework.data.jpa.repository.Query;
 public interface ThemeJpaRepository extends JpaRepository<ThemeEntity, Long> {
   @Query("select t from ThemeEntity t where t.deletedAt is null")
   List<ThemeEntity> findAllActive();
+
   @Query("select t from ThemeEntity t where t.id = ?1 and t.deletedAt is null")
   Optional<ThemeEntity> findActiveById(Long id);
+
+  @Query("select t from ThemeEntity t where t.key = ?1 and t.deletedAt is null")
+  Optional<ThemeEntity> findActiveByKey(String key);
+
   @Query("select t from ThemeEntity t where t.active = true and t.deletedAt is null")
   Optional<ThemeEntity> findActive();
 

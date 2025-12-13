@@ -19,13 +19,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       'focus:outline-none focus:ring-[var(--focus-ring-color)] ' +
       'focus:ring-offset-1 focus:ring-[length:var(--focus-ring-width)]'
     const base: string =
-      'w-full rounded border bg-[var(--color-surface,#fff)] ' +
-      'px-3 py-2 text-sm text-[var(--color-text,#111)] ' +
-      'placeholder:text-[var(--color-text-muted,#666)] ' +
+      'w-full rounded border bg-surface ' +
+      'px-3 py-2 text-sm text-text ' +
+      'placeholder:text-textMuted ' +
       focusRing
     const state: string = clsx(
       disabled && 'opacity-50 cursor-not-allowed',
-      invalid && 'border-[var(--color-danger,#dc2626)]'
+      invalid && 'border-error'
     )
     return (
       <input

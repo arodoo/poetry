@@ -32,6 +32,7 @@ class VersionedPlaceholderControllerTest {
     ThemeQueryPort themePort = new ThemeQueryPort() {
       public List<Theme> findAll() { return List.of(); }
       public java.util.Optional<Theme> findById(Long id) { return java.util.Optional.empty(); }
+      public java.util.Optional<Theme> findByKey(String key) { return java.util.Optional.empty(); }
       public java.util.Optional<Theme> findActive() { return java.util.Optional.empty(); }
     };
     ResolveMessageUseCase resolveMessage = new ResolveMessageUseCase(i18nPort);

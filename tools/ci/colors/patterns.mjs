@@ -12,11 +12,12 @@ export const PATTERNS = {
   hslColors: /hsla?\s*\([^)]+\)/g,
   tailwindColors: new RegExp(
     '\\b(text|bg|border|ring|divide|outline|shadow|from|via|to|' +
-      'decoration)-(slate|gray|zinc|neutral|stone|red|orange|amber|' +
-      'yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|' +
-      'purple|fuchsia|pink|rose)(-\\d{2,3})?\\b',
+    'decoration)-(slate|gray|zinc|neutral|stone|red|orange|amber|' +
+    'yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|' +
+    'purple|fuchsia|pink|rose)(-\\d{2,3})?\\b',
     'g'
   ),
+  tailwindRawColors: /\b!?(text|bg|border|ring|fill|stroke)-(white|black)\b/g,
 }
 
 export const EXCLUDE_PATTERNS = [
@@ -73,4 +74,5 @@ export const EXPECTED_THEME_VARS = [
   '--color-onSurface',
   '--color-textMuted',
   '--color-textSubtle',
+  '--color-overlay',
 ]

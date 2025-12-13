@@ -22,8 +22,8 @@ export function Badge({
   const toneMap: Record<string, string> = {
     primary: 'bg-[var(--color-primary)] text-[var(--color-onPrimary,#fff)]',
     neutral: 'bg-[var(--color-surface,#e5e5e5)] text-[var(--color-text,#111)]',
-    danger: 'bg-[var(--color-danger,#dc2626)] text-white',
-    success: 'bg-[var(--color-success,#16a34a)] text-white',
+    danger: 'bg-[var(--color-danger)] text-[var(--color-onPrimary)]',
+    success: 'bg-[var(--color-success)] text-[var(--color-onPrimary)]',
   }
   const sizeMap: Record<string, string> = {
     sm: 'text-[10px] px-1.5 py-0.5',

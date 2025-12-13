@@ -50,7 +50,7 @@ export function UserMenuCoreImpl(): ReactElement {
         <div
           ref={menuReference}
           role="menu"
-          className="absolute right-0 mt-2 w-40 rounded border bg-white shadow"
+          className="absolute right-0 mt-2 w-40 rounded border bg-[var(--color-surface)] shadow"
         >
           <UserMenuItems
             profilePath={profilePath}

@@ -23,41 +23,41 @@ import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UITokensSelectionFallbackTest {
-  @Autowired private ThemeCommandPort themeCmd;
-  @Autowired private SaveSystemSelectionUseCase saveSel;
-  @Autowired private TestRestTemplate rest;
+  @Autowired
+  private ThemeCommandPort themeCmd;
+  @Autowired
+  private SaveSystemSelectionUseCase saveSel;
+  @Autowired
+  private TestRestTemplate rest;
 
   @Test
   void fallbackWhenStoredThemeMissing() {
     Theme t1 = themeCmd.save(Theme.createNew("one", "One", Map.of("p", "#111111")));
     Theme t2 = themeCmd.save(Theme.createNew("two", "Two", Map.of("p", "#222222")));
     saveSel.execute(
-      new UiCustomizationSelection(
-        t2.getKey(),
-        "Inter",
-        "default",
-        "default",
-        "default",
-        "default"
-      )
-    );
+        new UiCustomizationSelection(
+            t2.getKey(),
+            "Inter",
+            "default",
+            "default",
+            "default",
+            "default"));
     themeCmd.deleteSoft(t2.getId());
     ResponseEntity<UITokensDto> resp = rest.getForEntity(
-      "/api/v1/tokens",
-      UITokensDto.class);
+        "/api/v1/tokens",
+        UITokensDto.class);
     UITokensDto body = resp.getBody();
     boolean hasCurrent = body != null && body.current != null;
     assertThat(hasCurrent).isTrue();
     if (body != null && body.current != null) {
-    // Fallback picks first available theme.
-    // Seeder adds defaults before manual themes, order not guaranteed.
+      // Fallback picks first available theme.
+      // Seeder adds defaults before manual themes, order not guaranteed.
       assertThat(body.current.theme)
-        .as("fallback to existing theme")
-        .isIn(
-          t1.getKey(),
-          "a1",
-          "amber"
-        );
+          .as("fallback to existing theme")
+          .isIn(
+              t1.getKey(),
+              "calm", "sage", "blush", "marine", "sand",
+              "night", "stone", "grove", "dusk", "ink");
     }
   }
 }

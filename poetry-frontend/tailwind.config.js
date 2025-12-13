@@ -20,6 +20,12 @@ export default {
         warning: 'var(--color-warning)',
         error: 'var(--color-error)',
         info: 'var(--color-info)',
+        onPrimary: 'var(--color-onPrimary)',
+        onSecondary: 'var(--color-onSecondary)',
+        onSurface: 'var(--color-onSurface)',
+        textMuted: 'var(--color-textMuted)',
+        textSubtle: 'var(--color-textSubtle)',
+        overlay: 'var(--color-overlay)',
       },
       // spacing scale customized via CSS variables directly in components
       fontSize: {
