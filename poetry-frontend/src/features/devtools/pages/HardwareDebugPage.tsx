@@ -60,6 +60,7 @@ export function HardwareDebugPage(): ReactElement {
           sensorCount={sensor.count}
           sensorSlots={sensor.slots}
           dbSlots={dbSlots}
+          loading={sensor.loading}
         />
 
         <SyncIssues

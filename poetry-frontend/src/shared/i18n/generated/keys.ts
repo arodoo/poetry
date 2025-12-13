@@ -12,6 +12,7 @@ export const I18N_KEYS: readonly string[] = [
   'ui.admin.tokens.title',
   'ui.auth.unauthorized.message',
   'ui.auth.unauthorized.title',
+  'ui.common.back',
   'ui.common.cancel',
   'ui.common.close',
   'ui.common.error',
