@@ -3,7 +3,11 @@
   "ui.devtools.hardware.title": "Debug de Hardware",
   "ui.devtools.hardware.subtitle": "Inspección y control directo del sensor R503",
   "ui.devtools.hardware.scanSlots": "Escanear Slots Usados",
-  "ui.devtools.hardware.clearAll": "Borrar Todos los Templates",
-  "ui.devtools.hardware.usedCount": "Cantidad de Slots Usados",
+  "ui.devtools.hardware.clearAll": "Limpiar Todo",
+  "ui.devtools.hardware.clearConfirmTitle": "¿Limpiar todas las huellas?",
+  "ui.devtools.hardware.clearConfirmBody": "Esto eliminará TODAS las plantillas del sensor R503. Esta acción no se puede deshacer.",
+  "ui.devtools.hardware.clearSuccess": "Sensor limpiado correctamente",
+  "ui.devtools.hardware.clearError": "Error al limpiar el sensor",
+  "ui.devtools.hardware.usedCount": "Slots Usados",
   "ui.devtools.hardware.slots": "IDs de Slots"
 }

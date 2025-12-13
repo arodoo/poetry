@@ -36,9 +36,6 @@ export default function FingerprintsListPage(): ReactElement {
       <Button to={`/${locale}/fingerprints/simulator`} size="md">
         {t('ui.fingerprints.actions.simulator')}
       </Button>
-      <Button to={`/${locale}/fingerprints/enroll`} size="md">
-        {t('ui.fingerprints.actions.enroll')}
-      </Button>
     </div>
   )
 

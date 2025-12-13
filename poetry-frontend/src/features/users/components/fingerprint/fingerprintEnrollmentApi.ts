@@ -35,7 +35,7 @@ export async function reserveSlotFromBackend(): Promise<number> {
 export async function enrollWithHardware(
   slotId: number
 ): Promise<{ success: boolean; slotId: number; message: string }> {
-  const hardwareUrl = 'http://localhost:3001'
+  const hardwareUrl = 'http://localhost:3000'
   const response = await fetch(`${hardwareUrl}/api/fingerprint/enroll`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

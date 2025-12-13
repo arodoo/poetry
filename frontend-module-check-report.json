@@ -1,7 +1,7 @@
 {
   "ok": true,
   "summary": {
-    "features": 16,
+    "features": 17,
     "missing": 0
   },
   "details": [
@@ -463,6 +463,122 @@
         },
         {
           "path": "poetry-frontend/src/tests/features/dashboard/pages/DashboardPage.test.ts",
+          "optional": false,
+          "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "devtools",
+      "expected": [
+        {
+          "path": "poetry-frontend/src/features/devtools/model/DevtoolsSchemas.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/api/devtoolsApi.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/hooks/useDevtoolsQueries.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/hooks/useDevtoolsMutations.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/components",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/pages",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/routing/devtoolsRoutes.tsx",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/locales/en.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/locales/es.json",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/features/devtools/index.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/config/env.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/fetchClient.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/http/clientCore.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/i18n",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/shared/routing",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/sdk/.openapi.hash",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/devtools.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/devtools/model/DevtoolsSchemas.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/devtools/api/devtoolsApi.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/devtools/hooks/devtoolsQueries.test.ts",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/devtools/hooks/devtoolsMutations.test.ts",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-frontend/src/tests/features/devtools/pages/DevtoolsPage.test.ts",
           "optional": false,
           "exists": true
         }

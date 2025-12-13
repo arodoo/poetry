@@ -4,6 +4,10 @@
   "ui.devtools.hardware.subtitle": "Direct R503 sensor inspection and control",
   "ui.devtools.hardware.scanSlots": "Scan Used Slots",
   "ui.devtools.hardware.clearAll": "Clear All Templates",
+  "ui.devtools.hardware.clearConfirmTitle": "Clear All Fingerprints?",
+  "ui.devtools.hardware.clearConfirmBody": "This will remove ALL fingerprint templates from the R503 sensor. This action cannot be undone.",
+  "ui.devtools.hardware.clearSuccess": "Sensor cleared successfully",
+  "ui.devtools.hardware.clearError": "Failed to clear sensor",
   "ui.devtools.hardware.usedCount": "Used Slots Count",
   "ui.devtools.hardware.slots": "Slot IDs"
 }

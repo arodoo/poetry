@@ -10,7 +10,7 @@ import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
 import ListPage from '../pages/FingerprintsListPage'
-import EnrollPage from '../pages/EnrollFingerprintPage'
+// import EnrollPage from '../pages/EnrollFingerprintPage'
 import VerifyPage from '../pages/VerifyFingerprintPage'
 import SimPage from '../pages/FingerprintSimulatorPage'
 import AdminPage from '../pages/FingerprintAdminPage'
@@ -26,6 +26,7 @@ export function FingerprintRoutes(): ReactElement[] {
         </AdminRoute>
       }
     />,
+    /*
     <Route
       key="fingerprints-enroll"
       path=":locale/fingerprints/enroll"
@@ -35,6 +36,7 @@ export function FingerprintRoutes(): ReactElement[] {
         </AdminRoute>
       }
     />,
+    */
     <Route
       key="fingerprints-verify"
       path=":locale/fingerprints/verify"
