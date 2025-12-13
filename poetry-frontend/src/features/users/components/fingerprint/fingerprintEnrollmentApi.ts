@@ -29,25 +29,45 @@ export async function reserveSlotFromBackend(): Promise<number> {
   }
 
   const data = (await response.json()) as { slotId: number }
-  return data.slotId
+  console.log('[FP] Reserve slot response:', data)
+  console.log('[FP] slotId value:', data.slotId, 'type:', typeof data.slotId)
+
+  const slotId = Number(data.slotId)
+  if (isNaN(slotId)) {
+    throw new Error(`Invalid slotId received: ${data.slotId}`)
+  }
+
+  return slotId
 }
 
 export async function enrollWithHardware(
   slotId: number
 ): Promise<{ success: boolean; slotId: number; message: string }> {
+  console.log('[FP] Enrolling with hardware, slotId:', slotId, 'type:', typeof slotId)
+
+  const payload = { slotId }
+  console.log('[FP] Request payload:', JSON.stringify(payload))
+
   const response = await fetch(`/hardware/fingerprint/enroll`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ slotId }),
+    body: JSON.stringify(payload),
   })
 
+  console.log('[FP] Hardware response status:', response.status)
+
   if (!response.ok) {
+    const errorText = await response.text()
+    console.error('[FP] Hardware enrollment failed:', errorText)
     throw new Error('Hardware enrollment failed')
   }
 
-  return (await response.json()) as {
+  const result = (await response.json()) as {
     success: boolean
     slotId: number
     message: string
   }
+
+  console.log('[FP] Hardware enrollment result:', result)
+  return result
 }

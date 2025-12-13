@@ -40,7 +40,7 @@ export async function enrollFingerprint(
   const response = await fetch(`${BRIDGE_URL}/fingerprint/enroll`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ templateId }),
+    body: JSON.stringify({ id: templateId }),
   });
   return response.json() as Promise<BridgeResponse>;
 }

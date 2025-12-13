@@ -11,7 +11,7 @@ import { createServer, startServer } from
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-function main() {
+async function main() {
   const dllPath = path.join(__dirname, '..', 'dll', 'SynoAPIEx.dll');
 
   console.log('Initializing fingerprint SDK...');
@@ -29,6 +29,15 @@ function main() {
 
     const app = createServer();
     startServer(app, 3001);
+
+    // Auto-open device on startup (important for nodemon restarts)
+    const { openDevice } = await import('./application/index.js');
+    const result = openDevice();
+    if (result.code === 0) {
+      console.log('Device auto-opened successfully');
+    } else {
+      console.warn(`Device auto-open failed with code ${result.code}`);
+    }
   } catch (error) {
     console.error('Failed to initialize:', error.message);
     process.exit(1);

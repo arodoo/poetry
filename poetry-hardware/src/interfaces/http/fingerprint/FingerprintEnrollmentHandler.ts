@@ -14,10 +14,14 @@ export class FingerprintEnrollmentHandler {
     try {
       const { slotId } = req.body;
 
-      if (!slotId || typeof slotId !== 'number') {
+      logger.info(`[FP] Enroll request received. Body: ${JSON.stringify(req.body)}`);
+      logger.info(`[FP] slotId value: ${slotId}, type: ${typeof slotId}`);
+
+      if (slotId === undefined || slotId === null || typeof slotId !== 'number') {
+        logger.error(`[FP] Invalid slotId. Value: ${slotId}, Type: ${typeof slotId}`);
         res.status(400).json({
           success: false,
-          error: 'Invalid slotId',
+          error: `Invalid slotId. Received: ${slotId} (type: ${typeof slotId})`,
         });
         return;
       }
@@ -35,9 +39,23 @@ export class FingerprintEnrollmentHandler {
         });
       } else {
         logger.error(`Enrollment failed for slot ${slotId}`);
+
+        // Provide specific error message based on common R503 error codes
+        let errorMessage = 'Enrollment failed';
+        if (result.templateId === 32) {
+          errorMessage = 'Timeout: No finger detected on sensor. Please place your finger and try again.';
+        } else if (result.templateId === 1) {
+          errorMessage = 'Communication error with sensor';
+        } else if (result.templateId === 6) {
+          errorMessage = 'Failed to generate character file';
+        } else if (result.templateId === 7) {
+          errorMessage = 'Failed to generate template';
+        }
+
         res.status(500).json({
           success: false,
-          error: 'Enrollment failed',
+          error: errorMessage,
+          code: result.templateId,
         });
       }
     } catch (error) {

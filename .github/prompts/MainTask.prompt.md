@@ -48,10 +48,15 @@
 ## 🚧 Known Issues & Pending Fixes
 
 ### High Priority
-- [ ] **Enrollment 400 Error**: Investigate `slotId` type mismatch causing Bad Request
-  - Frontend sends correct number type
-  - Hardware service expects number
-  - Error occurs intermittently - needs debugging
+- [x] **Enrollment 400 Error**: ~~Investigate `slotId` type mismatch causing Bad Request~~ **RESOLVED**
+  - Root cause: Falsy zero bug - validation used `!slotId` which rejected valid slot 0
+  - Fixed: Changed to `slotId === undefined || slotId === null || typeof slotId !== 'number'`
+  - Verified: Enrollment now starts correctly, validation passes
+- [ ] **Enrollment 500 Error**: Hardware enrollment fails after validation passes
+  - Validation accepts slotId 0 correctly
+  - Error occurs in `fingerprintPort.enroll(slotId)` 
+  - May be bridge service communication or R503 sensor issue
+  - Needs investigation of hardware service enrollment logic
 - [ ] **Test E2E tokenProvider**: Fix missing module error in `users-create-fingerprint.spec.ts`
 
 ### Medium Priority

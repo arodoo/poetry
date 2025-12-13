@@ -140,5 +140,60 @@ export function autoEnroll(targetId) {
   return { code: result, id: outIdPtr[0] };
 }
 
+export function manualEnroll(targetId) {
+  if (deviceHandle === null) {
+    return { code: -1, message: 'Device not open' };
+  }
+
+  const bindings = getBindings();
+  log.info('SERVICE', `Starting manual enrollment for slot ${targetId}`);
+
+  // Try to get image with retries - wait indefinitely until finger detected or user cancels
+  let imageCode = -1;
+  const maxAttempts = 1000; // 1000 attempts ~= 1.6 minutes (effectively infinite)
+
+  for (let i = 0; i < maxAttempts; i++) {
+    imageCode = bindings.PSGetImage(deviceHandle, deviceAddr);
+    log.debug('SERVICE', `PSGetImage attempt ${i + 1}: code ${imageCode}`);
+
+    if (imageCode === 0) {
+      // Finger detected!
+      log.info('SERVICE', 'Finger detected on sensor');
+      break;
+    }
+
+    // Wait 100ms between attempts
+    const start = Date.now();
+    while (Date.now() - start < 100) {
+      // Busy wait
+    }
+  }
+
+  if (imageCode !== 0) {
+    log.error('SERVICE', `Timeout waiting for finger. Last code: ${imageCode}`);
+    return { code: 32, id: 0 }; // Return timeout code
+  }
+
+  // Generate character file from image (buffer 1)
+  const genCode = bindings.PSGenChar(deviceHandle, deviceAddr, 1);
+  log.sdk('PSGenChar', { buffer: 1 }, { code: genCode });
+
+  if (genCode !== 0) {
+    return { code: genCode, id: 0 };
+  }
+
+  // For now, store the single reading as a template
+  // (Real enrollment needs 6 readings, but let's test this first)
+  const storeCode = bindings.PSStoreChar(deviceHandle, deviceAddr, 1, targetId);
+  log.sdk('PSStoreChar', { buffer: 1, pageId: targetId }, { code: storeCode });
+
+  if (storeCode === 0) {
+    log.info('SERVICE', `Successfully enrolled fingerprint to slot ${targetId}`);
+    return { code: 0, id: targetId };
+  }
+
+  return { code: storeCode, id: 0 };
+}
+
 export const getDeviceHandle = () => deviceHandle;
 export const getDeviceAddr = () => deviceAddr;

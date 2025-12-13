@@ -4,20 +4,29 @@
 // All Rights Reserved. Arodi Emmanuel
 
 import { Router } from 'express';
-import { autoEnroll, autoIdentify } from '../../../application/index.js';
+import { manualEnroll as autoEnroll, autoIdentify } from '../../../application/index.js';
 
 const router = Router();
+// Trigger nodemon reload - timestamp: 2025-12-13 12:35
 
 router.post('/enroll', (req, res) => {
   try {
+    console.log('[BRIDGE-ROUTE] Enroll request body:', JSON.stringify(req.body));
     const targetId = req.body.id ?? 0xFFFF; // Auto-assign if not specified
+    console.log('[BRIDGE-ROUTE] Target ID:', targetId);
+
     const result = autoEnroll(targetId);
+    console.log('[BRIDGE-ROUTE] autoEnroll result:', JSON.stringify(result));
+
     if (result.code === 0) {
+      console.log('[BRIDGE-ROUTE] Success! Returning id:', result.id);
       res.json({ success: true, id: result.id });
     } else {
+      console.log('[BRIDGE-ROUTE] Failed with code:', result.code);
       res.status(400).json({ success: false, code: result.code });
     }
   } catch (error) {
+    console.error('[BRIDGE-ROUTE] Exception:', error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });

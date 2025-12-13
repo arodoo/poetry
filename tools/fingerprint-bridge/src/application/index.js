@@ -5,7 +5,7 @@
 
 export {
   initialize, openDevice, closeDevice, captureImage, generateChar,
-  autoIdentify, autoEnroll, getDeviceHandle, getDeviceAddr
+  autoIdentify, autoEnroll, manualEnroll, getDeviceHandle, getDeviceAddr
 } from './fingerprint-service.js';
 
 export { downloadTemplate } from './template-download.js';

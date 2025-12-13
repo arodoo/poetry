@@ -18,10 +18,20 @@ import * as bridge from './BridgeHttpClient.js';
 export async function enrollFingerprint(
   templateId: number
 ): Promise<EnrollResult> {
+  logger.info(`[BRIDGE] Calling enrollFingerprint with templateId: ${templateId}`);
+
   const data = await bridge.enrollFingerprint(templateId);
+
+  logger.info(`[BRIDGE] Enroll response: ${JSON.stringify(data)}`);
+  logger.info(`[BRIDGE] data.code: ${data.code}, data.success: ${data.success}, data.id: ${data.id}`);
+
+  // Bridge returns {success:true, id:X} on success or {success:false, code:X} on failure
+  const success = data.success === true;
+  logger.info(`[BRIDGE] Enrollment success: ${success}`);
+
   return {
     templateId: data.id ?? templateId,
-    success: data.code === 0,
+    success,
   };
 }
 
