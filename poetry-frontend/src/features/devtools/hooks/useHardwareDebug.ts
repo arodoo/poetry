@@ -33,7 +33,7 @@ export function useHardwareDebug(): {
     const fetchUsedSlots = async (): Promise<void> => {
         setSensor((s) => ({ ...s, loading: true, error: null }))
         try {
-            const res = await fetch(`${HARDWARE_URL}/fingerprint/used-slots`)
+            const res = await fetch(`${HARDWARE_URL}/api/fingerprint/used-slots`)
             const data = await res.json()
             setSensor({
                 count: data.count,
@@ -49,7 +49,7 @@ export function useHardwareDebug(): {
     const clearAllTemplates = async (): Promise<void> => {
         setSensor((s) => ({ ...s, loading: true, error: null }))
         try {
-            await fetch(`${HARDWARE_URL}/fingerprint/clear-all`, { method: 'POST' })
+            await fetch(`${HARDWARE_URL}/api/fingerprint/clear-all`, { method: 'POST' })
             toast.push(t('ui.devtools.hardware.clearSuccess'))
             await fetchUsedSlots()
         } catch (e) {

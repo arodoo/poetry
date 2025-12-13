@@ -10,6 +10,26 @@ import { injectTokens } from '../shared/providers/tokenProvider'
 test.describe('Hardware Debug Page', () => {
   test.beforeEach(async ({ page }: { page: Page }) => {
     await injectTokens(page)
+
+    // Mock hardware service API calls
+    await page.route('**/api/fingerprint/used-slots', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          count: 2,
+          slots: [1, 5],
+        }),
+      })
+    })
+
+    await page.route('**/api/fingerprint/clear-all', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true }),
+      })
+    })
   })
 
   test('page loads with title and buttons', async ({ page }) => {
