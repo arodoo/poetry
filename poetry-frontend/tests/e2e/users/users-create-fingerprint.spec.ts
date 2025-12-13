@@ -22,7 +22,7 @@ test.describe('User Creation with Fingerprint', () => {
 
     // Mock Hardware Enroll
     await page.route(
-      'http://localhost:3000/api/fingerprint/enroll',
+      'http://localhost:3002/api/fingerprint/enroll',
       async (route) => {
         // Simulate delay for "Capturing" state
         await new Promise((resolve) => setTimeout(resolve, 1000))
