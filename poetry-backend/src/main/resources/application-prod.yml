@@ -1,0 +1,28 @@
+# File: application-prod.yml
+# Purpose: Production profile with persistent database
+# All Rights Reserved. Arodi Emmanuel
+
+spring:
+  # Disable dev tools in production
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+  # Production logging
+  logging:
+    level:
+      com.poetry: INFO
+
+# Production server settings
+server:
+  error:
+    include-stacktrace: never
+
+# Disable OpenAPI documentation in production
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
