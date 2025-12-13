@@ -45,7 +45,7 @@ export function createApp(
   app.use(express.json());
 
   app.use((req, _res, next) => {
-    logger.info(`${req.method} ${req.path}`);
+    logger.info(`${req.method} ${req.path} - Origin: ${req.headers.origin || 'none'}`);
     next();
   });
 
@@ -59,6 +59,26 @@ export function createApp(
   app.use('/api/relay', createRelayRoutes(relayController));
   app.use('/api/access', createAccessRoutes(accessController));
   app.use('/api/fingerprint', createFingerprintRoutes(fingerprintController));
+
+  // Error handling middleware
+  app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    logger.error(`Error: ${err.message}`, {
+      method: req.method,
+      path: req.path,
+      origin: req.headers.origin,
+      error: err.stack,
+    });
+
+    if (err.message === 'Not allowed by CORS') {
+      res.status(403).json({
+        error: 'CORS Error',
+        message: 'Origin not allowed',
+        origin: req.headers.origin,
+      });
+    } else {
+      res.status(500).json({ error: err.message });
+    }
+  });
 
   return app;
 }
