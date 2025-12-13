@@ -1,8 +1,0 @@
-# File: headers.yaml
-# Purpose: Reusable HTTP response headers (e.g., ETag) to be referenced
-# by operations responses. Centralizes shared header definitions.
-# All Rights Reserved. Arodi Emmanuel
-ETag:
-  description: Strong ETag of the resource
-  schema:
-    type: string

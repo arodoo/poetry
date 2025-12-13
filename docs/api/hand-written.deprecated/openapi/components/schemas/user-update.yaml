@@ -1,9 +1,0 @@
-# File: user-update.yaml
-# Purpose: Payload to update a user. Supports partial updates in v1 via
-# PUT with full resource replacement; fields not provided retain server
-# values by policy for safety. All Rights Reserved. Arodi Emmanuel
-title: UserUpdate
-type: object
-properties:
-  email: { type: string, format: email }
-  name: { type: string }

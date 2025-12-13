@@ -1,6 +1,0 @@
-# File: page-seller-code.yaml
-# Purpose: Paginated collection of seller codes.
-# All Rights Reserved. Arodi Emmanuel
-type: array
-items:
-  $ref: ./seller-code.yaml
