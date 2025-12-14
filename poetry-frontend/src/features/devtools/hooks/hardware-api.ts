@@ -32,3 +32,16 @@ export async function deleteSlotApi(slotId: number): Promise<boolean> {
     })
     return res.ok
 }
+
+export interface VerifyResult {
+    success: boolean
+    userId?: number
+    message?: string
+    error?: string
+}
+
+export async function verifyFingerprintApi(): Promise<VerifyResult> {
+    const res = await fetch(`${HARDWARE_URL}/access/verify-and-unlock`, { method: 'POST' })
+    return res.json()
+}
+
