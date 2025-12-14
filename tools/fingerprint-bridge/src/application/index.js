@@ -14,3 +14,5 @@ export { downloadTemplate } from './template-download.js';
 export { uploadTemplate } from './template-upload.js';
 export { getTemplateCount, deleteTemplate } from './template-management.js';
 export { getAvailableSlot, getAvailableSlots } from './slot-availability.js';
+export { manualIdentify } from './manual-identify.js';
+

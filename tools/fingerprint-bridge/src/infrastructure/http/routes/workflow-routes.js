@@ -3,7 +3,7 @@
 // All Rights Reserved. Arodi Emmanuel
 
 import { Router } from 'express';
-import { manualEnroll as autoEnroll, autoIdentify, getTemplateCount, getAvailableSlot, getAvailableSlots } from '../../../application/index.js';
+import { manualEnroll as autoEnroll, manualIdentify, getTemplateCount, getAvailableSlot, getAvailableSlots } from '../../../application/index.js';
 
 const router = Router();
 
@@ -23,7 +23,7 @@ router.post('/enroll', (req, res) => {
 
 router.post('/identify', (req, res) => {
   try {
-    const result = autoIdentify();
+    const result = manualIdentify();
     result.code === 0
       ? res.json({ success: true, id: result.id, score: result.score })
       : res.status(400).json({ success: false, code: result.code });
