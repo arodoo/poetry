@@ -15,7 +15,7 @@ import * as bridge from './BridgeHttpClient.js';
 
 export async function verifyFingerprint(): Promise<VerifyResult> {
     const data = await bridge.identifyFingerprint();
-    const matched = data.success === true && data.code === 0;
+    const matched = data.success === true && data.id != null;
     return {
         matched,
         templateId: data.id ?? null,
