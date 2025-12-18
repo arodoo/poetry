@@ -8,6 +8,7 @@ import type { NavigateFunction } from 'react-router-dom'
 import type { useT } from '../../../../shared/i18n/useT'
 import type { useToast } from '../../../../shared/toast/toastContext'
 import type { UserResponse } from '../../../../api/generated/types.gen'
+import { tokenStorage } from '../../../../shared/security/tokens/tokenStorage'
 import { rollbackFingerprint } from '../../components/fingerprint/rollback-fingerprint'
 
 export async function linkFingerprintToUser(
@@ -17,11 +18,18 @@ export async function linkFingerprintToUser(
   const baseUrl =
     (import.meta.env['VITE_API_URL'] as string | undefined) ??
     'http://localhost:8080'
+  const tokens = tokenStorage.load()
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
+  if (tokens?.accessToken) {
+    headers['Authorization'] = `Bearer ${tokens.accessToken}`
+  }
   const response = await fetch(
     `${baseUrl}/api/v1/users/${String(userId)}/fingerprints/link`,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       credentials: 'include',
       body: JSON.stringify({ slotId }),
     }
@@ -43,12 +51,17 @@ export function createMutationHandler(
 } {
   return {
     onSuccess: async (user): Promise<void> => {
+      console.log('[DEBUG] onSuccess - slotId:', slotId, 'userId:', user.id)
       if (slotId !== null && user.id !== undefined) {
         try {
+          console.log('[DEBUG] Calling linkFingerprintToUser...')
           await linkFingerprintToUser(user.id, slotId)
+          console.log('[DEBUG] Link successful')
         } catch (error) {
           console.error('Error linking fingerprint:', error)
         }
+      } else {
+        console.log('[DEBUG] Skipping link - slotId or userId missing')
       }
       toast.push(t('ui.users.toast.create.success'))
       void navigate(`/${locale}/users`)
