@@ -26,7 +26,7 @@ public class FingerprintDevBootstrap {
 
     private final HttpClientPort httpClient;
 
-    @Value("${app.hardware.base-url:http://localhost:3000}")
+    @Value("${app.hardware.base-url:http://localhost:3002}")
     private String hardwareBaseUrl;
 
     @Value("${spring.jpa.hibernate.ddl-auto:none}")
@@ -46,7 +46,7 @@ public class FingerprintDevBootstrap {
 
         log.info("FingerprintDevBootstrap: clearing R503 sensor (ddl={})", ddlAuto);
         try {
-            String url = hardwareBaseUrl + "/fingerprint/clear-all";
+            String url = hardwareBaseUrl + "/api/fingerprint/clear-all";
             Map<?, ?> response = httpClient.post(url, Map.of(), Map.of(), Map.class);
             log.info("FingerprintDevBootstrap: sensor cleared: {}", response);
         } catch (Exception e) {
