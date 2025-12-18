@@ -97,7 +97,7 @@ Detailed physical connection instructions.
    ```bash
    # .env: MOCK_MODE=true
    npm run dev
-   curl -X POST http://localhost:3001/api/relay/channel/1/on
+   curl -X POST http://localhost:3002/api/relay/channel/1/on
    ```
 
 7. **Switch to Real Mode**
@@ -133,7 +133,7 @@ Detailed physical connection instructions.
 
 5. **Test Fingerprint**
    ```bash
-   curl -X POST http://localhost:3001/api/fingerprint/enroll \
+   curl -X POST http://localhost:3002/api/fingerprint/enroll \
      -H "Content-Type: application/json" \
      -d '{"templateId": 1}'
    ```

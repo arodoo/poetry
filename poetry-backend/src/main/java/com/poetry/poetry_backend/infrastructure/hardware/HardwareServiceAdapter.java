@@ -1,8 +1,7 @@
 /*
  * File: HardwareServiceAdapter.java
  * Purpose: Infrastructure adapter implementing HardwareServicePort.
- * Uses HttpClientPort to call poetry-hardware batch delete endpoint
- * with retry logic for transient failures.
+ * Uses HttpClientPort to call poetry-hardware for fingerprint operations.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -21,6 +20,7 @@ import com.poetry.poetry_backend.application.fingerprint.port.HardwareServicePor
 public class HardwareServiceAdapter implements HardwareServicePort {
     private static final Logger log = LoggerFactory.getLogger(
             HardwareServiceAdapter.class);
+    private static final String FP_API = "/api/fingerprint";
 
     private final HttpClientPort httpClient;
     private final String baseUrl;
@@ -35,23 +35,18 @@ public class HardwareServiceAdapter implements HardwareServicePort {
         if (slotIds == null || slotIds.isEmpty()) {
             return BatchDeleteResult.success(0);
         }
-
-        String url = baseUrl + "/api/fingerprint/templates/delete-batch";
-        HardwareBatchDeleteRequest request = new HardwareBatchDeleteRequest(slotIds);
-
+        String url = baseUrl + FP_API + "/templates/delete-batch";
+        var request = new HardwareBatchDeleteRequest(slotIds);
         try {
-            HardwareBatchDeleteResponse response = httpClient.post(
+            var response = httpClient.post(
                     url, request, Map.of(), HardwareBatchDeleteResponse.class);
-
             List<Integer> failed = response.failedSlots() != null
                     ? response.failedSlots().stream()
                             .map(HardwareBatchDeleteResponse.FailedSlot::slotId)
                             .toList()
                     : List.of();
-
             log.info("Hardware delete: {} ok, {} failed",
                     response.deletedCount(), failed.size());
-
             return response.success()
                     ? BatchDeleteResult.success(response.deletedCount())
                     : BatchDeleteResult.partial(response.deletedCount(), failed);
@@ -63,26 +58,24 @@ public class HardwareServiceAdapter implements HardwareServicePort {
 
     @Override
     public boolean uploadTemplate(int slotId, byte[] template) {
-        String url = baseUrl + "/api/fingerprint/template";
-        HardwareUploadRequest request = HardwareUploadRequest.of(slotId, template);
-
+        String url = baseUrl + FP_API + "/template";
+        var request = HardwareUploadRequest.of(slotId, template);
         try {
-            HardwareUploadResponse response = httpClient.post(
+            var response = httpClient.post(
                     url, request, Map.of(), HardwareUploadResponse.class);
-            log.info("Hardware upload to slot {}: {}", slotId, response.success());
+            log.info("Hardware upload slot {}: {}", slotId, response.success());
             return response.success();
         } catch (Exception e) {
-            log.error("Hardware upload failed for slot {}: {}", slotId, e.getMessage());
+            log.error("Hardware upload failed slot {}: {}", slotId, e.getMessage());
             return false;
         }
     }
 
     @Override
     public int findAvailableSlot() {
-        String url = baseUrl + "/api/fingerprint/available-slot";
-
+        String url = baseUrl + FP_API + "/available-slot";
         try {
-            HardwareSlotResponse response = httpClient.get(
+            var response = httpClient.get(
                     url, Map.of(), HardwareSlotResponse.class);
             if (response.success() && response.slotId() != null) {
                 log.info("Hardware available slot: {}", response.slotId());

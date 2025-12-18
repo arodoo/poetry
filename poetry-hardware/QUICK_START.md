@@ -15,7 +15,7 @@ cd poetry-hardware
 npm run dev
 ```
 
-Service runs on **http://localhost:3001** with hot-reload enabled.
+Service runs on **http://localhost:3002** with hot-reload enabled.
 
 ### Stop Service
 Press `Ctrl+C` in the terminal running the service.
@@ -33,24 +33,24 @@ npm run dev
 
 **Turn ON (energize relay, LED lights up):**
 ```bash
-curl -X POST http://localhost:3001/api/relay/channel/1/on
+curl -X POST http://localhost:3002/api/relay/channel/1/on
 ```
 Expected: Click sound + LED ON
 
 **Turn OFF (de-energize relay, LED turns off):**
 ```bash
-curl -X POST http://localhost:3001/api/relay/channel/1/off
+curl -X POST http://localhost:3002/api/relay/channel/1/off
 ```
 Expected: Click sound + LED OFF
 
 **Check Status:**
 ```bash
-curl http://localhost:3001/api/relay/status
+curl http://localhost:3002/api/relay/status
 ```
 
 **Health Check:**
 ```bash
-curl http://localhost:3001/health
+curl http://localhost:3002/health
 ```
 
 ## Hardware Configuration
@@ -106,9 +106,9 @@ npm run dev
 
 ### 3. Test API
 ```bash
-curl http://localhost:3001/health
-curl -X POST http://localhost:3001/api/relay/channel/1/on
-curl -X POST http://localhost:3001/api/relay/channel/1/off
+curl http://localhost:3002/health
+curl -X POST http://localhost:3002/api/relay/channel/1/on
+curl -X POST http://localhost:3002/api/relay/channel/1/off
 ```
 
 ### 4. Run Tests

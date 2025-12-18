@@ -35,7 +35,7 @@ R503 Sensor (physical hardware)
 ### 1. Enroll Fingerprint
 
 ```http
-POST http://localhost:3001/api/fingerprint/enroll
+POST http://localhost:3002/api/fingerprint/enroll
 Content-Type: application/json
 
 {
@@ -64,7 +64,7 @@ Content-Type: application/json
 ### 2. Verify Fingerprint
 
 ```http
-POST http://localhost:3001/api/fingerprint/verify
+POST http://localhost:3002/api/fingerprint/verify
 ```
 
 **Response:**
@@ -79,13 +79,13 @@ POST http://localhost:3001/api/fingerprint/verify
 ### 3. Delete Template
 
 ```http
-DELETE http://localhost:3001/api/fingerprint/template/5
+DELETE http://localhost:3002/api/fingerprint/template/5
 ```
 
 ### 4. Get Template Count
 
 ```http
-GET http://localhost:3001/api/fingerprint/template-count
+GET http://localhost:3002/api/fingerprint/template-count
 ```
 
 ## Frontend Integration Flow
@@ -111,7 +111,7 @@ GET http://localhost:3001/api/fingerprint/template-count
 
 async function enrollFingerprint(slotId: number) {
   try {
-    const response = await fetch('http://localhost:3001/api/fingerprint/enroll', {
+    const response = await fetch('http://localhost:3002/api/fingerprint/enroll', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ slotId })
@@ -176,15 +176,15 @@ Green (TX)   →       RXD
 
 ```bash
 # Enroll test
-curl -X POST http://localhost:3001/api/fingerprint/enroll \
+curl -X POST http://localhost:3002/api/fingerprint/enroll \
   -H "Content-Type: application/json" \
   -d '{"slotId": 1}'
 
 # Verify test
-curl -X POST http://localhost:3001/api/fingerprint/verify
+curl -X POST http://localhost:3002/api/fingerprint/verify
 
 # Count templates
-curl http://localhost:3001/api/fingerprint/template-count
+curl http://localhost:3002/api/fingerprint/template-count
 ```
 
 ### Mock Mode (No Hardware)

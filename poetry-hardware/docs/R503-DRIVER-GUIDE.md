@@ -136,7 +136,7 @@ npm run dev
 
 Test enrollment:
 ```bash
-curl -X POST http://localhost:3001/api/fingerprint/enroll \
+curl -X POST http://localhost:3002/api/fingerprint/enroll \
   -H "Content-Type: application/json" \
   -d '{"slotId": 1}'
 ```

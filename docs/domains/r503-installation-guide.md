@@ -60,7 +60,7 @@ Bridge running on port 3001 (ia32)
 With bridge running, open another terminal:
 
 ```bash
-curl -X POST http://localhost:3001/device/open
+curl -X POST http://localhost:3002/device/open
 ```
 
 Expected: `{"success":true,"code":0,...}`
@@ -73,7 +73,7 @@ Ensure `.env` has:
 PORT=3002
 MOCK_MODE=false
 USB_TTL_PORT=COM3
-FINGERPRINT_BRIDGE_URL=http://localhost:3001
+FINGERPRINT_BRIDGE_URL=http://localhost:3002
 ```
 
 ## Startup Order

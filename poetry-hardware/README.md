@@ -55,14 +55,14 @@ FINGERPRINT_PORT=COM4
 npm run dev
 ```
 
-Service starts at `http://localhost:3001`
+Service starts at `http://localhost:3002`
 
 ### 4. Test API
 
 ```bash
-curl http://localhost:3001/health
-curl -X POST http://localhost:3001/api/relay/channel/1/on
-curl http://localhost:3001/api/relay/status
+curl http://localhost:3002/health
+curl -X POST http://localhost:3002/api/relay/channel/1/on
+curl http://localhost:3002/api/relay/status
 ```
 
 ### 5. Switch to Real Hardware
@@ -194,7 +194,7 @@ Backend Java service will consume this API:
 ```java
 // Example: Open door via relay
 RestTemplate restTemplate = new RestTemplate();
-String url = "http://localhost:3001/api/relay/channel/1/on";
+String url = "http://localhost:3002/api/relay/channel/1/on";
 restTemplate.postForEntity(url, null, Void.class);
 ```
 

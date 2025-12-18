@@ -19,7 +19,7 @@ How to integrate `poetry-hardware` service with `poetry-backend`.
 ```bash
 cd poetry-hardware
 npm run dev
-# Runs on http://localhost:3001
+# Runs on http://localhost:3002
 ```
 
 ### 2. Add Configuration to Backend
@@ -27,7 +27,7 @@ npm run dev
 Add to `poetry-backend/src/main/resources/application.properties`:
 
 ```properties
-hardware.service.url=http://localhost:3001
+hardware.service.url=http://localhost:3002
 hardware.service.timeout.connect=5000
 hardware.service.timeout.read=10000
 ```
@@ -91,19 +91,19 @@ public class UnlockDoorUseCase {
 **Activate Channel**
 
 ```
-POST http://localhost:3001/api/relay/channel/:id/on
+POST http://localhost:3002/api/relay/channel/:id/on
 ```
 
 **Deactivate Channel**
 
 ```
-POST http://localhost:3001/api/relay/channel/:id/off
+POST http://localhost:3002/api/relay/channel/:id/off
 ```
 
 **Get Status**
 
 ```
-GET http://localhost:3001/api/relay/status
+GET http://localhost:3002/api/relay/status
 
 Response:
 {
@@ -118,7 +118,7 @@ Response:
 ### Health Check
 
 ```
-GET http://localhost:3001/health
+GET http://localhost:3002/health
 
 Response:
 {
@@ -187,14 +187,14 @@ void shouldUnlockDoor() {
 Both services on same PC:
 
 - Backend: `localhost:8080`
-- Hardware: `localhost:3001`
+- Hardware: `localhost:3002`
 
 ### Separate Hardware PC
 
 Backend connects to remote hardware service:
 
 ```properties
-hardware.service.url=http://192.168.1.100:3001
+hardware.service.url=http://192.168.1.100:3002
 ```
 
 **Security**: Add API key authentication (future enhancement)

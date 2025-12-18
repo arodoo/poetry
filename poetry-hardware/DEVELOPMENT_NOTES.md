@@ -192,12 +192,12 @@ interfaces/      → HTTP controllers and routes
 ### Test Data Validation
 ```bash
 # ON Test
-curl -X POST http://localhost:3001/api/relay/channel/1/on
+curl -X POST http://localhost:3002/api/relay/channel/1/on
 # Expected: {"success":true,"channelId":1,"state":"active"}
 # Physical: Click + LED ON
 
 # OFF Test  
-curl -X POST http://localhost:3001/api/relay/channel/1/off
+curl -X POST http://localhost:3002/api/relay/channel/1/off
 # Expected: {"success":true,"channelId":1,"state":"inactive"}
 # Physical: Click + LED OFF
 ```
@@ -263,7 +263,7 @@ curl -X POST http://localhost:3001/api/relay/channel/1/off
 
 ### Backend Java Integration
 **Architecture:** RestTemplate HTTP client  
-**Endpoint Base:** http://localhost:3001/api/relay  
+**Endpoint Base:** http://localhost:3002/api/relay  
 **Error Handling:** Circuit breaker pattern (Resilience4j)  
 
 **Example Use Case:**
