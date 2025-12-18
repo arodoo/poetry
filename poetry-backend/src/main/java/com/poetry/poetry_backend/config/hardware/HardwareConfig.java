@@ -18,7 +18,7 @@ import com.poetry.poetry_backend.infrastructure.hardware.HardwareServiceAdapter;
 @Configuration
 public class HardwareConfig {
 
-    @Value("${app.hardware.base-url:http://localhost:3000}")
+    @Value("${app.hardware.base-url:http://localhost:3002}")
     private String hardwareBaseUrl;
 
     @Bean

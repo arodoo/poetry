@@ -36,7 +36,7 @@ public class HardwareServiceAdapter implements HardwareServicePort {
             return BatchDeleteResult.success(0);
         }
 
-        String url = baseUrl + "/fingerprint/templates/delete-batch";
+        String url = baseUrl + "/api/fingerprint/templates/delete-batch";
         HardwareBatchDeleteRequest request = new HardwareBatchDeleteRequest(slotIds);
 
         try {
@@ -63,7 +63,7 @@ public class HardwareServiceAdapter implements HardwareServicePort {
 
     @Override
     public boolean uploadTemplate(int slotId, byte[] template) {
-        String url = baseUrl + "/fingerprint/template";
+        String url = baseUrl + "/api/fingerprint/template";
         HardwareUploadRequest request = HardwareUploadRequest.of(slotId, template);
 
         try {
@@ -79,7 +79,7 @@ public class HardwareServiceAdapter implements HardwareServicePort {
 
     @Override
     public int findAvailableSlot() {
-        String url = baseUrl + "/fingerprint/available-slot";
+        String url = baseUrl + "/api/fingerprint/available-slot";
 
         try {
             HardwareSlotResponse response = httpClient.get(
