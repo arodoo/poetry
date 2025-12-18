@@ -57,11 +57,10 @@ export function createMutationHandler(
       if (slotId !== null) {
         void rollbackFingerprint(slotId)
       }
-      toast.push(
-        error instanceof Error
-          ? error.message
-          : t('ui.users.toast.create.error')
-      )
+      const errorKey =
+        error instanceof Error ? error.message : 'ui.users.toast.create.error'
+      const translated = t(errorKey)
+      toast.push(translated !== errorKey ? translated : t('error.unexpected'))
     },
   }
 }

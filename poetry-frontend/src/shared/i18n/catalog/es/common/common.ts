@@ -22,4 +22,10 @@ export const commonEs: Record<string, string> = {
   'ui.table.pagination.next': 'Siguiente',
   'ui.table.search.placeholder': 'Buscar...',
   'ui.table.search.clear': 'Limpiar búsqueda',
+  'error.username.exists': 'Este nombre de usuario ya está en uso',
+  'error.email.exists': 'Este correo ya está registrado',
+  'error.sellerCode.exists': 'Este código de vendedor ya existe',
+  'error.code.exists': 'Este código ya existe',
+  'error.duplicate': 'Entrada duplicada detectada',
+  'error.unexpected': 'Ocurrió un error inesperado',
 }

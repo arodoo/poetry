@@ -22,4 +22,10 @@ export const commonEn: Record<string, string> = {
   'ui.table.pagination.next': 'Next',
   'ui.table.search.placeholder': 'Search...',
   'ui.table.search.clear': 'Clear search',
+  'error.username.exists': 'This username is already taken',
+  'error.email.exists': 'This email is already registered',
+  'error.sellerCode.exists': 'This seller code already exists',
+  'error.code.exists': 'This code already exists',
+  'error.duplicate': 'Duplicate entry detected',
+  'error.unexpected': 'An unexpected error occurred',
 }

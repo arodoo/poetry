@@ -25,8 +25,9 @@ export async function createUser(
   validatedInput.status ??= 'active'
   const response = await createUserSdk({ body: validatedInput })
   if (!response.data) {
-    const errorDetails = JSON.stringify(response.error)
-    throw new Error(`Failed to create user: ${errorDetails}`)
+    const err = response.error as { detail?: string; title?: string }
+    const errorKey = err?.detail ?? err?.title ?? 'error.unexpected'
+    throw new Error(errorKey)
   }
   return response.data
 }
