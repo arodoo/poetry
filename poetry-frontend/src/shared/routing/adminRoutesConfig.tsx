@@ -13,7 +13,6 @@ import { SellerCodesRoutes } from '../../features/seller-codes/routing/seller-co
 import { SubscriptionsRoutes } from '../../features/subscriptions/routing/subscriptionsRoutes'
 import { ZonesRoutes } from '../../features/zones/routing/zonesRoutes'
 import { MembershipsRoutes } from '../../features/memberships/routing/membershipsRoutes'
-import { FingerprintRoutes } from '../../features/fingerprint/routing/fingerprintRoutes'
 import { DevtoolsRoutes } from '../../features/devtools/routing/devtoolsRoutes'
 
 function AdminTokensRoute(): ReactElement {
@@ -39,7 +38,7 @@ export function AdminRoutesConfig(): ReactElement[] {
     ...SubscriptionsRoutes(),
     ...ZonesRoutes(),
     ...MembershipsRoutes(),
-    ...FingerprintRoutes(),
     ...DevtoolsRoutes(),
   ]
 }
+
