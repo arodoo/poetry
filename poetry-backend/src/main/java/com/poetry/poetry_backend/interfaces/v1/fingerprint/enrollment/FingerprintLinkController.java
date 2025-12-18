@@ -40,7 +40,7 @@ public class FingerprintLinkController {
         @ApiResponse(responseCode = "404", description = "User not found"),
         @ApiResponse(responseCode = "401", description = "Unauthorized")
       })
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasAnyAuthority('admin','user')")
   @PostMapping("/{userId}/fingerprints/link")
   public ResponseEntity<FingerprintDto.FingerprintResponse> link(
       @PathVariable Long userId, @RequestBody LinkRequest request) {
