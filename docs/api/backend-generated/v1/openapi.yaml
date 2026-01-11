@@ -10,28 +10,34 @@ servers:
 security:
   - bearerAuth: []
 tags:
-  - name: fingerprints
-    description: Fingerprint management
   - name: subscriptions
     description: Subscription plan management
   - name: users
     description: User management
   - name: auth
     description: Authentication endpoints
-  - name: events
-    description: Event management
   - name: seller-codes
     description: Seller code management
-  - name: Fingerprint Enrollment
-    description: Fingerprint wizard
+  - name: Fingerprints
+    description: Fingerprint management
   - name: fingerprints
     description: Fingerprint verification
+  - name: fingerprints
+    description: Fingerprint management
+  - name: events
+    description: Event management
+  - name: Fingerprint Enrollment
+    description: Fingerprint wizard
   - name: fingerprints
     description: Fingerprint enrollment
   - name: Seller Codes
     description: Seller code management
+  - name: users
+    description: Link fingerprint to user
   - name: memberships
     description: Membership management
+  - name: fingerprints
+    description: Fingerprint slot reservation
 paths:
   /api/v1/zones/{id}:
     get:
@@ -997,6 +1003,45 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/UserResponse'
+  /api/v1/users/{userId}/fingerprints/link:
+    post:
+      tags:
+        - users
+      summary: Link fingerprint slot
+      description: Associate R503 slot with user after enrollment
+      operationId: linkFingerprintToUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkRequest'
+        required: true
+      responses:
+        '200':
+          description: Linked successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
+        '404':
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
   /api/v1/users/{userId}/fingerprints/enroll:
     post:
       tags:
@@ -1348,6 +1393,26 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FingerprintResponse'
+  /api/v1/fingerprints/{id}/restore:
+    post:
+      tags:
+        - Fingerprints
+      summary: Restore archived fingerprint to active status
+      operationId: restore
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintResponse'
   /api/v1/fingerprints/verify:
     post:
       tags:
@@ -1374,6 +1439,26 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/VerifyResponse'
+  /api/v1/fingerprints/reserve-slot:
+    post:
+      tags:
+        - fingerprints
+      summary: Reserve fingerprint slot
+      description: Get next available R503 slot for wizard enrollment
+      operationId: reserveSlot
+      responses:
+        '200':
+          description: Slot reserved
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SlotReservationDto'
+        '503':
+          description: No slots available
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SlotReservationDto'
   /api/v1/fingerprints/enroll:
     post:
       tags:
@@ -1852,6 +1937,26 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PageResponseDtoSubscriptionResponse'
+  /api/v1/statistics/memberships:
+    get:
+      tags:
+        - statistics-controller
+      operationId: getMembershipStats
+      parameters:
+        - name: expiringDays
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 7
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MembershipStatsResponse'
   /api/v1/seller-codes/paged:
     get:
       tags:
@@ -2765,6 +2870,48 @@ components:
           description: Status
           example: active
       description: User creation request
+    LinkRequest:
+      type: object
+      properties:
+        slotId:
+          type: integer
+          format: int32
+    FingerprintResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Fingerprint ID
+          format: int64
+          example: 1
+        userId:
+          type: integer
+          description: User ID
+          format: int64
+          example: 123
+        r503SlotId:
+          type: integer
+          description: R503 slot ID
+          format: int32
+          example: 45
+        status:
+          type: string
+          description: Enrollment status
+          example: ACTIVE
+        enrolledAt:
+          type: string
+          description: Enrollment timestamp
+          format: date-time
+        archivedAt:
+          type: string
+          description: Archived timestamp
+          format: date-time
+        version:
+          type: integer
+          description: Version
+          format: int64
+          example: 1
+      description: Fingerprint enrollment response
     FingerprintEnrollmentResponse:
       type: object
       properties:
@@ -2935,42 +3082,6 @@ components:
           format: int32
           example: 45
       description: Fingerprint enrollment request
-    FingerprintResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Fingerprint ID
-          format: int64
-          example: 1
-        userId:
-          type: integer
-          description: User ID
-          format: int64
-          example: 123
-        r503SlotId:
-          type: integer
-          description: R503 slot ID
-          format: int32
-          example: 45
-        status:
-          type: string
-          description: Enrollment status
-          example: ACTIVE
-        enrolledAt:
-          type: string
-          description: Enrollment timestamp
-          format: date-time
-        archivedAt:
-          type: string
-          description: Archived timestamp
-          format: date-time
-        version:
-          type: integer
-          description: Version
-          format: int64
-          example: 1
-      description: Fingerprint enrollment response
     VerifyRequest:
       required:
         - r503SlotId
@@ -3004,6 +3115,12 @@ components:
           description: Result message key
           example: verification.success
       description: Fingerprint verification response
+    SlotReservationDto:
+      type: object
+      properties:
+        slotId:
+          type: integer
+          format: int32
     EventCreateRequest:
       required:
         - eventDate
@@ -3388,6 +3505,30 @@ components:
           description: Has previous page
           example: false
       description: Paginated response wrapper
+    MembershipStatsResponse:
+      type: object
+      properties:
+        active:
+          type: integer
+          description: Active memberships
+          format: int64
+          example: 150
+        expiringSoon:
+          type: integer
+          description: Expiring within threshold days
+          format: int64
+          example: 12
+        expired:
+          type: integer
+          description: Expired memberships
+          format: int64
+          example: 25
+        total:
+          type: integer
+          description: Total memberships
+          format: int64
+          example: 187
+      description: Membership statistics response
     PageResponseDtoSellerCodeResponse:
       type: object
       properties:
@@ -3514,12 +3655,12 @@ components:
     PageEventResponse:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -3532,6 +3673,8 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -3539,8 +3682,6 @@ components:
         numberOfElements:
           type: integer
           format: int32
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     PageableObject:
@@ -3551,14 +3692,14 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/SortObject'
-        paged:
-          type: boolean
-        pageSize:
-          type: integer
-          format: int32
         pageNumber:
           type: integer
           format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
         unpaged:
           type: boolean
     SortObject:
