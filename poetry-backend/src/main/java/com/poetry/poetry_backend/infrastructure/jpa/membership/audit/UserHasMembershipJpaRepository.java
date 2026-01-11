@@ -4,7 +4,7 @@
  * queries for active, expiring, expired and historical memberships.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.membership;
+package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 
 import java.time.Instant;
 import java.util.List;

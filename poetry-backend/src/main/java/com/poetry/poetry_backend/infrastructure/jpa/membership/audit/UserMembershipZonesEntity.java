@@ -4,7 +4,7 @@
  * Separate entity to keep UserHasMembershipEntity under line limit.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.membership;
+package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 
 import jakarta.persistence.*;
 import lombok.Getter;

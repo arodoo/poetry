@@ -3,7 +3,7 @@
  * Purpose: JPA repository for user_membership_zones junction table.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.membership;
+package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 
 import java.util.List;
 

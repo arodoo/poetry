@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import com.poetry.poetry_backend.application.membership.port.*;
 import com.poetry.poetry_backend.application.membership.usecase.*;
 import com.poetry.poetry_backend.application.subscription.port.SubscriptionQueryPort;
-import com.poetry.poetry_backend.infrastructure.jpa.membership.*;
+import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.*;
 
 @Configuration
 public class UserMembershipComposition {

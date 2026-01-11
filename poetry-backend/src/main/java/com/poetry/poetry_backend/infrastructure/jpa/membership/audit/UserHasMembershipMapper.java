@@ -4,7 +4,7 @@
  * domain record. Handles zone IDs collection separately.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.membership;
+package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 
 import java.util.Set;
 

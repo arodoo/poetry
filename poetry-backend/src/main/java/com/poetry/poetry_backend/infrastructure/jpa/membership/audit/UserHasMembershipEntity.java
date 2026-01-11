@@ -5,7 +5,7 @@
  * Preserves full audit history of all memberships per user.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.membership;
+package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 
 import java.time.Instant;
 

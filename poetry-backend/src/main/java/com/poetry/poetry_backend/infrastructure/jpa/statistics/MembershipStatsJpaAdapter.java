@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.poetry.poetry_backend.application.statistics.port.MembershipStatsQueryPort;
 import com.poetry.poetry_backend.domain.statistics.model.MembershipStats;
-import com.poetry.poetry_backend.infrastructure.jpa.membership.*;
+import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.*;
 
 @Repository
 public class MembershipStatsJpaAdapter implements MembershipStatsQueryPort {

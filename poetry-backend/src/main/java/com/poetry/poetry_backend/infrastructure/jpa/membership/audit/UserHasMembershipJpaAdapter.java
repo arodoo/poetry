@@ -4,7 +4,7 @@
  * user_has_membership. Delegates to repository and zones repository.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.jpa.membership;
+package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 
 import java.time.Instant;
 import java.util.*;
