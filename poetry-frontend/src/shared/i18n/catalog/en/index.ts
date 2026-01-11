@@ -20,6 +20,7 @@ import membershipsEn from '../../../../features/memberships/locales/en.json'
 import tokensEn from '../../../../features/tokens/locales/en.json'
 import fingerprintEn from '../../../../features/fingerprint/locales/en.json'
 import devtoolsEn from '../../../../features/devtools/locales/en.json'
+import adminStatsEn from '../../../../features/admin-stats/locales/en.json'
 
 export const enCatalog: Record<string, string> = {
   ...commonEn,
@@ -42,4 +43,5 @@ export const enCatalog: Record<string, string> = {
   ...tokensEn,
   ...fingerprintEn,
   ...devtoolsEn,
+  ...adminStatsEn,
 }
