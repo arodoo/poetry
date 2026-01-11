@@ -1,5 +1,5 @@
 -- Poetry Database Full Dump
--- Generated at: 2026-01-11T20:14:11.129566Z
+-- Generated at: 2026-01-11T20:50:22.892512700Z
 
 -- Table: auth
 
@@ -1207,6 +1207,10 @@ INSERT INTO "ui_customization_selection" VALUES (1, 'inter', 'compact', 'sharp',
 -- Table: user_fingerprints
 INSERT INTO "user_fingerprints" VALUES ('true', '2025-12-18 15:05:33.751512', 1, 1, 259, 0);
 
+-- Table: user_has_membership
+
+-- Table: user_membership_zones
+
 -- Table: user_roles
 INSERT INTO "user_roles" VALUES (1, 'admin');
 INSERT INTO "user_roles" VALUES (2, 'admin');
@@ -1573,4 +1577,43 @@ INSERT INTO "zones" VALUES ('2026-01-11 14:13:31.668966', NULL, 134, 1, '2026-01
 INSERT INTO "zones" VALUES ('2026-01-11 14:13:50.489629', NULL, 135, 1, '2026-01-11 14:13:50.489629', 0, 'active', 'MemberZone0', 'Test zone 0');
 INSERT INTO "zones" VALUES ('2026-01-11 14:13:50.492385', NULL, 136, 1, '2026-01-11 14:13:50.492385', 0, 'active', 'MemberZone1', 'Test zone 1');
 INSERT INTO "zones" VALUES ('2026-01-11 14:13:50.492385', NULL, 137, 1, '2026-01-11 14:13:50.492385', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:14:11.192212', NULL, 138, 1, '2026-01-11 14:14:11.192212', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:14:11.194622', NULL, 139, 1, '2026-01-11 14:14:11.194622', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:14:11.194622', NULL, 140, 1, '2026-01-11 14:14:11.194622', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:19.187073', NULL, 141, 1, '2026-01-11 14:40:19.187073', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:19.19046', NULL, 142, 1, '2026-01-11 14:40:19.19046', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:19.19046', NULL, 143, 1, '2026-01-11 14:40:19.19046', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:32.678923', NULL, 144, 1, '2026-01-11 14:40:32.678923', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:32.681219', NULL, 145, 1, '2026-01-11 14:40:32.681219', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:32.681219', NULL, 146, 1, '2026-01-11 14:40:32.681219', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:54.929318', NULL, 147, 1, '2026-01-11 14:40:54.929318', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:54.931269', NULL, 148, 1, '2026-01-11 14:40:54.931269', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:40:54.931269', NULL, 149, 1, '2026-01-11 14:40:54.931269', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:14.21334', NULL, 150, 1, '2026-01-11 14:41:14.21334', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:14.216317', NULL, 151, 1, '2026-01-11 14:41:14.216317', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:14.216317', NULL, 152, 1, '2026-01-11 14:41:14.216317', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:34.354001', NULL, 153, 1, '2026-01-11 14:41:34.354001', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:34.357536', NULL, 154, 1, '2026-01-11 14:41:34.357536', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:34.358553', NULL, 155, 1, '2026-01-11 14:41:34.358553', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:38.931536', NULL, 156, 1, '2026-01-11 14:41:38.931536', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:38.931536', NULL, 157, 1, '2026-01-11 14:41:38.931536', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:41:38.931536', NULL, 158, 1, '2026-01-11 14:41:38.931536', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:17.412613', NULL, 159, 1, '2026-01-11 14:42:17.412613', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:17.412613', NULL, 160, 1, '2026-01-11 14:42:17.412613', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:17.412613', NULL, 161, 1, '2026-01-11 14:42:17.412613', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:21.810196', NULL, 162, 1, '2026-01-11 14:42:21.810196', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:21.819966', NULL, 163, 1, '2026-01-11 14:42:21.819966', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:21.819966', NULL, 164, 1, '2026-01-11 14:42:21.819966', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:47.29418', NULL, 165, 1, '2026-01-11 14:42:47.29418', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:47.29418', NULL, 166, 1, '2026-01-11 14:42:47.29418', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:42:47.29418', NULL, 167, 1, '2026-01-11 14:42:47.29418', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:43:04.928862', NULL, 168, 1, '2026-01-11 14:43:04.928862', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:43:04.936378', NULL, 169, 1, '2026-01-11 14:43:04.936378', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:43:04.937847', NULL, 170, 1, '2026-01-11 14:43:04.937847', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:43:30.202127', NULL, 171, 1, '2026-01-11 14:43:30.202127', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:43:30.204667', NULL, 172, 1, '2026-01-11 14:43:30.204667', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:43:30.205675', NULL, 173, 1, '2026-01-11 14:43:30.205675', 0, 'active', 'MemberZone2', 'Test zone 2');
+INSERT INTO "zones" VALUES ('2026-01-11 14:49:54.392154', NULL, 174, 1, '2026-01-11 14:49:54.392154', 0, 'active', 'MemberZone0', 'Test zone 0');
+INSERT INTO "zones" VALUES ('2026-01-11 14:49:54.394162', NULL, 175, 1, '2026-01-11 14:49:54.394162', 0, 'active', 'MemberZone1', 'Test zone 1');
+INSERT INTO "zones" VALUES ('2026-01-11 14:49:54.394162', NULL, 176, 1, '2026-01-11 14:49:54.394162', 0, 'active', 'MemberZone2', 'Test zone 2');
 

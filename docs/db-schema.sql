@@ -1,5 +1,5 @@
 -- Poetry Database Schema
--- Generated at: 2026-01-11T20:14:11.066637100Z
+-- Generated at: 2026-01-11T20:50:22.833489600Z
 
 -- Table: auth
 CREATE TABLE "auth" (
@@ -230,6 +230,27 @@ CREATE TABLE "user_fingerprints" (
   "id" int8 NOT NULL,
   "user_id" int8 NOT NULL,
   "version" int8 NOT NULL
+);
+
+-- Table: user_has_membership
+CREATE TABLE "user_has_membership" (
+  "id" int8 NOT NULL,
+  "created_at" timestamptz NOT NULL,
+  "end_date" timestamptz NOT NULL,
+  "seller_code" varchar(100) NOT NULL,
+  "start_date" timestamptz NOT NULL,
+  "status" varchar(20) NOT NULL,
+  "subscription_id" int8 NOT NULL,
+  "updated_at" timestamptz NOT NULL,
+  "user_id" int8 NOT NULL,
+  "version" int8
+);
+
+-- Table: user_membership_zones
+CREATE TABLE "user_membership_zones" (
+  "id" int8 NOT NULL,
+  "membership_id" int8 NOT NULL,
+  "zone_id" int8 NOT NULL
 );
 
 -- Table: user_roles
