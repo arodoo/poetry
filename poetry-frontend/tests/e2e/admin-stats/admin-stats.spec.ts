@@ -2,11 +2,11 @@
  * File: admin-stats.spec.ts
  * Purpose: E2E tests for membership statistics API endpoint.
  * Verifies GET /api/v1/statistics/memberships returns correct format
- * and dashboard displays KPI cards with proper i18n translations.
+ * with proper authentication via Bearer token.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { test, expect, type Page } from '@playwright/test'
-import { injectTokens } from '../shared/providers/tokenProvider'
+import { test, expect } from '@playwright/test'
+import { getAuthTokens } from '../shared/providers/tokenProvider'
 
 const STATS_ENDPOINT = '/api/v1/statistics/memberships'
 
@@ -14,7 +14,10 @@ test.describe('Admin Statistics Endpoint', (): void => {
     test('API returns valid membership stats structure', async ({
         request,
     }): Promise<void> => {
+        const tokens = await getAuthTokens()
+
         const response = await request.get(STATS_ENDPOINT, {
+            headers: { Authorization: `Bearer ${tokens.accessToken}` },
             params: { expiringDays: 7 },
         })
 
@@ -38,7 +41,10 @@ test.describe('Admin Statistics Endpoint', (): void => {
     test('API accepts custom expiringDays param', async ({
         request,
     }): Promise<void> => {
+        const tokens = await getAuthTokens()
+
         const response = await request.get(STATS_ENDPOINT, {
+            headers: { Authorization: `Bearer ${tokens.accessToken}` },
             params: { expiringDays: 14 },
         })
 
