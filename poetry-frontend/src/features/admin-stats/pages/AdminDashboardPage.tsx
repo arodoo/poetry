@@ -15,18 +15,22 @@ export function AdminDashboardPage() {
   const t = useT();
   const { data: stats, isLoading, error } = useMembershipStatsQuery();
 
-  if (isLoading) return <Loader />;
+  if (isLoading) {
+    return <Loader data-testid="admin-stats-loading" />;
+  }
   if (error) {
     return (
-      <Alert color="red" icon={<IconAlertCircle />}>
+      <Alert color="red" icon={<IconAlertCircle />} data-testid="admin-stats-error">
         {t('ui.adminStats.error.loading')}
       </Alert>
     );
   }
 
   return (
-    <Container size="lg" py="xl">
-      <Title order={1} mb="lg">{t('ui.adminStats.title')}</Title>
+    <Container size="lg" py="xl" data-testid="admin-stats-page">
+      <Title order={1} mb="lg" data-testid="admin-stats-title">
+        {t('ui.adminStats.title')}
+      </Title>
       <Text c="dimmed" mb="xl">{t('ui.adminStats.subtitle')}</Text>
       {stats && <KpiGrid stats={stats} />}
     </Container>

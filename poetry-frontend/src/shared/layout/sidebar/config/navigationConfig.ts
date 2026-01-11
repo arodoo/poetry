@@ -12,6 +12,7 @@ import {
   UserGroupIcon,
   KeyIcon,
   WrenchScrewdriverIcon,
+  ChartBarIcon,
 } from '@heroicons/react/24/outline'
 import type { ItemId, NavigationItem } from '../types'
 
@@ -25,6 +26,7 @@ export function getLabelKey(id: ItemId): string {
     sellerCodes: 'ui.route.sellerCodes.title',
     adminTokens: 'ui.route.admin.tokens.title',
     devtools: 'ui.devtools.sidebar.title',
+    adminStats: 'ui.adminStats.title',
   }
   return map[id]
 }
@@ -73,6 +75,12 @@ export function getNavigationItems(): NavigationItem[] {
       p: '/devtools/hardware',
       roles: ['admin'],
       icon: WrenchScrewdriverIcon,
+    },
+    {
+      id: 'adminStats',
+      p: '/admin/stats',
+      roles: ['admin'],
+      icon: ChartBarIcon,
     },
   ]
 }

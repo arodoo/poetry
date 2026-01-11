@@ -14,6 +14,7 @@ export type ItemId =
   | 'zones'
   | 'memberships'
   | 'devtools'
+  | 'adminStats'
 
 export interface SidebarProps {
   isOpen: boolean
