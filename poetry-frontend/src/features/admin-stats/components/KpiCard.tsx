@@ -1,30 +1,39 @@
 /**
  * File: KpiCard.tsx
- * Purpose: Displays a single KPI metric with value, label and
- * color indicator (green/yellow/red) for admin dashboard.
+ * Purpose: Single KPI metric card using internal UI components.
+ * Displays value with label and color indicator for dashboard.
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { Card, Text, Title } from '@mantine/core';
+import { type ReactElement } from 'react'
+import { Card } from '../../../ui/Card/Card'
 
 interface KpiCardProps {
-  label: string;
-  value: number;
-  color?: 'green' | 'yellow' | 'red' | 'gray';
+  label: string
+  value: number
+  color?: 'green' | 'yellow' | 'red' | 'gray'
+  testId?: string
 }
 
-const colorMap = {
-  green: 'teal.6',
-  yellow: 'yellow.6',
-  red: 'red.6',
-  gray: 'gray.6',
-};
+const colorMap: Record<string, string> = {
+  green: 'text-green-600',
+  yellow: 'text-yellow-600',
+  red: 'text-red-600',
+  gray: 'text-gray-600',
+}
 
-export function KpiCard({ label, value, color = 'gray' }: KpiCardProps) {
+export function KpiCard({
+  label,
+  value,
+  color = 'gray',
+  testId,
+}: KpiCardProps): ReactElement {
   return (
-    <Card shadow="sm" p="lg" radius="md" withBorder>
-      <Title order={3} c={colorMap[color]}>{value}</Title>
-      <Text size="sm" c="dimmed">{label}</Text>
+    <Card padding="md" radius="md" shadow className="min-w-[120px]">
+      <div data-testid={testId}>
+        <p className={`text-2xl font-bold ${colorMap[color]}`}>{value}</p>
+        <p className="text-sm text-[var(--color-textMuted)]">{label}</p>
+      </div>
     </Card>
-  );
+  )
 }

@@ -1,38 +1,43 @@
 /**
  * File: AdminDashboardPage.tsx
- * Purpose: Main admin dashboard page displaying business health
- * KPIs. Uses i18n keys for translations and SDK types for data.
+ * Purpose: Main admin dashboard page displaying business health KPIs.
+ * Uses internal UI components, i18n keys, and SDK types for data.
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { Container, Title, Text, Loader, Alert } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
-import { useMembershipStatsQuery } from '../api/useStatsQueries';
-import { KpiGrid } from '../components/KpiGrid';
-import { useT } from '../../../shared/i18n/useT';
+import { type ReactElement } from 'react'
+import { Card } from '../../../ui/Card/Card'
+import { Stack } from '../../../ui/Stack/Stack'
+import { Heading } from '../../../ui/Heading/Heading'
+import { Text } from '../../../ui/Text/Text'
+import { useMembershipStatsQuery } from '../api/useStatsQueries'
+import { KpiGrid } from '../components/KpiGrid'
+import { useT } from '../../../shared/i18n/useT'
 
-export function AdminDashboardPage() {
-  const t = useT();
-  const { data: stats, isLoading, error } = useMembershipStatsQuery();
+export function AdminDashboardPage(): ReactElement {
+  const t = useT()
+  const { data: stats, isLoading, error } = useMembershipStatsQuery()
 
   if (isLoading) {
-    return <Loader data-testid="admin-stats-loading" />;
+    return <p data-testid="admin-stats-loading">Loading...</p>
   }
   if (error) {
     return (
-      <Alert color="red" icon={<IconAlertCircle />} data-testid="admin-stats-error">
-        {t('ui.adminStats.error.loading')}
-      </Alert>
-    );
+      <Card padding="md" data-testid="admin-stats-error">
+        <p className="text-red-600">{t('ui.adminStats.error.loading')}</p>
+      </Card>
+    )
   }
 
   return (
-    <Container size="lg" py="xl" data-testid="admin-stats-page">
-      <Title order={1} mb="lg" data-testid="admin-stats-title">
-        {t('ui.adminStats.title')}
-      </Title>
-      <Text c="dimmed" mb="xl">{t('ui.adminStats.subtitle')}</Text>
-      {stats && <KpiGrid stats={stats} />}
-    </Container>
-  );
+    <div className="p-6" data-testid="admin-stats-page">
+      <Stack gap="lg">
+        <Heading level={1} data-testid="admin-stats-title">
+          {t('ui.adminStats.title')}
+        </Heading>
+        <Text className="text-[var(--color-textMuted)]">{t('ui.adminStats.subtitle')}</Text>
+        {stats && <KpiGrid stats={stats} />}
+      </Stack>
+    </div>
+  )
 }
