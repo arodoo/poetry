@@ -1,6 +1,8 @@
 /*
  * File: useHardwarePageState.ts
- * Purpose: Combines hardware debug state with database slots logic
+ * Purpose: Combines hardware debug state with database slots logic.
+ * Provides unified state for sensor data and DB fingerprint records.
+ * Calculates orphaned and missing slots for sync diagnostics.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useState } from 'react'

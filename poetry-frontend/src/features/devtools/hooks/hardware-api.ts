@@ -1,6 +1,8 @@
 /*
  * File: hardware-api.ts
- * Purpose: API functions for hardware service communication
+ * Purpose: API functions for hardware service communication with sensors.
+ * Provides fetch functions for slot management and fingerprint verification.
+ * Handles used slots, available slots, clear all, and delete operations.
  * All Rights Reserved. Arodi Emmanuel
  */
 

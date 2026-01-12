@@ -24,7 +24,7 @@ export function AdminDashboardPage(): ReactElement {
   if (error) {
     return (
       <Card padding="md" data-testid="admin-stats-error">
-        <p className="text-red-600">{t('ui.adminStats.error.loading')}</p>
+        <p className="text-[var(--color-error)]">{t('ui.adminStats.error.loading')}</p>
       </Card>
     )
   }

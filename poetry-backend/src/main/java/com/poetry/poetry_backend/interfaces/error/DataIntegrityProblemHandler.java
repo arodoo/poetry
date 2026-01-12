@@ -2,7 +2,7 @@
  * File: DataIntegrityProblemHandler.java
  * Purpose: Handles database constraint violations and converts them to
  * user-friendly RFC7807 error responses. Extracts constraint names to
- * return specific messages like 'username already exists'.
+ * return specific error keys like 'error.field.exists'. // i18n-ignore
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.interfaces.error;

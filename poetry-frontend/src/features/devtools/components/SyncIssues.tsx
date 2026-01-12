@@ -1,6 +1,8 @@
 /*
  * File: SyncIssues.tsx
  * Purpose: Display synchronization issues between hardware and database.
+ * Shows success state when synced or warning when issues detected.
+ * Lists orphaned and missing slots with appropriate visual indicators.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -22,11 +24,11 @@ export function SyncIssues({
   if (!hasIssues) {
     return (
       <Card>
-        <div className="p-6 bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500">
-          <Text size="md" weight="bold" className="text-green-800 dark:text-green-200">
+        <div className="p-6 bg-[var(--color-success)]/10 border-l-4 border-[var(--color-success)]">
+          <Text size="md" weight="bold" className="text-[var(--color-success)]">
             ✓ Hardware and Database are in sync
           </Text>
-          <Text size="sm" className="text-green-700 dark:text-green-300 mt-1">
+          <Text size="sm" className="text-[var(--color-textMuted)] mt-1">
             All fingerprints match between sensor and database
           </Text>
         </div>
@@ -36,22 +38,22 @@ export function SyncIssues({
 
   return (
     <Card>
-      <div className="p-6 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 space-y-4">
+      <div className="p-6 bg-[var(--color-warning)]/10 border-l-4 border-[var(--color-warning)] space-y-4">
         <div>
-          <Text size="md" weight="bold" className="text-yellow-800 dark:text-yellow-200">
+          <Text size="md" weight="bold" className="text-[var(--color-warning)]">
             ⚠ Sync Issues Detected
           </Text>
-          <Text size="sm" className="text-yellow-700 dark:text-yellow-300 mt-1">
+          <Text size="sm" className="text-[var(--color-textMuted)] mt-1">
             Discrepancies found between hardware sensor and database
           </Text>
         </div>
 
         {orphanedInSensor.length > 0 && (
           <div className="space-y-2">
-            <Text size="sm" weight="bold" className="text-yellow-900 dark:text-yellow-100">
+            <Text size="sm" weight="bold" className="text-[var(--color-text)]">
               Orphaned in Sensor ({orphanedInSensor.length})
             </Text>
-            <Text size="sm" className="text-yellow-800 dark:text-yellow-200 mb-2">
+            <Text size="sm" className="text-[var(--color-textMuted)] mb-2">
               These slots exist in hardware but not in database:
             </Text>
             <div className="flex flex-wrap gap-2">
@@ -66,10 +68,10 @@ export function SyncIssues({
 
         {missingInSensor.length > 0 && (
           <div className="space-y-2">
-            <Text size="sm" weight="bold" className="text-yellow-900 dark:text-yellow-100">
+            <Text size="sm" weight="bold" className="text-[var(--color-text)]">
               Missing in Sensor ({missingInSensor.length})
             </Text>
-            <Text size="sm" className="text-yellow-800 dark:text-yellow-200 mb-2">
+            <Text size="sm" className="text-[var(--color-textMuted)] mb-2">
               These slots exist in database but not in hardware:
             </Text>
             <div className="flex flex-wrap gap-2">

@@ -53,7 +53,7 @@ export function HardwareStats({
           <SlotsList
             slots={sensorSlots}
             label={t('ui.devtools.hardware.slots')}
-            emptyMessage="No fingerprints in sensor"
+            emptyMessage={t('ui.devtools.hardware.noFingerprints')}
             onDelete={onDeleteSlot}
           />
         </div>
@@ -62,7 +62,7 @@ export function HardwareStats({
         <div className="p-6 space-y-4">
           <div>
             <Text size="lg" weight="bold">
-              Database
+              {t('ui.devtools.hardware.database')}
             </Text>
             <Text size="sm" className="text-[var(--color-text-muted)]">
               Count: {dbSlots.length}
@@ -70,8 +70,8 @@ export function HardwareStats({
           </div>
           <SlotsList
             slots={dbSlots}
-            label="Database Records"
-            emptyMessage="No fingerprints in database"
+            label={t('ui.devtools.hardware.databaseRecords')}
+            emptyMessage={t('ui.devtools.hardware.noDbFingerprints')}
           />
         </div>
       </Card>

@@ -9,5 +9,21 @@
   "ui.devtools.hardware.clearSuccess": "Sensor limpiado correctamente",
   "ui.devtools.hardware.clearError": "Error al limpiar el sensor",
   "ui.devtools.hardware.usedCount": "Slots Usados",
-  "ui.devtools.hardware.slots": "IDs de Slots"
+  "ui.devtools.hardware.slots": "IDs de Slots",
+  "ui.devtools.hardware.availableSlots": "Slots Disponibles",
+  "ui.devtools.hardware.slotsAvailable": "slots disponibles",
+  "ui.devtools.hardware.used": "usados",
+  "ui.devtools.hardware.noFingerprints": "Sin huellas en el sensor",
+  "ui.devtools.hardware.database": "Base de Datos",
+  "ui.devtools.hardware.databaseRecords": "Registros de BD",
+  "ui.devtools.hardware.noDbFingerprints": "Sin huellas en base de datos",
+  "ui.devtools.verify.title": "Prueba de Acceso",
+  "ui.devtools.verify.statusIdle": "Listo",
+  "ui.devtools.verify.statusScanning": "Escaneando...",
+  "ui.devtools.verify.statusSuccess": "Acceso Concedido",
+  "ui.devtools.verify.statusDenied": "Denegado",
+  "ui.devtools.verify.button": "Verificar Huella",
+  "ui.devtools.verify.placeFinger": "Coloca el dedo en el sensor...",
+  "ui.devtools.verify.failed": "Verificación fallida",
+  "ui.devtools.verify.fetchError": "Error al obtener slots disponibles"
 }

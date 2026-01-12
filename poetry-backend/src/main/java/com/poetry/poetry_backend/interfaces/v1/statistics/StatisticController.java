@@ -1,5 +1,5 @@
 /*
- * File: StatisticsController.java
+ * File: StatisticController.java
  * Purpose: REST controller exposing statistics endpoints for admin
  * dashboard. Provides membership counts by status.
  * All Rights Reserved. Arodi Emmanuel
@@ -14,10 +14,10 @@ import com.poetry.poetry_backend.domain.statistics.model.MembershipStats;
 
 @RestController
 @RequestMapping("${app.api-base-path}/statistics")
-public class StatisticsController {
+public class StatisticController {
   private final GetMembershipStatsUseCase getMembershipStats;
 
-  public StatisticsController(GetMembershipStatsUseCase getMembershipStats) {
+  public StatisticController(GetMembershipStatsUseCase getMembershipStats) {
     this.getMembershipStats = getMembershipStats;
   }
 

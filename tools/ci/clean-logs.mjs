@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
  * File: clean-logs.mjs
- * Purpose: Clean ANSI escape codes from log files
+ * Purpose: Clean ANSI escape codes from log files for readability.
+ * Removes terminal color codes that make logs hard to parse.
+ * Processes frontend dev log and writes cleaned version back.
  * All Rights Reserved. Arodi Emmanuel
  */
 import fs from 'node:fs'

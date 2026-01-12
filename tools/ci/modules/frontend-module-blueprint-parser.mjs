@@ -17,6 +17,11 @@ function loadBlueprint() {
   }
 }
 
+export function getFrontendBlueprintMeta() {
+  const blueprint = loadBlueprint()
+  return blueprint?.meta || {}
+}
+
 export function parseFrontendBlueprintPaths() {
   const blueprint = loadBlueprint()
   if (!blueprint?.structure) return []

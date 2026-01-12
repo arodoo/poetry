@@ -1,5 +1,5 @@
 /*
- * File: StatisticsComposition.java
+ * File: StatisticComposition.java
  * Purpose: Bean configuration for statistics module wiring use cases
  * to their ports and exposing as Spring beans.
  * All Rights Reserved. Arodi Emmanuel
@@ -13,7 +13,7 @@ import com.poetry.poetry_backend.application.statistics.port.MembershipStatsQuer
 import com.poetry.poetry_backend.application.statistics.usecase.GetMembershipStatsUseCase;
 
 @Configuration
-public class StatisticsComposition {
+public class StatisticComposition {
   @Bean
   GetMembershipStatsUseCase getMembershipStatsUseCase(
       MembershipStatsQueryPort port) {

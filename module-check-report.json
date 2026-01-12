@@ -1,7 +1,7 @@
 {
   "ok": true,
   "summary": {
-    "features": 12,
+    "features": 13,
     "missing": 0
   },
   "details": [
@@ -1649,6 +1649,212 @@
           "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/sellercode/SellercodeControllerNegativeTest.java",
           "optional": true,
           "exists": true
+        }
+      ],
+      "missing": []
+    },
+    {
+      "feature": "statistics",
+      "expected": [
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/statistics/model/**/Statistic.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/domain/statistics/model/value/*",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/statistics/port/StatisticQueryPort.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/statistics/port/StatisticCommandPort.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/statistics/usecase/**/GetAllStatisticsUseCase.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/statistics/usecase/**/GetStatisticByIdUseCase.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/statistics/usecase/**/CreateStatisticUseCase.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/statistics/usecase/**/UpdateStatisticUseCase.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/application/statistics/usecase/**/DeleteStatisticUseCase.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/statistics/**/StatisticEntity.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/statistics/**/StatisticJpaRepository.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/statistics/**/StatisticJpaMapper.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/jpa/statistics/**/StatisticJpaAdapter.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/statistics/InMemoryStatisticAdapter.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/statistics/InMemoryStatisticStore.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/infrastructure/memory/statistics/InMemoryStatisticFactory.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/StatisticController.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/**/StatisticsCreateController.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/**/StatisticsGetController.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/**/StatisticsListController.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/**/StatisticsPagedListController.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/**/StatisticsUpdateController.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/**/StatisticsDeleteController.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/interfaces/v1/statistics/**/StatisticDto.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/main/java/com/poetry/poetry_backend/config/statistics/StatisticComposition.java",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/domains/statistics.md",
+          "optional": false,
+          "exists": true
+        },
+        {
+          "path": "docs/api/openapi/paths/statistics-*.yaml",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/statistics/model/StatisticTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/domain/statistics/model/StatisticValidationTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/CreateStatisticUseCaseTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/CreateStatisticUseCaseNegativeTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/GetAllStatisticsUseCaseTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/GetStatisticByIdUseCaseTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/GetStatisticByIdUseCaseNegativeTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/UpdateStatisticUseCaseTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/UpdateStatisticUseCaseNegativeTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/DeleteStatisticUseCaseTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/application/statistics/usecase/DeleteStatisticUseCaseNegativeTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/statistics/StatisticControllerTest.java",
+          "optional": true,
+          "exists": false
+        },
+        {
+          "path": "poetry-backend/src/test/java/com/poetry/poetry_backend/interfaces/v1/statistics/StatisticControllerNegativeTest.java",
+          "optional": true,
+          "exists": false
         }
       ],
       "missing": []

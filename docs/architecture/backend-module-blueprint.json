@@ -15,7 +15,8 @@
       "admin",
       "api",
       "shared",
-      "sellercode"
+      "sellercode",
+      "statistics"
     ],
     "notes": "nonCrudFeatures are utility/auth/config features with custom controllers, not full CRUD. They are excluded from CRUD controller/test/OpenAPI requirements. Standard CRUD features like events, membership, subscription, user, zone use singular class names."
   },

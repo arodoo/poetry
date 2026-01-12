@@ -1,12 +1,15 @@
 /*
  * File: AvailableSlotsCard.tsx
- * Purpose: Card displaying available slots in sensor with scroll
+ * Purpose: Card displaying available slots in sensor with scrollable list.
+ * Shows used vs available count and renders badge for each slot.
+ * Used in devtools hardware diagnostics page.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Text } from '../../../ui/Text/Text'
-import { Card } from '../../../ui/Card/Card'
-import { Badge } from '../../../ui/Badge/Badge'
+import { Text } from '../../../../ui/Text/Text'
+import { Card } from '../../../../ui/Card/Card'
+import { Badge } from '../../../../ui/Badge/Badge'
+import { useT } from '../../../../shared/i18n/useT'
 
 interface AvailableSlotsCardProps {
   slots: number[]
@@ -14,6 +17,7 @@ interface AvailableSlotsCardProps {
 }
 
 export function AvailableSlotsCard({ slots, capacity }: AvailableSlotsCardProps): ReactElement {
+  const t = useT()
   const safeSlots = slots ?? []
   const safeCapacity = capacity ?? 0
 
@@ -26,9 +30,9 @@ export function AvailableSlotsCard({ slots, capacity }: AvailableSlotsCardProps)
       <div className="p-6 space-y-4">
         <div className="flex justify-between items-start">
           <div>
-            <Text size="lg" weight="bold">Available Slots</Text>
+            <Text size="lg" weight="bold">{t('ui.devtools.hardware.availableSlots')}</Text>
             <Text size="sm" className="text-[var(--color-text-muted)]">
-              {safeSlots.length} / {safeCapacity} slots available ({usedCount} used)
+              {safeSlots.length} / {safeCapacity} {t('ui.devtools.hardware.slotsAvailable')} ({usedCount} {t('ui.devtools.hardware.used')})
             </Text>
           </div>
         </div>

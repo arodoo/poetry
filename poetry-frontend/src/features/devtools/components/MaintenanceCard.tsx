@@ -1,6 +1,8 @@
 /*
  * File: MaintenanceCard.tsx
- * Purpose: Card with maintenance controls (clear all templates)
+ * Purpose: Card with maintenance controls for sensor management.
+ * Provides dangerous operations like clear all templates with warnings.
+ * Used in devtools hardware diagnostics page for admin tasks.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'

@@ -1,13 +1,15 @@
 /*
  * File: DiagnosticsCard.tsx
- * Purpose: Card with sensor diagnostic controls (scan slots, available)
+ * Purpose: Card with sensor diagnostic controls for hardware testing.
+ * Provides buttons to scan slots and check available capacity.
+ * Displays template count and available slot statistics.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Card } from '../../../ui/Card/Card'
-import { Button } from '../../../ui/Button/Button'
-import { Text } from '../../../ui/Text/Text'
-import { useT } from '../../../shared/i18n/useT'
+import { Card } from '../../../../ui/Card/Card'
+import { Button } from '../../../../ui/Button/Button'
+import { Text } from '../../../../ui/Text/Text'
+import { useT } from '../../../../shared/i18n/useT'
 
 interface DiagnosticsCardProps {
     state: {
@@ -30,7 +32,7 @@ export function DiagnosticsCard({ state }: DiagnosticsCardProps): ReactElement {
                         {t('ui.devtools.hardware.scanSlots')}
                     </Button>
                     <Button onClick={() => void fetchAvailableSlots()} variant="secondary" size="sm" disabled={sensor.loading}>
-                        Available Slots
+                        {t('ui.devtools.hardware.availableSlots')}
                     </Button>
                 </div>
                 <div className="text-sm space-y-1">

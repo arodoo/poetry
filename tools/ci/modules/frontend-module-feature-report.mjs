@@ -10,6 +10,7 @@ import path from 'node:path'
 import {
   parseFrontendBlueprintPaths,
   expandFrontendFeature,
+  getFrontendBlueprintMeta,
 } from './frontend-module-blueprint-parser.mjs'
 
 const FEATURES_BASE = 'poetry-frontend/src/features'
@@ -32,6 +33,10 @@ function hasAnyYaml(dir, feature) {
 export function buildFrontendFeatureReport(feature) {
   const blueprintPaths = parseFrontendBlueprintPaths()
   const expanded = expandFrontendFeature(blueprintPaths, feature)
+  const meta = getFrontendBlueprintMeta()
+  const nonCrudFeatures = new Set(meta.nonCrudFeatures || [])
+  const isNonCrud = nonCrudFeatures.has(feature)
+
   const report = { feature, expected: [], missing: [] }
   for (const e of expanded) {
     const p = e.path
@@ -45,8 +50,10 @@ export function buildFrontendFeatureReport(feature) {
     } else {
       exists = fs.existsSync(p)
     }
-    report.expected.push({ path: p, optional: e.optional, exists })
-    if (!exists && !e.optional) {
+    // Non-CRUD features: ALL required files become optional
+    const optional = e.optional || isNonCrud
+    report.expected.push({ path: p, optional, exists })
+    if (!exists && !optional) {
       report.missing.push(p)
     }
   }

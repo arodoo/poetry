@@ -16,10 +16,10 @@ interface KpiCardProps {
 }
 
 const colorMap: Record<string, string> = {
-  green: 'text-green-600',
-  yellow: 'text-yellow-600',
-  red: 'text-red-600',
-  gray: 'text-gray-600',
+  green: 'text-[var(--color-success)]',
+  yellow: 'text-[var(--color-warning)]',
+  red: 'text-[var(--color-error)]',
+  gray: 'text-[var(--color-textMuted)]',
 }
 
 export function KpiCard({

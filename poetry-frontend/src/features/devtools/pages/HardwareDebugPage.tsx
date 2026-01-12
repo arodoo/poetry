@@ -11,7 +11,7 @@ import { useHardwarePageState } from '../hooks/useHardwarePageState'
 import { ClearTemplatesModal } from '../components/ClearTemplatesModal'
 import { HardwareStats } from '../components/HardwareStats'
 import { SyncIssues } from '../components/SyncIssues'
-import { DiagnosticsCard } from '../components/DiagnosticsCard'
+import { DiagnosticsCard } from '../components/hardware/DiagnosticsCard'
 import { VerifyFingerprintCard } from '../components/VerifyFingerprintCard'
 import { MaintenanceCard } from '../components/MaintenanceCard'
 

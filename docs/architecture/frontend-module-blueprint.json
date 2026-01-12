@@ -1,7 +1,17 @@
 {
   "meta": {
     "version": "1.1",
-    "description": "Canonical frontend feature folder & file structure (existence-only). Semantic rules (headers, query keys, i18n) enforced by other CI scripts."
+    "description": "Canonical frontend feature folder & file structure (existence-only). Semantic rules (headers, query keys, i18n) enforced by other CI scripts.",
+    "nonCrudFeatures": [
+      "admin-stats",
+      "fingerprint",
+      "devtools",
+      "auth",
+      "public",
+      "public-login",
+      "public-register",
+      "public-forgot-password"
+    ]
   },
   "postCreationSteps": [
     {

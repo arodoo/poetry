@@ -9,5 +9,21 @@
   "ui.devtools.hardware.clearSuccess": "Sensor cleared successfully",
   "ui.devtools.hardware.clearError": "Failed to clear sensor",
   "ui.devtools.hardware.usedCount": "Used Slots Count",
-  "ui.devtools.hardware.slots": "Slot IDs"
+  "ui.devtools.hardware.slots": "Slot IDs",
+  "ui.devtools.hardware.availableSlots": "Available Slots",
+  "ui.devtools.hardware.slotsAvailable": "slots available",
+  "ui.devtools.hardware.used": "used",
+  "ui.devtools.hardware.noFingerprints": "No fingerprints in sensor",
+  "ui.devtools.hardware.database": "Database",
+  "ui.devtools.hardware.databaseRecords": "Database Records",
+  "ui.devtools.hardware.noDbFingerprints": "No fingerprints in database",
+  "ui.devtools.verify.title": "Access Test",
+  "ui.devtools.verify.statusIdle": "Ready",
+  "ui.devtools.verify.statusScanning": "Scanning...",
+  "ui.devtools.verify.statusSuccess": "Access Granted",
+  "ui.devtools.verify.statusDenied": "Denied",
+  "ui.devtools.verify.button": "Verify Fingerprint",
+  "ui.devtools.verify.placeFinger": "Place finger on sensor...",
+  "ui.devtools.verify.failed": "Verification failed",
+  "ui.devtools.verify.fetchError": "Failed to fetch available slots"
 }

@@ -52,7 +52,7 @@ export function useHardwareDebug(): {
         } catch (e) {
             const msg = e instanceof Error ? e.message : String(e)
             setSensor((s) => ({ ...s, loading: false, error: msg }))
-            toast.push('Failed to fetch available slots')
+            toast.push(t('ui.devtools.verify.fetchError'))
         }
     }
 
