@@ -10,6 +10,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.poetry.poetry_backend.domain.membership.model.UserHasMembership;
 
 public interface UserHasMembershipQueryPort {
@@ -24,4 +27,11 @@ public interface UserHasMembershipQueryPort {
   long countActive(Instant now);
 
   long countExpired(Instant now);
+
+  Page<UserHasMembership> findAllActive(Instant now, Pageable pageable);
+
+  Page<UserHasMembership> findAllExpiring(Instant now, Instant limit,
+      Pageable pageable);
+
+  Page<UserHasMembership> findAllExpired(Instant now, Pageable pageable);
 }

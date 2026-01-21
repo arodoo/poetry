@@ -53,4 +53,10 @@ public class UserJpaQueryAdapter implements UserQueryPort {
         .map(UserJpaMapper::toDomain)
         .orElseThrow(() -> new UserNotFoundException(id));
   }
+
+  public List<com.poetry.poetry_backend.domain.user.model.core.User> findAllById(List<Long> ids) {
+    return repo.findAllById(ids).stream()
+        .map(UserJpaMapper::toDomain)
+        .toList();
+  }
 }

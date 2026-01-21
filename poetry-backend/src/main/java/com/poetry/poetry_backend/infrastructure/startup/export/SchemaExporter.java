@@ -4,7 +4,7 @@
  * Uses JDBC metadata to generate CREATE TABLE statements.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.export;
 
 import javax.sql.DataSource;
 

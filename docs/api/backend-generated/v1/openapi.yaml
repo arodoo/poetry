@@ -28,6 +28,8 @@ tags:
     description: Event management
   - name: Fingerprint Enrollment
     description: Fingerprint wizard
+  - name: user-memberships
+    description: User Membership management
   - name: fingerprints
     description: Fingerprint enrollment
   - name: Seller Codes
@@ -1852,6 +1854,34 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PageResponseDtoUserResponse'
+  /api/v1/user-memberships:
+    get:
+      tags:
+        - user-memberships
+      summary: List user memberships by status
+      description: "Retrieve user memberships filtered by status (ACTIVE,
+        EXPIRING,\
+        \ EXPIRED)"
+      operationId: listUserMemberships
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ACTIVE
+        - name: pageable
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Pageable'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageMembershipDetail'
   /api/v1/tokens:
     get:
       tags:
@@ -1940,7 +1970,7 @@ paths:
   /api/v1/statistics/memberships:
     get:
       tags:
-        - statistics-controller
+        - statistic-controller
       operationId: getMembershipStats
       parameters:
         - name: expiringDays
@@ -3332,6 +3362,103 @@ components:
           description: Has previous page
           example: false
       description: Paginated response wrapper
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    MembershipDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        userName:
+          type: string
+        userEmail:
+          type: string
+        status:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        planName:
+          type: string
+    PageMembershipDetail:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/MembershipDetail'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
     Current:
       type: object
       properties:
@@ -3637,30 +3764,19 @@ components:
       properties:
         locale:
           type: string
-    Pageable:
-      type: object
-      properties:
-        page:
-          minimum: 0
-          type: integer
-          format: int32
-        size:
-          minimum: 1
-          type: integer
-          format: int32
-        sort:
-          type: array
-          items:
-            type: string
     PageEventResponse:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
         size:
           type: integer
           format: int32
@@ -3673,43 +3789,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
-          type: boolean
-    PageableObject:
-      type: object
-      properties:
-        offset:
-          type: integer
-          format: int64
-        sort:
-          $ref: '#/components/schemas/SortObject'
-        pageNumber:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-        paged:
-          type: boolean
-        unpaged:
-          type: boolean
-    SortObject:
-      type: object
-      properties:
-        empty:
-          type: boolean
-        sorted:
-          type: boolean
-        unsorted:
           type: boolean
     DashboardOverviewResponse:
       type: object

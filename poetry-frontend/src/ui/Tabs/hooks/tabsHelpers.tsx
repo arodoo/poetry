@@ -7,14 +7,28 @@
 */
 export function tabClass(selected: boolean, disabled?: boolean): string {
   const parts: string[] = [
-    'text-xs',
-    'px-3',
-    'py-1',
-    'rounded-md',
+    'whitespace-nowrap',
+    'py-4',
+    'px-1',
+    'border-b-2',
+    'font-medium',
+    'text-sm',
     'transition-colors',
+    'focus:outline-none',
   ]
-  if (selected) parts.push('bg-[var(--color-surface)]', 'font-medium')
-  else parts.push('hover:bg-[var(--color-surface)]')
+  if (selected) {
+    parts.push(
+      'border-[var(--color-primary)]',
+      'text-[var(--color-primary)]'
+    )
+  } else {
+    parts.push(
+      'border-transparent',
+      'text-[var(--color-textMuted)]',
+      'hover:text-[var(--color-text)]',
+      'hover:border-[var(--color-border)]'
+    )
+  }
   if (disabled) parts.push('opacity-50', 'cursor-not-allowed')
   return parts.join(' ')
 }

@@ -5,5 +5,13 @@
   "ui.adminStats.kpi.expiringSoon": "Por vencer",
   "ui.adminStats.kpi.expired": "Vencidas",
   "ui.adminStats.kpi.total": "Total",
-  "ui.adminStats.error.loading": "Error cargando estadísticas"
+  "ui.adminStats.error.loading": "Error cargando estadísticas",
+  "ui.adminStats.status.active": "Activos",
+  "ui.adminStats.status.expiring": "Por Vencer",
+  "ui.adminStats.status.expired": "Vencidos",
+  "ui.adminStats.table.member": "Miembro",
+  "ui.adminStats.table.status": "Estado",
+  "ui.adminStats.table.dates": "Fechas",
+  "ui.adminStats.table.plan": "Plan",
+  "ui.adminStats.table.empty": "No se encontraron miembros"
 }

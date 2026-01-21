@@ -5,7 +5,7 @@
  * for PostgreSQL compatibility.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.export;
 
 import java.io.PrintWriter;
 import java.sql.*;

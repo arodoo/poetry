@@ -8,9 +8,30 @@ import {
   listMemberships as listMembershipsSdk,
   listMembershipsPaged as listMembershipsPagedSdk,
   getMembershipById as getMembershipByIdSdk,
+  listUserMemberships as listUserMembershipsSdk,
   type MembershipResponse,
   type PageResponseDtoMembershipResponse,
+  type PageMembershipDetail,
 } from '../../../api/generated'
+
+export async function fetchUserMemberships(
+  status: string,
+  page: number,
+  size: number
+): Promise<PageMembershipDetail> {
+  // Force flat params for Spring Boot backend compatibility
+  const response = await listUserMembershipsSdk({
+    query: {
+      status,
+      page,
+      size,
+    } as any,
+  })
+  if (!response.data) {
+    throw new Error('Failed to fetch user memberships')
+  }
+  return response.data
+}
 
 export async function fetchMembershipsList(): Promise<MembershipResponse[]> {
   const response = await listMembershipsSdk()

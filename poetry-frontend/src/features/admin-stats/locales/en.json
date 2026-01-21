@@ -5,5 +5,13 @@
   "ui.adminStats.kpi.expiringSoon": "Expiring Soon",
   "ui.adminStats.kpi.expired": "Expired",
   "ui.adminStats.kpi.total": "Total",
-  "ui.adminStats.error.loading": "Error loading stats"
+  "ui.adminStats.error.loading": "Error loading stats",
+  "ui.adminStats.status.active": "Active",
+  "ui.adminStats.status.expiring": "Expiring Soon",
+  "ui.adminStats.status.expired": "Expired",
+  "ui.adminStats.table.member": "Member",
+  "ui.adminStats.table.status": "Status",
+  "ui.adminStats.table.dates": "Dates",
+  "ui.adminStats.table.plan": "Plan",
+  "ui.adminStats.table.empty": "No members found"
 }

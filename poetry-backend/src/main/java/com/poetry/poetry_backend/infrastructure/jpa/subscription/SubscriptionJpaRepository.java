@@ -36,4 +36,6 @@ public interface SubscriptionJpaRepository
   Optional<SubscriptionEntity> findActiveById(Long id);
 
   boolean existsByName(String name);
+  
+  Optional<SubscriptionEntity> findByName(String name);
 }

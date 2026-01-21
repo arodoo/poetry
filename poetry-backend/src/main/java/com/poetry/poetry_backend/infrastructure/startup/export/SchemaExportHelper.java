@@ -1,11 +1,11 @@
 /*
- * File: DataDumpHelper.java
- * Purpose: Helper that queries all tables via JDBC metadata and
- * generates INSERT statements for each row. Handles column types
- * and escaping for PostgreSQL compatibility.
+ * File: SchemaExportHelper.java
+ * Purpose: Helper that queries PostgreSQL schema via JDBC metadata
+ * and generates CREATE TABLE DDL statements. Avoids Hibernate
+ * internals for better compatibility.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.export;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -15,11 +15,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-class DataDumpHelper {
+class SchemaExportHelper {
   private final DataSource dataSource;
   private final String outputPath;
 
-  DataDumpHelper(DataSource dataSource, String outputPath) {
+  SchemaExportHelper(DataSource dataSource, String outputPath) {
     this.dataSource = dataSource;
     this.outputPath = outputPath;
   }
@@ -31,13 +31,13 @@ class DataDumpHelper {
       writeHeader(writer);
       List<String> tables = getTableNames(conn);
       for (String table : tables) {
-        exportTable(conn, writer, table);
+        exportTableSchema(conn, writer, table);
       }
     }
   }
 
   private void writeHeader(PrintWriter w) {
-    w.println("-- Poetry Database Full Dump");
+    w.println("-- Poetry Database Schema");
     w.println("-- Generated at: " + java.time.Instant.now());
     w.println();
   }
@@ -54,9 +54,9 @@ class DataDumpHelper {
     return tables;
   }
 
-  private void exportTable(Connection c, PrintWriter w, String t)
+  private void exportTableSchema(Connection c, PrintWriter w, String t)
       throws SQLException {
-    new TableDumpWriter(c, w, t).write();
+    new TableSchemaWriter(c, w, t).write();
   }
 
   private void ensureDirectoryExists() {

@@ -4,7 +4,7 @@
  * application startup by invoking the registration use case.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
 
 import java.util.HashSet;
 import java.util.Map;

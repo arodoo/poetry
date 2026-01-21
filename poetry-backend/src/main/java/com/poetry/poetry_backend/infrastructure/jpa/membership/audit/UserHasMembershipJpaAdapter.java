@@ -9,6 +9,8 @@ package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 import java.time.Instant;
 import java.util.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +52,19 @@ public class UserHasMembershipJpaAdapter
 
   public long countActive(Instant now) { return repo.countActive(now); }
   public long countExpired(Instant now) { return repo.countExpired(now); }
+
+  public Page<UserHasMembership> findAllActive(Instant now, Pageable pageable) {
+    return repo.findAllActive(now, pageable).map(this::toModel);
+  }
+
+  public Page<UserHasMembership> findAllExpiring(Instant now, Instant limit,
+      Pageable pageable) {
+    return repo.findAllExpiring(now, limit, pageable).map(this::toModel);
+  }
+
+  public Page<UserHasMembership> findAllExpired(Instant now, Pageable pageable) {
+    return repo.findAllExpired(now, pageable).map(this::toModel);
+  }
 
   public UserHasMembership create(Long uid, Long subId, String code,
       Set<Long> zones, Instant start, Instant end) {

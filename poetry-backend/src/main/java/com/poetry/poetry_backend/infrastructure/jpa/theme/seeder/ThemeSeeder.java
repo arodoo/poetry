@@ -31,6 +31,13 @@ public class ThemeSeeder {
     for (ThemeDefinition def : ThemeConstants.DEFAULTS) {
       upsertTheme(def);
     }
+    
+    // Ensure one theme is active (default to 'calm')
+    if (query.findActive().isEmpty()) {
+      query.findByKey("calm").ifPresent(t -> {
+        command.save(t.withActivated(true));
+      });
+    }
   }
 
   private void upsertTheme(ThemeDefinition def) {

@@ -5,7 +5,7 @@
  * Runs at low priority to capture seeded data.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.export;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

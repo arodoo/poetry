@@ -82,6 +82,10 @@ public final class TestUserStubs {
       public User findById(Long id) {
         return null;
       }
+
+      public java.util.List<User> findAllById(java.util.List<Long> ids) {
+        return java.util.List.of();
+      }
     };
   }
 }

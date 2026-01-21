@@ -10,6 +10,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -39,4 +41,17 @@ public interface UserHasMembershipJpaRepository
   @Query("SELECT COUNT(m) FROM UserHasMembershipEntity m "
       + "WHERE m.endDate < :now AND m.status = 'active'")
   long countExpired(Instant now);
+
+  @Query("SELECT m FROM UserHasMembershipEntity m "
+      + "WHERE m.endDate > :now AND m.status = 'active'")
+  Page<UserHasMembershipEntity> findAllActive(Instant now, Pageable pageable);
+
+  @Query("SELECT m FROM UserHasMembershipEntity m "
+      + "WHERE m.endDate BETWEEN :now AND :limit AND m.status = 'active'")
+  Page<UserHasMembershipEntity> findAllExpiring(Instant now, Instant limit,
+      Pageable pageable);
+
+  @Query("SELECT m FROM UserHasMembershipEntity m "
+      + "WHERE m.endDate < :now AND m.status = 'active'")
+  Page<UserHasMembershipEntity> findAllExpired(Instant now, Pageable pageable);
 }

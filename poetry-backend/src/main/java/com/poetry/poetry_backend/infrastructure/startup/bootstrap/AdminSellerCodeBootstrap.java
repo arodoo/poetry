@@ -3,7 +3,7 @@
  * Purpose: Bootstrap component that ensures admin user has a default seller code.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

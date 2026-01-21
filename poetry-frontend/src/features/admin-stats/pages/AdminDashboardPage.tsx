@@ -10,9 +10,11 @@ import { Card } from '../../../ui/Card/Card'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Heading } from '../../../ui/Heading/Heading'
 import { Text } from '../../../ui/Text/Text'
+import { Tabs } from '../../../ui/Tabs/Tabs'
 import { useMembershipStatsQuery } from '../api/useStatsQueries'
 import { KpiGrid } from '../components/KpiGrid'
 import { useT } from '../../../shared/i18n/useT'
+import { MembersList } from '../components/memberships/MembersList'
 
 export function AdminDashboardPage(): ReactElement {
   const t = useT()
@@ -37,6 +39,25 @@ export function AdminDashboardPage(): ReactElement {
         </Heading>
         <Text className="text-[var(--color-textMuted)]">{t('ui.adminStats.subtitle')}</Text>
         {stats && <KpiGrid stats={stats} />}
+
+        <div className="mt-8">
+          <Tabs
+            items={[
+              {
+                label: t('ui.adminStats.status.active'),
+                panel: <MembersList status="ACTIVE" />,
+              },
+              {
+                label: t('ui.adminStats.status.expiring'),
+                panel: <MembersList status="EXPIRING" />,
+              },
+              {
+                label: t('ui.adminStats.status.expired'),
+                panel: <MembersList status="EXPIRED" />,
+              },
+            ]}
+          />
+        </div>
       </Stack>
     </div>
   )

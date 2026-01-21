@@ -8,12 +8,14 @@ package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
 
+@Service
 @Transactional
 public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
   private final UserJpaQueryAdapter queryAdapter;
@@ -35,6 +37,10 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
 
   public com.poetry.poetry_backend.domain.user.model.core.User findById(Long id) {
     return queryAdapter.findById(id);
+  }
+
+  public List<com.poetry.poetry_backend.domain.user.model.core.User> findAllById(List<Long> ids) {
+    return queryAdapter.findAllById(ids);
   }
 
   public com.poetry.poetry_backend.domain.user.model.core.User create(

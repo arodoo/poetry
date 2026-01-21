@@ -46,6 +46,13 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
         .orElseThrow(() -> new UserNotFoundException(id));
   }
 
+  public List<User> findAllById(List<Long> ids) {
+    return ids.stream()
+        .map(store::get)
+        .filter(Objects::nonNull)
+        .toList();
+  }
+
   public User create(
       String f,
       String l,

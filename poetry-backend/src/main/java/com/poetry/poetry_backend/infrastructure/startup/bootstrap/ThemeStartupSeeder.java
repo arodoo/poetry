@@ -3,15 +3,16 @@
  * Purpose: ApplicationReady listener that triggers theme seeding at startup.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.infrastructure.jpa.theme.seeder.ThemeSeeder;
 
-@Component
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ThemeStartupSeeder {
   private final ThemeSeeder themeSeeder;
 
@@ -21,6 +22,12 @@ public class ThemeStartupSeeder {
 
   @EventListener(ApplicationReadyEvent.class)
   public void onReady() {
-    themeSeeder.seed();
+    log.info("ThemeStartupSeeder: starting theme seeding...");
+    try {
+      themeSeeder.seed();
+      log.info("ThemeStartupSeeder: theme seeding complete.");
+    } catch (Exception e) {
+      log.error("ThemeStartupSeeder: failed to seed themes", e);
+    }
   }
 }

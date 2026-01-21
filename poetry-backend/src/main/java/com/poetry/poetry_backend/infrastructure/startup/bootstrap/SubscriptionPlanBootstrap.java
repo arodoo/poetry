@@ -4,7 +4,7 @@
  * on application startup for testing and demonstration.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
 
 import java.math.BigDecimal;
 import java.util.Set;

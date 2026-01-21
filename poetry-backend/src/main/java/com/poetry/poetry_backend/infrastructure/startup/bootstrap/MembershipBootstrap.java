@@ -5,7 +5,7 @@
  * seller codes, and zones specifically for membership testing.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -6,7 +6,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-export { FingerprintRoutes } from './routing/fingerprintRoutes'
+// export { FingerprintRoutes } from './routing/fingerprintRoutes'
 export {
   useFingerprintsListQuery,
   fingerprintQueryKeys,

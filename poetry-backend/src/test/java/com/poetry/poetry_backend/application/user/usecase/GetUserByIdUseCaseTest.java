@@ -40,6 +40,9 @@ class GetUserByIdUseCaseTest {
             0L
         );
       }
+      public java.util.List<User> findAllById(java.util.List<Long> ids) {
+        return java.util.List.of();
+      }
     };
     var uc = new GetUserByIdUseCase(query);
   assertEquals(5L, uc.execute(5L).id());
@@ -53,6 +56,9 @@ class GetUserByIdUseCaseTest {
         return new PageResult<>(java.util.List.of(), 0, 0, p, s);
       }
       public User findById(Long id) { return null; }
+      public java.util.List<User> findAllById(java.util.List<Long> ids) {
+        return java.util.List.of();
+      }
     };
     var uc = new GetUserByIdUseCase(query);
     assertThrows(UserNotFoundException.class, () -> uc.execute(9L));

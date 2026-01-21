@@ -5,7 +5,7 @@
  * the first active user as manager to populate the zones list.
  * All Rights Reserved. Arodi Emmanuel
  */
-package com.poetry.poetry_backend.infrastructure.startup;
+package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
 
 import java.util.List;
 

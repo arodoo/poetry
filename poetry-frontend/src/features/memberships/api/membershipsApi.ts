@@ -8,6 +8,7 @@ export {
   fetchMembershipsList,
   fetchMembershipsPage,
   fetchMembershipById,
+  fetchUserMemberships,
 } from './membershipsQueries'
 export {
   createMembership,

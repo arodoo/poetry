@@ -21,7 +21,7 @@ import com.poetry.poetry_backend.application.theme.usecase.crud.UpdateThemeUseCa
 import com.poetry.poetry_backend.infrastructure.jpa.theme.entity.ThemeJpaAdapter;
 import com.poetry.poetry_backend.infrastructure.jpa.theme.entity.ThemeJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.theme.seeder.ThemeSeeder;
-import com.poetry.poetry_backend.infrastructure.startup.ThemeStartupSeeder;
+import com.poetry.poetry_backend.infrastructure.startup.bootstrap.ThemeStartupSeeder;
 
 @Configuration
 public class ThemeComposition {

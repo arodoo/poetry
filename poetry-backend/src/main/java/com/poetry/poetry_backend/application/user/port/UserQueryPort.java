@@ -20,4 +20,6 @@ public interface UserQueryPort {
   PageResult<User> findAllPaged(int page, int size, String search);
 
   User findById(Long id);
+
+  List<User> findAllById(List<Long> ids);
 }

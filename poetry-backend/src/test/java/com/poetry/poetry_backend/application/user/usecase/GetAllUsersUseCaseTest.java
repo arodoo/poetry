@@ -30,6 +30,10 @@ class GetAllUsersUseCaseTest {
       public User findById(Long id) {
         return null;
       }
+
+      public java.util.List<User> findAllById(java.util.List<Long> ids) {
+        return java.util.List.of();
+      }
     };
     var uc = new GetAllUsersUseCase(query);
     assertEquals(0, uc.execute().size());
