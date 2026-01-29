@@ -25,6 +25,8 @@ import type {
   VerifyResponse,
 } from '../model/FingerprintSchemas'
 
+import { useBanner } from '../../../shared/banner/BannerContext'
+
 export function useEnrollFingerprintMutation(): UseMutationResult<
   FingerprintResponse,
   unknown,
@@ -32,16 +34,20 @@ export function useEnrollFingerprintMutation(): UseMutationResult<
 > {
   const queryClient = useQueryClient()
   const token = tokenStorage.load()?.accessToken
+  const { push } = useBanner()
 
   return useMutation({
     mutationFn: (data: EnrollRequest) => {
       if (!token) throw new Error('No authentication token')
       return enrollFingerprint(data, token)
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       void queryClient.invalidateQueries({
         queryKey: fingerprintQueryKeys.root,
       })
+      if (data.userId) {
+        void push(data.userId)
+      }
     },
   })
 }

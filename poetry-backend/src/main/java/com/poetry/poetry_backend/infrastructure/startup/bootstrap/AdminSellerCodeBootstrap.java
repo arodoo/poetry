@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.sellercode.usecase.CreateSellerCodeUseCase;
@@ -40,6 +41,7 @@ public class AdminSellerCodeBootstrap {
   }
 
   @EventListener(ApplicationReadyEvent.class)
+  @Order(3)
   public void onApplicationReady() {
     ensureAdminSellerCode();
     if (injectSampleUsers) {

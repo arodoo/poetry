@@ -11,5 +11,12 @@ export const adminStatsEs: Record<string, string> = {
     'ui.adminStats.kpi.expiringSoon': 'Por vencer',
     'ui.adminStats.kpi.expired': 'Vencidas',
     'ui.adminStats.kpi.total': 'Total',
-    'ui.adminStats.error.loading': 'Error cargando estadísticas',
+    'ui.adminStats.error.loading': 'Error al cargar estadísticas',
+    'ui.adminStats.status.active': 'Miembros Activos',
+    'ui.adminStats.status.expiring': 'Por Expirar',
+    'ui.adminStats.status.expired': 'Miembros Expirados',
+    'ui.adminStats.table.member': 'Miembro',
+    'ui.adminStats.table.status': 'Estado',
+    'ui.adminStats.table.dates': 'Fechas',
+    'ui.adminStats.table.plan': 'Plan',
 }

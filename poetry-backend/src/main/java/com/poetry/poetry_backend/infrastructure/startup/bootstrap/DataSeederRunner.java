@@ -6,28 +6,18 @@
  */
 package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.UserHasMembershipEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.UserHasMembershipJpaRepository;
-import com.poetry.poetry_backend.infrastructure.jpa.subscription.SubscriptionEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.subscription.SubscriptionJpaRepository;
-import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Component
+// @Component - Disabled: Use MembershipBootstrap instead
 @RequiredArgsConstructor
 @Slf4j
 public class DataSeederRunner implements CommandLineRunner {
@@ -39,6 +29,9 @@ public class DataSeederRunner implements CommandLineRunner {
   @Override
   @Transactional
   public void run(String... args) throws Exception {
+    log.info("DataSeederRunner: disabled, using MembershipBootstrap");
+    return;
+    /*
     long currentCount = membershipRepo.count();
     if (currentCount >= 50) {
       log.info("Database already has {} memberships. Skipping seeding.", currentCount);
@@ -105,5 +98,6 @@ public class DataSeederRunner implements CommandLineRunner {
     }
 
     log.info("Database seeding complete.");
+    */
   }
 }

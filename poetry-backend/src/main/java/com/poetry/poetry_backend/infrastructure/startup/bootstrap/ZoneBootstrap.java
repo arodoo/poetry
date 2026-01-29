@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.zone.usecase.CreateZoneUseCase;
@@ -45,6 +46,7 @@ public class ZoneBootstrap {
   }
 
   @EventListener(ApplicationReadyEvent.class)
+  @Order(4)
   public void onApplicationReady() {
     if (!enabled) {
       log.info("ZoneBootstrap: disabled via config");

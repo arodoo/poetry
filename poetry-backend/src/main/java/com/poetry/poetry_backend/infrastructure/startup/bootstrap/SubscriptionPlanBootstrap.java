@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.subscription.usecase.CreateSubscriptionUseCase;
@@ -30,6 +31,7 @@ public class SubscriptionPlanBootstrap {
   }
 
   @EventListener(ApplicationReadyEvent.class)
+  @Order(2)
   public void onApplicationReady() {
     try {
       log.info("SubscriptionPlanBootstrap: injecting 20 plans");

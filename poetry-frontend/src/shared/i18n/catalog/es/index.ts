@@ -20,7 +20,7 @@ import membershipsEs from '../../../../features/memberships/locales/es.json'
 import tokensEs from '../../../../features/tokens/locales/es.json'
 import fingerprintEs from '../../../../features/fingerprint/locales/es.json'
 import devtoolsEs from '../../../../features/devtools/locales/es.json'
-import adminStatsEs from '../../../../features/admin-stats/locales/es.json'
+import { adminStatsEs } from './admin-stats/admin-stats'
 
 export const esCatalog: Record<string, string> = {
   ...commonEs,

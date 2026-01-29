@@ -11,12 +11,17 @@ import './App.css'
 import { BrowserRouter } from 'react-router-dom'
 import { AppRouteTree } from './shared/routing/AppRoutes'
 import { ToastProvider } from './shared/toast/ToastProvider'
+import { BannerProvider } from './shared/banner/BannerContext'
+import { BannerList } from './shared/banner/BannerList'
 
 function App(): ReactElement {
   return (
     <BrowserRouter>
       <ToastProvider>
-        <AppRouteTree />
+        <BannerProvider>
+          <AppRouteTree />
+          <BannerList />
+        </BannerProvider>
       </ToastProvider>
     </BrowserRouter>
   )
