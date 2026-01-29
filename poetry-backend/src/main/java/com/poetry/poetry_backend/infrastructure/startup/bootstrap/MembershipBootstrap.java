@@ -21,8 +21,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poetry.poetry_backend.application.membership.usecase.CreateMembershipUseCase;
-import com.poetry.poetry_backend.domain.membership.model.Membership;
+import com.poetry.poetry_backend.application.membership.usecase.AssignMembershipUseCase;
+import com.poetry.poetry_backend.domain.membership.model.UserHasMembership;
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
 import com.poetry.poetry_backend.domain.subscription.model.Subscription;
 import com.poetry.poetry_backend.domain.user.model.core.User;
@@ -34,7 +34,7 @@ import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.UserHasMemb
 public class MembershipBootstrap {
   private static final Logger log = LoggerFactory.getLogger(MembershipBootstrap.class);
 
-  private final CreateMembershipUseCase createMembership;
+  private final AssignMembershipUseCase assignMembership;
   private final MembershipBootstrapSupport support;
   private final UserHasMembershipJpaRepository membershipRepo;
 
@@ -45,10 +45,10 @@ public class MembershipBootstrap {
   private int membershipCount;
 
   public MembershipBootstrap(
-      CreateMembershipUseCase createMembership,
+      AssignMembershipUseCase assignMembership,
       MembershipBootstrapSupport support,
       UserHasMembershipJpaRepository membershipRepo) {
-    this.createMembership = createMembership;
+    this.assignMembership = assignMembership;
     this.support = support;
     this.membershipRepo = membershipRepo;
   }
@@ -90,10 +90,9 @@ public class MembershipBootstrap {
         Set<Long> zoneIds = support.selectZones(i, zones);
         boolean allZones = (i % 5 == 0);
 
-        Membership m = createMembership.execute(
-            userId, subId, code, zoneIds, allZones, "active");
-
-        updateMembershipDates(m.userId(), i);
+        // Use AssignMembershipUseCase to create an audit entry in user_has_membership
+        UserHasMembership uh = assignMembership.execute(userId, subId, code, zoneIds);
+        updateMembershipDates(uh.userId(), i);
       } catch (Exception e) {
         log.warn("Failed membership {}: {}", i, e.getMessage());
       }
