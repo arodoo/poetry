@@ -5,7 +5,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-export { AdminDashboardPage } from './pages/AdminDashboardPage';
-export { KpiCard } from './components/KpiCard';
-export { KpiGrid } from './components/KpiGrid';
-export { useMembershipStatsQuery } from './api/useStatsQueries';
+export { AdminDashboardPage } from './pages/AdminDashboardPage'
+export { KpiCard } from './components/KpiCard'
+export { KpiGrid } from './components/KpiGrid'
+export { useMembershipStatsQuery } from './api/useStatsQueries'

@@ -6,7 +6,7 @@
 import { describe, it, expect } from 'vitest'
 
 describe('HardwareControls', () => {
-    it('placeholder', () => {
-        expect(true).toBe(true)
-    })
+  it('placeholder', () => {
+    expect(true).toBe(true)
+  })
 })

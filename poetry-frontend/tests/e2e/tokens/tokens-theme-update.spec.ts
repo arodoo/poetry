@@ -24,16 +24,20 @@ test.describe('Tokens Admin - Theme Update', (): void => {
     expect(optionCount).toBeGreaterThanOrEqual(3)
 
     const initialValue = await themeSelect.inputValue()
-    const allOptions = await themeSelect.locator('option').allTextContents()
-    const otherOption = allOptions.find((opt): boolean => opt !== initialValue)
-    expect(otherOption).toBeDefined()
+    const optionEls = themeSelect.locator('option')
+    const options = [] as Array<{ value: string; text: string }>
+    for (let i = 0; i < optionCount; i++) {
+      const el = optionEls.nth(i)
+      const value = (await el.getAttribute('value')) ?? ''
+      const text = (await el.textContent()) ?? ''
+      options.push({ value, text })
+    }
 
-    const optionToSelect = await themeSelect
-      .locator('option')
-      .filter({ hasText: otherOption! })
-      .getAttribute('value')
+    const other = options.find((o) => o.value !== initialValue)
+    expect(other).toBeDefined()
 
-    await themeSelect.selectOption(optionToSelect!)
+    const optionToSelect = other!.value
+    await themeSelect.selectOption(optionToSelect)
     await page.click('button[type="submit"]')
 
     await expect(

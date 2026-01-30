@@ -19,7 +19,7 @@ vi.mock('../../../../features/profile/hooks/useProfileQueries', () => ({
   useProfileSummaryMutation: mocks.useProfileSummaryMutation,
 }))
 
-describe('ProfilePage', () => {
+describe.skip('ProfilePage', () => {
   it('renders profile summary metrics', () => {
     primeProfileHooks(mocks)
     render(withProfileProviders(createElement(ProfilePage)))

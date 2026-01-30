@@ -26,7 +26,9 @@ export function AdminDashboardPage(): ReactElement {
   if (error) {
     return (
       <Card padding="md" data-testid="admin-stats-error">
-        <p className="text-[var(--color-error)]">{t('ui.adminStats.error.loading')}</p>
+        <p className="text-[var(--color-error)]">
+          {t('ui.adminStats.error.loading')}
+        </p>
       </Card>
     )
   }
@@ -37,7 +39,9 @@ export function AdminDashboardPage(): ReactElement {
         <Heading level={1} data-testid="admin-stats-title">
           {t('ui.adminStats.title')}
         </Heading>
-        <Text className="text-[var(--color-textMuted)]">{t('ui.adminStats.subtitle')}</Text>
+        <Text className="text-[var(--color-textMuted)]">
+          {t('ui.adminStats.subtitle')}
+        </Text>
         {stats && <KpiGrid stats={stats} />}
 
         <div className="mt-8">

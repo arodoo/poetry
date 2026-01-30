@@ -17,10 +17,7 @@ export function tabClass(selected: boolean, disabled?: boolean): string {
     'focus:outline-none',
   ]
   if (selected) {
-    parts.push(
-      'border-[var(--color-primary)]',
-      'text-[var(--color-primary)]'
-    )
+    parts.push('border-[var(--color-primary)]', 'text-[var(--color-primary)]')
   } else {
     parts.push(
       'border-transparent',

@@ -10,8 +10,17 @@ package com.poetry.poetry_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
 @SpringBootApplication
+@ComponentScan(
+  basePackages = "com.poetry.poetry_backend",
+  excludeFilters = @ComponentScan.Filter(
+    type = FilterType.REGEX,
+    pattern = "com\\.poetry\\.poetry_backend\\.interfaces\\.v1\\.membership\\.legacy\\..*"
+  )
+)
 public class PoetryBackendApplication {
 
   public static void main(String[] args) {

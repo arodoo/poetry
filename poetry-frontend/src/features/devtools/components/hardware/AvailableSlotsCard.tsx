@@ -16,29 +16,34 @@ interface AvailableSlotsCardProps {
   capacity: number
 }
 
-export function AvailableSlotsCard({ slots, capacity }: AvailableSlotsCardProps): ReactElement {
+export function AvailableSlotsCard({
+  slots,
+  capacity,
+}: AvailableSlotsCardProps): ReactElement {
   const t = useT()
-  const safeSlots = slots ?? []
-  const safeCapacity = capacity ?? 0
 
-  if (safeSlots.length === 0 && safeCapacity === 0) return <></>
+  if (slots.length === 0 && capacity === 0) return <></>
 
-  const usedCount = safeCapacity - safeSlots.length
+  const usedCount = capacity - slots.length
 
   return (
     <Card>
       <div className="p-6 space-y-4">
         <div className="flex justify-between items-start">
           <div>
-            <Text size="lg" weight="bold">{t('ui.devtools.hardware.availableSlots')}</Text>
+            <Text size="lg" weight="bold">
+              {t('ui.devtools.hardware.availableSlots')}
+            </Text>
             <Text size="sm" className="text-[var(--color-text-muted)]">
-              {safeSlots.length} / {safeCapacity} {t('ui.devtools.hardware.slotsAvailable')} ({usedCount} {t('ui.devtools.hardware.used')})
+              {slots.length} / {capacity}{' '}
+              {t('ui.devtools.hardware.slotsAvailable')} ({usedCount}{' '}
+              {t('ui.devtools.hardware.used')})
             </Text>
           </div>
         </div>
         <div className="max-h-48 overflow-y-auto border border-[var(--color-border)] rounded-lg p-3 bg-[var(--color-bg-subtle)]">
           <div className="flex flex-wrap gap-1">
-            {safeSlots.map((slot) => (
+            {slots.map((slot) => (
               <Badge key={slot} tone="success" size="sm">
                 {slot}
               </Badge>

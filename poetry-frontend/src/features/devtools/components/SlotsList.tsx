@@ -36,7 +36,9 @@ export function SlotsList({
               Slot {slot}
               {onDelete && (
                 <button
-                  onClick={() => { onDelete(slot) }}
+                  onClick={() => {
+                    onDelete(slot)
+                  }}
                   className="ml-1 text-[var(--color-error)] hover:opacity-80"
                   title="Delete slot"
                 >

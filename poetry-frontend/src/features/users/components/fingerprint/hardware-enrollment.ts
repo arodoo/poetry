@@ -5,33 +5,33 @@
  */
 
 export async function enrollWithHardware(
-    slotId: number
+  slotId: number
 ): Promise<{ success: boolean; slotId: number; message: string }> {
-    console.log('[FP] Enrolling, slotId:', slotId, 'type:', typeof slotId)
+  console.log('[FP] Enrolling, slotId:', slotId, 'type:', typeof slotId)
 
-    const payload = { slotId }
-    console.log('[FP] Request payload:', JSON.stringify(payload))
+  const payload = { slotId }
+  console.log('[FP] Request payload:', JSON.stringify(payload))
 
-    const response = await fetch(`/hardware/fingerprint/enroll`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-    })
+  const response = await fetch(`/hardware/fingerprint/enroll`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
 
-    console.log('[FP] Hardware response status:', response.status)
+  console.log('[FP] Hardware response status:', response.status)
 
-    if (!response.ok) {
-        const errorText = await response.text()
-        console.error('[FP] Hardware enrollment failed:', errorText)
-        throw new Error('Hardware enrollment failed')
-    }
+  if (!response.ok) {
+    const errorText = await response.text()
+    console.error('[FP] Hardware enrollment failed:', errorText)
+    throw new Error('Hardware enrollment failed')
+  }
 
-    const result = (await response.json()) as {
-        success: boolean
-        slotId: number
-        message: string
-    }
+  const result = (await response.json()) as {
+    success: boolean
+    slotId: number
+    message: string
+  }
 
-    console.log('[FP] Hardware enrollment result:', result)
-    return result
+  console.log('[FP] Hardware enrollment result:', result)
+  return result
 }

@@ -69,4 +69,3 @@ export function createUserCancelHandler(
     void navigate(`/${locale}/users`)
   }
 }
-

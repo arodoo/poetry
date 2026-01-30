@@ -9,6 +9,7 @@ package com.poetry.poetry_backend.interfaces.error;
 
 import java.net.URI;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.poetry.poetry_backend.application.auth.exception.*;
 
 @ControllerAdvice
+@Order(50)
 class AuthProblemHandler {
   private static final URI TYPE = URI.create(
       "https://datatracker.ietf.org/doc/html/rfc7807");

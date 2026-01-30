@@ -26,7 +26,7 @@ export async function createUser(
   const response = await createUserSdk({ body: validatedInput })
   if (!response.data) {
     const err = response.error as { detail?: string; title?: string }
-    const errorKey = err?.detail ?? err?.title ?? 'error.unexpected'
+    const errorKey = err.detail ?? err.title ?? 'error.unexpected'
     throw new Error(errorKey)
   }
   return response.data

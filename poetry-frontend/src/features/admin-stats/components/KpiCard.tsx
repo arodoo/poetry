@@ -15,7 +15,7 @@ interface KpiCardProps {
   testId?: string
 }
 
-const colorMap: Record<string, string> = {
+const colorMap: Record<'green' | 'yellow' | 'red' | 'gray', string> = {
   green: 'text-[var(--color-success)]',
   yellow: 'text-[var(--color-warning)]',
   red: 'text-[var(--color-error)]',

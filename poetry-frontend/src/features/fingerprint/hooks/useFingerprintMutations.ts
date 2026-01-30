@@ -25,7 +25,7 @@ import type {
   VerifyResponse,
 } from '../model/FingerprintSchemas'
 
-import { useBanner } from '../../../shared/banner/BannerContext'
+import { useBanner } from '../../../shared/banner/BannerStore'
 
 export function useEnrollFingerprintMutation(): UseMutationResult<
   FingerprintResponse,

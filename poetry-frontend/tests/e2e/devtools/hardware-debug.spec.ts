@@ -48,7 +48,7 @@ test.describe('Hardware Debug Page', () => {
 
     // Check that hardware data is displayed
     await expect(page.getByText(/Used Slots Count/i)).toBeVisible()
-    await expect(page.getByText(/Database/i)).toBeVisible()
+    await expect(page.getByText('Database').first()).toBeVisible()
   })
 
   // UC3: Hardware debug page loads
@@ -65,7 +65,7 @@ test.describe('Hardware Debug Page', () => {
     await page.getByRole('button', { name: /scan/i }).click()
     await page.waitForTimeout(1000)
     await expect(page.getByText(/Hardware \(R503\)/i)).toBeVisible()
-    await expect(page.getByText(/Database/i)).toBeVisible()
+    await expect(page.getByText('Database').first()).toBeVisible()
   })
 
   // UC5: Sync check shows comparison
@@ -73,7 +73,7 @@ test.describe('Hardware Debug Page', () => {
     await page.goto('/en/devtools/hardware', { waitUntil: 'networkidle' })
     await page.getByRole('button', { name: /scan/i }).click()
     await page.waitForTimeout(1000)
-    const dbCard = page.getByText('Database')
+    const dbCard = page.getByText('Database').first()
     await expect(dbCard).toBeVisible()
   })
 

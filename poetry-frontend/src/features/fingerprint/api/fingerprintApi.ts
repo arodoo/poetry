@@ -9,7 +9,7 @@
 import {
   listFingerprints,
   verifyFingerprint as sdkVerifyFingerprint,
-  create2,
+  enrollFingerprint as sdkEnrollFingerprint,
 } from '../../../api/generated'
 import type {
   EnrollRequest,
@@ -24,8 +24,9 @@ export async function fetchFingerprints(
   const response = await listFingerprints({
     headers: { Authorization: `Bearer ${token}` },
   })
-  if (response.error) {
-    throw new Error(JSON.stringify(response.error))
+  const listErr = (response as unknown as { error?: unknown }).error
+  if (listErr) {
+    throw new Error(JSON.stringify(listErr))
   }
   return response.data ?? []
 }
@@ -34,12 +35,13 @@ export async function enrollFingerprint(
   data: EnrollRequest,
   token: string
 ): Promise<FingerprintResponse> {
-  const response = await create2({
+  const response = await sdkEnrollFingerprint({
     body: data,
     headers: { Authorization: `Bearer ${token}` },
   })
-  if (response.error) {
-    throw new Error(JSON.stringify(response.error))
+  const enrollErr = (response as unknown as { error?: unknown }).error
+  if (enrollErr) {
+    throw new Error(JSON.stringify(enrollErr))
   }
   if (!response.data) {
     throw new Error('No data returned from enrollment')
@@ -55,8 +57,12 @@ export async function verifyFingerprint(
     body: data,
     headers: { Authorization: `Bearer ${token}` },
   })
-  if (response.error) {
-    throw new Error(JSON.stringify(response.error))
+  const verifyErr = (response as unknown as { error?: unknown }).error
+  if (verifyErr) {
+    throw new Error(JSON.stringify(verifyErr))
+  }
+  if (!response.data) {
+    throw new Error('No data returned from verification')
   }
   return response.data
 }

@@ -12,24 +12,29 @@ import { Text } from '../../../ui/Text/Text'
 import { useT } from '../../../shared/i18n/useT'
 
 interface MaintenanceCardProps {
-    loading: boolean
-    onClear: () => void
+  loading: boolean
+  onClear: () => void
 }
 
-export function MaintenanceCard({ loading, onClear }: MaintenanceCardProps): ReactElement {
-    const t = useT()
+export function MaintenanceCard({
+  loading,
+  onClear,
+}: MaintenanceCardProps): ReactElement {
+  const t = useT()
 
-    return (
-        <Card>
-            <div className="p-4 space-y-3">
-                <Text size="lg" weight="bold">⚙️ Maintenance</Text>
-                <Text size="sm" className="text-[var(--color-text-muted)]">
-                    Dangerous operations - use with caution
-                </Text>
-                <Button onClick={onClear} variant="danger" size="sm" disabled={loading}>
-                    {t('ui.devtools.hardware.clearAll')}
-                </Button>
-            </div>
-        </Card>
-    )
+  return (
+    <Card>
+      <div className="p-4 space-y-3">
+        <Text size="lg" weight="bold">
+          ⚙️ Maintenance
+        </Text>
+        <Text size="sm" className="text-[var(--color-text-muted)]">
+          Dangerous operations - use with caution
+        </Text>
+        <Button onClick={onClear} variant="danger" size="sm" disabled={loading}>
+          {t('ui.devtools.hardware.clearAll')}
+        </Button>
+      </div>
+    </Card>
+  )
 }

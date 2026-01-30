@@ -5,6 +5,4 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-export type {
-    MembershipStatsResponse,
-} from '../../../api/generated';
+export type { MembershipStatsResponse } from '../../../api/generated'

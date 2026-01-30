@@ -6,10 +6,13 @@
  */
 
 import { useQuery } from '@tanstack/react-query'
+import type { UseQueryResult } from '@tanstack/react-query'
 import { getMembershipStats } from '../../../api/generated'
 import type { MembershipStatsResponse } from '../model/StatsSchemas'
 
-export function useMembershipStatsQuery(expiringDays = 7) {
+export function useMembershipStatsQuery(
+  expiringDays = 7
+): UseQueryResult<MembershipStatsResponse, unknown> {
   return useQuery({
     queryKey: ['membership-stats', expiringDays],
     queryFn: async (): Promise<MembershipStatsResponse> => {
@@ -19,7 +22,8 @@ export function useMembershipStatsQuery(expiringDays = 7) {
       if (result.error) {
         throw new Error('Failed to fetch membership stats')
       }
-      return result.data as MembershipStatsResponse
+      if (!result.data) throw new Error('No data returned')
+      return result.data
     },
     staleTime: 60_000,
   })

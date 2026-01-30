@@ -13,11 +13,18 @@ import {
 
 describe('Profile password toasts', () => {
   it('mismatch triggers toast and prevents API call', () => {
-    const pushToast = vi.fn()
-    renderProfilePasswordSection(pushToast)
-    enterMismatchedPasswords()
-    submitPasswordChange()
-    expect(pushToast).toHaveBeenCalled()
-    expect(updatePassword).not.toHaveBeenCalled()
+    vi.useFakeTimers()
+    try {
+      const pushToast = vi.fn()
+      renderProfilePasswordSection(pushToast)
+      enterMismatchedPasswords()
+      submitPasswordChange()
+      expect(pushToast).toHaveBeenCalled()
+      expect(updatePassword).not.toHaveBeenCalled()
+      // flush any pending timers (toasts, query gc, etc.) before test ends
+      vi.runAllTimers()
+    } finally {
+      vi.useRealTimers()
+    }
   })
 })

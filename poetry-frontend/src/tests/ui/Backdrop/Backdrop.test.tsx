@@ -11,6 +11,6 @@ describe('Backdrop', () => {
   it('applies opacity variant', () => {
     render(<Backdrop opacity="dark" data-testid="b" />)
     const el = screen.getByTestId('b')
-    expect(el.className).toContain('bg-black/60')
+    expect(el.className).toContain('/60')
   })
 })

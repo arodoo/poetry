@@ -19,7 +19,7 @@ import com.poetry.poetry_backend.application.membership.usecase.GetAllMembership
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@RestController
+@RestController("membershipsListController_legacy_v1")
 @RequestMapping("/api/v1/memberships")
 @Tag(name = "memberships", description = "Membership management")
 public class MembershipsListController {

@@ -1,7 +1,15 @@
+/*
+ * File: BannerItem.tsx
+ * Purpose: Render a single registration banner item.
+ * It shows user and membership status succinctly for display.
+ * Extracted from BannerList to keep files small and focused.
+ * All Rights Reserved. Arodi Emmanuel
+ */
 import { type ReactElement } from 'react'
 import { useT } from '../i18n/useT'
+import type { BannerData } from './BannerStore'
 
-export function BannerItem({ banner }: { banner: any }): ReactElement {
+export function BannerItem({ banner }: { banner: BannerData }): ReactElement {
   const { user, membership } = banner
   const isExpired = membership?.status === 'expired'
   const t = useT()
@@ -38,14 +46,18 @@ export function BannerItem({ banner }: { banner: any }): ReactElement {
             {t('ui.banner.newRegistration')}
           </h4>
           <p className="text-sm text-[var(--color-textMuted)] mt-1">
-            {user.firstName} {user.lastName}
+            {user?.firstName ?? ''} {user?.lastName ?? ''}
           </p>
-          <p className="text-xs text-[var(--color-textSubtle)]">{user.email}</p>
+          <p className="text-xs text-[var(--color-textSubtle)]">
+            {user?.email ?? ''}
+          </p>
         </div>
       </div>
       <div className="mt-2 pt-2 border-t border-[var(--color-border)]">
         <div className="flex justify-between items-center text-xs">
-          <span className="text-[var(--color-textSubtle)]">{t('ui.banner.membership')}</span>
+          <span className="text-[var(--color-textSubtle)]">
+            {t('ui.banner.membership')}
+          </span>
           <span className={`font-medium ${statusClass}`}>{statusText}</span>
         </div>
       </div>

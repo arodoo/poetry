@@ -5,6 +5,7 @@
  */
 import { useT } from '../../../../shared/i18n/useT'
 import { Badge } from '../../../../ui/Badge/Badge'
+import type { ReactElement } from 'react'
 
 export interface MemberStatusBadgeProps {
   status?: string | undefined
@@ -13,7 +14,7 @@ export interface MemberStatusBadgeProps {
 
 export function MemberStatusBadge({
   status,
-}: MemberStatusBadgeProps) {
+}: MemberStatusBadgeProps): ReactElement | null {
   const t = useT()
 
   if (!status) return null

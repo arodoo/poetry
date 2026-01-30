@@ -5,9 +5,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { useBanner } from './BannerContext'
+import { useBanner } from './BannerStore'
 import { type ReactElement } from 'react'
-import { useT } from '../i18n/useT'
+import { BannerItem } from './BannerItem'
 
 export function BannerList(): ReactElement | null {
   const { banners } = useBanner()
@@ -17,32 +17,20 @@ export function BannerList(): ReactElement | null {
   const containerClasses = [
     'fixed',
     'top-20',
+    'right-4',
+    'z-50',
+    'flex',
+    'flex-col',
+    'gap-2',
+    'w-80',
+    'pointer-events-none',
+  ].join(' ')
+
+  return (
+    <div className={containerClasses}>
       {banners.map((banner) => (
         <BannerItem banner={banner} key={banner.id} />
       ))}
-                  className="text-xs text-[var(--color-textSubtle)]"
-                >
-                  {user.email}
-                </p>
-              </div>
-            </div>
-            <div className="mt-2 pt-2 border-t border-[var(--color-border)]">
-              <div className="flex justify-between items-center text-xs">
-                <span
-                  className="text-[var(--color-textSubtle)]"
-                >
-                  {t('ui.banner.membership')}
-                </span>
-                <span
-                  className={`font-medium ${statusClass}`}
-                >
-                  {statusText}
-                </span>
-              </div>
-            </div>
-          </div>
-        )
-      })}
     </div>
   )
 }
