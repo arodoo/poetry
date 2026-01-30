@@ -1,7 +1,7 @@
 /*
  * File: GetMembershipsByStatusUseCase.java
  * Purpose: Use case to retrieve memberships filtered by status (active, expiring, expired).
- * Enriches membership data with user details.
+ * It enriches membership records and maps domain entities to DTOs for display.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.application.membership.usecase;
@@ -17,22 +17,21 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import com.poetry.poetry_backend.application.i18n.usecase.ResolveMessageUseCase;
 import com.poetry.poetry_backend.application.membership.dto.MembershipDetail;
 import com.poetry.poetry_backend.application.membership.port.UserHasMembershipQueryPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 import com.poetry.poetry_backend.domain.membership.model.UserHasMembership;
 import com.poetry.poetry_backend.domain.user.model.core.User;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class GetMembershipsByStatusUseCase {
   private final UserHasMembershipQueryPort membershipPort;
   private final UserQueryPort userPort;
-
-  public GetMembershipsByStatusUseCase(UserHasMembershipQueryPort membershipPort,
-      UserQueryPort userPort) {
-    this.membershipPort = membershipPort;
-    this.userPort = userPort;
-  }
+  private final ResolveMessageUseCase resolve;
 
   public Page<MembershipDetail> execute(String status, Pageable pageable) {
     Instant now = Instant.now();
@@ -50,7 +49,8 @@ public class GetMembershipsByStatusUseCase {
         page = membershipPort.findAllExpired(now, pageable);
         break;
       default:
-        throw new IllegalArgumentException("Invalid status: " + status);
+        String msg = resolve.execute("membership.status.invalid", null);
+        throw new IllegalArgumentException(msg + ": " + status);
     }
 
     List<Long> userIds = page.getContent().stream()

@@ -9,7 +9,7 @@ import { FingerprintEnrollmentHandler } from './fingerprint/FingerprintEnrollmen
 import { FingerprintTemplateHandler } from './fingerprint/FingerprintTemplateHandler.js';
 import { TemplateDownloadHandler } from './fingerprint/TemplateDownloadHandler.js';
 import { TemplateUploadHandler } from './fingerprint/TemplateUploadHandler.js';
-import { BatchDeleteHandler } from './fingerprint/BatchDeleteHandler.js';
+import { BatchDeleteHandler } from './fingerprint/legacy/BatchDeleteHandler.js';
 import { AvailableSlotHandler } from './fingerprint/AvailableSlotHandler.js';
 import { AvailableSlotsHandler } from './fingerprint/AvailableSlotsHandler.js';
 import { ClearAllHandler } from './fingerprint/ClearAllHandler.js';

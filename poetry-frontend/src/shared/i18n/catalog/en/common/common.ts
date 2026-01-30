@@ -28,4 +28,9 @@ export const commonEn: Record<string, string> = {
   'error.code.exists': 'This code already exists',
   'error.duplicate': 'Duplicate entry detected',
   'error.unexpected': 'An unexpected error occurred',
+  'ui.banner.newRegistration': 'New Registration',
+  'ui.banner.membership': 'Membership:',
+  'ui.banner.status.active': 'Active',
+  'ui.banner.status.expired': 'Expired',
+  'ui.banner.status.none': 'None',
 }

@@ -6,7 +6,7 @@
 import { Request, Response } from 'express';
 import { FingerprintPort } from '../../../application/ports/FingerprintPort.js';
 import { logger } from '../../../infrastructure/logging/logger.js';
-import { getErrorMessage } from './enrollment-errors.js';
+import { getErrorMessage } from './legacy/enrollment-errors.js';
 
 export class FingerprintEnrollmentHandler {
   constructor(private fingerprintPort: FingerprintPort) { }
