@@ -9,6 +9,7 @@ import { MockRelayAdapter } from '../../infrastructure/adapters/relay/MockRelayA
 import { SerialRelayAdapter } from '../../infrastructure/adapters/relay/SerialRelayAdapter.js';
 import { MockFingerprintAdapter } from '../../infrastructure/adapters/fingerprint/MockFingerprintAdapter.js';
 import { BridgeFingerprintAdapter } from '../../infrastructure/adapters/fingerprint/BridgeFingerprintAdapter.js';
+import { HidFingerprintAdapter } from '../../infrastructure/adapters/fingerprint/HidFingerprintAdapter.js';
 
 let sharedRelayPort: RelayPort | null = null;
 let sharedFingerprintPort: FingerprintPort | null = null;
@@ -27,9 +28,15 @@ export async function getOrCreateRelayPort(): Promise<RelayPort> {
 export async function getOrCreateFingerprintPort(): Promise<FingerprintPort> {
   if (!sharedFingerprintPort) {
     const isMockMode = process.env.MOCK_MODE === 'true';
-    sharedFingerprintPort = isMockMode
-      ? new MockFingerprintAdapter()
-      : new BridgeFingerprintAdapter();
+    const adapterType = process.env.FINGERPRINT_ADAPTER || 'bridge';
+
+    if (isMockMode) {
+      sharedFingerprintPort = new MockFingerprintAdapter();
+    } else if (adapterType === 'hid') {
+      sharedFingerprintPort = new HidFingerprintAdapter();
+    } else {
+      sharedFingerprintPort = new BridgeFingerprintAdapter();
+    }
     await sharedFingerprintPort.initialize();
   }
   return sharedFingerprintPort;

@@ -1,9 +1,9 @@
 /*
  * File: FingerprintJpaMapper.java
  * Purpose: Converts between FingerprintEntity (JPA) and Fingerprint (domain)
- * using FingerprintRehydrator. Maps R503 slot IDs and template backups for
- * archiving support. Maintains timestamps and version for optimistic locking.
- * All Rights Reserved. Arodi Emmanuel
+ * using FingerprintRehydrator. Maps FMD (Base64) for HID readers.
+ * Maintains timestamps and version for optimistic locking.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.jpa.fingerprint.core;
@@ -20,8 +20,7 @@ public class FingerprintJpaMapper {
     FingerprintEntity entity = new FingerprintEntity();
     entity.setId(fingerprint.id());
     entity.setUserId(fingerprint.userId());
-    entity.setR503SlotId(fingerprint.r503SlotId());
-    entity.setTemplateBackup(fingerprint.templateBackup());
+    entity.setFmd(fingerprint.fmd());
     entity.setStatus(fingerprint.status());
     entity.setEnrolledAt(fingerprint.enrolledAt());
     entity.setArchivedAt(fingerprint.archivedAt());
@@ -37,8 +36,7 @@ public class FingerprintJpaMapper {
     return FingerprintRehydrator.rehydrate(
         entity.getId(),
         entity.getUserId(),
-        entity.getR503SlotId(),
-        entity.getTemplateBackup(),
+        entity.getFmd(),
         entity.getStatus(),
         entity.getEnrolledAt(),
         entity.getArchivedAt(),

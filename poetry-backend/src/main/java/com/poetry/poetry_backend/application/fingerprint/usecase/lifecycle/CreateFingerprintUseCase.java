@@ -2,7 +2,7 @@
  * File: CreateFingerprintUseCase.java
  * Purpose: Wrapper for EnrollFingerprintUseCase maintaining module structure
  * compliance. Delegates to enrollment use case for fingerprint registration.
- * All Rights Reserved. Arodi Emmanuel
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle;
@@ -17,7 +17,7 @@ public class CreateFingerprintUseCase {
     this.enrollUseCase = enrollUseCase;
   }
 
-  public Fingerprint execute(Long userId, Integer r503SlotId) {
-    return enrollUseCase.execute(userId, r503SlotId);
+  public Fingerprint execute(Long userId, String fmd) {
+    return enrollUseCase.execute(userId, fmd);
   }
 }

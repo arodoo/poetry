@@ -1,8 +1,7 @@
 /*
  * File: FingerprintEntity.java
- * Purpose: JPA entity for fingerprint enrollment persistence. Maps R503
- * sensor slot IDs to users. Supports archiving: templateBackup stores
- * downloaded template when slot freed, r503SlotId null when archived.
+ * Purpose: JPA entity for fingerprint enrollment persistence. 
+ * Stores FMD (Base64) for HID Digital Persona readers.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -21,13 +20,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(
-    name = "fingerprints",
-    indexes = {
-      @Index(name = "idx_fingerprints_user", columnList = "user_id"),
-      @Index(name = "idx_fingerprints_status", columnList = "status"),
-      @Index(name = "idx_fingerprints_slot", columnList = "r503_slot_id")
-    })
+@Table(name = "fingerprints", indexes = {
+    @Index(name = "idx_fingerprints_user", columnList = "user_id"),
+    @Index(name = "idx_fingerprints_status", columnList = "status")
+})
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -40,12 +36,9 @@ public class FingerprintEntity {
   @Column(nullable = false)
   private Long userId;
 
-  @Column(name = "r503_slot_id")
-  private Integer r503SlotId;
-
   @Lob
-  @Column(name = "template_backup")
-  private byte[] templateBackup;
+  @Column(name = "fmd")
+  private String fmd;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 20)
@@ -70,5 +63,6 @@ public class FingerprintEntity {
 
   private Instant deletedAt;
 
-  @Version private Long version;
+  @Version
+  private Long version;
 }

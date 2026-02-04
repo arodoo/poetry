@@ -1,8 +1,7 @@
 /*
  * File: FingerprintValidationTest.java
- * Purpose: Tests for FingerprintValidator ensuring domain rules enforcement
- * on R503 slot ID range and user association requirements.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Tests for FingerprintValidator ensuring domain rules enforcement.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.domain.fingerprint.model;
@@ -17,21 +16,28 @@ class FingerprintValidationTest {
   @Test
   void shouldRejectNullUserId() {
     assertThrows(IllegalArgumentException.class, () -> {
-      FingerprintValidator.validateEnrollment(null, 45);
+      FingerprintValidator.validateUserId(null);
     });
   }
 
   @Test
-  void shouldRejectNullSlotId() {
+  void shouldRejectInvalidUserId() {
     assertThrows(IllegalArgumentException.class, () -> {
-      FingerprintValidator.validateEnrollment(1L, null);
+      FingerprintValidator.validateUserId(0L);
     });
   }
 
   @Test
-  void shouldRejectSlotIdOutOfRange() {
+  void shouldRejectNullFmd() {
     assertThrows(IllegalArgumentException.class, () -> {
-      FingerprintValidator.validateEnrollment(1L, 1500);
+      FingerprintValidator.validateFmd(null);
+    });
+  }
+
+  @Test
+  void shouldRejectEmptyFmd() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      FingerprintValidator.validateFmd("");
     });
   }
 }

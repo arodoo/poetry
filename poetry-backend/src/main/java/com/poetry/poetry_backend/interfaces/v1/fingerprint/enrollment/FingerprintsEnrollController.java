@@ -3,7 +3,7 @@
  * Purpose: Provides fingerprint enrollment endpoint for authenticated users.
  * Captures template data from hardware service and persists association with
  * current user for future verification.
- * All Rights Reserved. Arodi Emmanuel
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.interfaces.v1.fingerprint.enrollment;
@@ -32,10 +32,10 @@ public class FingerprintsEnrollController {
   }
 
   @Operation(operationId = "enrollFingerprint", summary = "Enroll a new fingerprint", // i18n-ignore
-      description = "Register fingerprint with R503 slot ID from hardware service") // i18n-ignore
+      description = "Register fingerprint FMD for the current user") // i18n-ignore
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Enrolled successfully"),
-      @ApiResponse(responseCode = "400", description = "Invalid slot ID"),
+      @ApiResponse(responseCode = "400", description = "Invalid FMD data"),
       @ApiResponse(responseCode = "401", description = "Unauthorized")
   })
   @PreAuthorize("isAuthenticated()")
@@ -44,7 +44,7 @@ public class FingerprintsEnrollController {
       @RequestBody FingerprintDto.EnrollRequest request, Authentication auth) {
 
     Long userId = Long.parseLong(auth.getName());
-    var fingerprint = enrollUseCase.execute(userId, request.r503SlotId());
+    var fingerprint = enrollUseCase.execute(userId, request.fmd());
 
     return ResponseEntity.status(201).body(FingerprintDto.toResponse(fingerprint));
   }

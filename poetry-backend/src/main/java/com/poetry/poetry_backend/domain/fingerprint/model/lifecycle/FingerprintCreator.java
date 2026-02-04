@@ -1,8 +1,8 @@
 /*
  * File: FingerprintCreator.java
- * Purpose: Creates new Fingerprint instances during enrollment with R503
- * slot validation. Enforces domain invariants for userId and slot range.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Creates new Fingerprint instances during enrollment for HID readers.
+ * Enforces domain invariants for userId and FMD presence.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.domain.fingerprint.model.lifecycle;
@@ -11,20 +11,16 @@ import java.time.Instant;
 
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintStatus;
-import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintValidator;
 
 public class FingerprintCreator {
 
-  public static Fingerprint createNew(Long userId, Integer r503SlotId) {
-    FingerprintValidator.validateEnrollment(userId, r503SlotId);
-
+  public static Fingerprint createNew(Long userId, String fmd) {
     Instant now = Instant.now();
 
     return new Fingerprint(
         null,
         userId,
-        r503SlotId,
-        null,
+        fmd,
         FingerprintStatus.ACTIVE,
         now,
         null,
@@ -39,8 +35,7 @@ public class FingerprintCreator {
     return new Fingerprint(
         fingerprint.id(),
         fingerprint.userId(),
-        fingerprint.r503SlotId(),
-        fingerprint.templateBackup(),
+        fingerprint.fmd(),
         FingerprintStatus.INACTIVE,
         fingerprint.enrolledAt(),
         fingerprint.archivedAt(),

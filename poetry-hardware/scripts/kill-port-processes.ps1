@@ -1,6 +1,5 @@
 # kill-port-processes.ps1
 # Kills poetry-hardware processes using specified COM port
-# Preserves fingerprint-bridge (32-bit Node.js on port 3001)
 # IMPORTANT: Only kills poetry-hardware processes, not other Node.js
 # All Rights Reserved. Arodi Emmanuel
 
@@ -20,13 +19,10 @@ Get-CimInstance Win32_Process -Filter "Name = 'node.exe'" | ForEach-Object {
     
     # Only target poetry-hardware processes (check command line)
     if ($cmdLine -and $cmdLine -like "*poetry-hardware*") {
-        # Skip 32-bit (fingerprint-bridge)
-        if ($procPath -and $procPath -notlike "*x86*") {
-            $hardwareProcesses += @{
-                Id = $procId
-                Path = $procPath
-                CmdLine = $cmdLine
-            }
+        $hardwareProcesses += @{
+            Id = $procId
+            Path = $procPath
+            CmdLine = $cmdLine
         }
     }
 }

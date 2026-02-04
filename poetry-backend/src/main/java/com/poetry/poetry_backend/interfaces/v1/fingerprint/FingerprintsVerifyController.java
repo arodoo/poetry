@@ -31,16 +31,16 @@ public class FingerprintsVerifyController {
   }
 
   @Operation(operationId = "verifyFingerprint", summary = "Verify a fingerprint", // i18n-ignore
-      description = "Lookup user by R503 slot ID from hardware service search") // i18n-ignore
+      description = "Verify fingerprint by matching probe FMD against enrolled templates") // i18n-ignore
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Verification completed"),
-      @ApiResponse(responseCode = "400", description = "Invalid slot ID")
+      @ApiResponse(responseCode = "400", description = "Invalid FMD data")
   })
   @PostMapping("/verify")
   public ResponseEntity<FingerprintDto.VerifyResponse> verify(
       @RequestBody FingerprintDto.VerifyRequest request) {
 
-    VerifyFingerprintResult result = verifyUseCase.execute(request.r503SlotId());
+    VerifyFingerprintResult result = verifyUseCase.execute(request.fmd());
 
     var response = new FingerprintDto.VerifyResponse(
         result.matched(), result.userId(), result.fingerprintId(), result.message());

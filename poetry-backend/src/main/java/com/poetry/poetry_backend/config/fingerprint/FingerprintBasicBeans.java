@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
-import com.poetry.poetry_backend.application.fingerprint.port.HardwareServicePort;
 import com.poetry.poetry_backend.application.fingerprint.usecase.VerifyFingerprintUseCase;
 import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.ArchiveFingerprintUseCase;
 import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.DeleteFingerprintUseCase;
@@ -38,9 +37,8 @@ public class FingerprintBasicBeans {
   @Bean
   public DeleteFingerprintUseCase deleteFingerprintUseCase(
       FingerprintCommandPort cmd,
-      FingerprintQueryPort qry,
-      HardwareServicePort hwPort) {
-    return new DeleteFingerprintUseCase(cmd, qry, hwPort);
+      FingerprintQueryPort qry) {
+    return new DeleteFingerprintUseCase(cmd, qry);
   }
 
   @Bean
@@ -57,9 +55,8 @@ public class FingerprintBasicBeans {
   @Bean
   public RestoreFingerprintUseCase restoreFingerprintUseCase(
       FingerprintCommandPort cmd,
-      FingerprintQueryPort qry,
-      HardwareServicePort hwPort) {
-    return new RestoreFingerprintUseCase(cmd, qry, hwPort);
+      FingerprintQueryPort qry) {
+    return new RestoreFingerprintUseCase(cmd, qry);
   }
 
   @Bean

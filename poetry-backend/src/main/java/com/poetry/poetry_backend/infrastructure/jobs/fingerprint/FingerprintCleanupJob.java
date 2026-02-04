@@ -1,8 +1,7 @@
 /*
  * File: FingerprintCleanupJob.java
  * Purpose: Scheduled job that runs daily to archive inactive fingerprints.
- * Frees R503 slots by archiving templates with no activity past threshold.
- * All Rights Reserved. Arodi Emmanuel
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.jobs.fingerprint;
@@ -48,15 +47,6 @@ public class FingerprintCleanupJob {
 
         FingerprintCleanupResult result = cleanupUseCase.execute(cutoff, batchSize);
 
-        log.info("Cleanup complete: archived={} slots freed={}",
-                result.archivedCount(), result.slotIdsToDelete());
-
-        if (result.hardwareDeletionSucceeded()) {
-            log.info("Hardware deletion successful: {} slots deleted from R503",
-                    result.slotIdsToDelete().size());
-        } else if (!result.hardwareFailedSlots().isEmpty()) {
-            log.warn("Hardware deletion partial: failed slots={}",
-                    result.hardwareFailedSlots());
-        }
+        log.info("Cleanup complete: archived={}", result.archivedCount());
     }
 }

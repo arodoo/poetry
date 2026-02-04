@@ -28,4 +28,6 @@ public interface FingerprintQueryPort {
   boolean existsByUserId(Long userId);
 
   List<Fingerprint> findInactiveOlderThan(Instant cutoff, int limit);
+
+  List<Fingerprint> findActiveWithFmd();
 }

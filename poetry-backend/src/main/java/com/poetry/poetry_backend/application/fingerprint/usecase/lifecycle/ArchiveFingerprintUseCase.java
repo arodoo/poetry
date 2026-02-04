@@ -1,9 +1,8 @@
 /*
  * File: ArchiveFingerprintUseCase.java
- * Purpose: Archives fingerprint by backing up template and freeing R503 slot.
- * Used for inactive users to optimize R503 memory (1500 slots limit). Sets
- * status to ARCHIVED, r503SlotId to null, stores templateBackup for restore.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Archives fingerprint by changing status to ARCHIVED.
+ * Used for inactive users to clear from active monitoring without deletion.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle;
@@ -23,7 +22,7 @@ public class ArchiveFingerprintUseCase {
     this.queryPort = queryPort;
   }
 
-  public Fingerprint execute(Long fingerprintId, byte[] templateBackup) {
+  public Fingerprint execute(Long fingerprintId) {
     Fingerprint fingerprint = queryPort
         .findById(fingerprintId)
         .orElseThrow(() -> new IllegalArgumentException(
@@ -33,8 +32,7 @@ public class ArchiveFingerprintUseCase {
       throw new IllegalStateException("error.fingerprint.notActive");
     }
 
-    Fingerprint archived = FingerprintFactory.markArchived(
-        fingerprint, templateBackup);
+    Fingerprint archived = FingerprintFactory.markArchived(fingerprint);
 
     return commandPort.save(archived);
   }

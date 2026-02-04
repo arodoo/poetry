@@ -1,14 +1,11 @@
 /*
  * File: VerifyFingerprintUseCase.java
- * Purpose: Verifies fingerprint by R503 slot ID. Hardware service performs
- * R503 search, returns slot ID, this use case maps slot to userId. DEV_BYPASS:
- * r503SlotId=999 returns userId=1 for testing without physical sensor.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Verifies fingerprint by matching probe FMD against enrolled FMDs.
+ * Uses SourceAFIS for server-side matching with a quality threshold.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.fingerprint.usecase;
-
-import java.util.Optional;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
@@ -20,29 +17,48 @@ public class VerifyFingerprintUseCase {
     this.queryPort = queryPort;
   }
 
-  public VerifyFingerprintResult execute(Integer r503SlotId) {
-    if (r503SlotId == null || r503SlotId < 0) {
+  public VerifyFingerprintResult execute(String fmd) {
+    if (fmd == null || fmd.isBlank()) {
       return VerifyFingerprintResult.failure();
     }
 
-    if (r503SlotId == 999) {
-      return VerifyFingerprintResult.success(1L, 999L);
-    }
+    return verifyWithFmd(fmd);
+  }
 
-    Optional<Fingerprint> fingerprintOpt = queryPort.findByR503SlotId(
-        r503SlotId);
+  private VerifyFingerprintResult verifyWithFmd(String fmd) {
+    try {
+      byte[] probeBytes = java.util.Base64.getDecoder().decode(fmd);
+      var probe = new com.machinezoo.sourceafis.FingerprintTemplate(probeBytes);
 
-    if (fingerprintOpt.isEmpty()) {
+      var candidates = queryPort.findActiveWithFmd();
+
+      var matcher = new com.machinezoo.sourceafis.FingerprintMatcher(probe);
+
+      double threshold = 40.0;
+      Fingerprint bestMatch = null;
+      double bestScore = 0.0;
+
+      for (Fingerprint candidate : candidates) {
+        if (candidate.fmd() == null)
+          continue;
+        byte[] candidateBytes = java.util.Base64.getDecoder().decode(candidate.fmd());
+        var candidateTemplate = new com.machinezoo.sourceafis.FingerprintTemplate(candidateBytes);
+
+        double score = matcher.match(candidateTemplate);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = candidate;
+        }
+      }
+
+      if (bestScore >= threshold && bestMatch != null) {
+        return VerifyFingerprintResult.success(bestMatch.userId(), bestMatch.id());
+      }
+
+      return VerifyFingerprintResult.failure();
+
+    } catch (IllegalArgumentException e) {
       return VerifyFingerprintResult.failure();
     }
-
-    Fingerprint fingerprint = fingerprintOpt.get();
-
-    if (!fingerprint.canVerify()) {
-      return VerifyFingerprintResult.failure();
-    }
-
-    return VerifyFingerprintResult.success(
-        fingerprint.userId(), fingerprint.id());
   }
 }

@@ -79,7 +79,7 @@ SRD-05VDC-SL-C uses **active-LOW** triggering:
 ```env
 MOCK_MODE=false          # Use real hardware
 USB_TTL_PORT=COM3        # Detected FTDI port
-PORT=3001                # API server port
+PORT=3000                # API server port
 LOG_LEVEL=debug          # Logging verbosity
 RELAY_CHANNELS=4         # Total relay channels
 ```
@@ -215,10 +215,10 @@ Options:
 - **PCF8574 I2C GPIO Expander** (~$2 USD)
 - **Arduino Nano** as USB-relay bridge (more robust)
 
-### R503 Fingerprint Reader
-Hardware pending delivery. Code skeleton ready:
-- `src/domain/fingerprint/`
-- `src/infrastructure/adapters/MockFingerprintAdapter.ts`
+### Fingerprint Reader (HID Digital Persona)
+HID Digital Persona U.are.U reader integrated via native bridge.
+- `src/infrastructure/adapters/fingerprint/HidFingerprintAdapter.ts`
+- `native/fingerprint-bridge/FingerprintCapture.exe`
 
 ## Scripts Reference
 
@@ -255,7 +255,7 @@ Before considering relay integration complete:
 - [x] Logs show serial port opened
 - [ ] Channel 2 physically connected and tested
 - [ ] Backend Java integration implemented
-- [ ] R503 fingerprint reader integrated
+- [x] HID Digital Persona reader integrated
 - [ ] Production deployment configured
 
 ---

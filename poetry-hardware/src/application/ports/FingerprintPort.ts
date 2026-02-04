@@ -18,6 +18,7 @@ export interface VerifyResult {
   readonly matched: boolean;
   readonly templateId: number | null;
   readonly confidence: number;
+  readonly fmd?: string;
 }
 
 export interface FingerprintPort {

@@ -62,10 +62,12 @@ export class FingerprintEnrollmentHandler {
 
       const result = await this.fingerprintPort.verify();
 
+      // Include fmd if present (HID adapter returns it for server matching)
       res.status(200).json({
         matched: result.matched,
         slotId: result.templateId,
         confidence: result.confidence,
+        ...(result.fmd && { fmd: result.fmd }),
       });
     } catch (error) {
       logger.error('Verification error:', error);

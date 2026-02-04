@@ -1,9 +1,8 @@
 /*
  * File: Fingerprint.java
  * Purpose: Immutable aggregate root representing a fingerprint enrollment.
- * Maps user to R503 sensor slot ID for verification. Supports archiving:
- * templateBackup stores downloaded template when slot freed, r503SlotId null
- * when archived. Validation enforced via FingerprintValidator.
+ * Stores FMD (Base64) for HID Digital Persona readers. 
+ * Validation enforced via FingerprintValidator.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -14,8 +13,7 @@ import java.time.Instant;
 public record Fingerprint(
     Long id,
     Long userId,
-    Integer r503SlotId,
-    byte[] templateBackup,
+    String fmd,
     FingerprintStatus status,
     Instant enrolledAt,
     Instant archivedAt,
@@ -38,10 +36,10 @@ public record Fingerprint(
   }
 
   public boolean canVerify() {
-    return isActive() && r503SlotId != null;
+    return isActive() && fmd != null;
   }
 
-  public boolean hasBackup() {
-    return templateBackup != null && templateBackup.length > 0;
+  public boolean hasFmd() {
+    return fmd != null && !fmd.isEmpty();
   }
 }

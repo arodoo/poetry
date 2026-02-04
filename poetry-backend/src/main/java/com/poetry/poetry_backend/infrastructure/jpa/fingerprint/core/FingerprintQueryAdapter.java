@@ -66,4 +66,10 @@ public class FingerprintQueryAdapter implements FingerprintQueryPort {
         return repository.findInactiveOlderThan(cutoff, PageRequest.of(0, limit))
                 .stream().map(mapper::toDomain).toList();
     }
+
+    @Override
+    public List<Fingerprint> findActiveWithFmd() {
+        return repository.findByStatusAndFmdIsNotNull(FingerprintStatus.ACTIVE)
+                .stream().map(mapper::toDomain).toList();
+    }
 }

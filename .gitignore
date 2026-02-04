@@ -69,3 +69,10 @@ oldRepo/
 # OS files
 .DS_Store
 Thumbs.db
+
+# HID SDK and Binaries
+sdk/
+**/bin/
+**/obj/
+**/Release/
+**/Debug/

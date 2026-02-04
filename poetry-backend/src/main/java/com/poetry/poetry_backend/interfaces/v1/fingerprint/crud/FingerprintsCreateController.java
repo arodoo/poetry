@@ -2,7 +2,7 @@
  * File: FingerprintsCreateController.java
  * Purpose: Wrapper controller delegating to FingerprintsEnrollController
  * for module structure compliance. Maintains standard CRUD naming pattern.
- * All Rights Reserved. Arodi Emmanuel
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.interfaces.v1.fingerprint.crud;
@@ -33,7 +33,7 @@ public class FingerprintsCreateController {
       @RequestBody FingerprintDto.EnrollRequest request, Authentication auth) {
 
     Long userId = Long.parseLong(auth.getName());
-    var fingerprint = createUseCase.execute(userId, request.r503SlotId());
+    var fingerprint = createUseCase.execute(userId, request.fmd());
 
     return ResponseEntity.status(201).body(FingerprintDto.toResponse(fingerprint));
   }

@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
-import com.poetry.poetry_backend.application.fingerprint.port.HardwareServicePort;
 import com.poetry.poetry_backend.application.fingerprint.usecase.cleanup.FingerprintCleanupUseCase;
 import com.poetry.poetry_backend.infrastructure.jobs.fingerprint.FingerprintCleanupJob;
 
@@ -24,9 +23,8 @@ public class FingerprintCleanupConfig {
     @Bean
     FingerprintCleanupUseCase fingerprintCleanupUseCase(
             FingerprintQueryPort queryPort,
-            FingerprintCommandPort commandPort,
-            HardwareServicePort hardwarePort) {
-        return new FingerprintCleanupUseCase(queryPort, commandPort, hardwarePort);
+            FingerprintCommandPort commandPort) {
+        return new FingerprintCleanupUseCase(queryPort, commandPort);
     }
 
     @Bean

@@ -2,8 +2,8 @@
  * File: FingerprintRehydrator.java
  * Purpose: Reconstructs Fingerprint aggregates from persistence layer without
  * validation enforcement. Used exclusively by infrastructure adapters to
- * restore previously validated domain objects with R503 slot mapping.
- * All Rights Reserved. Arodi Emmanuel
+ * restore previously validated domain objects for HID readers.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.domain.fingerprint.model.core;
@@ -15,8 +15,7 @@ public class FingerprintRehydrator {
   public static Fingerprint rehydrate(
       Long id,
       Long userId,
-      Integer r503SlotId,
-      byte[] templateBackup,
+      String fmd,
       FingerprintStatus status,
       Instant enrolledAt,
       Instant archivedAt,
@@ -29,8 +28,7 @@ public class FingerprintRehydrator {
     return new Fingerprint(
         id,
         userId,
-        r503SlotId,
-        templateBackup,
+        fmd,
         status,
         enrolledAt,
         archivedAt,

@@ -1,8 +1,8 @@
 /*
  * File: FingerprintArchiver.java
- * Purpose: Handles fingerprint archiving and restoration. Archives active
- * fingerprints with template backup, restores from archive to new R503 slot.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Handles fingerprint archiving and restoration.
+ * Archives active fingerprints by changing status, restores by reactivating.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.domain.fingerprint.model.lifecycle;
@@ -11,20 +11,16 @@ import java.time.Instant;
 
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintStatus;
-import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintValidator;
 
 public class FingerprintArchiver {
 
-  public static Fingerprint markArchived(
-      Fingerprint fingerprint, byte[] templateBackup) {
-    FingerprintValidator.validateTemplateBackup(templateBackup);
+  public static Fingerprint markArchived(Fingerprint fingerprint) {
     Instant now = Instant.now();
 
     return new Fingerprint(
         fingerprint.id(),
         fingerprint.userId(),
-        null,
-        templateBackup,
+        fingerprint.fmd(),
         FingerprintStatus.ARCHIVED,
         fingerprint.enrolledAt(),
         now,
@@ -35,30 +31,23 @@ public class FingerprintArchiver {
         fingerprint.version() + 1);
   }
 
-  public static Fingerprint restoreFromArchive(
-      Fingerprint fingerprint, Integer newR503SlotId) {
+  public static Fingerprint restoreFromArchive(Fingerprint fingerprint) {
     if (!fingerprint.isArchived()) {
-      throw new IllegalStateException(
-          "error.fingerprint.notArchived");
+      throw new IllegalStateException("error.fingerprint.notArchived");
     }
-    if (!fingerprint.hasBackup()) {
-      throw new IllegalStateException(
-          "error.fingerprint.noBackup");
-    }
-    FingerprintValidator.validateEnrollment(
-        fingerprint.userId(), newR503SlotId);
+
+    Instant now = Instant.now();
 
     return new Fingerprint(
         fingerprint.id(),
         fingerprint.userId(),
-        newR503SlotId,
-        fingerprint.templateBackup(),
+        fingerprint.fmd(),
         FingerprintStatus.ACTIVE,
         fingerprint.enrolledAt(),
         null,
-        Instant.now(),
+        now,
         fingerprint.createdAt(),
-        Instant.now(),
+        now,
         fingerprint.deletedAt(),
         fingerprint.version() + 1);
   }

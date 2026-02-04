@@ -1,8 +1,7 @@
 /*
  * File: FingerprintTest.java
- * Purpose: Domain model tests for Fingerprint aggregate validating
- * business invariants and R503 slot assignment.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Domain model tests for Fingerprint aggregate.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.domain.fingerprint.model;
@@ -16,11 +15,11 @@ import com.poetry.poetry_backend.domain.fingerprint.model.core.FingerprintFactor
 class FingerprintTest {
   @Test
   void shouldCreateValidFingerprint() {
-    var fingerprint = FingerprintFactory.createNew(1L, 45);
+    var fingerprint = FingerprintFactory.createNew(1L, "valid-fmd");
 
     assertNotNull(fingerprint);
     assertEquals(1L, fingerprint.userId());
-    assertEquals(45, fingerprint.r503SlotId());
+    assertEquals("valid-fmd", fingerprint.fmd());
     assertTrue(fingerprint.isActive());
     assertTrue(fingerprint.canVerify());
   }

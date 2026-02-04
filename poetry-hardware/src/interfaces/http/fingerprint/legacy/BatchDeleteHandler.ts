@@ -4,8 +4,8 @@
 // All Rights Reserved. Arodi Emmanuel
 
 import { Request, Response } from 'express';
-import { FingerprintPort } from '../../../application/ports/FingerprintPort.js';
-import { logger } from '../../../infrastructure/logging/logger.js';
+import { FingerprintPort } from '../../../../application/ports/FingerprintPort.js';
+import { logger } from '../../../../infrastructure/logging/logger.js';
 
 export class BatchDeleteHandler {
     constructor(private fingerprintPort: FingerprintPort) { }

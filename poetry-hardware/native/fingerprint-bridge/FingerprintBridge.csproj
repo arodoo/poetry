@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>FingerprintCapture</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DPUruNet">
+      <HintPath>C:\Program Files\DigitalPersona\U.are.U RTE\Windows\Lib\DotNET\DPUruNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DPXUru">
+      <HintPath>C:\Program Files\DigitalPersona\U.are.U RTE\Windows\Lib\DotNET\DPXUru.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
