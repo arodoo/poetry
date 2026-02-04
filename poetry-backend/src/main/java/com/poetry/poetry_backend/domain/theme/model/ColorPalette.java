@@ -29,6 +29,7 @@ public record ColorPalette(
         String onSurface,
         String textMuted,
         String textSubtle,
+        String onWarning,
         String overlay) {
     /** Converts this palette to a Map for persistence compatibility. */
     public java.util.Map<String, String> toMap() {
@@ -50,6 +51,7 @@ public record ColorPalette(
                 java.util.Map.entry("onSurface", onSurface),
                 java.util.Map.entry("textMuted", textMuted),
                 java.util.Map.entry("textSubtle", textSubtle),
+                java.util.Map.entry("onWarning", onWarning),
                 java.util.Map.entry("overlay", overlay));
     }
 }

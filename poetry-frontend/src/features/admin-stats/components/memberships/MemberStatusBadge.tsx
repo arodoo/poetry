@@ -20,21 +20,21 @@ export function MemberStatusBadge({
   if (!status) return null
 
   const statusLower = status.toLowerCase()
-  let tone: 'success' | 'neutral' | 'danger' = 'neutral'
+  let tone: 'success' | 'neutral' | 'danger' | 'warning' = 'neutral'
   let labelKey = ''
 
   switch (statusLower) {
     case 'active':
       tone = 'success'
-      labelKey = 'ui.adminStats.memberships.status.active'
+      labelKey = 'ui.adminStats.status.active'
       break
     case 'expiring':
-      tone = 'neutral' // or primary if neutral is too subtle
-      labelKey = 'ui.adminStats.memberships.status.expiring'
+      tone = 'warning' // or primary if neutral is too subtle
+      labelKey = 'ui.adminStats.status.expiring'
       break
     case 'expired':
       tone = 'danger'
-      labelKey = 'ui.adminStats.memberships.status.expired'
+      labelKey = 'ui.adminStats.status.expired'
       break
     default:
       tone = 'neutral'

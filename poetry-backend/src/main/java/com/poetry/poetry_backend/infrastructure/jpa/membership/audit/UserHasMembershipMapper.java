@@ -11,11 +11,22 @@ import java.util.Set;
 import com.poetry.poetry_backend.domain.membership.model.UserHasMembership;
 
 public final class UserHasMembershipMapper {
-  private UserHasMembershipMapper() {}
+  private UserHasMembershipMapper() {
+  }
 
   public static UserHasMembership toDomain(
       UserHasMembershipEntity e,
-      Set<Long> zoneIds) {
+      Set<Long> zoneIds,
+      java.time.Instant now,
+      java.time.Instant expiringLimit) {
+    String status = e.getStatus();
+    if (e.getEndDate() != null && now != null) {
+      if (e.getEndDate().isBefore(now)) {
+        status = "EXPIRED";
+      } else if (expiringLimit != null && e.getEndDate().isBefore(expiringLimit)) {
+        status = "EXPIRING";
+      }
+    }
     return new UserHasMembership(
         e.getId(),
         e.getUserId(),
@@ -24,7 +35,7 @@ public final class UserHasMembershipMapper {
         zoneIds,
         e.getStartDate(),
         e.getEndDate(),
-        e.getStatus(),
+        status,
         e.getCreatedAt(),
         e.getUpdatedAt(),
         e.getVersion() != null ? e.getVersion() : 0L);

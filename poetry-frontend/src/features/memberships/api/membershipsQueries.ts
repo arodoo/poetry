@@ -11,7 +11,7 @@ import {
   listUserMemberships as listUserMembershipsSdk,
   type MembershipResponse,
   type PageResponseDtoMembershipResponse,
-  type PageMembershipDetail,
+  type PageResponseDtoMembershipDetail,
   type ListUserMembershipsData,
 } from '../../../api/generated'
 
@@ -19,11 +19,12 @@ export async function fetchUserMemberships(
   status: string,
   page: number,
   size: number
-): Promise<PageMembershipDetail> {
-  // Force flat params for Spring Boot backend compatibility
+): Promise<PageResponseDtoMembershipDetail> {
+  // Use flat params for Spring Boot backend compatibility
   const query: ListUserMembershipsData['query'] = {
     status,
-    pageable: { page, size },
+    page,
+    size,
   }
   const response = await listUserMembershipsSdk({ query })
   if (!response.data) {

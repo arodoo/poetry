@@ -6,13 +6,13 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import type { UseQueryResult } from '@tanstack/react-query'
 import { fetchUserMemberships } from '../api/membershipsApi'
-import type { PageMembershipDetail } from '../../../api/generated'
+import type { PageResponseDtoMembershipDetail } from '../../../api/generated'
 
 export function useUserMemberships(
   status: string,
   page: number,
   size: number
-): UseQueryResult<PageMembershipDetail, unknown> {
+): UseQueryResult<PageResponseDtoMembershipDetail, unknown> {
   return useQuery({
     queryKey: ['user-memberships', status, page, size],
     queryFn: () => fetchUserMemberships(status, page, size),

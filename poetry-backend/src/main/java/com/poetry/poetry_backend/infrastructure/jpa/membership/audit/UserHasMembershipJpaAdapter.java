@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.membership.port.*;
 import com.poetry.poetry_backend.domain.membership.model.UserHasMembership;
+import com.poetry.poetry_backend.domain.shared.model.PageResult;
 
 @Repository
 @Transactional
@@ -33,37 +34,51 @@ public class UserHasMembershipJpaAdapter
 
   public List<UserHasMembership> findByUserId(Long userId) {
     return repo.findByUserId(userId).stream()
-        .map(e -> toModel(e))
+        .map(e -> toModel(e, Instant.now(), null))
         .toList();
   }
 
   public Optional<UserHasMembership> findActiveByUserId(Long uid, Instant now) {
-    return repo.findActiveByUserId(uid, now).map(this::toModel);
+    return repo.findActiveByUserId(uid, now).map(e -> toModel(e, now, null));
   }
 
   public List<UserHasMembership> findExpiringSoon(Instant now, Instant limit) {
     return repo.findExpiringSoon(now, limit).stream()
-        .map(this::toModel).toList();
+        .map(e -> toModel(e, now, limit)).toList();
   }
 
   public List<UserHasMembership> findExpired(Instant now) {
-    return repo.findExpired(now).stream().map(this::toModel).toList();
+    return repo.findExpired(now).stream().map(e -> toModel(e, now, null)).toList();
   }
 
-  public long countActive(Instant now) { return repo.countActive(now); }
-  public long countExpired(Instant now) { return repo.countExpired(now); }
-
-  public Page<UserHasMembership> findAllActive(Instant now, Pageable pageable) {
-    return repo.findAllActive(now, pageable).map(this::toModel);
+  public long countActive(Instant now) {
+    return repo.countActive(now);
   }
 
-  public Page<UserHasMembership> findAllExpiring(Instant now, Instant limit,
+  public long countExpired(Instant now) {
+    return repo.countExpired(now);
+  }
+
+  public PageResult<UserHasMembership> findAllActive(Instant now, Pageable pageable) {
+    return toPageResult(repo.findAllActive(now, pageable), now, null);
+  }
+
+  public PageResult<UserHasMembership> findAllExpiring(Instant now, Instant limit,
       Pageable pageable) {
-    return repo.findAllExpiring(now, limit, pageable).map(this::toModel);
+    return toPageResult(repo.findAllExpiring(now, limit, pageable), now, limit);
   }
 
-  public Page<UserHasMembership> findAllExpired(Instant now, Pageable pageable) {
-    return repo.findAllExpired(now, pageable).map(this::toModel);
+  public PageResult<UserHasMembership> findAllExpired(Instant now, Pageable pageable) {
+    return toPageResult(repo.findAllExpired(now, pageable), now, null);
+  }
+
+  private PageResult<UserHasMembership> toPageResult(Page<UserHasMembershipEntity> page, Instant now, Instant limit) {
+    return new PageResult<>(
+        page.getContent().stream().map(e -> toModel(e, now, limit)).toList(),
+        page.getTotalElements(),
+        page.getTotalPages(),
+        page.getNumber(),
+        page.getSize());
   }
 
   public UserHasMembership create(Long uid, Long subId, String code,
@@ -77,22 +92,22 @@ public class UserHasMembershipJpaAdapter
     e.setStatus("active");
     e = repo.save(e);
     saveZones(e.getId(), zones);
-    return toModel(e, zones);
+    return toModel(e, zones, start, null); // Use start date as approx for creation/now
   }
 
   public UserHasMembership updateStatus(Long id, String status) {
     var e = repo.findById(id).orElseThrow();
     e.setStatus(status);
-    return toModel(repo.save(e));
+    return toModel(repo.save(e), Instant.now(), null);
   }
 
-  private UserHasMembership toModel(UserHasMembershipEntity e) {
+  private UserHasMembership toModel(UserHasMembershipEntity e, Instant now, Instant limit) {
     var zones = new HashSet<>(zonesRepo.findZoneIdsByMembershipId(e.getId()));
-    return UserHasMembershipMapper.toDomain(e, zones);
+    return UserHasMembershipMapper.toDomain(e, zones, now, limit);
   }
 
-  private UserHasMembership toModel(UserHasMembershipEntity e, Set<Long> z) {
-    return UserHasMembershipMapper.toDomain(e, z);
+  private UserHasMembership toModel(UserHasMembershipEntity e, Set<Long> z, Instant now, Instant limit) {
+    return UserHasMembershipMapper.toDomain(e, z, now, limit);
   }
 
   private void saveZones(Long mid, Set<Long> zones) {

@@ -9,7 +9,7 @@ import { type ReactElement, type HTMLAttributes } from 'react'
 import clsx from 'clsx'
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  tone?: 'primary' | 'neutral' | 'danger' | 'success'
+  tone?: 'primary' | 'neutral' | 'danger' | 'success' | 'warning'
   size?: 'sm' | 'md'
 }
 
@@ -21,9 +21,10 @@ export function Badge({
 }: BadgeProps): ReactElement {
   const toneMap: Record<string, string> = {
     primary: 'bg-[var(--color-primary)] text-[var(--color-onPrimary,#fff)]',
-    neutral: 'bg-[var(--color-surface,#e5e5e5)] text-[var(--color-text,#111)]',
-    danger: 'bg-[var(--color-danger)] text-[var(--color-onPrimary)]',
+    neutral: 'bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)]',
+    danger: 'bg-[var(--color-error)] text-[var(--color-onPrimary)]',
     success: 'bg-[var(--color-success)] text-[var(--color-onPrimary)]',
+    warning: 'bg-[var(--color-warning)] text-[var(--color-onWarning)]',
   }
   const sizeMap: Record<string, string> = {
     sm: 'text-[10px] px-1.5 py-0.5',

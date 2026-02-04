@@ -1,0 +1,39 @@
+
+> poetry-frontend@0.0.0 pw:test
+> playwright test tests/e2e/admin-stats/admin-stats-ui.spec.ts --grep Loads member lists when switching tabs
+
+
+Running 1 test using 1 worker
+
+  ✘  1 tests\e2e\admin-stats\admin-stats-ui.spec.ts:57:3 › Admin Stats Dashboard UI › Loads member lists when switching tabs (6.5s)
+
+
+  1) tests\e2e\admin-stats\admin-stats-ui.spec.ts:57:3 › Admin Stats Dashboard UI › Loads member lists when switching tabs 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('tbody tr').first()
+    Expected pattern: [32m/Expiring|Vencer/i[39m
+    Received string:  [31m"testuser002 testuser002testuser002@example.comActive MembersStart: 2/3/2026End: 2/6/2026Standard"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('tbody tr').first()[22m
+    [2m    9 × locator resolved to <tr class="hover:bg-[var(--color-background,#f5f5f5)]">…</tr>[22m
+    [2m      - unexpected value "testuser002 testuser002testuser002@example.comActive MembersStart: 2/3/2026End: 2/6/2026Standard"[22m
+
+
+      74 |     // Verify expiring status text (case insensitive check for 'Expiring' or 'Por Vencer')
+      75 |     const firstExpiringRow = page.locator('tbody tr').first()
+    > 76 |     await expect(firstExpiringRow).toContainText(/Expiring|Vencer/i)
+         |                                    ^
+      77 |
+      78 |     // Click on "Expired" tab
+      79 |     await page.getByRole('tab', { name: /Expired/i }).click()
+        at D:\zProyectos\01Java\poetry\poetry-frontend\tests\e2e\admin-stats\admin-stats-ui.spec.ts:76:36
+
+    Error Context: test-results\admin-stats-admin-stats-ui-1ed1d-r-lists-when-switching-tabs\error-context.md
+
+  1 failed
+    tests\e2e\admin-stats\admin-stats-ui.spec.ts:57:3 › Admin Stats Dashboard UI › Loads member lists when switching tabs 

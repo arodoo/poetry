@@ -47,14 +47,40 @@ test.describe('Admin Stats Dashboard UI', () => {
     await expect(expiredCard).toBeVisible()
 
     // Check that values are not 0 (assuming bootstrap ran)
-    // Note: Using regex to match non-zero digits, as 0 would be single digit 0
-    // But if bootstrap fails, it might be 0. We expect > 0.
-    // Wait for data to load
     await expect(activeCard.locator('p').first()).not.toHaveText('0', {
       timeout: 10000,
     })
     await expect(expiringCard.locator('p').first()).not.toHaveText('0')
-    // 1 in 4 should be expired, so roughly 5 expired out of 20
     await expect(expiredCard.locator('p').first()).not.toHaveText('0')
+  })
+
+  test('Loads member lists when switching tabs', async ({ page }) => {
+    await page.goto('/en/admin/stats')
+    await page.waitForLoadState('networkidle')
+
+    // Wait for tabs to be visible
+    const tabs = page.locator('[role="tablist"]')
+    await expect(tabs).toBeVisible()
+
+    // The first tab (Active) should be selected by default and have rows
+    const table = page.locator('table')
+    await expect(table).toBeVisible()
+    // Wait for at least one row in the active list (excluding header)
+    await expect(page.locator('tbody tr')).not.toHaveCount(0, { timeout: 10000 })
+
+    await page.getByRole('tab', { name: /Expiring/i }).click()
+    await page.waitForLoadState('networkidle')
+    await expect(page.locator('tbody tr')).not.toHaveCount(0, { timeout: 10000 })
+    // Verify expiring status text (case insensitive check for 'Expiring' or 'Por Vencer')
+    const firstExpiringRow = page.locator('tbody tr').first()
+    await expect(firstExpiringRow).toContainText(/Expiring|Vencer/i)
+
+    // Click on "Expired" tab
+    await page.getByRole('tab', { name: /Expired/i }).click()
+    await page.waitForLoadState('networkidle')
+    await expect(page.locator('tbody tr')).not.toHaveCount(0, { timeout: 10000 })
+    // Verify expired status text
+    const firstExpiredRow = page.locator('tbody tr').first()
+    await expect(firstExpiredRow).toContainText(/Expired|Vencidos/i)
   })
 })

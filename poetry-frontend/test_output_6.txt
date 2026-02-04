@@ -1,0 +1,10 @@
+
+> poetry-frontend@0.0.0 pw:test
+> playwright test tests/e2e/admin-stats/admin-stats-ui.spec.ts --grep Loads member lists when switching tabs
+
+
+Running 1 test using 1 worker
+
+  ✓  1 tests\e2e\admin-stats\admin-stats-ui.spec.ts:57:3 › Admin Stats Dashboard UI › Loads member lists when switching tabs (1.9s)
+
+  1 passed (4.7s)
