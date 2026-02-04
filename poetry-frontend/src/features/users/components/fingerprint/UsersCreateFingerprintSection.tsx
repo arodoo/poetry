@@ -10,7 +10,7 @@ import type { useT } from '../../../../shared/i18n/useT'
 import { FingerprintEnrollmentWizard } from './FingerprintWizard'
 
 interface UsersCreateFingerprintSectionProps {
-  readonly onSuccess: (slotId: number) => void
+  readonly onSuccess: (fmd: string) => void
   readonly onSkip: () => void
   readonly t: ReturnType<typeof useT>
 }

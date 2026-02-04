@@ -17,15 +17,15 @@ export function useUsersCreatePage(
   formState: UsersFormState
   isSubmitting: boolean
   handleCreateUser: (e: React.FormEvent<HTMLFormElement>) => void
-  handleFingerprintComplete: (slotId: number) => void
+  handleFingerprintComplete: (fmd: string) => void
   handleSkipFingerprint: () => void
   handleCancel: () => void
 } {
   const mutation = useCreateUserMutation()
-  const slotRef = useRef<number | null>(null)
+  const slotRef = useRef<string | null>(null)
   const formState = useUsersFormState()
-  function handleFingerprintComplete(slotId: number): void {
-    slotRef.current = slotId
+  function handleFingerprintComplete(fmd: string): void {
+    slotRef.current = fmd
   }
 
   function handleSkipFingerprint(): void {

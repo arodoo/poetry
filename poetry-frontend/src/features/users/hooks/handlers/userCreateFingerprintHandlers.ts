@@ -12,7 +12,7 @@ import { tokenStorage } from '../../../../shared/security/tokens/tokenStorage'
 
 export async function linkFingerprintToUser(
   userId: number,
-  slotId: number
+  fmd: string
 ): Promise<void> {
   const baseUrl =
     (import.meta.env['VITE_API_URL'] as string | undefined) ??
@@ -30,7 +30,7 @@ export async function linkFingerprintToUser(
       method: 'POST',
       headers,
       credentials: 'include',
-      body: JSON.stringify({ slotId }),
+      body: JSON.stringify({ fmd }),
     }
   )
   if (!response.ok) {
@@ -39,7 +39,7 @@ export async function linkFingerprintToUser(
 }
 
 export function createMutationHandler(
-  slotId: number | null,
+  fmd: string | null,
   locale: string,
   navigate: NavigateFunction,
   toast: ReturnType<typeof useToast>,
@@ -50,17 +50,17 @@ export function createMutationHandler(
 } {
   return {
     onSuccess: async (user): Promise<void> => {
-      console.log('[DEBUG] onSuccess - slotId:', slotId, 'userId:', user.id)
-      if (slotId !== null && user.id !== undefined) {
+      console.log('[DEBUG] onSuccess - fmd:', fmd, 'userId:', user.id)
+      if (fmd !== null && user.id !== undefined) {
         try {
           console.log('[DEBUG] Calling linkFingerprintToUser...')
-          await linkFingerprintToUser(user.id, slotId)
+          await linkFingerprintToUser(user.id, fmd)
           console.log('[DEBUG] Link successful')
         } catch (error) {
           console.error('Error linking fingerprint:', error)
         }
       } else {
-        console.log('[DEBUG] Skipping link - slotId or userId missing')
+        console.log('[DEBUG] Skipping link - fmd or userId missing')
       }
       toast.push(t('ui.users.toast.create.success'))
       void navigate(`/${locale}/users`)

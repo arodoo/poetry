@@ -13,7 +13,7 @@ interface StateProps {
   readonly t: ReturnType<typeof useT>
   readonly onStart?: () => void
   readonly onCancel?: () => void
-  readonly slotId?: number | null
+  readonly fmd?: string | null
   readonly errorMessage?: string
 }
 
@@ -41,8 +41,8 @@ export function SuccessState(props: StateProps): ReactElement {
       <Text className="text-[var(--color-success)]">
         ✓ {props.t('ui.users.fingerprint.wizard.success')}
       </Text>
-      <Text size="sm" className="text-[var(--color-text-muted)]">
-        Slot: {String(props.slotId ?? 0)}
+      <Text size="sm" className="text-[var(--color-text-muted)] italic">
+        {props.t('ui.fingerprints.simulator.captured')}
       </Text>
     </Stack>
   )

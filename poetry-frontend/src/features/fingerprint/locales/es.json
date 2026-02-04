@@ -34,6 +34,8 @@
   "ui.fingerprints.success.verified": "Verificación completa",
   "ui.fingerprints.errors.enrollFailed": "Error al registrar huella",
   "ui.fingerprints.errors.verifyFailed": "Error al verificar huella",
+  "ui.users.fingerprint.errors.tooManyListeners": "Demasiadas sesiones de enrolamiento activas (máx 2)",
+  "ui.users.fingerprint.errors.timeout": "Tiempo de espera agotado (límite 30s)",
   "ui.fingerprints.simulator.breadcrumb": "Simulador",
   "ui.fingerprints.simulator.title": "Simulador de Hardware de Huellas",
   "ui.fingerprints.simulator.subtitle": "Pruebas de desarrollo sin lector R503 físico",
@@ -45,5 +47,6 @@
   "ui.fingerprints.simulator.database.quickTest": "Prueba Rápida",
   "ui.fingerprints.simulator.log.title": "Registro de Accesos",
   "ui.fingerprints.simulator.log.clear": "Limpiar",
-  "ui.fingerprints.simulator.log.empty": "Sin actividad aún"
+  "ui.fingerprints.simulator.log.empty": "Sin actividad aún",
+  "ui.fingerprints.simulator.captured": "Captura de huella realizada"
 }

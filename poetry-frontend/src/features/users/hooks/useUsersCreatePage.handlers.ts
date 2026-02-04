@@ -13,13 +13,13 @@ export function createHandleCreateUser(
     isPending?: boolean
   },
   formState: UsersFormState,
-  slotRef: RefObject<number | null>,
+  slotRef: RefObject<string | null>,
   locale: string,
   navigate: NavigateFunction,
   toast: ReturnType<typeof useToast>,
   t: ReturnType<typeof useT>,
   createMutationHandler: (
-    slot: number | null,
+    fmd: string | null,
     locale: string,
     navigate: NavigateFunction,
     toast: ReturnType<typeof useToast>,

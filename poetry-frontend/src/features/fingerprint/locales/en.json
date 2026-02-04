@@ -35,6 +35,8 @@
   "ui.fingerprints.success.verified": "Verification complete",
   "ui.fingerprints.errors.enrollFailed": "Failed to enroll fingerprint",
   "ui.fingerprints.errors.verifyFailed": "Failed to verify fingerprint",
+  "ui.users.fingerprint.errors.tooManyListeners": "Too many active enrollment listeners (max 2)",
+  "ui.users.fingerprint.errors.timeout": "Enrollment timed out (30s limit)",
   "ui.fingerprints.simulator.breadcrumb": "Simulator",
   "ui.fingerprints.simulator.title": "Fingerprint Hardware Simulator",
   "ui.fingerprints.simulator.subtitle": "Development testing without physical HID reader",
@@ -60,5 +62,6 @@
   "ui.fingerprints.admin.archived.table.archivedAt": "Archived At",
   "ui.fingerprints.admin.archived.table.action": "Action",
   "ui.fingerprints.admin.loading": "Loading...",
-  "ui.fingerprints.admin.error": "Failed to load"
+  "ui.fingerprints.admin.error": "Failed to load",
+  "ui.fingerprints.simulator.captured": "Fingerprint Snapshot Captured"
 }

@@ -4,4 +4,5 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-export { reserveSlotFromBackend } from './slot-reservation'
+// No reservation needed for HID model
+export { }
