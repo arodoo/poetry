@@ -2,7 +2,7 @@
  * File: FingerprintQueryAdapter.java
  * Purpose: Query-side adapter implementing FingerprintQueryPort.
  * Handles read operations with soft-delete filtering.
- * All Rights Reserved. Arodi Emmanuel
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.jpa.fingerprint.core;
@@ -47,13 +47,6 @@ public class FingerprintQueryAdapter implements FingerprintQueryPort {
     public List<Fingerprint> findActiveByUserId(Long userId) {
         return repository.findByUserIdAndStatus(userId, FingerprintStatus.ACTIVE)
                 .stream().map(mapper::toDomain).toList();
-    }
-
-    @Override
-    public Optional<Fingerprint> findByR503SlotId(Integer slotId) {
-        return repository.findByR503SlotId(slotId)
-                .filter(e -> e.getDeletedAt() == null)
-                .map(mapper::toDomain);
     }
 
     @Override

@@ -5,4 +5,3 @@
  */
 
 export { reserveSlotFromBackend } from './slot-reservation'
-export { enrollWithHardware } from './hardware-enrollment'

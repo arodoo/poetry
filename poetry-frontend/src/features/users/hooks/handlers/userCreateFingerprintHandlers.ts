@@ -9,7 +9,6 @@ import type { useT } from '../../../../shared/i18n/useT'
 import type { useToast } from '../../../../shared/toast/toastContext'
 import type { UserResponse } from '../../../../api/generated/types.gen'
 import { tokenStorage } from '../../../../shared/security/tokens/tokenStorage'
-import { rollbackFingerprint } from '../../components/fingerprint/rollback-fingerprint'
 
 export async function linkFingerprintToUser(
   userId: number,
@@ -67,9 +66,6 @@ export function createMutationHandler(
       void navigate(`/${locale}/users`)
     },
     onError: (error): void => {
-      if (slotId !== null) {
-        void rollbackFingerprint(slotId)
-      }
       const errorKey =
         error instanceof Error ? error.message : 'ui.users.toast.create.error'
       const translated = t(errorKey)

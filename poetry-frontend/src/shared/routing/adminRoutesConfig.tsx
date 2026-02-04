@@ -13,7 +13,7 @@ import { SellerCodesRoutes } from '../../features/seller-codes/routing/seller-co
 import { SubscriptionsRoutes } from '../../features/subscriptions/routing/subscriptionsRoutes'
 import { ZonesRoutes } from '../../features/zones/routing/zonesRoutes'
 import { MembershipsRoutes } from '../../features/memberships/routing/membershipsRoutes'
-import { DevtoolsRoutes } from '../../features/devtools/routing/devtoolsRoutes'
+import { DevtoolsRoutes } from '../../features/devtools'
 import { AdminStatsRoutes } from '../../features/admin-stats/routing/adminStatsRoutes'
 
 function AdminTokensRoute(): ReactElement {

@@ -53,13 +53,13 @@ test.describe('Registration Banner', () => {
       })
     })
 
-    // Navigate to hardware debug page
-    await page.goto('/en/devtools/hardware')
+    // Navigate to hardware simulator page
+    await page.goto('/en/devtools/simulator')
   })
 
   test('should display banner on successful enrollment', async ({ page }) => {
-    // Fill slot ID
-    await page.getByPlaceholder('Enter slot ID (0-1500)').fill('100')
+    // Fill FMD data (SimEnrollForm uses Input which is textbox)
+    await page.getByRole('textbox').first().fill('MOCK_VALID_FMD_DATA')
 
     // Click enroll
     await page.getByRole('button', { name: 'Simulate Enrollment' }).click()
@@ -85,9 +85,7 @@ test.describe('Registration Banner', () => {
   test('should stack banners', async ({ page }) => {
     // Trigger multiple enrollments
     for (let i = 0; i < 3; i++) {
-      await page
-        .getByPlaceholder('Enter slot ID (0-1500)')
-        .fill(String(100 + i))
+      await page.getByRole('textbox').first().fill(`FMD_${String(100 + i)}`)
       await page.getByRole('button', { name: 'Simulate Enrollment' }).click()
       // Small delay to ensure order
       await page.waitForTimeout(100)

@@ -1,9 +1,8 @@
 /*
  * File: SimulateAccessButton.tsx
- * Purpose: Verification UI with slot ID input and result display.
- * Simulates fingerprint scan and shows access granted or denied.
- * Displays matched user ID when verification succeeds.
- * All Rights Reserved. Arodi Emmanuel
+ * Purpose: Verification UI with FMD input and result display.
+ * Updated for HID model.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
@@ -18,15 +17,12 @@ import { VerifyResult } from './VerifyResult'
 
 export function SimulateAccessButton(): ReactElement {
   const t = useT()
-  const [slotId, setSlotId] = useState<string>('')
+  const [fmd, setFmd] = useState<string>('')
   const verifyMutation = useVerifyFingerprintMutation()
 
   const handleVerify = (): void => {
-    const slotNumber = parseInt(slotId, 10)
-    if (isNaN(slotNumber) || slotNumber < 0 || slotNumber > 1500) {
-      return
-    }
-    const request: VerifyRequest = { r503SlotId: slotNumber }
+    if (fmd.length < 5) return
+    const request: VerifyRequest = { fmd }
     verifyMutation.mutate(request)
   }
 
@@ -35,25 +31,23 @@ export function SimulateAccessButton(): ReactElement {
   return (
     <div className="space-y-4">
       <div>
-        <label htmlFor="verifySlotId" className="block text-sm">
-          {t('ui.fingerprints.verify.slotIdLabel')}
+        <label htmlFor="verifyFmd" className="block text-sm mb-1">
+          Simulate FMD Capture
         </label>
         <div className="flex gap-2">
           <Input
-            id="verifySlotId"
-            type="number"
-            min="0"
-            max="1500"
-            value={slotId}
+            id="verifyFmd"
+            type="text"
+            value={fmd}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSlotId(e.target.value)
+              setFmd(e.target.value)
             }}
-            placeholder={t('ui.fingerprints.verify.slotIdPlaceholder')}
+            placeholder="Enter FMD data"
             disabled={verifyMutation.isPending}
           />
           <Button
             onClick={handleVerify}
-            disabled={verifyMutation.isPending || !slotId}
+            disabled={verifyMutation.isPending || !fmd}
             size="md"
           >
             {verifyMutation.isPending

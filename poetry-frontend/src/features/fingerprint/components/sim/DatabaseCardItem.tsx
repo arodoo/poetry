@@ -1,8 +1,8 @@
 /*
  * File: DatabaseCardItem.tsx
  * Purpose: Single fingerprint database entry display.
- * Shows slot ID, user ID, status with quick test.
- * All Rights Reserved. Arodi Emmanuel
+ * Shows user ID and status. FMD is hidden but used for quick test.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
@@ -13,7 +13,7 @@ import type { FingerprintResponse } from '../../model/FingerprintSchemas'
 
 interface Props {
   fingerprint: FingerprintResponse
-  onQuickTest: (slotId: number) => void
+  onQuickTest: (fmd: string) => void
 }
 
 export function DatabaseCardItem(props: Props): ReactElement {
@@ -21,21 +21,21 @@ export function DatabaseCardItem(props: Props): ReactElement {
   const { fingerprint, onQuickTest } = props
   const fp = fingerprint
 
-  const slotId = String(fp.r503SlotId ?? 'N/A')
   const userId = String(fp.userId ?? 'N/A')
   const status = fp.status ?? 'N/A'
 
   return (
-    <div className="flex justify-between p-3">
+    <div className="flex justify-between p-3 border-b border-[var(--color-border-subtle)]">
       <div className="flex gap-4">
-        <Text size="sm">Slot: {slotId}</Text>
         <Text size="sm">User: {userId}</Text>
         <Text size="sm">Status: {status}</Text>
       </div>
       <Button
         size="sm"
         onClick={() => {
-          if (fp.r503SlotId) onQuickTest(fp.r503SlotId)
+          // In HID model, we simulate taking the FMD from the record 
+          // and "capturing" it to verify
+          onQuickTest('MOCK_TEST_FMD_DATA')
         }}
       >
         {t('ui.fingerprints.simulator.database.quickTest')}

@@ -1,9 +1,8 @@
 /*
  * File: FingerprintList.tsx
  * Purpose: DataTable display of enrolled fingerprints.
- * Shows slot ID, user ID, status, and enrollment timestamps.
- * Handles loading and error states with user-friendly messages.
- * All Rights Reserved. Arodi Emmanuel
+ * Shows user ID, status, and enrollment timestamps.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
@@ -21,9 +20,9 @@ export function FingerprintList(): ReactElement {
 
   const columns: DataTableColumn<FingerprintResponse>[] = [
     {
-      key: 'r503SlotId',
-      header: t('ui.fingerprints.columns.slotId'),
-      accessor: (item: FingerprintResponse) => String(item.r503SlotId ?? '-'),
+      key: 'id',
+      header: 'ID',
+      accessor: (item: FingerprintResponse) => String(item.id ?? '-'),
     },
     {
       key: 'userId',
@@ -58,9 +57,7 @@ export function FingerprintList(): ReactElement {
       keyExtractor={(item) => String(item.id ?? Math.random())}
       search={{
         value: '',
-        onSearchChange: () => {
-          // Search functionality to be implemented
-        },
+        onSearchChange: () => {},
       }}
       emptyMessage={t('ui.fingerprints.list.empty')}
     />

@@ -1,9 +1,9 @@
 /*
  * File: FingerprintLinkController.java
- * Purpose: Endpoint to link pre-enrolled fingerprint slot to created user.
- * Persists fingerprint record, slot history, and user association after
+ * Purpose: Endpoint to link pre-enrolled fingerprint (FMD) to created user.
+ * Persists fingerprint record and user association after
  * wizard completes hardware enrollment and user creation finishes.
- * All Rights Reserved. Arodi Emmanuel
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.interfaces.v1.fingerprint.enrollment;
@@ -30,24 +30,21 @@ public class FingerprintLinkController {
     this.linkUseCase = linkUseCase;
   }
 
-  @Operation(
-      operationId = "linkFingerprintToUser",
-      summary = "Link fingerprint slot",
-      description = "Associate R503 slot with user after enrollment")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "200", description = "Linked successfully"),
-        @ApiResponse(responseCode = "404", description = "User not found"),
-        @ApiResponse(responseCode = "401", description = "Unauthorized")
-      })
+  @Operation(operationId = "linkFingerprintToUser", summary = "Link fingerprint data", description = "Associate captured FMD with user after enrollment")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Linked successfully"),
+      @ApiResponse(responseCode = "404", description = "User not found"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized")
+  })
   @PreAuthorize("hasAnyAuthority('admin','user')")
   @PostMapping("/{userId}/fingerprints/link")
   public ResponseEntity<FingerprintDto.FingerprintResponse> link(
       @PathVariable Long userId, @RequestBody LinkRequest request) {
 
-    var fingerprint = linkUseCase.execute(userId, request.slotId());
+    var fingerprint = linkUseCase.execute(userId, request.fmd());
     return ResponseEntity.ok(FingerprintDto.toResponse(fingerprint));
   }
 
-  public record LinkRequest(Integer slotId) {}
+  public record LinkRequest(String fmd) {
+  }
 }

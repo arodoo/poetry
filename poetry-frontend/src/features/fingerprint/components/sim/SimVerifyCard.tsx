@@ -1,9 +1,8 @@
 /*
  * File: SimVerifyCard.tsx
  * Purpose: Access verification simulator.
- * Simulates fingerprint scan and verification process.
- * Logs access granted or denied with user ID details.
- * All Rights Reserved. Arodi Emmanuel
+ * Updated for HID model (FMD based).
+ * All Rights Reserved Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
@@ -13,7 +12,6 @@ import { Input } from '../../../../ui/Input/Input'
 import { Text } from '../../../../ui/Text/Text'
 import { Card } from '../../../../ui/Card/Card'
 import { useT } from '../../../../shared/i18n/useT'
-// prettier-ignore
 import {
   useVerifyFingerprintMutation,
 } from '../../hooks/useFingerprintMutations'
@@ -25,25 +23,23 @@ interface SimVerifyCardProps {
 
 export function SimVerifyCard({ onLog }: SimVerifyCardProps): ReactElement {
   const t = useT()
-  const [verifySlotId, setVerifySlotId] = useState<string>('')
+  const [verifyFmd, setVerifyFmd] = useState<string>('')
   const verifyMutation = useVerifyFingerprintMutation()
 
   const handleVerify = (): void => {
-    const slotNumber = parseInt(verifySlotId, 10)
-    if (isNaN(slotNumber) || slotNumber < 0 || slotNumber > 1500) {
+    if (verifyFmd.length < 5) {
       return
     }
-    const request: VerifyRequest = { r503SlotId: slotNumber }
+    const request: VerifyRequest = { fmd: verifyFmd }
     verifyMutation.mutate(request, {
       onSuccess: (response) => {
         const time = new Date().toLocaleTimeString()
         if (response.matched) {
           const userId = String(response.userId ?? 'N/A')
-          const slot = String(slotNumber)
-          const msg = `[${time}] ✓ GRANTED - Slot ${slot} → User ${userId}`
+          const msg = `[${time}] ✓ GRANTED → User ${userId}`
           onLog(msg)
         } else {
-          onLog(`[${time}] ✗ DENIED - Slot ${String(slotNumber)}`)
+          onLog(`[${time}] ✗ DENIED`)
         }
       },
     })
@@ -57,16 +53,14 @@ export function SimVerifyCard({ onLog }: SimVerifyCardProps): ReactElement {
         </Text>
         <div className="flex gap-2">
           <Input
-            type="number"
-            min="0"
-            max="1500"
-            value={verifySlotId}
+            type="text"
+            value={verifyFmd}
             onChange={(e) => {
-              setVerifySlotId(e.target.value)
+              setVerifyFmd(e.target.value)
             }}
-            placeholder={t('ui.fingerprints.verify.slotIdPlaceholder')}
+            placeholder="Enter FMD data to verify"
           />
-          <Button onClick={handleVerify} disabled={!verifySlotId}>
+          <Button onClick={handleVerify} disabled={!verifyFmd}>
             {t('ui.fingerprints.simulator.verify.button')}
           </Button>
         </div>

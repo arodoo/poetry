@@ -1,23 +1,21 @@
 /*
  * File: devtoolsRoutes.tsx
- * Purpose: DevTools admin route configurations.
- * Wraps all devtools pages with AdminRoute protection.
+ * Purpose: DevTools route for the standalone simulator.
  * All Rights Reserved. Arodi Emmanuel
  */
-
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
-import HardwareDebugPage from '../pages/HardwareDebugPage'
+import SimulatorPage from '../pages/SimulatorPage'
 
 export function DevtoolsRoutes(): ReactElement[] {
   return [
     <Route
-      key="devtools-hardware"
-      path=":locale/devtools/hardware"
+      key="devtools-simulator"
+      path=":locale/devtools/simulator"
       element={
         <AdminRoute>
-          <HardwareDebugPage />
+          <SimulatorPage />
         </AdminRoute>
       }
     />,

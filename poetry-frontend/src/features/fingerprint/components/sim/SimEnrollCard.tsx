@@ -1,9 +1,8 @@
 /*
  * File: SimEnrollCard.tsx
  * Purpose: Manual enrollment interface for simulator.
- * Allows direct enrollment with slot ID input.
- * Logs enrollment attempts and triggers database refresh.
- * All Rights Reserved. Arodi Emmanuel
+ * Allows direct enrollment with FMD string input.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
@@ -11,7 +10,6 @@ import { useState } from 'react'
 import { Text } from '../../../../ui/Text/Text'
 import { Card } from '../../../../ui/Card/Card'
 import { useT } from '../../../../shared/i18n/useT'
-// prettier-ignore
 import {
   useEnrollFingerprintMutation,
 } from '../../hooks/useFingerprintMutations'
@@ -28,26 +26,25 @@ export function SimEnrollCard({
   onRefetch,
 }: SimEnrollCardProps): ReactElement {
   const t = useT()
-  const [slotId, setSlotId] = useState<string>('')
+  const [fmd, setFmd] = useState<string>('')
   const enrollMutation = useEnrollFingerprintMutation()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    const slotNumber = parseInt(slotId, 10)
-    if (isNaN(slotNumber) || slotNumber < 0 || slotNumber > 1500) {
+    if (fmd.length < 5) {
       return
     }
-    const request: EnrollRequest = { r503SlotId: slotNumber }
+    const request: EnrollRequest = { fmd }
     enrollMutation.mutate(request, {
       onSuccess: () => {
         const time = new Date().toLocaleTimeString()
-        onLog(`[${time}] ✓ Enrolled slot ${String(slotNumber)}`)
-        setSlotId('')
+        onLog(`[${time}] ✓ Enrolled FMD data`)
+        setFmd('')
         onRefetch()
       },
       onError: () => {
         const time = new Date().toLocaleTimeString()
-        onLog(`[${time}] ✗ Failed slot ${String(slotNumber)}`)
+        onLog(`[${time}] ✗ Failed to enroll FMD`)
       },
     })
   }
@@ -59,8 +56,8 @@ export function SimEnrollCard({
           {t('ui.fingerprints.simulator.enroll.title')}
         </Text>
         <SimEnrollForm
-          slotId={slotId}
-          onSlotIdChange={setSlotId}
+          slotId={fmd}
+          onSlotIdChange={setFmd}
           onSubmit={handleSubmit}
         />
       </div>

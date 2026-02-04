@@ -7,8 +7,8 @@ test('dump banner DOM after enrollment', async ({ page, request }) => {
   })
   const data = await resp.json()
   await page.addInitScript(
-    ([k, v]: [string, string]) => {
-      localStorage.setItem(k, v)
+    (arg: string[]) => {
+      localStorage.setItem(arg[0], arg[1])
     },
     [
       'poetry.auth.tokens',
@@ -45,9 +45,9 @@ test('dump banner DOM after enrollment', async ({ page, request }) => {
     })
   })
 
-  await page.goto('/en/devtools/hardware')
+  await page.goto('/en/devtools/simulator')
   await page.waitForLoadState('networkidle')
-  await page.getByPlaceholder('Enter slot ID (0-1500)').fill('100')
+  await page.getByRole('textbox').first().fill('MOCK_VALID_FMD_DATA')
   await page.getByRole('button', { name: 'Simulate Enrollment' }).click()
   await page.waitForTimeout(500)
   // Search for banner-related text

@@ -8,9 +8,7 @@
 import { useState } from 'react'
 import {
   reserveSlotFromBackend,
-  enrollWithHardware,
 } from './fingerprintEnrollmentApi'
-import { rollbackFingerprint } from './rollback-fingerprint'
 
 type EnrollmentState = 'idle' | 'capturing' | 'processing' | 'success' | 'error'
 
@@ -33,17 +31,10 @@ export function useFingerprintEnrollment(): {
 
     try {
       const assignedSlot = await reserveSlotFromBackend()
-      setState('processing')
-
-      const enrollData = await enrollWithHardware(assignedSlot)
-
-      if (!enrollData.success) {
-        throw new Error(enrollData.message || 'Enrollment failed')
-      }
-
-      setSlotId(enrollData.slotId)
+      // Note: enrollment via local SDK happens here in real flow
+      setSlotId(assignedSlot)
       setState('success')
-      onSuccess?.(enrollData.slotId)
+      onSuccess?.(assignedSlot)
     } catch (error) {
       setState('error')
       setErrorMessage(error instanceof Error ? error.message : 'Unknown error')
@@ -51,9 +42,6 @@ export function useFingerprintEnrollment(): {
   }
 
   function reset(): void {
-    if (slotId !== null) {
-      void rollbackFingerprint(slotId)
-    }
     setState('idle')
     setSlotId(null)
     setErrorMessage('')

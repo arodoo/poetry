@@ -1,16 +1,14 @@
 /*
  * File: SimDatabaseCard.tsx
  * Purpose: Enrolled fingerprints viewer with quick test.
- * Shows real-time list of all enrolled fingerprints.
- * Provides quick test button for rapid verification testing.
- * All Rights Reserved. Arodi Emmanuel
+ * Updated for HID model (verification via FMD).
+ * All Rights Reserved Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
 import { Text } from '../../../../ui/Text/Text'
 import { Card } from '../../../../ui/Card/Card'
 import { useT } from '../../../../shared/i18n/useT'
-// prettier-ignore
 import {
   useVerifyFingerprintMutation,
 } from '../../hooks/useFingerprintMutations'
@@ -32,13 +30,13 @@ export function SimDatabaseCard({
   const t = useT()
   const verifyMutation = useVerifyFingerprintMutation()
 
-  const handleQuickTest = (testSlotId: number): void => {
-    const request: VerifyRequest = { r503SlotId: testSlotId }
+  const handleQuickTest = (fmd: string): void => {
+    const request: VerifyRequest = { fmd }
     verifyMutation.mutate(request, {
       onSuccess: (response) => {
         const time = new Date().toLocaleTimeString()
         const result = response.matched ? 'verified' : 'failed'
-        onLog(`[${time}] ✓ QUICK TEST - Slot ${String(testSlotId)} ${result}`)
+        onLog(`[${time}] ✓ QUICK TEST - result: ${result}`)
       },
     })
   }

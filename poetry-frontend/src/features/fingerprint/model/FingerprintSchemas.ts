@@ -2,8 +2,8 @@
  * File: FingerprintSchemas.ts
  * Purpose: Zod validation schemas for fingerprint API types.
  * Validates enrollment requests, verification requests, and responses.
- * Ensures slot IDs are within R503 hardware range of zero to 1500.
- * All Rights Reserved. Arodi Emmanuel
+ * Replaced legacy R503 slotId with FMD string validation.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 import { z } from 'zod'
@@ -15,17 +15,16 @@ import type {
 } from '../../../api/generated'
 
 export const EnrollRequestSchema = z.object({
-  r503SlotId: z.number().int().min(0).max(1500),
+  fmd: z.string().min(10, 'FMD too short').max(20000, 'FMD too long'),
 })
 
 export const VerifyRequestSchema = z.object({
-  r503SlotId: z.number().int().min(0).max(1500),
+  fmd: z.string().min(10, 'FMD too short').max(20000, 'FMD too long'),
 })
 
 export const FingerprintResponseSchema = z.object({
   id: z.number().optional(),
   userId: z.number().optional(),
-  r503SlotId: z.number().optional(),
   status: z.string().optional(),
   enrolledAt: z.string().optional(),
   archivedAt: z.string().optional(),

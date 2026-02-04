@@ -23,9 +23,7 @@ export function SimEnrollForm(props: Props): ReactElement {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <Input
-        type="number"
-        min="0"
-        max="1500"
+        type="text"
         value={slotId}
         onChange={(e) => {
           onSlotIdChange(e.target.value)

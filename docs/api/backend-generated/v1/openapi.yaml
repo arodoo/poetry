@@ -38,8 +38,6 @@ tags:
     description: Link fingerprint to user
   - name: memberships
     description: Membership management
-  - name: fingerprints
-    description: Fingerprint slot reservation
 paths:
   /api/v1/zones/{id}:
     get:
@@ -1009,8 +1007,8 @@ paths:
     post:
       tags:
         - users
-      summary: Link fingerprint slot
-      description: Associate R503 slot with user after enrollment
+      summary: Link fingerprint data
+      description: Associate captured FMD with user after enrollment
       operationId: linkFingerprintToUser
       parameters:
         - name: userId
@@ -1048,8 +1046,8 @@ paths:
     post:
       tags:
         - Fingerprint Enrollment
-      summary: Enroll fingerprint with auto-assigned slot
-      description: Auto-assigns first available slot (0-1500) and links to user
+      summary: Enroll fingerprint for user
+      description: Enrolls fingerprint by saving FMD and linking to user
       operationId: enrollFingerprintForUser
       parameters:
         - name: userId
@@ -1058,9 +1056,15 @@ paths:
           schema:
             type: integer
             format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollRequest'
+        required: true
       responses:
         '400':
-          description: No slots available
+          description: Invalid FMD data
           content:
             '*/*':
               schema:
@@ -1420,7 +1424,8 @@ paths:
       tags:
         - fingerprints
       summary: Verify a fingerprint
-      description: Lookup user by R503 slot ID from hardware service search
+      description:
+        Verify fingerprint by matching probe FMD against enrolled templates
       operationId: verifyFingerprint
       requestBody:
         content:
@@ -1436,37 +1441,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/VerifyResponse'
         '400':
-          description: Invalid slot ID
+          description: Invalid FMD data
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/VerifyResponse'
-  /api/v1/fingerprints/reserve-slot:
-    post:
-      tags:
-        - fingerprints
-      summary: Reserve fingerprint slot
-      description: Get next available R503 slot for wizard enrollment
-      operationId: reserveSlot
-      responses:
-        '200':
-          description: Slot reserved
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/SlotReservationDto'
-        '503':
-          description: No slots available
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/SlotReservationDto'
   /api/v1/fingerprints/enroll:
     post:
       tags:
         - fingerprints
       summary: Enroll a new fingerprint
-      description: Register fingerprint with R503 slot ID from hardware service
+      description: Register fingerprint FMD for the current user
       operationId: enrollFingerprint
       requestBody:
         content:
@@ -1476,7 +1461,7 @@ paths:
         required: true
       responses:
         '400':
-          description: Invalid slot ID
+          description: Invalid FMD data
           content:
             '*/*':
               schema:
@@ -2912,9 +2897,8 @@ components:
     LinkRequest:
       type: object
       properties:
-        slotId:
-          type: integer
-          format: int32
+        fmd:
+          type: string
     FingerprintResponse:
       type: object
       properties:
@@ -2928,11 +2912,6 @@ components:
           description: User ID
           format: int64
           example: 123
-        r503SlotId:
-          type: integer
-          description: R503 slot ID
-          format: int32
-          example: 45
         status:
           type: string
           description: Enrollment status
@@ -2951,15 +2930,22 @@ components:
           format: int64
           example: 1
       description: Fingerprint enrollment response
+    EnrollRequest:
+      required:
+        - fmd
+      type: object
+      properties:
+        fmd:
+          type: string
+          description: Fingerprint Minutiae Data (HID)
+          example: Rk1E...
+      description: Fingerprint enrollment request
     FingerprintEnrollmentResponse:
       type: object
       properties:
         fingerprintId:
           type: integer
           format: int64
-        slotId:
-          type: integer
-          format: int32
         status:
           type: string
     CreateRequest:
@@ -3110,27 +3096,15 @@ components:
           type: boolean
         integrity:
           type: string
-    EnrollRequest:
-      required:
-        - r503SlotId
-      type: object
-      properties:
-        r503SlotId:
-          type: integer
-          description: R503 slot ID assigned by hardware
-          format: int32
-          example: 45
-      description: Fingerprint enrollment request
     VerifyRequest:
       required:
-        - r503SlotId
+        - fmd
       type: object
       properties:
-        r503SlotId:
-          type: integer
-          description: R503 slot ID from hardware search
-          format: int32
-          example: 45
+        fmd:
+          type: string
+          description: Candidate FMD for verification
+          example: Rk1E...
       description: Fingerprint verification request
     VerifyResponse:
       type: object
@@ -3154,12 +3128,6 @@ components:
           description: Result message key
           example: verification.success
       description: Fingerprint verification response
-    SlotReservationDto:
-      type: object
-      properties:
-        slotId:
-          type: integer
-          format: int32
     EventCreateRequest:
       required:
         - eventDate
@@ -3761,13 +3729,6 @@ components:
         totalPages:
           type: integer
           format: int32
-        first:
-          type: boolean
-        last:
-          type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
         size:
           type: integer
           format: int32
@@ -3780,6 +3741,13 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
         empty:
@@ -3792,14 +3760,14 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
         pageNumber:
           type: integer
           format: int32
         pageSize:
           type: integer
           format: int32
-        paged:
-          type: boolean
         unpaged:
           type: boolean
     SortObject:

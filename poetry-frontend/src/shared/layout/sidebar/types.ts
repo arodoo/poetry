@@ -13,7 +13,6 @@ export type ItemId =
   | 'subscriptions'
   | 'zones'
   | 'memberships'
-  | 'devtools'
   | 'adminStats'
 
 export interface SidebarProps {

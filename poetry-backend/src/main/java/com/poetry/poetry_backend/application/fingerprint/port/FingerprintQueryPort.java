@@ -1,9 +1,9 @@
 /*
  * File: FingerprintQueryPort.java
  * Purpose: Port defining query operations for fingerprint data retrieval.
- * Infrastructure adapters implement this to provide read access including
- * R503 slot lookup for verification and archived template restoration.
- * All Rights Reserved. Arodi Emmanuel
+ * Infrastructure adapters implement this to provide read access for
+ * FMD verification and archived template restoration.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.application.fingerprint.port;
@@ -22,8 +22,6 @@ public interface FingerprintQueryPort {
   List<Fingerprint> findByUserId(Long userId);
 
   List<Fingerprint> findActiveByUserId(Long userId);
-
-  Optional<Fingerprint> findByR503SlotId(Integer r503SlotId);
 
   boolean existsByUserId(Long userId);
 
