@@ -24,17 +24,33 @@ export async function linkFingerprintToUser(
   if (tokens?.accessToken) {
     headers['Authorization'] = `Bearer ${tokens.accessToken}`
   }
-  const response = await fetch(
-    `${baseUrl}/api/v1/users/${String(userId)}/fingerprints/link`,
-    {
-      method: 'POST',
-      headers,
-      credentials: 'include',
-      body: JSON.stringify({ fmd }),
-    }
-  )
+
+  let response: Response
+  try {
+    response = await fetch(
+      `${baseUrl}/api/v1/users/${String(userId)}/fingerprints/link`,
+      {
+        method: 'POST',
+        headers,
+        credentials: 'include',
+        body: JSON.stringify({ fmd }),
+      }
+    )
+  } catch {
+    throw new Error('ui.users.fingerprint.errors.network')
+  }
+
   if (!response.ok) {
-    throw new Error('Failed to link fingerprint')
+    if (response.status === 401) {
+      throw new Error('ui.users.fingerprint.errors.unauthorized')
+    }
+    if (response.status === 404) {
+      throw new Error('ui.users.fingerprint.errors.userNotFound')
+    }
+    if (response.status >= 500) {
+      throw new Error('ui.users.fingerprint.errors.server')
+    }
+    throw new Error('ui.users.fingerprint.errors.linkFailed')
   }
 }
 
@@ -58,6 +74,8 @@ export function createMutationHandler(
           console.log('[DEBUG] Link successful')
         } catch (error) {
           console.error('Error linking fingerprint:', error)
+          const errorKey = error instanceof Error ? error.message : 'error.unexpected'
+          toast.push(t(errorKey))
         }
       } else {
         console.log('[DEBUG] Skipping link - fmd or userId missing')

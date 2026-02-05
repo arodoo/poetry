@@ -15,6 +15,7 @@ import { ZonesRoutes } from '../../features/zones/routing/zonesRoutes'
 import { MembershipsRoutes } from '../../features/memberships/routing/membershipsRoutes'
 import { DevtoolsRoutes } from '../../features/devtools'
 import { AdminStatsRoutes } from '../../features/admin-stats/routing/adminStatsRoutes'
+import { HardwareRoutes } from '../../features/hardware'
 
 function AdminTokensRoute(): ReactElement {
   return (
@@ -41,5 +42,6 @@ export function AdminRoutesConfig(): ReactElement[] {
     ...MembershipsRoutes(),
     ...DevtoolsRoutes(),
     ...AdminStatsRoutes(),
+    ...HardwareRoutes(),
   ]
 }

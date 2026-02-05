@@ -94,6 +94,14 @@ All Rights Reserved. Arodi Emmanuel -->
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- HID Digital Persona SDK -->
+		<dependency>
+			<groupId>com.digitalpersona</groupId>
+			<artifactId>dpuareu</artifactId>
+			<version>3.2.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Program Files/DigitalPersona/U.are.U RTE/Windows/Lib/Java/dpuareu.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>

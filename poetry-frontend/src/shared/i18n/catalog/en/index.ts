@@ -20,6 +20,7 @@ import membershipsEn from '../../../../features/memberships/locales/en.json'
 import tokensEn from '../../../../features/tokens/locales/en.json'
 import fingerprintEn from '../../../../features/fingerprint/locales/en.json'
 import devtoolsEn from '../../../../features/devtools/locales/en.json'
+import hardwareEn from '../../../../features/hardware/locales/en.json'
 import { adminStatsEn } from './admin-stats/admin-stats'
 
 export const enCatalog: Record<string, string> = {
@@ -43,5 +44,6 @@ export const enCatalog: Record<string, string> = {
   ...tokensEn,
   ...fingerprintEn,
   ...devtoolsEn,
+  ...hardwareEn,
   ...adminStatsEn,
 }

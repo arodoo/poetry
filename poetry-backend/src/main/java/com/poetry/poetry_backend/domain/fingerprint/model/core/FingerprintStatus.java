@@ -1,9 +1,9 @@
 /*
  * File: FingerprintStatus.java
- * Purpose: Enumeration defining the possible states of a fingerprint
- * enrollment. ACTIVE means template stored in R503 slot and ready for
- * verification. ARCHIVED means template backed up in DB but slot freed.
- * INACTIVE represents permanently revoked templates for security.
+ * Purpose: Enumeration defining the possible states of a fingerprint.
+ * ACTIVE means FMD stored and ready for verification.
+ * ARCHIVED means template backed up but deactivated.
+ * INACTIVE represents permanently revoked templates.
  * All Rights Reserved. Arodi Emmanuel
  */
 

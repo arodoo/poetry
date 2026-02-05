@@ -2,13 +2,17 @@
 
 Biometric authentication module enabling fingerprint enrollment and verification
 for secure physical access control. Integrates with HID Digital Persona
-(FMD-based) readers and relay activation system.
+(FMD-based) readers via backend SDK.
 
-## Purpose
+## Architecture
 
-Provides secure user authentication via FMD (Fingerprint Minutiae Data) stored
-in the database. Supports enrollment workflow from frontend and verification
-workflow triggering relay activation upon successful match.
+```
+Frontend (React) → Backend (Java) → HID SDK (dpfpdd) → U.are.U 4500
+```
+
+The backend communicates directly with the HID Digital Persona SDK to capture
+fingerprints. The frontend calls backend endpoints to initiate capture and
+enrollment operations.
 
 ## Database Schema
 
@@ -34,16 +38,24 @@ workflow triggering relay activation upon successful match.
 
 ## API Endpoints
 
-- `POST /api/v1/fingerprints/enroll` - Enroll fingerprint for current user
-- `POST /api/v1/fingerprints/verify` - Verify captured fingerprint (server-side matching)
+- `POST /api/v1/fingerprints/capture` - Initiate capture from HID reader
+- `POST /api/v1/fingerprints/enroll` - Enroll captured FMD for current user
+- `POST /api/v1/fingerprints/verify` - Verify FMD (server-side matching)
 - `GET /api/v1/fingerprints` - List all enrolled fingerprints
 - `DELETE /api/v1/fingerprints/{id}` - Soft-delete fingerprint
 
 ## Integration Flow
 
-1. **Enrollment**: Hardware service captures FMD → POST /enroll → Save to DB
-2. **Verification**: Hardware service captures FMD → POST /verify → Match against DB templates
-3. **Access Grant**: On match → Backend returns matched user details
-4. **Relay Activation**: Hardware service activates relay for door unlock
+1. **Capture**: Frontend calls POST /capture → Backend activates HID SDK
+2. **Wait**: User places finger on reader → SDK captures FMD
+3. **Return**: Backend returns FMD to frontend
+4. **Enrollment**: Frontend calls POST /enroll with FMD → Save to DB
+5. **Verification**: POST /verify with probe FMD → Match against DB templates
+
+## SDK Requirements
+
+- HID Digital Persona SDK installed on backend server
+- Native library (dpfpdd.dll) in JNI path
+- Profile `prod` for real SDK, `stub` for simulated capture
 
 All Rights Reserved Arodi Emmanuel

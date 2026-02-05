@@ -56,7 +56,7 @@ export function ErrorState(props: StateProps): ReactElement {
       </Text>
       {props.errorMessage && (
         <Text size="sm" className="text-[var(--color-text-muted)]">
-          {props.errorMessage}
+          {props.t(props.errorMessage)}
         </Text>
       )}
       <Button onClick={props.onStart} variant="secondary">

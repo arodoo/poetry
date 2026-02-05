@@ -12,6 +12,7 @@ import {
   UserGroupIcon,
   KeyIcon,
   ChartBarIcon,
+  CpuChipIcon,
 } from '@heroicons/react/24/outline'
 import type { ItemId, NavigationItem } from '../types'
 
@@ -25,6 +26,7 @@ export function getLabelKey(id: ItemId): string {
     sellerCodes: 'ui.route.sellerCodes.title',
     adminTokens: 'ui.route.admin.tokens.title',
     adminStats: 'ui.adminStats.title',
+    hardware: 'ui.hardware.breadcrumb',
   }
   return map[id]
 }
@@ -73,6 +75,12 @@ export function getNavigationItems(): NavigationItem[] {
       p: '/admin/stats',
       roles: ['admin'],
       icon: ChartBarIcon,
+    },
+    {
+      id: 'hardware',
+      p: '/hardware',
+      roles: ['admin'],
+      icon: CpuChipIcon,
     },
   ]
 }

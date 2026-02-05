@@ -1,7 +1,7 @@
 /*
  * File: FingerprintsRestoreController.java
  * Purpose: REST controller for fingerprint restoration endpoint.
- * Restores archived fingerprints to active status with new R503 slot.
+ * Restores archived fingerprints to active status.
  * All Rights Reserved. Arodi Emmanuel
  */
 

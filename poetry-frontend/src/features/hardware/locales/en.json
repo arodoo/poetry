@@ -1,0 +1,12 @@
+{
+  "ui.hardware.status.title": "Hardware Status",
+  "ui.hardware.status.subtitle": "Fingerprint reader monitoring",
+  "ui.hardware.status.connected": "Connected",
+  "ui.hardware.status.disconnected": "Disconnected",
+  "ui.hardware.status.reconnecting": "Reconnecting in {seconds}s...",
+  "ui.hardware.status.model": "Reader Model",
+  "ui.hardware.status.sdk": "SDK Version",
+  "ui.hardware.status.error": "Error",
+  "ui.hardware.status.lastCheck": "Last checked",
+  "ui.hardware.breadcrumb": "Hardware"
+}

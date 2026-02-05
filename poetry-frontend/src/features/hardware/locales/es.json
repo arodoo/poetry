@@ -1,0 +1,12 @@
+{
+  "ui.hardware.status.title": "Estado del Hardware",
+  "ui.hardware.status.subtitle": "Monitoreo del lector de huellas",
+  "ui.hardware.status.connected": "Conectado",
+  "ui.hardware.status.disconnected": "Desconectado",
+  "ui.hardware.status.reconnecting": "Reconectando en {seconds}s...",
+  "ui.hardware.status.model": "Modelo del Lector",
+  "ui.hardware.status.sdk": "Versión del SDK",
+  "ui.hardware.status.error": "Error",
+  "ui.hardware.status.lastCheck": "Última verificación",
+  "ui.hardware.breadcrumb": "Hardware"
+}

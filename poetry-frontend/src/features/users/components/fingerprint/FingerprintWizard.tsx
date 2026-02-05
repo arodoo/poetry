@@ -23,7 +23,7 @@ export interface FingerprintEnrollmentWizardProps {
 export function FingerprintEnrollmentWizard(
   props: FingerprintEnrollmentWizardProps
 ): ReactElement {
-  const { state, fmd, errorMessage, startEnrollment, reset } =
+  const { state, fmd, errorMessage, startEnrollment, cancelEnrollment, reset } =
     useFingerprintEnrollment()
 
   function handleStart(): void {
@@ -35,6 +35,9 @@ export function FingerprintEnrollmentWizard(
   }
 
   function handleCancel(): void {
+    if (state === 'capturing') {
+      cancelEnrollment()
+    }
     reset()
     props.onCancel?.()
   }
