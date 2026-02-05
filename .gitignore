@@ -49,6 +49,7 @@ test-results/
 *.swo
 # Ignorar repo antiguo
 oldRepo/
+01tesis/
 
 # Build outputs
 **/target/
