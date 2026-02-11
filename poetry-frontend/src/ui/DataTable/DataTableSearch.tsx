@@ -4,9 +4,8 @@
  * Provides debounced search with clear functionality.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { memo } from 'react'
+import { memo, useState, useRef, useEffect } from 'react'
 import type { ReactElement, ChangeEvent, KeyboardEvent } from 'react'
-import { useState, useEffect, useRef } from 'react'
 import { useT } from '../../shared/i18n/useT'
 
 export interface SearchProps {
@@ -16,32 +15,34 @@ export interface SearchProps {
   readonly debounceMs?: number
 }
 
-export function DataTableSearchInternal(props: SearchProps): ReactElement {
+function DataTableSearchInternal(props: SearchProps): ReactElement {
   const t = useT()
-  const [localValue, setLocalValue] = useState<string>(props.value)
-  const debounceMs: number = props.debounceMs ?? 300
-  const cbRef = useRef(props.onSearchChange)
-  cbRef.current = props.onSearchChange
-  const parentRef = useRef(props.value)
-  parentRef.current = props.value
+  const [internalValue, setInternalValue] = useState(props.value)
   const inputRef = useRef<HTMLInputElement>(null)
-
-
-  useEffect((): (() => void) => {
-    const timer = setTimeout((): void => {
-      if (localValue !== parentRef.current) {
-        cbRef.current(localValue)
-      }
-    }, debounceMs)
-    return (): void => {
-      clearTimeout(timer)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const onChangeRef = useRef(props.onSearchChange)
+  
+  useEffect(() => {
+    onChangeRef.current = props.onSearchChange
+  }, [props.onSearchChange])
+  
+  useEffect(() => {
+    if (props.value === '') {
+      setInternalValue('')
     }
-  }, [localValue, debounceMs])
+  }, [props.value])
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setLocalValue(e.target.value)
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const newValue = e.target.value
+    setInternalValue(newValue)
+    
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    
+    timeoutRef.current = setTimeout(() => {
+      onChangeRef.current(newValue)
+    }, props.debounceMs ?? 300)
   }
 
   const handleKeyDown = (e: KeyboardEvent): void => {
@@ -49,8 +50,11 @@ export function DataTableSearchInternal(props: SearchProps): ReactElement {
   }
 
   const handleClear = (): void => {
-    setLocalValue('')
-    cbRef.current('')
+    setInternalValue('')
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    onChangeRef.current('')
     setTimeout(() => {
       inputRef.current?.focus()
     }, 0)
@@ -69,10 +73,9 @@ export function DataTableSearchInternal(props: SearchProps): ReactElement {
   return (
     <div className="relative flex-1 max-w-md">
       <input
-        key="search-input"
         ref={inputRef}
         type="text"
-        value={localValue}
+        value={internalValue}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder={
@@ -82,7 +85,7 @@ export function DataTableSearchInternal(props: SearchProps): ReactElement {
         className={inputCls}
         data-testid="table-search-input"
       />
-      {localValue && (
+      {internalValue && (
         <button
           onClick={handleClear}
           className={
@@ -106,5 +109,3 @@ export function DataTableSearchInternal(props: SearchProps): ReactElement {
 }
 
 export const DataTableSearch = memo(DataTableSearchInternal)
-
-

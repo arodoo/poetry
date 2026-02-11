@@ -79,43 +79,41 @@ export default function UsersListPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbItems} />
       </div>
+      <div className="mb-4 flex gap-4">
+        <DataTableSearch
+          value={search}
+          onSearchChange={setSearch}
+        />
+        <DataTableFilters
+          filters={filters}
+          active={activeFilters}
+          onChange={onFilterChange}
+        />
+      </div>
       {isInitialLoad ? (
         <Text size="sm">{t('ui.users.status.loading')}</Text>
       ) : isError ? (
         <Text size="sm">{t('ui.users.status.error')}</Text>
       ) : (
-        <>
-          <div className="mb-4 flex gap-4">
-            <DataTableSearch
-              value={search}
-              onSearchChange={setSearch}
-            />
-            <DataTableFilters
-              filters={filters}
-              active={activeFilters}
-              onChange={onFilterChange}
-            />
-          </div>
-          <DataTable
-            columns={columns}
-            data={users}
-            keyExtractor={
-              (row: UserResponse): string =>
-                String(row.id ?? '')
-            }
-            emptyMessage={t('ui.users.status.empty')}
-            sort={sort}
-            onSortChange={setSort}
-            pagination={{
-              currentPage: page,
-              pageSize: size,
-              totalElements,
-              totalPages,
-              onPageChange: setPage,
-              onPageSizeChange: setSize,
-            }}
-          />
-        </>
+        <DataTable
+          columns={columns}
+          data={users}
+          keyExtractor={
+            (row: UserResponse): string =>
+              String(row.id ?? '')
+          }
+          emptyMessage={t('ui.users.status.empty')}
+          sort={sort}
+          onSortChange={setSort}
+          pagination={{
+            currentPage: page,
+            pageSize: size,
+            totalElements,
+            totalPages,
+            onPageChange: setPage,
+            onPageSizeChange: setSize,
+          }}
+        />
       )}
     </PageLayout>
   )
