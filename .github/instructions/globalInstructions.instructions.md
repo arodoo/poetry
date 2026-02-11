@@ -17,6 +17,7 @@ applyTo: '**'
 - don't adjust my app to your solution, adjust your solution to my app
 - When offering a solution, pick the one that considers scallable architecture
   and long term maintenance, and offer me to implement it with a simple 'GO'
+- Never modify 'docs\api\backend-generated\v1\openapi.yaml' manually
 
 ## Architecture & Documentation
 

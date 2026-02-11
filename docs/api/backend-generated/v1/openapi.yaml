@@ -20,22 +20,24 @@ tags:
     description: Seller code management
   - name: Fingerprints
     description: Fingerprint management
+  - name: Hardware
+    description: Hardware status monitoring
+  - name: Fingerprint Capture
+    description: HID hardware capture
   - name: fingerprints
     description: Fingerprint verification
   - name: fingerprints
     description: Fingerprint management
+  - name: Fingerprint Enrollment
+    description: Fingerprint enrollment
   - name: events
     description: Event management
-  - name: Fingerprint Enrollment
-    description: Fingerprint wizard
   - name: user-memberships
     description: User Membership management
   - name: fingerprints
     description: Fingerprint enrollment
   - name: Seller Codes
     description: Seller code management
-  - name: users
-    description: Link fingerprint to user
   - name: memberships
     description: Membership management
 paths:
@@ -1006,7 +1008,7 @@ paths:
   /api/v1/users/{userId}/fingerprints/link:
     post:
       tags:
-        - users
+        - Fingerprint Enrollment
       summary: Link fingerprint data
       description: Associate captured FMD with user after enrollment
       operationId: linkFingerprintToUser
@@ -1029,25 +1031,25 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/FingerprintResponse'
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
         '404':
           description: User not found
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/FingerprintResponse'
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
         '401':
           description: Unauthorized
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/FingerprintResponse'
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
   /api/v1/users/{userId}/fingerprints/enroll:
     post:
       tags:
         - Fingerprint Enrollment
-      summary: Enroll fingerprint for user
-      description: Enrolls fingerprint by saving FMD and linking to user
+      summary: Enroll fingerprint
+      description: Saves FMD template for user
       operationId: enrollFingerprintForUser
       parameters:
         - name: userId
@@ -1064,13 +1066,7 @@ paths:
         required: true
       responses:
         '400':
-          description: Invalid FMD data
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
-        '403':
-          description: Forbidden
+          description: Invalid FMD
           content:
             '*/*':
               schema:
@@ -1366,39 +1362,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FontResponse'
-  /api/v1/fingerprints:
-    get:
-      tags:
-        - fingerprints
-      summary: List all fingerprints
-      description: Retrieve enrolled fingerprints
-      operationId: listFingerprints
-      responses:
-        '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FingerprintResponse'
-    post:
-      tags:
-        - fingerprints
-      operationId: create_2
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EnrollRequest'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/FingerprintResponse'
   /api/v1/fingerprints/{id}/restore:
     post:
       tags:
@@ -1451,7 +1414,7 @@ paths:
       tags:
         - fingerprints
       summary: Enroll a new fingerprint
-      description: Register fingerprint FMD for the current user
+      description: Register fingerprint with R503 slot ID from hardware service
       operationId: enrollFingerprint
       requestBody:
         content:
@@ -1461,7 +1424,7 @@ paths:
         required: true
       responses:
         '400':
-          description: Invalid FMD data
+          description: Invalid slot ID
           content:
             '*/*':
               schema:
@@ -1478,6 +1441,37 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/FingerprintResponse'
+  /api/v1/fingerprints/capture:
+    post:
+      tags:
+        - Fingerprint Capture
+      summary: Capture fingerprint from HID reader
+      description: Initiates capture on connected reader
+      operationId: captureFingerprint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaptureRequest'
+      responses:
+        '503':
+          description: Reader unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CaptureResponse'
+        '200':
+          description: Capture result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CaptureResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CaptureResponse'
   /api/v1/events:
     get:
       tags:
@@ -2107,6 +2101,35 @@ paths:
                 type: object
                 additionalProperties:
                   type: object
+  /api/v1/hardware/status:
+    get:
+      tags:
+        - Hardware
+      summary: Get reader status
+      operationId: getHardwareStatus
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HardwareStatusDto'
+  /api/v1/fingerprints:
+    get:
+      tags:
+        - fingerprints
+      summary: List all fingerprints
+      description: Retrieve enrolled fingerprints
+      operationId: listFingerprints
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FingerprintResponse'
   /api/v1/fingerprints/{id}:
     get:
       tags:
@@ -2899,37 +2922,17 @@ components:
       properties:
         fmd:
           type: string
-    FingerprintResponse:
+          description: Fingerprint Minutiae Data
+          example: Rk1E...
+      description: Link fingerprint request
+    FingerprintEnrollmentResponse:
       type: object
       properties:
-        id:
+        fingerprintId:
           type: integer
-          description: Fingerprint ID
           format: int64
-          example: 1
-        userId:
-          type: integer
-          description: User ID
-          format: int64
-          example: 123
         status:
           type: string
-          description: Enrollment status
-          example: ACTIVE
-        enrolledAt:
-          type: string
-          description: Enrollment timestamp
-          format: date-time
-        archivedAt:
-          type: string
-          description: Archived timestamp
-          format: date-time
-        version:
-          type: integer
-          description: Version
-          format: int64
-          example: 1
-      description: Fingerprint enrollment response
     EnrollRequest:
       required:
         - fmd
@@ -2940,14 +2943,6 @@ components:
           description: Fingerprint Minutiae Data (HID)
           example: Rk1E...
       description: Fingerprint enrollment request
-    FingerprintEnrollmentResponse:
-      type: object
-      properties:
-        fingerprintId:
-          type: integer
-          format: int64
-        status:
-          type: string
     CreateRequest:
       type: object
       properties:
@@ -3096,6 +3091,37 @@ components:
           type: boolean
         integrity:
           type: string
+    FingerprintResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Fingerprint ID
+          format: int64
+          example: 1
+        userId:
+          type: integer
+          description: User ID
+          format: int64
+          example: 123
+        status:
+          type: string
+          description: Enrollment status
+          example: ACTIVE
+        enrolledAt:
+          type: string
+          description: Enrollment timestamp
+          format: date-time
+        archivedAt:
+          type: string
+          description: Archived timestamp
+          format: date-time
+        version:
+          type: integer
+          description: Version
+          format: int64
+          example: 1
+      description: Fingerprint enrollment response
     VerifyRequest:
       required:
         - fmd
@@ -3128,6 +3154,21 @@ components:
           description: Result message key
           example: verification.success
       description: Fingerprint verification response
+    CaptureRequest:
+      type: object
+      properties:
+        timeoutMs:
+          type: integer
+          format: int32
+    CaptureResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        fmd:
+          type: string
+        errorCode:
+          type: string
     EventCreateRequest:
       required:
         - eventDate
@@ -3705,6 +3746,17 @@ components:
       properties:
         locale:
           type: string
+    HardwareStatusDto:
+      type: object
+      properties:
+        connected:
+          type: boolean
+        readerModel:
+          type: string
+        sdkVersion:
+          type: string
+        errorMessage:
+          type: string
     Pageable:
       type: object
       properties:
@@ -3762,10 +3814,10 @@ components:
           $ref: '#/components/schemas/SortObject'
         paged:
           type: boolean
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
         unpaged:

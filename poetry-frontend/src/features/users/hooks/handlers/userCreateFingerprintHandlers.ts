@@ -8,47 +8,29 @@ import type { NavigateFunction } from 'react-router-dom'
 import type { useT } from '../../../../shared/i18n/useT'
 import type { useToast } from '../../../../shared/toast/toastContext'
 import type { UserResponse } from '../../../../api/generated/types.gen'
-import { tokenStorage } from '../../../../shared/security/tokens/tokenStorage'
+import { linkFingerprintToUser as sdkLinkFingerprint } from '../../../../api/generated/sdk.gen'
 
 export async function linkFingerprintToUser(
   userId: number,
   fmd: string
 ): Promise<void> {
-  const baseUrl =
-    (import.meta.env['VITE_API_URL'] as string | undefined) ??
-    'http://localhost:8080'
-  const tokens = tokenStorage.load()
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  }
-  if (tokens?.accessToken) {
-    headers['Authorization'] = `Bearer ${tokens.accessToken}`
-  }
-
-  let response: Response
   try {
-    response = await fetch(
-      `${baseUrl}/api/v1/users/${String(userId)}/fingerprints/link`,
-      {
-        method: 'POST',
-        headers,
-        credentials: 'include',
-        body: JSON.stringify({ fmd }),
+    await sdkLinkFingerprint({
+      path: { userId },
+      body: { fmd },
+    })
+  } catch (error) {
+    if (error && typeof error === 'object' && 'status' in error) {
+      const status = (error as { status: number }).status
+      if (status === 401) {
+        throw new Error('ui.users.fingerprint.errors.unauthorized')
       }
-    )
-  } catch {
-    throw new Error('ui.users.fingerprint.errors.network')
-  }
-
-  if (!response.ok) {
-    if (response.status === 401) {
-      throw new Error('ui.users.fingerprint.errors.unauthorized')
-    }
-    if (response.status === 404) {
-      throw new Error('ui.users.fingerprint.errors.userNotFound')
-    }
-    if (response.status >= 500) {
-      throw new Error('ui.users.fingerprint.errors.server')
+      if (status === 404) {
+        throw new Error('ui.users.fingerprint.errors.userNotFound')
+      }
+      if (status >= 500) {
+        throw new Error('ui.users.fingerprint.errors.server')
+      }
     }
     throw new Error('ui.users.fingerprint.errors.linkFailed')
   }

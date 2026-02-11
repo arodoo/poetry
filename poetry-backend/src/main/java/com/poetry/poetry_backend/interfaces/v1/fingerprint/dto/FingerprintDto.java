@@ -30,6 +30,11 @@ public final class FingerprintDto {
                         @Schema(description = "Fingerprint Minutiae Data (HID)", example = "Rk1E...", requiredMode = Schema.RequiredMode.REQUIRED) String fmd) {
         }
 
+        @Schema(description = "Link fingerprint request")
+        public record LinkRequest(
+                        @Schema(description = "Fingerprint Minutiae Data", example = "Rk1E...") String fmd) {
+        }
+
         @Schema(description = "Fingerprint verification request")
         public record VerifyRequest(
                         @Schema(description = "Candidate FMD for verification", example = "Rk1E...", requiredMode = Schema.RequiredMode.REQUIRED) String fmd) {

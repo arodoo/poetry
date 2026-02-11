@@ -34,6 +34,23 @@ public class FingerprintEnrollmentController {
                 this.enrollUseCase = enrollUseCase;
         }
 
+        @Operation(operationId = "linkFingerprintToUser", summary = "Link fingerprint data", // i18n-ignore
+                        description = "Associate captured FMD with user after enrollment") // i18n-ignore
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Linked successfully"),
+                        @ApiResponse(responseCode = "404", description = "User not found"),
+                        @ApiResponse(responseCode = "401", description = "Unauthorized")
+        })
+        @PreAuthorize("hasAuthority('admin')")
+        @PostMapping("/link")
+        public ResponseEntity<FingerprintEnrollmentResponse> linkToUser(
+                        @PathVariable Long userId,
+                        @RequestBody FingerprintDto.LinkRequest request) {
+                Fingerprint fp = enrollUseCase.execute(userId, request.fmd());
+                return ResponseEntity.ok()
+                                .body(new FingerprintEnrollmentResponse(fp.id(), "LINKED"));
+        }
+
         @Operation(operationId = "enrollFingerprintForUser", summary = "Enroll fingerprint", // i18n-ignore
                         description = "Saves FMD template for user") // i18n-ignore
         @ApiResponses(value = {
