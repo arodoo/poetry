@@ -34,8 +34,11 @@ public class SellerCodeJpaAdapter
     return queryAdapter.findAll();
   }
 
-  public PageResult<SellerCode> findAllPaged(int page, int size, String search) {
-    return queryAdapter.findAllPaged(page, size, search);
+  public PageResult<SellerCode> findAllPaged(
+      int page, int size,
+      String search, String sort) {
+    return queryAdapter.findAllPaged(
+        page, size, search, sort);
   }
 
   public SellerCode findById(Long id) {

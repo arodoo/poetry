@@ -18,12 +18,18 @@ export function buildUsersListColumns(
     {
       key: 'username',
       header: t('ui.users.table.username'),
-      accessor: (row: UserSummary): string => row.username ?? '',
+      accessor: (row: UserSummary): string =>
+        row.username ?? '',
+      sortValue: (row: UserSummary): string =>
+        row.username ?? '',
     },
     {
       key: 'email',
       header: t('ui.users.table.email'),
-      accessor: (row: UserSummary): string => row.email ?? '',
+      accessor: (row: UserSummary): string =>
+        row.email ?? '',
+      sortValue: (row: UserSummary): string =>
+        row.email ?? '',
     },
     {
       key: 'status',

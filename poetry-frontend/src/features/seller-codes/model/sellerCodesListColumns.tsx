@@ -19,7 +19,10 @@ export function buildSellerCodesListColumns(
     {
       key: 'code',
       header: t('ui.sellerCodes.table.code'),
-      accessor: (row: SellerCodeSummary): string => row.code ?? '',
+      accessor: (row: SellerCodeSummary): string =>
+        row.code ?? '',
+      sortValue: (row: SellerCodeSummary): string =>
+        row.code ?? '',
     },
     {
       key: 'status',

@@ -1,6 +1,0 @@
-
-Running 1 test using 1 worker
-
-  ✓  1 tests\e2e\admin-stats\admin-stats-ui.spec.ts:57:3 › Admin Stats Dashboard UI › Loads member lists when switching tabs (1.7s)
-
-  1 passed (5.5s)

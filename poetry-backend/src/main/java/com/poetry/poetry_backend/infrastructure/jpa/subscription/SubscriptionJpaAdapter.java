@@ -36,8 +36,8 @@ public class SubscriptionJpaAdapter
   public PageResult<Subscription> findAllPaged(
       int page,
       int size,
-      String search) {
-    return queryAdapter.findAllPaged(page, size, search);
+      String search, String sort) {
+    return queryAdapter.findAllPaged(page, size, search, sort);
   }
 
   public Subscription findById(Long id) {

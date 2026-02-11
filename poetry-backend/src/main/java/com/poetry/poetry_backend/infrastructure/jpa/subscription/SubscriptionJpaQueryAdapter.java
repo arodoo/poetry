@@ -8,21 +8,26 @@
 package com.poetry.poetry_backend.infrastructure.jpa.subscription;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.poetry.poetry_backend.application.subscription.port.SubscriptionQueryPort;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.subscription.exception.SubscriptionNotFoundException;
 import com.poetry.poetry_backend.domain.subscription.model.Subscription;
+import com.poetry.poetry_backend.infrastructure.jpa.common.SortParser;
 
 public class SubscriptionJpaQueryAdapter
     implements SubscriptionQueryPort {
   private final SubscriptionJpaRepository repo;
+  private static final Set<String> SORTABLE = Set.of("name", "price", "durationDays");
 
-  public SubscriptionJpaQueryAdapter(SubscriptionJpaRepository repo) {
+  public SubscriptionJpaQueryAdapter(
+      SubscriptionJpaRepository repo) {
     this.repo = repo;
   }
 
@@ -33,18 +38,16 @@ public class SubscriptionJpaQueryAdapter
   }
 
   public PageResult<Subscription> findAllPaged(
-      int page,
-      int size,
-      String search) {
-    Pageable pageable = PageRequest.of(page, size);
-    Page<SubscriptionEntity> pageResult =
-        (search == null || search.isEmpty())
-            ? repo.findAllActive(pageable)
-            : repo.searchActive(search, pageable);
-    List<Subscription> subscriptions =
-        pageResult.getContent().stream()
-            .map(SubscriptionJpaMapper::toDomain)
-            .toList();
+      int page, int size,
+      String search, String sort) {
+    Sort ordering = SortParser.parse(sort, SORTABLE);
+    Pageable pageable = PageRequest.of(page, size, ordering);
+    Page<SubscriptionEntity> pageResult = (search == null || search.isEmpty())
+        ? repo.findAllActive(pageable)
+        : repo.searchActive(search, pageable);
+    List<Subscription> subscriptions = pageResult.getContent().stream()
+        .map(SubscriptionJpaMapper::toDomain)
+        .toList();
     return new PageResult<>(
         subscriptions,
         pageResult.getTotalElements(),

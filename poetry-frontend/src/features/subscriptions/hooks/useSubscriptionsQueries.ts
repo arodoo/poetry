@@ -22,9 +22,19 @@ export const subscriptionsQueryKeys: {
   page(
     pageNum: number,
     pageSize: number,
-    search?: string
-  ): readonly ['subscriptions', 'page', number, number, string | undefined]
-  detail(id: string): readonly ['subscriptions', 'detail', string]
+    search?: string,
+    sort?: string
+  ): readonly [
+    'subscriptions',
+    'page',
+    number,
+    number,
+    string | undefined,
+    string | undefined,
+  ]
+  detail(
+    id: string
+  ): readonly ['subscriptions', 'detail', string]
 } = {
   root: ['subscriptions'],
   list(): readonly ['subscriptions', 'list'] {
@@ -33,9 +43,17 @@ export const subscriptionsQueryKeys: {
   page(
     pageNum: number,
     pageSize: number,
-    search?: string
-  ): readonly ['subscriptions', 'page', number, number, string | undefined] {
-    return ['subscriptions', 'page', pageNum, pageSize, search] as const
+    search?: string,
+    sort?: string
+  ) {
+    return [
+      'subscriptions',
+      'page',
+      pageNum,
+      pageSize,
+      search,
+      sort,
+    ] as const
   },
   detail(id: string): readonly ['subscriptions', 'detail', string] {
     return ['subscriptions', 'detail', id] as const
@@ -57,13 +75,21 @@ export function useSubscriptionsListQuery(): UseQueryResult<
 export function useSubscriptionsPageQuery(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): UseQueryResult<PageResponseDtoSubscriptionResponse> {
-  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(
+    tokenStorage.load()?.accessToken
+  )
   return useQuery({
-    queryKey: subscriptionsQueryKeys.page(page, size, search),
+    queryKey: subscriptionsQueryKeys.page(
+      page,
+      size,
+      search,
+      sort
+    ),
     queryFn: (): Promise<PageResponseDtoSubscriptionResponse> =>
-      fetchSubscriptionsPage(page, size, search),
+      fetchSubscriptionsPage(page, size, search, sort),
     enabled: hasAccessToken,
     staleTime: 1000 * 30,
   })

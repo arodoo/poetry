@@ -18,8 +18,16 @@ export const zonesQueryKeys: {
   page(
     pageNum: number,
     pageSize: number,
-    search?: string
-  ): readonly ['zones', 'page', number, number, string | undefined]
+    search?: string,
+    sort?: string
+  ): readonly [
+    'zones',
+    'page',
+    number,
+    number,
+    string | undefined,
+    string | undefined,
+  ]
   detail(id: string): readonly ['zones', 'detail', string]
 } = {
   root: ['zones'],
@@ -29,9 +37,17 @@ export const zonesQueryKeys: {
   page(
     pageNum: number,
     pageSize: number,
-    search?: string
-  ): readonly ['zones', 'page', number, number, string | undefined] {
-    return ['zones', 'page', pageNum, pageSize, search] as const
+    search?: string,
+    sort?: string
+  ) {
+    return [
+      'zones',
+      'page',
+      pageNum,
+      pageSize,
+      search,
+      sort,
+    ] as const
   },
   detail(id: string): readonly ['zones', 'detail', string] {
     return ['zones', 'detail', id] as const
@@ -51,13 +67,21 @@ export function useZonesListQuery(): UseQueryResult<readonly ZoneResponse[]> {
 export function useZonesPageQuery(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): UseQueryResult<PageResponseDtoZoneResponse> {
-  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(
+    tokenStorage.load()?.accessToken
+  )
   return useQuery({
-    queryKey: zonesQueryKeys.page(page, size, search),
+    queryKey: zonesQueryKeys.page(
+      page,
+      size,
+      search,
+      sort
+    ),
     queryFn: (): Promise<PageResponseDtoZoneResponse> =>
-      fetchZonesPage(page, size, search),
+      fetchZonesPage(page, size, search, sort),
     enabled: hasAccessToken,
     staleTime: 1000 * 30,
   })

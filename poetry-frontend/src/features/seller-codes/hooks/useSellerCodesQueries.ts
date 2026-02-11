@@ -22,8 +22,16 @@ interface SellerCodesQueryKeys {
   page(
     page: number,
     size: number,
-    search?: string
-  ): readonly ['sellerCodes', 'page', number, number, string | undefined]
+    search?: string,
+    sort?: string
+  ): readonly [
+    'sellerCodes',
+    'page',
+    number,
+    number,
+    string | undefined,
+    string | undefined,
+  ]
   detail(id: string): readonly ['sellerCodes', 'detail', string]
 }
 
@@ -35,9 +43,17 @@ export const sellerCodesQueryKeys: SellerCodesQueryKeys = {
   page(
     page: number,
     size: number,
-    search?: string
-  ): readonly ['sellerCodes', 'page', number, number, string | undefined] {
-    return ['sellerCodes', 'page', page, size, search] as const
+    search?: string,
+    sort?: string
+  ) {
+    return [
+      'sellerCodes',
+      'page',
+      page,
+      size,
+      search,
+      sort,
+    ] as const
   },
   detail(id: string): readonly ['sellerCodes', 'detail', string] {
     return ['sellerCodes', 'detail', id] as const
@@ -72,12 +88,21 @@ type PageResp = PageResponseDtoSellerCodeResponse
 export function useSellerCodesPageQuery(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): UseQueryResult<PageResp> {
-  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
+  const hasAccessToken = Boolean(
+    tokenStorage.load()?.accessToken
+  )
   return useQuery({
-    queryKey: sellerCodesQueryKeys.page(page, size, search),
-    queryFn: (): Promise<PageResp> => fetchSellerCodesPage(page, size, search),
+    queryKey: sellerCodesQueryKeys.page(
+      page,
+      size,
+      search,
+      sort
+    ),
+    queryFn: (): Promise<PageResp> =>
+      fetchSellerCodesPage(page, size, search, sort),
     enabled: hasAccessToken,
     staleTime: 1000 * 30,
   })

@@ -21,7 +21,6 @@ import com.poetry.poetry_backend.interfaces.v1.shared.PageResponseDto;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-
 @Tag(name = "Zones")
 @RestController
 @RequestMapping("/api/v1/zones")
@@ -37,8 +36,10 @@ public class ZonesListController {
 	public PageResponseDto<ZoneDto.ZoneResponse> listPaged(
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size,
-			@RequestParam(required = false) String search) {
-		PageResult<Zone> result = getZonesPage.execute(page, size, search);
-		return PageResponseDto.from(result, ZoneDto::toResponse);
+			@RequestParam(required = false) String search,
+			@RequestParam(required = false) String sort) {
+		PageResult<Zone> result = getZonesPage.execute(page, size, search, sort);
+		return PageResponseDto.from(
+				result, ZoneDto::toResponse);
 	}
 }

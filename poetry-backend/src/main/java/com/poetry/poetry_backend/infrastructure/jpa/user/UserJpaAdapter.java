@@ -30,9 +30,11 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
     return queryAdapter.findAll();
   }
 
-  public PageResult<com.poetry.poetry_backend.domain.user.model.core.User>
-      findAllPaged(int page, int size, String search) {
-    return queryAdapter.findAllPaged(page, size, search);
+  public PageResult<com.poetry.poetry_backend.domain.user.model.core.User> findAllPaged(
+      int page, int size,
+      String search, String sort) {
+    return queryAdapter.findAllPaged(
+        page, size, search, sort);
   }
 
   public com.poetry.poetry_backend.domain.user.model.core.User findById(Long id) {

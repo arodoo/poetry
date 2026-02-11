@@ -21,12 +21,18 @@ export function buildZonesListColumns(
     {
       key: 'name',
       header: t('ui.zones.table.name'),
-      accessor: (row: ZoneResponse): string => row.name ?? '',
+      accessor: (row: ZoneResponse): string =>
+        row.name ?? '',
+      sortValue: (row: ZoneResponse): string =>
+        row.name ?? '',
     },
     {
       key: 'description',
       header: t('ui.zones.table.description'),
-      accessor: (row: ZoneResponse): string => row.description ?? '-',
+      accessor: (row: ZoneResponse): string =>
+        row.description ?? '-',
+      sortValue: (row: ZoneResponse): string =>
+        row.description ?? '',
     },
     {
       key: 'status',

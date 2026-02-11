@@ -27,16 +27,17 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
     return new ArrayList<>(store.values());
   }
 
-  public PageResult<User> findAllPaged(int page, int size, String search) {
+  public PageResult<User> findAllPaged(
+      int page, int size,
+      String search, String sort) {
     List<User> allUsers = new ArrayList<>(store.values());
     int totalElements = allUsers.size();
     int totalPages = (int) Math.ceil((double) totalElements / size);
     int startIndex = page * size;
     int endIndex = Math.min(startIndex + size, totalElements);
-    List<User> pageContent =
-        startIndex < totalElements
-            ? allUsers.subList(startIndex, endIndex)
-            : List.of();
+    List<User> pageContent = startIndex < totalElements
+        ? allUsers.subList(startIndex, endIndex)
+        : List.of();
     return new PageResult<>(
         pageContent, totalElements, totalPages, page, size);
   }
@@ -76,8 +77,8 @@ public class InMemoryUserAdapter implements UserQueryPort, UserCommandPort {
       String locale,
       Set<String> r,
       String status) {
-  return Optional.ofNullable(InMemoryUserStore.update(store, id, f, l, e, locale,
-    r != null ? r : null, status)).orElseThrow(() -> new UserNotFoundException(id));
+    return Optional.ofNullable(InMemoryUserStore.update(store, id, f, l, e, locale,
+        r != null ? r : null, status)).orElseThrow(() -> new UserNotFoundException(id));
   }
 
   public com.poetry.poetry_backend.domain.user.model.core.User updatePassword(

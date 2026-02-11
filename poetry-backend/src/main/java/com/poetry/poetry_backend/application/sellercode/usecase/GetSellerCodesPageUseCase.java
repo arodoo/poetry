@@ -19,7 +19,8 @@ public class GetSellerCodesPageUseCase {
   }
 
   public PageResult<SellerCode> execute(
-      final int page, final int size, final String search) {
+      final int page, final int size,
+      final String search, final String sort) {
     if (page < 0) {
       throw new IllegalArgumentException("page.number.negative");
     }
@@ -27,6 +28,7 @@ public class GetSellerCodesPageUseCase {
       throw new IllegalArgumentException("page.size.invalid");
     }
     String sanitizedSearch = search == null ? "" : search.trim();
-    return queryPort.findAllPaged(page, size, sanitizedSearch);
+    return queryPort.findAllPaged(
+        page, size, sanitizedSearch, sort);
   }
 }

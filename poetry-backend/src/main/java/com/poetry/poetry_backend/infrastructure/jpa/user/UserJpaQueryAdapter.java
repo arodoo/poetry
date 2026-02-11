@@ -7,17 +7,21 @@
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
 import com.poetry.poetry_backend.domain.user.exception.UserNotFoundException;
+import com.poetry.poetry_backend.infrastructure.jpa.common.SortParser;
 
 public class UserJpaQueryAdapter implements UserQueryPort {
   private final UserJpaRepository repo;
+  private static final Set<String> SORTABLE = Set.of("username", "email");
 
   public UserJpaQueryAdapter(UserJpaRepository repo) {
     this.repo = repo;
@@ -29,17 +33,17 @@ public class UserJpaQueryAdapter implements UserQueryPort {
         .toList();
   }
 
-  public PageResult<com.poetry.poetry_backend.domain.user.model.core.User>
-      findAllPaged(int page, int size, String search) {
-    Pageable pageable = PageRequest.of(page, size);
-    Page<UserEntity> pageResult =
-        (search == null || search.isEmpty())
-            ? repo.findAllActive(pageable)
-            : repo.searchActive(search, pageable);
-    List<com.poetry.poetry_backend.domain.user.model.core.User> users =
-        pageResult.getContent().stream()
-            .map(UserJpaMapper::toDomain)
-            .toList();
+  public PageResult<com.poetry.poetry_backend.domain.user.model.core.User> findAllPaged(
+      int page, int size,
+      String search, String sort) {
+    Sort ordering = SortParser.parse(sort, SORTABLE);
+    Pageable pageable = PageRequest.of(page, size, ordering);
+    Page<UserEntity> pageResult = (search == null || search.isEmpty())
+        ? repo.findAllActive(pageable)
+        : repo.searchActive(search, pageable);
+    List<com.poetry.poetry_backend.domain.user.model.core.User> users = pageResult.getContent().stream()
+        .map(UserJpaMapper::toDomain)
+        .toList();
     return new PageResult<>(
         users,
         pageResult.getTotalElements(),

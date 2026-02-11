@@ -20,10 +20,14 @@ class GetUserByIdUseCaseTest {
   @Test
   void returnsUser() {
     UserQueryPort query = new UserQueryPort() {
-      public java.util.List<User> findAll() { return java.util.List.of(); }
-      public PageResult<User> findAllPaged(int p, int s, String search) {
+      public java.util.List<User> findAll() {
+        return java.util.List.of();
+      }
+
+      public PageResult<User> findAllPaged(int p, int s, String search, String sort) {
         return new PageResult<>(java.util.List.of(), 0, 0, p, s);
       }
+
       public User findById(Long id) {
         return new User(
             id,
@@ -37,25 +41,32 @@ class GetUserByIdUseCaseTest {
             null,
             null,
             null,
-            0L
-        );
+            0L);
       }
+
       public java.util.List<User> findAllById(java.util.List<Long> ids) {
         return java.util.List.of();
       }
     };
     var uc = new GetUserByIdUseCase(query);
-  assertEquals(5L, uc.execute(5L).id());
+    assertEquals(5L, uc.execute(5L).id());
   }
 
   @Test
   void notFoundThrows() {
     UserQueryPort query = new UserQueryPort() {
-      public java.util.List<User> findAll() { return java.util.List.of(); }
-      public PageResult<User> findAllPaged(int p, int s, String search) {
+      public java.util.List<User> findAll() {
+        return java.util.List.of();
+      }
+
+      public PageResult<User> findAllPaged(int p, int s, String search, String sort) {
         return new PageResult<>(java.util.List.of(), 0, 0, p, s);
       }
-      public User findById(Long id) { return null; }
+
+      public User findById(Long id) {
+        return null;
+      }
+
       public java.util.List<User> findAllById(java.util.List<Long> ids) {
         return java.util.List.of();
       }

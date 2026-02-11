@@ -1,7 +1,7 @@
 /*
  * File: SubscriptionsListPage.tsx
- * Purpose: Subscription plans index page with DataTable layout and
- * server-side pagination for performance with large datasets.
+ * Purpose: Subscriptions page with DataTable,
+ * server-side sort, and status filter.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -18,23 +18,37 @@ import type { SubscriptionResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
 import { buildSubscriptionsListColumns } from '../model/subscriptionsListColumns'
 import { buildSubscriptionListBreadcrumbs } from '../model/subscriptionBreadcrumbHelpers'
+import type { SortState } from '../../../ui/DataTable/SortTypes'
+import { toSortParam } from '../../../ui/DataTable/SortTypes'
+import type { FilterDef, ActiveFilters } from '../../../ui/DataTable/FilterTypes'
+import { applyFilters } from '../../../ui/DataTable/FilterTypes'
+import { buildSubscriptionFilters } from '../model/subscriptionsFilterDefs'
 
 export default function SubscriptionsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
-  const localeResult: ReturnType<typeof useLocale> = useLocale()
-  const locale: string = localeResult.locale
-  const t: ReturnType<typeof useT> = useT()
-  const pageQuery: ReturnType<typeof useSubscriptionsPageQuery> =
-    useSubscriptionsPageQuery(page, size, search)
-  const isLoading: boolean = pageQuery.isLoading
-  const isError: boolean = pageQuery.isError
-  const subscriptions: readonly SubscriptionResponse[] = Array.isArray(
-    pageQuery.data?.content
+  const [sort, setSort] = useState<SortState>(
+    { key: '', direction: null }
   )
-    ? pageQuery.data.content
-    : []
+  const [activeFilters, setFilters] =
+    useState<ActiveFilters>({})
+  const localeResult = useLocale()
+  const locale: string = localeResult.locale
+  const t = useT()
+  const pageQuery =
+    useSubscriptionsPageQuery(
+      page, size, search, toSortParam(sort)
+    )
+  const isInitialLoad: boolean =
+    pageQuery.isLoading && !pageQuery.data
+  const isError: boolean = pageQuery.isError
+  const rawSubs: readonly SubscriptionResponse[] =
+    Array.isArray(pageQuery.data?.content)
+      ? pageQuery.data.content
+      : []
+  const subscriptions: readonly SubscriptionResponse[] =
+    applyFilters(rawSubs, activeFilters)
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
   const columns: readonly DataTableColumn<SubscriptionResponse>[] =
@@ -42,10 +56,22 @@ export default function SubscriptionsListPage(): ReactElement {
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildSubscriptionListBreadcrumbs(locale, t)
   const actions: ReactElement = (
-    <Button to={`/${locale}/subscriptions/new`} size="md" width="fixed-large">
+    <Button
+      to={`/${locale}/subscriptions/new`}
+      size="md"
+      width="fixed-large"
+    >
       {t('ui.subscriptions.actions.new')}
     </Button>
   )
+  const filters: readonly FilterDef[] =
+    buildSubscriptionFilters(t)
+  const onFilterChange = (
+    key: string,
+    value: string
+  ): void => {
+    setFilters((p) => ({ ...p, [key]: value }))
+  }
   return (
     <PageLayout
       title={t('ui.subscriptions.list.title')}
@@ -55,7 +81,7 @@ export default function SubscriptionsListPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbItems} />
       </div>
-      {isLoading ? (
+      {isInitialLoad ? (
         <div>{t('ui.subscriptions.status.loading')}</div>
       ) : isError ? (
         <div>{t('ui.subscriptions.status.error')}</div>
@@ -63,14 +89,22 @@ export default function SubscriptionsListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={subscriptions}
-          keyExtractor={(row: SubscriptionResponse): string =>
-            String(row.id ?? '')
+          keyExtractor={
+            (row: SubscriptionResponse): string =>
+              String(row.id ?? '')
           }
-          emptyMessage={t('ui.subscriptions.status.empty')}
+          emptyMessage={
+            t('ui.subscriptions.status.empty')
+          }
           search={{
             value: search,
             onSearchChange: setSearch,
           }}
+          sort={sort}
+          onSortChange={setSort}
+          filters={filters}
+          activeFilters={activeFilters}
+          onFilterChange={onFilterChange}
           pagination={{
             currentPage: page,
             pageSize: size,

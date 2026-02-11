@@ -17,7 +17,9 @@ import com.poetry.poetry_backend.domain.shared.model.PageResult;
 public interface SellerCodeQueryPort {
   List<SellerCode> findAll();
 
-  PageResult<SellerCode> findAllPaged(int page, int size, String search);
+  PageResult<SellerCode> findAllPaged(
+      int page, int size,
+      String search, String sort);
 
   SellerCode findById(Long id);
 }

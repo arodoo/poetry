@@ -19,7 +19,10 @@ export function buildSubscriptionsListColumns(
     {
       key: 'name',
       header: t('ui.subscriptions.table.name'),
-      accessor: (row: SubscriptionSummary): string => row.name ?? '',
+      accessor: (row: SubscriptionSummary): string =>
+        row.name ?? '',
+      sortValue: (row: SubscriptionSummary): string =>
+        row.name ?? '',
     },
     {
       key: 'price',
@@ -28,6 +31,8 @@ export function buildSubscriptionsListColumns(
         toTemplateString(row.currency ?? 'USD') +
         ' ' +
         (row.price?.toFixed(2) ?? '0.00'),
+      sortValue: (row: SubscriptionSummary): number =>
+        row.price ?? 0,
     },
     {
       key: 'duration',
@@ -36,6 +41,9 @@ export function buildSubscriptionsListColumns(
         toTemplateString(row.durationDays ?? 0) +
         ' ' +
         t('ui.subscriptions.table.days'),
+      sortValue: (
+        row: SubscriptionSummary
+      ): number => row.durationDays ?? 0,
     },
     {
       key: 'status',

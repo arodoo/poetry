@@ -1,7 +1,7 @@
 /*
  * File: UsersListPage.tsx
- * Purpose: Admin users index page with modern DataTable layout and
- * server-side pagination for performance with large datasets.
+ * Purpose: Admin users index page with DataTable,
+ * server-side sort, status/role filters.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -19,33 +19,57 @@ import type { UserResponse } from '../../../api/generated'
 import { useT } from '../../../shared/i18n/useT'
 import { buildUsersListColumns } from '../model/usersListColumns'
 import { buildUserListBreadcrumbs } from '../model/userBreadcrumbHelpers'
+import type { SortState } from '../../../ui/DataTable/SortTypes'
+import { toSortParam } from '../../../ui/DataTable/SortTypes'
+import type { FilterDef, ActiveFilters } from '../../../ui/DataTable/FilterTypes'
+import { applyFilters } from '../../../ui/DataTable/FilterTypes'
+import { buildUserFilters } from '../model/usersFilterDefs'
+import { DataTableSearch } from '../../../ui/DataTable/DataTableSearch'
+import { DataTableFilters } from '../../../ui/DataTable/DataTableFilters'
 
 export default function UsersListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
-  const localeResult: ReturnType<typeof useLocale> = useLocale()
+  const [sort, setSort] = useState<SortState>(
+    { key: '', direction: null }
+  )
+  const [activeFilters, setFilters] =
+    useState<ActiveFilters>({})
+  const localeResult = useLocale()
   const locale: string = localeResult.locale
-  const t: ReturnType<typeof useT> = useT()
-  const pageQuery: ReturnType<typeof useUsersPageQuery> = useUsersPageQuery(
+  const t = useT()
+  const pageQuery = useUsersPageQuery(
     page,
     size,
-    search
+    search,
+    toSortParam(sort)
   )
-  const isLoading: boolean = pageQuery.isLoading
+  const isInitialLoad: boolean =
+    pageQuery.isLoading && !pageQuery.data
   const isError: boolean = pageQuery.isError
-  const users: readonly UserResponse[] = Array.isArray(pageQuery.data?.content)
-    ? pageQuery.data.content
-    : []
+  const rawUsers: readonly UserResponse[] =
+    Array.isArray(pageQuery.data?.content)
+      ? pageQuery.data.content
+      : []
+  const users: readonly UserResponse[] =
+    applyFilters(rawUsers, activeFilters)
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
   const columns: readonly DataTableColumn<UserResponse>[] =
     buildUsersListColumns(locale, t)
-  const breadcrumbItems: readonly BreadcrumbItem[] = buildUserListBreadcrumbs(
-    locale,
-    t
-  )
-  const actions: ReactElement = <UsersListTopActions locale={locale} t={t} />
+  const breadcrumbItems: readonly BreadcrumbItem[] =
+    buildUserListBreadcrumbs(locale, t)
+  const actions: ReactElement =
+    <UsersListTopActions locale={locale} t={t} />
+  const filters: readonly FilterDef[] =
+    buildUserFilters(t)
+  const onFilterChange = (
+    key: string,
+    value: string
+  ): void => {
+    setFilters((prev) => ({ ...prev, [key]: value }))
+  }
   return (
     <PageLayout
       title={t('ui.users.list.title')}
@@ -55,29 +79,43 @@ export default function UsersListPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbItems} />
       </div>
-      {isLoading ? (
+      {isInitialLoad ? (
         <Text size="sm">{t('ui.users.status.loading')}</Text>
       ) : isError ? (
         <Text size="sm">{t('ui.users.status.error')}</Text>
       ) : (
-        <DataTable
-          columns={columns}
-          data={users}
-          keyExtractor={(row: UserResponse): string => String(row.id ?? '')}
-          emptyMessage={t('ui.users.status.empty')}
-          search={{
-            value: search,
-            onSearchChange: setSearch,
-          }}
-          pagination={{
-            currentPage: page,
-            pageSize: size,
-            totalElements,
-            totalPages,
-            onPageChange: setPage,
-            onPageSizeChange: setSize,
-          }}
-        />
+        <>
+          <div className="mb-4 flex gap-4">
+            <DataTableSearch
+              value={search}
+              onSearchChange={setSearch}
+            />
+            <DataTableFilters
+              filters={filters}
+              active={activeFilters}
+              onChange={onFilterChange}
+            />
+          </div>
+          <DataTable
+            columns={columns}
+            data={users}
+            keyExtractor={
+              (row: UserResponse): string =>
+                String(row.id ?? '')
+            }
+            emptyMessage={t('ui.users.status.empty')}
+            sort={sort}
+            onSortChange={setSort}
+            pagination={{
+              currentPage: page,
+              pageSize: size,
+              totalElements,
+              totalPages,
+              onPageChange: setPage,
+              onPageSizeChange: setSize,
+            }}
+          />
+        </>
       )}
     </PageLayout>
   )

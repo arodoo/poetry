@@ -35,8 +35,11 @@ public class SellerCodesPagedListController {
   public PageResponseDto<SellerCodeDto.SellerCodeResponse> getPaged(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
-      @RequestParam(required = false) String search) {
-    PageResult<SellerCode> result = getPageUseCase.execute(page, size, search);
-  return PageResponseDto.from(result, SellerCodeDto::toResponse);
+      @RequestParam(required = false) String search,
+      @RequestParam(required = false) String sort) {
+    PageResult<SellerCode> result = getPageUseCase.execute(
+        page, size, search, sort);
+    return PageResponseDto.from(
+        result, SellerCodeDto::toResponse);
   }
 }

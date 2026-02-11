@@ -23,13 +23,15 @@ export async function fetchSubscriptionsList(): Promise<
 export async function fetchSubscriptionsPage(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): Promise<PageResponseDtoSubscriptionResponse> {
   const response = await listSubscriptionsPagedSdk({
     query: {
       page,
       size,
       ...(search ? { search } : {}),
+      ...(sort ? { sort } : {}),
     },
   })
   if (!response.data) {

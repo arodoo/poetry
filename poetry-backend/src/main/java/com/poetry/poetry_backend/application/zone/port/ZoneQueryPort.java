@@ -17,7 +17,9 @@ import com.poetry.poetry_backend.domain.zone.model.Zone;
 public interface ZoneQueryPort {
   List<Zone> findAll();
 
-  PageResult<Zone> findAllPaged(int page, int size, String search);
+  PageResult<Zone> findAllPaged(
+      int page, int size,
+      String search, String sort);
 
   Zone findById(Long id);
 }

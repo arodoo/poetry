@@ -19,13 +19,16 @@ public class GetZonesPageUseCase {
     this.queries = queries;
   }
 
-  public PageResult<Zone> execute(int page, int size, String search) {
+  public PageResult<Zone> execute(
+      int page, int size,
+      String search, String sort) {
     if (page < 0) {
       throw new IllegalArgumentException("zone.page.negative");
     }
     if (size < 1 || size > 100) {
       throw new IllegalArgumentException("zone.size.range");
     }
-    return queries.findAllPaged(page, size, search);
+    return queries.findAllPaged(
+        page, size, search, sort);
   }
 }

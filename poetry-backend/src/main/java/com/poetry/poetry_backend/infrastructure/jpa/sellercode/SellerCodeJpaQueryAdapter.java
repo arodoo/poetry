@@ -9,20 +9,26 @@
 package com.poetry.poetry_backend.infrastructure.jpa.sellercode;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.poetry.poetry_backend.application.sellercode.port.SellerCodeQueryPort;
 import com.poetry.poetry_backend.domain.sellercode.exception.SellerCodeNotFoundException;
 import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
+import com.poetry.poetry_backend.infrastructure.jpa.common.SortParser;
 
-public class SellerCodeJpaQueryAdapter implements SellerCodeQueryPort {
+public class SellerCodeJpaQueryAdapter
+    implements SellerCodeQueryPort {
   private final SellerCodeJpaRepository repo;
+  private static final Set<String> SORTABLE = Set.of("code");
 
-  public SellerCodeJpaQueryAdapter(SellerCodeJpaRepository repo) {
+  public SellerCodeJpaQueryAdapter(
+      SellerCodeJpaRepository repo) {
     this.repo = repo;
   }
 
@@ -32,8 +38,11 @@ public class SellerCodeJpaQueryAdapter implements SellerCodeQueryPort {
         .toList();
   }
 
-  public PageResult<SellerCode> findAllPaged(int page, int size, String search) {
-    Pageable pageable = PageRequest.of(page, size);
+  public PageResult<SellerCode> findAllPaged(
+      int page, int size,
+      String search, String sort) {
+    Sort ordering = SortParser.parse(sort, SORTABLE);
+    Pageable pageable = PageRequest.of(page, size, ordering);
     Page<SellerCodeEntity> entityPage = (search == null || search.isEmpty())
         ? repo.findAllActive(pageable)
         : repo.searchActive(search, pageable);

@@ -30,13 +30,15 @@ export async function fetchSellerCodesList(): Promise<SellerCodesCollection> {
 export async function fetchSellerCodesPage(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): Promise<PageResponseDtoSellerCodeResponse> {
   const response = await getSellerCodesPaged({
     query: {
       page,
       size,
       ...(search ? { search } : {}),
+      ...(sort ? { sort } : {}),
     },
   })
   return response.data as unknown as PageResponseDtoSellerCodeResponse

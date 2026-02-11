@@ -21,13 +21,15 @@ export async function fetchUsersList(): Promise<UserResponse[]> {
 export async function fetchUsersPage(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): Promise<PageResponseDtoUserResponse> {
   const response = await listUsersPagedSdk({
     query: {
       page,
       size,
       ...(search ? { search } : {}),
+      ...(sort ? { sort } : {}),
     },
   })
   if (!response.data) {

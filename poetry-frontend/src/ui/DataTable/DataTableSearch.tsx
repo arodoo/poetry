@@ -4,8 +4,9 @@
  * Provides debounced search with clear functionality.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement, ChangeEvent } from 'react'
-import { useState, useEffect } from 'react'
+import { memo } from 'react'
+import type { ReactElement, ChangeEvent, KeyboardEvent } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useT } from '../../shared/i18n/useT'
 
 export interface SearchProps {
@@ -15,56 +16,95 @@ export interface SearchProps {
   readonly debounceMs?: number
 }
 
-export function DataTableSearch(props: SearchProps): ReactElement {
+export function DataTableSearchInternal(props: SearchProps): ReactElement {
   const t = useT()
   const [localValue, setLocalValue] = useState<string>(props.value)
   const debounceMs: number = props.debounceMs ?? 300
+  const cbRef = useRef(props.onSearchChange)
+  cbRef.current = props.onSearchChange
+  const parentRef = useRef(props.value)
+  parentRef.current = props.value
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  useEffect((): void => {
-    setLocalValue(props.value)
-  }, [props.value])
 
   useEffect((): (() => void) => {
     const timer = setTimeout((): void => {
-      if (localValue !== props.value) {
-        props.onSearchChange(localValue)
+      if (localValue !== parentRef.current) {
+        cbRef.current(localValue)
       }
     }, debounceMs)
     return (): void => {
       clearTimeout(timer)
     }
-  }, [localValue, debounceMs, props])
+  }, [localValue, debounceMs])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
     setLocalValue(e.target.value)
+  }
+
+  const handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter') e.preventDefault()
   }
 
   const handleClear = (): void => {
     setLocalValue('')
-    props.onSearchChange('')
+    cbRef.current('')
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 0)
   }
+
+  const inputCls =
+    'w-full px-4 py-2 pr-10 rounded-lg text-sm ' +
+    'border border-[var(--color-border,#d0d0d0)] ' +
+    'bg-[var(--color-surface,#fff)] ' +
+    'text-[var(--color-text,#1a1a1a)] ' +
+    'placeholder:text-[var(--color-muted,#6b7280)] ' +
+    'focus:outline-none focus:ring-2 ' +
+    'focus:ring-[var(--color-primary,#6366f1)] ' +
+    'focus:border-transparent transition-shadow'
+
   return (
-    <div className="mb-4 flex items-center gap-2">
-      <div className="relative flex-1 max-w-md">
-        <input
-          type="text"
-          value={localValue}
-          onChange={handleChange}
-          placeholder={props.placeholder ?? t('ui.table.search.placeholder')}
-          className="w-full px-4 py-2 border rounded-md pr-10"
-          data-testid="table-search-input"
-        />
-        {localValue && (
-          <button
-            onClick={handleClear}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1"
-            aria-label={t('ui.table.search.clear')}
-            data-testid="table-search-clear"
-          >
-            ✕
-          </button>
-        )}
-      </div>
+    <div className="relative flex-1 max-w-md">
+      <input
+        key="search-input"
+        ref={inputRef}
+        type="text"
+        value={localValue}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        placeholder={
+          props.placeholder ??
+          t('ui.table.search.placeholder')
+        }
+        className={inputCls}
+        data-testid="table-search-input"
+      />
+      {localValue && (
+        <button
+          onClick={handleClear}
+          className={
+            'absolute right-3 top-1/2 ' +
+            '-translate-y-1/2 w-4 h-4 ' +
+            'flex items-center justify-center ' +
+            'text-xs leading-none ' +
+            'text-[var(--color-muted,#6b7280)] ' +
+            'hover:text-[var(--color-text,#1a1a1a)] ' +
+            'transition-colors'
+          }
+          aria-label={t('ui.table.search.clear')}
+          data-testid="table-search-clear"
+          type="button"
+        >
+          ×
+        </button>
+      )}
     </div>
   )
 }
+
+export const DataTableSearch = memo(DataTableSearchInternal)
+
+

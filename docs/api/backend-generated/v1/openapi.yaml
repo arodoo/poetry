@@ -1768,6 +1768,11 @@ paths:
           required: false
           schema:
             type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -1808,6 +1813,13 @@ paths:
           schema:
             type: string
           example: john
+        - name: sort
+          in: query
+          description: 'Sort field,dir'
+          required: false
+          schema:
+            type: string
+          example: 'username,asc'
       responses:
         '200':
           description: Users page
@@ -1936,6 +1948,12 @@ paths:
           required: false
           schema:
             type: string
+        - name: sort
+          in: query
+          description: 'Sort field,dir'
+          required: false
+          schema:
+            type: string
       responses:
         '403':
           description: Forbidden
@@ -1998,6 +2016,11 @@ paths:
             format: int32
             default: 10
         - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort
           in: query
           required: false
           schema:
@@ -3781,6 +3804,10 @@ components:
         totalPages:
           type: integer
           format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
         size:
           type: integer
           format: int32
@@ -3793,10 +3820,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         numberOfElements:
           type: integer
           format: int32
@@ -3814,10 +3837,10 @@ components:
           $ref: '#/components/schemas/SortObject'
         paged:
           type: boolean
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
         unpaged:

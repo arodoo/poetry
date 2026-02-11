@@ -37,28 +37,22 @@ public class SubscriptionsPagedListController {
     this.getPage = getPage;
   }
 
-  @Operation(
-      operationId = "listSubscriptionsPaged",
-      summary = "List subscriptions with pagination",
-      description = "Retrieve paginated subscription plans with search")
+  @Operation(operationId = "listSubscriptionsPaged", summary = "List subscriptions with pagination", description = "Retrieve paginated subscription plans with search")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Paged results"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden")
+      @ApiResponse(responseCode = "200", description = "Paged results"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden")
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/paged")
-  public ResponseEntity<PageResponseDto<SubscriptionDto.SubscriptionResponse>>
-      paged(
-          @Parameter(description = "Page number (0-based)")
-          @RequestParam(defaultValue = "0") int page,
-          @Parameter(description = "Page size")
-          @RequestParam(defaultValue = "20") int size,
-          @Parameter(description = "Search term")
-          @RequestParam(required = false) String search) {
-    PageResult<Subscription> result = getPage.execute(page, size, search);
-    PageResponseDto<SubscriptionDto.SubscriptionResponse> response =
-        PageResponseDto.from(result, SubscriptionDto::toResponse);
+  public ResponseEntity<PageResponseDto<SubscriptionDto.SubscriptionResponse>> paged(
+      @Parameter(description = "Page number (0-based)") @RequestParam(defaultValue = "0") int page,
+      @Parameter(description = "Page size") @RequestParam(defaultValue = "20") int size,
+      @Parameter(description = "Search term") @RequestParam(required = false) String search,
+      @Parameter(description = "Sort field,dir") @RequestParam(required = false) String sort) {
+    PageResult<Subscription> result = getPage.execute(page, size, search, sort);
+    PageResponseDto<SubscriptionDto.SubscriptionResponse> response = PageResponseDto.from(
+        result, SubscriptionDto::toResponse);
     return ResponseEntity.ok(response);
   }
 }

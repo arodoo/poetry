@@ -22,13 +22,15 @@ export async function fetchZonesList(): Promise<ZonesCollection> {
 export async function fetchZonesPage(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): Promise<PageResponseDtoZoneResponse> {
   const response = await listPaged({
     query: {
       page,
       size,
       ...(search ? { search } : {}),
+      ...(sort ? { sort } : {}),
     },
   })
   return response.data as unknown as PageResponseDtoZoneResponse

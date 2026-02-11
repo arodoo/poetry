@@ -31,8 +31,11 @@ public class ZoneJpaAdapter implements ZoneQueryPort, ZoneCommandPort {
     return queryAdapter.findAll();
   }
 
-  public PageResult<Zone> findAllPaged(int page, int size, String search) {
-    return queryAdapter.findAllPaged(page, size, search);
+  public PageResult<Zone> findAllPaged(
+      int page, int size,
+      String search, String sort) {
+    return queryAdapter.findAllPaged(
+        page, size, search, sort);
   }
 
   public Zone findById(Long id) {

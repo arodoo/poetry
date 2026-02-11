@@ -19,9 +19,9 @@ public class GetSubscriptionsPageUseCase {
   }
 
   public PageResult<Subscription> execute(
-      int page,
-      int size,
-      String search) {
-    return query.findAllPaged(page, size, search);
+      int page, int size,
+      String search, String sort) {
+    return query.findAllPaged(
+        page, size, search, sort);
   }
 }

@@ -17,7 +17,9 @@ import com.poetry.poetry_backend.domain.user.model.core.User;
 public interface UserQueryPort {
   List<User> findAll();
 
-  PageResult<User> findAllPaged(int page, int size, String search);
+  PageResult<User> findAllPaged(
+      int page, int size,
+      String search, String sort);
 
   User findById(Long id);
 

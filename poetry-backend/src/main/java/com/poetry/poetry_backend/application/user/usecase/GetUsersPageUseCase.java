@@ -19,7 +19,8 @@ public class GetUsersPageUseCase {
   }
 
   public PageResult<User> execute(
-      final int page, final int size, final String search) {
+      final int page, final int size,
+      final String search, final String sort) {
     if (page < 0) {
       throw new IllegalArgumentException("page.number.negative");
     }
@@ -27,6 +28,7 @@ public class GetUsersPageUseCase {
       throw new IllegalArgumentException("page.size.invalid");
     }
     String sanitizedSearch = search == null ? "" : search.trim();
-    return query.findAllPaged(page, size, sanitizedSearch);
+    return query.findAllPaged(
+        page, size, sanitizedSearch, sort);
   }
 }

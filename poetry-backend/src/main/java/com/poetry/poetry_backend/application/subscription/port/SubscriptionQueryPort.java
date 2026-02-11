@@ -17,9 +17,8 @@ public interface SubscriptionQueryPort {
   List<Subscription> findAll();
 
   PageResult<Subscription> findAllPaged(
-      int page,
-      int size,
-      String search);
+      int page, int size,
+      String search, String sort);
 
   Subscription findById(Long id);
 }
