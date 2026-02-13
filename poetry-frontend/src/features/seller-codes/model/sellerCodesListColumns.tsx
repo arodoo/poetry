@@ -41,6 +41,10 @@ export function buildSellerCodesListColumns(
           {t('ui.sellerCodes.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
+      filterOptions: [
+        { value: 'active', label: t('ui.sellerCodes.status.active') },
+        { value: 'inactive', label: t('ui.sellerCodes.status.inactive') },
+      ],
     },
     {
       key: 'organizationId',

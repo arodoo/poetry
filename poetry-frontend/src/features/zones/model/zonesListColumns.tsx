@@ -53,6 +53,10 @@ export function buildZonesListColumns(
           </Badge>
         )
       },
+      filterOptions: [
+        { value: 'active', label: t('ui.zones.status.active') },
+        { value: 'inactive', label: t('ui.zones.status.inactive') },
+      ],
     },
     {
       key: 'managerId',

@@ -220,13 +220,30 @@ Naming Patterns:
    - Add to `config/navigationConfig.ts` array
    - Add `ui.route.<feature>.title` to `catalog/{en,es}/route/route.ts`
 
-## 8. Governance & Enforcement
-10. ETag + version handling (if versioned resource)
-11. Idempotent create (header set & tested)
-12. Tests (model, api, hooks, UI, negative paths)
-13. Task file updated (expected vs actual) per global instructions
+11. Tests (model, api, hooks, UI, negative paths)
 
-## 8. Governance & Enforcement
+## 8. Stable UI Patterns
+
+### Stable Search Focus Pattern
+**Problem**: When a `DataTable` is filtered, the data re-render often re-renders the entire table container. If search/filters are children of a component that re-renders with the data, the DOM nodes are destroyed and recreated, causing the input to lose focus.
+
+**Solution**:
+- Always render `DataTableControls` (Search + Filters) as a sibling to the `DataTable` container.
+- These controls must be managed at the Page level or stabilized using `memo`.
+- Use `DataTableControls` as a higher-order orchestrator that auto-detects filters from `columns`.
+
+```tsx
+// Page-level implementation
+const controls = <DataTableControls search={...} columns={columns} />
+return (
+  <PageLayout>
+    <div className="mb-4">{controls}</div>
+    <DataTable data={data} columns={columns} />
+  </PageLayout>
+)
+```
+
+## 9. Governance & Enforcement
 
 Automated Rules (CI / Lint / Scripts):
 

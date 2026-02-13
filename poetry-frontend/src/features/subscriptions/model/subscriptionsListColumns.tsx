@@ -53,6 +53,10 @@ export function buildSubscriptionsListColumns(
           {t('ui.subscriptions.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
+      filterOptions: [
+        { value: 'active', label: t('ui.subscriptions.status.active') },
+        { value: 'inactive', label: t('ui.subscriptions.status.inactive') },
+      ],
     },
     {
       key: 'actions',

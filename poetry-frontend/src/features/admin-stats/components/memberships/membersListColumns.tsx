@@ -1,9 +1,9 @@
 /*
- File: membersListColumns.tsx
- Purpose: Column definitions for the memberships DataTable used in admin stats.
- This file centralizes column renderers to keep the main component small.
- All Rights Reserved.
-*/
+ * File: membersListColumns.tsx
+ * Purpose: Column definitions for the memberships DataTable used specifically in the admin stats dashboard. 
+ * Centralizes rendering logic for member profiles, statuses, dates, and plans to maintain component modularity.
+ * All Rights Reserved Arodi Emmanuel
+ */
 // i18n-ignore
 import type { DataTableColumn } from '../../../../ui/DataTable/DataTable'
 import type { MembershipDetail } from '../../../../api/generated'

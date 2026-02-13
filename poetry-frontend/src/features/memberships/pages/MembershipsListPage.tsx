@@ -20,33 +20,64 @@ import { useT } from '../../../shared/i18n/useT'
 import { buildMembershipsListColumns } from '../model/membershipsListColumns'
 import { buildMembershipListBreadcrumbs } from '../model/membershipBreadcrumbHelpers'
 
+import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
+import type { ActiveFilters } from '../../../ui/DataTable/FilterTypes'
+import { applyFilters } from '../../../ui/DataTable/FilterTypes'
+
 export default function MembershipsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
+  const [activeFilters, setFilters] = useState<ActiveFilters>({})
+
   const localeResult: ReturnType<typeof useLocale> = useLocale()
   const locale: string = localeResult.locale
   const t: ReturnType<typeof useT> = useT()
+
+  const onFilterChange = (key: string, value: string): void => {
+    setFilters((p) => ({ ...p, [key]: value }))
+  }
+
   const pageQuery: ReturnType<typeof useMembershipsPageQuery> =
     useMembershipsPageQuery(page, size, search)
   const isLoading: boolean = pageQuery.isLoading
   const isError: boolean = pageQuery.isError
-  const memberships: readonly MembershipResponse[] = Array.isArray(
+
+  const rawMemberships: readonly MembershipResponse[] = Array.isArray(
     pageQuery.data?.content
   )
     ? pageQuery.data.content
     : []
+
+  const memberships = applyFilters(rawMemberships, activeFilters)
+
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
+
   const columns: readonly DataTableColumn<MembershipResponse>[] =
     buildMembershipsListColumns(locale, t)
+
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildMembershipListBreadcrumbs(locale, t)
+
   const actions: ReactElement = (
     <Button to={`/${locale}/memberships/new`} size="md" width="fixed-large">
       {t('ui.memberships.actions.new')}
     </Button>
   )
+
+  const tableControls = (
+    <DataTableControls
+      search={{
+        value: search,
+        onSearchChange: setSearch,
+      }}
+      columns={columns}
+      activeFilters={activeFilters}
+      onFilterChange={onFilterChange}
+    />
+  )
+
   return (
     <PageLayout
       title={t('ui.memberships.list.title')}
@@ -56,6 +87,9 @@ export default function MembershipsListPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbItems} />
       </div>
+
+      <div className="mb-4 flex gap-4">{tableControls}</div>
+
       {isLoading ? (
         <Text size="sm">{t('ui.memberships.status.loading')}</Text>
       ) : isError ? (
@@ -68,10 +102,6 @@ export default function MembershipsListPage(): ReactElement {
             String(row.id ?? '')
           }
           emptyMessage={t('ui.memberships.status.empty')}
-          search={{
-            value: search,
-            onSearchChange: setSearch,
-          }}
           pagination={{
             currentPage: page,
             pageSize: size,

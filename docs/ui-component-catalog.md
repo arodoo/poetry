@@ -31,7 +31,8 @@
 
 | Component | Path | Props Summary |
 |-----------|------|---------------|
-| **DataTable** | `ui/DataTable/` | `columns`, `data`, `keyExtractor`, `search`, `pagination`, `sort`, `filters` |
+| **DataTable** | `ui/DataTable/` | `columns`, `data`, `keyExtractor`, `pagination`, `sort`, `onSortChange`, `extras` |
+| **DataTableControls** | `ui/DataTable/` | `search`, `columns`, `activeFilters`, `onFilterChange` |
 | **DetailView** | `ui/DetailView/` | `fields`, `data` |
 | **Badge** | `ui/Badge/` | `tone` (`success`/`neutral`/`danger`), `size` |
 | **Tag** | `ui/Tag/` | `label`, `tone` |
@@ -83,6 +84,7 @@
 
 | Component | File | Purpose |
 |-----------|------|---------|
+| DataTableControls | `DataTableControls.tsx` | UI Orchestrator for Search + Filters |
 | DataTableBody | `DataTableBody.tsx` | Row rendering + empty state |
 | DataTableSearch | `DataTableSearch.tsx` | Debounced search input |
 | DataTablePagination | `DataTablePagination.tsx` | Page nav + size selector |
@@ -96,30 +98,34 @@
 | Type | File | Fields |
 |------|------|--------|
 | `SortState` | `SortTypes.ts` | `key`, `direction` |
-| `SortableColumn<T>` | `SortTypes.ts` | `key`, `header`, `accessor`, `sortValue?` |
+| `SortableColumn<T>` | `SortTypes.ts` | `key`, `header`, `accessor`, `sortValue?`, `filterOptions?`, `filterLabel?` |
 | `FilterDef` | `FilterTypes.ts` | `key`, `label`, `options` |
 | `ActiveFilters` | `FilterTypes.ts` | `Record<string, string>` |
 
-### DataTable Usage Pattern
+### DataTable Usage Pattern (with stable focus)
+
+To maintain focus on the search input while data reloads, always render `DataTableControls` independently (not as a child of `DataTable` internals).
 
 ```tsx
-const [sort, setSort] = useState<SortState>(
-  { key: '', direction: null }
-)
+const [sort, setSort] = useState<SortState>({ key: '', direction: null })
 const [filters, setFilters] = useState<ActiveFilters>({})
 
+const controls = (
+  <DataTableControls
+    search={{ value, onSearchChange }}
+    columns={columns}
+    activeFilters={filters}
+    onFilterChange={(k, v) => setFilters(p => ({ ...p, [k]: v }))}
+  />
+)
+
+<div className="mb-4 flex gap-4">{controls}</div>
 <DataTable
-  columns={columns}     // with sortValue
+  columns={columns} // auto-detects filterOptions
   data={items}
   keyExtractor={(r) => String(r.id)}
-  search={{ value, onSearchChange }}
   sort={sort}
   onSortChange={setSort}
-  filters={filterDefs}   // auto-detected
-  activeFilters={filters}
-  onFilterChange={(k, v) =>
-    setFilters(p => ({ ...p, [k]: v }))
-  }
   pagination={{ ... }}
 />
 ```

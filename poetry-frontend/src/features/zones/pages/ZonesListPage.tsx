@@ -21,9 +21,9 @@ import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { ZoneResponse } from '../model/ZonesSchemas'
 import type { SortState } from '../../../ui/DataTable/SortTypes'
 import { toSortParam } from '../../../ui/DataTable/SortTypes'
-import type { FilterDef, ActiveFilters } from '../../../ui/DataTable/FilterTypes'
+import type { ActiveFilters } from '../../../ui/DataTable/FilterTypes'
 import { applyFilters } from '../../../ui/DataTable/FilterTypes'
-import { buildZoneFilters } from '../model/zonesFilterDefs'
+import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
 
 export default function ZonesListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
@@ -59,14 +59,25 @@ export default function ZonesListPage(): ReactElement {
   )
   const actions: ReactElement =
     <ZonesListTopActions locale={locale} t={t} />
-  const filters: readonly FilterDef[] =
-    buildZoneFilters(t)
   const onFilterChange = (
     key: string,
     value: string
   ): void => {
     setFilters((p) => ({ ...p, [key]: value }))
   }
+
+  const tableControls = (
+    <DataTableControls
+      search={{
+        value: search,
+        onSearchChange: setSearch,
+      }}
+      columns={columns}
+      activeFilters={activeFilters}
+      onFilterChange={onFilterChange}
+    />
+  )
+
   return (
     <PageLayout
       title={t('ui.zones.list.title')}
@@ -76,6 +87,9 @@ export default function ZonesListPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbItems} />
       </div>
+
+      <div className="mb-4 flex gap-4">{tableControls}</div>
+
       {isInitialLoad ? (
         <Text size="sm">{t('ui.zones.status.loading')}</Text>
       ) : isError ? (
@@ -89,15 +103,8 @@ export default function ZonesListPage(): ReactElement {
               String(row.id ?? '')
           }
           emptyMessage={t('ui.zones.status.empty')}
-          search={{
-            value: search,
-            onSearchChange: setSearch,
-          }}
           sort={sort}
           onSortChange={setSort}
-          filters={filters}
-          activeFilters={activeFilters}
-          onFilterChange={onFilterChange}
           pagination={{
             currentPage: page,
             pageSize: size,

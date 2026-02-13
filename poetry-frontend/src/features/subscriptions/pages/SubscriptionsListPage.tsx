@@ -20,9 +20,9 @@ import { buildSubscriptionsListColumns } from '../model/subscriptionsListColumns
 import { buildSubscriptionListBreadcrumbs } from '../model/subscriptionBreadcrumbHelpers'
 import type { SortState } from '../../../ui/DataTable/SortTypes'
 import { toSortParam } from '../../../ui/DataTable/SortTypes'
-import type { FilterDef, ActiveFilters } from '../../../ui/DataTable/FilterTypes'
+import type { ActiveFilters } from '../../../ui/DataTable/FilterTypes'
 import { applyFilters } from '../../../ui/DataTable/FilterTypes'
-import { buildSubscriptionFilters } from '../model/subscriptionsFilterDefs'
+import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
 
 export default function SubscriptionsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
@@ -64,14 +64,25 @@ export default function SubscriptionsListPage(): ReactElement {
       {t('ui.subscriptions.actions.new')}
     </Button>
   )
-  const filters: readonly FilterDef[] =
-    buildSubscriptionFilters(t)
   const onFilterChange = (
     key: string,
     value: string
   ): void => {
     setFilters((p) => ({ ...p, [key]: value }))
   }
+
+  const tableControls = (
+    <DataTableControls
+      search={{
+        value: search,
+        onSearchChange: setSearch,
+      }}
+      columns={columns}
+      activeFilters={activeFilters}
+      onFilterChange={onFilterChange}
+    />
+  )
+
   return (
     <PageLayout
       title={t('ui.subscriptions.list.title')}
@@ -81,6 +92,9 @@ export default function SubscriptionsListPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbItems} />
       </div>
+
+      <div className="mb-4 flex gap-4">{tableControls}</div>
+
       {isInitialLoad ? (
         <div>{t('ui.subscriptions.status.loading')}</div>
       ) : isError ? (
@@ -96,15 +110,8 @@ export default function SubscriptionsListPage(): ReactElement {
           emptyMessage={
             t('ui.subscriptions.status.empty')
           }
-          search={{
-            value: search,
-            onSearchChange: setSearch,
-          }}
           sort={sort}
           onSortChange={setSort}
-          filters={filters}
-          activeFilters={activeFilters}
-          onFilterChange={onFilterChange}
           pagination={{
             currentPage: page,
             pageSize: size,

@@ -6,6 +6,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactNode } from 'react'
+import type { FilterOption } from './FilterTypes'
 
 export type SortDirection = 'asc' | 'desc' | null
 
@@ -20,6 +21,8 @@ export interface SortableColumn<T> {
     readonly accessor: (row: T) => ReactNode
     readonly className?: string
     readonly sortValue?: (row: T) => string | number
+    readonly filterOptions?: readonly FilterOption[]
+    readonly filterLabel?: string
 }
 
 export function cycleSortDirection(

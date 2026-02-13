@@ -21,11 +21,9 @@ import { buildUsersListColumns } from '../model/usersListColumns'
 import { buildUserListBreadcrumbs } from '../model/userBreadcrumbHelpers'
 import type { SortState } from '../../../ui/DataTable/SortTypes'
 import { toSortParam } from '../../../ui/DataTable/SortTypes'
-import type { FilterDef, ActiveFilters } from '../../../ui/DataTable/FilterTypes'
+import type { ActiveFilters } from '../../../ui/DataTable/FilterTypes'
 import { applyFilters } from '../../../ui/DataTable/FilterTypes'
-import { buildUserFilters } from '../model/usersFilterDefs'
-import { DataTableSearch } from '../../../ui/DataTable/DataTableSearch'
-import { DataTableFilters } from '../../../ui/DataTable/DataTableFilters'
+import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
 
 export default function UsersListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
@@ -62,14 +60,26 @@ export default function UsersListPage(): ReactElement {
     buildUserListBreadcrumbs(locale, t)
   const actions: ReactElement =
     <UsersListTopActions locale={locale} t={t} />
-  const filters: readonly FilterDef[] =
-    buildUserFilters(t)
+
   const onFilterChange = (
     key: string,
     value: string
   ): void => {
     setFilters((prev) => ({ ...prev, [key]: value }))
   }
+
+  const tableControls = (
+    <DataTableControls
+      search={{
+        value: search,
+        onSearchChange: setSearch,
+      }}
+      columns={columns}
+      activeFilters={activeFilters}
+      onFilterChange={onFilterChange}
+    />
+  )
+
   return (
     <PageLayout
       title={t('ui.users.list.title')}
@@ -79,17 +89,11 @@ export default function UsersListPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbItems} />
       </div>
+
       <div className="mb-4 flex gap-4">
-        <DataTableSearch
-          value={search}
-          onSearchChange={setSearch}
-        />
-        <DataTableFilters
-          filters={filters}
-          active={activeFilters}
-          onChange={onFilterChange}
-        />
+        {tableControls}
       </div>
+
       {isInitialLoad ? (
         <Text size="sm">{t('ui.users.status.loading')}</Text>
       ) : isError ? (

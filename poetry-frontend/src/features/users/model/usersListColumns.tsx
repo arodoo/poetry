@@ -39,9 +39,20 @@ export function buildUsersListColumns(
           {t('ui.users.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
+      filterOptions: [
+        {
+          value: 'active',
+          label: t('ui.users.status.active'),
+        },
+        {
+          value: 'inactive',
+          label: t('ui.users.status.inactive'),
+        },
+      ],
     },
     {
       key: 'roles',
+      filterLabel: t('ui.table.filter.role'),
       header: t('ui.users.table.roles'),
       accessor: (row: UserSummary): ReactElement => (
         <Inline gap="xs">
@@ -54,6 +65,16 @@ export function buildUsersListColumns(
           )}
         </Inline>
       ),
+      filterOptions: [
+        {
+          value: 'ADMIN',
+          label: t('ui.users.role.admin'),
+        },
+        {
+          value: 'SELLER',
+          label: t('ui.users.role.seller'),
+        },
+      ],
     },
     {
       key: 'actions',

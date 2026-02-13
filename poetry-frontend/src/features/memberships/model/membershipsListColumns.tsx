@@ -45,6 +45,10 @@ export function buildMembershipsListColumns(
           {t('ui.memberships.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
+      filterOptions: [
+        { value: 'active', label: t('ui.memberships.status.active') },
+        { value: 'inactive', label: t('ui.memberships.status.inactive') },
+      ],
     },
     {
       key: 'actions',

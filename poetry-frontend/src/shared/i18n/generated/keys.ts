@@ -111,6 +111,9 @@ export const I18N_KEYS: readonly string[] = [
   'ui.route.zones.title',
   'ui.sidebar.collapse',
   'ui.sidebar.expand',
+  'ui.table.filter.all',
+  'ui.table.filter.role',
+  'ui.table.filter.status',
   'ui.table.pagination.next',
   'ui.table.pagination.of',
   'ui.table.pagination.page',
@@ -119,6 +122,9 @@ export const I18N_KEYS: readonly string[] = [
   'ui.table.pagination.showing',
   'ui.table.search.clear',
   'ui.table.search.placeholder',
+  'ui.table.sort.asc',
+  'ui.table.sort.desc',
+  'ui.table.sort.none',
 ] as const
 
 export type I18nKey = (typeof I18N_KEYS)[number]
