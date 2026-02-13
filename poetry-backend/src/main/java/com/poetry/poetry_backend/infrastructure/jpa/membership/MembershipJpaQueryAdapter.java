@@ -37,14 +37,12 @@ public class MembershipJpaQueryAdapter implements MembershipQueryPort {
       int size,
       String search) {
     Pageable pageable = PageRequest.of(page, size);
-    Page<MembershipEntity> entityPage =
-        (search != null && !search.isBlank())
-            ? repo.searchActive(search, pageable)
-            : repo.findAllActive(pageable);
-    List<Membership> content =
-        entityPage.getContent().stream()
-            .map(MembershipJpaMapper::toDomain)
-            .toList();
+    Page<MembershipEntity> entityPage = (search != null && !search.isBlank())
+        ? repo.searchActive(search, pageable)
+        : repo.findAllActive(pageable);
+    List<Membership> content = entityPage.getContent().stream()
+        .map(MembershipJpaMapper::toDomain)
+        .toList();
     return new PageResult<>(
         content,
         entityPage.getTotalElements(),

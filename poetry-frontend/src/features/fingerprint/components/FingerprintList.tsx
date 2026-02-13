@@ -17,30 +17,51 @@ import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
 import type { ActiveFilters } from '../../../ui/DataTable/FilterTypes'
 import { applyFilters } from '../../../ui/DataTable/FilterTypes'
 
+import { type SortState } from '../../../ui/DataTable/SortTypes'
+
 export function FingerprintList(): ReactElement {
   const t = useT()
   const [search, setSearch] = useState('')
   const [activeFilters, setFilters] = useState<ActiveFilters>({})
+  const [sort, setSort] = useState<SortState>({
+    key: 'enrolledAt',
+    direction: 'desc',
+  })
 
   const { data, isLoading, isError } = useFingerprintsListQuery()
   const rawFingerprints = data ?? []
-  const fingerprints = applyFilters(rawFingerprints, activeFilters)
+  
+  const filteredFingerprints = applyFilters(rawFingerprints, activeFilters)
+
+  const fingerprints = [...filteredFingerprints].sort((a, b) => {
+    if (!sort.key || !sort.direction) return 0
+    const col = columns.find((c) => c.key === sort.key)
+    const valA = col?.sortValue ? col.sortValue(a) : ''
+    const valB = col?.sortValue ? col.sortValue(b) : ''
+
+    if (valA < valB) return sort.direction === 'asc' ? -1 : 1
+    if (valA > valB) return sort.direction === 'asc' ? 1 : -1
+    return 0
+  })
 
   const columns: DataTableColumn<FingerprintResponse>[] = [
     {
       key: 'id',
       header: 'ID',
       accessor: (item: FingerprintResponse) => String(item.id ?? '-'),
+      sortValue: (item: FingerprintResponse) => item.id ?? 0,
     },
     {
       key: 'userId',
       header: t('ui.fingerprints.columns.userId'),
       accessor: (item: FingerprintResponse) => String(item.userId ?? '-'),
+      sortValue: (item: FingerprintResponse) => item.userId ?? 0,
     },
     {
       key: 'status',
       header: t('ui.fingerprints.columns.status'),
       accessor: (item: FingerprintResponse) => item.status ?? '-',
+      sortValue: (item: FingerprintResponse) => item.status ?? '',
       filterOptions: [
         { value: 'enrolled', label: t('ui.fingerprints.status.enrolled') },
         { value: 'revoked', label: t('ui.fingerprints.status.revoked') },
@@ -51,6 +72,8 @@ export function FingerprintList(): ReactElement {
       header: t('ui.fingerprints.columns.enrolledAt'),
       accessor: (item: FingerprintResponse) =>
         item.enrolledAt ? new Date(item.enrolledAt).toLocaleString() : '-',
+      sortValue: (item: FingerprintResponse) =>
+        item.enrolledAt ? new Date(item.enrolledAt).getTime() : 0,
     },
   ]
 
@@ -77,6 +100,8 @@ export function FingerprintList(): ReactElement {
           columns={columns}
           activeFilters={activeFilters}
           onFilterChange={onFilterChange}
+          sort={sort}
+          onSortChange={setSort}
         />
       </div>
       <DataTable
@@ -84,6 +109,8 @@ export function FingerprintList(): ReactElement {
         data={fingerprints}
         keyExtractor={(item) => String(item.id ?? Math.random())}
         emptyMessage={t('ui.fingerprints.list.empty')}
+        sort={sort}
+        onSortChange={setSort}
       />
     </>
   )

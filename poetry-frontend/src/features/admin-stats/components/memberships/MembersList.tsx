@@ -12,15 +12,20 @@ import { DataTable } from '../../../../ui/DataTable/DataTable'
 import { buildMembersColumns } from './membersListColumns'
 import { DataTableControls } from '../../../../ui/DataTable/DataTableControls'
 
+import { type SortState, toSortParam } from '../../../../ui/DataTable/SortTypes'
+
 export function MembersList({ status }: { status: string }): ReactElement {
   const t = useT()
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(20)
   const [search, setSearch] = useState('')
+  const [sort, setSort] = useState<SortState>({ key: 'id', direction: 'desc' })
+
   const { data, isLoading, isError } = useUserMemberships(
     status,
     page,
-    pageSize
+    pageSize,
+    toSortParam(sort)
   )
 
   const columns = buildMembersColumns(t)
@@ -47,11 +52,15 @@ export function MembersList({ status }: { status: string }): ReactElement {
           placeholder: t('ui.common.search'),
         }}
         columns={columns}
+        sort={sort}
+        onSortChange={setSort}
       />
       <DataTable
         columns={columns}
         data={data?.content ?? []}
         keyExtractor={(row) => String(row.id)}
+        sort={sort}
+        onSortChange={setSort}
         pagination={{
           currentPage: page,
           pageSize,

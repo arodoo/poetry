@@ -18,13 +18,15 @@ import {
 export async function fetchUserMemberships(
   status: string,
   page: number,
-  size: number
+  size: number,
+  sort?: string
 ): Promise<PageResponseDtoMembershipDetail> {
   // Use flat params for Spring Boot backend compatibility
   const query: ListUserMembershipsData['query'] = {
     status,
     page,
     size,
+    ...(sort ? { sort } : {}),
   }
   const response = await listUserMembershipsSdk({ query })
   if (!response.data) {
@@ -42,13 +44,15 @@ export async function fetchMembershipsList(): Promise<MembershipResponse[]> {
 export async function fetchMembershipsPage(
   page: number,
   size: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): Promise<PageResponseDtoMembershipResponse> {
   const response = await listMembershipsPagedSdk({
     query: {
       page,
       size,
       ...(search ? { search } : {}),
+      ...(sort ? { sort } : {}),
     },
   })
   if (!response.data) {

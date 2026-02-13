@@ -30,20 +30,16 @@ public class MembershipsPagedListController {
     this.getPage = getPage;
   }
 
-  @Operation(
-      operationId = "listMembershipsPaged",
-      summary = "List memberships (paged)",
-      description = "Retrieve memberships with pagination")
+  @Operation(operationId = "listMembershipsPaged", summary = "List memberships (paged)", description = "Retrieve memberships with pagination")
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/paged")
-  public ResponseEntity<PageResponseDto<MembershipDto.MembershipResponse>>
-      paged(
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "20") int size,
-          @RequestParam(required = false) String search) {
+  public ResponseEntity<PageResponseDto<MembershipDto.MembershipResponse>> paged(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "20") int size,
+      @RequestParam(required = false) String search) {
     PageResult<Membership> result = getPage.execute(page, size, search);
-    PageResponseDto<MembershipDto.MembershipResponse> response =
-        PageResponseDto.from(result, MembershipDto::toResponse);
+    PageResponseDto<MembershipDto.MembershipResponse> response = PageResponseDto.from(result,
+        MembershipDto::toResponse);
     return ResponseEntity.ok(response);
   }
 }

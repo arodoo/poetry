@@ -11,16 +11,20 @@ import type { SearchProps } from './DataTableSearch'
 import { DataTableFilters } from './DataTableFilters'
 import type { ActiveFilters, FilterDef } from './FilterTypes'
 import type { DataTableColumn } from './DataTable'
+import { DataTableSort } from './DataTableSort'
+import type { SortState } from './SortTypes'
 
-interface Props {
+interface Props<T> {
   readonly search?: SearchProps
-  readonly columns?: readonly DataTableColumn<any>[]
+  readonly columns?: readonly DataTableColumn<T>[]
   readonly activeFilters?: ActiveFilters
   readonly onFilterChange?: (k: string, v: string) => void
+  readonly sort?: SortState
+  readonly onSortChange?: (s: SortState) => void
 }
 
-function DataTableControlsInternal(
-  props: Props
+function DataTableControlsInternal<T>(
+  props: Props<T>
 ): ReactElement | null {
   const filterDefs: readonly FilterDef[] =
     (props.columns ?? [])
@@ -45,10 +49,17 @@ function DataTableControlsInternal(
           onChange={props.onFilterChange!}
         />
       )}
+      {props.columns && props.sort && props.onSortChange && (
+        <DataTableSort
+          columns={props.columns}
+          sort={props.sort}
+          onChange={props.onSortChange}
+        />
+      )}
     </>
   )
 }
 
 export const DataTableControls = memo(
   DataTableControlsInternal
-)
+) as <T>(props: Props<T>) => ReactElement | null

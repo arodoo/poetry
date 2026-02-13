@@ -16,6 +16,14 @@ export function buildUsersListColumns(
 ): readonly DataTableColumn<UserSummary>[] {
   return [
     {
+      key: 'id',
+      header: 'ID',
+      accessor: (row: UserSummary): string =>
+        String(row.id ?? ''),
+      sortValue: (row: UserSummary): number =>
+        row.id ?? 0,
+    },
+    {
       key: 'username',
       header: t('ui.users.table.username'),
       accessor: (row: UserSummary): string =>

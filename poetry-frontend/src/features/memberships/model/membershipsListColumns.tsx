@@ -20,22 +20,26 @@ export function buildMembershipsListColumns(
       key: 'id',
       header: t('ui.memberships.table.id'),
       accessor: (row: MembershipResponse): string => String(row.id ?? ''),
+      sortValue: (row: MembershipResponse): number => row.id ?? 0,
     },
     {
       key: 'userId',
       header: t('ui.memberships.table.userId'),
       accessor: (row: MembershipResponse): string => String(row.userId ?? ''),
+      sortValue: (row: MembershipResponse): number => row.userId ?? 0,
     },
     {
       key: 'subscriptionId',
       header: t('ui.memberships.table.subscriptionId'),
       accessor: (row: MembershipResponse): string =>
         String(row.subscriptionId ?? ''),
+      sortValue: (row: MembershipResponse): number => row.subscriptionId ?? 0,
     },
     {
       key: 'sellerCode',
       header: t('ui.memberships.table.sellerCode'),
       accessor: (row: MembershipResponse): string => row.sellerCode ?? '',
+      sortValue: (row: MembershipResponse): string => row.sellerCode ?? '',
     },
     {
       key: 'status',
@@ -45,6 +49,7 @@ export function buildMembershipsListColumns(
           {t('ui.memberships.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
+      sortValue: (row: MembershipResponse): string => row.status ?? '',
       filterOptions: [
         { value: 'active', label: t('ui.memberships.status.active') },
         { value: 'inactive', label: t('ui.memberships.status.inactive') },

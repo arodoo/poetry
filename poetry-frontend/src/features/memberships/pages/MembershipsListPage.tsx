@@ -23,11 +23,13 @@ import { buildMembershipListBreadcrumbs } from '../model/membershipBreadcrumbHel
 import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
 import type { ActiveFilters } from '../../../ui/DataTable/FilterTypes'
 import { applyFilters } from '../../../ui/DataTable/FilterTypes'
+import { type SortState, toSortParam } from '../../../ui/DataTable/SortTypes'
 
 export default function MembershipsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
+  const [sort, setSort] = useState<SortState>({ key: 'id', direction: 'desc' })
   const [activeFilters, setFilters] = useState<ActiveFilters>({})
 
   const localeResult: ReturnType<typeof useLocale> = useLocale()
@@ -39,7 +41,7 @@ export default function MembershipsListPage(): ReactElement {
   }
 
   const pageQuery: ReturnType<typeof useMembershipsPageQuery> =
-    useMembershipsPageQuery(page, size, search)
+    useMembershipsPageQuery(page, size, search, toSortParam(sort))
   const isLoading: boolean = pageQuery.isLoading
   const isError: boolean = pageQuery.isError
 
@@ -75,6 +77,8 @@ export default function MembershipsListPage(): ReactElement {
       columns={columns}
       activeFilters={activeFilters}
       onFilterChange={onFilterChange}
+      sort={sort}
+      onSortChange={setSort}
     />
   )
 
@@ -102,6 +106,8 @@ export default function MembershipsListPage(): ReactElement {
             String(row.id ?? '')
           }
           emptyMessage={t('ui.memberships.status.empty')}
+          sort={sort}
+          onSortChange={setSort}
           pagination={{
             currentPage: page,
             pageSize: size,

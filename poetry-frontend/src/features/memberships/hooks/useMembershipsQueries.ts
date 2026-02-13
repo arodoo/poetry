@@ -22,8 +22,9 @@ export const membershipsQueryKeys: {
   page(
     pageNum: number,
     pageSize: number,
-    search?: string
-  ): readonly ['memberships', 'page', number, number, string | undefined]
+    search?: string,
+    sort?: string
+  ): readonly ['memberships', 'page', number, number, string | undefined, string | undefined]
   detail(id: string): readonly ['memberships', 'detail', string]
 } = {
   root: ['memberships'],
@@ -33,9 +34,10 @@ export const membershipsQueryKeys: {
   page(
     pageNum: number,
     pageSize: number,
-    search?: string
-  ): readonly ['memberships', 'page', number, number, string | undefined] {
-    return ['memberships', 'page', pageNum, pageSize, search] as const
+    search?: string,
+    sort?: string
+  ): readonly ['memberships', 'page', number, number, string | undefined, string | undefined] {
+    return ['memberships', 'page', pageNum, pageSize, search, sort] as const
   },
   detail(id: string): readonly ['memberships', 'detail', string] {
     return ['memberships', 'detail', id] as const
@@ -57,12 +59,13 @@ export function useMembershipsListQuery(): UseQueryResult<
 export function useMembershipsPageQuery(
   page: number,
   pageSize: number,
-  search?: string
+  search?: string,
+  sort?: string
 ): UseQueryResult<PageResponseDtoMembershipResponse> {
   const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
-    queryKey: membershipsQueryKeys.page(page, pageSize, search),
-    queryFn: () => fetchMembershipsPage(page, pageSize, search),
+    queryKey: membershipsQueryKeys.page(page, pageSize, search, sort),
+    queryFn: () => fetchMembershipsPage(page, pageSize, search, sort),
     enabled: hasAccessToken,
     staleTime: 1000 * 30,
   })

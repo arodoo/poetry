@@ -17,6 +17,12 @@ export function buildSellerCodesListColumns(
 ): readonly DataTableColumn<SellerCodeSummary>[] {
   return [
     {
+      key: 'id',
+      header: 'ID',
+      accessor: (row: SellerCodeSummary): string => String(row.id ?? ''),
+      sortValue: (row: SellerCodeSummary): number => row.id ?? 0,
+    },
+    {
       key: 'code',
       header: t('ui.sellerCodes.table.code'),
       accessor: (row: SellerCodeSummary): string =>
@@ -41,6 +47,7 @@ export function buildSellerCodesListColumns(
           {t('ui.sellerCodes.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
+      sortValue: (row: SellerCodeSummary): string => row.status ?? '',
       filterOptions: [
         { value: 'active', label: t('ui.sellerCodes.status.active') },
         { value: 'inactive', label: t('ui.sellerCodes.status.inactive') },
@@ -50,6 +57,7 @@ export function buildSellerCodesListColumns(
       key: 'organizationId',
       header: t('ui.sellerCodes.table.organization'),
       accessor: (row: SellerCodeSummary): string => row.organizationId ?? '-',
+      sortValue: (row: SellerCodeSummary): string => row.organizationId ?? '',
     },
     {
       key: 'actions',

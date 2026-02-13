@@ -17,6 +17,12 @@ export function buildSubscriptionsListColumns(
 ): readonly DataTableColumn<SubscriptionSummary>[] {
   return [
     {
+      key: 'id',
+      header: 'ID',
+      accessor: (row: SubscriptionSummary): string => String(row.id ?? ''),
+      sortValue: (row: SubscriptionSummary): number => row.id ?? 0,
+    },
+    {
       key: 'name',
       header: t('ui.subscriptions.table.name'),
       accessor: (row: SubscriptionSummary): string =>
@@ -53,6 +59,7 @@ export function buildSubscriptionsListColumns(
           {t('ui.subscriptions.status.' + (row.status ?? 'inactive'))}
         </Badge>
       ),
+      sortValue: (row: SubscriptionSummary): string => row.status ?? '',
       filterOptions: [
         { value: 'active', label: t('ui.subscriptions.status.active') },
         { value: 'inactive', label: t('ui.subscriptions.status.inactive') },

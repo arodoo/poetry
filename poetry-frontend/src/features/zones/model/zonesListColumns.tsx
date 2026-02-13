@@ -19,6 +19,12 @@ export function buildZonesListColumns(
 ): readonly DataTableColumn<ZoneResponse>[] {
   return [
     {
+      key: 'id',
+      header: 'ID',
+      accessor: (row: ZoneResponse): string => String(row.id ?? ''),
+      sortValue: (row: ZoneResponse): number => row.id ?? 0,
+    },
+    {
       key: 'name',
       header: t('ui.zones.table.name'),
       accessor: (row: ZoneResponse): string =>
@@ -53,6 +59,7 @@ export function buildZonesListColumns(
           </Badge>
         )
       },
+      sortValue: (row: ZoneResponse): string => row.status ?? '',
       filterOptions: [
         { value: 'active', label: t('ui.zones.status.active') },
         { value: 'inactive', label: t('ui.zones.status.inactive') },
@@ -63,6 +70,8 @@ export function buildZonesListColumns(
       header: t('ui.zones.table.manager'),
       accessor: (row: ZoneResponse): string =>
         toTemplateString(row.managerId ?? '-'),
+      sortValue: (row: ZoneResponse): string =>
+        toTemplateString(row.managerId ?? ''),
     },
     {
       key: 'actions',
