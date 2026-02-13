@@ -46,31 +46,28 @@ public class SubscriptionsUpdateController {
     this.mapper = mapper;
   }
 
-  @Operation(
-      operationId = "updateSubscription",
-      summary = "Update a subscription",
-      description = "Update subscription plan with optimistic locking")
+  @Operation(operationId = "updateSubscription", summary = "Update a subscription", description = "Update subscription plan with optimistic locking")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Updated"),
-    @ApiResponse(responseCode = "400", description = "Invalid request"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden"),
-    @ApiResponse(responseCode = "404", description = "Not found"),
-    @ApiResponse(responseCode = "412", description = "Precondition Failed")
+      @ApiResponse(responseCode = "200", description = "Updated"),
+      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden"),
+      @ApiResponse(responseCode = "404", description = "Not found"),
+      @ApiResponse(responseCode = "412", description = "Precondition Failed")
   })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
-  public ResponseEntity<SubscriptionDto.SubscriptionResponse> update(
+  public ResponseEntity<SubscriptionResponse> update(
       @PathVariable Long id,
       @RequestHeader("If-Match") String ifMatch,
-      @RequestBody SubscriptionDto.SubscriptionUpdateRequest r)
+      @RequestBody SubscriptionUpdateRequest r)
       throws Exception {
     var current = getSub.execute(id);
     long version = current.version();
     var updated = update.execute(
         id, version, r.name(), r.description(), r.price(),
         r.currency(), r.durationDays(), r.features(), r.status());
-    var response = SubscriptionDto.toResponse(updated);
+    var response = SubscriptionResponse.fromDomain(updated);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }

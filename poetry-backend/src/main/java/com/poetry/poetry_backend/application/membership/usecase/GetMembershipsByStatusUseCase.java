@@ -66,7 +66,7 @@ public class GetMembershipsByStatusUseCase {
           String name = u != null ? u.firstName() + " " + u.lastName() : "Unknown";
           String email = u != null ? u.email() : "";
           return new MembershipDetail(m.id(), m.userId(), name, email,
-              m.status(), m.startDate(), m.endDate(), "Standard");
+              m.status(), m.startDate(), m.endDate(), m.createdAt(), "Standard");
         })
         .toList();
 

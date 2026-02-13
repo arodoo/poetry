@@ -17,10 +17,13 @@ export function buildSubscriptionsListColumns(
 ): readonly DataTableColumn<SubscriptionSummary>[] {
   return [
     {
-      key: 'id',
-      header: 'ID',
-      accessor: (row: SubscriptionSummary): string => String(row.id ?? ''),
-      sortValue: (row: SubscriptionSummary): number => row.id ?? 0,
+      key: 'createdAt',
+      header: t('ui.subscriptions.table.createdAt'),
+      accessor: (row: SubscriptionSummary): string =>
+        row.createdAt
+          ? new Date(row.createdAt).toLocaleDateString(locale)
+          : '-',
+      sortValue: (row: SubscriptionSummary): string => row.createdAt ?? '',
     },
     {
       key: 'name',

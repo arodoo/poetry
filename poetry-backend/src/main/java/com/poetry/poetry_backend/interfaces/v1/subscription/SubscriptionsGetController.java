@@ -40,22 +40,19 @@ public class SubscriptionsGetController {
     this.mapper = mapper;
   }
 
-  @Operation(
-      operationId = "getSubscriptionById",
-      summary = "Get subscription by ID",
-      description = "Retrieve single subscription with ETag for caching")
+  @Operation(operationId = "getSubscriptionById", summary = "Get subscription by ID", description = "Retrieve single subscription with ETag for caching")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Subscription found"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden"),
-    @ApiResponse(responseCode = "404", description = "Not found")
+      @ApiResponse(responseCode = "200", description = "Subscription found"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden"),
+      @ApiResponse(responseCode = "404", description = "Not found")
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
-  public ResponseEntity<SubscriptionDto.SubscriptionResponse> get(
+  public ResponseEntity<SubscriptionResponse> get(
       @PathVariable Long id) throws Exception {
     var sub = getById.execute(id);
-    var response = SubscriptionDto.toResponse(sub);
+    var response = SubscriptionResponse.fromDomain(sub);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }

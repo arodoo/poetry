@@ -25,7 +25,7 @@ import com.poetry.poetry_backend.infrastructure.jpa.common.SortParser;
 public class SellerCodeJpaQueryAdapter
     implements SellerCodeQueryPort {
   private final SellerCodeJpaRepository repo;
-  private static final Set<String> SORTABLE = Set.of("code");
+  private static final Set<String> SORTABLE = Set.of("code", "status", "createdAt");
 
   public SellerCodeJpaQueryAdapter(
       SellerCodeJpaRepository repo) {

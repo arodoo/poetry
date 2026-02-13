@@ -33,13 +33,13 @@ public class ZonesListController {
 
 	@GetMapping("/paged")
 	@PreAuthorize("hasAnyAuthority('admin', 'manager')")
-	public PageResponseDto<ZoneDto.ZoneResponse> listPaged(
+	public PageResponseDto<ZoneResponse> listPaged(
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size,
 			@RequestParam(required = false) String search,
 			@RequestParam(required = false) String sort) {
 		PageResult<Zone> result = getZonesPage.execute(page, size, search, sort);
 		return PageResponseDto.from(
-				result, ZoneDto::toResponse);
+				result, ZoneResponse::fromDomain);
 	}
 }

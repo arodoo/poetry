@@ -33,27 +33,23 @@ public class SellerCodesUpdateController {
     this.update = update;
   }
 
-  @Operation(
-      operationId = "updateSellerCode",
-      summary = "Update seller code",
-      description = "Update seller code with optimistic locking via If-Match")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "200", description = "Successfully updated"),
-        @ApiResponse(responseCode = "400", description = "Invalid request"),
-        @ApiResponse(responseCode = "401", description = "Unauthorized"),
-        @ApiResponse(responseCode = "403", description = "Forbidden"),
-        @ApiResponse(responseCode = "404", description = "Not found"),
-        @ApiResponse(responseCode = "409", description = "Version conflict")
-      })
+  @Operation(operationId = "updateSellerCode", summary = "Update seller code", description = "Update seller code with optimistic locking via If-Match")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Successfully updated"),
+      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden"),
+      @ApiResponse(responseCode = "404", description = "Not found"),
+      @ApiResponse(responseCode = "409", description = "Version conflict")
+  })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
-  public ResponseEntity<SellerCodeDto.SellerCodeResponse> update(
+  public ResponseEntity<SellerCodeResponse> update(
       @PathVariable Long id,
       @RequestHeader(value = "If-Match", required = false) String ifMatch,
-      @RequestBody SellerCodeDto.SellerCodeUpdateRequest r) {
+      @RequestBody SellerCodeUpdateRequest r) {
     long version = ifMatch == null ? 0L : Long.parseLong(ifMatch.replace("\"", ""));
     var sc = update.execute(id, version, r.code(), r.organizationId(), r.userId(), r.status());
-    return ResponseEntity.ok().body(SellerCodeDto.toResponse(sc));
+    return ResponseEntity.ok().body(SellerCodeResponse.fromDomain(sc));
   }
 }

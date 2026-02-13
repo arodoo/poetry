@@ -38,23 +38,19 @@ public class SellerCodesGetController {
     this.mapper = mapper;
   }
 
-  @Operation(
-      operationId = "getSellerCodeById",
-      summary = "Get seller code by ID",
-      description = "Retrieve single seller code with ETag for caching")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "200", description = "Seller code found"),
-        @ApiResponse(responseCode = "401", description = "Unauthorized"),
-        @ApiResponse(responseCode = "403", description = "Forbidden"),
-        @ApiResponse(responseCode = "404", description = "Not found")
-      })
+  @Operation(operationId = "getSellerCodeById", summary = "Get seller code by ID", description = "Retrieve single seller code with ETag for caching")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Seller code found"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden"),
+      @ApiResponse(responseCode = "404", description = "Not found")
+  })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
-  public ResponseEntity<SellerCodeDto.SellerCodeResponse> byId(
+  public ResponseEntity<SellerCodeResponse> byId(
       @PathVariable Long id) throws Exception {
     var sc = getById.execute(id);
-    var response = SellerCodeDto.toResponse(sc);
+    var response = SellerCodeResponse.fromDomain(sc);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }

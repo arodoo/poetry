@@ -32,24 +32,22 @@ public class SellerCodesListController {
     this.getAll = getAll;
   }
 
-  @Operation(
-      operationId = "listSellerCodes",
-      summary = "List all seller codes",
-      description = "Retrieve all seller codes with ETag for caching")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "200", description = "Seller codes list"),
-        @ApiResponse(responseCode = "401", description = "Unauthorized"),
-        @ApiResponse(responseCode = "403", description = "Forbidden")
-      })
+  @Operation(operationId = "listSellerCodes", summary = "List all seller codes", description = "Retrieve all seller codes with ETag for caching")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Seller codes list"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden")
+  })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
-  public ResponseEntity<List<SellerCodeDto.SellerCodeResponse>> all() {
+  public ResponseEntity<List<SellerCodeResponse>> all() {
     var codes = getAll.execute();
-  var out = codes.stream().map(SellerCodeDto::toResponse).toList();
-    String etag =
-        String.valueOf(
-            codes.stream().mapToLong(sc -> sc.version()).sum() + codes.size());
+    var out = codes.stream()
+        .map(SellerCodeResponse::fromDomain)
+        .toList();
+    String etag = String.valueOf(codes.stream()
+        .mapToLong(sc -> sc.version())
+        .sum() + codes.size());
     return ResponseEntity.ok().eTag(etag).body(out);
   }
 }

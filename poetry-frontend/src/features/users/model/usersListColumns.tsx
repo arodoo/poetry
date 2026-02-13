@@ -16,12 +16,14 @@ export function buildUsersListColumns(
 ): readonly DataTableColumn<UserSummary>[] {
   return [
     {
-      key: 'id',
-      header: 'ID',
+      key: 'createdAt',
+      header: t('ui.users.table.createdAt'),
       accessor: (row: UserSummary): string =>
-        String(row.id ?? ''),
-      sortValue: (row: UserSummary): number =>
-        row.id ?? 0,
+        row.createdAt
+          ? new Date(row.createdAt).toLocaleDateString(locale)
+          : '-',
+      sortValue: (row: UserSummary): string =>
+        row.createdAt ?? '',
     },
     {
       key: 'username',

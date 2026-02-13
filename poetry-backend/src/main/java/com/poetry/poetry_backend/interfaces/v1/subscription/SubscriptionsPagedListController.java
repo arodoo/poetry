@@ -45,14 +45,14 @@ public class SubscriptionsPagedListController {
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/paged")
-  public ResponseEntity<PageResponseDto<SubscriptionDto.SubscriptionResponse>> paged(
+  public ResponseEntity<PageResponseDto<SubscriptionResponse>> paged(
       @Parameter(description = "Page number (0-based)") @RequestParam(defaultValue = "0") int page,
       @Parameter(description = "Page size") @RequestParam(defaultValue = "20") int size,
       @Parameter(description = "Search term") @RequestParam(required = false) String search,
       @Parameter(description = "Sort field,dir") @RequestParam(required = false) String sort) {
     PageResult<Subscription> result = getPage.execute(page, size, search, sort);
-    PageResponseDto<SubscriptionDto.SubscriptionResponse> response = PageResponseDto.from(
-        result, SubscriptionDto::toResponse);
+    PageResponseDto<SubscriptionResponse> response = PageResponseDto.from(
+        result, SubscriptionResponse::fromDomain);
     return ResponseEntity.ok(response);
   }
 }

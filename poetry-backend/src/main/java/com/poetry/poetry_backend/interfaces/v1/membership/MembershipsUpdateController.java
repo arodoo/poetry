@@ -7,8 +7,6 @@
 
 package com.poetry.poetry_backend.interfaces.v1.membership;
 
-import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDto.*;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,10 +39,7 @@ public class MembershipsUpdateController {
     this.mapper = mapper;
   }
 
-  @Operation(
-      operationId = "updateMembership",
-      summary = "Update membership",
-      description = "Update membership with version check")
+  @Operation(operationId = "updateMembership", summary = "Update membership", description = "Update membership with version check")
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
   public ResponseEntity<MembershipResponse> updateMembership(
@@ -61,9 +56,8 @@ public class MembershipsUpdateController {
         request.zoneIds(),
         request.allZones(),
         request.status());
-    var response = MembershipDto.toResponse(updated);
-    String etag =
-        etagPort.compute(mapper.writeValueAsString(response));
+    var response = MembershipResponse.fromDomain(updated);
+    String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }
 }

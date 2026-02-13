@@ -36,14 +36,16 @@ public class ZonesGetController {
 
 	@GetMapping
 	@PreAuthorize("hasAnyAuthority('admin', 'manager')")
-	public List<ZoneDto.ZoneResponse> listAll() {
-		return getAllZones.execute().stream().map(ZoneDto::toResponse).toList();
+	public List<ZoneResponse> listAll() {
+		return getAllZones.execute().stream()
+				.map(ZoneResponse::fromDomain)
+				.toList();
 	}
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAnyAuthority('admin', 'manager')")
-	public ZoneDto.ZoneResponse getById(@PathVariable Long id) {
+	public ZoneResponse getById(@PathVariable Long id) {
 		Zone z = getZoneById.execute(id);
-		return ZoneDto.toResponse(z);
+		return ZoneResponse.fromDomain(z);
 	}
 }

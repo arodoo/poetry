@@ -33,21 +33,18 @@ public class SubscriptionsListController {
     this.getAll = getAll;
   }
 
-  @Operation(
-      operationId = "listSubscriptions",
-      summary = "List all subscriptions",
-      description = "Retrieve all active subscription plans")
+  @Operation(operationId = "listSubscriptions", summary = "List all subscriptions", description = "Retrieve all active subscription plans")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Subscriptions list"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden")
+      @ApiResponse(responseCode = "200", description = "Subscriptions list"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden")
   })
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping
-  public ResponseEntity<List<SubscriptionDto.SubscriptionResponse>> all() {
+  public ResponseEntity<List<SubscriptionResponse>> all() {
     var subs = getAll.execute();
     var response = subs.stream()
-        .map(SubscriptionDto::toResponse)
+        .map(SubscriptionResponse::fromDomain)
         .toList();
     return ResponseEntity.ok(response);
   }

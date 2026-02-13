@@ -29,7 +29,7 @@ export default function SubscriptionsListPage(): ReactElement {
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
   const [sort, setSort] = useState<SortState>(
-    { key: 'id', direction: 'desc' }
+    { key: 'createdAt', direction: 'desc' }
   )
   const [activeFilters, setFilters] =
     useState<ActiveFilters>({})

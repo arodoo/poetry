@@ -20,7 +20,8 @@ public interface MembershipQueryPort {
   PageResult<Membership> findAllPaged(
       int page,
       int size,
-      String search);
+      String search,
+      String sort);
 
   Membership findById(Long id);
 }

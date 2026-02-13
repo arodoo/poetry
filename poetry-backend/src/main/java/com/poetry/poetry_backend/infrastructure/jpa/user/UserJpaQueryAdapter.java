@@ -21,7 +21,8 @@ import com.poetry.poetry_backend.infrastructure.jpa.common.SortParser;
 
 public class UserJpaQueryAdapter implements UserQueryPort {
   private final UserJpaRepository repo;
-  private static final Set<String> SORTABLE = Set.of("username", "email");
+  private static final Set<String> SORTABLE = Set.of(
+      "username", "email", "firstName", "lastName", "status", "createdAt");
 
   public UserJpaQueryAdapter(UserJpaRepository repo) {
     this.repo = repo;

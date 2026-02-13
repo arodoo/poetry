@@ -7,8 +7,6 @@
 
 package com.poetry.poetry_backend.interfaces.v1.membership;
 
-import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDto.*;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,18 +35,14 @@ public class MembershipsGetController {
     this.mapper = mapper;
   }
 
-  @Operation(
-      operationId = "getMembershipById",
-      summary = "Get membership by ID",
-      description = "Retrieve single membership with ETag")
+  @Operation(operationId = "getMembershipById", summary = "Get membership by ID", description = "Retrieve single membership with ETag")
   @PreAuthorize("hasAnyAuthority('admin', 'manager')")
   @GetMapping("/{id}")
   public ResponseEntity<MembershipResponse> byId(@PathVariable Long id)
       throws Exception {
     var membership = getById.execute(id);
-    var response = MembershipDto.toResponse(membership);
-    String etag =
-        etagPort.compute(mapper.writeValueAsString(response));
+    var response = MembershipResponse.fromDomain(membership);
+    String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);
   }
 }

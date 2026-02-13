@@ -33,24 +33,18 @@ public class SellerCodesCreateController {
 
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
-  @Operation(
-    operationId = "createSellerCode",
-    summary = "Create a new seller code",
-    description = "Create seller code with user assignment"
-  )
+  @Operation(operationId = "createSellerCode", summary = "Create a new seller code", description = "Create seller code with user assignment")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "201", description = "Created"),
-    @ApiResponse(responseCode = "400", description = "Invalid request"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden")
+      @ApiResponse(responseCode = "201", description = "Created"),
+      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden")
   })
-  public ResponseEntity<SellerCodeDto.SellerCodeResponse> create(
-      @RequestBody SellerCodeDto.SellerCodeCreateRequest r) {
+  public ResponseEntity<SellerCodeResponse> create(
+      @RequestBody SellerCodeCreateRequest r) {
     var sc = create.execute(
-      r.code(), r.organizationId(), r.userId(), r.status()
-    );
+        r.code(), r.organizationId(), r.userId(), r.status());
     return ResponseEntity.status(201).body(
-      SellerCodeDto.toResponse(sc)
-    );
+        SellerCodeResponse.fromDomain(sc));
   }
 }

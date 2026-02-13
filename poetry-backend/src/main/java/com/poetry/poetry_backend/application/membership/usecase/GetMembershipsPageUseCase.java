@@ -21,7 +21,8 @@ public class GetMembershipsPageUseCase {
   public PageResult<Membership> execute(
       int page,
       int size,
-      String search) {
-    return query.findAllPaged(page, size, search);
+      String search,
+      String sort) {
+    return query.findAllPaged(page, size, search, sort);
   }
 }

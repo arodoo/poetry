@@ -7,8 +7,6 @@
 
 package com.poetry.poetry_backend.interfaces.v1.membership;
 
-import static com.poetry.poetry_backend.interfaces.v1.membership.MembershipDto.*;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +26,7 @@ public class MembershipsCreateController {
     this.create = create;
   }
 
-  @Operation(
-      operationId = "createMembership",
-      summary = "Create membership",
-      description = "Create new membership with validation")
+  @Operation(operationId = "createMembership", summary = "Create membership", description = "Create new membership with validation")
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
@@ -44,6 +39,6 @@ public class MembershipsCreateController {
         request.zoneIds(),
         request.allZones(),
         request.status());
-    return MembershipDto.toResponse(membership);
+    return MembershipResponse.fromDomain(membership);
   }
 }

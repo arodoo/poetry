@@ -19,10 +19,13 @@ export function buildZonesListColumns(
 ): readonly DataTableColumn<ZoneResponse>[] {
   return [
     {
-      key: 'id',
-      header: 'ID',
-      accessor: (row: ZoneResponse): string => String(row.id ?? ''),
-      sortValue: (row: ZoneResponse): number => row.id ?? 0,
+      key: 'createdAt',
+      header: t('ui.zones.table.createdAt'),
+      accessor: (row: ZoneResponse): string =>
+        row.createdAt
+          ? new Date(row.createdAt).toLocaleDateString(locale)
+          : '-',
+      sortValue: (row: ZoneResponse): string => row.createdAt ?? '',
     },
     {
       key: 'name',

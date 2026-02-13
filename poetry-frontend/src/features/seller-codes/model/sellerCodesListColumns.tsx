@@ -17,10 +17,13 @@ export function buildSellerCodesListColumns(
 ): readonly DataTableColumn<SellerCodeSummary>[] {
   return [
     {
-      key: 'id',
-      header: 'ID',
-      accessor: (row: SellerCodeSummary): string => String(row.id ?? ''),
-      sortValue: (row: SellerCodeSummary): number => row.id ?? 0,
+      key: 'createdAt',
+      header: t('ui.sellerCodes.table.createdAt'),
+      accessor: (row: SellerCodeSummary): string =>
+        row.createdAt
+          ? new Date(row.createdAt).toLocaleDateString(locale)
+          : '-',
+      sortValue: (row: SellerCodeSummary): string => row.createdAt ?? '',
     },
     {
       key: 'code',

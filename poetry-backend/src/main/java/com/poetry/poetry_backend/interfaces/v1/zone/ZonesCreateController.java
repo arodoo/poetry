@@ -35,9 +35,8 @@ public class ZonesCreateController {
 	@PreAuthorize("hasAuthority('admin')")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "Create new zone", operationId = "createZone")
-	public ZoneDto.ZoneResponse create(@RequestBody ZoneDto.ZoneCreateRequest request) {
-		Zone created =
-				createZone.execute(request.name(), request.description(), request.managerId());
-		return ZoneDto.toResponse(created);
+	public ZoneResponse create(@RequestBody ZoneCreateRequest request) {
+		Zone created = createZone.execute(request.name(), request.description(), request.managerId());
+		return ZoneResponse.fromDomain(created);
 	}
 }

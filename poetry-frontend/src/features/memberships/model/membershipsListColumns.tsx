@@ -17,10 +17,13 @@ export function buildMembershipsListColumns(
 ): readonly DataTableColumn<MembershipResponse>[] {
   return [
     {
-      key: 'id',
-      header: t('ui.memberships.table.id'),
-      accessor: (row: MembershipResponse): string => String(row.id ?? ''),
-      sortValue: (row: MembershipResponse): number => row.id ?? 0,
+      key: 'createdAt',
+      header: t('ui.memberships.table.createdAt'),
+      accessor: (row: MembershipResponse): string =>
+        row.createdAt
+          ? new Date(row.createdAt).toLocaleDateString(locale)
+          : '-',
+      sortValue: (row: MembershipResponse): string => row.createdAt ?? '',
     },
     {
       key: 'userId',

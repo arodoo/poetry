@@ -31,24 +31,21 @@ public class SubscriptionsCreateController {
     this.create = create;
   }
 
-  @Operation(
-      operationId = "createSubscription",
-      summary = "Create a new subscription",
-      description = "Create subscription plan with pricing and features")
+  @Operation(operationId = "createSubscription", summary = "Create a new subscription", description = "Create subscription plan with pricing and features")
   @ApiResponses(value = {
-    @ApiResponse(responseCode = "201", description = "Created"),
-    @ApiResponse(responseCode = "400", description = "Invalid request"),
-    @ApiResponse(responseCode = "401", description = "Unauthorized"),
-    @ApiResponse(responseCode = "403", description = "Forbidden")
+      @ApiResponse(responseCode = "201", description = "Created"),
+      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+      @ApiResponse(responseCode = "403", description = "Forbidden")
   })
   @PreAuthorize("hasAuthority('admin')")
   @PostMapping
-  public ResponseEntity<SubscriptionDto.SubscriptionResponse> create(
-      @RequestBody SubscriptionDto.SubscriptionCreateRequest r) {
+  public ResponseEntity<SubscriptionResponse> create(
+      @RequestBody SubscriptionCreateRequest r) {
     var sub = create.execute(
         r.name(), r.description(), r.price(), r.currency(),
         r.durationDays(), r.features(), r.status());
     return ResponseEntity.status(201)
-        .body(SubscriptionDto.toResponse(sub));
+        .body(SubscriptionResponse.fromDomain(sub));
   }
 }

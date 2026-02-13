@@ -46,8 +46,9 @@ public class MembershipJpaAdapter
   public PageResult<Membership> findAllPaged(
       int page,
       int size,
-      String search) {
-    return queryAdapter.findAllPaged(page, size, search);
+      String search,
+      String sort) {
+    return queryAdapter.findAllPaged(page, size, search, sort);
   }
 
   public Membership findById(Long id) {

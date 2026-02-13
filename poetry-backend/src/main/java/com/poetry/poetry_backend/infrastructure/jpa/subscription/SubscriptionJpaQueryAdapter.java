@@ -24,7 +24,8 @@ import com.poetry.poetry_backend.infrastructure.jpa.common.SortParser;
 public class SubscriptionJpaQueryAdapter
     implements SubscriptionQueryPort {
   private final SubscriptionJpaRepository repo;
-  private static final Set<String> SORTABLE = Set.of("name", "price", "durationDays");
+  private static final Set<String> SORTABLE = Set.of(
+      "name", "price", "durationDays", "status", "createdAt");
 
   public SubscriptionJpaQueryAdapter(
       SubscriptionJpaRepository repo) {

@@ -24,7 +24,8 @@ import com.poetry.poetry_backend.infrastructure.jpa.common.SortParser;
 
 public class ZoneJpaQueryAdapter implements ZoneQueryPort {
   private final ZoneJpaRepository repo;
-  private static final Set<String> SORTABLE = Set.of("name", "description");
+  private static final Set<String> SORTABLE = Set.of(
+      "name", "description", "status", "createdAt");
 
   public ZoneJpaQueryAdapter(ZoneJpaRepository repo) {
     this.repo = repo;

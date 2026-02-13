@@ -33,16 +33,15 @@ public class ZonesUpdateController {
 	@PutMapping("/{id}")
 	@PreAuthorize("hasAuthority('admin')")
 	@Operation(summary = "Update existing zone", operationId = "updateZone")
-	public ZoneDto.ZoneResponse update(
-			@PathVariable Long id, @RequestBody ZoneDto.ZoneUpdateRequest request) {
-		Zone updated =
-				updateZone.execute(
-						id,
-						request.version(),
-						request.name(),
-						request.description(),
-						request.managerId(),
-						request.status());
-		return ZoneDto.toResponse(updated);
+	public ZoneResponse update(
+			@PathVariable Long id, @RequestBody ZoneUpdateRequest request) {
+		Zone updated = updateZone.execute(
+				id,
+				request.version(),
+				request.name(),
+				request.description(),
+				request.managerId(),
+				request.status());
+		return ZoneResponse.fromDomain(updated);
 	}
 }

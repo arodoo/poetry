@@ -15,22 +15,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "User response representation")
 public record UserResponse(
-    @Schema(description = "User ID", example = "1")
-    Long id,
-    @Schema(description = "First name", example = "John")
-    String firstName,
-    @Schema(description = "Last name", example = "Doe")
-    String lastName,
-    @Schema(description = "Email address", example = "john.doe@example.com")
-    String email,
-    @Schema(description = "Username", example = "johndoe")
-    String username,
-    @Schema(description = "Locale code", example = "en")
-    String locale,
-    @Schema(description = "Status", example = "active")
-    String status,
-    @Schema(description = "User roles", example = "[\"admin\", \"user\"]")
-    Set<String> roles) {
+    @Schema(description = "User ID", example = "1") Long id,
+    @Schema(description = "First name", example = "John") String firstName,
+    @Schema(description = "Last name", example = "Doe") String lastName,
+    @Schema(description = "Email address", example = "john.doe@example.com") String email,
+    @Schema(description = "Username", example = "johndoe") String username,
+    @Schema(description = "Locale code", example = "en") String locale,
+    @Schema(description = "Status", example = "active") String status,
+    @Schema(description = "User roles", example = "[\"admin\", \"user\"]") Set<String> roles,
+    @Schema(description = "Creation date", example = "2023-01-01T00:00:00Z") java.time.Instant createdAt) {
 
   public static UserResponse fromDomain(User u) {
     return new UserResponse(
@@ -41,6 +34,7 @@ public record UserResponse(
         u.username(),
         u.locale(),
         u.status(),
-        u.roles());
+        u.roles(),
+        u.createdAt());
   }
 }

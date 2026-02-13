@@ -2085,6 +2085,11 @@ paths:
           required: false
           schema:
             type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -2363,6 +2368,11 @@ components:
           type: string
           description: Status
           example: active
+        createdAt:
+          type: string
+          description: Creation date
+          format: date-time
+          example: 2023-01-01T00:00:00Z
         version:
           type: integer
           description: Version for locking
@@ -2447,6 +2457,11 @@ components:
             type: string
             description: User roles
             example: '["admin","user"]'
+        createdAt:
+          type: string
+          description: Creation date
+          format: date-time
+          example: 2023-01-01T00:00:00Z
       description: User response representation
     UpdateSelectionRequest:
       required:
@@ -2502,24 +2517,19 @@ components:
         name:
           type: string
           description: Plan name
-          example: Gold
         description:
           type: string
           description: Plan description
-          example: Premium plan
         price:
           type: number
           description: Price
-          example: 29.99
         currency:
           type: string
           description: Currency code
-          example: USD
         durationDays:
           type: integer
-          description: Duration in days
+          description: Duration days
           format: int32
-          example: 30
         features:
           uniqueItems: true
           type: array
@@ -2530,7 +2540,6 @@ components:
         status:
           type: string
           description: Status
-          example: active
       description: Subscription update request
     SubscriptionResponse:
       type: object
@@ -2575,38 +2584,68 @@ components:
           type: string
           description: Status
           example: active
+        createdAt:
+          type: string
+          description: Creation date
+          format: date-time
+          example: 2023-01-01T00:00:00Z
       description: Subscription response representation
     SellerCodeUpdateRequest:
       type: object
       properties:
         code:
           type: string
+          description: Unique code
+          example: SC-2024-001
         organizationId:
           type: string
+          description: Organization ID
+          example: ORG-123
         userId:
           type: integer
+          description: User ID
           format: int64
+          example: 5
         status:
           type: string
+          description: Status
+          example: ACTIVE
       description: Update seller code request
     SellerCodeResponse:
       type: object
       properties:
         id:
           type: integer
+          description: Seller code ID
           format: int64
+          example: 1
         code:
           type: string
+          description: Unique code
+          example: SC-2024-001
         organizationId:
           type: string
+          description: Organization ID
+          example: ORG-123
         userId:
           type: integer
+          description: User ID
           format: int64
+          example: 5
         status:
           type: string
+          description: Status
+          example: ACTIVE
+        createdAt:
+          type: string
+          description: Creation date
+          format: date-time
+          example: 2023-01-01T00:00:00Z
         version:
           type: integer
+          description: Version for locking
           format: int64
+          example: 0
       description: Seller code response
     MembershipUpdateRequest:
       type: object
@@ -2688,6 +2727,11 @@ components:
           type: string
           description: Status
           example: active
+        createdAt:
+          type: string
+          description: Creation date
+          format: date-time
+          example: 2023-01-01T00:00:00Z
         version:
           type: integer
           description: Version for locking
@@ -2876,6 +2920,9 @@ components:
           type: string
           format: date-time
     ZoneCreateRequest:
+      required:
+        - managerId
+        - name
       type: object
       properties:
         name:
@@ -2987,24 +3034,19 @@ components:
         name:
           type: string
           description: Plan name
-          example: Gold
         description:
           type: string
           description: Plan description
-          example: Premium plan
         price:
           type: number
           description: Price
-          example: 29.99
         currency:
           type: string
           description: Currency code
-          example: USD
         durationDays:
           type: integer
-          description: Duration in days
+          description: Duration days
           format: int32
-          example: 30
         features:
           uniqueItems: true
           type: array
@@ -3015,20 +3057,31 @@ components:
         status:
           type: string
           description: Status
-          example: active
       description: Subscription creation request
     SellerCodeCreateRequest:
+      required:
+        - code
+        - status
+        - userId
       type: object
       properties:
         code:
           type: string
+          description: Unique code
+          example: SC-2024-001
         organizationId:
           type: string
+          description: Organization ID
+          example: ORG-123
         userId:
           type: integer
+          description: User ID
           format: int64
+          example: 5
         status:
           type: string
+          description: Status
+          example: ACTIVE
       description: Create seller code request
     ForgotPasswordRequest:
       required:
@@ -3424,6 +3477,9 @@ components:
         endDate:
           type: string
           format: date-time
+        createdAt:
+          type: string
+          format: date-time
         planName:
           type: string
       description: Page content
@@ -3798,16 +3854,19 @@ components:
     PageEventResponse:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         first:
           type: boolean
         last:
           type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -3820,9 +3879,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
-        numberOfElements:
-          type: integer
-          format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
         empty:
