@@ -77,8 +77,6 @@ export default function UsersListPage(): ReactElement {
       columns={columns}
       activeFilters={activeFilters}
       onFilterChange={onFilterChange}
-      sort={sort}
-      onSortChange={setSort}
     />
   )
 
@@ -111,6 +109,7 @@ export default function UsersListPage(): ReactElement {
           emptyMessage={t('ui.users.status.empty')}
           sort={sort}
           onSortChange={setSort}
+          fetching={pageQuery.isFetching}
           pagination={{
             currentPage: page,
             pageSize: size,

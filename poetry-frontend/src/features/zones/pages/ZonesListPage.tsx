@@ -75,8 +75,6 @@ export default function ZonesListPage(): ReactElement {
       columns={columns}
       activeFilters={activeFilters}
       onFilterChange={onFilterChange}
-      sort={sort}
-      onSortChange={setSort}
     />
   )
 
@@ -107,6 +105,7 @@ export default function ZonesListPage(): ReactElement {
           emptyMessage={t('ui.zones.status.empty')}
           sort={sort}
           onSortChange={setSort}
+          fetching={pageQuery.isFetching}
           pagination={{
             currentPage: page,
             pageSize: size,

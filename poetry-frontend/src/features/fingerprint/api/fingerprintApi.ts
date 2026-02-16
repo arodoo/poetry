@@ -12,8 +12,8 @@ import {
   enrollFingerprint as sdkEnrollFingerprint,
 } from '../../../api/generated'
 import type {
-  EnrollRequest,
-  VerifyRequest,
+  SDKEnrollRequest as EnrollRequest,
+  SDKVerifyRequest as VerifyRequest,
   FingerprintResponse,
   VerifyResponse,
 } from '../model/FingerprintSchemas'

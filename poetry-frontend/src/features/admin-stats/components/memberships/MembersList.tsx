@@ -1,8 +1,6 @@
 /*
  * File: MembersList.tsx
- * Purpose: Specialized membership list component for the admin dashboard. 
- * Facilitates monitoring of member statuses (active, expiring, expired) with 
- * integrated search and server-side pagination for large volumes of data.
+ * Purpose: Specialized membership list with smooth transitions.
  * All Rights Reserved Arodi Emmanuel
  */
 import { useState, type ReactElement } from 'react'
@@ -11,7 +9,6 @@ import { useUserMemberships } from '../../../memberships/hooks/useUserMembership
 import { DataTable } from '../../../../ui/DataTable/DataTable'
 import { buildMembersColumns } from './membersListColumns'
 import { DataTableControls } from '../../../../ui/DataTable/DataTableControls'
-
 import { type SortState, toSortParam } from '../../../../ui/DataTable/SortTypes'
 
 export function MembersList({ status }: { status: string }): ReactElement {
@@ -21,27 +18,16 @@ export function MembersList({ status }: { status: string }): ReactElement {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<SortState>({ key: 'id', direction: 'desc' })
 
-  const { data, isLoading, isError } = useUserMemberships(
-    status,
-    page,
-    pageSize,
-    toSortParam(sort)
+  const { data, isLoading, isError, isFetching } = useUserMemberships(
+    status, page, pageSize, toSortParam(sort)
   )
 
   const columns = buildMembersColumns(t)
 
-  if (isLoading)
-    return (
-      <div className="p-4 text-center text-[var(--color-textMuted)]">
-        {t('ui.adminStats.error.loading')}...
-      </div>
-    )
-  if (isError)
-    return (
-      <div className="p-4 text-center text-[var(--color-error)]">
-        {t('ui.adminStats.error.loading')}
-      </div>
-    )
+  if (isLoading || isError) {
+    const msg = isError ? 'ui.adminStats.error.loading' : 'ui.common.loading'
+    return <div className="p-4 text-center">{t(msg)}</div>
+  }
 
   return (
     <div className="space-y-4">
@@ -52,8 +38,6 @@ export function MembersList({ status }: { status: string }): ReactElement {
           placeholder: t('ui.common.search'),
         }}
         columns={columns}
-        sort={sort}
-        onSortChange={setSort}
       />
       <DataTable
         columns={columns}
@@ -61,6 +45,7 @@ export function MembersList({ status }: { status: string }): ReactElement {
         keyExtractor={(row) => String(row.id)}
         sort={sort}
         onSortChange={setSort}
+        fetching={isFetching}
         pagination={{
           currentPage: page,
           pageSize,

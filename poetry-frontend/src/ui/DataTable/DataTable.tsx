@@ -25,6 +25,7 @@ export interface DataTableProps<T> {
   readonly pagination?: PaginationProps
   readonly sort?: SortState
   readonly onSortChange?: (s: SortState) => void
+  readonly fetching?: boolean
 }
 
 export function DataTable<T>(
@@ -42,7 +43,12 @@ export function DataTable<T>(
   }
 
   return (
-    <div className={clsx(s.w, props.className)}>
+    <div className={clsx(
+      s.w,
+      props.className,
+      s.trBody,
+      props.fetching && s.trFetching
+    )}>
       <div className={s.sc}>
         <div className={s.al}>
           <div className={clsx(s.b, s.bD)}>

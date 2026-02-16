@@ -23,6 +23,8 @@ export const s: {
   readonly tdCol: string
   readonly em: string
   readonly toolbar: string
+  readonly trBody: string
+  readonly trFetching: string
 } = {
   w: 'w-full',
   sc: 'overflow-x-auto',
@@ -46,5 +48,7 @@ export const s: {
   em: 'px-6 py-10 text-center text-sm ' +
     'text-[var(--color-muted,#6b7280)]',
   toolbar: 'mb-4 flex items-center gap-3 flex-wrap',
+  trBody: 'transition-opacity duration-300 ease-in-out',
+  trFetching: 'opacity-50 pointer-events-none'
 } as const
 
