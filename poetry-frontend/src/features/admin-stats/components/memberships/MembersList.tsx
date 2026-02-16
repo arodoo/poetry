@@ -24,9 +24,8 @@ export function MembersList({ status }: { status: string }): ReactElement {
 
   const columns = buildMembersColumns(t)
 
-  if (isLoading || isError) {
-    const msg = isError ? 'ui.adminStats.error.loading' : 'ui.common.loading'
-    return <div className="p-4 text-center">{t(msg)}</div>
+  if (isError) {
+    return <div className="p-4 text-center">{t('ui.adminStats.error.loading')}</div>
   }
 
   return (
@@ -42,9 +41,11 @@ export function MembersList({ status }: { status: string }): ReactElement {
       <DataTable
         columns={columns}
         data={data?.content ?? []}
-        keyExtractor={(row) => String(row.id)}
+        keyExtractor={(row: any) => String(row.id)}
+        emptyMessage={t('ui.adminStats.table.empty')}
         sort={sort}
         onSortChange={setSort}
+        isLoading={isLoading}
         fetching={isFetching}
         pagination={{
           currentPage: page,

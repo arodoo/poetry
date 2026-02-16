@@ -31,9 +31,9 @@ export const s: {
   al: 'inline-block min-w-full align-middle',
   b: 'rounded-lg border ' + 'border-[var(--color-border,#d0d0d0)]',
   bD: '',
-  t: 'min-w-full divide-y divide-[var(--color-border,#d0d0d0)]',
+  t: 'min-w-full table-fixed divide-y divide-[var(--color-border,#d0d0d0)]',
   th: 'bg-[var(--color-surface,#ffffff)]',
-  thC: 'px-6 py-3 text-left text-xs font-medium uppercase',
+  thC: 'px-6 py-3 text-left text-xs font-medium uppercase truncate',
   thCol: 'tracking-wider text-[var(--color-muted,#6b7280)]',
   thSort:
     'cursor-pointer select-none transition-colors ' +
@@ -43,12 +43,21 @@ export const s: {
     'bg-[var(--color-surface,#ffffff)]',
   tbD: '',
   tr: 'hover:bg-[var(--color-background,#f5f5f5)]',
-  td: 'whitespace-nowrap px-6 py-4 text-sm',
+  td: 'whitespace-nowrap px-6 py-4 text-sm truncate',
   tdCol: 'text-[var(--color-text,#1a1a1a)]',
   em: 'px-6 py-10 text-center text-sm ' +
     'text-[var(--color-muted,#6b7280)]',
   toolbar: 'mb-4 flex items-center gap-3 flex-wrap',
-  trBody: 'transition-opacity duration-300 ease-in-out',
-  trFetching: 'opacity-50 pointer-events-none'
+  trBody: 'transition-all duration-500 ease-in-out',
+  trFetching: 'opacity-40 blur-[1px] pointer-events-none'
 } as const
+
+export const widths: Record<string, string> = {
+  xs: '60px',
+  sm: '100px',
+  md: '150px',
+  lg: '200px',
+  xl: '300px',
+  auto: 'auto',
+}
 

@@ -42,7 +42,6 @@ export default function MembershipsListPage(): ReactElement {
 
   const pageQuery: ReturnType<typeof useMembershipsPageQuery> =
     useMembershipsPageQuery(page, size, search, toSortParam(sort))
-  const isLoading: boolean = pageQuery.isLoading
   const isError: boolean = pageQuery.isError
 
   const rawMemberships: readonly MembershipResponse[] = Array.isArray(
@@ -92,9 +91,7 @@ export default function MembershipsListPage(): ReactElement {
 
       <div className="mb-4 flex gap-4">{tableControls}</div>
 
-      {isLoading ? (
-        <Text size="sm">{t('ui.memberships.status.loading')}</Text>
-      ) : isError ? (
+      {isError ? (
         <Text size="sm">{t('ui.memberships.status.error')}</Text>
       ) : (
         <DataTable
@@ -106,6 +103,7 @@ export default function MembershipsListPage(): ReactElement {
           emptyMessage={t('ui.memberships.status.empty')}
           sort={sort}
           onSortChange={setSort}
+          isLoading={pageQuery.isPending}
           fetching={pageQuery.isFetching}
           pagination={{
             currentPage: page,

@@ -16,35 +16,32 @@ export function buildMembersColumns(
   return [
     {
       key: 'id',
-      header: 'ID',
-      accessor: (row) => String(row.id),
-      sortValue: (row) => row.id ?? 0,
+      header: t('ui.adminStats.columns.id'),
+      width: 'xs',
+      accessor: (row: any) => String(row.id),
+      sortValue: (row: MembershipDetail) => row.id ?? 0,
     },
     {
-      key: 'user',
-      header: t('ui.adminStats.table.member'),
-      accessor: (row) => (
-        <div>
-          <div className="font-medium text-[var(--color-text)]">
-            {row.userName}
-          </div>
-          <div className="text-[var(--color-textMuted)]">{row.userEmail}</div>
-        </div>
-      ),
-      sortValue: (row) => row.userName ?? '',
+      key: 'membershipName',
+      header: t('ui.adminStats.columns.membership'),
+      width: 'sm',
+      accessor: (row: any) => row.membership?.name ?? '-',
+      sortValue: (row: MembershipDetail) => row.userName ?? '',
     },
     {
       key: 'status',
-      header: t('ui.adminStats.table.status'),
-      accessor: (row) => (
+      header: t('ui.adminStats.columns.status'),
+      width: 'sm',
+      accessor: (row: any) => (
         <MemberStatusBadge status={row.status} endDate={row.endDate} />
       ),
-      sortValue: (row) => row.status ?? '',
+      sortValue: (row: MembershipDetail) => row.status ?? '',
     },
     {
       key: 'dates',
       header: t('ui.adminStats.table.dates'),
-      accessor: (row) => (
+      width: 'lg',
+      accessor: (row: MembershipDetail) => (
         <div className="text-[var(--color-textMuted)]">
           <div>
             {t('ui.adminStats.table.start')}:{' '}
@@ -56,15 +53,14 @@ export function buildMembersColumns(
           </div>
         </div>
       ),
-      sortValue: (row) => row.startDate ?? '',
+      sortValue: (row: MembershipDetail) => row.startDate ?? '',
     },
     {
-      key: 'plan',
-      header: t('ui.adminStats.table.plan'),
-      accessor: (row) => (
-        <span className="text-[var(--color-textMuted)]">{row.planName}</span>
-      ),
-      sortValue: (row) => row.planName ?? '',
+      key: 'fullName',
+      header: t('ui.adminStats.columns.fullName'),
+      width: 'lg',
+      accessor: (row: any) => row.user?.fullName ?? '-',
+      sortValue: (row: MembershipDetail) => row.planName ?? '',
     },
   ]
 }

@@ -15,6 +15,14 @@ export interface SortState {
     readonly direction: SortDirection
 }
 
+export type ColumnWidth =
+    | 'xs'    // ~60px (ID)
+    | 'sm'    // ~100px (Status, Actions icon)
+    | 'md'    // ~150px (Dates)
+    | 'lg'    // ~200px (Names, Roles)
+    | 'xl'    // ~300px (Emails, Descriptions)
+    | 'auto'
+
 export interface SortableColumn<T> {
     readonly key: string
     readonly header: string
@@ -23,6 +31,7 @@ export interface SortableColumn<T> {
     readonly sortValue?: (row: T) => string | number
     readonly filterOptions?: readonly FilterOption[]
     readonly filterLabel?: string
+    readonly width?: ColumnWidth
 }
 
 export function cycleSortDirection(

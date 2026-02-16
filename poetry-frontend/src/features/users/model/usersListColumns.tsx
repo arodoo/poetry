@@ -17,7 +17,8 @@ export function buildUsersListColumns(
   return [
     {
       key: 'createdAt',
-      header: t('ui.users.table.createdAt'),
+      header: t('ui.users.columns.createdAt'),
+      width: 'md',
       accessor: (row: UserSummary): string =>
         row.createdAt
           ? new Date(row.createdAt).toLocaleDateString(locale)
@@ -27,7 +28,8 @@ export function buildUsersListColumns(
     },
     {
       key: 'username',
-      header: t('ui.users.table.username'),
+      header: t('ui.users.columns.fullName'),
+      width: 'lg',
       accessor: (row: UserSummary): string =>
         row.username ?? '',
       sortValue: (row: UserSummary): string =>
@@ -35,7 +37,8 @@ export function buildUsersListColumns(
     },
     {
       key: 'email',
-      header: t('ui.users.table.email'),
+      header: t('ui.users.columns.email'),
+      width: 'xl',
       accessor: (row: UserSummary): string =>
         row.email ?? '',
       sortValue: (row: UserSummary): string =>
@@ -43,7 +46,8 @@ export function buildUsersListColumns(
     },
     {
       key: 'status',
-      header: t('ui.users.table.status'),
+      header: t('ui.users.columns.status'),
+      width: 'sm',
       accessor: (row: UserSummary): ReactElement => (
         <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
           {t('ui.users.status.' + (row.status ?? 'inactive'))}
@@ -63,7 +67,8 @@ export function buildUsersListColumns(
     {
       key: 'roles',
       filterLabel: t('ui.table.filter.role'),
-      header: t('ui.users.table.roles'),
+      header: t('ui.users.columns.role'),
+      width: 'sm',
       accessor: (row: UserSummary): ReactElement => (
         <Inline gap="xs">
           {(row.roles ?? []).map(
@@ -89,6 +94,7 @@ export function buildUsersListColumns(
     {
       key: 'actions',
       header: t('ui.users.table.actions'),
+      width: 'sm',
       accessor: (row: UserSummary): ReactElement => (
         <UserListActions locale={locale} id={row.id} t={t} />
       ),

@@ -19,47 +19,48 @@ export function buildSubscriptionsListColumns(
     {
       key: 'createdAt',
       header: t('ui.subscriptions.table.createdAt'),
+      width: 'md',
       accessor: (row: SubscriptionSummary): string =>
-        row.createdAt
-          ? new Date(row.createdAt).toLocaleDateString(locale)
-          : '-',
+        row.createdAt ? new Date(row.createdAt).toLocaleDateString(locale) : '-',
       sortValue: (row: SubscriptionSummary): string => row.createdAt ?? '',
     },
     {
       key: 'name',
-      header: t('ui.subscriptions.table.name'),
-      accessor: (row: SubscriptionSummary): string =>
-        row.name ?? '',
-      sortValue: (row: SubscriptionSummary): string =>
-        row.name ?? '',
+      header: t('ui.subscriptions.columns.name'),
+      width: 'lg',
+      accessor: (row: SubscriptionSummary): string => row.name ?? '-',
+      sortValue: (row: SubscriptionSummary): string => row.name ?? '',
     },
     {
       key: 'price',
-      header: t('ui.subscriptions.table.price'),
+      header: t('ui.subscriptions.columns.membership'),
+      width: 'md',
       accessor: (row: SubscriptionSummary): string =>
         toTemplateString(row.currency ?? 'USD') +
         ' ' +
         (row.price?.toFixed(2) ?? '0.00'),
-      sortValue: (row: SubscriptionSummary): number =>
-        row.price ?? 0,
+      sortValue: (row: SubscriptionSummary): number => row.price ?? 0,
     },
     {
       key: 'duration',
       header: t('ui.subscriptions.table.duration'),
+      width: 'sm',
       accessor: (row: SubscriptionSummary): string =>
         toTemplateString(row.durationDays ?? 0) +
         ' ' +
         t('ui.subscriptions.table.days'),
-      sortValue: (
-        row: SubscriptionSummary
-      ): number => row.durationDays ?? 0,
+      sortValue: (row: SubscriptionSummary): number => row.durationDays ?? 0,
     },
     {
       key: 'status',
-      header: t('ui.subscriptions.table.status'),
-      accessor: (row: SubscriptionSummary): ReactElement => (
-        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
-          {t('ui.subscriptions.status.' + (row.status ?? 'inactive'))}
+      header: t('ui.subscriptions.columns.status'),
+      width: 'sm',
+      accessor: (item: SubscriptionSummary): ReactElement => (
+        <Badge
+          tone={item.status === 'active' ? 'success' : 'neutral'}
+          size="sm"
+        >
+          {t('ui.subscriptions.status.' + (item.status ?? 'inactive'))}
         </Badge>
       ),
       sortValue: (row: SubscriptionSummary): string => row.status ?? '',
@@ -71,6 +72,7 @@ export function buildSubscriptionsListColumns(
     {
       key: 'actions',
       header: t('ui.subscriptions.table.actions'),
+      width: 'sm',
       accessor: (row: SubscriptionSummary): ReactElement => (
         <Inline gap="xs">
           <Button

@@ -12,21 +12,25 @@ export function buildFingerprintColumns(
   return [
     {
       key: 'id',
-      header: 'ID',
-      accessor: (item) => String(item.id ?? '-'),
-      sortValue: (item) => item.id ?? 0,
+      header: t('ui.fingerprints.columns.id'),
+      width: 'xs',
+      accessor: (item: FingerprintResponse) => String(item.id ?? '-'),
+      sortValue: (item: FingerprintResponse) => item.id ?? 0,
     },
     {
       key: 'userId',
       header: t('ui.fingerprints.columns.userId'),
-      accessor: (item) => String(item.userId ?? '-'),
-      sortValue: (item) => item.userId ?? 0,
+      width: 'sm',
+      accessor: (item: FingerprintResponse) => String(item.userId ?? '-'),
+      sortValue: (item: FingerprintResponse) => item.userId ?? 0,
     },
     {
       key: 'status',
       header: t('ui.fingerprints.columns.status'),
-      accessor: (item) => item.status ?? '-',
-      sortValue: (item) => item.status ?? '',
+      width: 'md',
+      accessor: (item: FingerprintResponse) => 
+        t('ui.fingerprints.status.' + (item.status?.toLowerCase() ?? 'unknown')),
+      sortValue: (item: FingerprintResponse) => item.status ?? '',
       filterOptions: [
         { value: 'enrolled', label: t('ui.fingerprints.status.enrolled') },
         { value: 'revoked', label: t('ui.fingerprints.status.revoked') },
@@ -35,9 +39,10 @@ export function buildFingerprintColumns(
     {
       key: 'enrolledAt',
       header: t('ui.fingerprints.columns.enrolledAt'),
-      accessor: (item) =>
+      width: 'md',
+      accessor: (item: FingerprintResponse) =>
         item.enrolledAt ? new Date(item.enrolledAt).toLocaleString() : '-',
-      sortValue: (item) =>
+      sortValue: (item: FingerprintResponse) =>
         item.enrolledAt ? new Date(item.enrolledAt).getTime() : 0,
     },
   ]

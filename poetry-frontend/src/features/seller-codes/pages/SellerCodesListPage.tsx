@@ -42,8 +42,6 @@ export default function SellerCodesListPage(): ReactElement {
     useSellerCodesPageQuery(
       page, size, search, toSortParam(sort)
     )
-  const isInitialLoad: boolean =
-    pageQuery.isLoading && !pageQuery.data
   const isError: boolean = pageQuery.isError
   const rawCodes: readonly SellerCodeResponse[] =
     Array.isArray(pageQuery.data?.content)
@@ -90,9 +88,7 @@ export default function SellerCodesListPage(): ReactElement {
 
       <div className="mb-4 flex gap-4">{tableControls}</div>
 
-      {isInitialLoad ? (
-        <Text size="sm">{t('ui.sellerCodes.status.loading')}</Text>
-      ) : isError ? (
+      {isError ? (
         <Text size="sm">{t('ui.sellerCodes.status.error')}</Text>
       ) : (
         <DataTable
@@ -102,11 +98,10 @@ export default function SellerCodesListPage(): ReactElement {
             (row: SellerCodeResponse): string =>
               String(row.id ?? '')
           }
-          emptyMessage={
-            t('ui.sellerCodes.status.empty')
-          }
+          emptyMessage={t('ui.sellerCodes.status.empty')}
           sort={sort}
           onSortChange={setSort}
+          isLoading={pageQuery.isLoading}
           fetching={pageQuery.isFetching}
           pagination={{
             currentPage: page,

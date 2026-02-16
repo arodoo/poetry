@@ -1,8 +1,3 @@
-/*
- * File: membershipsListColumns.tsx
- * Purpose: DataTable column definitions for MembershipsListPage.
- * All Rights Reserved. Arodi Emmanuel
- */
 import type { ReactElement } from 'react'
 import { Button } from '../../../ui/Button/Button'
 import { Badge } from '../../../ui/Badge/Badge'
@@ -17,23 +12,24 @@ export function buildMembershipsListColumns(
 ): readonly DataTableColumn<MembershipResponse>[] {
   return [
     {
-      key: 'createdAt',
-      header: t('ui.memberships.table.createdAt'),
-      accessor: (row: MembershipResponse): string =>
-        row.createdAt
-          ? new Date(row.createdAt).toLocaleDateString(locale)
-          : '-',
-      sortValue: (row: MembershipResponse): string => row.createdAt ?? '',
+      key: 'id',
+      header: t('ui.memberships.columns.id'),
+      width: 'xs',
+      accessor: (item: MembershipResponse) => String(item.id ?? '-'),
+      sortValue: (row: MembershipResponse): number => row.id ?? 0,
     },
     {
       key: 'userId',
-      header: t('ui.memberships.table.userId'),
-      accessor: (row: MembershipResponse): string => String(row.userId ?? ''),
+      header: t('ui.memberships.columns.userId'),
+      width: 'sm',
+      accessor: (row: MembershipResponse): string =>
+        String(row.userId ?? ''),
       sortValue: (row: MembershipResponse): number => row.userId ?? 0,
     },
     {
       key: 'subscriptionId',
       header: t('ui.memberships.table.subscriptionId'),
+      width: 'md',
       accessor: (row: MembershipResponse): string =>
         String(row.subscriptionId ?? ''),
       sortValue: (row: MembershipResponse): number => row.subscriptionId ?? 0,
@@ -41,15 +37,17 @@ export function buildMembershipsListColumns(
     {
       key: 'sellerCode',
       header: t('ui.memberships.table.sellerCode'),
+      width: 'md',
       accessor: (row: MembershipResponse): string => row.sellerCode ?? '',
       sortValue: (row: MembershipResponse): string => row.sellerCode ?? '',
     },
     {
       key: 'status',
-      header: t('ui.memberships.table.status'),
-      accessor: (row: MembershipResponse): ReactElement => (
-        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
-          {t('ui.memberships.status.' + (row.status ?? 'inactive'))}
+      header: t('ui.memberships.columns.status'),
+      width: 'sm',
+      accessor: (m: MembershipResponse): ReactElement => (
+        <Badge tone={m.status === 'active' ? 'success' : 'neutral'} size="sm">
+          {t('ui.memberships.status.' + (m.status ?? 'inactive'))}
         </Badge>
       ),
       sortValue: (row: MembershipResponse): string => row.status ?? '',
@@ -59,15 +57,24 @@ export function buildMembershipsListColumns(
       ],
     },
     {
+      key: 'createdAt',
+      header: t('ui.memberships.columns.createdAt'),
+      width: 'md',
+      accessor: (m: MembershipResponse): string =>
+        m.createdAt ? new Date(m.createdAt).toLocaleDateString(locale) : '-',
+      sortValue: (row: MembershipResponse): string => row.createdAt ?? '',
+    },
+    {
       key: 'actions',
-      header: t('ui.memberships.table.actions'),
-      accessor: (row: MembershipResponse): ReactElement => (
+      header: t('ui.memberships.columns.actions'),
+      width: 'sm',
+      accessor: (m: MembershipResponse): ReactElement => (
         <Inline gap="xs">
           <Button
-            to={`/${locale}/memberships/${toTemplateString(row.id)}`}
+            to={`/${locale}/memberships/${toTemplateString(m.id)}`}
             size="sm"
             width="fixed-small"
-            data-testid={`view-membership-${toTemplateString(row.id)}`}
+            data-testid={`view-membership-${toTemplateString(m.id)}`}
           >
             {t('ui.memberships.actions.view')}
           </Button>

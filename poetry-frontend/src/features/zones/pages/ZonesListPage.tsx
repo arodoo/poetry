@@ -40,8 +40,6 @@ export default function ZonesListPage(): ReactElement {
   const pageQuery = useZonesPageQuery(
     page, size, search, toSortParam(sort)
   )
-  const isInitialLoad: boolean =
-    pageQuery.isLoading && !pageQuery.data
   const isError: boolean = pageQuery.isError
   const rawZones: readonly ZoneResponse[] =
     Array.isArray(pageQuery.data?.content)
@@ -90,9 +88,7 @@ export default function ZonesListPage(): ReactElement {
 
       <div className="mb-4 flex gap-4">{tableControls}</div>
 
-      {isInitialLoad ? (
-        <Text size="sm">{t('ui.zones.status.loading')}</Text>
-      ) : isError ? (
+      {isError ? (
         <Text size="sm">{t('ui.zones.status.error')}</Text>
       ) : (
         <DataTable
@@ -105,6 +101,7 @@ export default function ZonesListPage(): ReactElement {
           emptyMessage={t('ui.zones.status.empty')}
           sort={sort}
           onSortChange={setSort}
+          isLoading={pageQuery.isLoading}
           fetching={pageQuery.isFetching}
           pagination={{
             currentPage: page,

@@ -39,9 +39,6 @@ export function FingerprintList(): ReactElement {
     return 0
   })
 
-  if (isLoading) {
-    return <Text size="sm">{t('ui.fingerprints.status.loading')}</Text>
-  }
   if (isError) {
     return <Text size="sm">{t('ui.fingerprints.status.error')}</Text>
   }
@@ -61,6 +58,7 @@ export function FingerprintList(): ReactElement {
         emptyMessage={t('ui.fingerprints.list.empty')}
         sort={sort}
         onSortChange={setSort}
+        isLoading={isLoading}
         fetching={isFetching}
       />
     </div>

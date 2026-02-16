@@ -43,8 +43,6 @@ export default function UsersListPage(): ReactElement {
     search,
     toSortParam(sort)
   )
-  const isInitialLoad: boolean =
-    pageQuery.isLoading && !pageQuery.data
   const isError: boolean = pageQuery.isError
   const rawUsers: readonly UserResponse[] =
     Array.isArray(pageQuery.data?.content)
@@ -94,9 +92,7 @@ export default function UsersListPage(): ReactElement {
         {tableControls}
       </div>
 
-      {isInitialLoad ? (
-        <Text size="sm">{t('ui.users.status.loading')}</Text>
-      ) : isError ? (
+      {isError ? (
         <Text size="sm">{t('ui.users.status.error')}</Text>
       ) : (
         <DataTable

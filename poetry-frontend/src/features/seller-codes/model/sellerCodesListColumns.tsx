@@ -18,7 +18,8 @@ export function buildSellerCodesListColumns(
   return [
     {
       key: 'createdAt',
-      header: t('ui.sellerCodes.table.createdAt'),
+      header: t('ui.sellerCodes.columns.createdAt'),
+      width: 'md',
       accessor: (row: SellerCodeSummary): string =>
         row.createdAt
           ? new Date(row.createdAt).toLocaleDateString(locale)
@@ -27,7 +28,8 @@ export function buildSellerCodesListColumns(
     },
     {
       key: 'code',
-      header: t('ui.sellerCodes.table.code'),
+      header: t('ui.sellerCodes.columns.id'),
+      width: 'xs',
       accessor: (row: SellerCodeSummary): string =>
         row.code ?? '',
       sortValue: (row: SellerCodeSummary): string =>
@@ -35,7 +37,8 @@ export function buildSellerCodesListColumns(
     },
     {
       key: 'status',
-      header: t('ui.sellerCodes.table.status'),
+      header: t('ui.sellerCodes.columns.status'),
+      width: 'sm',
       accessor: (row: SellerCodeSummary): ReactElement => (
         <Badge
           tone={
@@ -58,13 +61,15 @@ export function buildSellerCodesListColumns(
     },
     {
       key: 'organizationId',
-      header: t('ui.sellerCodes.table.organization'),
+      header: t('ui.sellerCodes.columns.assignedTo'),
+      width: 'lg',
       accessor: (row: SellerCodeSummary): string => row.organizationId ?? '-',
       sortValue: (row: SellerCodeSummary): string => row.organizationId ?? '',
     },
     {
       key: 'actions',
       header: t('ui.sellerCodes.table.actions'),
+      width: 'sm',
       accessor: (row: SellerCodeSummary): ReactElement => (
         <Inline gap="xs">
           <Button

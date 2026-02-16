@@ -29,11 +29,19 @@ export function DataTableBody<T>(props: Props<T>): ReactElement {
           (row: T): ReactElement => (
             <tr key={props.keyExtractor(row)} className={s.tr}>
               {props.columns.map(
-                (col: Column<T>): ReactElement => (
-                  <td key={col.key} className={clsx(s.td, s.tdCol)}>
-                    {col.accessor(row)}
-                  </td>
-                )
+                (col: Column<T>): ReactElement => {
+                  const content = col.accessor(row)
+                  const title = typeof content === 'string' ? content : undefined
+                  return (
+                    <td 
+                      key={col.key} 
+                      className={clsx(s.td, s.tdCol)}
+                      title={title}
+                    >
+                      {content}
+                    </td>
+                  )
+                }
               )}
             </tr>
           )

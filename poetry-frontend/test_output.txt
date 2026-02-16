@@ -1,0 +1,36 @@
+
+Running 1 test using 1 worker
+
+INTERCEPTED: http://localhost:8080/api/v1/users/paged?page=0&size=10&search=admin_1771281415733&sort=createdAt%2Cdesc
+  ✘  1 tests\e2e\ui\table-transition.spec.ts:9:1 › should apply smooth opacity transition during fetching (6.5s)
+
+
+  1) tests\e2e\ui\table-transition.spec.ts:9:1 › should apply smooth opacity transition during fetching 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('data-table-wrapper')
+    Expected string: [32m"[7mtru[27me"[39m
+    Received string: [31m"[7mfals[27me"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('data-table-wrapper')[22m
+    [2m    7 × locator resolved to <div data-fetching="false" data-testid="data-table-wrapper" class="w-full transition-all duration-500 ease-in-out">…</div>[22m
+    [2m      - unexpected value "false"[22m
+
+
+      31 |
+      32 |     // Wait for the fetching state to be active
+    > 33 |     await expect(wrapper).toHaveAttribute('data-fetching', 'true', { timeout: 5000 })
+         |                           ^
+      34 |
+      35 |     // Detect timing: transition starts. Measure between 100ms and 400ms.
+      36 |     // We expect opacity to be decreasing but not finished.
+        at D:\zProyectos\01Java\poetry\poetry-frontend\tests\e2e\ui\table-transition.spec.ts:33:27
+
+    Error Context: test-results\ui-table-transition-should-036c3--transition-during-fetching\error-context.md
+
+  1 failed
+    tests\e2e\ui\table-transition.spec.ts:9:1 › should apply smooth opacity transition during fetching 

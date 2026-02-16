@@ -20,45 +20,47 @@ export function buildZonesListColumns(
   return [
     {
       key: 'createdAt',
-      header: t('ui.zones.table.createdAt'),
-      accessor: (row: ZoneResponse): string =>
-        row.createdAt
-          ? new Date(row.createdAt).toLocaleDateString(locale)
+      header: t('ui.zones.columns.createdAt'),
+      width: 'md',
+      accessor: (item: ZoneResponse): string =>
+        item.createdAt
+          ? new Date(item.createdAt).toLocaleDateString(locale)
           : '-',
-      sortValue: (row: ZoneResponse): string => row.createdAt ?? '',
+      sortValue: (item: ZoneResponse): string => item.createdAt ?? '',
     },
     {
       key: 'name',
-      header: t('ui.zones.table.name'),
-      accessor: (row: ZoneResponse): string =>
-        row.name ?? '',
-      sortValue: (row: ZoneResponse): string =>
-        row.name ?? '',
+      header: t('ui.zones.columns.id'),
+      width: 'xs',
+      accessor: (item: ZoneResponse) => String(item.id ?? '-'),
+      sortValue: (item: ZoneResponse): string =>
+        item.name ?? '',
     },
     {
       key: 'description',
-      header: t('ui.zones.table.description'),
-      accessor: (row: ZoneResponse): string =>
-        row.description ?? '-',
-      sortValue: (row: ZoneResponse): string =>
-        row.description ?? '',
+      header: t('ui.zones.columns.description'),
+      width: 'xl',
+      accessor: (item: ZoneResponse) => item.description ?? '-',
+      sortValue: (item: ZoneResponse): string =>
+        item.description ?? '',
     },
     {
       key: 'status',
-      header: t('ui.zones.table.status'),
-      accessor: (row: ZoneResponse): ReactElement => {
+      header: t('ui.zones.columns.status'),
+      width: 'sm',
+      accessor: (item: ZoneResponse): ReactElement => {
         const statusKey =
-          row.status === 'active'
+          item.status === 'active'
             ? 'ui.zones.status.active'
-            : row.status === 'inactive'
+            : item.status === 'inactive'
               ? 'ui.zones.status.inactive'
               : 'ui.zones.status.unknown'
         return (
           <Badge
-            tone={row.status === 'active' ? 'success' : 'neutral'}
+            tone={item.status === 'active' ? 'success' : 'neutral'}
             size="sm"
           >
-            {t(statusKey)}
+            {t(statusKey as any)}
           </Badge>
         )
       },
@@ -71,6 +73,7 @@ export function buildZonesListColumns(
     {
       key: 'managerId',
       header: t('ui.zones.table.manager'),
+      width: 'md',
       accessor: (row: ZoneResponse): string =>
         toTemplateString(row.managerId ?? '-'),
       sortValue: (row: ZoneResponse): string =>
@@ -79,6 +82,7 @@ export function buildZonesListColumns(
     {
       key: 'actions',
       header: t('ui.zones.table.actions'),
+      width: 'sm',
       accessor: (row: ZoneResponse): ReactElement => (
         <Inline gap="xs">
           <Button

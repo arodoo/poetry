@@ -40,8 +40,6 @@ export default function SubscriptionsListPage(): ReactElement {
     useSubscriptionsPageQuery(
       page, size, search, toSortParam(sort)
     )
-  const isInitialLoad: boolean =
-    pageQuery.isLoading && !pageQuery.data
   const isError: boolean = pageQuery.isError
   const rawSubs: readonly SubscriptionResponse[] =
     Array.isArray(pageQuery.data?.content)
@@ -95,9 +93,7 @@ export default function SubscriptionsListPage(): ReactElement {
 
       <div className="mb-4 flex gap-4">{tableControls}</div>
 
-      {isInitialLoad ? (
-        <div>{t('ui.subscriptions.status.loading')}</div>
-      ) : isError ? (
+      {isError ? (
         <div>{t('ui.subscriptions.status.error')}</div>
       ) : (
         <DataTable
@@ -107,11 +103,10 @@ export default function SubscriptionsListPage(): ReactElement {
             (row: SubscriptionResponse): string =>
               String(row.id ?? '')
           }
-          emptyMessage={
-            t('ui.subscriptions.status.empty')
-          }
+          emptyMessage={t('ui.subscriptions.status.empty')}
           sort={sort}
           onSortChange={setSort}
+          isLoading={pageQuery.isLoading}
           fetching={pageQuery.isFetching}
           pagination={{
             currentPage: page,
