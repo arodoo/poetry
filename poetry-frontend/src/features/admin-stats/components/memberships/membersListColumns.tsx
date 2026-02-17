@@ -39,7 +39,7 @@ export function buildMembersColumns(
     },
     {
       key: 'dates',
-      header: t('ui.adminStats.table.dates'),
+      header: t('ui.adminStats.columns.dates'),
       width: 'lg',
       accessor: (row: MembershipDetail) => (
         <div className="text-[var(--color-textMuted)]">

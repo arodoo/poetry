@@ -28,7 +28,7 @@ export function buildMembershipsListColumns(
     },
     {
       key: 'subscriptionId',
-      header: t('ui.memberships.table.subscriptionId'),
+      header: t('ui.memberships.columns.subscriptionId'),
       width: 'md',
       accessor: (row: MembershipResponse): string =>
         String(row.subscriptionId ?? ''),
@@ -36,7 +36,7 @@ export function buildMembershipsListColumns(
     },
     {
       key: 'sellerCode',
-      header: t('ui.memberships.table.sellerCode'),
+      header: t('ui.memberships.columns.sellerCode'),
       width: 'md',
       accessor: (row: MembershipResponse): string => row.sellerCode ?? '',
       sortValue: (row: MembershipResponse): string => row.sellerCode ?? '',

@@ -9,12 +9,10 @@
   "ui.adminStats.status.active": "Activos",
   "ui.adminStats.status.expiring": "Por Vencer",
   "ui.adminStats.status.expired": "Vencidos",
-  "ui.adminStats.table.id": "ID",
-  "ui.adminStats.table.member": "Miembro",
-  "ui.adminStats.table.status": "Estado",
-  "ui.adminStats.table.dates": "Fechas",
-  "ui.adminStats.table.start": "Inicio",
-  "ui.adminStats.table.end": "Vencimiento",
-  "ui.adminStats.table.plan": "Plan",
+  "ui.adminStats.columns.id": "ID",
+  "ui.adminStats.columns.fullName": "Miembro",
+  "ui.adminStats.columns.status": "Estado",
+  "ui.adminStats.columns.dates": "Fechas",
+  "ui.adminStats.columns.membership": "Plan",
   "ui.adminStats.table.empty": "No se encontraron miembros"
 }

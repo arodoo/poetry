@@ -72,7 +72,7 @@ export function buildZonesListColumns(
     },
     {
       key: 'managerId',
-      header: t('ui.zones.table.manager'),
+      header: t('ui.zones.columns.manager'),
       width: 'md',
       accessor: (row: ZoneResponse): string =>
         toTemplateString(row.managerId ?? '-'),
@@ -81,7 +81,7 @@ export function buildZonesListColumns(
     },
     {
       key: 'actions',
-      header: t('ui.zones.table.actions'),
+      header: t('ui.zones.columns.actions'),
       width: 'sm',
       accessor: (row: ZoneResponse): ReactElement => (
         <Inline gap="xs">

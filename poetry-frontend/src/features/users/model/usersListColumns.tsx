@@ -93,7 +93,7 @@ export function buildUsersListColumns(
     },
     {
       key: 'actions',
-      header: t('ui.users.table.actions'),
+      header: t('ui.users.columns.actions'),
       width: 'sm',
       accessor: (row: UserSummary): ReactElement => (
         <UserListActions locale={locale} id={row.id} t={t} />

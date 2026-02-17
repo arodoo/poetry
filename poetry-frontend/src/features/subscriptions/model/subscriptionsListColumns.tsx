@@ -18,7 +18,7 @@ export function buildSubscriptionsListColumns(
   return [
     {
       key: 'createdAt',
-      header: t('ui.subscriptions.table.createdAt'),
+      header: t('ui.subscriptions.columns.createdAt'),
       width: 'md',
       accessor: (row: SubscriptionSummary): string =>
         row.createdAt ? new Date(row.createdAt).toLocaleDateString(locale) : '-',
@@ -43,7 +43,7 @@ export function buildSubscriptionsListColumns(
     },
     {
       key: 'duration',
-      header: t('ui.subscriptions.table.duration'),
+      header: t('ui.subscriptions.columns.duration'),
       width: 'sm',
       accessor: (row: SubscriptionSummary): string =>
         toTemplateString(row.durationDays ?? 0) +
@@ -71,7 +71,7 @@ export function buildSubscriptionsListColumns(
     },
     {
       key: 'actions',
-      header: t('ui.subscriptions.table.actions'),
+      header: t('ui.subscriptions.columns.actions'),
       width: 'sm',
       accessor: (row: SubscriptionSummary): ReactElement => (
         <Inline gap="xs">

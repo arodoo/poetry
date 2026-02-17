@@ -28,7 +28,7 @@ export function buildSellerCodesListColumns(
     },
     {
       key: 'code',
-      header: t('ui.sellerCodes.columns.id'),
+      header: t('ui.sellerCodes.columns.code'),
       width: 'xs',
       accessor: (row: SellerCodeSummary): string =>
         row.code ?? '',
@@ -61,14 +61,14 @@ export function buildSellerCodesListColumns(
     },
     {
       key: 'organizationId',
-      header: t('ui.sellerCodes.columns.assignedTo'),
+      header: t('ui.sellerCodes.columns.organization'),
       width: 'lg',
       accessor: (row: SellerCodeSummary): string => row.organizationId ?? '-',
       sortValue: (row: SellerCodeSummary): string => row.organizationId ?? '',
     },
     {
       key: 'actions',
-      header: t('ui.sellerCodes.table.actions'),
+      header: t('ui.sellerCodes.columns.actions'),
       width: 'sm',
       accessor: (row: SellerCodeSummary): ReactElement => (
         <Inline gap="xs">
