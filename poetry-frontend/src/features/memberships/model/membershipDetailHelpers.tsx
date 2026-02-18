@@ -10,6 +10,7 @@ import type { DetailViewItem } from '../../../ui/DetailView/DetailView'
 import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function buildMembershipDetailSections(
   membership: MembershipResponse,
@@ -20,20 +21,20 @@ export function buildMembershipDetailSections(
       title: t('ui.memberships.detail.section.basic'),
       items: [
         {
-          label: t('ui.memberships.table.id'),
+          label: t('ui.memberships.columns.id'),
           value: String(membership.id ?? ''),
         },
         {
-          label: t('ui.memberships.table.userId'),
+          label: t('ui.memberships.columns.userId'),
           value: String(membership.userId ?? ''),
         },
         {
-          label: t('ui.memberships.table.subscriptionId'),
+          label: t('ui.memberships.columns.subscriptionId'),
           value: String(membership.subscriptionId ?? ''),
         },
         {
-          label: t('ui.memberships.table.sellerCode'),
-          value: membership.sellerCode ?? '',
+          label: t('ui.memberships.columns.sellerCode'),
+          value: membership.sellerCode ?? '-',
         },
       ] as readonly DetailViewItem[],
     },
@@ -42,23 +43,23 @@ export function buildMembershipDetailSections(
       items: [
         {
           label: t('ui.memberships.form.allZones.label'),
-          value: membership.allZones ? 'Yes' : 'No',
+          value: membership.allZones ? t('ui.common.yes') : t('ui.common.no'),
         },
         {
-          label: t('ui.memberships.table.zones'),
+          label: t('ui.memberships.columns.zones'),
           value:
             membership.zoneIds && membership.zoneIds.length > 0 ? (
               <Inline gap="xs">
                 {membership.zoneIds.map(
                   (zoneId: number): ReactElement => (
                     <Badge key={zoneId} tone="neutral" size="sm">
-                      Zone {toTemplateString(zoneId)}
+                      {t('ui.memberships.columns.zone')} {toTemplateString(zoneId)}
                     </Badge>
                   )
                 )}
               </Inline>
             ) : (
-              'None'
+              t('ui.common.none')
             ),
           fullWidth: true,
         },
@@ -68,14 +69,18 @@ export function buildMembershipDetailSections(
       title: t('ui.memberships.detail.section.metadata'),
       items: [
         {
-          label: t('ui.memberships.table.status'),
+          label: t('ui.memberships.columns.status'),
           value: (
             <Badge
-              tone={membership.status === 'active' ? 'success' : 'neutral'}
+              tone={membership.status?.toLowerCase() === 'active' ? 'success' : 'neutral'}
             >
-              {t('ui.memberships.status.' + (membership.status ?? 'inactive'))}
+              {t('ui.memberships.status.' + (membership.status?.toLowerCase() ?? 'inactive'))}
             </Badge>
           ),
+        },
+        {
+          label: t('ui.memberships.columns.createdAt'),
+          value: formatDate(membership.createdAt),
         },
       ] as readonly DetailViewItem[],
     },

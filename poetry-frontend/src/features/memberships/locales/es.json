@@ -23,6 +23,7 @@
   "ui.memberships.columns.status": "Estado",
   "ui.memberships.columns.actions": "Acciones",
   "ui.memberships.columns.createdAt": "Creado el",
+  "ui.memberships.columns.zone": "Zona",
   "ui.memberships.list.title": "Membresías",
   "ui.memberships.list.subtitle": "Gestionar suscripciones",
   "ui.memberships.list.placeholder.title": "Sin membresías",

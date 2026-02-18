@@ -39,4 +39,7 @@ export const commonEn: Record<string, string> = {
   'ui.banner.status.active': 'Active',
   'ui.banner.status.expired': 'Expired',
   'ui.banner.status.none': 'None',
+  'ui.common.yes': 'Yes',
+  'ui.common.no': 'No',
+  'ui.common.none': 'None',
 }
