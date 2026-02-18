@@ -17,25 +17,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface MembershipJpaRepository
-    extends JpaRepository<MembershipEntity, Long> {
-  @Query("SELECT m FROM MembershipEntity m "
-      + "WHERE m.deletedAt IS NULL "
-      + "ORDER BY m.createdAt DESC")
-  List<MembershipEntity> findAllActive();
+        extends JpaRepository<MembershipEntity, Long> {
+    @Query("SELECT m FROM MembershipEntity m WHERE m.deletedAt IS NULL")
+    List<MembershipEntity> findAllActive();
 
-  @Query("SELECT m FROM MembershipEntity m "
-      + "WHERE m.deletedAt IS NULL "
-      + "ORDER BY m.createdAt DESC")
-  Page<MembershipEntity> findAllActive(Pageable pageable);
+    @Query("SELECT m FROM MembershipEntity m WHERE m.deletedAt IS NULL")
+    Page<MembershipEntity> findAllActive(Pageable pageable);
 
-  @Query("SELECT m FROM MembershipEntity m "
-      + "WHERE m.deletedAt IS NULL "
-      + "AND (CAST(m.userId AS string) LIKE %:search% "
-      + "OR m.sellerCode LIKE %:search%) "
-      + "ORDER BY m.createdAt DESC")
-  Page<MembershipEntity> searchActive(String search, Pageable pageable);
+    @Query("SELECT m FROM MembershipEntity m "
+            + "WHERE m.deletedAt IS NULL "
+            + "AND (CAST(m.userId AS string) LIKE %:search% "
+            + "OR m.sellerCode LIKE %:search%)")
+    Page<MembershipEntity> searchActive(String search, Pageable pageable);
 
-  @Query("SELECT m FROM MembershipEntity m "
-      + "WHERE m.id = :id AND m.deletedAt IS NULL")
-  Optional<MembershipEntity> findActiveById(Long id);
+    @Query("SELECT m FROM MembershipEntity m "
+            + "WHERE m.id = :id AND m.deletedAt IS NULL")
+    Optional<MembershipEntity> findActiveById(Long id);
 }
