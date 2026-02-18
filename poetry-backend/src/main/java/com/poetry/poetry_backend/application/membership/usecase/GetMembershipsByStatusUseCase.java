@@ -18,9 +18,13 @@ import org.springframework.stereotype.Component;
 import com.poetry.poetry_backend.application.i18n.usecase.ResolveMessageUseCase;
 import com.poetry.poetry_backend.application.membership.dto.MembershipDetail;
 import com.poetry.poetry_backend.application.membership.port.UserHasMembershipQueryPort;
+import com.poetry.poetry_backend.application.sellercode.port.SellerCodeQueryPort;
+import com.poetry.poetry_backend.application.subscription.port.SubscriptionQueryPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 import com.poetry.poetry_backend.domain.membership.model.UserHasMembership;
+import com.poetry.poetry_backend.domain.sellercode.model.SellerCode;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
+import com.poetry.poetry_backend.domain.subscription.model.Subscription;
 import com.poetry.poetry_backend.domain.user.model.core.User;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +34,8 @@ import lombok.RequiredArgsConstructor;
 public class GetMembershipsByStatusUseCase {
   private final UserHasMembershipQueryPort membershipPort;
   private final UserQueryPort userPort;
+  private final SubscriptionQueryPort subscriptionPort;
+  private final SellerCodeQueryPort sellerCodePort;
   private final ResolveMessageUseCase resolve;
 
   public PageResult<MembershipDetail> execute(String status, Pageable pageable) {
@@ -54,19 +60,45 @@ public class GetMembershipsByStatusUseCase {
 
     List<Long> userIds = page.content().stream()
         .map(UserHasMembership::userId)
-        .distinct()
-        .toList();
-
-    Map<Long, User> users = userPort.findAllById(userIds).stream()
+        .distinct().toList();
+    Map<Long, User> usersArr = userPort.findAllById(userIds).stream()
         .collect(Collectors.toMap(User::id, u -> u));
+
+    List<Long> subIds = page.content().stream()
+        .map(UserHasMembership::subscriptionId)
+        .distinct().toList();
+    Map<Long, String> subNames = subscriptionPort.findAll().stream()
+        .filter(s -> subIds.contains(s.id()))
+        .collect(Collectors.toMap(Subscription::id, Subscription::name));
+
+    List<String> codes = page.content().stream()
+        .map(UserHasMembership::sellerCode)
+        .distinct().toList();
+    Map<String, String> sellerNames = sellerCodePort.findAll().stream()
+        .filter(sc -> codes.contains(sc.code()))
+        .collect(Collectors.toMap(SellerCode::code, SellerCode::code)); // Use code as name for now
 
     List<MembershipDetail> details = page.content().stream()
         .map(m -> {
-          User u = users.get(m.userId());
+          User u = usersArr.get(m.userId());
           String name = u != null ? u.firstName() + " " + u.lastName() : "Unknown";
           String email = u != null ? u.email() : "";
-          return new MembershipDetail(m.id(), m.userId(), name, email,
-              m.status(), m.startDate(), m.endDate(), m.createdAt(), "Standard");
+          String pName = subNames.getOrDefault(m.subscriptionId(), "Standard");
+          String sName = sellerNames.getOrDefault(m.sellerCode(), m.sellerCode());
+
+          return new MembershipDetail(
+              m.id(),
+              m.userId(),
+              name,
+              email,
+              m.status(),
+              m.startDate(),
+              m.endDate(),
+              m.createdAt(),
+              pName,
+              sName,
+              m.allZones(),
+              m.zoneIds() != null ? m.zoneIds().size() : 0);
         })
         .toList();
 

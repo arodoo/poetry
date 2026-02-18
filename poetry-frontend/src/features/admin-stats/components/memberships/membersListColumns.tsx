@@ -8,7 +8,6 @@
 import type { DataTableColumn } from '../../../../ui/DataTable/DataTable'
 import type { MembershipDetail } from '../../../../api/generated'
 import { formatDate } from '../../../../shared/utils/dateUtils'
-import { MemberStatusBadge } from './MemberStatusBadge'
 
 // i18n-ignore
 export function buildMembersColumns(
@@ -16,31 +15,35 @@ export function buildMembersColumns(
 ): DataTableColumn<MembershipDetail>[] {
   return [
     {
-      key: 'id',
-      header: t('ui.adminStats.columns.id'),
-      width: 'xs',
-      accessor: (row: any) => String(row.id),
-      sortValue: (row: MembershipDetail) => row.id ?? 0,
+      key: 'fullName',
+      header: t('ui.adminStats.columns.fullName'),
+      width: 'lg',
+      accessor: (row: any) => row.userName ?? '-',
+      sortValue: (row: any) => row.userName ?? '',
     },
     {
-      key: 'membershipName',
-      header: t('ui.adminStats.columns.membership'),
-      width: 'sm',
-      accessor: (row: any) => row.membership?.name ?? '-',
-      sortValue: (row: MembershipDetail) => row.userName ?? '',
+      key: 'planName',
+      header: t('ui.adminStats.columns.plan'),
+      accessor: (row: any) => row.planName || '-',
+      sortValue: (row: any) => row.planName ?? '',
     },
     {
-      key: 'status',
-      header: t('ui.adminStats.columns.status'),
-      width: 'sm',
-      accessor: (row: any) => (
-        <MemberStatusBadge status={row.status} endDate={row.endDate} />
-      ),
-      sortValue: (row: MembershipDetail) => row.status ?? '',
+      key: 'sellerName',
+      header: t('ui.adminStats.columns.seller'),
+      accessor: (row: any) => row.sellerName || '-',
+      sortValue: (row: any) => row.sellerName ?? '',
+    },
+    {
+      key: 'access',
+      header: t('ui.adminStats.columns.access'),
+      accessor: (row: any) => 
+        row.allZones 
+          ? t('ui.adminStats.access.allZones') 
+          : `${row.zoneCount || 0} ${t('ui.adminStats.access.zones')}`,
     },
     {
       key: 'dates',
-      header: t('ui.adminStats.columns.dates'),
+      header: t('ui.adminStats.table.dates'),
       width: 'lg',
       accessor: (row: MembershipDetail) => (
         <div className="text-[var(--color-textMuted)]">
@@ -52,14 +55,7 @@ export function buildMembersColumns(
           </div>
         </div>
       ),
-      sortValue: (row: MembershipDetail) => row.startDate ?? '',
-    },
-    {
-      key: 'fullName',
-      header: t('ui.adminStats.columns.fullName'),
-      width: 'lg',
-      accessor: (row: any) => row.user?.fullName ?? '-',
-      sortValue: (row: MembershipDetail) => row.planName ?? '',
+      sortValue: (row: any) => row.startDate ?? '',
     },
   ]
 }

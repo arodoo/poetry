@@ -60,7 +60,7 @@ public class MembershipEntity {
   @Column(name = "zone_id")
   private Set<Long> zoneIds;
 
-  @Column(nullable = false)
+  @Column(nullable = false, columnDefinition = "boolean default false")
   private Boolean allZones = false;
 
   @Column(nullable = false, length = 20)

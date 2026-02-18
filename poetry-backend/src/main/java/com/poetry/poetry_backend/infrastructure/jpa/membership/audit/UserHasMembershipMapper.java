@@ -33,6 +33,7 @@ public final class UserHasMembershipMapper {
         e.getSubscriptionId(),
         e.getSellerCode(),
         zoneIds,
+        e.getAllZones(),
         e.getStartDate(),
         e.getEndDate(),
         status,

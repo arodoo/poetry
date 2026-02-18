@@ -12,6 +12,10 @@ import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCodeEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.subscription.SubscriptionEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
+
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,11 +35,23 @@ public class UserHasMembershipEntity {
   @Column(nullable = false)
   private Long userId;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "userId", insertable = false, updatable = false)
+  private UserEntity user;
+
   @Column(nullable = false)
   private Long subscriptionId;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "subscriptionId", insertable = false, updatable = false)
+  private SubscriptionEntity subscription;
+
   @Column(nullable = false, length = 100)
   private String sellerCode;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "sellerCode", referencedColumnName = "code", insertable = false, updatable = false)
+  private SellerCodeEntity sellerInfo;
 
   @Column(nullable = false)
   private Instant startDate;
@@ -53,6 +69,9 @@ public class UserHasMembershipEntity {
   @UpdateTimestamp
   @Column(nullable = false)
   private Instant updatedAt;
+
+  @Column(nullable = false, columnDefinition = "boolean default false")
+  private Boolean allZones = false;
 
   @Version
   private Long version;

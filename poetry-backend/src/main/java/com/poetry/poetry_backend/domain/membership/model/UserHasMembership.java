@@ -16,6 +16,7 @@ public record UserHasMembership(
     Long subscriptionId,
     String sellerCode,
     Set<Long> zoneIds,
+    Boolean allZones,
     Instant startDate,
     Instant endDate,
     String status,

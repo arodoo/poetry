@@ -42,4 +42,5 @@ export const commonEs: Record<string, string> = {
   'ui.common.yes': 'Sí',
   'ui.common.no': 'No',
   'ui.common.none': 'Ninguna',
+  'ui.common.search': 'Buscar',
 }

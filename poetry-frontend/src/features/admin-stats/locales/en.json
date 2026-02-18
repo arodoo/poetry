@@ -9,10 +9,16 @@
   "ui.adminStats.status.active": "Active",
   "ui.adminStats.status.expiring": "Expiring Soon",
   "ui.adminStats.status.expired": "Expired",
-  "ui.adminStats.columns.id": "ID",
   "ui.adminStats.columns.fullName": "Member",
   "ui.adminStats.columns.status": "Status",
   "ui.adminStats.columns.dates": "Dates",
-  "ui.adminStats.columns.membership": "Plan",
+  "ui.adminStats.columns.plan": "Plan",
+  "ui.adminStats.columns.seller": "Seller",
+  "ui.adminStats.columns.access": "Access",
+  "ui.adminStats.access.allZones": "All Zones",
+  "ui.adminStats.access.zones": "Zones",
+  "ui.adminStats.columns.startDate": "Start",
+  "ui.adminStats.table.end": "End",
+  "ui.adminStats.columns.id": "ID",
   "ui.adminStats.table.empty": "No members found"
 }
