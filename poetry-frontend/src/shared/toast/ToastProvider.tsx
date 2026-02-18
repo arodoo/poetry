@@ -14,6 +14,7 @@ import { ToastCtx } from './toastContext'
 interface Toast {
   id: string
   message: string
+  status: 'success' | 'error' | 'info' | 'warning'
 }
 
 interface ToastProviderProps {
@@ -23,10 +24,10 @@ interface ToastProviderProps {
 export function ToastProvider(props: ToastProviderProps): React.ReactElement {
   const [toasts, setToasts] = useState<Toast[]>([])
 
-  const push: (message: string) => void = useCallback(
-    (message: string): void => {
+  const push = useCallback(
+    (message: string, status: Toast['status'] = 'success'): void => {
       const id: string = Math.random().toString(36).slice(2)
-      setToasts((t: Toast[]): Toast[] => [...t, { id, message }])
+      setToasts((t: Toast[]): Toast[] => [...t, { id, message, status }])
       setTimeout((): void => {
         setToasts((t: Toast[]): Toast[] =>
           t.filter((x: Toast): boolean => x.id !== id)
@@ -43,7 +44,7 @@ export function ToastProvider(props: ToastProviderProps): React.ReactElement {
         {toasts.map(
           (toastItem: Toast): React.ReactElement => (
             <div key={toastItem.id} style={{ marginBottom: 8 }}>
-              <Alert status="success">{toastItem.message}</Alert>
+              <Alert status={toastItem.status}>{toastItem.message}</Alert>
             </div>
           )
         )}

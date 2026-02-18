@@ -69,7 +69,6 @@ export function buildSellerCodesListColumns(
     {
       key: 'actions',
       header: t('ui.sellerCodes.columns.actions'),
-      width: 'sm',
       accessor: (row: SellerCodeSummary): ReactElement => (
         <Inline gap="xs">
           <Button

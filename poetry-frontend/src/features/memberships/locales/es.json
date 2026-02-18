@@ -68,5 +68,6 @@
   "ui.memberships.validation.checkingEligibility": "Verificando elegibilidad…",
   "ui.memberships.toast.created": "Membresía creada",
   "ui.memberships.toast.updated": "Membresía actualizada",
-  "ui.memberships.toast.deleted": "Membresía eliminada"
+  "ui.memberships.toast.deleted": "Membresía eliminada",
+  "ui.memberships.toast.error": "Error en la operación"
 }

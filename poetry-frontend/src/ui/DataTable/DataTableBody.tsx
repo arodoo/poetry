@@ -5,12 +5,13 @@
  */
 import type { ReactElement, ReactNode } from 'react'
 import clsx from 'clsx'
-import { s } from './DataTableStyles'
+import { s, widths } from './DataTableStyles'
 
 interface Column<T> {
   readonly key: string
   readonly accessor: (row: T) => ReactNode
   readonly className?: string
+  readonly width?: string
 }
 
 interface Props<T> {
@@ -32,10 +33,16 @@ export function DataTableBody<T>(props: Props<T>): ReactElement {
                 (col: Column<T>): ReactElement => {
                   const content = col.accessor(row)
                   const title = typeof content === 'string' ? content : undefined
+                  const colWidth = col.width ? (widths[col.width] || col.width) : undefined
                   return (
                     <td 
                       key={col.key} 
                       className={clsx(s.td, s.tdCol)}
+                      style={colWidth ? { 
+                        width: colWidth,
+                        minWidth: colWidth,
+                        maxWidth: colWidth
+                      } : undefined}
                       title={title}
                     >
                       {content}

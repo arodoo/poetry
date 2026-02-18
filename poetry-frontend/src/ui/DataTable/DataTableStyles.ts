@@ -31,10 +31,10 @@ export const s: {
   al: 'inline-block min-w-full align-middle',
   b: 'rounded-lg border ' + 'border-[var(--color-border,#d0d0d0)]',
   bD: '',
-  t: 'min-w-full table-fixed divide-y divide-[var(--color-border,#d0d0d0)]',
+  t: 'w-full table-fixed divide-y divide-[var(--color-border,#d0d0d0)]',
   th: 'bg-[var(--color-surface,#ffffff)]',
-  thC: 'px-6 py-3 text-left text-xs font-medium uppercase truncate',
-  thCol: 'tracking-wider text-[var(--color-muted,#6b7280)]',
+  thC: 'px-6 py-3 text-left text-xs font-medium uppercase overflow-hidden',
+  thCol: 'tracking-wider text-[var(--color-muted,#6b7280)] truncate',
   thSort:
     'cursor-pointer select-none transition-colors ' +
     'hover:bg-[var(--color-background,#f5f5f5)]',
@@ -43,7 +43,7 @@ export const s: {
     'bg-[var(--color-surface,#ffffff)]',
   tbD: '',
   tr: 'hover:bg-[var(--color-background,#f5f5f5)]',
-  td: 'whitespace-nowrap px-6 py-4 text-sm truncate',
+  td: 'whitespace-nowrap px-6 py-4 text-sm overflow-hidden truncate',
   tdCol: 'text-[var(--color-text,#1a1a1a)]',
   em: 'px-6 py-10 text-center text-sm ' +
     'text-[var(--color-muted,#6b7280)]',
@@ -53,11 +53,11 @@ export const s: {
 } as const
 
 export const widths: Record<string, string> = {
-  xs: '60px',
-  sm: '100px',
-  md: '150px',
-  lg: '200px',
-  xl: '300px',
+  xs: '70px',     // Fixed: ID, small codes
+  sm: '100px',    // Fixed: Status, Actions
+  md: '15%',      // Proportional: Dates, short strings
+  lg: '25%',      // Proportional: Names
+  xl: '35%',      // Proportional: Long text
   auto: 'auto',
 }
 

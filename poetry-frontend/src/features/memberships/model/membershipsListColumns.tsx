@@ -61,7 +61,6 @@ export function buildMembershipsListColumns(
     {
       key: 'actions',
       header: t('ui.memberships.columns.actions'),
-      width: 'sm',
       accessor: (m: MembershipResponse): ReactElement => (
         <Inline gap="xs">
           <Button

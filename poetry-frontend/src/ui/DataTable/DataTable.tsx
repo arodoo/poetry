@@ -76,17 +76,31 @@ export function DataTable<T>(
         <div className={s.al}>
           <div className={clsx(s.b, s.bD)}>
             <table className={s.t}>
+              <colgroup>
+                {props.columns.map((col) => (
+                  <col
+                    key={`col-${col.key}`}
+                    style={{ width: col.width ? widths[col.width] : 'auto' }}
+                  />
+                ))}
+              </colgroup>
               <thead className={s.th}>
                 <tr>
                   {props.columns.map((col) => {
                     const sortable = Boolean(col.sortValue)
                     const active = props.sort?.key === col.key
-                    const widthClass = col.width ? widths[col.width] : undefined
+                    // Smart Default: 'actions' key gets 'sm' if width is not specified
+                    const rawWidth = col.width || (col.key === 'actions' ? 'sm' : undefined)
+                    const colWidth = rawWidth ? (widths[rawWidth] || rawWidth) : undefined
                     return (
                       <th
                         key={col.key}
                         scope="col"
-                        style={widthClass ? { width: widthClass } : undefined}
+                        style={colWidth ? { 
+                          width: colWidth,
+                          minWidth: colWidth,
+                          maxWidth: colWidth
+                        } : undefined}
                         className={clsx(
                           s.thC,
                           s.thCol,

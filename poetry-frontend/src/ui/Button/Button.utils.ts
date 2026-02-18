@@ -22,7 +22,7 @@ export const sizeClasses: Record<'sm' | 'md', string> = {
 export const widthClasses: Record<ButtonWidth, string> = {
   content: 'w-auto',
   container: 'w-full',
-  'fixed-small': 'w-20',
+  'fixed-small': 'w-fit min-w-[4.5rem]',
   'fixed-medium': 'w-24',
   'fixed-large': 'w-32',
 }

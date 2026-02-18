@@ -10,7 +10,7 @@ import { createContext, useContext } from 'react'
 import type React from 'react'
 
 interface ToastCtxType {
-  push: (m: string) => void
+  push: (m: string, status?: 'success' | 'error' | 'info' | 'warning') => void
 }
 
 const initialToastCtx: null | ToastCtxType = null

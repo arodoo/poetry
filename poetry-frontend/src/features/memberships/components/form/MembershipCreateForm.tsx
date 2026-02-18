@@ -40,25 +40,37 @@ export default function MembershipCreateForm(): ReactElement {
     try {
       const result = await validation.checkUserEligibility(user.id!)
       if (!result.isValid) {
-        push(t(result.errorKey!))
+        push(t(result.errorKey!), 'error')
       } else {
         setEligibilityPassed(true)
       }
     } catch (err) {
-      push(t('ui.memberships.toast.error'))
+      push(t('ui.memberships.toast.error'), 'error')
       console.error('Eligibility check failed:', err)
     }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!selectedUser || !subscriptionId || !sellerCode) {
+    
+    if (!selectedUser) {
+      push(t('ui.memberships.validation.userId'), 'error')
+      return
+    }
+
+    if (!subscriptionId) {
+      push(t('ui.memberships.validation.subscriptionId'), 'error')
+      return
+    }
+
+    if (!sellerCode) {
+      push(t('ui.memberships.validation.sellerCode'), 'error')
       return
     }
 
     const codeResult = await validation.checkSellerCode(sellerCode)
     if (!codeResult.isValid) {
-      push(t(codeResult.errorKey!))
+      push(t(codeResult.errorKey!), 'error')
       return
     }
 
@@ -73,11 +85,11 @@ export default function MembershipCreateForm(): ReactElement {
       },
       {
         onSuccess: () => {
-          push(t('ui.memberships.toast.created'))
+          push(t('ui.memberships.toast.created'), 'success')
           navigate(`/${locale}/memberships`)
         },
         onError: () => {
-          push(t('ui.memberships.toast.error'))
+          push(t('ui.memberships.toast.error'), 'error')
         },
       }
     )
@@ -128,9 +140,7 @@ export default function MembershipCreateForm(): ReactElement {
                 data-testid="submit-membership-button"
                 disabled={
                   validation.isValidating ||
-                  createMutation.isPending ||
-                  !subscriptionId ||
-                  !sellerCode
+                  createMutation.isPending
                 }
               >
                 {t('ui.memberships.actions.submit')}
