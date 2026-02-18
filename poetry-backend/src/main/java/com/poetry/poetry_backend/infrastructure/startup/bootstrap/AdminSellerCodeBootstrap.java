@@ -55,7 +55,7 @@ public class AdminSellerCodeBootstrap {
       if (sellerCodes.findAll().stream()
           .noneMatch(sc -> defaultCode.equals(sc.getCode()))) {
         try {
-          createSellerCode.execute(defaultCode, "default-org", user.getId(), "active");
+          createSellerCode.execute(defaultCode, "default-org", user.getId(), "ACTIVE");
           log.info("AdminSellerCodeBootstrap: seller code '{}' created for admin", defaultCode);
         } catch (Exception e) {
           log.warn("AdminSellerCodeBootstrap: failed to create seller code: {}", e.toString());
@@ -72,10 +72,11 @@ public class AdminSellerCodeBootstrap {
         boolean exists = sellerCodes.findAll().stream().anyMatch(sc -> code.equals(sc.getCode()));
         if (!exists) {
           try {
-            createSellerCode.execute(code, "default-org", user.getId(), "active");
+            createSellerCode.execute(code, "default-org", user.getId(), "ACTIVE");
             log.info("AdminSellerCodeBootstrap: seller code '{}' created for user {}", code, user.getId());
           } catch (Exception e) {
-            log.warn("AdminSellerCodeBootstrap: failed to create seller code {} for user {}: {}", code, user.getId(), e.toString());
+            log.warn("AdminSellerCodeBootstrap: failed to create seller code {} for user {}: {}", code, user.getId(),
+                e.toString());
           }
         }
       });

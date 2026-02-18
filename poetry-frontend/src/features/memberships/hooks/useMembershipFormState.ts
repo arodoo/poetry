@@ -12,7 +12,7 @@ export interface MembershipFormState {
   readonly setUserId: (id: number) => void
   readonly setSubscriptionId: (id: number) => void
   readonly setSellerCode: (code: string) => void
-  readonly setStatus: (status: 'active' | 'inactive') => void
+  readonly setStatus: (status: 'ACTIVE' | 'INACTIVE') => void
   readonly setZoneIds: (ids: readonly number[]) => void
   readonly setAllZones: (all: boolean) => void
 }
@@ -25,9 +25,9 @@ export function useMembershipFormState(
     membership.subscriptionId ?? 0
   )
   const [sellerCode, setSellerCode] = useState(membership.sellerCode ?? '')
-  const [status, setStatus] = useState<'active' | 'inactive'>(
+  const [status, setStatus] = useState<'ACTIVE' | 'INACTIVE'>(
     // ensure we only fallback when membership.status is nullish; cast after
-    (membership.status ?? 'active') as 'active' | 'inactive'
+    (membership.status ?? 'ACTIVE') as 'ACTIVE' | 'INACTIVE'
   )
   const [zoneIds, setZoneIds] = useState<readonly number[]>(
     membership.zoneIds ?? []

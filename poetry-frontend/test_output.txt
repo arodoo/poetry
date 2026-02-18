@@ -1,36 +1,864 @@
 
 Running 1 test using 1 worker
 
-INTERCEPTED: http://localhost:8080/api/v1/users/paged?page=0&size=10&search=admin_1771281415733&sort=createdAt%2Cdesc
-  ✘  1 tests\e2e\ui\table-transition.spec.ts:9:1 › should apply smooth opacity transition during fetching (6.5s)
+REQ: GET http://localhost:5173/en/memberships/new
+RES: [33m200[39m http://localhost:5173/en/memberships/new
+REQ: GET http://localhost:5173/@vite/client
+REQ: GET http://localhost:5173/src/main.tsx?t=1771355225286
+REQ: GET http://localhost:5173/@react-refresh
+RES: [33m200[39m http://localhost:5173/@vite/client
+REQ: GET http://localhost:5173/node_modules/vite/dist/client/env.mjs
+RES: [33m200[39m http://localhost:5173/src/main.tsx?t=1771355225286
+REQ: GET http://localhost:5173/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/node_modules/.vite/deps/react.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/index.css?t=1771355226739
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/App.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/index.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensProvider.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/error/ErrorBoundary.tsx
+REQ: GET http://localhost:5173/node_modules/.vite/deps/@tanstack_react-query.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/node_modules/.vite/deps/@tanstack_react-query-devtools.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/bootstrap/initEnv.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/polyfills/responseStatusProperty.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client.gen.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenStorage.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenRefreshScheduler.ts
+RES: [33m200[39m http://localhost:5173/node_modules/vite/dist/client/env.mjs
+RES: [33m200[39m http://localhost:5173/@react-refresh
+PAGE LOG: [vite] connecting...
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/react.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/node_modules/.vite/deps/chunk-BQYK6RGN.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/node_modules/.vite/deps/chunk-G3PMV62Z.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/App.tsx?t=1771355064931
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/index.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensProvider.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/error/ErrorBoundary.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/context.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/hooks/useLocale.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/services/localeService.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/format.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalogs.ts
+PAGE LOG: [vite] connected.
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/App.css
+REQ: GET http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/AppRoutes.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/toast/ToastProvider.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerContext.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerList.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/hooks/useTokensQueries.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/@tanstack_react-query.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/hooks/useApplyCssVars.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/hooks/useLoadFontsFromBundle.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/useTokensErrorLogger.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensErrorView.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/error/ErrorOverlay.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/error/errorBoundaryHelpers.ts
+REQ: GET http://localhost:5173/node_modules/.vite/deps/chunk-EQJ5DPJE.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/bootstrap/initEnv.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/polyfills/responseStatusProperty.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client.gen.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/@tanstack_react-query-devtools.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenRefreshScheduler.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenStorage.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/config/env.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/context.tsx
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/chunk-G3PMV62Z.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/hooks/useLocale.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/chunk-BQYK6RGN.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/services/localeService.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client/index.ts
+REQ: GET http://localhost:5173/node_modules/.vite/deps/chunk-5YE6AWTO.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenExpiry.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/api/authApi.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/utils/localeLoader.ts
+REQ: GET http://localhost:5173/node_modules/.vite/deps/chunk-D7552MD7.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/index.css?t=1771355226739
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/format.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalogs.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/App.css
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/AppRoutes.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesPublic.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesAdmin.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesAuthPublic.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesAuthenticated.tsx
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/toast/ToastProvider.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerContext.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Alert/Alert.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/toast/toastContext.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersApi.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipsApi.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerStore.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/hooks/useTokensQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerList.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/hooks/useApplyCssVars.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerItem.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/api/tokensApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/hooks/useLoadFontsFromBundle.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.generated.part2.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/useTokensErrorLogger.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.generated.part1.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensErrorView.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/error/errorBoundaryHelpers.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/error/ErrorOverlay.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/fonts/loadFontOffline.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/config/env.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client/index.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/chunk-EQJ5DPJE.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenExpiry.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/api/authApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/utils/localeLoader.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/chunk-D7552MD7.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensErrorDetails.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensErrorWrapper.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/index.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/chunk-5YE6AWTO.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/node_modules/.vite/deps/zod.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/bodySerializer.gen.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/params.gen.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client/client.gen.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client/utils.gen.ts
+REQ: GET http://localhost:5173/node_modules/.vite/deps/jwt-decode.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/model/AuthSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/model/AuthTokensSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/utils/logger.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/common/common.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/layout/layout.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/demo/demo.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/route/route.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/public-home/public-home.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/account/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/dashboard/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-login/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesAdmin.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/profile/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesAuthPublic.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesPublic.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Alert/Alert.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/config/routesAuthenticated.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/toast/toastContext.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/admin-stats/admin-stats.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipsApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerStore.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/banner/BannerItem.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/api/tokensApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.generated.part2.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.generated.part1.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/fonts/loadFontOffline.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/common/common.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/layout/layout.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/demo/demo.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/route/route.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/public-home/public-home.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/account/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/dashboard/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-login/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/profile/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/admin-stats/admin-stats.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/adminRoutesConfig.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-login/routing/public-loginRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-register/routing/public-registerRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-forgot-password/routing/public-forgot-passwordRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensErrorDetails.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/tokens/TokensErrorWrapper.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public/routing/publicRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/index.ts
+REQ: GET http://localhost:5173/node_modules/.vite/deps/clsx.js?v=6f4aa8cc
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/account/routing/accountRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/dashboard/routing/dashboardRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/profile/routing/profileRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersQueries.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipsQueries.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipsMutations.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/useT.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokensMappers.generated.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.generated.helpers.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/fonts/fontUtils.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/zod.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/bodySerializer.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/params.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client/client.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/client/utils.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/index.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/jwt-decode.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/model/AuthSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/model/AuthTokensSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/utils/logger.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/common/common.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/layout/layout.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/demo/demo.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/route/route.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/public-home/public-home.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/account/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/dashboard/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-login/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/profile/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/locales/es.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/locales/es.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/serverSentEvents.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/es/admin-stats/admin-stats.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/layout/layout.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/common/common.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/demo/demo.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/route/route.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/public-home/public-home.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/account/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/dashboard/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/profile/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-login/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/locales/en.json?import
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/utils.gen.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/auth.gen.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/pathSerializer.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/locales/en.json?import
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/sdk.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/catalog/en/admin-stats/admin-stats.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-login/routing/public-loginRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/adminRoutesConfig.tsx?t=1771355064931
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-register/routing/public-registerRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public-forgot-password/routing/public-forgot-passwordRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/public/routing/publicRoutes.tsx
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/clsx.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/account/routing/accountRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/dashboard/routing/dashboardRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/profile/routing/profileRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipsQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipsMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/i18n/useT.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokensMappers.generated.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokens.generated.helpers.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/fonts/fontUtils.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/AdminRoute.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/RequireRole.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/routing/usersRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/routing/seller-codesRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/routing/subscriptionsRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/routing/zonesRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/routing/membershipsRoutes.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/routing/adminStatsRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/account/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/admin/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/dashboard/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/profile/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/public/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/RequireAuth.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.core.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.misc.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.security.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/serverSentEvents.gen.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/MembershipsSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.generated.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokensMappers.map.generated.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokensMappers.find.generated.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/auth.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/utils.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/core/pathSerializer.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/api/generated/sdk.gen.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/AdminRoute.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/routing/usersRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/RequireRole.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/routing/seller-codesRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/routing/subscriptionsRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/routing/zonesRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/routing/membershipsRoutes.tsx?t=1771355064931
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/routing/adminStatsRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/account/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/admin/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/RequireRoles.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/dashboard/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/public/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/session/useSession.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/localeUtils.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/routing/devtoolsRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipsListPage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/profile/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipsCreatePage.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipDetailPage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipEditPage.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipDeletePage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/routing/hardwareRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/hooks/useHardwareStatusQuery.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.core.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/RequireAuth.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.misc.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/pages/AdminDashboardPage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/api/usersMutations.security.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/MembershipsSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/account/accountAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.generated.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokensMappers.map.generated.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/admin/adminTokensAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/theme/tokensMappers.find.generated.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/forgotPasswordAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/loginAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/registerAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/unauthorizedAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/dashboard/dashboardAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/public/publicAdapters.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/profile/profileAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeCreateAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeDetailAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeEditAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodesListAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeDeleteAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/userDetailAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/userEditAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/userDeleteAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/usersCreateAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/usersListAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/components/AppShell.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/components/Navbar.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/guards/RequireRoles.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/index.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionsListAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionsCreateAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionDetailAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionEditAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionDeleteAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/model/UsersSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/MembershipsCommands.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.impl1.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.impl2.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/localeUtils.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/session/useSession.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/routing/devtoolsRoutes.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipsListPage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipsCreatePage.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/clientCore/httpErrors.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipDetailPage.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/hooks/useMe.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/session/sessionHelpers.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/session/sessionConstants.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/pages/SimulatorPage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipEditPage.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/PageLayout/PageLayout.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipCreateForm.tsx?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Text/Text.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Button/Button.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Inline/Inline.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DetailView/DetailView.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Breadcrumb/Breadcrumb.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/pages/MembershipDeletePage.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipsQueries.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/membershipDetailHelpers.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/hooks/useHardwareStatusQuery.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/membershipBreadcrumbHelpers.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/routing/hardwareRoutes.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipsMutations.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipDetailWithETag.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipEditForm.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipEditPageLoading.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/pages/AdminDashboardPage.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/membershipEditHandlers.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTable.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/membershipsListColumns.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableControls.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/FilterTypes.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/SortTypes.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/account/accountAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Stack/Stack.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/api/hardwareApi.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/pages/HardwareStatusPage.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Card/Card.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Heading/Heading.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/admin/adminTokensAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/loginAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/Tabs.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/forgotPasswordAdapter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/api/useStatsQueries.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/KpiGrid.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/memberships/MembersList.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/registerAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/auth/unauthorizedAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/dashboard/dashboardAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/public/publicAdapters.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/profile/profileAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeCreateAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeDetailAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeEditAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodesListAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/seller-codes/sellerCodeDeleteAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/userDetailAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/userEditAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/userDeleteAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/usersCreateAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/users/usersListAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/index.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/components/AppShell.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/components/Navbar.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionsListAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionsCreateAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionDetailAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionEditAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/routing/lazyAdapters/subscriptions/subscriptionDeleteAdapter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/model/UsersSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/MembershipsCommands.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.impl1.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/clientCore/httpErrors.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/tokens/model/TokensSchemas.impl2.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/hooks/useMe.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/session/sessionHelpers.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/devtools/pages/SimulatorPage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/session/sessionConstants.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/PageLayout/PageLayout.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/components/Sidebar.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Text/Text.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenu.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipCreateForm.tsx?t=1771355064931
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Button/Button.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/model/UsersCommands.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DetailView/DetailView.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Inline/Inline.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Breadcrumb/Breadcrumb.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/membershipBreadcrumbHelpers.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/membershipDetailHelpers.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipsQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipDetailWithETag.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipsMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipEditPageLoading.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipEditForm.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/membershipEditHandlers.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTable.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/model/membershipsListColumns.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/FilterTypes.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableControls.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/SortTypes.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/api/hardwareApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Stack/Stack.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Card/Card.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/pages/HardwareStatusPage.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/Tabs.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Heading/Heading.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/api/useStatsQueries.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/components/sim/SimEnrollCard.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/components/sim/SimAccessLogCard.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/KpiGrid.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/memberships/MembersList.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/UserSearchField.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/SubscriptionSelect.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/SellerCodeInput.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipValidation.ts?t=1771355064931
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipFormData.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Button/Button.utils.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Badge/Badge.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/utils/templateSafe.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipDetailWithETag.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipFormFields.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipFormState.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableStyles.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTablePagination.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableBody.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/SortIndicator.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableSearch.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableFilters.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenu.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/fetchClient.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/model/hardwareStatusSchema.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/components/Sidebar.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/components/HardwareStatusCard.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsRoot.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabList.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/Tab.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabPanel.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsContext.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/KpiCard.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useUserMemberships.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/memberships/membersListColumns.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenuCore.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/components/SidebarItem.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/config/navigationConfig.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/model/UsersCommands.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/components/sim/SimEnrollCard.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/components/sim/SimAccessLogCard.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/UserSearchField.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/SubscriptionSelect.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/SellerCodeInput.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipValidation.ts?t=1771355064931
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipFormData.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Button/Button.utils.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/utils/templateSafe.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Badge/Badge.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/api/membershipDetailWithETag.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useMembershipFormState.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/form/MembershipFormFields.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableStyles.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTablePagination.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/hooks/useFingerprintMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableBody.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/components/sim/SimEnrollForm.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Input/Input.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/hooks/useUsersQueries.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/hooks/useDebouncedCallback.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/hooks/useDocumentClick.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Select/Select.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/seller-codesApi.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/api/fingerprintApi.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/hooks/useSubscriptionsQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/SortIndicator.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/hooks/useZonesQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableFilters.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/DataTableSearch.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/model/hardwareStatusSchema.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/fetchClient.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/hardware/components/HardwareStatusCard.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsRoot.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabList.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/Tab.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/UserSelect.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/StatusSelect.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsContext.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/PageInfo.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/PageControls.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabPanel.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/KpiCard.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/hooks/useUserMemberships.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/memberships/membersListColumns.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenuCore.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/components/SidebarItem.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/sidebar/config/navigationConfig.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/clientCore.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Card/CardSections.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/useTabsKeyHandler.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/useTabsIds.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsPanelsView.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsHeader.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/useTabListKeydown.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/memberships/MemberStatusBadge.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenuCoreImpl.tsx
+REQ: GET http://localhost:5173/node_modules/.vite/deps/@heroicons_react_24_outline.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/hooks/useFingerprintMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/components/sim/SimEnrollForm.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/hooks/useFingerprintQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Input/Input.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/users/hooks/useUsersQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/hooks/useDebouncedCallback.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/hooks/useDocumentClick.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Select/Select.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/seller-codesApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/api/fingerprintApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/hooks/useSubscriptionsQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/hooks/useZonesQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/UserSelect.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/memberships/components/StatusSelect.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/PageInfo.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/DataTable/PageControls.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/clientCore.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/useTabsKeyHandler.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/sellerCodesQueries.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/sellerCodesMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Card/CardSections.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/api/subscriptionsApi.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/useTabsIds.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/timeout.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenRefreshService.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsPanelsView.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/useTabListKeydown.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/TabsHeader.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/fingerprint/hooks/useFingerprintQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/admin-stats/components/memberships/MemberStatusBadge.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenuCoreImpl.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/tabsHelpers.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/tabUtils.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Avatar/Avatar.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenuItems.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/components/BlockingOverlaySmall.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/logic/UserMenuCoreLogic.tsx
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/@heroicons_react_24_outline.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/sellerCodesQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/api/subscriptionsApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/sellerCodesMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesApi.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/http/timeout.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/sellerCodesApiShared.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/security/tokens/tokenRefreshService.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/api/subscriptionsQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/tabsHelpers.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/api/subscriptionsMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Tabs/hooks/tabUtils.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/api/extractSdkData.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/model/SellerCodesSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Avatar/Avatar.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/components/UserMenuItems.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/components/BlockingOverlaySmall.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/logic/UserMenuCoreLogic.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/MenuItem/MenuItem.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/BlockingOverlay/BlockingOverlay.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/hooks/useUserMenuDependencies.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/logic/userMenuLogout.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/config/userMenuLabels.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/api/sellerCodesApiShared.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/api/subscriptionsQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/api/subscriptionsMutations.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/model/SellerCodesSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/api/extractSdkData.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesQueries.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesMutations.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/model/SubscriptionsSchemas.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/model/SellerCodesCommands.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/MenuItem/MenuItem.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesApiShared.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/model/ZonesSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/BlockingOverlay/BlockingOverlay.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/hooks/useUserMenuDependencies.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/config/userMenuLabels.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/layout/user-menu/logic/userMenuLogout.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/MenuItem/menuItemClasses.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/MenuItem/menuItemUtils.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Portal/Portal.tsx
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/hooks/useLogout.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/model/SubscriptionsSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/seller-codes/model/SellerCodesCommands.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/model/SubscriptionsCommands.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/api/zonesApiShared.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/model/ZonesSchemas.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/MenuItem/menuItemUtils.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/MenuItem/menuItemClasses.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/ui/Portal/Portal.tsx
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/auth/hooks/useLogout.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/model/ZonesCommands.ts
+REQ: GET http://localhost:5173/node_modules/.vite/deps/react-dom.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/subscriptions/model/SubscriptionsCommands.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/features/zones/model/ZonesCommands.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/react-dom.js?v=6f4aa8cc
+PAGE LOG: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/clientErrorReporter.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/cssVariablesHealthCheck.ts
+PAGE LOG: [E2E] TokensProvider applied bundle {etag: null}
+PAGE LOG: [E2E] TokensProvider applied bundle {etag: null}
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/clientErrorReporter.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/cssVariablesHealthCheck.ts
+REQ: GET http://localhost:5173/api/v1/me/locale
+REQ: GET http://localhost:5173/node_modules/.vite/deps/6ELMOJL2-EPSFKS37.js?v=6f4aa8cc
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/auth/me
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/tokens
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: GET http://localhost:8080/api/v1/auth/me
+REQ: GET http://localhost:8080/api/v1/tokens
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/post.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/consoleWrap.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/network.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/resource.ts
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/6ELMOJL2-EPSFKS37.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/api/v1/me/locale
+RES: [33m200[39m http://localhost:8080/api/v1/tokens
+REQ: GET http://localhost:5173/node_modules/.vite/deps/chunk-V5Q5FE4T.js?v=6f4aa8cc
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/post.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/consoleWrap.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/network.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/resource.ts
+RES: [33m200[39m http://localhost:8080/api/v1/auth/me
+PAGE LOG: ✅ i18n: Backend locale loaded: en 
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/format.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/fetchHook.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/xhrHook.ts
+PAGE LOG: [tokensApi] ✅ Successfully loaded and validated token bundle {themes: 1, fonts: 1, current: Object}
+PAGE LOG: [E2E] TokensProvider applied bundle {theme: amber, font: inter, etag: null}
+PAGE LOG: [E2E] TokensProvider applied bundle {theme: amber, font: inter, etag: null}
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/format.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/fetchHook.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/xhrHook.ts
+REQ: GET http://localhost:5173/api/v1/me/locale
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/users/paged?page=0&size=10
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/users
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/subscriptions
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/zones
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/xhrOpenHook.ts
+REQ: GET http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/xhrSendHook.ts
+REQ: GET http://localhost:8080/api/v1/users/paged?page=0&size=10
+[MOCK] Intercepted Users Paged: http://localhost:8080/api/v1/users/paged?page=0&size=10
+REQ: GET http://localhost:8080/api/v1/users
+RES: [33m200[39m http://localhost:5173/node_modules/.vite/deps/chunk-V5Q5FE4T.js?v=6f4aa8cc
+REQ: GET http://localhost:8080/api/v1/subscriptions
+[MOCK] Intercepted Subscriptions: http://localhost:8080/api/v1/subscriptions
+REQ: GET http://localhost:8080/api/v1/zones
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/xhrOpenHook.ts
+RES: [33m200[39m http://localhost:5173/@fs/D:/zProyectos/01Java/poetry/poetry-frontend/src/shared/dev/logBridge/hooks/xhrSendHook.ts
+RES: [33m200[39m http://localhost:5173/api/v1/me/locale
+RES: [33m200[39m http://localhost:8080/api/v1/users/paged?page=0&size=10
+RES: [33m200[39m http://localhost:8080/api/v1/subscriptions
+RES: [33m200[39m http://localhost:8080/api/v1/zones
+RES: [33m200[39m http://localhost:8080/api/v1/users
+PAGE LOG: [dev-start] http://localhost:5173/en/memberships/new 1771355227618
+REQ: POST http://localhost:5173/__clear-log
+REQ: POST http://localhost:5173/__client-errors
+PAGE LOG: ✅ i18n: Backend locale loaded: en 
+REQ: POST http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__clear-log
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/users/paged?page=0&size=10&search=admin
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: GET http://localhost:8080/api/v1/users/paged?page=0&size=10&search=admin
+[MOCK] Intercepted Users Paged: http://localhost:8080/api/v1/users/paged?page=0&size=10&search=admin
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m200[39m http://localhost:8080/api/v1/users/paged?page=0&size=10&search=admin
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/memberships
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: GET http://localhost:8080/api/v1/memberships
+[MOCK] Intercepted Memberships: GET http://localhost:8080/api/v1/memberships
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m200[39m http://localhost:8080/api/v1/memberships
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/fingerprints
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: GET http://localhost:8080/api/v1/fingerprints
+[MOCK] Intercepted Fingerprints: http://localhost:8080/api/v1/fingerprints
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m200[39m http://localhost:8080/api/v1/fingerprints
+PAGE LOG: [DEBUG] Membership Form Submit started {selectedUser: Object, subscriptionId: 1, sellerCode: SC001}
+REQ: POST http://localhost:5173/__client-errors
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/seller-codes/paged?page=0&size=1&search=SC001
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: GET http://localhost:8080/api/v1/seller-codes/paged?page=0&size=1&search=SC001
+[MOCK] Intercepted Seller Codes: http://localhost:8080/api/v1/seller-codes/paged?page=0&size=1&search=SC001
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m200[39m http://localhost:8080/api/v1/seller-codes/paged?page=0&size=1&search=SC001
+PAGE LOG: [DEBUG] Validation: Page Response: {"content":[{"id":1,"code":"SC001","status":"ACTIVE"}],"totalElements":1,"totalPages":1,"currentPage":0,"pageSize":10}
+PAGE LOG: [DEBUG] Validation: Found Match: {id: 1, code: SC001, status: ACTIVE}
+REQ: POST http://localhost:5173/__client-errors
+PAGE LOG: [DEBUG] Seller code check result: {isValid: true}
+REQ: POST http://localhost:5173/__client-errors
+PAGE LOG: [DEBUG] Triggering Create Mutation
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/memberships
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:8080/api/v1/memberships
+[MOCK] Intercepted Memberships: POST http://localhost:8080/api/v1/memberships
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m201[39m http://localhost:8080/api/v1/memberships
+PAGE LOG: [DEBUG] Create Mutation Success - Navigating
+REQ: POST http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+REQ: GET http://localhost:5173/api/v1/me/locale
+PAGE LOG: [SDK Interceptor] Request URL: http://localhost:8080/api/v1/memberships/paged?page=0&size=10&sort=createdAt%2Cdesc
+PAGE LOG: [SDK Interceptor] Tokens: LOADED
+PAGE LOG: [SDK Interceptor] Adding Authorization header
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: POST http://localhost:5173/__client-errors
+REQ: GET http://localhost:8080/api/v1/memberships/paged?page=0&size=10&sort=createdAt%2Cdesc
+[MOCK] Intercepted Memberships: GET http://localhost:8080/api/v1/memberships/paged?page=0&size=10&sort=createdAt%2Cdesc
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+RES: [33m200[39m http://localhost:8080/api/v1/memberships/paged?page=0&size=10&sort=createdAt%2Cdesc
+RES: [33m200[39m http://localhost:5173/api/v1/me/locale
+PAGE LOG: ✅ i18n: Backend locale loaded: en 
+REQ: POST http://localhost:5173/__client-errors
+RES: [33m204[39m http://localhost:5173/__client-errors
+  ✓  1 tests\e2e\memberships\membership-success.spec.ts:22:5 › Membership Success Flow › should create a membership successfully (2.8s)
 
-
-  1) tests\e2e\ui\table-transition.spec.ts:9:1 › should apply smooth opacity transition during fetching 
-
-    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
-
-    Locator: getByTestId('data-table-wrapper')
-    Expected string: [32m"[7mtru[27me"[39m
-    Received string: [31m"[7mfals[27me"[39m
-    Timeout: 5000ms
-
-    Call log:
-    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
-    [2m  - waiting for getByTestId('data-table-wrapper')[22m
-    [2m    7 × locator resolved to <div data-fetching="false" data-testid="data-table-wrapper" class="w-full transition-all duration-500 ease-in-out">…</div>[22m
-    [2m      - unexpected value "false"[22m
-
-
-      31 |
-      32 |     // Wait for the fetching state to be active
-    > 33 |     await expect(wrapper).toHaveAttribute('data-fetching', 'true', { timeout: 5000 })
-         |                           ^
-      34 |
-      35 |     // Detect timing: transition starts. Measure between 100ms and 400ms.
-      36 |     // We expect opacity to be decreasing but not finished.
-        at D:\zProyectos\01Java\poetry\poetry-frontend\tests\e2e\ui\table-transition.spec.ts:33:27
-
-    Error Context: test-results\ui-table-transition-should-036c3--transition-during-fetching\error-context.md
-
-  1 failed
-    tests\e2e\ui\table-transition.spec.ts:9:1 › should apply smooth opacity transition during fetching 
+  1 passed (4.4s)

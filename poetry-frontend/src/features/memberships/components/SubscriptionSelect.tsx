@@ -26,11 +26,15 @@ export default function SubscriptionSelect({
         {t('ui.memberships.form.subscription.label')}
       </label>
       <Select
+        data-testid="subscription-select"
         value={value}
         onChange={(e) => {
           onChange(Number(e.target.value))
         }}
       >
+        <option value={0} disabled>
+          {t('ui.memberships.form.subscription.placeholder')}
+        </option>
         {subscriptions.map((s) => (
           <option key={s.id} value={s.id}>
             {s.name}

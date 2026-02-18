@@ -21,7 +21,7 @@ interface Props {
   readonly onUserChange: (userId: number) => void
   readonly onSubscriptionChange: (subscriptionId: number) => void
   readonly onSellerCodeChange: (code: string) => void
-  readonly onStatusChange: (status: 'active' | 'inactive') => void
+  readonly onStatusChange: (status: 'ACTIVE' | 'INACTIVE') => void
   readonly t: (key: string) => string
 }
 

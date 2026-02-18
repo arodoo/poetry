@@ -25,7 +25,7 @@ export const CreateMembershipSchema: z.ZodType<CreateMembershipInput> =
     sellerCode: z.string().min(1, 'memberships.validation.sellerCode'),
     zoneIds: z.array(z.number()).optional(),
     allZones: z.boolean().optional(),
-    status: z.enum(['active', 'inactive']).optional(),
+    status: z.enum(['ACTIVE', 'INACTIVE']).optional(),
   }) as z.ZodType<CreateMembershipInput>
 
 /**
@@ -40,5 +40,5 @@ export const UpdateMembershipSchema: z.ZodType<UpdateMembershipInput> =
     sellerCode: z.string().min(1).optional(),
     zoneIds: z.array(z.number()).optional(),
     allZones: z.boolean().optional(),
-    status: z.enum(['active', 'inactive']).optional(),
+    status: z.enum(['ACTIVE', 'INACTIVE']).optional(),
   }) as z.ZodType<UpdateMembershipInput>

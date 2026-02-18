@@ -25,7 +25,7 @@ export function createEditSubmitHandler(
       userId: values.userId,
       subscriptionId: values.subscriptionId,
       sellerCode: values.sellerCode,
-      status: values.status,
+      status: values.status?.toUpperCase() as 'ACTIVE' | 'INACTIVE',
       allZones: values.allZones,
       zoneIds: values.zoneIds,
     })

@@ -7,8 +7,8 @@ import type { ReactElement } from 'react'
 import { Select } from '../../../ui/Select/Select'
 
 interface Props {
-  value: 'active' | 'inactive'
-  onChange: (s: 'active' | 'inactive') => void
+  value: 'ACTIVE' | 'INACTIVE'
+  onChange: (s: 'ACTIVE' | 'INACTIVE') => void
   t: (key: string) => string
 }
 
@@ -25,11 +25,11 @@ export default function StatusSelect({
       <Select
         value={value}
         onChange={(e) => {
-          onChange(e.target.value as 'active' | 'inactive')
+          onChange(e.target.value as 'ACTIVE' | 'INACTIVE')
         }}
       >
-        <option value="active">{t('ui.memberships.status.active')}</option>
-        <option value="inactive">{t('ui.memberships.status.inactive')}</option>
+        <option value="ACTIVE">{t('ui.memberships.status.active')}</option>
+        <option value="INACTIVE">{t('ui.memberships.status.inactive')}</option>
       </Select>
     </div>
   )

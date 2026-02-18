@@ -9,9 +9,12 @@ package com.poetry.poetry_backend.application.fingerprint.usecase.query;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 
+@Transactional(readOnly = true)
 public class GetAllFingerprintsUseCase {
   private final FingerprintQueryPort queryPort;
 

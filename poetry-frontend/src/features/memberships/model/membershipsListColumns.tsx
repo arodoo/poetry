@@ -46,14 +46,17 @@ export function buildMembershipsListColumns(
       header: t('ui.memberships.columns.status'),
       width: 'sm',
       accessor: (m: MembershipResponse): ReactElement => (
-        <Badge tone={m.status === 'active' ? 'success' : 'neutral'} size="sm">
-          {t('ui.memberships.status.' + (m.status ?? 'inactive'))}
+        <Badge
+          tone={m.status?.toLowerCase() === 'active' ? 'success' : 'neutral'}
+          size="sm"
+        >
+          {t('ui.memberships.status.' + (m.status?.toLowerCase() ?? 'inactive'))}
         </Badge>
       ),
       sortValue: (row: MembershipResponse): string => row.status ?? '',
       filterOptions: [
-        { value: 'active', label: t('ui.memberships.status.active') },
-        { value: 'inactive', label: t('ui.memberships.status.inactive') },
+        { value: 'ACTIVE', label: t('ui.memberships.status.active') },
+        { value: 'INACTIVE', label: t('ui.memberships.status.inactive') },
       ],
     },
     {

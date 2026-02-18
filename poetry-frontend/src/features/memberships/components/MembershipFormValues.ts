@@ -10,5 +10,5 @@ export interface MembershipFormValues {
   readonly sellerCode: string
   readonly zoneIds: readonly number[]
   readonly allZones: boolean
-  readonly status: 'active' | 'inactive'
+  readonly status: 'ACTIVE' | 'INACTIVE'
 }

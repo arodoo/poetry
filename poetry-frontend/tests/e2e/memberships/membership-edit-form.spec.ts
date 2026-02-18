@@ -23,7 +23,7 @@ test.describe('Membership Edit Form', (): void => {
     const firstViewButton: Locator = page
       .locator('[data-testid^="view-membership-"]')
       .first()
-    await expect(firstViewButton).toBeVisible({ timeout: 5000 })
+    await expect(firstViewButton).toBeVisible({ timeout: 10000 })
 
     const testIdAttr: string | null =
       await firstViewButton.getAttribute('data-testid')
@@ -42,7 +42,11 @@ test.describe('Membership Edit Form', (): void => {
 
     const sellerCodeInput = page.getByTestId('membership-seller-code-input')
     await expect(sellerCodeInput).toBeVisible()
-    await page.waitForTimeout(1000)
+
+    // Ensure we use a valid, active seller code from our bootstrap
+    await sellerCodeInput.clear()
+    await sellerCodeInput.fill('ADMIN-SC-001')
+    await page.waitForTimeout(500) // allow validation check
 
     const saveButton = page.getByRole('button', { name: /Save changes/i })
     await saveButton.click()

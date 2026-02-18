@@ -36,8 +36,7 @@ public class FingerprintEntity {
   @Column(nullable = false)
   private Long userId;
 
-  @Lob
-  @Column(name = "fmd")
+  @Column(name = "fmd", columnDefinition = "TEXT")
   private String fmd;
 
   @Enumerated(EnumType.STRING)

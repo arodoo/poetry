@@ -37,7 +37,9 @@ export async function fetchUserMemberships(
 
 export async function fetchMembershipsList(): Promise<MembershipResponse[]> {
   const response = await listMembershipsSdk()
-  if (!response.data) return []
+  if (!response.data) {
+    throw new Error('Failed to fetch memberships list')
+  }
   return response.data
 }
 
@@ -64,6 +66,9 @@ export async function fetchMembershipsPage(
 export async function fetchMembershipById(
   id: string
 ): Promise<MembershipResponse> {
+  if (import.meta.env.DEV) {
+    console.log(`[membershipsQueries] fetchMembershipById calling with id:`, id)
+  }
   const response = await getMembershipByIdSdk({
     path: { id: Number(id) },
   })
