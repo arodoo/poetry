@@ -7,6 +7,7 @@ import type { SellerCodeDetail } from '../model/SellerCodesSchemas'
 import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
 import type { DetailViewItem } from '../../../ui/DetailView/DetailView'
 import { Badge } from '../../../ui/Badge/Badge'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function buildSellerCodeDetailSections(
   sellerCode: SellerCodeDetail,
@@ -44,23 +45,11 @@ export function buildSellerCodeDetailSections(
       items: [
         {
           label: t('ui.sellerCodes.detail.field.createdAt'),
-          value:
-            typeof (sellerCode as unknown as { createdAt?: string })
-              .createdAt === 'string'
-              ? new Date(
-                  (sellerCode as unknown as { createdAt: string }).createdAt
-                ).toLocaleString()
-              : '-',
+          value: formatDate((sellerCode as any).createdAt),
         },
         {
           label: t('ui.sellerCodes.detail.field.updatedAt'),
-          value:
-            typeof (sellerCode as unknown as { updatedAt?: string })
-              .updatedAt === 'string'
-              ? new Date(
-                  (sellerCode as unknown as { updatedAt: string }).updatedAt
-                ).toLocaleString()
-              : '-',
+          value: formatDate((sellerCode as any).updatedAt),
         },
         {
           label: t('ui.sellerCodes.detail.field.version'),

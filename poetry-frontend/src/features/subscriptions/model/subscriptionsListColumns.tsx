@@ -10,6 +10,7 @@ import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { SubscriptionSummary } from '../model/SubscriptionsSchemas'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function buildSubscriptionsListColumns(
   locale: string,
@@ -20,8 +21,7 @@ export function buildSubscriptionsListColumns(
       key: 'createdAt',
       header: t('ui.subscriptions.columns.createdAt'),
       width: 'md',
-      accessor: (row: SubscriptionSummary): string =>
-        row.createdAt ? new Date(row.createdAt).toLocaleDateString(locale) : '-',
+      accessor: (row: SubscriptionSummary): string => formatDate(row.createdAt),
       sortValue: (row: SubscriptionSummary): string => row.createdAt ?? '',
     },
     {

@@ -5,6 +5,7 @@
  */
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { FingerprintResponse } from '../model/FingerprintSchemas'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function buildFingerprintColumns(
   t: (key: string) => string
@@ -40,8 +41,7 @@ export function buildFingerprintColumns(
       key: 'enrolledAt',
       header: t('ui.fingerprints.columns.enrolledAt'),
       width: 'md',
-      accessor: (item: FingerprintResponse) =>
-        item.enrolledAt ? new Date(item.enrolledAt).toLocaleString() : '-',
+      accessor: (item: FingerprintResponse) => formatDate(item.enrolledAt),
       sortValue: (item: FingerprintResponse) =>
         item.enrolledAt ? new Date(item.enrolledAt).getTime() : 0,
     },

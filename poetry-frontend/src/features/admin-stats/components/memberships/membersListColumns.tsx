@@ -7,6 +7,7 @@
 // i18n-ignore
 import type { DataTableColumn } from '../../../../ui/DataTable/DataTable'
 import type { MembershipDetail } from '../../../../api/generated'
+import { formatDate } from '../../../../shared/utils/dateUtils'
 import { MemberStatusBadge } from './MemberStatusBadge'
 
 // i18n-ignore
@@ -44,12 +45,10 @@ export function buildMembersColumns(
       accessor: (row: MembershipDetail) => (
         <div className="text-[var(--color-textMuted)]">
           <div>
-            {t('ui.adminStats.table.start')}:{' '}
-            {row.startDate ? new Date(row.startDate).toLocaleDateString() : '-'}
+            {t('ui.adminStats.table.start')}: {formatDate(row.startDate)}
           </div>
           <div>
-            {t('ui.adminStats.table.end')}:{' '}
-            {row.endDate ? new Date(row.endDate).toLocaleDateString() : '-'}
+            {t('ui.adminStats.table.end')}: {formatDate(row.endDate)}
           </div>
         </div>
       ),

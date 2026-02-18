@@ -10,6 +10,7 @@ import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { SellerCodeSummary } from '../model/SellerCodesSchemas'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function buildSellerCodesListColumns(
   locale: string,
@@ -20,10 +21,7 @@ export function buildSellerCodesListColumns(
       key: 'createdAt',
       header: t('ui.sellerCodes.columns.createdAt'),
       width: 'md',
-      accessor: (row: SellerCodeSummary): string =>
-        row.createdAt
-          ? new Date(row.createdAt).toLocaleDateString(locale)
-          : '-',
+      accessor: (row: SellerCodeSummary): string => formatDate(row.createdAt),
       sortValue: (row: SellerCodeSummary): string => row.createdAt ?? '',
     },
     {

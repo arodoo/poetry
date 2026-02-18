@@ -9,6 +9,7 @@ import { Inline } from '../../../ui/Inline/Inline'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { UserSummary } from '../model/UsersSchemas'
 import { UserListActions } from '../components/list/UserListActions'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function buildUsersListColumns(
   locale: string,
@@ -19,10 +20,7 @@ export function buildUsersListColumns(
       key: 'createdAt',
       header: t('ui.users.columns.createdAt'),
       width: 'md',
-      accessor: (row: UserSummary): string =>
-        row.createdAt
-          ? new Date(row.createdAt).toLocaleDateString(locale)
-          : '-',
+      accessor: (row: UserSummary): string => formatDate(row.createdAt),
       sortValue: (row: UserSummary): string =>
         row.createdAt ?? '',
     },

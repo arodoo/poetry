@@ -12,6 +12,7 @@ import { Heading } from '../../../ui/Heading/Heading'
 import { Text } from '../../../ui/Text/Text'
 import { useHardwareStatusQuery } from '../hooks/useHardwareStatusQuery'
 import { HardwareStatusCard } from '../components/HardwareStatusCard'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function HardwareStatusPage(): ReactElement {
   const t = useT()
@@ -51,7 +52,7 @@ export function HardwareStatusPage(): ReactElement {
           {t('ui.hardware.status.subtitle')}
         </Text>
         <div className="max-w-md">
-          <HardwareStatusCard status={data} lastCheck={new Date(dataUpdatedAt)} />
+          <HardwareStatusCard status={data} lastCheck={formatDate(dataUpdatedAt)} />
           <Text size="sm" className="mt-4 text-center text-[var(--color-text-muted)]">
             {t('ui.hardware.status.reconnecting', { seconds: countdown })}
           </Text>

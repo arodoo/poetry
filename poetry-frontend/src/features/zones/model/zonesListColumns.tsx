@@ -12,6 +12,7 @@ import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { ZoneResponse } from '../model/ZonesSchemas'
 import type { I18nKey } from '../../../shared/i18n/generated/keys'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { formatDate } from '../../../shared/utils/dateUtils'
 
 export function buildZonesListColumns(
   locale: string,
@@ -22,10 +23,7 @@ export function buildZonesListColumns(
       key: 'createdAt',
       header: t('ui.zones.columns.createdAt'),
       width: 'md',
-      accessor: (item: ZoneResponse): string =>
-        item.createdAt
-          ? new Date(item.createdAt).toLocaleDateString(locale)
-          : '-',
+      accessor: (item: ZoneResponse): string => formatDate(item.createdAt),
       sortValue: (item: ZoneResponse): string => item.createdAt ?? '',
     },
     {

@@ -15,7 +15,7 @@ import type { HardwareStatus } from '../model/hardwareStatusSchema'
 
 interface Props {
   status: HardwareStatus
-  lastCheck: Date
+  lastCheck: string
 }
 
 export function HardwareStatusCard({ status, lastCheck }: Props): ReactElement {
@@ -45,7 +45,7 @@ export function HardwareStatusCard({ status, lastCheck }: Props): ReactElement {
           )}
           <StatusRow
             label={t('ui.hardware.status.lastCheck')}
-            value={lastCheck.toLocaleTimeString()}
+            value={lastCheck}
           />
         </div>
       </CardBody>

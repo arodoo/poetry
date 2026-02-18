@@ -3,6 +3,7 @@ import { Button } from '../../../ui/Button/Button'
 import { Badge } from '../../../ui/Badge/Badge'
 import { Inline } from '../../../ui/Inline/Inline'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
+import { formatDate } from '../../../shared/utils/dateUtils'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import type { MembershipResponse } from '../../../api/generated'
 
@@ -54,8 +55,7 @@ export function buildMembershipsListColumns(
       key: 'createdAt',
       header: t('ui.memberships.columns.createdAt'),
       width: 'md',
-      accessor: (m: MembershipResponse): string =>
-        m.createdAt ? new Date(m.createdAt).toLocaleDateString(locale) : '-',
+      accessor: (m: MembershipResponse): string => formatDate(m.createdAt),
       sortValue: (row: MembershipResponse): string => row.createdAt ?? '',
     },
     {
