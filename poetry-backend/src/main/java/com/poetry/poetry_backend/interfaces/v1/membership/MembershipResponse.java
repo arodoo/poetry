@@ -19,8 +19,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record MembershipResponse(
         @Schema(description = "Membership ID", example = "1") Long id,
         @Schema(description = "User ID", example = "5") Long userId,
+        @Schema(description = "User name", example = "John Doe") String userName,
         @Schema(description = "Subscription ID", example = "2") Long subscriptionId,
+        @Schema(description = "Subscription name", example = "Premium Plan") String subscriptionName,
         @Schema(description = "Seller code", example = "SC-2024-001") String sellerCode,
+        @Schema(description = "Seller name", example = "Jane Smith") String sellerName,
         @Schema(description = "Zone IDs", example = "[1, 3, 5]") Set<Long> zoneIds,
         @Schema(description = "All zones flag", example = "false") Boolean allZones,
         @Schema(description = "Status", example = "active") String status,
@@ -31,8 +34,11 @@ public record MembershipResponse(
         return new MembershipResponse(
                 m.id(),
                 m.userId(),
+                m.userName(),
                 m.subscriptionId(),
+                m.subscriptionName(),
                 m.sellerCode(),
+                m.sellerName(),
                 m.zoneIds(),
                 m.allZones(),
                 m.status(),

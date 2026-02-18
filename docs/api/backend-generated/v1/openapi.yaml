@@ -2698,15 +2698,27 @@ components:
           description: User ID
           format: int64
           example: 5
+        userName:
+          type: string
+          description: User name
+          example: John Doe
         subscriptionId:
           type: integer
           description: Subscription ID
           format: int64
           example: 2
+        subscriptionName:
+          type: string
+          description: Subscription name
+          example: Premium Plan
         sellerCode:
           type: string
           description: Seller code
           example: SC-2024-001
+        sellerName:
+          type: string
+          description: Seller name
+          example: Jane Smith
         zoneIds:
           uniqueItems: true
           type: array
@@ -3854,12 +3866,12 @@ components:
     PageEventResponse:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         first:
           type: boolean
         last:
@@ -3893,10 +3905,10 @@ components:
           $ref: '#/components/schemas/SortObject'
         paged:
           type: boolean
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
         unpaged:

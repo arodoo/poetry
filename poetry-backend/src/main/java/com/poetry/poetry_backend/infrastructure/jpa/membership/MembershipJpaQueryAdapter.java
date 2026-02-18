@@ -33,16 +33,30 @@ public class MembershipJpaQueryAdapter implements MembershipQueryPort {
   }
 
   private static final java.util.Set<String> SORTABLE = java.util.Set.of(
-      "status", "sellerCode", "createdAt");
+      "status", "sellerCode", "createdAt",
+      "user.firstName", "subscription.name", "sellerInfo.user.firstName");
+
+  private static final java.util.Map<String, String> SORT_MAPPING = java.util.Map.of(
+      "userName", "user.firstName",
+      "subscriptionName", "subscription.name",
+      "sellerName", "sellerInfo.user.firstName");
 
   public PageResult<Membership> findAllPaged(
       int page,
       int size,
       String search,
       String sort) {
+    String actualSort = sort;
+    if (sort != null) {
+      String[] parts = sort.split(",", 2);
+      String field = parts[0].trim();
+      if (SORT_MAPPING.containsKey(field)) {
+        actualSort = SORT_MAPPING.get(field) + (parts.length > 1 ? "," + parts[1] : "");
+      }
+    }
+
     org.springframework.data.domain.Sort ordering = com.poetry.poetry_backend.infrastructure.jpa.common.SortParser
-        .parse(
-            sort, SORTABLE);
+        .parse(actualSort, SORTABLE);
     Pageable pageable = PageRequest.of(page, size, ordering);
     Page<MembershipEntity> entityPage = (search != null && !search.isBlank())
         ? repo.searchActive(search, pageable)

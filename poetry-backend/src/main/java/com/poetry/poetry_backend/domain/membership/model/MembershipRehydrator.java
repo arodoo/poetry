@@ -12,13 +12,17 @@ import java.time.Instant;
 import java.util.Set;
 
 public final class MembershipRehydrator {
-  private MembershipRehydrator() { }
+  private MembershipRehydrator() {
+  }
 
   public static Membership rehydrate(
       Long id,
       Long userId,
+      String userName,
       Long subscriptionId,
+      String subscriptionName,
       String sellerCode,
+      String sellerName,
       Set<Long> zoneIds,
       Boolean allZones,
       String status,
@@ -29,8 +33,11 @@ public final class MembershipRehydrator {
     return new Membership(
         id,
         userId,
+        userName,
         subscriptionId,
+        subscriptionName,
         sellerCode,
+        sellerName,
         zoneIds != null ? zoneIds : Set.of(),
         allZones != null ? allZones : false,
         status == null || status.isBlank() ? "active" : status,

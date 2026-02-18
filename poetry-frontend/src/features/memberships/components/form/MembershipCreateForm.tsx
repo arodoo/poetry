@@ -8,7 +8,7 @@ import { type ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Stack } from '../../../../ui/Stack/Stack'
 import { Button } from '../../../../ui/Button/Button'
-import { Alert } from '../../../../ui/Alert/Alert'
+import { useToast } from '../../../../shared/toast/toastContext'
 import { useT } from '../../../../shared/i18n/useT'
 import { useLocale } from '../../../../shared/i18n/hooks/useLocale'
 import UserSearchField from './UserSearchField'
@@ -27,26 +27,25 @@ export default function MembershipCreateForm(): ReactElement {
   const validation = useMembershipValidation()
   const createMutation = useCreateMembershipMutation()
 
+  const { push } = useToast()
   const [selectedUser, setSelectedUser] = useState<UserResponse | undefined>()
   const [subscriptionId, setSubscriptionId] = useState<number>(0)
   const [sellerCode, setSellerCode] = useState('')
-  const [error, setError] = useState<string | undefined>()
   const [eligibilityPassed, setEligibilityPassed] = useState(false)
 
   const handleUserSelect = async (user: UserResponse) => {
     setSelectedUser(user)
     setEligibilityPassed(false)
-    setError(undefined)
 
     try {
       const result = await validation.checkUserEligibility(user.id!)
       if (!result.isValid) {
-        setError(t(result.errorKey!))
+        push(t(result.errorKey!))
       } else {
         setEligibilityPassed(true)
       }
     } catch (err) {
-      setError(t('ui.memberships.toast.error'))
+      push(t('ui.memberships.toast.error'))
       console.error('Eligibility check failed:', err)
     }
   }
@@ -57,10 +56,9 @@ export default function MembershipCreateForm(): ReactElement {
       return
     }
 
-    setError(undefined)
     const codeResult = await validation.checkSellerCode(sellerCode)
     if (!codeResult.isValid) {
-      setError(t(codeResult.errorKey!))
+      push(t(codeResult.errorKey!))
       return
     }
 
@@ -75,10 +73,11 @@ export default function MembershipCreateForm(): ReactElement {
       },
       {
         onSuccess: () => {
+          push(t('ui.memberships.toast.created'))
           navigate(`/${locale}/memberships`)
         },
         onError: () => {
-          setError(t('ui.memberships.toast.error'))
+          push(t('ui.memberships.toast.error'))
         },
       }
     )
@@ -87,12 +86,6 @@ export default function MembershipCreateForm(): ReactElement {
   return (
     <form onSubmit={handleSubmit} data-testid="membership-creation-form">
       <Stack gap="lg">
-        {error && (
-          <Alert status="error" data-testid="eligibility-error">
-            {error}
-          </Alert>
-        )}
-
         <UserSearchField onSelect={handleUserSelect} selectedUser={selectedUser} />
 
         {validation.isValidating && (

@@ -19,8 +19,11 @@ class MembershipTest {
     Membership m = new Membership(
         1L,
         10L,
+        "User One",
         20L,
+        "Premium",
         "seller-code",
+        "Seller Name",
         Set.of(),
         Boolean.FALSE,
         "active",

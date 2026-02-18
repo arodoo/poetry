@@ -14,8 +14,11 @@ import java.util.Set;
 public record Membership(
     Long id,
     Long userId,
+    String userName,
     Long subscriptionId,
+    String subscriptionName,
     String sellerCode,
+    String sellerName,
     Set<Long> zoneIds,
     Boolean allZones,
     String status,

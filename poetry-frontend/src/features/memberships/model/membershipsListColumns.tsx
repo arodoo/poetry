@@ -12,34 +12,25 @@ export function buildMembershipsListColumns(
 ): readonly DataTableColumn<MembershipResponse>[] {
   return [
     {
-      key: 'id',
-      header: t('ui.memberships.columns.id'),
-      width: 'xs',
-      accessor: (item: MembershipResponse) => String(item.id ?? '-'),
-      sortValue: (row: MembershipResponse): number => row.id ?? 0,
-    },
-    {
-      key: 'userId',
-      header: t('ui.memberships.columns.userId'),
-      width: 'sm',
-      accessor: (row: MembershipResponse): string =>
-        String(row.userId ?? ''),
-      sortValue: (row: MembershipResponse): number => row.userId ?? 0,
-    },
-    {
-      key: 'subscriptionId',
-      header: t('ui.memberships.columns.subscriptionId'),
+      key: 'userName',
+      header: t('ui.memberships.columns.user'),
       width: 'md',
-      accessor: (row: MembershipResponse): string =>
-        String(row.subscriptionId ?? ''),
-      sortValue: (row: MembershipResponse): number => row.subscriptionId ?? 0,
+      accessor: (row: MembershipResponse): string => row.userName ?? '-',
+      sortValue: (row: MembershipResponse): string => row.userName ?? '',
     },
     {
-      key: 'sellerCode',
-      header: t('ui.memberships.columns.sellerCode'),
+      key: 'subscriptionName',
+      header: t('ui.memberships.columns.subscription'),
       width: 'md',
-      accessor: (row: MembershipResponse): string => row.sellerCode ?? '',
-      sortValue: (row: MembershipResponse): string => row.sellerCode ?? '',
+      accessor: (row: MembershipResponse): string => row.subscriptionName ?? '-',
+      sortValue: (row: MembershipResponse): string => row.subscriptionName ?? '',
+    },
+    {
+      key: 'sellerName',
+      header: t('ui.memberships.columns.seller'),
+      width: 'md',
+      accessor: (row: MembershipResponse): string => row.sellerName ?? '-',
+      sortValue: (row: MembershipResponse): string => row.sellerName ?? '',
     },
     {
       key: 'status',

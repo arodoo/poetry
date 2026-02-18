@@ -14,6 +14,10 @@ import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCodeEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.subscription.SubscriptionEntity;
+import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
+
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,16 +37,26 @@ public class MembershipEntity {
   @Column(nullable = false)
   private Long userId;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "userId", insertable = false, updatable = false)
+  private UserEntity user;
+
   @Column(nullable = false)
   private Long subscriptionId;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "subscriptionId", insertable = false, updatable = false)
+  private SubscriptionEntity subscription;
 
   @Column(nullable = false, length = 100)
   private String sellerCode;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "sellerCode", referencedColumnName = "code", insertable = false, updatable = false)
+  private SellerCodeEntity sellerInfo;
+
   @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(
-      name = "membership_zones",
-      joinColumns = @JoinColumn(name = "membership_id"))
+  @CollectionTable(name = "membership_zones", joinColumns = @JoinColumn(name = "membership_id"))
   @Column(name = "zone_id")
   private Set<Long> zoneIds;
 

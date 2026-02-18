@@ -14,15 +14,15 @@ import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
+
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(
-    name = "seller_codes",
-    indexes = {@Index(name = "idx_code", columnList = "code", unique = true)})
+@Table(name = "seller_codes", indexes = { @Index(name = "idx_code", columnList = "code", unique = true) })
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -40,6 +40,10 @@ public class SellerCodeEntity {
 
   @Column(nullable = false)
   private Long userId;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "userId", insertable = false, updatable = false)
+  private UserEntity user;
 
   @Column(nullable = false, length = 20)
   private String status;
