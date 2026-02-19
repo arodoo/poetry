@@ -189,7 +189,7 @@ def create_thesis_docx():
         doc.add_page_break()
 
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v12.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v14.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 

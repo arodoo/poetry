@@ -15,3 +15,10 @@ Uncommon Vocabulary: Use synonyms that are not the statistical "first choice" of
 Atypical Transitions: Avoid overused logical connectors. Instead of "Therefore" or "Furthermore" (which are already prohibited), use more content-specific connectors or transitions through direct ideas.
 Use references from expert authors in the field and cite them.
 It's a doctoral thesis; write it with the same level of quality and scope.
+
+##IMPORTANT: ABOUT; The project consists of:
+Ergonomic management for access control and membership status at the Chely Boops dance academy in Orizaba.
+
+The problem is that upon payment, students receive a card with the expiration date and the signature of the person who sold it.
+
+The process is as follows: the student arrives, is registered, pays, their membership is activated, and each time they arrive, they place their finger on the screen and their status appears. Additionally, the owner has access to precise metrics for their students.
