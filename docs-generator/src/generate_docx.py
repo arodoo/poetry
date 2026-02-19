@@ -184,6 +184,95 @@ def _parse_blocks(doc, content):
             _add_body(doc, text)
 
 
+def _cover_line(doc, text, size, bold=False, space_before=0, space_after=6,
+                color=None):
+    """Add a single centered line to the cover page with precise typography."""
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(space_before)
+    p.paragraph_format.space_after = Pt(space_after)
+    p.paragraph_format.line_spacing = 1.15
+    run = p.add_run(text)
+    run.font.name = 'Arial'
+    run.font.size = Pt(size)
+    run.bold = bold
+    if color:
+        run.font.color.rgb = RGBColor(*color)
+    else:
+        run.font.color.rgb = RGBColor(20, 20, 60)
+    return p
+
+
+def _add_cover(doc, logo_path):
+    """Render the formal academic cover page (single page, no header/footer)."""
+    # University logo — centered, 5cm wide
+    logo_para = doc.add_paragraph()
+    logo_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    logo_para.paragraph_format.space_before = Pt(0)
+    logo_para.paragraph_format.space_after = Pt(18)
+    if os.path.exists(logo_path):
+        logo_run = logo_para.add_run()
+        logo_run.add_picture(logo_path, width=Cm(5))
+
+    # University name
+    _cover_line(doc,
+                'UNIVERSIDAD TECNOLÓGICA DEL CENTRO DE VERACRUZ',
+                13, bold=True, space_before=0, space_after=4)
+    _cover_line(doc,
+                'Ingeniería en Gestión y Desarrollo de Software',
+                11, space_before=0, space_after=36)
+
+    # Divider line — thin rule
+    divider = doc.add_paragraph()
+    divider.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    divider.paragraph_format.space_before = Pt(0)
+    divider.paragraph_format.space_after = Pt(36)
+    run_d = divider.add_run('─' * 54)
+    run_d.font.name = 'Arial'
+    run_d.font.size = Pt(10)
+    run_d.font.color.rgb = RGBColor(100, 120, 180)
+
+    # Thesis title
+    _cover_line(doc,
+                'Sistema de Control de Acceso Biométrico con',
+                13, space_before=0, space_after=4)
+    _cover_line(doc,
+                'Arquitectura de Software Orientada a Dominio:',
+                13, space_before=0, space_after=4)
+    _cover_line(doc,
+                'el Caso Poetry',
+                13, bold=True, space_before=0, space_after=36)
+
+    # Academic type
+    _cover_line(doc,
+                'T  E  S  I  S',
+                16, bold=True, space_before=0, space_after=8,
+                color=(20, 20, 60))
+    _cover_line(doc,
+                'Para obtener el grado académico de:',
+                11, space_before=0, space_after=4)
+    _cover_line(doc,
+                'PROFESIONAL',
+                12, bold=True, space_before=0, space_after=36)
+
+    # Author block
+    _cover_line(doc,
+                'P  R  E  S  E  N  T  A:',
+                10, space_before=0, space_after=10,
+                color=(80, 80, 120))
+    _cover_line(doc,
+                'Arodi Emmanuel Haro Palacios',
+                13, bold=True, space_before=0, space_after=48)
+
+    # Date
+    _cover_line(doc,
+                'Cuitláhuac, Veracruz — 2025',
+                10, space_before=0, space_after=0,
+                color=(80, 80, 120))
+
+    doc.add_page_break()
+
+
 def create_thesis_docx():
     """Build and save the thesis-formatted document."""
     doc = docx.Document()
@@ -202,6 +291,12 @@ def create_thesis_docx():
     # Determine base content directory relative to this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     content_base = os.path.abspath(os.path.join(script_dir, '..', 'content'))
+    logo_path = os.path.abspath(
+        os.path.join(script_dir, '..', 'assets', 'logo utcv .png')
+    )
+
+    # Cover page (must come first, before any chapter)
+    _add_cover(doc, logo_path)
 
     # Chapters to process
     # Format: (Chapter Number, Title, Directory Name)
@@ -266,7 +361,7 @@ def create_thesis_docx():
 
     # Save to the root of the docs-generator module
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v24.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v25.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 
