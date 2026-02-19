@@ -52,6 +52,54 @@ enrollment operations.
 4. **Enrollment**: Frontend calls POST /enroll with FMD → Save to DB
 5. **Verification**: POST /verify with probe FMD → Match against DB templates
 
+## Fingerprint Listener (Real-time Banner)
+
+When a finger is placed on the reader from **any page**, a banner appears
+at the top-right corner for 60 seconds showing the user's name, email,
+and membership status. Unknown fingerprints show "Unrecognized fingerprint".
+
+### Architecture
+
+```
+FingerprintListenerProvider (App root)
+  └── useListenerLoop
+        └── loop: POST /capture (blocks) → POST /verify → push banner
+```
+
+### Key files
+
+| File | Purpose |
+|------|---------|
+| `src/features/fingerprint/FingerprintListenerProvider.tsx` | Global provider, starts/stops loop on auth status |
+| `src/features/fingerprint/hooks/useListenerLoop.ts` | Async loop: capture → verify → banner |
+| `src/shared/banner/BannerContext.tsx` | Fetches user + membership, manages 60s lifetime |
+| `src/shared/banner/BannerItem.tsx` | Renders banner (known user or unknown fingerprint) |
+
+### Loop behavior
+
+1. Calls `POST /capture` (blocks on backend until finger detected)
+2. On success, calls `POST /verify` with the captured FMD
+3. `matched: true` → banner with user name + membership
+4. `matched: false` → banner with "Unrecognized fingerprint"
+5. On error → waits 3s and retries
+
+### StrictMode safety
+
+Uses a **module-level** `let loopActive` flag (not `useRef`) so React 18
+StrictMode double-mount does not start two concurrent loops.
+
+### Backend: verify uses HID SDK
+
+`VerifyFingerprintUseCase` uses `HidCapturePort.compare()` (HID SDK native
+ANSI_378_2004 matching) — **not** SourceAFIS. Both probe and stored FMDs
+are decoded with URL-safe Base64 normalization (`-`→`+`, `_`→`/`).
+
+### FMD format notes
+
+- Captured FMDs may arrive in URL-safe Base64 (contains `-` and `_`)
+- `ProdHidCaptureAdapter.decodeFmd()` normalizes before decoding
+- Match score from HID SDK: lower = better (FAR-based), threshold = 21474
+
 ## SDK Requirements
 
 - HID Digital Persona SDK installed on backend server
