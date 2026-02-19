@@ -64,5 +64,20 @@
   "ui.fingerprints.simulator.log.title": "Registro de Accesos",
   "ui.fingerprints.simulator.log.clear": "Limpiar",
   "ui.fingerprints.simulator.log.empty": "Sin actividad aún",
-  "ui.fingerprints.simulator.captured": "Captura de huella realizada"
+  "ui.fingerprints.simulator.captured": "Captura de huella realizada",
+  "ui.fingerprints.actions.admin": "Panel de Administración",
+  "ui.fingerprints.admin.title": "Administración de Huellas",
+  "ui.fingerprints.admin.activeCount": "huellas activas",
+  "ui.fingerprints.admin.slotUsage.title": "Uso de Plantillas",
+  "ui.fingerprints.admin.slotUsage.used": "registradas",
+  "ui.fingerprints.admin.archived.title": "Huellas Archivadas",
+  "ui.fingerprints.admin.archived.empty": "No hay huellas archivadas",
+  "ui.fingerprints.admin.archived.restore": "Restaurar",
+  "ui.fingerprints.admin.archived.restoring": "Restaurando...",
+  "ui.fingerprints.admin.archived.table.id": "ID",
+  "ui.fingerprints.admin.archived.table.userId": "ID de Usuario",
+  "ui.fingerprints.admin.archived.table.archivedAt": "Archivada El",
+  "ui.fingerprints.admin.archived.table.action": "Acción",
+  "ui.fingerprints.admin.loading": "Cargando...",
+  "ui.fingerprints.admin.error": "Error al cargar"
 }

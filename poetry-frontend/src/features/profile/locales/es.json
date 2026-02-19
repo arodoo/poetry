@@ -10,5 +10,15 @@
   "ui.profile.summary.username.loading": "Guardando perfil…",
   "ui.profile.summary.error": "No pudimos cargar tu perfil ahora mismo.",
   "ui.profile.summary.empty": "Tus datos de perfil aún no están disponibles.",
-  "ui.profile.password.title": "Seguridad de la contraseña"
+  "ui.profile.password.title": "Seguridad de la contraseña",
+  "ui.profile.password.current": "Contraseña actual",
+  "ui.profile.password.new": "Nueva contraseña",
+  "ui.profile.password.confirm": "Confirmar nueva contraseña",
+  "ui.profile.password.submit": "Actualizar contraseña",
+  "ui.profile.password.show": "Mostrar contraseña",
+  "ui.profile.password.hide": "Ocultar contraseña",
+  "ui.profile.password.error.mismatch": "Las contraseñas no coinciden",
+  "ui.profile.password.error.current": "La contraseña actual es inválida",
+  "ui.profile.password.error.validation": "La nueva contraseña no cumple los requisitos",
+  "ui.profile.password.success": "Contraseña actualizada correctamente"
 }
