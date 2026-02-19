@@ -1,4 +1,5 @@
 {
   "ui.admin.title": "Administración",
-  "ui.admin.echo": "Eco"
+  "ui.admin.echo": "Eco",
+  "ui.admin.placeholder": "Sección de administración"
 }
