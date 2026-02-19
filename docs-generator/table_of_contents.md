@@ -35,7 +35,6 @@
 - 3.3 Diseño de la Base de Datos (Esquema E-R)
 - 3.4 Integración de API (OpenAPI/V3)
 - 3.5 Desarrollo del Frontend y Experiencia de Usuario (UX)
-- 3.6 Implementación Móvil
 
 ## CAPÍTULO 4: RESULTADOS, PRUEBAS Y CONCLUSIONES
 - 4.1 Estrategia de Pruebas (Unitarias, E2E con Playwright)

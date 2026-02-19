@@ -13,3 +13,5 @@ Dynamic Paragraphs: Do not structure paragraphs with the same number of sentence
 Increased Perplexity (Predictability Factor):
 Uncommon Vocabulary: Use synonyms that are not the statistical "first choice" of a model (e.g., instead of "facilitate," use "enable" or "streamline," as long as the context fits).
 Atypical Transitions: Avoid overused logical connectors. Instead of "Therefore" or "Furthermore" (which are already prohibited), use more content-specific connectors or transitions through direct ideas.
+Use references from expert authors in the field and cite them.
+It's a doctoral thesis; write it with the same level of quality and scope.

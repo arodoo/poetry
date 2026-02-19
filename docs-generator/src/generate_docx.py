@@ -155,24 +155,14 @@ def create_thesis_docx():
     content_base = os.path.abspath(os.path.join(script_dir, '..', 'content'))
 
     # Chapters to process
-    chapters = [
-        ('1', 'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 'capitulo_1', [
-            '1.1_introduccion.md', '1.2_antecedentes.md', 
-            '1.3_planteamiento_problema.md', '1.4_objetivos.md', 
-            '1.5_justificación.md', '1.6_alcances_limitaciones.md'
-        ]),
-        ('2', 'CAPÍTULO 2. MARCO TEÓRICO Y TECNOLÓGICO', 'capitulo_2', [
-            '2.1_ddd.md', '2.2_clean_architecture.md', '2.3_solid.md',
-            '2.4_tecnologias_backend.md', '2.5_tecnologias_frontend.md',
-            '2.6_base_de_datos.md', '2.7_herramientas_desarrollo.md'
-        ]),
-        ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3', [
-            '3.1_requerimientos.md', '3.2_arquitectura.md', 
-            '3.3_base_de_datos.md', '3.4_api.md', '3.5_frontend_ux.md'
-        ])
+    # Format: (Chapter Number, Title, Directory Name)
+    chapters_meta = [
+        ('1', 'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 'capitulo_1'),
+        ('2', 'CAPÍTULO 2. MARCO TEÓRICO Y TECNOLÓGICO', 'capitulo_2'),
+        ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3')
     ]
 
-    for num, title_text, subdir, files in chapters:
+    for num, title_text, subdir in chapters_meta:
         # Chapter title
         title = doc.add_heading(title_text, 0)
         title.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -181,11 +171,16 @@ def create_thesis_docx():
             run.font.color.rgb = RGBColor(0, 0, 0)
 
         chapter_dir = os.path.join(content_base, subdir)
+        if not os.path.exists(chapter_dir):
+            print(f'Skipping missing directory: {chapter_dir}')
+            continue
+
+        # Dynamic file loading: sorted by filename
+        files = sorted([f for f in os.listdir(chapter_dir) if f.endswith('.md')])
+        
         for filename in files:
             path = os.path.join(chapter_dir, filename)
-            if not os.path.exists(path):
-                print(f'Missing: {path}')
-                continue
+            print(f'Processing: {path}')
             with open(path, 'r', encoding='utf-8') as fh:
                 content = fh.read()
             _parse_blocks(doc, content)
