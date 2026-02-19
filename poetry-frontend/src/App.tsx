@@ -13,14 +13,17 @@ import { AppRouteTree } from './shared/routing/AppRoutes'
 import { ToastProvider } from './shared/toast/ToastProvider'
 import { BannerProvider } from './shared/banner/BannerContext'
 import { BannerList } from './shared/banner/BannerList'
+import { FingerprintListenerProvider } from './features/fingerprint/FingerprintListenerProvider'
 
 function App(): ReactElement {
   return (
     <BrowserRouter>
       <ToastProvider>
         <BannerProvider>
-          <AppRouteTree />
-          <BannerList />
+          <FingerprintListenerProvider>
+            <AppRouteTree />
+            <BannerList />
+          </FingerprintListenerProvider>
         </BannerProvider>
       </ToastProvider>
     </BrowserRouter>

@@ -38,6 +38,8 @@ export function BannerItem({ banner }: { banner: BannerData }): ReactElement {
       : t('ui.banner.status.active')
     : t('ui.banner.status.none')
 
+  const isUnknown = user === null
+
   return (
     <div key={banner.id} className={boxClasses}>
       <div className="flex justify-between items-start">
@@ -45,12 +47,20 @@ export function BannerItem({ banner }: { banner: BannerData }): ReactElement {
           <h4 className="font-bold text-[var(--color-text)] text-sm">
             {t('ui.banner.newRegistration')}
           </h4>
-          <p className="text-sm text-[var(--color-textMuted)] mt-1">
-            {user?.firstName ?? ''} {user?.lastName ?? ''}
-          </p>
-          <p className="text-xs text-[var(--color-textSubtle)]">
-            {user?.email ?? ''}
-          </p>
+          {isUnknown ? (
+            <p className="text-sm text-[var(--color-textMuted)] mt-1">
+              {t('ui.banner.unknown')}
+            </p>
+          ) : (
+            <>
+              <p className="text-sm text-[var(--color-textMuted)] mt-1">
+                {user?.firstName ?? ''} {user?.lastName ?? ''}
+              </p>
+              <p className="text-xs text-[var(--color-textSubtle)]">
+                {user?.email ?? ''}
+              </p>
+            </>
+          )}
         </div>
       </div>
       <div className="mt-2 pt-2 border-t border-[var(--color-border)]">

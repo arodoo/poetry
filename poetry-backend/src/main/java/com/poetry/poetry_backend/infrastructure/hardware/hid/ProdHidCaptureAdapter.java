@@ -34,7 +34,7 @@ public class ProdHidCaptureAdapter implements HidCapturePort {
     }
 
     @Override
-    public String capture(int timeoutMs) throws HidCaptureException {
+    public synchronized String capture(int timeoutMs) throws HidCaptureException {
         try {
             openReader();
             Reader.CaptureResult result = reader.Capture(
@@ -58,17 +58,34 @@ public class ProdHidCaptureAdapter implements HidCapturePort {
     @Override
     public int compare(String probeFmd, String storedFmd) throws HidCaptureException {
         try {
-            byte[] probeBytes = Base64.getDecoder().decode(probeFmd);
-            byte[] storedBytes = Base64.getDecoder().decode(storedFmd);
-            Fmd probe = UareUGlobal.GetImporter().ImportFmd(
-                    probeBytes, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
-            Fmd stored = UareUGlobal.GetImporter().ImportFmd(
-                    storedBytes, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
+            byte[] probeBytes = decodeFmd(probeFmd);
+            byte[] storedBytes = decodeFmd(storedFmd);
+            log.debug("probe len={} stored len={}", probeBytes.length, storedBytes.length);
+            Fmd probe = importFmd(probeBytes);
+            Fmd stored = importFmd(storedBytes);
             return UareUGlobal.GetEngine().Compare(probe, 0, stored, 0);
         } catch (UareUException e) {
-            log.error("Compare failed: {}", e.getMessage());
+            log.error("Compare UareU error: {}", e.getMessage());
             throw mapException(e);
+        } catch (Exception e) {
+            log.error("Compare SDK error: {} - probe[{}] stored[{}]",
+                    e.getMessage(), probeFmd.length(), storedFmd.length());
+            throw new HidCaptureException(
+                    HidCaptureException.HidErrorCode.UNKNOWN_ERROR, e.getMessage());
         }
+    }
+
+    private Fmd importFmd(byte[] bytes) throws UareUException {
+        return UareUGlobal.GetImporter().ImportFmd(
+                bytes, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
+    }
+
+    private byte[] decodeFmd(String fmd) {
+        String normalized = fmd.replace('-', '+').replace('_', '/');
+        int pad = normalized.length() % 4;
+        if (pad == 2) normalized += "==";
+        else if (pad == 3) normalized += "=";
+        return Base64.getDecoder().decode(normalized);
     }
 
     @Override
@@ -96,7 +113,7 @@ public class ProdHidCaptureAdapter implements HidCapturePort {
         }
     }
 
-    private void openReader() throws HidCaptureException {
+    private synchronized void openReader() throws HidCaptureException {
         try {
             if (reader != null)
                 return;

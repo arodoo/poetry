@@ -15,7 +15,7 @@ export interface BannerData {
 
 interface BannerContextType {
   banners: BannerData[]
-  push: (userId: number) => Promise<void>
+  push: (userId: number | null) => Promise<void>
   remove: (id: string) => void
 }
 

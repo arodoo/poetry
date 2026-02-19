@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
+import com.poetry.poetry_backend.application.fingerprint.port.HidCapturePort;
 import com.poetry.poetry_backend.application.fingerprint.usecase.VerifyFingerprintUseCase;
 import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.ArchiveFingerprintUseCase;
 import com.poetry.poetry_backend.application.fingerprint.usecase.lifecycle.DeleteFingerprintUseCase;
@@ -61,7 +62,8 @@ public class FingerprintBasicBeans {
 
   @Bean
   public VerifyFingerprintUseCase verifyFingerprintUseCase(
-      FingerprintQueryPort queryPort) {
-    return new VerifyFingerprintUseCase(queryPort);
+      FingerprintQueryPort queryPort,
+      HidCapturePort capturePort) {
+    return new VerifyFingerprintUseCase(queryPort, capturePort);
   }
 }

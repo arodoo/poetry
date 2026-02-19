@@ -35,6 +35,7 @@ export const commonEs: Record<string, string> = {
   'error.duplicate': 'Entrada duplicada detectada',
   'error.unexpected': 'Ocurrió un error inesperado',
   'ui.banner.newRegistration': 'Nueva inscripción',
+  'ui.banner.unknown': 'Huella no reconocida',
   'ui.banner.membership': 'Membresía:',
   'ui.banner.status.active': 'Activa',
   'ui.banner.status.expired': 'Vencida',

@@ -82,3 +82,6 @@ sdk/
 *.docx
 **/*.docx
 ~$*.docx
+
+# Claude AI worktrees (nested repos)
+.claude/

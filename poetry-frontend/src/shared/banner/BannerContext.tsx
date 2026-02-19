@@ -24,11 +24,16 @@ export function BannerProvider({
   }, [])
 
   const push = useCallback(
-    async (userId: number) => {
+    async (userId: number | null) => {
       try {
-        const user = await fetchUserById(userId.toString())
-        const memberships = await fetchMembershipsPage(0, 1, user.email)
-        const membership = memberships.content?.[0] ?? null
+        let user = null
+        let membership = null
+
+        if (userId !== null) {
+          user = await fetchUserById(userId.toString())
+          const memberships = await fetchMembershipsPage(0, 1, user.email)
+          membership = memberships.content?.[0] ?? null
+        }
 
         const id = crypto.randomUUID()
         const newBanner: BannerData = { id, user, membership }

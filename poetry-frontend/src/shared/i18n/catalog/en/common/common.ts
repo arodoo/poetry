@@ -35,6 +35,7 @@ export const commonEn: Record<string, string> = {
   'error.duplicate': 'Duplicate entry detected',
   'error.unexpected': 'An unexpected error occurred',
   'ui.banner.newRegistration': 'New Registration',
+  'ui.banner.unknown': 'Unrecognized fingerprint',
   'ui.banner.membership': 'Membership:',
   'ui.banner.status.active': 'Active',
   'ui.banner.status.expired': 'Expired',
