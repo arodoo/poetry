@@ -77,3 +77,8 @@ sdk/
 **/obj/
 **/Release/
 **/Debug/
+
+# Word / Office documents
+*.docx
+**/*.docx
+~$*.docx
