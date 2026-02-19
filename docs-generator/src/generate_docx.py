@@ -123,9 +123,11 @@ _ASSETS_DIR = os.path.abspath(
 )
 
 _FIGURE_MAP = {
-    'fig_arch': 'fig_arch.png',
-    'fig_erd': 'fig_erd.png',
+    'fig_arch':     'fig_arch.png',
+    'fig_erd':      'fig_erd.png',
     'fig_sequence': 'fig_sequence.png',
+    'fig_stack':    'fig_stack.png',
+    'fig_pyramid':  'fig_pyramid.png',
 }
 
 
@@ -238,9 +240,33 @@ def create_thesis_docx():
         
         doc.add_page_break()
 
+    # --- Índice de Figuras (List of Figures) — after References ---
+    h = doc.add_heading('ÍNDICE DE FIGURAS', level=1)
+    h.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    for run in h.runs:
+        run.font.underline = False
+
+    figures = [
+        ('Figura 3.2', 'Arquitectura de Contenedores del Sistema Poetry (C4 L2)'),
+        ('Figura 3.3', 'Esquema Entidad-Relación normalizado (3NF)'),
+        ('Figura 3.4', 'Secuencia de Autenticación y Control de Acceso Biométrico'),
+        ('Figura 3.5', 'Capas Tecnológicas del Sistema (generado con matplotlib)'),
+        ('Figura 4.1', 'Pirámide de Pruebas — Cohn, 2009'),
+    ]
+    for fig_num, fig_caption in figures:
+        p = doc.add_paragraph(style='List Bullet')
+        p.paragraph_format.line_spacing = 1.5
+        r1 = p.add_run(f'{fig_num}: ')
+        r1.bold = True
+        r1.font.name = 'Arial'
+        r1.font.size = Pt(12)
+        r2 = p.add_run(fig_caption)
+        r2.font.name = 'Arial'
+        r2.font.size = Pt(12)
+
     # Save to the root of the docs-generator module
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v22.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v24.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 

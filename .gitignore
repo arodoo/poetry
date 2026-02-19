@@ -85,3 +85,7 @@ sdk/
 
 # Claude AI worktrees (nested repos)
 .claude/
+
+# Thesis assets
+docs-generator/content/assets/
+*.docx
