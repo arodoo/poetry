@@ -10,6 +10,7 @@
   "ui.sellerCodes.status.loading": "Loading seller codes…",
   "ui.sellerCodes.status.error": "We could not load the seller codes list.",
   "ui.sellerCodes.status.empty": "No seller codes found",
+  "ui.sellerCodes.status.ACTIVE": "Active",
   "ui.sellerCodes.status.active": "Active",
   "ui.sellerCodes.status.inactive": "Inactive",
   "ui.sellerCodes.status.expired": "Expired",
