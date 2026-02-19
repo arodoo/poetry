@@ -255,20 +255,53 @@ def _add_cover(doc, logo_path):
                 'PROFESIONAL',
                 12, bold=True, space_before=0, space_after=36)
 
-    # Author block
-    _cover_line(doc,
-                'P  R  E  S  E  N  T  A:',
-                10, space_before=0, space_after=10,
+    # Author and Advisor block
+    _cover_line(doc, 'P  R  E  S  E  N  T  A:',
+                10, space_before=0, space_after=8,
                 color=(80, 80, 120))
-    _cover_line(doc,
-                'Arodi Emmanuel Haro Palacios',
-                13, bold=True, space_before=0, space_after=48)
+    _cover_line(doc, 'Arodi Emmanuel Haro Palacios',
+                13, bold=True, space_before=0, space_after=18)
+
+    _cover_line(doc, 'ASESOR DE TESIS:',
+                10, space_before=0, space_after=8,
+                color=(80, 80, 120))
+    _cover_line(doc, 'LUIS ROLANDO GUARNEROS NOLASCO',
+                12, bold=True, space_before=0, space_after=36)
 
     # Date
     _cover_line(doc,
-                'Cuitláhuac, Veracruz — 2025',
+                'Cuitláhuac, Veracruz — Abril 2026',
                 10, space_before=0, space_after=0,
                 color=(80, 80, 120))
+
+    doc.add_page_break()
+
+
+def _add_acknowledgments(doc):
+    """Render a dedicated formal Acknowledgments page."""
+    # Title - Heading 1 style
+    h = doc.add_heading('AGRADECIMIENTOS', level=1)
+    h.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    for run in h.runs:
+        run.font.underline = False
+        run.font.color.rgb = RGBColor(0, 0, 0)
+
+    # Content
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p.paragraph_format.line_spacing = 1.5
+    p.paragraph_format.space_before = Pt(12)
+
+    text = (
+        "Expreso mi más profundo agradecimiento a mi asesor de tesis, "
+        "el Mtro. Luis Rolando Guarneros Nolasco, por su guía técnica, "
+        "su paciencia y sus valiosas contribuciones que permitieron elevar "
+        "el estándar de esta investigación. Su visión sobre la ingeniería "
+        "de software ha sido fundamental para el desarrollo del Sistema Poetry."
+    )
+    run = p.add_run(text)
+    run.font.name = 'Arial'
+    run.font.size = Pt(12)
 
     doc.add_page_break()
 
@@ -295,8 +328,9 @@ def create_thesis_docx():
         os.path.join(script_dir, '..', 'assets', 'logo utcv .png')
     )
 
-    # Cover page (must come first, before any chapter)
+    # Cover page and Preliminaries
     _add_cover(doc, logo_path)
+    _add_acknowledgments(doc)
 
     # Chapters to process
     # Format: (Chapter Number, Title, Directory Name)
@@ -361,7 +395,7 @@ def create_thesis_docx():
 
     # Save to the root of the docs-generator module
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v25.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v26.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 
