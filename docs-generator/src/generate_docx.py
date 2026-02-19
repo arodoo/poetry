@@ -150,37 +150,49 @@ def create_thesis_docx():
     _configure_headings(doc)
     _set_page_numbers(doc)
 
-    # Chapter title
-    title = doc.add_heading(
-        'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 0
-    )
-    title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    for run in title.runs:
-        run.font.name = 'Arial'
-        run.font.color.rgb = RGBColor(0, 0, 0)
+    # Determine base content directory relative to this script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    content_base = os.path.abspath(os.path.join(script_dir, '..', 'content'))
 
-    chapter_dir = 'capitulo_1'
-    files = [
-        '1.1_introduccion.md',
-        '1.2_antecedentes.md',
-        '1.3_planteamiento_problema.md',
-        '1.4_objetivos.md',
-        '1.5_justificación.md',
-        '1.6_alcances_limitaciones.md',
+    # Chapters to process
+    chapters = [
+        ('1', 'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 'capitulo_1', [
+            '1.1_introduccion.md', '1.2_antecedentes.md', 
+            '1.3_planteamiento_problema.md', '1.4_objetivos.md', 
+            '1.5_justificación.md', '1.6_alcances_limitaciones.md'
+        ]),
+        ('2', 'CAPÍTULO 2. MARCO TEÓRICO Y TECNOLÓGICO', 'capitulo_2', [
+            '2.1_ddd.md', '2.2_clean_architecture.md', '2.3_solid.md',
+            '2.4_tecnologias_backend.md', '2.5_tecnologias_frontend.md',
+            '2.6_base_de_datos.md', '2.7_herramientas_desarrollo.md'
+        ])
     ]
 
-    for filename in files:
-        path = os.path.join(chapter_dir, filename)
-        if not os.path.exists(path):
-            print(f'Missing: {path}')
-            continue
-        with open(path, 'r', encoding='utf-8') as fh:
-            content = fh.read()
-        _parse_blocks(doc, content)
-        doc.add_paragraph()  # visual breathing room between sections
+    for num, title_text, subdir, files in chapters:
+        # Chapter title
+        title = doc.add_heading(title_text, 0)
+        title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        for run in title.runs:
+            run.font.name = 'Arial'
+            run.font.color.rgb = RGBColor(0, 0, 0)
 
-    doc.save('Tesis_Poetry_v10.docx')
-    print('Saved: Tesis_Poetry_v10.docx')
+        chapter_dir = os.path.join(content_base, subdir)
+        for filename in files:
+            path = os.path.join(chapter_dir, filename)
+            if not os.path.exists(path):
+                print(f'Missing: {path}')
+                continue
+            with open(path, 'r', encoding='utf-8') as fh:
+                content = fh.read()
+            _parse_blocks(doc, content)
+            doc.add_paragraph()  # visual breathing room between sections
+        
+        doc.add_page_break()
+
+    # Save to the root of the docs-generator module
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v11.docx'))
+    doc.save(output_path)
+    print(f'Saved: {output_path}')
 
 
 if __name__ == '__main__':
