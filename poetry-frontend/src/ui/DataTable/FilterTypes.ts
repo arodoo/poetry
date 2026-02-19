@@ -41,6 +41,9 @@ export function applyFilters<T extends Filterable>(
                                 String(i) === val
                         )
                     }
+                    if (typeof f === 'string') {
+                        return f.toLowerCase() === val.toLowerCase()
+                    }
                     return String(f ?? '') === val
                 }
             )

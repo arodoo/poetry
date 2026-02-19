@@ -37,20 +37,23 @@ export function buildSellerCodesListColumns(
       key: 'status',
       header: t('ui.sellerCodes.columns.status'),
       width: 'sm',
-      accessor: (row: SellerCodeSummary): ReactElement => (
-        <Badge
-          tone={
-            row.status === 'active'
-              ? 'success'
-              : row.status === 'inactive'
-                ? 'neutral'
-                : 'danger'
-          }
-          size="sm"
-        >
-          {t('ui.sellerCodes.status.' + (row.status ?? 'inactive'))}
-        </Badge>
-      ),
+      accessor: (row: SellerCodeSummary): ReactElement => {
+        const status = (row.status ?? 'inactive').toLowerCase();
+        return (
+          <Badge
+            tone={
+              status === 'active'
+                ? 'success'
+                : status === 'inactive'
+                  ? 'neutral'
+                  : 'danger'
+            }
+            size="sm"
+          >
+            {t('ui.sellerCodes.status.' + status)}
+          </Badge>
+        );
+      },
       sortValue: (row: SellerCodeSummary): string => row.status ?? '',
       filterOptions: [
         { value: 'active', label: t('ui.sellerCodes.status.active') },

@@ -46,11 +46,14 @@ export function buildUsersListColumns(
       key: 'status',
       header: t('ui.users.columns.status'),
       width: 'sm',
-      accessor: (row: UserSummary): ReactElement => (
-        <Badge tone={row.status === 'active' ? 'success' : 'neutral'} size="sm">
-          {t('ui.users.status.' + (row.status ?? 'inactive'))}
-        </Badge>
-      ),
+      accessor: (row: UserSummary): ReactElement => {
+        const status = (row.status ?? 'inactive').toLowerCase();
+        return (
+          <Badge tone={status === 'active' ? 'success' : 'neutral'} size="sm">
+            {t('ui.users.status.' + status)}
+          </Badge>
+        );
+      },
       filterOptions: [
         {
           value: 'active',

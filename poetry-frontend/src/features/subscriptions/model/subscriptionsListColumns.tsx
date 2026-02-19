@@ -55,14 +55,17 @@ export function buildSubscriptionsListColumns(
       key: 'status',
       header: t('ui.subscriptions.columns.status'),
       width: 'sm',
-      accessor: (item: SubscriptionSummary): ReactElement => (
-        <Badge
-          tone={item.status === 'active' ? 'success' : 'neutral'}
-          size="sm"
-        >
-          {t('ui.subscriptions.status.' + (item.status ?? 'inactive'))}
-        </Badge>
-      ),
+      accessor: (item: SubscriptionSummary): ReactElement => {
+        const status = (item.status ?? 'inactive').toLowerCase();
+        return (
+          <Badge
+            tone={status === 'active' ? 'success' : 'neutral'}
+            size="sm"
+          >
+            {t('ui.subscriptions.status.' + status)}
+          </Badge>
+        );
+      },
       sortValue: (row: SubscriptionSummary): string => row.status ?? '',
       filterOptions: [
         { value: 'active', label: t('ui.subscriptions.status.active') },

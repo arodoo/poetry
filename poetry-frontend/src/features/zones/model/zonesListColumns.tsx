@@ -47,15 +47,16 @@ export function buildZonesListColumns(
       header: t('ui.zones.columns.status'),
       width: 'sm',
       accessor: (item: ZoneResponse): ReactElement => {
+        const status = (item.status ?? 'unknown').toLowerCase();
         const statusKey =
-          item.status === 'active'
+          status === 'active'
             ? 'ui.zones.status.active'
-            : item.status === 'inactive'
+            : status === 'inactive'
               ? 'ui.zones.status.inactive'
               : 'ui.zones.status.unknown'
         return (
           <Badge
-            tone={item.status === 'active' ? 'success' : 'neutral'}
+            tone={status === 'active' ? 'success' : 'neutral'}
             size="sm"
           >
             {t(statusKey as any)}
