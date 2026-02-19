@@ -9,9 +9,8 @@ All Rights Reserved Arodi Emmanuel
 import os
 import re
 import docx
-from docx.shared import Pt, Cm, RGBColor
+from docx.shared import Pt, Cm, RGBColor, Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
@@ -51,34 +50,44 @@ def _configure_normal(doc):
 
 
 def _configure_headings(doc):
-    """Configure Heading 1/2/3: Arial bold, black, no color accent."""
-    configs = {
-        'Heading 1': (14, Pt(18), Pt(6), WD_ALIGN_PARAGRAPH.CENTER),
-        'Heading 2': (13, Pt(12), Pt(4), WD_ALIGN_PARAGRAPH.LEFT),
-        'Heading 3': (12, Pt(10), Pt(4), WD_ALIGN_PARAGRAPH.LEFT),
+    """Configure all heading styles: Arial 14pt bold, no underline."""
+    all_headings = {
+        'Title':     (14, Pt(12), Pt(4), WD_ALIGN_PARAGRAPH.LEFT),
+        'Heading 1': (14, Pt(12), Pt(4), WD_ALIGN_PARAGRAPH.LEFT),
+        'Heading 2': (14, Pt(10), Pt(3), WD_ALIGN_PARAGRAPH.LEFT),
+        'Heading 3': (12, Pt(8),  Pt(2), WD_ALIGN_PARAGRAPH.LEFT),
     }
-    for name, (size, before, after, align) in configs.items():
+    for name, (size, before, after, align) in all_headings.items():
         style = doc.styles[name]
         font = style.font
         font.name = 'Arial'
         font.size = Pt(size)
         font.bold = True
+        font.underline = False
         font.color.rgb = RGBColor(0, 0, 0)
         fmt = style.paragraph_format
         fmt.alignment = align
         fmt.space_before = before
         fmt.space_after = after
-        fmt.line_spacing = 1.0
+        fmt.line_spacing = 1.5
+
+
+def _clean(text):
+    """Strip Markdown bold/italic markers and inline code backticks."""
+    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+    text = re.sub(r'\*(.+?)\*', r'\1', text)
+    text = re.sub(r'`(.+?)`', r'\1', text)
+    return text
 
 
 def _add_body(doc, text):
-    """Body paragraph: 1.25 spacing, justified, 0.7cm first-line indent."""
-    p = doc.add_paragraph(text)
+    """Body paragraph: 1.5 spacing, justified, 0.7cm first-line indent."""
+    p = doc.add_paragraph(_clean(text))
     fmt = p.paragraph_format
     fmt.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     fmt.first_line_indent = Cm(0.7)
-    fmt.line_spacing = 1.25
-    fmt.space_after = Pt(10)
+    fmt.line_spacing = 1.5
+    fmt.space_after = Pt(6)
     for run in p.runs:
         run.font.name = 'Arial'
         run.font.size = Pt(12)
@@ -86,11 +95,11 @@ def _add_body(doc, text):
 
 
 def _add_bullet(doc, text):
-    """Bullet item: no first-line indent, Arial 12, 1.25."""
-    p = doc.add_paragraph(text, style='List Bullet')
+    """Bullet item: no first-line indent, Arial 12, 1.5."""
+    p = doc.add_paragraph(_clean(text), style='List Bullet')
     fmt = p.paragraph_format
     fmt.first_line_indent = Cm(0)
-    fmt.line_spacing = 1.25
+    fmt.line_spacing = 1.5
     for run in p.runs:
         run.font.name = 'Arial'
         run.font.size = Pt(12)
@@ -98,23 +107,61 @@ def _add_bullet(doc, text):
 
 
 def _add_numbered(doc, text):
-    """Numbered item: no first-line indent, Arial 12, 1.25."""
-    p = doc.add_paragraph(text, style='List Number')
+    """Numbered item: no first-line indent, Arial 12, 1.5."""
+    p = doc.add_paragraph(_clean(text), style='List Number')
     fmt = p.paragraph_format
     fmt.first_line_indent = Cm(0)
-    fmt.line_spacing = 1.25
+    fmt.line_spacing = 1.5
     for run in p.runs:
         run.font.name = 'Arial'
         run.font.size = Pt(12)
     return p
 
 
+_ASSETS_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..', 'content', 'assets')
+)
+
+_FIGURE_MAP = {
+    'fig_arch': 'fig_arch.png',
+    'fig_erd': 'fig_erd.png',
+    'fig_sequence': 'fig_sequence.png',
+}
+
+
+def _add_image(doc, fig_key):
+    """Embed a diagram PNG centered at full text width."""
+    filename = _FIGURE_MAP.get(fig_key)
+    if not filename:
+        return
+    path = os.path.join(_ASSETS_DIR, filename)
+    if not os.path.exists(path):
+        print(f'[WARN] Image not found: {path}')
+        return
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = p.add_run()
+    run.add_picture(path, width=Inches(5.8))
+
+
 def _parse_blocks(doc, content):
     """Parse Markdown content using blank-line blocks for correct flow."""
     content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
+
+    # FIX: Ensure blank line after headers to prevent body merging into bold header style
+    # Matches: ^(Hashes Text)\n(Non-Newline) -> Insert extra \n
+    content = re.sub(r'^(#+ .+)(\n)(?=[^\n])', r'\1\n\n', content, flags=re.MULTILINE)
+
     blocks = [b.strip() for b in content.strip().split('\n\n') if b.strip()]
     for block in blocks:
-        if block.startswith('# '):
+        # Skip fenced code blocks (mermaid etc.) entirely
+        if block.startswith('```'):
+            continue
+        # Inline image marker: !!fig_key!!
+        img_match = re.match(r'^!!(fig_\w+)!!$', block.strip())
+        if img_match:
+            _add_image(doc, img_match.group(1))
+        elif block.startswith('# '):
             doc.add_heading(block[2:].strip(), level=1)
         elif block.startswith('## '):
             doc.add_heading(block[3:].strip(), level=2)
@@ -160,15 +207,17 @@ def create_thesis_docx():
         ('1', 'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 'capitulo_1'),
         ('2', 'CAPÍTULO 2. MARCO TEÓRICO Y TECNOLÓGICO', 'capitulo_2'),
         ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3'),
+        ('4', 'CAPÍTULO 4. RESULTADOS Y CONCLUSIONES', 'capitulo_4'),
         ('R', 'REFERENCIAS', 'referencias')
     ]
 
     for num, title_text, subdir in chapters_meta:
-        # Chapter title
-        title = doc.add_heading(title_text, 0)
-        title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        # Chapter title: use Heading 1 style (already configured: 14pt, no underline)
+        title = doc.add_heading(title_text, level=1)
+        title.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         for run in title.runs:
             run.font.name = 'Arial'
+            run.font.underline = False
             run.font.color.rgb = RGBColor(0, 0, 0)
 
         chapter_dir = os.path.join(content_base, subdir)
@@ -190,7 +239,8 @@ def create_thesis_docx():
         doc.add_page_break()
 
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v16.docx'))
+    # Save to the root of the docs-generator module
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v22.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 
