@@ -138,5 +138,13 @@
   "ui.users.toast.create.success": "Usuario creado exitosamente",
   "ui.users.toast.create.error": "Error al crear usuario",
   "ui.users.toast.update.success": "Usuario actualizado exitosamente",
-  "ui.users.toast.update.error": "Error al actualizar usuario"
+  "ui.users.toast.update.error": "Error al actualizar usuario",
+  "ui.users.roles.ADMIN": "Administrador",
+  "ui.users.roles.MANAGER": "Gerente",
+  "ui.users.roles.USER": "Usuario",
+  "ui.users.breadcrumb.home": "Inicio",
+  "ui.users.breadcrumb.users": "Usuarios",
+  "ui.users.breadcrumb.new": "Nuevo usuario",
+  "ui.users.breadcrumb.detail": "Detalle de usuario",
+  "ui.users.breadcrumb.edit": "Editar usuario"
 }

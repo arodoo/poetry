@@ -28,23 +28,7 @@ export const routeEn: Record<string, string> = {
   'ui.route.unauthorized.slug': 'unauthorized',
   'ui.route.404.title': 'Page not found',
   'ui.route.404.message': 'The page you requested does not exist.',
-  'ui.admin.tokens.title': 'Tokens Administration',
-  'ui.admin.tokens.loading': 'Loading tokens…',
-  'ui.admin.tokens.error': 'Failed to load tokens',
-  'ui.admin.tokens.empty': 'No tokens returned',
   'ui.auth.unauthorized.title': 'Access denied',
   'ui.auth.unauthorized.message':
     'You do not have permission to view this page.',
-  'ui.profile.password.title': 'Change password',
-  'ui.profile.password.current': 'Current password',
-  'ui.profile.password.new': 'New password',
-  'ui.profile.password.confirm': 'Confirm new password',
-  'ui.profile.password.submit': 'Update password',
-  'ui.profile.password.show': 'Show password',
-  'ui.profile.password.hide': 'Hide password',
-  'ui.profile.password.error.mismatch': 'Passwords do not match',
-  'ui.profile.password.error.current': 'Current password is invalid',
-  'ui.profile.password.error.validation': 'Password does not meet requirements',
-  'ui.profile.password.success': 'Password updated successfully',
-  // breadcrumb labels reuse title keys
 }

@@ -8,5 +8,9 @@
   "ui.publicLogin.forgotLink": "¿Olvidaste tu contraseña?",
   "ui.publicLogin.error": "Fallo al iniciar sesión. Verifica tus datos.",
   "ui.publicLogin.errors.username": "Ingresa tu usuario.",
-  "ui.publicLogin.errors.password": "Ingresa tu contraseña."
+  "ui.publicLogin.errors.password": "Ingresa tu contraseña.",
+  "ui.publicLogin.error.invalid": "Usuario o contraseña inválidos",
+  "ui.publicLogin.error.network": "Error de red. Inténtalo de nuevo.",
+  "ui.publicLogin.error.server": "Error del servidor. Inténtalo de nuevo.",
+  "ui.publicLogin.error.generic": "Error al iniciar sesión. Inténtalo de nuevo."
 }
