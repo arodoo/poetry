@@ -36,6 +36,7 @@ export const I18N_KEYS: readonly string[] = [
   'ui.banner.status.active',
   'ui.banner.status.expired',
   'ui.banner.status.none',
+  'ui.banner.unknown',
   'ui.common.back',
   'ui.common.cancel',
   'ui.common.close',

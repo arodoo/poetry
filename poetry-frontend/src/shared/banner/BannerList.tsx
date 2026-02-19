@@ -10,7 +10,7 @@ import { type ReactElement } from 'react'
 import { BannerItem } from './BannerItem'
 
 export function BannerList(): ReactElement | null {
-  const { banners } = useBanner()
+  const { banners, remove } = useBanner()
 
   if (banners.length === 0) return null
 
@@ -29,7 +29,7 @@ export function BannerList(): ReactElement | null {
   return (
     <div className={containerClasses}>
       {banners.map((banner) => (
-        <BannerItem banner={banner} key={banner.id} />
+        <BannerItem banner={banner} key={banner.id} onDismiss={remove} />
       ))}
     </div>
   )

@@ -31,7 +31,7 @@ export function BannerProvider({
 
         if (userId !== null) {
           user = await fetchUserById(userId.toString())
-          const memberships = await fetchMembershipsPage(0, 1, user.email)
+          const memberships = await fetchMembershipsPage(0, 1, userId.toString())
           membership = memberships.content?.[0] ?? null
         }
 
