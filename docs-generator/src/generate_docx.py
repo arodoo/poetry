@@ -165,6 +165,10 @@ def create_thesis_docx():
             '2.1_ddd.md', '2.2_clean_architecture.md', '2.3_solid.md',
             '2.4_tecnologias_backend.md', '2.5_tecnologias_frontend.md',
             '2.6_base_de_datos.md', '2.7_herramientas_desarrollo.md'
+        ]),
+        ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3', [
+            '3.1_requerimientos.md', '3.2_arquitectura.md', 
+            '3.3_base_de_datos.md', '3.4_api.md', '3.5_frontend_ux.md'
         ])
     ]
 
@@ -190,7 +194,7 @@ def create_thesis_docx():
         doc.add_page_break()
 
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v11.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v12.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 
