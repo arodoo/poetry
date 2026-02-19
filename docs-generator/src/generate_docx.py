@@ -159,7 +159,8 @@ def create_thesis_docx():
     chapters_meta = [
         ('1', 'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 'capitulo_1'),
         ('2', 'CAPÍTULO 2. MARCO TEÓRICO Y TECNOLÓGICO', 'capitulo_2'),
-        ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3')
+        ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3'),
+        ('R', 'REFERENCIAS', 'referencias')
     ]
 
     for num, title_text, subdir in chapters_meta:
@@ -189,7 +190,7 @@ def create_thesis_docx():
         doc.add_page_break()
 
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v14.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v15.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 
