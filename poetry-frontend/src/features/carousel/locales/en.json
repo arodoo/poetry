@@ -1,0 +1,19 @@
+{
+  "ui.carousel.pageTitle": "Display",
+  "ui.carousel.fullscreen": "Toggle fullscreen",
+  "ui.carousel.empty": "No slides configured yet.",
+  "ui.carousel.error": "Could not load carousel. Please check the connection.",
+  "ui.carousel.admin.open": "Configure carousel",
+  "ui.carousel.admin.drawerTitle": "Carousel Settings",
+  "ui.carousel.admin.close": "Close settings",
+  "ui.carousel.admin.interval": "Auto-advance interval",
+  "ui.carousel.admin.intervalLabel": "Seconds between slides",
+  "ui.carousel.admin.save": "Save",
+  "ui.carousel.admin.overlay": "Corner overlay image",
+  "ui.carousel.admin.overlayUpload": "Upload overlay image",
+  "ui.carousel.admin.overlayRemove": "Remove overlay",
+  "ui.carousel.admin.slides": "Slides",
+  "ui.carousel.admin.uploadSlide": "Upload image or video",
+  "ui.carousel.admin.uploadHint": "Images and videos up to 200 MB",
+  "ui.carousel.admin.deleteSlide": "Delete slide"
+}

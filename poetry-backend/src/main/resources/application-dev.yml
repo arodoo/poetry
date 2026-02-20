@@ -16,6 +16,16 @@ spring:
     level:
       com.poetry: DEBUG
 
+  # Multipart upload limits for carousel images and videos
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+# Carousel media upload directory (dev: home dir uploads)
+carousel:
+  upload-dir: ${user.home}/poetry-uploads/carousel
+
 # Disable caching for dev
 server:
   error:

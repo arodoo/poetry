@@ -9,6 +9,7 @@ import { demoEn } from './demo/demo'
 import { routeEn } from './route/route'
 import { publicHomeEn } from './public-home/public-home'
 import accountEn from '../../../../features/account/locales/en.json'
+import carouselEn from '../../../../features/carousel/locales/en.json'
 import dashboardEn from '../../../../features/dashboard/locales/en.json'
 import publicLoginEn from '../../../../features/public-login/locales/en.json'
 import profileEn from '../../../../features/profile/locales/en.json'
@@ -30,6 +31,7 @@ export const enCatalog: Record<string, string> = {
   ...routeEn,
   ...publicHomeEn,
   ...accountEn,
+  ...carouselEn,
   ...dashboardEn,
   ...publicLoginEn,
   ...profileEn,

@@ -5,11 +5,11 @@
  */
 import type { ReactElement } from 'react'
 import { AccountRoutes } from '../../../features/account/routing/accountRoutes'
-import { DashboardRoutes } from '../../../features/dashboard/routing/dashboardRoutes'
+import { CarouselRoutes } from '../../../features/carousel/routing/carouselRoutes'
 import { ProfileRoutes } from '../../../features/profile/routing/profileRoutes'
 
 export function AuthenticatedRoutes(): ReactElement[] {
-  return [...AccountRoutes(), ...DashboardRoutes(), ...ProfileRoutes()]
+  return [...AccountRoutes(), ...CarouselRoutes(), ...ProfileRoutes()]
 }
 
 export default AuthenticatedRoutes

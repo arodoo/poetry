@@ -7,6 +7,7 @@
 export * from './account'
 export * from './admin'
 export * from './auth'
+export * from './carousel'
 export * from './dashboard'
 export * from './profile'
 export * from './public'

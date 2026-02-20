@@ -62,7 +62,10 @@ public class SecurityConfig {
                 "/api/v1/tokens",
                 "/api/v1/themes",
                 "/api/v1/me/locale",
-                "/api/v1/public/landing")
+                "/api/v1/public/landing",
+                // Carousel: config and media are public (TV screen)
+                "/api/v1/carousel/config",
+                "/api/v1/carousel/media/**")
             .permitAll()
             .anyRequest().authenticated())
         // Disable browser basic auth prompt; login is handled by frontend.

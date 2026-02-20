@@ -1,0 +1,19 @@
+{
+  "ui.carousel.pageTitle": "Pantalla",
+  "ui.carousel.fullscreen": "Alternar pantalla completa",
+  "ui.carousel.empty": "Aún no hay diapositivas configuradas.",
+  "ui.carousel.error": "No se pudo cargar el carrusel. Verifica la conexión.",
+  "ui.carousel.admin.open": "Configurar carrusel",
+  "ui.carousel.admin.drawerTitle": "Configuración del Carrusel",
+  "ui.carousel.admin.close": "Cerrar configuración",
+  "ui.carousel.admin.interval": "Intervalo de avance automático",
+  "ui.carousel.admin.intervalLabel": "Segundos entre diapositivas",
+  "ui.carousel.admin.save": "Guardar",
+  "ui.carousel.admin.overlay": "Imagen de superposición",
+  "ui.carousel.admin.overlayUpload": "Subir imagen de superposición",
+  "ui.carousel.admin.overlayRemove": "Eliminar superposición",
+  "ui.carousel.admin.slides": "Diapositivas",
+  "ui.carousel.admin.uploadSlide": "Subir imagen o video",
+  "ui.carousel.admin.uploadHint": "Imágenes y videos de hasta 200 MB",
+  "ui.carousel.admin.deleteSlide": "Eliminar diapositiva"
+}
