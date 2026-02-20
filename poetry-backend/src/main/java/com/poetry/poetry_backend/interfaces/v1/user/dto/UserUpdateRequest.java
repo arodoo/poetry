@@ -7,20 +7,21 @@
 
 package com.poetry.poetry_backend.interfaces.v1.user.dto;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "User update request")
 public record UserUpdateRequest(
-    @Schema(description = "First name") String firstName,
-    @Schema(description = "Last name") String lastName,
-    @Schema(description = "Email address") String email,
-    @Schema(description = "Locale code") String locale,
-    @Schema(description = "User roles") Set<String> roles,
-    @Schema(description = "Status") String status,
-    @Schema(description = "Birth date") LocalDate birthDate,
-    @Schema(description = "Gender: male, female, other") String gender,
-    @Schema(description = "Phone number") String phone,
-    @Schema(description = "Address") AddressRequest address) { }
+    @Schema(description = "First name", example = "John")
+    String firstName,
+    @Schema(description = "Last name", example = "Doe")
+    String lastName,
+    @Schema(description = "Email address", example = "john.doe@example.com")
+    String email,
+    @Schema(description = "Locale code", example = "en")
+    String locale,
+    @Schema(description = "User roles", example = "[\"admin\", \"user\"]")
+    Set<String> roles,
+    @Schema(description = "Status", example = "active")
+    String status) { }

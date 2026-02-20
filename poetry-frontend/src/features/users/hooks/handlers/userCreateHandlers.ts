@@ -26,7 +26,18 @@ export function createUserSubmitHandler(
   return function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault()
     try {
-      const values: UsersFormValues = buildFormData(formState, true)
+      const values: UsersFormValues = buildFormData(
+        formState.firstName,
+        formState.lastName,
+        formState.username,
+        formState.email,
+        formState.locale,
+        formState.rolesString,
+        formState.password,
+        true,
+        formState.status
+      )
+
       const validatedInput: CreateUserInput = CreateUserSchema.parse({
         firstName: values.firstName,
         lastName: values.lastName,

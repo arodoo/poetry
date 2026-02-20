@@ -1,11 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node:*)",
-      "Bash(mvn compile:*)",
-      "Bash(git -C \"D:\\\\zProyectos\\\\01Java\\\\poetry\" ls-files)",
-      "Bash(cmd /c \"dir /s /b \"\"D:\\\\zProyectos\\\\01Java\\\\poetry\\\\UserJpaAdapter.java\"\" 2>nul\")",
-      "Bash(cmd /c \"dir /s /b D:\\\\zProyectos\\\\01Java\\\\poetry\\\\UserJpaAdapter.java\")"
+      "Bash(node:*)"
     ]
   }
 }

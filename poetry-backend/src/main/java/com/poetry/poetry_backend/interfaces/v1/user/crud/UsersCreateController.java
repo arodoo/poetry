@@ -33,7 +33,7 @@ public class UsersCreateController {
     this.create = create;
   }
 
-  @Operation(operationId = "createUser", summary = "Create a new user")
+  @Operation(operationId = "createUser", summary = "Create a new user", description = "Create user with role assignment")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created"),
       @ApiResponse(responseCode = "400", description = "Invalid request"),
@@ -48,19 +48,21 @@ public class UsersCreateController {
     var u = create.execute(
         r.firstName(), r.lastName(), r.email(),
         r.username(), r.locale(), r.password(), r.roles(),
-        r.status(), r.birthDate(), r.gender(),
-        r.phone(), r.address());
+        r.status());
     return ResponseEntity.status(201).body(UserDto.toResponse(u));
   }
 
   private void validatePasswordRequirement(
       java.util.Set<String> roles, String password) {
-    if (roles == null || roles.isEmpty()) return;
+    if (roles == null || roles.isEmpty()) {
+      return;
+    }
     boolean needsPassword = roles.stream()
         .anyMatch(r -> "ADMIN".equalsIgnoreCase(r)
             || "MANAGER".equalsIgnoreCase(r));
     if (needsPassword && (password == null || password.isBlank())) {
-      throw new IllegalArgumentException("user.password.required.admin");
+      throw new IllegalArgumentException(
+          "user.password.required.admin");
     }
   }
 }

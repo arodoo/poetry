@@ -11,12 +11,10 @@ import static com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaCommandSu
 import static com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaCommandSupport.persist;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Set;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.domain.user.model.core.User;
-import com.poetry.poetry_backend.interfaces.v1.user.dto.AddressRequest;
 
 public class UserJpaCommandAdapter implements UserCommandPort {
   private final UserJpaRepository repository;
@@ -26,15 +24,11 @@ public class UserJpaCommandAdapter implements UserCommandPort {
   }
 
   @Override
-  public User create(
-      String firstName, String lastName, String email,
-      String username, String locale, String password,
-      Set<String> roles, String status,
-      LocalDate birthDate, String gender,
-      String phone, AddressRequest address) {
+  public User create(String firstName, String lastName, String email,
+      String username, String locale, String password, Set<String> roles,
+      String status) {
     UserEntity entity = new UserEntity();
-    applyProfile(entity, firstName, lastName, email, locale,
-        birthDate, gender, phone, address);
+    applyProfile(entity, firstName, lastName, email, locale);
     entity.setUsername(username);
     if (password != null && !password.isBlank()) {
       entity.setPasswordHash(password);
@@ -45,14 +39,10 @@ public class UserJpaCommandAdapter implements UserCommandPort {
   }
 
   @Override
-  public User update(
-      Long id, long version, String firstName, String lastName,
-      String email, String locale, Set<String> roles, String status,
-      LocalDate birthDate, String gender,
-      String phone, AddressRequest address) {
+  public User update(Long id, long version, String firstName, String lastName,
+      String email, String locale, Set<String> roles, String status) {
     UserEntity entity = guard(repository, id, version);
-    applyProfile(entity, firstName, lastName, email, locale,
-        birthDate, gender, phone, address);
+    applyProfile(entity, firstName, lastName, email, locale);
     entity.setRoles(roles);
     entity.setStatus(status);
     return persist(repository, entity);

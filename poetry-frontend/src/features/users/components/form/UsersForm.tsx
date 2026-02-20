@@ -20,15 +20,6 @@ export type UsersFormValues = Required<
 > & {
   readonly password?: string
   readonly status: 'active' | 'inactive'
-  readonly birthDate?: string
-  readonly gender?: string
-  readonly phone?: string
-  readonly addressLine1?: string
-  readonly addressLine2?: string
-  readonly addressCity?: string
-  readonly addressState?: string
-  readonly addressZip?: string
-  readonly addressCountry?: string
 }
 
 export interface UsersFormProps {
@@ -44,7 +35,19 @@ export function UsersForm(props: UsersFormProps): ReactElement {
   const formState: UsersFormState = useUsersFormState(props.initialValues)
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault()
-    props.onSubmit(buildFormData(formState, props.showPassword ?? false))
+    props.onSubmit(
+      buildFormData(
+        formState.firstName,
+        formState.lastName,
+        formState.username,
+        formState.email,
+        formState.locale,
+        formState.rolesString,
+        formState.password,
+        props.showPassword ?? false,
+        formState.status
+      )
+    )
   }
   return (
     <form onSubmit={handleSubmit} noValidate data-testid="users-form">

@@ -9,12 +9,10 @@
 
 package com.poetry.poetry_backend.application.user.usecase;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.domain.user.model.core.User;
-import com.poetry.poetry_backend.interfaces.v1.user.dto.AddressRequest;
 
 public class CreateUserUseCase {
   private final UserCommandPort commands;
@@ -24,14 +22,18 @@ public class CreateUserUseCase {
   }
 
   public User execute(
-      String firstName, String lastName,
-      String email, String username, String locale,
-      String password, Set<String> roles, String status,
-      LocalDate birthDate, String gender,
-      String phone, AddressRequest address) {
-    return commands.create(
-        firstName, lastName, email, username, locale,
-        password, roles, status,
-        birthDate, gender, phone, address);
+      String firstName,
+      String lastName,
+      String email,
+      String username,
+      String locale,
+      String password,
+      Set<String> roles,
+      String status) {
+    User created = commands.create(
+        firstName, lastName, email, username, locale, password, roles,
+        status);
+
+    return created;
   }
 }

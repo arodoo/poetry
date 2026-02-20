@@ -11,7 +11,6 @@
 package com.poetry.poetry_backend.infrastructure.jpa.user;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -52,17 +51,6 @@ public class UserEntity {
 
   @Column(nullable = false, length = 20)
   private String status = "active";
-
-  private LocalDate birthDate;
-
-  @Column(length = 20)
-  private String gender;
-
-  @Column(length = 30)
-  private String phone;
-
-  @Embedded
-  private AddressEmbeddable address = new AddressEmbeddable();
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(

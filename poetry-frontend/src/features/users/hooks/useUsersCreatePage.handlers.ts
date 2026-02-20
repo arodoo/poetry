@@ -29,7 +29,17 @@ export function createHandleCreateUser(
   return function handleCreateUser(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault()
     try {
-      const values = buildFormData(formState, true)
+      const values = buildFormData(
+        formState.firstName,
+        formState.lastName,
+        formState.username,
+        formState.email,
+        formState.locale,
+        formState.rolesString,
+        formState.password,
+        true,
+        formState.status
+      )
       const input: CreateUserInput = CreateUserSchema.parse({
         firstName: values.firstName,
         lastName: values.lastName,
