@@ -12,6 +12,10 @@ import { UsersBasicFields } from './fields/UsersBasicFields'
 import { UsersPasswordField } from './fields/UsersPasswordField'
 import { UsersRolesField } from './fields/UsersRolesField'
 import { UsersFormStatus } from './UsersFormStatus'
+import { UserBirthDateField } from '../fields/UserBirthDateField'
+import { UserGenderField } from '../fields/UserGenderField'
+import { UserPhoneField } from '../fields/UserPhoneField'
+import { UsersAddressFields } from './fields/UsersAddressFields'
 import type { UsersFormState } from './useUsersFormState'
 
 export interface UsersFormFieldsProps
@@ -46,32 +50,40 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
         <Text size="sm" className="font-medium">
           {props.t('ui.users.form.locale.label')}
         </Text>
-        <Select
-          value={props.locale}
-          onChange={handleLocaleChange}
-          required
-          data-testid="user-locale-select"
-        >
+        <Select value={props.locale} onChange={handleLocaleChange}
+          required data-testid="user-locale-select">
           <option value="en">{props.t('ui.users.form.locale.en')}</option>
           <option value="es">{props.t('ui.users.form.locale.es')}</option>
         </Select>
       </Stack>
-      <UsersRolesField
-        value={props.rolesString}
-        onChange={props.setRolesString}
+      <UserBirthDateField birthDate={props.birthDate}
+        onBirthDateChange={props.setBirthDate} t={props.t} />
+      <UserGenderField gender={props.gender}
+        onGenderChange={props.setGender} t={props.t} />
+      <UserPhoneField phone={props.phone}
+        onPhoneChange={props.setPhone} t={props.t} />
+      <UsersAddressFields
+        addressLine1={props.addressLine1}
+        addressLine2={props.addressLine2}
+        addressCity={props.addressCity}
+        addressState={props.addressState}
+        addressZip={props.addressZip}
+        addressCountry={props.addressCountry}
+        onLine1Change={props.setAddressLine1}
+        onLine2Change={props.setAddressLine2}
+        onCityChange={props.setAddressCity}
+        onStateChange={props.setAddressState}
+        onZipChange={props.setAddressZip}
+        onCountryChange={props.setAddressCountry}
         t={props.t}
       />
-      <UsersFormStatus
-        status={props.status}
-        onStatusChange={props.setStatus}
-        t={props.t}
-      />
+      <UsersRolesField value={props.rolesString}
+        onChange={props.setRolesString} t={props.t} />
+      <UsersFormStatus status={props.status}
+        onStatusChange={props.setStatus} t={props.t} />
       {props.showPassword && shouldShowPassword(props.rolesString) ? (
-        <UsersPasswordField
-          value={props.password}
-          onChange={props.setPassword}
-          t={props.t}
-        />
+        <UsersPasswordField value={props.password}
+          onChange={props.setPassword} t={props.t} />
       ) : null}
     </>
   )

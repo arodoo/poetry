@@ -18,39 +18,24 @@ public final class InMemoryUserCreate {
   private InMemoryUserCreate() {}
 
   public static User create(
-      Map<Long, User> store,
-      AtomicLong seq,
-      String firstName,
-      String lastName,
-      String email,
-      String username,
-      String status,
-      Set<String> roles
-  ) {
+      Map<Long, User> store, AtomicLong seq,
+      String firstName, String lastName,
+      String email, String username,
+      String status, Set<String> roles) {
     Long id = seq.getAndIncrement();
     User user = UserFactory.createNew(
-      firstName,
-      lastName,
-      email,
-      username,
-      "en",
-      roles != null ? roles : Set.of("USER")
-    );
+        firstName, lastName, email, username, "en",
+        roles != null ? roles : Set.of("USER"));
     User rehydrated = UserMutations.updateStatus(
-      UserRehydrator.rehydrate(
-        id,
-        user.firstName(),
-        user.lastName(),
-        user.email(),
-        user.username(),
-        user.locale(),
-        user.status(),
-        user.roles(),
-        user.createdAt(),
-        user.updatedAt(),
-        user.deletedAt(),
-        user.version()),
-      status);
+        UserRehydrator.rehydrate(
+            id, user.firstName(), user.lastName(),
+            user.email(), user.username(), user.locale(),
+            user.status(), user.roles(),
+            null, null, null,
+            null, null, null, null, null, null,
+            user.createdAt(), user.updatedAt(),
+            user.deletedAt(), user.version()),
+        status);
     store.put(id, rehydrated);
     return rehydrated;
   }

@@ -10,6 +10,7 @@
 package com.poetry.poetry_backend.domain.user.model.core;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Set;
 
 public record User(
@@ -21,6 +22,15 @@ public record User(
     String locale,
     String status,
     Set<String> roles,
+    LocalDate birthDate,
+    String gender,
+    String phone,
+    String addressLine1,
+    String addressLine2,
+    String addressCity,
+    String addressState,
+    String addressZip,
+    String addressCountry,
     Instant createdAt,
     Instant updatedAt,
     Instant deletedAt,

@@ -16,17 +16,7 @@ export function createSubmitHandler(
 ): (event: FormEvent<HTMLFormElement>) => void {
   return (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    const data: UsersFormValues = buildFormData(
-      formState.firstName,
-      formState.lastName,
-      formState.username,
-      formState.email,
-      formState.locale,
-      formState.rolesString,
-      formState.password,
-      false,
-      formState.status
-    )
+    const data: UsersFormValues = buildFormData(formState, false)
     onSubmit(data)
   }
 }

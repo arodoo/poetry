@@ -12,22 +12,22 @@ import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
 import com.poetry.poetry_backend.domain.user.model.core.UserValidator;
 
 public final class UserProfileUpdater {
-  private UserProfileUpdater() {
-  }
+  private UserProfileUpdater() { }
 
-  public static User update(User base, String firstName, String lastName, String email) {
+  public static User update(
+      User base, String firstName, String lastName, String email) {
     return UserRehydrator.rehydrate(
         base.id(),
         UserValidator.requireName("firstName", firstName),
         UserValidator.requireName("lastName", lastName),
         UserValidator.requireEmail(email),
-        base.username(),
-        base.locale(),
-        base.status(),
+        base.username(), base.locale(), base.status(),
         base.roles(),
-        base.createdAt(),
-        base.updatedAt(),
-        base.deletedAt(),
-        base.version());
+        base.birthDate(), base.gender(), base.phone(),
+        base.addressLine1(), base.addressLine2(),
+        base.addressCity(), base.addressState(),
+        base.addressZip(), base.addressCountry(),
+        base.createdAt(), base.updatedAt(),
+        base.deletedAt(), base.version());
   }
 }

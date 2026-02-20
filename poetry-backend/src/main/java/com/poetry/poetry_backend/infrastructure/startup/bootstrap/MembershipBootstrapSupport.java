@@ -58,6 +58,7 @@ public class MembershipBootstrapSupport {
                 entity.getLocale(),
                 entity.getStatus(),
                 entity.getRoles(),
+                null, null, null, null, null, null, null, null, null,
                 entity.getCreatedAt(),
                 entity.getUpdatedAt(),
                 entity.getDeletedAt(),

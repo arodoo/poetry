@@ -13,22 +13,18 @@ import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
 import com.poetry.poetry_backend.domain.user.model.core.UserValidator;
 
 public final class UserRolesUpdater {
-  private UserRolesUpdater() {
-  }
+  private UserRolesUpdater() { }
 
   public static User update(User base, Set<String> roles) {
     return UserRehydrator.rehydrate(
-        base.id(),
-        base.firstName(),
-        base.lastName(),
-        base.email(),
-        base.username(),
-        base.locale(),
-        base.status(),
-        UserValidator.requireRoles(roles),
-        base.createdAt(),
-        base.updatedAt(),
-        base.deletedAt(),
-        base.version());
+        base.id(), base.firstName(), base.lastName(),
+        base.email(), base.username(), base.locale(),
+        base.status(), UserValidator.requireRoles(roles),
+        base.birthDate(), base.gender(), base.phone(),
+        base.addressLine1(), base.addressLine2(),
+        base.addressCity(), base.addressState(),
+        base.addressZip(), base.addressCountry(),
+        base.createdAt(), base.updatedAt(),
+        base.deletedAt(), base.version());
   }
 }

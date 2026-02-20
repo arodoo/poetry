@@ -7,6 +7,7 @@ package com.poetry.poetry_backend.application.user.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.domain.user.model.core.User;
 import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
+import com.poetry.poetry_backend.interfaces.v1.user.dto.AddressRequest;
 
 class CreateUserUseCaseTest {
   @Test
@@ -21,33 +23,31 @@ class CreateUserUseCaseTest {
     UserCommandPort commands = new UserCommandPort() {
       @Override
       public User create(
-          String f,
-          String l,
-          String e,
-          String u,
-          String loc,
-          String p,
-          Set<String> r,
-          String status) {
-        return UserRehydrator.rehydrate(10L, f, l, e, u, loc,
-            status != null ? status : "active", r, null, null, null, 0L);
+          String f, String l, String e, String u, String loc,
+          String p, Set<String> r, String status,
+          LocalDate birthDate, String gender,
+          String phone, AddressRequest address) {
+        return UserRehydrator.rehydrate(
+            10L, f, l, e, u, loc,
+            status != null ? status : "active", r,
+            null, null, null,
+            null, null, null, null, null, null,
+            null, null, null, 0L);
       }
 
       @Override
       public User update(
-          Long id,
-          long version,
-          String f,
-          String l,
-          String e,
-          String loc,
-          Set<String> r,
-          String status) {
+          Long id, long version,
+          String f, String l, String e, String loc,
+          Set<String> r, String status,
+          LocalDate birthDate, String gender,
+          String phone, AddressRequest address) {
         return null;
       }
 
       @Override
-      public User updatePassword(Long id, long version, String password) {
+      public User updatePassword(
+          Long id, long version, String password) {
         return null;
       }
 
@@ -56,15 +56,9 @@ class CreateUserUseCaseTest {
     };
     var uc = new CreateUserUseCase(commands);
     var user = uc.execute(
-        "F",
-        "L",
-  "user@example.com",
-        "u",
-        "en",
-        "p",
-        Set.of("ROLE_USER"),
-        "active"
-    );
+        "F", "L", "user@example.com", "u", "en",
+        "p", Set.of("ROLE_USER"), "active",
+        null, null, null, null);
     assertNotNull(user);
   }
 }

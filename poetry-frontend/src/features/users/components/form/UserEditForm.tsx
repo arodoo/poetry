@@ -28,32 +28,48 @@ export interface UserEditFormProps {
   readonly t: ReturnType<typeof useT>
 }
 
+type UserWithExtra = UserDetail & {
+  status?: 'active' | 'inactive'
+  birthDate?: string
+  gender?: string
+  phone?: string
+  addressLine1?: string
+  addressLine2?: string
+  addressCity?: string
+  addressState?: string
+  addressZip?: string
+  addressCountry?: string
+}
+
 export function UserEditForm(props: UserEditFormProps): ReactElement {
   const navigate: ReturnType<typeof useNavigate> = useNavigate()
   const { locale }: { locale: string } = useLocale()
+  const u = props.user as unknown as UserWithExtra
   const formState: ReturnType<typeof useUsersFormState> = useUsersFormState({
-    firstName: props.user.firstName ?? '',
-    lastName: props.user.lastName ?? '',
-    username: props.user.username ?? '',
-    email: props.user.email ?? '',
-    locale: props.user.locale ?? 'en',
-    roles: props.user.roles ?? [],
-    status:
-      (props.user as unknown as { status?: 'active' | 'inactive' }).status ??
-      'active',
+    firstName: u.firstName ?? '',
+    lastName: u.lastName ?? '',
+    username: u.username ?? '',
+    email: u.email ?? '',
+    locale: u.locale ?? 'en',
+    roles: u.roles ?? [],
+    status: u.status ?? 'active',
+    birthDate: u.birthDate ?? '',
+    gender: u.gender ?? '',
+    phone: u.phone ?? '',
+    addressLine1: u.addressLine1 ?? '',
+    addressLine2: u.addressLine2 ?? '',
+    addressCity: u.addressCity ?? '',
+    addressState: u.addressState ?? '',
+    addressZip: u.addressZip ?? '',
+    addressCountry: u.addressCountry ?? '',
   })
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
     createSubmitHandler(formState, props.onSubmit)
   const handleCancel: () => void = createCancelHandler(
-    navigate,
-    locale,
-    props.userId
+    navigate, locale, props.userId
   )
-  const sections: ReturnType<typeof buildEditFormSections> =
-    buildEditFormSections(formState, false, props.t)
-  const breadcrumbs: ReturnType<typeof buildUserEditBreadcrumbs> =
-    buildUserEditBreadcrumbs(props.userId, locale, props.t)
-
+  const sections = buildEditFormSections(formState, false, props.t)
+  const breadcrumbs = buildUserEditBreadcrumbs(props.userId, locale, props.t)
   return (
     <PageLayout
       title={props.t('ui.users.edit.title')}

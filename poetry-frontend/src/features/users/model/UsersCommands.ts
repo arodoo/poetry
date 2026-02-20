@@ -27,7 +27,18 @@ export const CreateUserSchema: z.ZodType<CreateUserInput> = z.object({
   locale: z.string().min(2, 'users.validation.locale').optional(),
   roles: z.array(z.string()).optional(),
   status: z.enum(['active', 'inactive']).default('active'),
-}) as z.ZodType<CreateUserInput>
+  birthDate: z.string().optional(),
+  gender: z.string().optional(),
+  phone: z.string().optional(),
+  address: z.object({
+    line1: z.string().optional(),
+    line2: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    zip: z.string().optional(),
+    country: z.string().optional(),
+  }).optional(),
+}).passthrough() as z.ZodType<CreateUserInput>
 
 /**
  * Runtime validation for UserUpdateRequest.
@@ -44,7 +55,18 @@ export const UpdateUserSchema: z.ZodType<UpdateUserInput> = z.object({
   locale: z.string().min(2, 'users.validation.locale').optional(),
   roles: z.array(z.string()).optional(),
   status: z.enum(['active', 'inactive']).optional(),
-}) as z.ZodType<UpdateUserInput>
+  birthDate: z.string().optional(),
+  gender: z.string().optional(),
+  phone: z.string().optional(),
+  address: z.object({
+    line1: z.string().optional(),
+    line2: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    zip: z.string().optional(),
+    country: z.string().optional(),
+  }).optional(),
+}).passthrough() as z.ZodType<UpdateUserInput>
 
 /**
  * Partial update - roles only (not in SDK, custom operation)

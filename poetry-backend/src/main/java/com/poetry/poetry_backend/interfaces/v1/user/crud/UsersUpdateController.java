@@ -37,24 +37,22 @@ public class UsersUpdateController {
   private final ObjectMapper mapper;
 
   public UsersUpdateController(
-      UpdateUserUseCase update,
-      GetUserByIdUseCase getUser,
-      ETagPort etagPort,
-      ObjectMapper mapper) {
+      UpdateUserUseCase update, GetUserByIdUseCase getUser,
+      ETagPort etagPort, ObjectMapper mapper) {
     this.update = update;
     this.getUser = getUser;
     this.etagPort = etagPort;
     this.mapper = mapper;
   }
 
-  @Operation(operationId = "updateUser", summary = "Update user", description = "Update user with optimistic locking via If-Match")
+  @Operation(operationId = "updateUser", summary = "Update user")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully updated"),
-      @ApiResponse(responseCode = "400", description = "Invalid request"),
+      @ApiResponse(responseCode = "200", description = "Updated"),
+      @ApiResponse(responseCode = "400", description = "Invalid"),
       @ApiResponse(responseCode = "401", description = "Unauthorized"),
       @ApiResponse(responseCode = "403", description = "Forbidden"),
       @ApiResponse(responseCode = "404", description = "Not found"),
-      @ApiResponse(responseCode = "409", description = "Version conflict")
+      @ApiResponse(responseCode = "409", description = "Conflict")
   })
   @PreAuthorize("hasAuthority('admin')")
   @PutMapping("/{id}")
@@ -62,14 +60,12 @@ public class UsersUpdateController {
       @PathVariable Long id,
       @RequestHeader("If-Match") String ifMatch,
       @RequestBody UserUpdateRequest r) throws Exception {
-    // Get current user to extract version - IfMatchFilter already validated ETag
     var currentUser = getUser.execute(id);
     long version = currentUser.version();
-
     var u = update.execute(
         id, version, r.firstName(), r.lastName(), r.email(),
-        r.locale(), r.roles(), r.status());
-
+        r.locale(), r.roles(), r.status(),
+        r.birthDate(), r.gender(), r.phone(), r.address());
     var response = UserDto.toResponse(u);
     String etag = etagPort.compute(mapper.writeValueAsString(response));
     return ResponseEntity.ok().eTag(etag).body(response);

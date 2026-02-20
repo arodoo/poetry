@@ -14,24 +14,16 @@ import com.poetry.poetry_backend.domain.user.model.core.User;
 import com.poetry.poetry_backend.domain.user.model.core.UserRehydrator;
 
 public final class InMemoryUserFactory {
-  private InMemoryUserFactory() {
-    // utility
-  }
+  private InMemoryUserFactory() { }
 
-  public static User createNew(Long id, String f, String l, String e,
-      String u, String status, Set<String> roles) {
+  public static User createNew(Long id, String f, String l,
+      String e, String u, String status, Set<String> roles) {
     return UserRehydrator.rehydrate(
-        id,
-        f,
-        l,
-        e,
-        u,
-        "en", // default locale
-        status,
-        roles,
-        java.time.Instant.now(), // createdAt
-        java.time.Instant.now(), // updatedAt
-        null, // deletedAt
-        1L); // version
+        id, f, l, e, u, "en", status, roles,
+        null, null, null,
+        null, null, null, null, null, null,
+        java.time.Instant.now(),
+        java.time.Instant.now(),
+        null, 1L);
   }
 }

@@ -15,12 +15,9 @@ public final class UserFactory {
   private UserFactory() { }
 
   public static User createNew(
-      String firstName,
-      String lastName,
-      String email,
-      String username,
-      String locale,
-      Set<String> roles) {
+      String firstName, String lastName,
+      String email, String username,
+      String locale, Set<String> roles) {
     return new User(
         null,
         UserValidator.requireName("firstName", firstName),
@@ -30,9 +27,8 @@ public final class UserFactory {
         UserValidator.requireLocale(locale),
         "active",
         UserValidator.requireRoles(roles),
-        null,
-        null,
-        null,
-        0L);
+        null, null, null,
+        null, null, null, null, null, null,
+        null, null, null, 0L);
   }
 }
