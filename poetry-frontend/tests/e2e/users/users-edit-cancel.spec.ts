@@ -14,19 +14,19 @@ test('cancel button in edit form navigates to detail page', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('load')
   const viewButton: Locator = page
     .locator('[data-testid^="view-user-"]')
     .first()
   await expect(viewButton).toBeVisible({ timeout: 15000 })
   const userId: string = await getUserIdFromButton(viewButton, 'view-user-')
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('load')
   const editButton: Locator = page.getByTestId('edit-user-button')
   await expect(editButton).toBeVisible({ timeout: 15000 })
   await editButton.click()
   await expect(page).toHaveURL(new RegExp(`/en/users/${userId}/edit$`))
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('load')
   await expect(page.getByRole('heading', { name: 'Edit user' })).toBeVisible({
     timeout: 15000,
   })
@@ -34,7 +34,7 @@ test('cancel button in edit form navigates to detail page', async ({
   await expect(cancelButton).toBeVisible()
   await cancelButton.click()
   await expect(page).toHaveURL(new RegExp(`/en/users/${userId}$`))
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('load')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible({
     timeout: 15000,
   })

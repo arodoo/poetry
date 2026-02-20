@@ -19,7 +19,7 @@ test('can select multiple roles via checkboxes', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/users/new')
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('load')
   const adminCheckbox: Locator = page.getByTestId('role-checkbox-admin')
   const managerCheckbox: Locator = page.getByTestId('role-checkbox-manager')
   await adminCheckbox.waitFor({ state: 'visible', timeout: 15000 })
@@ -38,7 +38,7 @@ test('submits form with selected roles', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/users/new')
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('load')
   const firstNameInput: Locator = page.getByTestId('user-firstname-input')
   const lastNameInput: Locator = page.getByTestId('user-lastname-input')
   const usernameInput: Locator = page.getByTestId('user-username-input')

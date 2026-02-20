@@ -26,6 +26,8 @@ export default function UsersCreatePage(): ReactElement {
 
   const {
     formState,
+    demographicsState,
+    addressState,
     isSubmitting,
     handleCreateUser,
     handleFingerprintComplete,
@@ -33,7 +35,7 @@ export default function UsersCreatePage(): ReactElement {
     handleCancel,
   } = useUsersCreatePage(locale, navigate, toast, t)
 
-  const sections = buildCreateFormSections(formState, t)
+  const sections = buildCreateFormSections(formState, t, demographicsState, addressState)
 
   return (
     <PageLayout

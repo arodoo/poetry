@@ -19,7 +19,7 @@ test('loads create user form with roles checkboxes', async ({
       response.request().method() === 'GET',
     { timeout: 10000 }
   )
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('load')
   await expect(page.getByRole('heading', { name: 'Create user' })).toBeVisible({
     timeout: 15000,
   })

@@ -19,6 +19,8 @@ import {
   createSubmitHandler,
   createCancelHandler,
 } from '../../hooks/handlers/userEditHandlers'
+import { useUserDemographicsForm } from '../../../userdemographics/hooks/useUserDemographicsForm'
+import { useUserAddressForm } from '../../../useraddress/hooks/useUserAddressForm'
 
 export interface UserEditFormProps {
   readonly userId: string
@@ -42,15 +44,28 @@ export function UserEditForm(props: UserEditFormProps): ReactElement {
       (props.user as unknown as { status?: 'active' | 'inactive' }).status ??
       'active',
   })
-  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void =
-    createSubmitHandler(formState, props.onSubmit)
+  const numericUserId = Number(props.userId)
+  const demographicsState = useUserDemographicsForm(numericUserId)
+  const addressState = useUserAddressForm(numericUserId)
+
+  const baseSubmit = createSubmitHandler(formState, props.onSubmit)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    baseSubmit(e)
+    void demographicsState.saveForUser(numericUserId)
+    void addressState.saveForUser(numericUserId)
+  }
   const handleCancel: () => void = createCancelHandler(
     navigate,
     locale,
     props.userId
   )
-  const sections: ReturnType<typeof buildEditFormSections> =
-    buildEditFormSections(formState, false, props.t)
+  const sections = buildEditFormSections(
+    formState,
+    false,
+    props.t,
+    demographicsState,
+    addressState
+  )
   const breadcrumbs: ReturnType<typeof buildUserEditBreadcrumbs> =
     buildUserEditBreadcrumbs(props.userId, locale, props.t)
 
