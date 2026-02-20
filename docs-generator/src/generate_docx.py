@@ -128,6 +128,9 @@ _FIGURE_MAP = {
     'fig_sequence': 'fig_sequence.png',
     'fig_stack':    'fig_stack.png',
     'fig_pyramid':  'fig_pyramid.png',
+    'fig_access':   'fig_access.png',
+    'fig_dashboard':'fig_dashboard.png',
+    'fig_metrics':  'fig_metrics.png',
 }
 
 
@@ -381,6 +384,9 @@ def create_thesis_docx():
         ('Figura 3.4', 'Secuencia de Autenticación y Control de Acceso Biométrico'),
         ('Figura 3.5', 'Capas Tecnológicas del Sistema (generado con matplotlib)'),
         ('Figura 4.1', 'Pirámide de Pruebas — Cohn, 2009'),
+        ('Figura 4.2', 'Interfaz de acceso biométrico (Chely Boops)'),
+        ('Figura 4.3', 'Dashboard principal de administración'),
+        ('Figura 4.4', 'Panel estadístico y métricas del sistema'),
     ]
     for fig_num, fig_caption in figures:
         p = doc.add_paragraph(style='List Bullet')
@@ -395,7 +401,7 @@ def create_thesis_docx():
 
     # Save to the root of the docs-generator module
     # Save to the root of the docs-generator module
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v26.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v27.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
 

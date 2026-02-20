@@ -88,4 +88,6 @@ sdk/
 
 # Thesis assets
 docs-generator/content/assets/
+docs-generator/assets/
 *.docx
+**/__pycache__/
