@@ -10,7 +10,7 @@ applyTo: '**'
 
 - Backend, Frontend and Mobile are always running in default ports and the three
   run with hot-reload
-- backend has drop-create at startup, so db is recreated each time
+- backend has update at startup, so db persists each time
 - backend endpoints require authentication
 - Frontend can't have types or schemas definitios if they are not fixed to
   generated SDK gems

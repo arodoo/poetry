@@ -253,4 +253,68 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
     }
   })
 
+  // ── Test 8: Las imágenes usan object-contain para estirarse sin distorsión ──
+
+  test('caso 8 – las imágenes del carrusel usan object-contain para mantener proporciones', async ({ page }) => {
+    const api = await adminApi()
+    let slideId: number | null = null
+
+    try {
+      const slide = await uploadTestSlide(api, 'e2e-caso8-contain.png')
+      slideId = slide.id
+
+      await injectTokens(page)
+      await gotoCarousel(page)
+
+      const img = page.locator('img[alt="e2e-caso8-contain.png"]')
+      await expect(img).toBeVisible({ timeout: 10000 })
+      await expect(img).toHaveClass(/object-contain/)
+      await expect(img).not.toHaveClass(/object-cover/)
+      await expect(img).not.toHaveClass(/object-fill/)
+    } finally {
+      if (slideId !== null) await deleteSlide(api, slideId)
+    }
+  })
+
+  // ── Test 9: En fullscreen los controles desaparecen ──────────────────────
+
+  test('caso 9 – al entrar en fullscreen desaparecen los botones de navegación y fullscreen', async ({ page }) => {
+    const api = await adminApi()
+    const uploaded: number[] = []
+
+    try {
+      // Necesitamos al menos 2 slides para que aparezcan las flechas
+      const s1 = await uploadTestSlide(api, 'e2e-fs-1.png')
+      const s2 = await uploadTestSlide(api, 'e2e-fs-2.png')
+      uploaded.push(s1.id, s2.id)
+
+      await injectTokens(page)
+      await gotoCarousel(page)
+
+      // Verificar que los controles existen en modo normal
+      const prevBtn = page.getByRole('button', { name: /previous slide|diapositiva anterior/i })
+      const fullscreenBtn = page.getByRole('button', { name: /pantalla completa|fullscreen/i })
+
+      await expect(prevBtn).toBeVisible({ timeout: 10000 })
+      await expect(fullscreenBtn).toBeVisible()
+
+      // Activar fullscreen
+      await fullscreenBtn.click()
+
+      // En modo fullscreen, los botones de prev/next y el mismo botón de fullscreen deben desaparecer
+      await expect(prevBtn).not.toBeVisible()
+      await expect(fullscreenBtn).not.toBeVisible()
+
+      // Salir del fullscreen para limpiar el estado del navegador
+      await page.evaluate(() => document.exitFullscreen()).catch(() => { })
+
+      // Tras salir de fullscreen, deberían volver a aparecer
+      await expect(prevBtn).toBeVisible()
+      await expect(fullscreenBtn).toBeVisible()
+
+    } finally {
+      for (const id of uploaded) await deleteSlide(api, id)
+    }
+  })
+
 })

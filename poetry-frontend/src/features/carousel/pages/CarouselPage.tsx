@@ -80,7 +80,7 @@ export default function CarouselPage(): ReactElement {
           ))
         )}
 
-        {config && slides.length > 0 && (
+        {config && slides.length > 0 && !isFullscreen && (
           <CarouselControls
             count={slides.length}
             index={index}
@@ -92,11 +92,13 @@ export default function CarouselPage(): ReactElement {
 
         {config && <CarouselOverlay filename={config.overlayFilename} />}
 
-        <FullscreenButton
-          isFullscreen={isFullscreen}
-          onToggle={toggle}
-          label={t('ui.carousel.fullscreen')}
-        />
+        {!isFullscreen && (
+          <FullscreenButton
+            isFullscreen={isFullscreen}
+            onToggle={toggle}
+            label={t('ui.carousel.fullscreen')}
+          />
+        )}
       </div>
 
       {/* ── Admin drawer rendered outside viewport so it is never clipped ── */}

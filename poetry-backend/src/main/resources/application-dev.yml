@@ -22,9 +22,9 @@ spring:
       max-file-size: 200MB
       max-request-size: 200MB
 
-# Carousel media upload directory (dev: home dir uploads)
+# Carousel media upload directory (dev: within the project workspace)
 carousel:
-  upload-dir: ${user.home}/poetry-uploads/carousel
+  upload-dir: ./uploads/carousel
 
 # Disable caching for dev
 server:

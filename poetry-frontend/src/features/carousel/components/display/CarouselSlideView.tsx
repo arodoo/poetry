@@ -16,7 +16,7 @@ interface Props {
 export function CarouselSlideView({ slide, active }: Props): ReactElement {
   const url: string = mediaUrl(slide.filename)
   const base: string =
-    'absolute inset-0 w-full h-full object-cover transition-opacity duration-700'
+    'absolute inset-0 w-full h-full object-contain transition-opacity duration-700'
   const opacity: string = active ? 'opacity-100' : 'opacity-0'
 
   if (slide.type === 'VIDEO') {
