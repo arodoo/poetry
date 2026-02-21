@@ -28,6 +28,7 @@ public record MembershipResponse(
         @Schema(description = "All zones flag", example = "false") Boolean allZones,
         @Schema(description = "Status", example = "active") String status,
         @Schema(description = "Creation date", example = "2023-01-01T00:00:00Z") Instant createdAt,
+        @Schema(description = "Next payment date", example = "2024-02-01T00:00:00Z") Instant nextPaymentDate,
         @Schema(description = "Version for locking", example = "0") long version) {
 
     public static MembershipResponse fromDomain(Membership m) {
@@ -43,6 +44,7 @@ public record MembershipResponse(
                 m.allZones(),
                 m.status(),
                 m.createdAt(),
+                m.nextPaymentDate(),
                 m.version());
     }
 }

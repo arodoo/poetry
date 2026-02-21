@@ -15,7 +15,7 @@ interface BannerItemProps {
 }
 
 export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement {
-  const { user, membership } = banner
+  const { user, membership, phone } = banner
   const t = useT()
 
   const isUnknown = user === null
@@ -77,7 +77,7 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
                 {user?.firstName ?? ''} {user?.lastName ?? ''}
               </p>
               <p className="text-xs text-[var(--color-textSubtle)] truncate">
-                {user?.email ?? ''}
+                {phone ?? ''}
               </p>
             </>
           )}
@@ -106,13 +106,13 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
       {/* Membership footer — only for known users */}
       {!isUnknown && (
         <div className="mt-2 pt-2 border-t border-[var(--color-border)] space-y-1">
-          {membership?.subscriptionName && (
+          {membership?.nextPaymentDate && (
             <div className="flex justify-between items-center text-xs">
               <span className="text-[var(--color-textSubtle)]">
-                {t('ui.banner.subscription')}
+                {t('ui.banner.nextPayment')}
               </span>
               <span className="font-medium text-[var(--color-textMuted)] truncate max-w-[60%] text-right">
-                {membership.subscriptionName}
+                {new Date(membership.nextPaymentDate).toLocaleDateString()}
               </span>
             </div>
           )}

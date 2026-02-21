@@ -30,6 +30,7 @@ class MembershipTest {
         Instant.now(),
         Instant.now(),
         null,
+        null,
         0L);
     // Basic sanity assertions
     assert m != null;

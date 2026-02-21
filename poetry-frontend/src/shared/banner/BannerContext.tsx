@@ -8,6 +8,7 @@
 import { useState, useCallback, type ReactNode, type ReactElement } from 'react'
 import { fetchUserById } from '../../features/users/api/usersApi'
 import { fetchMembershipsPage } from '../../features/memberships/api/membershipsApi'
+import { getUserDemographics } from '../../features/userdemographics/api/userDemographicsApi'
 import { BannerContext, type BannerData } from './BannerStore'
 
 export function BannerProvider({
@@ -28,15 +29,18 @@ export function BannerProvider({
       try {
         let user = null
         let membership = null
+        let phone: string | null = null
 
         if (userId !== null) {
           user = await fetchUserById(userId.toString())
           const memberships = await fetchMembershipsPage(0, 1, userId.toString())
           membership = memberships.content?.[0] ?? null
+          const demographics = await getUserDemographics(userId)
+          phone = demographics?.phone ?? null
         }
 
         const id = crypto.randomUUID()
-        const newBanner: BannerData = { id, user, membership }
+        const newBanner: BannerData = { id, user, membership, phone }
 
         setBanners((prev: BannerData[]) => {
           const updated = [...prev, newBanner]

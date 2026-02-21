@@ -11,6 +11,7 @@ export interface BannerData {
   id: string
   user: UserResponse | null
   membership: MembershipResponse | null
+  phone: string | null
 }
 
 interface BannerContextType {

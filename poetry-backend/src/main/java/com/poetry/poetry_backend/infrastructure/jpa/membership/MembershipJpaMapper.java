@@ -8,6 +8,9 @@
 
 package com.poetry.poetry_backend.infrastructure.jpa.membership;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 import com.poetry.poetry_backend.domain.membership.model.Membership;
 import com.poetry.poetry_backend.domain.membership.model.MembershipRehydrator;
 
@@ -26,6 +29,13 @@ public final class MembershipJpaMapper {
     }
 
     String sName = e.getSubscription() != null ? e.getSubscription().getName() : "";
+
+    Instant nextPaymentDate = null;
+    if (e.getSubscription() != null
+        && e.getSubscription().getDurationDays() != null
+        && e.getCreatedAt() != null) {
+      nextPaymentDate = e.getCreatedAt().plus(e.getSubscription().getDurationDays(), ChronoUnit.DAYS);
+    }
 
     String slName = "";
     if (e.getSellerInfo() != null && e.getSellerInfo().getUser() != null) {
@@ -54,6 +64,7 @@ public final class MembershipJpaMapper {
         e.getCreatedAt(),
         e.getUpdatedAt(),
         e.getDeletedAt(),
+        nextPaymentDate,
         e.getVersion() == null ? 0L : e.getVersion());
   }
 }

@@ -25,6 +25,7 @@ public record Membership(
     Instant createdAt,
     Instant updatedAt,
     Instant deletedAt,
+    Instant nextPaymentDate,
     long version) {
   public boolean isDeleted() {
     return deletedAt != null;

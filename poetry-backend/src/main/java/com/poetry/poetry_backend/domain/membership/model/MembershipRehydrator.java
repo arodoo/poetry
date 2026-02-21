@@ -29,6 +29,7 @@ public final class MembershipRehydrator {
       Instant createdAt,
       Instant updatedAt,
       Instant deletedAt,
+      Instant nextPaymentDate,
       long version) {
     return new Membership(
         id,
@@ -44,6 +45,7 @@ public final class MembershipRehydrator {
         createdAt,
         updatedAt,
         deletedAt,
+        nextPaymentDate,
         version);
   }
 }
