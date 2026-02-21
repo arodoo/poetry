@@ -24,4 +24,6 @@ public interface MembershipQueryPort {
       String sort);
 
   Membership findById(Long id);
+
+  boolean existsActiveMembershipForSubscription(Long subscriptionId);
 }

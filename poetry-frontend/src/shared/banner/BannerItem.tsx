@@ -19,14 +19,18 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
   const t = useT()
 
   const isUnknown = user === null
+  const isActive = membership?.status === 'active'
   const isExpired = membership?.status === 'expired'
+  const isInactive = membership !== null && !isActive && !isExpired
 
   // Border and accent color by state
   const borderClass = isUnknown
     ? 'border-[var(--color-warning)]'
-    : isExpired
+    : isExpired || isInactive
       ? 'border-[var(--color-danger)]'
-      : 'border-[var(--color-success)]'
+      : isActive
+        ? 'border-[var(--color-success)]'
+        : 'border-[var(--color-border)]'
 
   const boxClasses = [
     'pointer-events-auto',
@@ -42,17 +46,19 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
     'duration-300',
   ].join(' ')
 
-  const statusClass = isExpired
+  const statusClass = isExpired || isInactive
     ? 'text-[var(--color-danger)]'
-    : membership
+    : isActive
       ? 'text-[var(--color-success)]'
       : 'text-[var(--color-textSubtle)]'
 
-  const statusText = membership
-    ? isExpired
+  const statusText = isActive
+    ? t('ui.banner.status.active')
+    : isExpired
       ? t('ui.banner.status.expired')
-      : t('ui.banner.status.active')
-    : t('ui.banner.status.none')
+      : membership
+        ? t('ui.banner.status.inactive')
+        : t('ui.banner.status.none')
 
   return (
     <div className={boxClasses}>
@@ -122,7 +128,7 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
             </span>
             <span className={`font-semibold ${statusClass}`}>{statusText}</span>
           </div>
-          {isExpired && (
+          {(isExpired || isInactive) && (
             <p className="text-xs text-[var(--color-danger)] mt-1">
               ⚠ {t('ui.banner.status.expired')}
             </p>

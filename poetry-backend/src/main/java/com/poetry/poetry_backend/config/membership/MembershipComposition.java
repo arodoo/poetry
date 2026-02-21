@@ -16,6 +16,7 @@ import com.poetry.poetry_backend.application.membership.port.MembershipQueryPort
 import com.poetry.poetry_backend.application.membership.usecase.*;
 import com.poetry.poetry_backend.infrastructure.jpa.membership.MembershipJpaAdapter;
 import com.poetry.poetry_backend.infrastructure.jpa.membership.MembershipJpaRepository;
+import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.UserHasMembershipJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCodeJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.subscription.SubscriptionJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
@@ -29,13 +30,15 @@ public class MembershipComposition {
       UserJpaRepository userRepo,
       SubscriptionJpaRepository subscriptionRepo,
       SellerCodeJpaRepository sellerCodeRepo,
-      ZoneJpaRepository zoneRepo) {
+      ZoneJpaRepository zoneRepo,
+      UserHasMembershipJpaRepository userHasMembershipRepo) {
     return new MembershipJpaAdapter(
         membershipRepo,
         userRepo,
         subscriptionRepo,
         sellerCodeRepo,
-        zoneRepo);
+        zoneRepo,
+        userHasMembershipRepo);
   }
 
   @Bean

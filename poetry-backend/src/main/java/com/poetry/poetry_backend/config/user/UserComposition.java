@@ -13,6 +13,8 @@ package com.poetry.poetry_backend.config.user;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
+import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.application.user.port.*;
 import com.poetry.poetry_backend.application.user.usecase.*;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaAdapter;
@@ -51,7 +53,10 @@ public class UserComposition {
   }
 
   @Bean
-  DeleteUserUseCase deleteUserUseCase(UserCommandPort c) {
-    return new DeleteUserUseCase(c);
+  DeleteUserUseCase deleteUserUseCase(
+      UserCommandPort c,
+      FingerprintQueryPort fq,
+      FingerprintCommandPort fc) {
+    return new DeleteUserUseCase(c, fq, fc);
   }
 }

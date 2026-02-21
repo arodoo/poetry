@@ -77,4 +77,9 @@ public class MembershipJpaQueryAdapter implements MembershipQueryPort {
         .map(MembershipJpaMapper::toDomain)
         .orElseThrow(() -> new MembershipNotFoundException(id));
   }
+
+  public boolean existsActiveMembershipForSubscription(
+      Long subscriptionId) {
+    return repo.existsActiveBySubscriptionId(subscriptionId);
+  }
 }

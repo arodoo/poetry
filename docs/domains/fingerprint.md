@@ -79,9 +79,23 @@ FingerprintListenerProvider (App root)
 
 1. Calls `POST /capture` (blocks on backend until finger detected)
 2. On success, calls `POST /verify` with the captured FMD
-3. `matched: true` → banner with user name + membership
+3. `matched: true` → fetches user + membership + demographics → shows banner
 4. `matched: false` → banner with "Unrecognized fingerprint"
 5. On error → waits 3s and retries
+
+### Banner membership status
+
+After verification the banner calls `GET /api/v1/memberships/paged?search={userId}&size=1` and reads `membership.status` directly from the response. Status is mapped as follows:
+
+| `membership.status` | Banner display | Border color |
+|---|---|---|
+| `active` | Active (green) | `--color-success` |
+| `expired` | Expired (red) | `--color-danger` |
+| `inactive` / any other | Inactive (red) | `--color-danger` |
+| no membership | None (subtle) | `--color-border` |
+| userId null | Unknown fingerprint | `--color-warning` |
+
+> **Note:** `BannerItem.tsx` reads `membership.status` explicitly. It does **not** assume "active" when a membership object exists.
 
 ### StrictMode safety
 

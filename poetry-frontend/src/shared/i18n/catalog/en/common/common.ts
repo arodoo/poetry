@@ -44,6 +44,7 @@ export const commonEn: Record<string, string> = {
   'ui.banner.close': 'Dismiss',
   'ui.banner.status.active': 'Active',
   'ui.banner.status.expired': 'Expired',
+  'ui.banner.status.inactive': 'Inactive',
   'ui.banner.status.none': 'None',
   'ui.banner.status.unknown': 'Unknown',
   'ui.common.yes': 'Yes',

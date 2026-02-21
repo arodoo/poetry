@@ -17,6 +17,7 @@ import com.poetry.poetry_backend.application.membership.port.MembershipCommandPo
 import com.poetry.poetry_backend.application.membership.port.MembershipQueryPort;
 import com.poetry.poetry_backend.domain.membership.model.Membership;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
+import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.UserHasMembershipJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCodeJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.subscription.SubscriptionJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
@@ -33,10 +34,12 @@ public class MembershipJpaAdapter
       UserJpaRepository userRepo,
       SubscriptionJpaRepository subscriptionRepo,
       SellerCodeJpaRepository sellerCodeRepo,
-      ZoneJpaRepository zoneRepo) {
+      ZoneJpaRepository zoneRepo,
+      UserHasMembershipJpaRepository userHasMembershipRepo) {
     this.queryAdapter = new MembershipJpaQueryAdapter(repo);
     this.commandAdapter = new MembershipJpaCommandAdapter(
-        repo, userRepo, subscriptionRepo, sellerCodeRepo, zoneRepo);
+        repo, userRepo, subscriptionRepo, sellerCodeRepo, zoneRepo,
+        userHasMembershipRepo);
   }
 
   public List<Membership> findAll() {
@@ -53,6 +56,12 @@ public class MembershipJpaAdapter
 
   public Membership findById(Long id) {
     return queryAdapter.findById(id);
+  }
+
+  public boolean existsActiveMembershipForSubscription(
+      Long subscriptionId) {
+    return queryAdapter
+        .existsActiveMembershipForSubscription(subscriptionId);
   }
 
   public Membership create(

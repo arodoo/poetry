@@ -11,6 +11,7 @@ package com.poetry.poetry_backend.config.subscription;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.poetry.poetry_backend.application.membership.port.MembershipQueryPort;
 import com.poetry.poetry_backend.application.subscription.port.SubscriptionCommandPort;
 import com.poetry.poetry_backend.application.subscription.port.SubscriptionQueryPort;
 import com.poetry.poetry_backend.application.subscription.usecase.CreateSubscriptionUseCase;
@@ -61,7 +62,8 @@ public class SubscriptionComposition {
 
   @Bean
   DeleteSubscriptionUseCase deleteSubscriptionUseCase(
-      SubscriptionCommandPort c) {
-    return new DeleteSubscriptionUseCase(c);
+      SubscriptionCommandPort c,
+      MembershipQueryPort membershipQuery) {
+    return new DeleteSubscriptionUseCase(c, membershipQuery);
   }
 }
