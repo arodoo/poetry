@@ -22,6 +22,11 @@ public interface HidCapturePort {
     String capture(int timeoutMs) throws HidCaptureException;
 
     /**
+     * Cancels any ongoing capture operation on the hardware.
+     */
+    void cancelCapture();
+
+    /**
      * Compares two FMDs and returns match score.
      *
      * @param probeFmd  captured FMD as Base64

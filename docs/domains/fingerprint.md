@@ -106,4 +106,55 @@ are decoded with URL-safe Base64 normalization (`-`→`+`, `_`→`/`).
 - Native library (dpfpdd.dll) in JNI path
 - Profile `prod` for real SDK, `stub` for simulated capture
 
+## Hardware Cancel Endpoint
+
+`DELETE /api/v1/fingerprints/capture` was added to allow the frontend to
+abort a blocking `reader.Capture()` call on the JNI layer before starting
+a new one. Without this, the hardware lock could hold for up to 30 seconds.
+
+| Layer | File |
+|---|---|
+| Port | `HidCapturePort.java` → `void cancelCapture()` |
+| Adapter | `ProdHidCaptureAdapter.java` → `reader.CancelCapture()` |
+| Use Case | `CancelCaptureUseCase.java` |
+| Controller | `FingerprintCaptureController.java` → `@DeleteMapping("/capture")` |
+
+## Known Bug: Why the Listener Skips Reads
+
+### Root Cause (documented for future reference)
+
+`POST /capture` is a **blocking JNI call** inside a `synchronized` block in
+`ProdHidCaptureAdapter`. The C++ driver holds the hardware laser open until
+a finger is detected or the timeout expires.
+
+**React 18 Strict Mode** mounts every component twice in development. If
+the listener hook is not guarded, two concurrent loops can both call
+`/capture`. The first loop's HTTP request occupies the hardware. When the
+user places their finger, the first loop reads it — but if that loop's HTTP
+socket was already abandoned (component unmounted), the FMD is silently
+dropped. The user sees nothing. The second valid loop then starts a new
+capture, but the finger is gone.
+
+### The Fix (what works)
+
+A **module-level `loopActive` boolean** (`let loopActive = false`) with a
+guard at the start of `start()`:
+
+```typescript
+if (loopActive) return  // StrictMode double-mount guard
+loopActive = true
+```
+
+Because the flag lives **at module scope** (not inside the React component),
+it survives unmount/remount cycles. The second StrictMode call hits the
+guard and returns immediately, leaving only one hardware request in flight
+at any time.
+
+### What does NOT work
+
+| Approach | Why it fails |
+|---|---|
+| `AbortController` on the `fetch` | Closes the HTTP socket but the **JNI thread keeps the hardware blocked** for up to 30s. The next loop hits the synchronized gate and fails. |
+| `Symbol`-based `currentRunId` | Both StrictMode mounts get unique Symbols, so both pass the guard and start concurrent loops. |
+
 All Rights Reserved Arodi Emmanuel

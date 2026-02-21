@@ -56,6 +56,18 @@ public class ProdHidCaptureAdapter implements HidCapturePort {
     }
 
     @Override
+    public void cancelCapture() {
+        if (reader != null) {
+            try {
+                reader.CancelCapture();
+                log.info("Canceled ongoing hardware capture");
+            } catch (UareUException e) {
+                log.warn("Failed to cancel capture: {}", e.getMessage());
+            }
+        }
+    }
+
+    @Override
     public int compare(String probeFmd, String storedFmd) throws HidCaptureException {
         try {
             byte[] probeBytes = decodeFmd(probeFmd);

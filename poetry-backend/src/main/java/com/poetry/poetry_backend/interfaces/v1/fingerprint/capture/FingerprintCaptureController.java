@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poetry.poetry_backend.application.fingerprint.usecase.capture.CancelCaptureUseCase;
 import com.poetry.poetry_backend.application.fingerprint.usecase.capture.CaptureFingerprintUseCase;
 import com.poetry.poetry_backend.application.fingerprint.usecase.capture.CaptureResult;
 
@@ -28,9 +29,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class FingerprintCaptureController {
 
     private final CaptureFingerprintUseCase captureUseCase;
+    private final CancelCaptureUseCase cancelUseCase;
 
-    public FingerprintCaptureController(CaptureFingerprintUseCase captureUseCase) {
+    public FingerprintCaptureController(CaptureFingerprintUseCase captureUseCase,
+                                        CancelCaptureUseCase cancelUseCase) {
         this.captureUseCase = captureUseCase;
+        this.cancelUseCase = cancelUseCase;
     }
 
     @Operation(operationId = "captureFingerprint", summary = "Capture fingerprint from HID reader", // i18n-ignore
@@ -52,6 +56,18 @@ public class FingerprintCaptureController {
         } else {
             return ResponseEntity.ok(CaptureResponse.failure(result.errorCode()));
         }
+    }
+
+    @Operation(operationId = "deleteFingerprintsCapture", summary = "Cancel ongoing capture", // i18n-ignore
+            description = "Aborts the physical hardware laser operation immediately.") // i18n-ignore
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Capture aborted")
+    })
+    @PreAuthorize("hasAuthority('admin')")
+    @org.springframework.web.bind.annotation.DeleteMapping("/capture")
+    public ResponseEntity<Void> cancelCapture() {
+        cancelUseCase.execute();
+        return ResponseEntity.ok().build();
     }
 
     public record CaptureRequest(Integer timeoutMs) {

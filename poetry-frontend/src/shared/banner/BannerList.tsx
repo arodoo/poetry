@@ -6,13 +6,29 @@
  */
 
 import { useBanner } from './BannerStore'
-import { type ReactElement } from 'react'
+import { useEffect, useState, type ReactElement } from 'react'
+import { createPortal } from 'react-dom'
 import { BannerItem } from './BannerItem'
 
 export function BannerList(): ReactElement | null {
   const { banners, remove } = useBanner()
+  const [portalTarget, setPortalTarget] = useState<Element | null>(null)
 
-  if (banners.length === 0) return null
+  useEffect(() => {
+    // Inicializar el target en cuanto se monta el componente
+    setPortalTarget(document.fullscreenElement || document.body)
+
+    function onFullscreenChange() {
+      setPortalTarget(document.fullscreenElement || document.body)
+    }
+
+    document.addEventListener('fullscreenchange', onFullscreenChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', onFullscreenChange)
+    }
+  }, [])
+
+  if (banners.length === 0 || !portalTarget) return null
 
   const containerClasses = [
     'fixed',
@@ -26,11 +42,12 @@ export function BannerList(): ReactElement | null {
     'pointer-events-none',
   ].join(' ')
 
-  return (
+  return createPortal(
     <div className={containerClasses}>
       {banners.map((banner) => (
         <BannerItem banner={banner} key={banner.id} onDismiss={remove} />
       ))}
-    </div>
+    </div>,
+    portalTarget
   )
 }
