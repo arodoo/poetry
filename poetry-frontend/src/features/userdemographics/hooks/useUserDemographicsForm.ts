@@ -18,6 +18,7 @@ export interface UserDemographicsFormState {
   readonly setGender: (v: string) => void
   readonly setPhone: (v: string) => void
   readonly saveForUser: (userId: number) => Promise<void>
+  readonly isLoaded: boolean
 }
 
 export function useUserDemographicsForm(
@@ -26,20 +27,30 @@ export function useUserDemographicsForm(
   const [birthDate, setBirthDate] = useState('')
   const [gender, setGender] = useState('')
   const [phone, setPhone] = useState('')
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    if (!userId) return
+    if (!userId) {
+      setIsLoaded(true)
+      return
+    }
     void getUserDemographics(userId).then((data) => {
-      if (!data) return
-      setBirthDate(data.birthDate ?? '')
-      setGender(data.gender ?? '')
-      setPhone(data.phone ?? '')
+      if (data) {
+        setBirthDate(data.birthDate ?? '')
+        setGender(data.gender ?? '')
+        setPhone(data.phone ?? '')
+      }
+      setIsLoaded(true)
     })
   }, [userId])
 
   async function saveForUser(uid: number): Promise<void> {
     if (!birthDate && !gender && !phone) return
-    await upsertUserDemographics(uid, { birthDate, gender, phone })
+    await upsertUserDemographics(uid, {
+      birthDate: birthDate || null,
+      gender: gender || null,
+      phone: phone || null,
+    })
   }
 
   return {
@@ -50,5 +61,6 @@ export function useUserDemographicsForm(
     setGender,
     setPhone,
     saveForUser,
+    isLoaded,
   }
 }

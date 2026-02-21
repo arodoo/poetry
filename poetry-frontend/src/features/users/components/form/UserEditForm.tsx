@@ -49,16 +49,37 @@ export function UserEditForm(props: UserEditFormProps): ReactElement {
   const addressState = useUserAddressForm(numericUserId)
 
   const baseSubmit = createSubmitHandler(formState, props.onSubmit)
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault()
+    try {
+      await Promise.all([
+        demographicsState.saveForUser(numericUserId),
+        addressState.saveForUser(numericUserId)
+      ])
+    } catch (err) {
+      console.error('Failed to save demographics or address', err)
+    }
     baseSubmit(e)
-    void demographicsState.saveForUser(numericUserId)
-    void addressState.saveForUser(numericUserId)
   }
   const handleCancel: () => void = createCancelHandler(
     navigate,
     locale,
     props.userId
   )
+
+  if (!demographicsState.isLoaded || !addressState.isLoaded) {
+    return (
+      <PageLayout
+        title={props.t('ui.users.edit.title')}
+        subtitle={props.t('ui.users.edit.subtitle')}
+      >
+        <div className="flex justify-center p-8">
+          <span className="text-sm text-textMuted">{props.t('ui.users.status.loading')}</span>
+        </div>
+      </PageLayout>
+    )
+  }
+
   const sections = buildEditFormSections(
     formState,
     false,
