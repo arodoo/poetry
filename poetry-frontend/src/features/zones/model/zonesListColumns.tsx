@@ -31,23 +31,21 @@ export function buildZonesListColumns(
       header: t('ui.zones.columns.id'),
       width: 'xs',
       accessor: (item: ZoneResponse) => String(item.id ?? '-'),
-      sortValue: (item: ZoneResponse): string =>
-        item.name ?? '',
+      sortValue: (item: ZoneResponse): string => item.name ?? '',
     },
     {
       key: 'description',
       header: t('ui.zones.columns.description'),
       width: 'xl',
       accessor: (item: ZoneResponse) => item.description ?? '-',
-      sortValue: (item: ZoneResponse): string =>
-        item.description ?? '',
+      sortValue: (item: ZoneResponse): string => item.description ?? '',
     },
     {
       key: 'status',
       header: t('ui.zones.columns.status'),
       width: 'sm',
       accessor: (item: ZoneResponse): ReactElement => {
-        const status = (item.status ?? 'unknown').toLowerCase();
+        const status = (item.status ?? 'unknown').toLowerCase()
         const statusKey =
           status === 'active'
             ? 'ui.zones.status.active'
@@ -55,10 +53,7 @@ export function buildZonesListColumns(
               ? 'ui.zones.status.inactive'
               : 'ui.zones.status.unknown'
         return (
-          <Badge
-            tone={status === 'active' ? 'success' : 'neutral'}
-            size="sm"
-          >
+          <Badge tone={status === 'active' ? 'success' : 'neutral'} size="sm">
             {t(statusKey as any)}
           </Badge>
         )

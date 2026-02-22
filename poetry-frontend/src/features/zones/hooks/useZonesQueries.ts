@@ -34,20 +34,8 @@ export const zonesQueryKeys: {
   list(): readonly ['zones', 'list'] {
     return ['zones', 'list'] as const
   },
-  page(
-    pageNum: number,
-    pageSize: number,
-    search?: string,
-    sort?: string
-  ) {
-    return [
-      'zones',
-      'page',
-      pageNum,
-      pageSize,
-      search,
-      sort,
-    ] as const
+  page(pageNum: number, pageSize: number, search?: string, sort?: string) {
+    return ['zones', 'page', pageNum, pageSize, search, sort] as const
   },
   detail(id: string): readonly ['zones', 'detail', string] {
     return ['zones', 'detail', id] as const
@@ -70,16 +58,9 @@ export function useZonesPageQuery(
   search?: string,
   sort?: string
 ): UseQueryResult<PageResponseDtoZoneResponse> {
-  const hasAccessToken = Boolean(
-    tokenStorage.load()?.accessToken
-  )
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
-    queryKey: zonesQueryKeys.page(
-      page,
-      size,
-      search,
-      sort
-    ),
+    queryKey: zonesQueryKeys.page(page, size, search, sort),
     queryFn: (): Promise<PageResponseDtoZoneResponse> =>
       fetchZonesPage(page, size, search, sort),
     enabled: hasAccessToken,

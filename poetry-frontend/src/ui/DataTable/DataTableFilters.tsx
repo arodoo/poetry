@@ -24,9 +24,7 @@ const selectCls =
   'focus:ring-[var(--color-primary,#6366f1)] ' +
   'focus:border-transparent transition-shadow'
 
-export function DataTableFilters(
-  props: Props
-): ReactElement {
+export function DataTableFilters(props: Props): ReactElement {
   const t = useT()
   return (
     <>
@@ -35,9 +33,7 @@ export function DataTableFilters(
           <select
             key={def.key}
             value={props.active[def.key] ?? ''}
-            onChange={(
-              e: ChangeEvent<HTMLSelectElement>
-            ): void => {
+            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
               props.onChange(def.key, e.target.value)
             }}
             className={selectCls}

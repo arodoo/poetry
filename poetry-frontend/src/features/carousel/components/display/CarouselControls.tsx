@@ -34,8 +34,18 @@ export function CarouselControls({
           'hover:bg-black/70 transition-colors'
         }
       >
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        <svg
+          className="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
       </button>
 
@@ -49,26 +59,34 @@ export function CarouselControls({
           'hover:bg-black/70 transition-colors'
         }
       >
-        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+        <svg
+          className="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
       {/* Dot indicators */}
       <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-        {Array.from({ length: count }).map((_, i: number): ReactElement => (
-          <button
-            key={i}
-            onClick={(): void => onGoTo(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            className={
-              'h-2.5 w-2.5 rounded-full transition-all ' +
-              (i === index
-                ? 'bg-white scale-125'
-                : 'bg-white/50 hover:bg-white/80')
-            }
-          />
-        ))}
+        {Array.from({ length: count }).map(
+          (_, i: number): ReactElement => (
+            <button
+              key={i}
+              onClick={(): void => { onGoTo(i); }}
+              aria-label={`Go to slide ${i + 1}`}
+              className={
+                'h-2.5 w-2.5 rounded-full transition-all ' +
+                (i === index
+                  ? 'bg-white scale-125'
+                  : 'bg-white/50 hover:bg-white/80')
+              }
+            />
+          )
+        )}
       </div>
     </>
   )

@@ -35,7 +35,12 @@ export default function UsersCreatePage(): ReactElement {
     handleCancel,
   } = useUsersCreatePage(locale, navigate, toast, t)
 
-  const sections = buildCreateFormSections(formState, t, demographicsState, addressState)
+  const sections = buildCreateFormSections(
+    formState,
+    t,
+    demographicsState,
+    addressState
+  )
 
   return (
     <PageLayout

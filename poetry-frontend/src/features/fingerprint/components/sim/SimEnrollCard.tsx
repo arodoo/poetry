@@ -10,9 +10,7 @@ import { useState } from 'react'
 import { Text } from '../../../../ui/Text/Text'
 import { Card } from '../../../../ui/Card/Card'
 import { useT } from '../../../../shared/i18n/useT'
-import {
-  useEnrollFingerprintMutation,
-} from '../../hooks/useFingerprintMutations'
+import { useEnrollFingerprintMutation } from '../../hooks/useFingerprintMutations'
 import type { EnrollRequest } from '../../model/FingerprintSchemas'
 import { SimEnrollForm } from './SimEnrollForm'
 

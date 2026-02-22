@@ -24,7 +24,7 @@ export default function CarouselPage(): ReactElement {
   const t = useT()
   const { session } = useSession()
   // Backend Role enum uses lowercase keys: 'admin', 'manager', 'user'
-  const isAdmin: boolean = Boolean(session?.roles.includes('admin'))
+  const isAdmin = Boolean(session?.roles.includes('admin'))
   const { data: config, isLoading, isError } = useCarouselConfig()
   const { ref, isFullscreen, toggle } = useFullscreen()
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
@@ -45,7 +45,7 @@ export default function CarouselPage(): ReactElement {
         </h1>
         {isAdmin && (
           <AdminConfigButton
-            onOpen={(): void => setDrawerOpen(true)}
+            onOpen={(): void => { setDrawerOpen(true); }}
             label={t('ui.carousel.admin.open')}
           />
         )}
@@ -105,7 +105,7 @@ export default function CarouselPage(): ReactElement {
       {isAdmin && drawerOpen && config && (
         <AdminConfigDrawer
           config={config}
-          onClose={(): void => setDrawerOpen(false)}
+          onClose={(): void => { setDrawerOpen(false); }}
         />
       )}
     </div>

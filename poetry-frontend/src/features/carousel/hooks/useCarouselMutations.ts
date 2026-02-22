@@ -4,7 +4,11 @@
  * Each mutation invalidates the config query on success.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query'
+import {
+  useMutation,
+  useQueryClient,
+  type UseMutationResult,
+} from '@tanstack/react-query'
 import {
   uploadSlide,
   deleteSlide,
@@ -21,7 +25,11 @@ function useInvalidate() {
   return () => qc.invalidateQueries({ queryKey: carouselQueryKeys.config() })
 }
 
-export function useUploadSlideMutation(): UseMutationResult<CarouselSlide, Error, File> {
+export function useUploadSlideMutation(): UseMutationResult<
+  CarouselSlide,
+  Error,
+  File
+> {
   const invalidate = useInvalidate()
   return useMutation<CarouselSlide, Error, File>({
     mutationFn: uploadSlide,
@@ -29,7 +37,11 @@ export function useUploadSlideMutation(): UseMutationResult<CarouselSlide, Error
   })
 }
 
-export function useDeleteSlideMutation(): UseMutationResult<void, Error, number> {
+export function useDeleteSlideMutation(): UseMutationResult<
+  void,
+  Error,
+  number
+> {
   const invalidate = useInvalidate()
   return useMutation<void, Error, number>({
     mutationFn: deleteSlide,
@@ -37,7 +49,11 @@ export function useDeleteSlideMutation(): UseMutationResult<void, Error, number>
   })
 }
 
-export function useReorderSlidesMutation(): UseMutationResult<void, Error, number[]> {
+export function useReorderSlidesMutation(): UseMutationResult<
+  void,
+  Error,
+  number[]
+> {
   const invalidate = useInvalidate()
   return useMutation<void, Error, number[]>({
     mutationFn: reorderSlides,
@@ -45,7 +61,11 @@ export function useReorderSlidesMutation(): UseMutationResult<void, Error, numbe
   })
 }
 
-export function useUpdateIntervalMutation(): UseMutationResult<void, Error, number> {
+export function useUpdateIntervalMutation(): UseMutationResult<
+  void,
+  Error,
+  number
+> {
   const invalidate = useInvalidate()
   return useMutation<void, Error, number>({
     mutationFn: updateInterval,
@@ -53,7 +73,11 @@ export function useUpdateIntervalMutation(): UseMutationResult<void, Error, numb
   })
 }
 
-export function useUploadOverlayMutation(): UseMutationResult<void, Error, File> {
+export function useUploadOverlayMutation(): UseMutationResult<
+  void,
+  Error,
+  File
+> {
   const invalidate = useInvalidate()
   return useMutation<void, Error, File>({
     mutationFn: uploadOverlay,
@@ -61,9 +85,13 @@ export function useUploadOverlayMutation(): UseMutationResult<void, Error, File>
   })
 }
 
-export function useDeleteOverlayMutation(): UseMutationResult<void, Error, void> {
+export function useDeleteOverlayMutation(): UseMutationResult<
+  void,
+  Error,
+  void
+> {
   const invalidate = useInvalidate()
-  return useMutation<void, Error, void>({
+  return useMutation<void>({
     mutationFn: deleteOverlay,
     onSuccess: invalidate,
   })

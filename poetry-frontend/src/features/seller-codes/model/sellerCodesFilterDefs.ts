@@ -8,22 +8,22 @@
 import type { FilterDef } from '../../../ui/DataTable/FilterTypes'
 
 export function buildSellerCodeFilters(
-    t: (key: string) => string
+  t: (key: string) => string
 ): readonly FilterDef[] {
-    return [
+  return [
+    {
+      key: 'status',
+      label: t('ui.table.filter.status'),
+      options: [
         {
-            key: 'status',
-            label: t('ui.table.filter.status'),
-            options: [
-                {
-                    value: 'active',
-                    label: t('ui.sellerCodes.status.active'),
-                },
-                {
-                    value: 'inactive',
-                    label: t('ui.sellerCodes.status.inactive'),
-                },
-            ],
+          value: 'active',
+          label: t('ui.sellerCodes.status.active'),
         },
-    ]
+        {
+          value: 'inactive',
+          label: t('ui.sellerCodes.status.inactive'),
+        },
+      ],
+    },
+  ]
 }

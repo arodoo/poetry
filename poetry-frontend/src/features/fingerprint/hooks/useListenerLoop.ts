@@ -55,7 +55,10 @@ export function useListenerLoop() {
         console.info('[Loop] verify result:', verified.data)
 
         if (verified.data?.matched && verified.data.userId) {
-          console.info('[Loop] pushing banner for userId:', verified.data.userId)
+          console.info(
+            '[Loop] pushing banner for userId:',
+            verified.data.userId
+          )
           void push(verified.data.userId)
         } else if (verified.data && !verified.data.matched) {
           console.info('[Loop] unknown finger, pushing null banner')

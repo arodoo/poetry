@@ -13,6 +13,7 @@ import { Text } from '../../../ui/Text/Text'
 import { useHardwareStatusQuery } from '../hooks/useHardwareStatusQuery'
 import { HardwareStatusCard } from '../components/HardwareStatusCard'
 import { formatDate } from '../../../shared/utils/dateUtils'
+import { HardwareFingerprintTableShell } from '../components/HardwareFingerprintTableShell'
 
 export function HardwareStatusPage(): ReactElement {
   const t = useT()
@@ -23,10 +24,12 @@ export function HardwareStatusPage(): ReactElement {
     const timer = setInterval(() => {
       setCountdown((prev) => (prev <= 1 ? 5 : prev - 1))
     }, 1000)
-    return () => clearInterval(timer)
+    return () => { clearInterval(timer); }
   }, [])
 
-  useEffect(() => { setCountdown(5) }, [dataUpdatedAt])
+  useEffect(() => {
+    setCountdown(5)
+  }, [dataUpdatedAt])
 
   if (isLoading) {
     return (
@@ -52,11 +55,19 @@ export function HardwareStatusPage(): ReactElement {
           {t('ui.hardware.status.subtitle')}
         </Text>
         <div className="max-w-md">
-          <HardwareStatusCard status={data} lastCheck={formatDate(dataUpdatedAt)} />
-          <Text size="sm" className="mt-4 text-center text-[var(--color-text-muted)]">
+          <HardwareStatusCard
+            status={data}
+            lastCheck={formatDate(dataUpdatedAt)}
+          />
+          <Text
+            size="sm"
+            className="mt-4 text-center text-[var(--color-text-muted)]"
+          >
             {t('ui.hardware.status.reconnecting', { seconds: countdown })}
           </Text>
         </div>
+
+        <HardwareFingerprintTableShell />
       </Stack>
     </div>
   )

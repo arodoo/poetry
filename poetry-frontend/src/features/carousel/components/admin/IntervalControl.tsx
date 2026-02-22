@@ -22,9 +22,7 @@ export function IntervalControl({
   label,
   saveLabel,
 }: Props): ReactElement {
-  const [seconds, setSeconds] = useState<number>(
-    Math.round(currentMs / 1000)
-  )
+  const [seconds, setSeconds] = useState<number>(Math.round(currentMs / 1000))
 
   function handleChange(e: ChangeEvent<HTMLInputElement>): void {
     setSeconds(Number(e.target.value))

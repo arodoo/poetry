@@ -36,7 +36,8 @@ export const commonEn: Record<string, string> = {
   'error.unexpected': 'An unexpected error occurred',
   'ui.banner.newRegistration': 'New Registration',
   'ui.banner.unknownFinger': 'Unrecognized fingerprint',
-  'ui.banner.unknownFingerDetail': 'This fingerprint is not registered in the system.',
+  'ui.banner.unknownFingerDetail':
+    'This fingerprint is not registered in the system.',
   'ui.banner.phone': 'Phone:',
   'ui.banner.nextPayment': 'Next payment:',
   'ui.banner.membership': 'Membership:',

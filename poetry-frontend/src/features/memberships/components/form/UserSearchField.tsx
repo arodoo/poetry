@@ -34,7 +34,7 @@ export default function UserSearchField({
     setIsOpen(true)
   }, 300)
 
-  useDocumentClick(isOpen, [containerRef], () => setIsOpen(false))
+  useDocumentClick(isOpen, [containerRef], () => { setIsOpen(false); })
 
   const handleSelect = (user: UserResponse): void => {
     onSelect(user)
@@ -44,8 +44,11 @@ export default function UserSearchField({
 
   return (
     <div className="relative" ref={containerRef}>
-      <label className="block text-sm font-medium mb-1" data-testid="selected-user-label">
-        {selectedUser 
+      <label
+        className="block text-sm font-medium mb-1"
+        data-testid="selected-user-label"
+      >
+        {selectedUser
           ? `${selectedUser.firstName} ${selectedUser.lastName} (@${selectedUser.username})`
           : t('ui.memberships.form.user.label')}
       </label>
@@ -53,7 +56,7 @@ export default function UserSearchField({
         data-testid="user-search-input"
         placeholder={t('ui.memberships.form.user.search')}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          debouncedSearch(e.target.value)
+          { debouncedSearch(e.target.value); }
         }
         onFocus={() => {
           if (searchTerm) setIsOpen(true)
@@ -87,10 +90,14 @@ export default function UserSearchField({
               type="button"
               data-testid={`user-search-result-${u.id}`}
               className="w-full text-left p-2 hover:bg-surfaceHover text-sm"
-              onClick={() => handleSelect(u)}
+              onClick={() => { handleSelect(u); }}
             >
-              <div className="font-medium">{u.firstName} {u.lastName}</div>
-              <div className="text-xs text-textMuted">@{u.username} - {u.email}</div>
+              <div className="font-medium">
+                {u.firstName} {u.lastName}
+              </div>
+              <div className="text-xs text-textMuted">
+                @{u.username} - {u.email}
+              </div>
             </button>
           ))}
         </div>

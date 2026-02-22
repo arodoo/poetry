@@ -12,9 +12,7 @@ import { Input } from '../../../../ui/Input/Input'
 import { Text } from '../../../../ui/Text/Text'
 import { Card } from '../../../../ui/Card/Card'
 import { useT } from '../../../../shared/i18n/useT'
-import {
-  useVerifyFingerprintMutation,
-} from '../../hooks/useFingerprintMutations'
+import { useVerifyFingerprintMutation } from '../../hooks/useFingerprintMutations'
 import type { VerifyRequest } from '../../model/FingerprintSchemas'
 
 interface SimVerifyCardProps {

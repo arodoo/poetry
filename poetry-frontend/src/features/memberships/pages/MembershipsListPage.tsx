@@ -29,7 +29,10 @@ export default function MembershipsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
-  const [sort, setSort] = useState<SortState>({ key: 'createdAt', direction: 'desc' })
+  const [sort, setSort] = useState<SortState>({
+    key: 'createdAt',
+    direction: 'desc',
+  })
   const [activeFilters, setFilters] = useState<ActiveFilters>({})
 
   const localeResult: ReturnType<typeof useLocale> = useLocale()

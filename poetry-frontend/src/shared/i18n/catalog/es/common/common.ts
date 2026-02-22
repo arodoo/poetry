@@ -36,7 +36,8 @@ export const commonEs: Record<string, string> = {
   'error.unexpected': 'Ocurrió un error inesperado',
   'ui.banner.newRegistration': 'Nueva inscripción',
   'ui.banner.unknownFinger': 'Huella no reconocida',
-  'ui.banner.unknownFingerDetail': 'Esta huella no está registrada en el sistema.',
+  'ui.banner.unknownFingerDetail':
+    'Esta huella no está registrada en el sistema.',
   'ui.banner.phone': 'Teléfono:',
   'ui.banner.nextPayment': 'Próximo pago:',
   'ui.banner.membership': 'Membresía:',

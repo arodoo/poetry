@@ -31,9 +31,7 @@ export function SortIndicator(props: Props): ReactElement {
 
   return (
     <span
-      className={
-        'ml-1 text-[0.65rem] inline-block ' + activeCls
-      }
+      className={'ml-1 text-[0.65rem] inline-block ' + activeCls}
       aria-hidden="true"
     >
       {icon}

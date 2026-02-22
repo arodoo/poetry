@@ -8,5 +8,21 @@
   "ui.hardware.status.sdk": "Versión del SDK",
   "ui.hardware.status.error": "Error",
   "ui.hardware.status.lastCheck": "Última verificación",
-  "ui.hardware.breadcrumb": "Hardware"
+  "ui.hardware.breadcrumb": "Hardware",
+  "ui.hardware.fingerprints.title": "Huellas Dactilares Registradas",
+  "ui.hardware.fingerprints.empty": "No se encontraron huellas registradas",
+  "ui.hardware.fingerprints.error": "Error al cargar las huellas dactilares",
+  "ui.hardware.fingerprints.table.id": "ID",
+  "ui.hardware.fingerprints.table.user": "Usuario",
+  "ui.hardware.fingerprints.table.status": "Estado",
+  "ui.hardware.fingerprints.table.enrolled": "Registrado En",
+  "ui.hardware.fingerprints.table.actions": "Acciones",
+  "ui.hardware.fingerprints.table.view": "Ver",
+  "ui.hardware.fingerprints.modal.title": "Detalles Técnicos de Huella Dactilar",
+  "ui.hardware.fingerprints.modal.id": "ID de Huella",
+  "ui.hardware.fingerprints.modal.userId": "ID de Usuario",
+  "ui.hardware.fingerprints.modal.username": "Nombre de Usuario",
+  "ui.hardware.fingerprints.modal.status": "Estado",
+  "ui.hardware.fingerprints.modal.version": "Versión",
+  "ui.hardware.fingerprints.modal.enrolledAt": "Registrado En"
 }

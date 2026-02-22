@@ -1,6 +1,6 @@
 /*
  * File: membersListColumns.tsx
- * Purpose: Column definitions for the memberships DataTable used specifically in the admin stats dashboard. 
+ * Purpose: Column definitions for the memberships DataTable used specifically in the admin stats dashboard.
  * Centralizes rendering logic for member profiles, statuses, dates, and plans to maintain component modularity.
  * All Rights Reserved Arodi Emmanuel
  */
@@ -36,9 +36,9 @@ export function buildMembersColumns(
     {
       key: 'access',
       header: t('ui.adminStats.columns.access'),
-      accessor: (row: any) => 
-        row.allZones 
-          ? t('ui.adminStats.access.allZones') 
+      accessor: (row: any) =>
+        row.allZones
+          ? t('ui.adminStats.access.allZones')
           : `${row.zoneCount || 0} ${t('ui.adminStats.access.zones')}`,
     },
     {

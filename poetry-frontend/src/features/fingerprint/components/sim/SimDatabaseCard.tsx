@@ -9,9 +9,7 @@ import type { ReactElement } from 'react'
 import { Text } from '../../../../ui/Text/Text'
 import { Card } from '../../../../ui/Card/Card'
 import { useT } from '../../../../shared/i18n/useT'
-import {
-  useVerifyFingerprintMutation,
-} from '../../hooks/useFingerprintMutations'
+import { useVerifyFingerprintMutation } from '../../hooks/useFingerprintMutations'
 import type {
   FingerprintResponse,
   VerifyRequest,

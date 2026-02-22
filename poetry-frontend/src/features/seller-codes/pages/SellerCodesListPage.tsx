@@ -30,37 +30,38 @@ export default function SellerCodesListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
-  const [sort, setSort] = useState<SortState>(
-    { key: 'createdAt', direction: 'desc' }
-  )
-  const [activeFilters, setFilters] =
-    useState<ActiveFilters>({})
+  const [sort, setSort] = useState<SortState>({
+    key: 'createdAt',
+    direction: 'desc',
+  })
+  const [activeFilters, setFilters] = useState<ActiveFilters>({})
   const localeResult = useLocale()
   const locale: string = localeResult.locale
   const t = useT()
-  const pageQuery =
-    useSellerCodesPageQuery(
-      page, size, search, toSortParam(sort)
-    )
+  const pageQuery = useSellerCodesPageQuery(
+    page,
+    size,
+    search,
+    toSortParam(sort)
+  )
   const isError: boolean = pageQuery.isError
-  const rawCodes: readonly SellerCodeResponse[] =
-    Array.isArray(pageQuery.data?.content)
-      ? pageQuery.data.content
-      : []
-  const sellerCodes: readonly SellerCodeResponse[] =
-    applyFilters(rawCodes, activeFilters)
+  const rawCodes: readonly SellerCodeResponse[] = Array.isArray(
+    pageQuery.data?.content
+  )
+    ? pageQuery.data.content
+    : []
+  const sellerCodes: readonly SellerCodeResponse[] = applyFilters(
+    rawCodes,
+    activeFilters
+  )
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
   const columns: readonly DataTableColumn<SellerCodeResponse>[] =
     buildSellerCodesListColumns(locale, t)
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildSellerCodeListBreadcrumbs(locale, t)
-  const actions: ReactElement =
-    <SellerCodesListActions />
-  const onFilterChange = (
-    key: string,
-    value: string
-  ): void => {
+  const actions: ReactElement = <SellerCodesListActions />
+  const onFilterChange = (key: string, value: string): void => {
     setFilters((p) => ({ ...p, [key]: value }))
   }
 
@@ -94,9 +95,8 @@ export default function SellerCodesListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={sellerCodes}
-          keyExtractor={
-            (row: SellerCodeResponse): string =>
-              String(row.id ?? '')
+          keyExtractor={(row: SellerCodeResponse): string =>
+            String(row.id ?? '')
           }
           emptyMessage={t('ui.sellerCodes.status.empty')}
           sort={sort}

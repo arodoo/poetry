@@ -24,7 +24,14 @@ export const membershipsQueryKeys: {
     pageSize: number,
     search?: string,
     sort?: string
-  ): readonly ['memberships', 'page', number, number, string | undefined, string | undefined]
+  ): readonly [
+    'memberships',
+    'page',
+    number,
+    number,
+    string | undefined,
+    string | undefined,
+  ]
   detail(id: string): readonly ['memberships', 'detail', string]
 } = {
   root: ['memberships'],
@@ -36,7 +43,14 @@ export const membershipsQueryKeys: {
     pageSize: number,
     search?: string,
     sort?: string
-  ): readonly ['memberships', 'page', number, number, string | undefined, string | undefined] {
+  ): readonly [
+    'memberships',
+    'page',
+    number,
+    number,
+    string | undefined,
+    string | undefined,
+  ] {
     return ['memberships', 'page', pageNum, pageSize, search, sort] as const
   },
   detail(id: string): readonly ['memberships', 'detail', string] {

@@ -21,38 +21,33 @@ export function buildUsersListColumns(
       header: t('ui.users.columns.createdAt'),
       width: 'md',
       accessor: (row: UserSummary): string => formatDate(row.createdAt),
-      sortValue: (row: UserSummary): string =>
-        row.createdAt ?? '',
+      sortValue: (row: UserSummary): string => row.createdAt ?? '',
     },
     {
       key: 'username',
       header: t('ui.users.columns.fullName'),
       width: 'lg',
-      accessor: (row: UserSummary): string =>
-        row.username ?? '',
-      sortValue: (row: UserSummary): string =>
-        row.username ?? '',
+      accessor: (row: UserSummary): string => row.username ?? '',
+      sortValue: (row: UserSummary): string => row.username ?? '',
     },
     {
       key: 'email',
       header: t('ui.users.columns.email'),
       width: 'xl',
-      accessor: (row: UserSummary): string =>
-        row.email ?? '',
-      sortValue: (row: UserSummary): string =>
-        row.email ?? '',
+      accessor: (row: UserSummary): string => row.email ?? '',
+      sortValue: (row: UserSummary): string => row.email ?? '',
     },
     {
       key: 'status',
       header: t('ui.users.columns.status'),
       width: 'sm',
       accessor: (row: UserSummary): ReactElement => {
-        const status = (row.status ?? 'inactive').toLowerCase();
+        const status = (row.status ?? 'inactive').toLowerCase()
         return (
           <Badge tone={status === 'active' ? 'success' : 'neutral'} size="sm">
             {t('ui.users.status.' + status)}
           </Badge>
-        );
+        )
       },
       filterOptions: [
         {

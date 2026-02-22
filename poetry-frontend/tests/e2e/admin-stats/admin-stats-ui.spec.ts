@@ -66,11 +66,15 @@ test.describe('Admin Stats Dashboard UI', () => {
     const table = page.locator('table')
     await expect(table).toBeVisible()
     // Wait for at least one row in the active list (excluding header)
-    await expect(page.locator('tbody tr')).not.toHaveCount(0, { timeout: 10000 })
+    await expect(page.locator('tbody tr')).not.toHaveCount(0, {
+      timeout: 10000,
+    })
 
     await page.getByRole('tab', { name: /Expiring/i }).click()
     await page.waitForLoadState('networkidle')
-    await expect(page.locator('tbody tr')).not.toHaveCount(0, { timeout: 10000 })
+    await expect(page.locator('tbody tr')).not.toHaveCount(0, {
+      timeout: 10000,
+    })
     // Verify expiring status text (case insensitive check for 'Expiring' or 'Por Vencer')
     const firstExpiringRow = page.locator('tbody tr').first()
     await expect(firstExpiringRow).toContainText(/Expiring|Vencer/i)
@@ -78,7 +82,9 @@ test.describe('Admin Stats Dashboard UI', () => {
     // Click on "Expired" tab
     await page.getByRole('tab', { name: /Expired/i }).click()
     await page.waitForLoadState('networkidle')
-    await expect(page.locator('tbody tr')).not.toHaveCount(0, { timeout: 10000 })
+    await expect(page.locator('tbody tr')).not.toHaveCount(0, {
+      timeout: 10000,
+    })
     // Verify expired status text
     const firstExpiredRow = page.locator('tbody tr').first()
     await expect(firstExpiredRow).toContainText(/Expired|Vencidos/i)

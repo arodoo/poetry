@@ -53,7 +53,8 @@ export function buildMembershipDetailSections(
                 {membership.zoneIds.map(
                   (zoneId: number): ReactElement => (
                     <Badge key={zoneId} tone="neutral" size="sm">
-                      {t('ui.memberships.columns.zone')} {toTemplateString(zoneId)}
+                      {t('ui.memberships.columns.zone')}{' '}
+                      {toTemplateString(zoneId)}
                     </Badge>
                   )
                 )}
@@ -72,9 +73,16 @@ export function buildMembershipDetailSections(
           label: t('ui.memberships.columns.status'),
           value: (
             <Badge
-              tone={membership.status?.toLowerCase() === 'active' ? 'success' : 'neutral'}
+              tone={
+                membership.status?.toLowerCase() === 'active'
+                  ? 'success'
+                  : 'neutral'
+              }
             >
-              {t('ui.memberships.status.' + (membership.status?.toLowerCase() ?? 'inactive'))}
+              {t(
+                'ui.memberships.status.' +
+                  (membership.status?.toLowerCase() ?? 'inactive')
+              )}
             </Badge>
           ),
         },

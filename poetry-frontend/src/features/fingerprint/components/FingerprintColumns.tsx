@@ -29,8 +29,10 @@ export function buildFingerprintColumns(
       key: 'status',
       header: t('ui.fingerprints.columns.status'),
       width: 'md',
-      accessor: (item: FingerprintResponse) => 
-        t('ui.fingerprints.status.' + (item.status?.toLowerCase() ?? 'unknown')),
+      accessor: (item: FingerprintResponse) =>
+        t(
+          'ui.fingerprints.status.' + (item.status?.toLowerCase() ?? 'unknown')
+        ),
       sortValue: (item: FingerprintResponse) => item.status ?? '',
       filterOptions: [
         { value: 'enrolled', label: t('ui.fingerprints.status.enrolled') },

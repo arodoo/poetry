@@ -7,7 +7,13 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { test, expect, type Page, type APIRequestContext, request } from '@playwright/test'
+import {
+  test,
+  expect,
+  type Page,
+  type APIRequestContext,
+  request,
+} from '@playwright/test'
 import { injectTokens, getAuthTokens } from '../shared/providers/tokenProvider'
 
 const API = 'http://localhost:8080/api/v1/carousel'
@@ -40,7 +46,10 @@ interface ConfigResponse {
 }
 
 /** Uploads a tiny synthetic PNG as a carousel slide. Returns the created slide. */
-async function uploadTestSlide(api: APIRequestContext, name = 'test-slide.png'): Promise<SlideResponse> {
+async function uploadTestSlide(
+  api: APIRequestContext,
+  name = 'test-slide.png'
+): Promise<SlideResponse> {
   // 1×1 transparent PNG (67 bytes)
   const pngBytes = Buffer.from(
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==',
@@ -74,15 +83,14 @@ async function fetchConfig(api: APIRequestContext): Promise<ConfigResponse> {
 /** Navigate to /en/dashboard and wait for the carousel root to appear. */
 async function gotoCarousel(page: Page): Promise<void> {
   await page.goto('/en/dashboard')
-  await expect(
-    page.locator('[data-testid="carousel-root"]')
-  ).toBeVisible({ timeout: 15000 })
+  await expect(page.locator('[data-testid="carousel-root"]')).toBeVisible({
+    timeout: 15000,
+  })
 }
 
 // ── tests ──────────────────────────────────────────────────────────────────
 
 test.describe('Carousel – escenarios reales (sin mocks)', () => {
-
   // ── Test 1: GET /carousel/config es público y devuelve estructura válida ──
 
   test('caso 1 – /carousel/config es público y devuelve estructura válida', async () => {
@@ -95,7 +103,9 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
     expect(body.intervalMs).toBeGreaterThan(0)
     expect(Array.isArray(body.slides)).toBe(true)
     // overlayFilename puede ser null o string — ambos válidos
-    expect(body.overlayFilename === null || typeof body.overlayFilename === 'string').toBe(true)
+    expect(
+      body.overlayFilename === null || typeof body.overlayFilename === 'string'
+    ).toBe(true)
   })
 
   // ── Test 2: Admin sube una imagen, la ve en la config, luego la borra ────
@@ -116,7 +126,10 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
       // Verificar que aparece en la config
       const config = await fetchConfig(api)
       const found = config.slides.find((s) => s.id === slideId)
-      expect(found, 'la imagen subida debe aparecer en /carousel/config').toBeDefined()
+      expect(
+        found,
+        'la imagen subida debe aparecer en /carousel/config'
+      ).toBeDefined()
       expect(found!.filename).toBeTruthy()
     } finally {
       if (slideId !== null) await deleteSlide(api, slideId)
@@ -125,7 +138,9 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
 
   // ── Test 3: La página /dashboard muestra el carrusel (viewport presente) ─
 
-  test('caso 3 – /dashboard renderiza el viewport del carrusel correctamente', async ({ page }) => {
+  test('caso 3 – /dashboard renderiza el viewport del carrusel correctamente', async ({
+    page,
+  }) => {
     await injectTokens(page)
     await gotoCarousel(page)
 
@@ -143,18 +158,24 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
 
   // ── Test 4: Admin ve el botón "Configurar carrusel" ──────────────────────
 
-  test('caso 4 – usuario admin ve el botón de configuración del carrusel', async ({ page }) => {
+  test('caso 4 – usuario admin ve el botón de configuración del carrusel', async ({
+    page,
+  }) => {
     await injectTokens(page)
     await gotoCarousel(page)
 
     // El botón de config es visible solo para admin (rol 'admin' en minúscula)
-    const configBtn = page.getByRole('button', { name: /configurar carrusel|configure carousel/i })
+    const configBtn = page.getByRole('button', {
+      name: /configurar carrusel|configure carousel/i,
+    })
     await expect(configBtn).toBeVisible({ timeout: 10000 })
   })
 
   // ── Test 5: Admin sube slide, lo ve en el drawer, y lo borra desde la UI ─
 
-  test('caso 5 – admin sube slide real, abre drawer, ve el slide y lo elimina', async ({ page }) => {
+  test('caso 5 – admin sube slide real, abre drawer, ve el slide y lo elimina', async ({
+    page,
+  }) => {
     const api = await adminApi()
     let slideId: number | null = null
 
@@ -167,7 +188,9 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
       await gotoCarousel(page)
 
       // Abrir el drawer de configuración
-      const configBtn = page.getByRole('button', { name: /configurar carrusel|configure carousel/i })
+      const configBtn = page.getByRole('button', {
+        name: /configurar carrusel|configure carousel/i,
+      })
       await expect(configBtn).toBeVisible({ timeout: 10000 })
       await configBtn.click()
 
@@ -176,18 +199,20 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
       await expect(drawer).toBeVisible({ timeout: 5000 })
 
       // El slide subido debe aparecer en la lista del drawer
-      await expect(
-        drawer.getByText('e2e-caso5.png')
-      ).toBeVisible({ timeout: 5000 })
+      await expect(drawer.getByText('e2e-caso5.png')).toBeVisible({
+        timeout: 5000,
+      })
 
       // Eliminar el slide desde la UI (botón de borrar del SlideListItem)
-      const deleteButtons = drawer.getByRole('button', { name: /eliminar diapositiva|delete slide/i })
+      const deleteButtons = drawer.getByRole('button', {
+        name: /eliminar diapositiva|delete slide/i,
+      })
       await deleteButtons.first().click()
 
       // El slide ya no debe aparecer en el drawer
-      await expect(
-        drawer.getByText('e2e-caso5.png')
-      ).not.toBeVisible({ timeout: 8000 })
+      await expect(drawer.getByText('e2e-caso5.png')).not.toBeVisible({
+        timeout: 8000,
+      })
 
       // Marcar como eliminado para que el finally no reintente
       slideId = null
@@ -228,7 +253,9 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
 
   // ── Test 7: Múltiples slides se muestran con controles de navegación ─────
 
-  test('caso 7 – con múltiples slides aparecen las flechas de navegación', async ({ page }) => {
+  test('caso 7 – con múltiples slides aparecen las flechas de navegación', async ({
+    page,
+  }) => {
     const api = await adminApi()
     const uploaded: number[] = []
 
@@ -243,7 +270,9 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
 
       // Con >= 2 slides deben aparecer las flechas prev/next
       await expect(
-        page.getByRole('button', { name: /previous slide|diapositiva anterior/i })
+        page.getByRole('button', {
+          name: /previous slide|diapositiva anterior/i,
+        })
       ).toBeVisible({ timeout: 10000 })
       await expect(
         page.getByRole('button', { name: /next slide|siguiente diapositiva/i })
@@ -255,7 +284,9 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
 
   // ── Test 8: Las imágenes usan object-contain para estirarse sin distorsión ──
 
-  test('caso 8 – las imágenes del carrusel usan object-contain para mantener proporciones', async ({ page }) => {
+  test('caso 8 – las imágenes del carrusel usan object-contain para mantener proporciones', async ({
+    page,
+  }) => {
     const api = await adminApi()
     let slideId: number | null = null
 
@@ -278,7 +309,9 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
 
   // ── Test 9: En fullscreen los controles desaparecen ──────────────────────
 
-  test('caso 9 – al entrar en fullscreen desaparecen los botones de navegación y fullscreen', async ({ page }) => {
+  test('caso 9 – al entrar en fullscreen desaparecen los botones de navegación y fullscreen', async ({
+    page,
+  }) => {
     const api = await adminApi()
     const uploaded: number[] = []
 
@@ -292,8 +325,12 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
       await gotoCarousel(page)
 
       // Verificar que los controles existen en modo normal
-      const prevBtn = page.getByRole('button', { name: /previous slide|diapositiva anterior/i })
-      const fullscreenBtn = page.getByRole('button', { name: /pantalla completa|fullscreen/i })
+      const prevBtn = page.getByRole('button', {
+        name: /previous slide|diapositiva anterior/i,
+      })
+      const fullscreenBtn = page.getByRole('button', {
+        name: /pantalla completa|fullscreen/i,
+      })
 
       await expect(prevBtn).toBeVisible({ timeout: 10000 })
       await expect(fullscreenBtn).toBeVisible()
@@ -306,15 +343,13 @@ test.describe('Carousel – escenarios reales (sin mocks)', () => {
       await expect(fullscreenBtn).not.toBeVisible()
 
       // Salir del fullscreen para limpiar el estado del navegador
-      await page.evaluate(() => document.exitFullscreen()).catch(() => { })
+      await page.evaluate(() => document.exitFullscreen()).catch(() => {})
 
       // Tras salir de fullscreen, deberían volver a aparecer
       await expect(prevBtn).toBeVisible()
       await expect(fullscreenBtn).toBeVisible()
-
     } finally {
       for (const id of uploaded) await deleteSlide(api, id)
     }
   })
-
 })

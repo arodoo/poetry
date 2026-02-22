@@ -6,9 +6,12 @@
  */
 
 import { fetchJson } from '../../../shared/http/fetchClient'
-import { HardwareStatusSchema, type HardwareStatus } from '../model/hardwareStatusSchema'
+import {
+  HardwareStatusSchema,
+  type HardwareStatus,
+} from '../model/hardwareStatusSchema'
 
 export async function getHardwareStatus(): Promise<HardwareStatus> {
-    const response = await fetchJson<unknown>('/api/v1/hardware/status')
-    return HardwareStatusSchema.parse(response)
+  const response = await fetchJson<unknown>('/api/v1/hardware/status')
+  return HardwareStatusSchema.parse(response)
 }

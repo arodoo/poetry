@@ -29,40 +29,33 @@ export default function UsersListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
-  const [sort, setSort] = useState<SortState>(
-    { key: 'createdAt', direction: 'desc' }
-  )
-  const [activeFilters, setFilters] =
-    useState<ActiveFilters>({})
+  const [sort, setSort] = useState<SortState>({
+    key: 'createdAt',
+    direction: 'desc',
+  })
+  const [activeFilters, setFilters] = useState<ActiveFilters>({})
   const localeResult = useLocale()
   const locale: string = localeResult.locale
   const t = useT()
-  const pageQuery = useUsersPageQuery(
-    page,
-    size,
-    search,
-    toSortParam(sort)
-  )
+  const pageQuery = useUsersPageQuery(page, size, search, toSortParam(sort))
   const isError: boolean = pageQuery.isError
-  const rawUsers: readonly UserResponse[] =
-    Array.isArray(pageQuery.data?.content)
-      ? pageQuery.data.content
-      : []
-  const users: readonly UserResponse[] =
-    applyFilters(rawUsers, activeFilters)
+  const rawUsers: readonly UserResponse[] = Array.isArray(
+    pageQuery.data?.content
+  )
+    ? pageQuery.data.content
+    : []
+  const users: readonly UserResponse[] = applyFilters(rawUsers, activeFilters)
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
   const columns: readonly DataTableColumn<UserResponse>[] =
     buildUsersListColumns(locale, t)
-  const breadcrumbItems: readonly BreadcrumbItem[] =
-    buildUserListBreadcrumbs(locale, t)
-  const actions: ReactElement =
-    <UsersListTopActions locale={locale} t={t} />
+  const breadcrumbItems: readonly BreadcrumbItem[] = buildUserListBreadcrumbs(
+    locale,
+    t
+  )
+  const actions: ReactElement = <UsersListTopActions locale={locale} t={t} />
 
-  const onFilterChange = (
-    key: string,
-    value: string
-  ): void => {
+  const onFilterChange = (key: string, value: string): void => {
     setFilters((prev) => ({ ...prev, [key]: value }))
   }
 
@@ -88,9 +81,7 @@ export default function UsersListPage(): ReactElement {
         <Breadcrumb items={breadcrumbItems} />
       </div>
 
-      <div className="mb-4 flex gap-4">
-        {tableControls}
-      </div>
+      <div className="mb-4 flex gap-4">{tableControls}</div>
 
       {isError ? (
         <Text size="sm">{t('ui.users.status.error')}</Text>
@@ -98,10 +89,7 @@ export default function UsersListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={users}
-          keyExtractor={
-            (row: UserResponse): string =>
-              String(row.id ?? '')
-          }
+          keyExtractor={(row: UserResponse): string => String(row.id ?? '')}
           emptyMessage={t('ui.users.status.empty')}
           sort={sort}
           onSortChange={setSort}

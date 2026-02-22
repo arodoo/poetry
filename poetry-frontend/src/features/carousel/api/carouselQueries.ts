@@ -4,7 +4,10 @@
  * against the public /api/v1/carousel/config endpoint (no auth required).
  * All Rights Reserved. Arodi Emmanuel
  */
-import { CarouselConfigSchema, type CarouselConfig } from '../model/CarouselSchemas'
+import {
+  CarouselConfigSchema,
+  type CarouselConfig,
+} from '../model/CarouselSchemas'
 
 const BASE = 'http://localhost:8080/api/v1/carousel'
 

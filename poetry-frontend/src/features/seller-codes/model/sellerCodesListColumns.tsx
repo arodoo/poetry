@@ -28,17 +28,15 @@ export function buildSellerCodesListColumns(
       key: 'code',
       header: t('ui.sellerCodes.columns.code'),
       width: 'xs',
-      accessor: (row: SellerCodeSummary): string =>
-        row.code ?? '',
-      sortValue: (row: SellerCodeSummary): string =>
-        row.code ?? '',
+      accessor: (row: SellerCodeSummary): string => row.code ?? '',
+      sortValue: (row: SellerCodeSummary): string => row.code ?? '',
     },
     {
       key: 'status',
       header: t('ui.sellerCodes.columns.status'),
       width: 'sm',
       accessor: (row: SellerCodeSummary): ReactElement => {
-        const status = (row.status ?? 'inactive').toLowerCase();
+        const status = (row.status ?? 'inactive').toLowerCase()
         return (
           <Badge
             tone={
@@ -52,7 +50,7 @@ export function buildSellerCodesListColumns(
           >
             {t('ui.sellerCodes.status.' + status)}
           </Badge>
-        );
+        )
       },
       sortValue: (row: SellerCodeSummary): string => row.status ?? '',
       filterOptions: [

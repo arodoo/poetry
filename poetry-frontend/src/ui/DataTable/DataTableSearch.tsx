@@ -21,11 +21,11 @@ function DataTableSearchInternal(props: SearchProps): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const onChangeRef = useRef(props.onSearchChange)
-  
+
   useEffect(() => {
     onChangeRef.current = props.onSearchChange
   }, [props.onSearchChange])
-  
+
   useEffect(() => {
     if (props.value === '') {
       setInternalValue('')
@@ -35,11 +35,11 @@ function DataTableSearchInternal(props: SearchProps): ReactElement {
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newValue = e.target.value
     setInternalValue(newValue)
-    
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
-    
+
     timeoutRef.current = setTimeout(() => {
       onChangeRef.current(newValue)
     }, props.debounceMs ?? 300)
@@ -78,10 +78,7 @@ function DataTableSearchInternal(props: SearchProps): ReactElement {
         value={internalValue}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder={
-          props.placeholder ??
-          t('ui.table.search.placeholder')
-        }
+        placeholder={props.placeholder ?? t('ui.table.search.placeholder')}
         className={inputCls}
         data-testid="table-search-input"
       />

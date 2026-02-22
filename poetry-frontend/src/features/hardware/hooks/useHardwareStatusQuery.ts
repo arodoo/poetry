@@ -12,10 +12,10 @@ import type { HardwareStatus } from '../model/hardwareStatusSchema'
 const POLL_INTERVAL_MS = 5000
 
 export function useHardwareStatusQuery() {
-    return useQuery<HardwareStatus, Error>({
-        queryKey: ['hardware', 'status'],
-        queryFn: getHardwareStatus,
-        refetchInterval: POLL_INTERVAL_MS,
-        refetchIntervalInBackground: true,
-    })
+  return useQuery<HardwareStatus>({
+    queryKey: ['hardware', 'status'],
+    queryFn: getHardwareStatus,
+    refetchInterval: POLL_INTERVAL_MS,
+    refetchIntervalInBackground: true,
+  })
 }

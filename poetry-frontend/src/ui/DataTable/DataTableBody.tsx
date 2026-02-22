@@ -29,27 +29,31 @@ export function DataTableBody<T>(props: Props<T>): ReactElement {
         props.data.map(
           (row: T): ReactElement => (
             <tr key={props.keyExtractor(row)} className={s.tr}>
-              {props.columns.map(
-                (col: Column<T>): ReactElement => {
-                  const content = col.accessor(row)
-                  const title = typeof content === 'string' ? content : undefined
-                  const colWidth = col.width ? (widths[col.width] || col.width) : undefined
-                  return (
-                    <td 
-                      key={col.key} 
-                      className={clsx(s.td, s.tdCol)}
-                      style={colWidth ? { 
-                        width: colWidth,
-                        minWidth: colWidth,
-                        maxWidth: colWidth
-                      } : undefined}
-                      title={title}
-                    >
-                      {content}
-                    </td>
-                  )
-                }
-              )}
+              {props.columns.map((col: Column<T>): ReactElement => {
+                const content = col.accessor(row)
+                const title = typeof content === 'string' ? content : undefined
+                const colWidth = col.width
+                  ? widths[col.width] || col.width
+                  : undefined
+                return (
+                  <td
+                    key={col.key}
+                    className={clsx(s.td, s.tdCol)}
+                    style={
+                      colWidth
+                        ? {
+                            width: colWidth,
+                            minWidth: colWidth,
+                            maxWidth: colWidth,
+                          }
+                        : undefined
+                    }
+                    title={title}
+                  >
+                    {content}
+                  </td>
+                )
+              })}
             </tr>
           )
         )

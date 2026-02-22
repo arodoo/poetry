@@ -28,25 +28,30 @@ export default function SubscriptionsListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
-  const [sort, setSort] = useState<SortState>(
-    { key: 'createdAt', direction: 'desc' }
-  )
-  const [activeFilters, setFilters] =
-    useState<ActiveFilters>({})
+  const [sort, setSort] = useState<SortState>({
+    key: 'createdAt',
+    direction: 'desc',
+  })
+  const [activeFilters, setFilters] = useState<ActiveFilters>({})
   const localeResult = useLocale()
   const locale: string = localeResult.locale
   const t = useT()
-  const pageQuery =
-    useSubscriptionsPageQuery(
-      page, size, search, toSortParam(sort)
-    )
+  const pageQuery = useSubscriptionsPageQuery(
+    page,
+    size,
+    search,
+    toSortParam(sort)
+  )
   const isError: boolean = pageQuery.isError
-  const rawSubs: readonly SubscriptionResponse[] =
-    Array.isArray(pageQuery.data?.content)
-      ? pageQuery.data.content
-      : []
-  const subscriptions: readonly SubscriptionResponse[] =
-    applyFilters(rawSubs, activeFilters)
+  const rawSubs: readonly SubscriptionResponse[] = Array.isArray(
+    pageQuery.data?.content
+  )
+    ? pageQuery.data.content
+    : []
+  const subscriptions: readonly SubscriptionResponse[] = applyFilters(
+    rawSubs,
+    activeFilters
+  )
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
   const columns: readonly DataTableColumn<SubscriptionResponse>[] =
@@ -54,18 +59,11 @@ export default function SubscriptionsListPage(): ReactElement {
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildSubscriptionListBreadcrumbs(locale, t)
   const actions: ReactElement = (
-    <Button
-      to={`/${locale}/subscriptions/new`}
-      size="md"
-      width="fixed-large"
-    >
+    <Button to={`/${locale}/subscriptions/new`} size="md" width="fixed-large">
       {t('ui.subscriptions.actions.new')}
     </Button>
   )
-  const onFilterChange = (
-    key: string,
-    value: string
-  ): void => {
+  const onFilterChange = (key: string, value: string): void => {
     setFilters((p) => ({ ...p, [key]: value }))
   }
 
@@ -99,9 +97,8 @@ export default function SubscriptionsListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={subscriptions}
-          keyExtractor={
-            (row: SubscriptionResponse): string =>
-              String(row.id ?? '')
+          keyExtractor={(row: SubscriptionResponse): string =>
+            String(row.id ?? '')
           }
           emptyMessage={t('ui.subscriptions.status.empty')}
           sort={sort}

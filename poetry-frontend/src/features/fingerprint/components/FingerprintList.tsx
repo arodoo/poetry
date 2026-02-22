@@ -1,6 +1,6 @@
 /*
  * File: FingerprintList.tsx
- * Purpose: DataTable component for displaying enrolled fingerprints. 
+ * Purpose: DataTable component for displaying enrolled fingerprints.
  * All Rights Reserved Arodi Emmanuel
  */
 import { useState, type ReactElement } from 'react'
@@ -25,7 +25,7 @@ export function FingerprintList(): ReactElement {
 
   const { data, isLoading, isError, isFetching } = useFingerprintsListQuery()
   const rawData = data ?? []
-  
+
   const filtered = applyFilters(rawData, activeFilters)
   const columns = buildFingerprintColumns(t)
 
@@ -49,7 +49,7 @@ export function FingerprintList(): ReactElement {
         search={{ value: search, onSearchChange: setSearch }}
         columns={columns}
         activeFilters={activeFilters}
-        onFilterChange={(k, v) => setFilters(p => ({ ...p, [k]: v }))}
+        onFilterChange={(k, v) => { setFilters((p) => ({ ...p, [k]: v })); }}
       />
       <DataTable
         columns={columns}

@@ -34,20 +34,8 @@ export const usersQueryKeys: {
   list(): readonly ['users', 'list'] {
     return ['users', 'list'] as const
   },
-  page(
-    pageNum: number,
-    pageSize: number,
-    search?: string,
-    sort?: string
-  ) {
-    return [
-      'users',
-      'page',
-      pageNum,
-      pageSize,
-      search,
-      sort,
-    ] as const
+  page(pageNum: number, pageSize: number, search?: string, sort?: string) {
+    return ['users', 'page', pageNum, pageSize, search, sort] as const
   },
   detail(id: string): readonly ['users', 'detail', string] {
     return ['users', 'detail', id] as const
@@ -70,16 +58,9 @@ export function useUsersPageQuery(
   search?: string,
   sort?: string
 ): UseQueryResult<PageResponseDtoUserResponse> {
-  const hasAccessToken = Boolean(
-    tokenStorage.load()?.accessToken
-  )
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
-    queryKey: usersQueryKeys.page(
-      page,
-      size,
-      search,
-      sort
-    ),
+    queryKey: usersQueryKeys.page(page, size, search, sort),
     queryFn: (): Promise<PageResponseDtoUserResponse> =>
       fetchUsersPage(page, size, search, sort),
     enabled: hasAccessToken,

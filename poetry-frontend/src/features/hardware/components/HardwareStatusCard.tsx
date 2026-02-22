@@ -28,20 +28,33 @@ export function HardwareStatusCard({ status, lastCheck }: Props): ReactElement {
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <Text size="lg" weight="bold">{t('ui.hardware.status.title')}</Text>
-          <Badge tone={status.connected ? 'success' : 'danger'}>{t(statusKey)}</Badge>
+          <Text size="lg" weight="bold">
+            {t('ui.hardware.status.title')}
+          </Text>
+          <Badge tone={status.connected ? 'success' : 'danger'}>
+            {t(statusKey)}
+          </Badge>
         </div>
       </CardHeader>
       <CardBody>
         <div className="space-y-3">
           {status.readerModel && (
-            <StatusRow label={t('ui.hardware.status.model')} value={status.readerModel} />
+            <StatusRow
+              label={t('ui.hardware.status.model')}
+              value={status.readerModel}
+            />
           )}
           {status.sdkVersion && (
-            <StatusRow label={t('ui.hardware.status.sdk')} value={status.sdkVersion} />
+            <StatusRow
+              label={t('ui.hardware.status.sdk')}
+              value={status.sdkVersion}
+            />
           )}
           {status.errorMessage && (
-            <StatusRow label={t('ui.hardware.status.error')} value={status.errorMessage} />
+            <StatusRow
+              label={t('ui.hardware.status.error')}
+              value={status.errorMessage}
+            />
           )}
           <StatusRow
             label={t('ui.hardware.status.lastCheck')}
@@ -53,10 +66,18 @@ export function HardwareStatusCard({ status, lastCheck }: Props): ReactElement {
   )
 }
 
-function StatusRow({ label, value }: { label: string; value: string }): ReactElement {
+function StatusRow({
+  label,
+  value,
+}: {
+  label: string
+  value: string
+}): ReactElement {
   return (
     <div className="flex justify-between">
-      <Text size="sm" className="text-[var(--color-text-muted)]">{label}</Text>
+      <Text size="sm" className="text-[var(--color-text-muted)]">
+        {label}
+      </Text>
       <Text size="sm">{value}</Text>
     </div>
   )

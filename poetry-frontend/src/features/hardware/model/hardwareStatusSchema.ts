@@ -8,10 +8,10 @@
 import { z } from 'zod'
 
 export const HardwareStatusSchema = z.object({
-    connected: z.boolean(),
-    readerModel: z.string().nullable(),
-    sdkVersion: z.string().nullable(),
-    errorMessage: z.string().nullable(),
+  connected: z.boolean(),
+  readerModel: z.string().nullable(),
+  sdkVersion: z.string().nullable(),
+  errorMessage: z.string().nullable(),
 })
 
 export type HardwareStatus = z.infer<typeof HardwareStatusSchema>

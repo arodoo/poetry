@@ -8,5 +8,21 @@
   "ui.hardware.status.sdk": "SDK Version",
   "ui.hardware.status.error": "Error",
   "ui.hardware.status.lastCheck": "Last checked",
-  "ui.hardware.breadcrumb": "Hardware"
+  "ui.hardware.breadcrumb": "Hardware",
+  "ui.hardware.fingerprints.title": "Enrolled Fingerprints",
+  "ui.hardware.fingerprints.empty": "No enrolled fingerprints found",
+  "ui.hardware.fingerprints.error": "Error loading fingerprints",
+  "ui.hardware.fingerprints.table.id": "ID",
+  "ui.hardware.fingerprints.table.user": "User",
+  "ui.hardware.fingerprints.table.status": "Status",
+  "ui.hardware.fingerprints.table.enrolled": "Enrolled At",
+  "ui.hardware.fingerprints.table.actions": "Actions",
+  "ui.hardware.fingerprints.table.view": "View",
+  "ui.hardware.fingerprints.modal.title": "Fingerprint Technical Details",
+  "ui.hardware.fingerprints.modal.id": "Fingerprint ID",
+  "ui.hardware.fingerprints.modal.userId": "User ID",
+  "ui.hardware.fingerprints.modal.username": "Username",
+  "ui.hardware.fingerprints.modal.status": "Status",
+  "ui.hardware.fingerprints.modal.version": "Version",
+  "ui.hardware.fingerprints.modal.enrolledAt": "Enrolled At"
 }

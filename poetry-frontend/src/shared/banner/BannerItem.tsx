@@ -14,7 +14,10 @@ interface BannerItemProps {
   onDismiss: (id: string) => void
 }
 
-export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement {
+export function BannerItem({
+  banner,
+  onDismiss,
+}: BannerItemProps): ReactElement {
   const { user, membership, phone } = banner
   const t = useT()
 
@@ -46,11 +49,12 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
     'duration-300',
   ].join(' ')
 
-  const statusClass = isExpired || isInactive
-    ? 'text-[var(--color-danger)]'
-    : isActive
-      ? 'text-[var(--color-success)]'
-      : 'text-[var(--color-textSubtle)]'
+  const statusClass =
+    isExpired || isInactive
+      ? 'text-[var(--color-danger)]'
+      : isActive
+        ? 'text-[var(--color-success)]'
+        : 'text-[var(--color-textSubtle)]'
 
   const statusText = isActive
     ? t('ui.banner.status.active')
@@ -92,7 +96,7 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
         {/* Dismiss button */}
         <button
           type="button"
-          onClick={() => onDismiss(banner.id)}
+          onClick={() => { onDismiss(banner.id); }}
           aria-label={t('ui.banner.close')}
           className="flex-shrink-0 text-[var(--color-textSubtle)] hover:text-[var(--color-text)] transition-colors p-0.5 rounded focus:outline-none focus:ring-2 focus:ring-[var(--color-border)]"
         >
@@ -104,7 +108,11 @@ export function BannerItem({ banner, onDismiss }: BannerItemProps): ReactElement
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>

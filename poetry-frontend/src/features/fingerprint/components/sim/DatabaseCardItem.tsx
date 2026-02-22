@@ -33,7 +33,7 @@ export function DatabaseCardItem(props: Props): ReactElement {
       <Button
         size="sm"
         onClick={() => {
-          // In HID model, we simulate taking the FMD from the record 
+          // In HID model, we simulate taking the FMD from the record
           // and "capturing" it to verify
           onQuickTest('MOCK_TEST_FMD_DATA')
         }}

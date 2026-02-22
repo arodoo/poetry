@@ -40,20 +40,8 @@ export const sellerCodesQueryKeys: SellerCodesQueryKeys = {
   list(): readonly ['sellerCodes', 'list'] {
     return ['sellerCodes', 'list'] as const
   },
-  page(
-    page: number,
-    size: number,
-    search?: string,
-    sort?: string
-  ) {
-    return [
-      'sellerCodes',
-      'page',
-      page,
-      size,
-      search,
-      sort,
-    ] as const
+  page(page: number, size: number, search?: string, sort?: string) {
+    return ['sellerCodes', 'page', page, size, search, sort] as const
   },
   detail(id: string): readonly ['sellerCodes', 'detail', string] {
     return ['sellerCodes', 'detail', id] as const
@@ -91,16 +79,9 @@ export function useSellerCodesPageQuery(
   search?: string,
   sort?: string
 ): UseQueryResult<PageResp> {
-  const hasAccessToken = Boolean(
-    tokenStorage.load()?.accessToken
-  )
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
-    queryKey: sellerCodesQueryKeys.page(
-      page,
-      size,
-      search,
-      sort
-    ),
+    queryKey: sellerCodesQueryKeys.page(page, size, search, sort),
     queryFn: (): Promise<PageResp> =>
       fetchSellerCodesPage(page, size, search, sort),
     enabled: hasAccessToken,

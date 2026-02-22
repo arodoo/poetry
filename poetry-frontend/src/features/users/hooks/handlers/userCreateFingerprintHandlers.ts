@@ -56,7 +56,8 @@ export function createMutationHandler(
           console.log('[DEBUG] Link successful')
         } catch (error) {
           console.error('Error linking fingerprint:', error)
-          const errorKey = error instanceof Error ? error.message : 'error.unexpected'
+          const errorKey =
+            error instanceof Error ? error.message : 'error.unexpected'
           toast.push(t(errorKey))
         }
       } else {

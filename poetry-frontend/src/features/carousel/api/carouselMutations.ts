@@ -4,7 +4,10 @@
  * All require a Bearer token in the Authorization header.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { CarouselSlideSchema, type CarouselSlide } from '../model/CarouselSchemas'
+import {
+  CarouselSlideSchema,
+  type CarouselSlide,
+} from '../model/CarouselSchemas'
 import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 const BASE = 'http://localhost:8080/api/v1/carousel'

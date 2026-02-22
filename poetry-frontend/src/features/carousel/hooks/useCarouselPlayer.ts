@@ -47,9 +47,7 @@ export function useCarouselPlayer(
   }, [slideCount, startTimer])
 
   const goPrev = useCallback((): void => {
-    setIndex(
-      (prev: number): number => (prev - 1 + slideCount) % slideCount
-    )
+    setIndex((prev: number): number => (prev - 1 + slideCount) % slideCount)
     startTimer()
   }, [slideCount, startTimer])
 

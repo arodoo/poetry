@@ -45,19 +45,17 @@ export const s: {
   tr: 'hover:bg-[var(--color-background,#f5f5f5)]',
   td: 'whitespace-nowrap px-6 py-4 text-sm overflow-hidden truncate',
   tdCol: 'text-[var(--color-text,#1a1a1a)]',
-  em: 'px-6 py-10 text-center text-sm ' +
-    'text-[var(--color-muted,#6b7280)]',
+  em: 'px-6 py-10 text-center text-sm ' + 'text-[var(--color-muted,#6b7280)]',
   toolbar: 'mb-4 flex items-center gap-3 flex-wrap',
   trBody: 'transition-all duration-500 ease-in-out',
-  trFetching: 'opacity-40 blur-[1px] pointer-events-none'
+  trFetching: 'opacity-40 blur-[1px] pointer-events-none',
 } as const
 
 export const widths: Record<string, string> = {
-  xs: '70px',     // Fixed: ID, small codes
-  sm: '100px',    // Fixed: Status, Actions
-  md: '15%',      // Proportional: Dates, short strings
-  lg: '25%',      // Proportional: Names
-  xl: '35%',      // Proportional: Long text
+  xs: '70px', // Fixed: ID, small codes
+  sm: '100px', // Fixed: Status, Actions
+  md: '15%', // Proportional: Dates, short strings
+  lg: '25%', // Proportional: Names
+  xl: '35%', // Proportional: Long text
   auto: 'auto',
 }
-

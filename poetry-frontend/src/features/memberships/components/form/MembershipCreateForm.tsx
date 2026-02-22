@@ -52,7 +52,7 @@ export default function MembershipCreateForm(): ReactElement {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!selectedUser) {
       push(t('ui.memberships.validation.userId'), 'error')
       return
@@ -98,7 +98,10 @@ export default function MembershipCreateForm(): ReactElement {
   return (
     <form onSubmit={handleSubmit} data-testid="membership-creation-form">
       <Stack gap="lg">
-        <UserSearchField onSelect={handleUserSelect} selectedUser={selectedUser} />
+        <UserSearchField
+          onSelect={handleUserSelect}
+          selectedUser={selectedUser}
+        />
 
         {validation.isValidating && (
           <div
@@ -138,10 +141,7 @@ export default function MembershipCreateForm(): ReactElement {
                 type="submit"
                 variant="primary"
                 data-testid="submit-membership-button"
-                disabled={
-                  validation.isValidating ||
-                  createMutation.isPending
-                }
+                disabled={validation.isValidating || createMutation.isPending}
               >
                 {t('ui.memberships.actions.submit')}
               </Button>

@@ -21,7 +21,8 @@ export function Badge({
 }: BadgeProps): ReactElement {
   const toneMap: Record<string, string> = {
     primary: 'bg-[var(--color-primary)] text-[var(--color-onPrimary,#fff)]',
-    neutral: 'bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)]',
+    neutral:
+      'bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)]',
     danger: 'bg-[var(--color-error)] text-[var(--color-onPrimary)]',
     success: 'bg-[var(--color-success)] text-[var(--color-onPrimary)]',
     warning: 'bg-[var(--color-warning)] text-[var(--color-onWarning)]',

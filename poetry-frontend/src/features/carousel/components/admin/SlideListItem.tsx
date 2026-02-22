@@ -32,11 +32,7 @@ export function SlideListItem({
           className="h-12 w-16 rounded object-cover"
         />
       ) : (
-        <video
-          src={thumb}
-          className="h-12 w-16 rounded object-cover"
-          muted
-        />
+        <video src={thumb} className="h-12 w-16 rounded object-cover" muted />
       )}
 
       {/* Name + badge */}
@@ -44,19 +40,23 @@ export function SlideListItem({
         <span className="truncate text-sm font-medium text-[var(--color-text)]">
           {slide.originalName}
         </span>
-        <span className="text-xs text-[var(--color-muted)]">
-          {slide.type}
-        </span>
+        <span className="text-xs text-[var(--color-muted)]">{slide.type}</span>
       </div>
 
       {/* Delete */}
       <button
-        onClick={(): void => onDelete(slide.id)}
+        onClick={(): void => { onDelete(slide.id); }}
         disabled={isDeleting}
         aria-label={deleteLabel}
         className="shrink-0 rounded-full p-1 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10 disabled:opacity-40"
       >
-        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+        <svg
+          className="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
           <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>

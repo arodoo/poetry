@@ -105,14 +105,18 @@ async function gotoSimulator(page: Page): Promise<string[]> {
 async function triggerEnroll(page: Page): Promise<void> {
   const input = page.locator('input[type="text"]').first()
   await input.fill('MOCK_FMD_ENROLL_DATA_1234')
-  await page.getByRole('button', { name: /simular registro|simulate enrollment/i }).click()
+  await page
+    .getByRole('button', { name: /simular registro|simulate enrollment/i })
+    .click()
 }
 
 /**
  * Locates banner items — they have pointer-events-auto and border-l-4 classes.
  */
 function getBannerLocator(page: Page) {
-  return page.locator('[class*="pointer-events-auto"][class*="border-l-4"]').first()
+  return page
+    .locator('[class*="pointer-events-auto"][class*="border-l-4"]')
+    .first()
 }
 
 // ─── test suite ───────────────────────────────────────────────────────────
@@ -176,7 +180,9 @@ test.describe('Banner – Fingerprint Listener (real-time)', () => {
     await expect(banner.getByText(/^Ninguna$|^None$/i)).not.toBeVisible()
 
     // Sin errores de fetch en consola
-    expect(errors.filter((e) => e.includes('Failed to fetch banner'))).toHaveLength(0)
+    expect(
+      errors.filter((e) => e.includes('Failed to fetch banner'))
+    ).toHaveLength(0)
   })
 
   // ─── Case 2: registered user — expired membership ─────────────────────
@@ -210,7 +216,9 @@ test.describe('Banner – Fingerprint Listener (real-time)', () => {
     // Borde rojo (color-danger)
     await expect(banner).toHaveClass(/border-\[var\(--color-danger\)\]/)
 
-    expect(errors.filter((e) => e.includes('Failed to fetch banner'))).toHaveLength(0)
+    expect(
+      errors.filter((e) => e.includes('Failed to fetch banner'))
+    ).toHaveLength(0)
   })
 
   // ─── Case 3: unrecognized fingerprint (enroll returns no userId) ───────
@@ -237,7 +245,10 @@ test.describe('Banner – Fingerprint Listener (real-time)', () => {
     let membershipCalled = false
     await page.route('**/api/v1/memberships/paged**', async (route) => {
       membershipCalled = true
-      await route.fulfill({ status: 200, body: JSON.stringify(MOCK_MEMBERSHIP_EMPTY) })
+      await route.fulfill({
+        status: 200,
+        body: JSON.stringify(MOCK_MEMBERSHIP_EMPTY),
+      })
     })
 
     const errors = await gotoSimulator(page)
@@ -252,7 +263,9 @@ test.describe('Banner – Fingerprint Listener (real-time)', () => {
 
   // ─── Case 4: close button dismisses banner ────────────────────────────
 
-  test('caso 4 – botón X descarta el banner inmediatamente', async ({ page }) => {
+  test('caso 4 – botón X descarta el banner inmediatamente', async ({
+    page,
+  }) => {
     await page.route('**/api/v1/memberships/paged**', async (route) => {
       await route.fulfill({
         status: 200,

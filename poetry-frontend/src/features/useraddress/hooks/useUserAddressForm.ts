@@ -24,9 +24,7 @@ export interface UserAddressFormState {
   readonly isLoaded: boolean
 }
 
-export function useUserAddressForm(
-  userId?: number
-): UserAddressFormState {
+export function useUserAddressForm(userId?: number): UserAddressFormState {
   const [line1, setLine1] = useState('')
   const [line2, setLine2] = useState('')
   const [city, setCity] = useState('')
@@ -66,8 +64,18 @@ export function useUserAddressForm(
   }
 
   return {
-    line1, line2, city, state, zip, country,
-    setLine1, setLine2, setCity, setState, setZip, setCountry,
+    line1,
+    line2,
+    city,
+    state,
+    zip,
+    country,
+    setLine1,
+    setLine2,
+    setCity,
+    setState,
+    setZip,
+    setCountry,
     saveForUser,
     isLoaded,
   }

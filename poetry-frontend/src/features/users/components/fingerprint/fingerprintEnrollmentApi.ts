@@ -5,4 +5,4 @@
  */
 
 // No reservation needed for HID model
-export { }
+export {}

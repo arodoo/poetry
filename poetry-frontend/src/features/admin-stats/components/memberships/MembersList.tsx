@@ -19,13 +19,18 @@ export function MembersList({ status }: { status: string }): ReactElement {
   const [sort, setSort] = useState<SortState>({ key: 'id', direction: 'desc' })
 
   const { data, isLoading, isError, isFetching } = useUserMemberships(
-    status, page, pageSize, toSortParam(sort)
+    status,
+    page,
+    pageSize,
+    toSortParam(sort)
   )
 
   const columns = buildMembersColumns(t)
 
   if (isError) {
-    return <div className="p-4 text-center">{t('ui.adminStats.error.loading')}</div>
+    return (
+      <div className="p-4 text-center">{t('ui.adminStats.error.loading')}</div>
+    )
   }
 
   return (

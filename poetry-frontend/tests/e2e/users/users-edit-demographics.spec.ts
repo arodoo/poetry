@@ -18,7 +18,9 @@ test('user edit form correctly loads new demographic and address fields', async 
   await page.goto('/en/users')
   await page.waitForLoadState('load')
 
-  const viewButton: Locator = page.locator('[data-testid^="view-user-"]').first()
+  const viewButton: Locator = page
+    .locator('[data-testid^="view-user-"]')
+    .first()
   await expect(viewButton).toBeVisible({ timeout: 15000 })
   const userId: string = await getUserIdFromButton(viewButton, 'view-user-')
   await viewButton.click()
@@ -69,14 +71,26 @@ test('user edit form correctly loads new demographic and address fields', async 
 
   // 7. Assert values are prefilled
   await expect(page.getByTestId('user-phone-input')).toHaveValue(testPhone)
-  await expect(page.getByTestId('user-birthdate-input')).toHaveValue(testBirthDate)
+  await expect(page.getByTestId('user-birthdate-input')).toHaveValue(
+    testBirthDate
+  )
   await expect(page.getByTestId('user-gender-select')).toHaveValue(testGender)
-  await expect(page.getByTestId('user-address-line1-input')).toHaveValue(testLine1)
-  await expect(page.getByTestId('user-address-line2-input')).toHaveValue(testLine2)
-  await expect(page.getByTestId('user-address-city-input')).toHaveValue(testCity)
-  await expect(page.getByTestId('user-address-state-input')).toHaveValue(testState)
+  await expect(page.getByTestId('user-address-line1-input')).toHaveValue(
+    testLine1
+  )
+  await expect(page.getByTestId('user-address-line2-input')).toHaveValue(
+    testLine2
+  )
+  await expect(page.getByTestId('user-address-city-input')).toHaveValue(
+    testCity
+  )
+  await expect(page.getByTestId('user-address-state-input')).toHaveValue(
+    testState
+  )
   await expect(page.getByTestId('user-address-zip-input')).toHaveValue(testZip)
-  await expect(page.getByTestId('user-address-country-input')).toHaveValue(testCountry)
+  await expect(page.getByTestId('user-address-country-input')).toHaveValue(
+    testCountry
+  )
 
   // Teardown (optional, clear the fields)
   await page.getByTestId('user-phone-input').fill('')

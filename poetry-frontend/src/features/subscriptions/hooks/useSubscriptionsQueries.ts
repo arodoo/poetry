@@ -32,28 +32,14 @@ export const subscriptionsQueryKeys: {
     string | undefined,
     string | undefined,
   ]
-  detail(
-    id: string
-  ): readonly ['subscriptions', 'detail', string]
+  detail(id: string): readonly ['subscriptions', 'detail', string]
 } = {
   root: ['subscriptions'],
   list(): readonly ['subscriptions', 'list'] {
     return ['subscriptions', 'list'] as const
   },
-  page(
-    pageNum: number,
-    pageSize: number,
-    search?: string,
-    sort?: string
-  ) {
-    return [
-      'subscriptions',
-      'page',
-      pageNum,
-      pageSize,
-      search,
-      sort,
-    ] as const
+  page(pageNum: number, pageSize: number, search?: string, sort?: string) {
+    return ['subscriptions', 'page', pageNum, pageSize, search, sort] as const
   },
   detail(id: string): readonly ['subscriptions', 'detail', string] {
     return ['subscriptions', 'detail', id] as const
@@ -78,16 +64,9 @@ export function useSubscriptionsPageQuery(
   search?: string,
   sort?: string
 ): UseQueryResult<PageResponseDtoSubscriptionResponse> {
-  const hasAccessToken = Boolean(
-    tokenStorage.load()?.accessToken
-  )
+  const hasAccessToken = Boolean(tokenStorage.load()?.accessToken)
   return useQuery({
-    queryKey: subscriptionsQueryKeys.page(
-      page,
-      size,
-      search,
-      sort
-    ),
+    queryKey: subscriptionsQueryKeys.page(page, size, search, sort),
     queryFn: (): Promise<PageResponseDtoSubscriptionResponse> =>
       fetchSubscriptionsPage(page, size, search, sort),
     enabled: hasAccessToken,

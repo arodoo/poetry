@@ -31,14 +31,8 @@ export function SimulatorPage(): ReactElement {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <SimEnrollCard 
-          onLog={addLog} 
-          onRefetch={() => {}} 
-        />
-        <SimAccessLogCard 
-          logs={logs} 
-          onClear={() => setLogs([])} 
-        />
+        <SimEnrollCard onLog={addLog} onRefetch={() => {}} />
+        <SimAccessLogCard logs={logs} onClear={() => { setLogs([]); }} />
       </div>
     </div>
   )

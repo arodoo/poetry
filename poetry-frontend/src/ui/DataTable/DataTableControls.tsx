@@ -19,25 +19,20 @@ interface Props<T> {
   readonly onFilterChange?: (k: string, v: string) => void
 }
 
-function DataTableControlsInternal<T>(
-  props: Props<T>
-): ReactElement | null {
-  const filterDefs: readonly FilterDef[] =
-    (props.columns ?? [])
-      .filter((col) => col.filterOptions)
-      .map((col) => ({
-        key: col.key,
-        label: col.filterLabel ?? col.header,
-        options: col.filterOptions!,
-      }))
+function DataTableControlsInternal<T>(props: Props<T>): ReactElement | null {
+  const filterDefs: readonly FilterDef[] = (props.columns ?? [])
+    .filter((col) => col.filterOptions)
+    .map((col) => ({
+      key: col.key,
+      label: col.filterLabel ?? col.header,
+      options: col.filterOptions!,
+    }))
 
   if (!props.search && filterDefs.length === 0) return null
 
   return (
     <>
-      {props.search && (
-        <DataTableSearch {...props.search} />
-      )}
+      {props.search && <DataTableSearch {...props.search} />}
       {filterDefs.length > 0 && props.activeFilters && (
         <DataTableFilters
           filters={filterDefs}
@@ -49,6 +44,6 @@ function DataTableControlsInternal<T>(
   )
 }
 
-export const DataTableControls = memo(
-  DataTableControlsInternal
-) as <T>(props: Props<T>) => ReactElement | null
+export const DataTableControls = memo(DataTableControlsInternal) as <T>(
+  props: Props<T>
+) => ReactElement | null

@@ -29,24 +29,22 @@ export default function ZonesListPage(): ReactElement {
   const [page, setPage] = useState<number>(0)
   const [size, setSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
-  const [sort, setSort] = useState<SortState>(
-    { key: 'createdAt', direction: 'desc' }
-  )
-  const [activeFilters, setFilters] =
-    useState<ActiveFilters>({})
+  const [sort, setSort] = useState<SortState>({
+    key: 'createdAt',
+    direction: 'desc',
+  })
+  const [activeFilters, setFilters] = useState<ActiveFilters>({})
   const localeResult = useLocale()
   const locale: string = localeResult.locale
   const t = useT()
-  const pageQuery = useZonesPageQuery(
-    page, size, search, toSortParam(sort)
-  )
+  const pageQuery = useZonesPageQuery(page, size, search, toSortParam(sort))
   const isError: boolean = pageQuery.isError
-  const rawZones: readonly ZoneResponse[] =
-    Array.isArray(pageQuery.data?.content)
-      ? pageQuery.data.content
-      : []
-  const zones: readonly ZoneResponse[] =
-    applyFilters(rawZones, activeFilters)
+  const rawZones: readonly ZoneResponse[] = Array.isArray(
+    pageQuery.data?.content
+  )
+    ? pageQuery.data.content
+    : []
+  const zones: readonly ZoneResponse[] = applyFilters(rawZones, activeFilters)
   const totalElements: number = pageQuery.data?.totalElements ?? 0
   const totalPages: number = pageQuery.data?.totalPages ?? 0
   const columns: readonly DataTableColumn<ZoneResponse>[] =
@@ -55,12 +53,8 @@ export default function ZonesListPage(): ReactElement {
     locale,
     t
   )
-  const actions: ReactElement =
-    <ZonesListTopActions locale={locale} t={t} />
-  const onFilterChange = (
-    key: string,
-    value: string
-  ): void => {
+  const actions: ReactElement = <ZonesListTopActions locale={locale} t={t} />
+  const onFilterChange = (key: string, value: string): void => {
     setFilters((p) => ({ ...p, [key]: value }))
   }
 
@@ -94,10 +88,7 @@ export default function ZonesListPage(): ReactElement {
         <DataTable
           columns={columns}
           data={zones}
-          keyExtractor={
-            (row: ZoneResponse): string =>
-              String(row.id ?? '')
-          }
+          keyExtractor={(row: ZoneResponse): string => String(row.id ?? '')}
           emptyMessage={t('ui.zones.status.empty')}
           sort={sort}
           onSortChange={setSort}

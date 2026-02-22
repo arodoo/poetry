@@ -61,7 +61,13 @@ export function AdminConfigDrawer({ config, onClose }: Props): ReactElement {
             aria-label={t('ui.carousel.admin.close')}
             className="rounded-full p-1 hover:bg-[var(--color-surface-alt)]"
           >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+            <svg
+              className="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
               <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -74,7 +80,9 @@ export function AdminConfigDrawer({ config, onClose }: Props): ReactElement {
           </h3>
           <IntervalControl
             currentMs={config.intervalMs}
-            onSave={(ms: number): void => { updateInterval.mutate(ms) }}
+            onSave={(ms: number): void => {
+              updateInterval.mutate(ms)
+            }}
             isPending={updateInterval.isPending}
             label={t('ui.carousel.admin.intervalLabel')}
             saveLabel={t('ui.carousel.admin.save')}
@@ -88,8 +96,12 @@ export function AdminConfigDrawer({ config, onClose }: Props): ReactElement {
           </h3>
           <OverlayControl
             currentFilename={config.overlayFilename}
-            onUpload={(f: File): void => { uploadOverlay.mutate(f) }}
-            onDelete={(): void => { deleteOverlay.mutate() }}
+            onUpload={(f: File): void => {
+              uploadOverlay.mutate(f)
+            }}
+            onDelete={(): void => {
+              deleteOverlay.mutate()
+            }}
             isUploading={uploadOverlay.isPending}
             isDeleting={deleteOverlay.isPending}
             uploadLabel={t('ui.carousel.admin.overlayUpload')}
@@ -103,7 +115,9 @@ export function AdminConfigDrawer({ config, onClose }: Props): ReactElement {
             {t('ui.carousel.admin.slides')}
           </h3>
           <SlideUploadZone
-            onUpload={(f: File): void => { uploadSlide.mutate(f) }}
+            onUpload={(f: File): void => {
+              uploadSlide.mutate(f)
+            }}
             isPending={uploadSlide.isPending}
             label={t('ui.carousel.admin.uploadSlide')}
             hint={t('ui.carousel.admin.uploadHint')}
@@ -113,7 +127,9 @@ export function AdminConfigDrawer({ config, onClose }: Props): ReactElement {
               <SlideListItem
                 key={slide.id}
                 slide={slide}
-                onDelete={(id: number): void => { deleteSlide.mutate(id) }}
+                onDelete={(id: number): void => {
+                  deleteSlide.mutate(id)
+                }}
                 isDeleting={deleteSlide.isPending}
                 deleteLabel={t('ui.carousel.admin.deleteSlide')}
               />

@@ -23,8 +23,10 @@ export function buildMembershipsListColumns(
       key: 'subscriptionName',
       header: t('ui.memberships.columns.subscription'),
       width: 'md',
-      accessor: (row: MembershipResponse): string => row.subscriptionName ?? '-',
-      sortValue: (row: MembershipResponse): string => row.subscriptionName ?? '',
+      accessor: (row: MembershipResponse): string =>
+        row.subscriptionName ?? '-',
+      sortValue: (row: MembershipResponse): string =>
+        row.subscriptionName ?? '',
     },
     {
       key: 'sellerName',
@@ -42,7 +44,9 @@ export function buildMembershipsListColumns(
           tone={m.status?.toLowerCase() === 'active' ? 'success' : 'neutral'}
           size="sm"
         >
-          {t('ui.memberships.status.' + (m.status?.toLowerCase() ?? 'inactive'))}
+          {t(
+            'ui.memberships.status.' + (m.status?.toLowerCase() ?? 'inactive')
+          )}
         </Badge>
       ),
       sortValue: (row: MembershipResponse): string => row.status ?? '',

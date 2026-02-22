@@ -30,9 +30,7 @@ export interface DataTableProps<T> {
   readonly isLoading?: boolean
 }
 
-export function DataTable<T>(
-  props: DataTableProps<T>
-): ReactElement {
+export function DataTable<T>(props: DataTableProps<T>): ReactElement {
   const lastData = useRef<readonly T[]>(props.data)
   const [displayData, setDisplayData] = useState<readonly T[]>(props.data)
 
@@ -47,14 +45,13 @@ export function DataTable<T>(
   }, [props.data, props.fetching, props.isLoading])
 
   const isActuallyFetching = props.fetching || props.isLoading
-  const showInitialLoading = props.isLoading && (!props.data || props.data.length === 0)
+  const showInitialLoading =
+    props.isLoading && (!props.data || props.data.length === 0)
   const renderData = isActuallyFetching ? lastData.current : displayData
 
   const onSort = (key: string): void => {
     if (!props.onSortChange) return
-    const cur = props.sort?.key === key
-      ? props.sort.direction
-      : null
+    const cur = props.sort?.key === key ? props.sort.direction : null
     props.onSortChange({
       key,
       direction: cycleSortDirection(cur),
@@ -62,7 +59,7 @@ export function DataTable<T>(
   }
 
   return (
-    <div 
+    <div
       data-testid="data-table-wrapper"
       data-fetching={String(isActuallyFetching)}
       className={clsx(
@@ -90,17 +87,24 @@ export function DataTable<T>(
                     const sortable = Boolean(col.sortValue)
                     const active = props.sort?.key === col.key
                     // Smart Default: 'actions' key gets 'sm' if width is not specified
-                    const rawWidth = col.width || (col.key === 'actions' ? 'sm' : undefined)
-                    const colWidth = rawWidth ? (widths[rawWidth] || rawWidth) : undefined
+                    const rawWidth =
+                      col.width || (col.key === 'actions' ? 'sm' : undefined)
+                    const colWidth = rawWidth
+                      ? widths[rawWidth] || rawWidth
+                      : undefined
                     return (
                       <th
                         key={col.key}
                         scope="col"
-                        style={colWidth ? { 
-                          width: colWidth,
-                          minWidth: colWidth,
-                          maxWidth: colWidth
-                        } : undefined}
+                        style={
+                          colWidth
+                            ? {
+                                width: colWidth,
+                                minWidth: colWidth,
+                                maxWidth: colWidth,
+                              }
+                            : undefined
+                        }
                         className={clsx(
                           s.thC,
                           s.thCol,
@@ -108,21 +112,13 @@ export function DataTable<T>(
                           sortable && s.thSort
                         )}
                         title={col.header}
-                        onClick={
-                          sortable
-                            ? () => onSort(col.key)
-                            : undefined
-                        }
+                        onClick={sortable ? () => { onSort(col.key); } : undefined}
                       >
                         <div className="flex items-center gap-2 overflow-hidden">
                           <span className="truncate">{col.header}</span>
                           {sortable && (
                             <SortIndicator
-                              direction={
-                                active
-                                  ? props.sort!.direction
-                                  : null
-                              }
+                              direction={active ? props.sort.direction : null}
                             />
                           )}
                         </div>
@@ -145,9 +141,7 @@ export function DataTable<T>(
           </div>
         </div>
       </div>
-      {props.pagination && (
-        <DataTablePagination {...props.pagination} />
-      )}
+      {props.pagination && <DataTablePagination {...props.pagination} />}
     </div>
   )
 }

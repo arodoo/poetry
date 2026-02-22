@@ -33,11 +33,8 @@ export async function upsertUserAddress(
   userId: number,
   data: UserAddressDto
 ): Promise<UserAddressDto> {
-  return fetchJson<UserAddressDto>(
-    `/api/v1/users/${String(userId)}/address`,
-    {
-      method: 'PUT',
-      body: data,
-    }
-  )
+  return fetchJson<UserAddressDto>(`/api/v1/users/${String(userId)}/address`, {
+    method: 'PUT',
+    body: data,
+  })
 }
