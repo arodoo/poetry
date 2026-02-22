@@ -34,7 +34,9 @@ export default function UserSearchField({
     setIsOpen(true)
   }, 300)
 
-  useDocumentClick(isOpen, [containerRef], () => { setIsOpen(false); })
+  useDocumentClick(isOpen, [containerRef], () => {
+    setIsOpen(false)
+  })
 
   const handleSelect = (user: UserResponse): void => {
     onSelect(user)
@@ -55,9 +57,9 @@ export default function UserSearchField({
       <Input
         data-testid="user-search-input"
         placeholder={t('ui.memberships.form.user.search')}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          { debouncedSearch(e.target.value); }
-        }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          debouncedSearch(e.target.value)
+        }}
         onFocus={() => {
           if (searchTerm) setIsOpen(true)
         }}
@@ -90,7 +92,9 @@ export default function UserSearchField({
               type="button"
               data-testid={`user-search-result-${u.id}`}
               className="w-full text-left p-2 hover:bg-surfaceHover text-sm"
-              onClick={() => { handleSelect(u); }}
+              onClick={() => {
+                handleSelect(u)
+              }}
             >
               <div className="font-medium">
                 {u.firstName} {u.lastName}

@@ -45,7 +45,9 @@ export function SlideListItem({
 
       {/* Delete */}
       <button
-        onClick={(): void => { onDelete(slide.id); }}
+        onClick={(): void => {
+          onDelete(slide.id)
+        }}
         disabled={isDeleting}
         aria-label={deleteLabel}
         className="shrink-0 rounded-full p-1 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10 disabled:opacity-40"

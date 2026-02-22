@@ -19,7 +19,9 @@ export function UserAddressFields(props: Props): ReactElement {
   function mkHandler(
     setter: (v: string) => void
   ): (e: ChangeEvent<HTMLInputElement>) => void {
-    return (e): void => { setter(e.target.value); }
+    return (e): void => {
+      setter(e.target.value)
+    }
   }
   return (
     <Stack gap="md">

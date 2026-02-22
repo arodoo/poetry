@@ -5,9 +5,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
+import type { ReactElement } from 'react'
 import { Badge } from '../../../ui/Badge/Badge'
-import { Inline } from '../../../ui/Inline/Inline'
-import { Button } from '../../../ui/Button/Button'
+import { HardwareFingerprintActions } from '../components/HardwareFingerprintActions'
 import type { DataTableColumn } from '../../../ui/DataTable/DataTable'
 import { formatDate } from '../../../shared/utils/dateUtils'
 import type { MergedFingerprint } from '../components/HardwareFingerprintTableShell'
@@ -59,17 +59,8 @@ export function buildHardwareFingerprintColumns(
       key: 'actions',
       header: t('ui.hardware.fingerprints.table.actions'),
       width: 'sm',
-      accessor: (row) => (
-        <Inline gap="xs">
-          <Button
-            size="sm"
-            width="fixed-small"
-            onClick={() => { onView(row); }}
-            data-testid={`view-fp-${row.id}`}
-          >
-            {t('ui.hardware.fingerprints.table.view')}
-          </Button>
-        </Inline>
+      accessor: (row: MergedFingerprint): ReactElement => (
+        <HardwareFingerprintActions row={row} onView={onView} t={t} />
       ),
     },
   ]

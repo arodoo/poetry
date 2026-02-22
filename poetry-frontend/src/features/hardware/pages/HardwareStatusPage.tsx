@@ -24,7 +24,9 @@ export function HardwareStatusPage(): ReactElement {
     const timer = setInterval(() => {
       setCountdown((prev) => (prev <= 1 ? 5 : prev - 1))
     }, 1000)
-    return () => { clearInterval(timer); }
+    return () => {
+      clearInterval(timer)
+    }
   }, [])
 
   useEffect(() => {

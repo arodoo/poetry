@@ -76,7 +76,9 @@ export function CarouselControls({
           (_, i: number): ReactElement => (
             <button
               key={i}
-              onClick={(): void => { onGoTo(i); }}
+              onClick={(): void => {
+                onGoTo(i)
+              }}
               aria-label={`Go to slide ${i + 1}`}
               className={
                 'h-2.5 w-2.5 rounded-full transition-all ' +

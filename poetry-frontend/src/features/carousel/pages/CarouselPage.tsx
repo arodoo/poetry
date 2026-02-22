@@ -45,7 +45,9 @@ export default function CarouselPage(): ReactElement {
         </h1>
         {isAdmin && (
           <AdminConfigButton
-            onOpen={(): void => { setDrawerOpen(true); }}
+            onOpen={(): void => {
+              setDrawerOpen(true)
+            }}
             label={t('ui.carousel.admin.open')}
           />
         )}
@@ -105,7 +107,9 @@ export default function CarouselPage(): ReactElement {
       {isAdmin && drawerOpen && config && (
         <AdminConfigDrawer
           config={config}
-          onClose={(): void => { setDrawerOpen(false); }}
+          onClose={(): void => {
+            setDrawerOpen(false)
+          }}
         />
       )}
     </div>

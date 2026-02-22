@@ -42,7 +42,9 @@ export function SlideUploadZone({
         e.preventDefault()
         setDragging(true)
       }}
-      onDragLeave={(): void => { setDragging(false); }}
+      onDragLeave={(): void => {
+        setDragging(false)
+      }}
       onDrop={handleDrop}
       onClick={(): void => inputRef.current?.click()}
       role="button"

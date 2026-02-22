@@ -63,7 +63,9 @@ export function HardwareFingerprintTable({ data }: Props): ReactElement {
       {selectedFp && (
         <HardwareFingerprintViewModal
           fingerprint={selectedFp}
-          onClose={() => { setSelectedFp(null); }}
+          onClose={() => {
+            setSelectedFp(null)
+          }}
         />
       )}
     </div>

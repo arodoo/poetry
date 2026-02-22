@@ -49,7 +49,9 @@ export function FingerprintList(): ReactElement {
         search={{ value: search, onSearchChange: setSearch }}
         columns={columns}
         activeFilters={activeFilters}
-        onFilterChange={(k, v) => { setFilters((p) => ({ ...p, [k]: v })); }}
+        onFilterChange={(k, v) => {
+          setFilters((p) => ({ ...p, [k]: v }))
+        }}
       />
       <DataTable
         columns={columns}

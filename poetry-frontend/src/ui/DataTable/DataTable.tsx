@@ -112,7 +112,13 @@ export function DataTable<T>(props: DataTableProps<T>): ReactElement {
                           sortable && s.thSort
                         )}
                         title={col.header}
-                        onClick={sortable ? () => { onSort(col.key); } : undefined}
+                        onClick={
+                          sortable
+                            ? () => {
+                                onSort(col.key)
+                              }
+                            : undefined
+                        }
                       >
                         <div className="flex items-center gap-2 overflow-hidden">
                           <span className="truncate">{col.header}</span>

@@ -96,7 +96,9 @@ export function BannerItem({
         {/* Dismiss button */}
         <button
           type="button"
-          onClick={() => { onDismiss(banner.id); }}
+          onClick={() => {
+            onDismiss(banner.id)
+          }}
           aria-label={t('ui.banner.close')}
           className="flex-shrink-0 text-[var(--color-textSubtle)] hover:text-[var(--color-text)] transition-colors p-0.5 rounded focus:outline-none focus:ring-2 focus:ring-[var(--color-border)]"
         >

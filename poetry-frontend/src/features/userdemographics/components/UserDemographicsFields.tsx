@@ -26,9 +26,9 @@ export function UserDemographicsFields(props: Props): ReactElement {
         <Input
           type="date"
           value={props.birthDate}
-          onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-            { props.setBirthDate(e.target.value); }
-          }
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            props.setBirthDate(e.target.value)
+          }}
           data-testid="user-birthdate-input"
         />
       </Stack>
@@ -38,9 +38,9 @@ export function UserDemographicsFields(props: Props): ReactElement {
         </Text>
         <Select
           value={props.gender}
-          onChange={(e: ChangeEvent<HTMLSelectElement>): void =>
-            { props.setGender(e.target.value); }
-          }
+          onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            props.setGender(e.target.value)
+          }}
           data-testid="user-gender-select"
         >
           <option value="">
@@ -60,9 +60,9 @@ export function UserDemographicsFields(props: Props): ReactElement {
         <Input
           type="tel"
           value={props.phone}
-          onChange={(e: ChangeEvent<HTMLInputElement>): void =>
-            { props.setPhone(e.target.value); }
-          }
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            props.setPhone(e.target.value)
+          }}
           placeholder={props.t('ui.users.form.phone.placeholder')}
           data-testid="user-phone-input"
         />
