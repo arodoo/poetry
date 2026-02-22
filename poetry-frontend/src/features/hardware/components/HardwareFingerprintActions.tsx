@@ -10,28 +10,25 @@ import { Inline } from '../../../ui/Inline/Inline'
 import { Button } from '../../../ui/Button/Button'
 import type { MergedFingerprint } from './HardwareFingerprintTableShell'
 
+import { useLocale } from '../../../shared/i18n/hooks/useLocale'
+
 export interface HardwareFingerprintActionsProps {
   row: MergedFingerprint
-  onView: (row: MergedFingerprint) => void
   t: (k: string) => string
 }
 
 export function HardwareFingerprintActions({
   row,
-  onView,
   t,
 }: HardwareFingerprintActionsProps): ReactElement {
+  const { locale } = useLocale()
   return (
     <Inline gap="xs">
       <Button
-        href="#"
-        onClick={(e) => {
-          e.preventDefault()
-          onView(row)
-        }}
+        to={`/${locale}/hardware/fingerprints/${String(row.id)}`}
         size="sm"
         width="fixed-small"
-        data-testid={`view-fp-${row.id}`}
+        data-testid={`view-fp-${String(row.id)}`}
       >
         {t('ui.hardware.fingerprints.table.view')}
       </Button>

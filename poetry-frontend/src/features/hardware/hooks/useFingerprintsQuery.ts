@@ -20,7 +20,7 @@ export function useFingerprintsQuery(): UseQueryResult<
     queryFn: async (): Promise<readonly FingerprintResponse[]> => {
       if (!token) throw new Error('No token')
       const data = await fetchFingerprints(token)
-      return data ?? []
+      return data
     },
     enabled: hasToken,
     staleTime: 1000 * 60, // 1 min (don't need frequent refresh here unless action taken)

@@ -5,13 +5,13 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { getHardwareStatus } from '../api/hardwareApi'
 import type { HardwareStatus } from '../model/hardwareStatusSchema'
 
 const POLL_INTERVAL_MS = 5000
 
-export function useHardwareStatusQuery() {
+export function useHardwareStatusQuery(): UseQueryResult<HardwareStatus> {
   return useQuery<HardwareStatus>({
     queryKey: ['hardware', 'status'],
     queryFn: getHardwareStatus,

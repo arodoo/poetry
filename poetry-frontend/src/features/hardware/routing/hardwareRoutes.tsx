@@ -7,6 +7,7 @@ import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
 import { HardwareStatusPage } from '../pages/HardwareStatusPage'
+import FingerprintDetailPage from '../pages/FingerprintDetailPage'
 
 export function HardwareRoutes(): ReactElement[] {
   return [
@@ -16,6 +17,15 @@ export function HardwareRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <HardwareStatusPage />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="fingerprint-detail"
+      path=":locale/hardware/fingerprints/:id"
+      element={
+        <AdminRoute>
+          <FingerprintDetailPage />
         </AdminRoute>
       }
     />,

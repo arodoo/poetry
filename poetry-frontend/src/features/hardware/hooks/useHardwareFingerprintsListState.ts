@@ -9,13 +9,13 @@ import type { ActiveFilters } from '../../../ui/DataTable/FilterTypes'
 import { applyFilters } from '../../../ui/DataTable/FilterTypes'
 import type { SortState } from '../../../ui/DataTable/SortTypes'
 import type { MergedFingerprint } from '../components/HardwareFingerprintTableShell'
+import type { HardwareFingerprintsListState } from '../model/hardwareFingerprintTypes'
 
-export function useHardwareFingerprintsListState(data: MergedFingerprint[]) {
+export function useHardwareFingerprintsListState(
+  data: MergedFingerprint[]
+): HardwareFingerprintsListState {
   const listState = useListPageState()
-  const [sort, setSort] = useState<SortState>({
-    key: 'enrolled',
-    direction: 'desc',
-  })
+  const [sort, setSort] = useState<SortState>({ key: 'enrolled', direction: 'desc' })
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({})
 
   const onFilterChange = (key: string, value: string): void => {
@@ -23,41 +23,21 @@ export function useHardwareFingerprintsListState(data: MergedFingerprint[]) {
     listState.setPage(0)
   }
 
-  const processedData = useMemo(() => {
-    let result = applyFilters(
-      data as unknown as Record<string, unknown>[],
-      activeFilters
-    ) as unknown as MergedFingerprint[]
-
+  const processedData = useMemo((): MergedFingerprint[] => {
+    let res = applyFilters(data as unknown as Record<string, unknown>[], activeFilters) as unknown as MergedFingerprint[]
     if (listState.search) {
       const q = listState.search.toLowerCase()
-      result = result.filter(
-        (fp) =>
-          fp.username.toLowerCase().includes(q) || String(fp.id).includes(q)
-      )
+      res = res.filter(v => v.username.toLowerCase().includes(q) || String(v.id).includes(q))
     }
-
     if (sort.direction) {
       const dir = sort.direction === 'asc' ? 1 : -1
-      result = [...result].sort((a, b) => {
-        let aVal = ''
-        let bVal = ''
-        if (sort.key === 'user') {
-          aVal = a.username
-          bVal = b.username
-        } else if (sort.key === 'enrolled') {
-          aVal = a.enrolledAt
-          bVal = b.enrolledAt
-        } else if (sort.key === 'status') {
-          aVal = a.status
-          bVal = b.status
-        }
-        if (aVal < bVal) return -dir
-        if (aVal > bVal) return dir
-        return 0
+      res = [...res].sort((a, b) => {
+        const k = sort.key as keyof MergedFingerprint
+        const aVal = String(a[k]), bVal = String(b[k])
+        return aVal < bVal ? -dir : aVal > bVal ? dir : 0
       })
     }
-    return result
+    return res
   }, [data, activeFilters, listState.search, sort])
 
   const totalElements = processedData.length
@@ -67,14 +47,6 @@ export function useHardwareFingerprintsListState(data: MergedFingerprint[]) {
     (listState.page + 1) * listState.size
   )
 
-  return {
-    ...listState,
-    sort,
-    setSort,
-    activeFilters,
-    onFilterChange,
-    paginatedData,
-    totalElements,
-    totalPages,
-  }
+  return { ...listState, sort, setSort, activeFilters, onFilterChange, paginatedData, totalElements, totalPages }
 }
+

@@ -13,23 +13,22 @@ import { formatDate } from '../../../shared/utils/dateUtils'
 import type { MergedFingerprint } from '../components/HardwareFingerprintTableShell'
 
 export function buildHardwareFingerprintColumns(
-  t: (key: string) => string,
-  onView: (row: MergedFingerprint) => void
-): readonly DataTableColumn<MergedFingerprint>[] {
+  t: (k: string) => string
+): DataTableColumn<MergedFingerprint>[] {
   return [
     {
       key: 'user',
       header: t('ui.hardware.fingerprints.table.user'),
       width: 'lg',
-      accessor: (row) => row.username,
-      sortValue: (row) => row.username,
+      accessor: (row: MergedFingerprint): string => row.username,
+      sortValue: (row: MergedFingerprint): string => row.username,
     },
     {
       key: 'status',
       header: t('ui.hardware.fingerprints.table.status'),
       width: 'sm',
       filterLabel: t('ui.table.filter.status'),
-      accessor: (row) => {
+      accessor: (row: MergedFingerprint): ReactElement => {
         const statusStr = row.status.toLowerCase()
         return (
           <Badge
@@ -52,15 +51,15 @@ export function buildHardwareFingerprintColumns(
       key: 'enrolled',
       header: t('ui.hardware.fingerprints.table.enrolled'),
       width: 'md',
-      accessor: (row) => formatDate(row.enrolledAt),
-      sortValue: (row) => row.enrolledAt,
+      accessor: (row: MergedFingerprint): string => formatDate(row.enrolledAt),
+      sortValue: (row: MergedFingerprint): string => row.enrolledAt,
     },
     {
       key: 'actions',
       header: t('ui.hardware.fingerprints.table.actions'),
       width: 'sm',
       accessor: (row: MergedFingerprint): ReactElement => (
-        <HardwareFingerprintActions row={row} onView={onView} t={t} />
+        <HardwareFingerprintActions row={row} t={t} />
       ),
     },
   ]

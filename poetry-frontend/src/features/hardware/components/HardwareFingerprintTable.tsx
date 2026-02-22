@@ -4,11 +4,9 @@
  * Incorporates local pagination and search to mimic admin lists.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { useState } from 'react'
 import type { ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
 import type { MergedFingerprint } from './HardwareFingerprintTableShell'
-import { HardwareFingerprintViewModal } from './HardwareFingerprintViewModal'
 import { DataTable } from '../../../ui/DataTable/DataTable'
 import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
 import { buildHardwareFingerprintColumns } from '../model/hardwareFingerprintColumns'
@@ -20,10 +18,8 @@ interface Props {
 
 export function HardwareFingerprintTable({ data }: Props): ReactElement {
   const t = useT()
-  const [selectedFp, setSelectedFp] = useState<MergedFingerprint | null>(null)
-
   const state = useHardwareFingerprintsListState(data)
-  const columns = buildHardwareFingerprintColumns(t, setSelectedFp)
+  const columns = buildHardwareFingerprintColumns(t)
 
   return (
     <div className="mt-8 pt-6 border-t border-[var(--color-border)]">
@@ -59,15 +55,6 @@ export function HardwareFingerprintTable({ data }: Props): ReactElement {
           onPageSizeChange: state.setSize,
         }}
       />
-
-      {selectedFp && (
-        <HardwareFingerprintViewModal
-          fingerprint={selectedFp}
-          onClose={() => {
-            setSelectedFp(null)
-          }}
-        />
-      )}
     </div>
   )
 }
