@@ -7,10 +7,12 @@ package com.poetry.poetry_backend.interfaces.v1.dashboard;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.poetry.poetry_backend.application.dashboard.port.DashboardQueryPort;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetAllDashboardsUseCase;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardByIdUseCase;
+import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardMetricsUseCase;
 import com.poetry.poetry_backend.domain.dashboard.model.Dashboard;
 import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.DashboardResponse;
 
@@ -31,7 +33,8 @@ class DashboardControllerTest {
     QueryStub stub = new QueryStub();
     return new DashboardController(
         new GetAllDashboardsUseCase(stub),
-        new GetDashboardByIdUseCase(stub)
+        new GetDashboardByIdUseCase(stub),
+        Mockito.mock(GetDashboardMetricsUseCase.class)
     );
   }
   @Test void returnsDashboardsWithEtag() {

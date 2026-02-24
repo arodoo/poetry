@@ -6,9 +6,14 @@
 package com.poetry.poetry_backend.application.user.usecase;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
+import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.domain.user.model.core.User;
 
@@ -49,7 +54,12 @@ class DeleteUserUseCaseTest {
         deleted[0] = id;
       }
     };
-    var uc = new DeleteUserUseCase(commands);
+
+    FingerprintQueryPort fqPort = mock(FingerprintQueryPort.class);
+    when(fqPort.findByUserId(any())).thenReturn(Collections.emptyList());
+    FingerprintCommandPort fcPort = mock(FingerprintCommandPort.class);
+
+    var uc = new DeleteUserUseCase(commands, fqPort, fcPort);
     uc.execute(11L, 1L);
     assertEquals(11L, deleted[0]);
   }

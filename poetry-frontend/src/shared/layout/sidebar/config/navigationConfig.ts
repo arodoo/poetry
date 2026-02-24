@@ -13,6 +13,7 @@ import {
   KeyIcon,
   ChartBarIcon,
   CpuChipIcon,
+  ChartPieIcon,
 } from '@heroicons/react/24/outline'
 import type { ItemId, NavigationItem } from '../types'
 
@@ -27,6 +28,7 @@ export function getLabelKey(id: ItemId): string {
     adminTokens: 'ui.route.admin.tokens.title',
     adminStats: 'ui.adminStats.title',
     hardware: 'ui.hardware.breadcrumb',
+    charts: 'ui.route.charts.title',
   }
   return map[id]
 }
@@ -34,6 +36,12 @@ export function getLabelKey(id: ItemId): string {
 export function getNavigationItems(): NavigationItem[] {
   return [
     { id: 'dashboard', p: '/dashboard', roles: [], icon: HomeIcon },
+    {
+      id: 'charts',
+      p: '/charts',
+      roles: ['admin', 'manager'],
+      icon: ChartPieIcon,
+    },
     {
       id: 'users',
       p: '/users',

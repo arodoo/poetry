@@ -1,0 +1,13 @@
+{
+  "ui.charts.usersByStatus": "Users by Status",
+  "ui.charts.fingerprintsOverTime": "Enrollments Over Time",
+  "ui.charts.membershipsByStatus": "Memberships Status",
+  "ui.charts.tokenStatus": "Refresh Tokens Status",
+  "ui.charts.eventsByType": "Audit Events",
+  "ui.charts.subscriptionsByDuration": "Subscriptions Duration",
+  "ui.charts.scheduledEventsByStatus": "Scheduled Events",
+  "ui.charts.sellerCodesByStatus": "Seller Codes",
+  "ui.charts.zonesConfiguration": "Zones Configuration",
+  "ui.charts.themeUsage": "Theme Usage",
+  "ui.route.charts.title": "Charts"
+}

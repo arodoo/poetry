@@ -10,12 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.poetry.poetry_backend.application.dashboard.port.DashboardQueryPort;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetAllDashboardsUseCase;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardByIdUseCase;
+import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardMetricsUseCase;
 import com.poetry.poetry_backend.domain.dashboard.exception.DashboardNotFoundException;
 import com.poetry.poetry_backend.domain.dashboard.model.Dashboard;
+
 class DashboardControllerNegativeTest {
   private static final class QueryStub implements DashboardQueryPort {
     @Override public List<Dashboard> findAll() { return List.of(); }
@@ -24,7 +27,8 @@ class DashboardControllerNegativeTest {
   @Test void throwsWhenDashboardMissing() {
     DashboardController controller = new DashboardController(
         new GetAllDashboardsUseCase(new QueryStub()),
-        new GetDashboardByIdUseCase(new QueryStub()));
+        new GetDashboardByIdUseCase(new QueryStub()),
+        Mockito.mock(GetDashboardMetricsUseCase.class));
     assertThrows(DashboardNotFoundException.class, () -> controller.getDashboard(9L));
   }
 }

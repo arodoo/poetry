@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poetry.poetry_backend.application.dashboard.dto.DashboardMetricsDto;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetAllDashboardsUseCase;
 import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardByIdUseCase;
+import com.poetry.poetry_backend.application.dashboard.usecase.GetDashboardMetricsUseCase;
 import com.poetry.poetry_backend.domain.dashboard.model.Dashboard;
 import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.DashboardResponse;
 
@@ -26,11 +28,18 @@ import com.poetry.poetry_backend.interfaces.v1.dashboard.DashboardDto.DashboardR
 public class DashboardController {
   private final GetAllDashboardsUseCase getAll;
   private final GetDashboardByIdUseCase getById;
+  private final GetDashboardMetricsUseCase getMetricsUseCase;
 
   public DashboardController(
-      GetAllDashboardsUseCase getAll, GetDashboardByIdUseCase getById) {
+      GetAllDashboardsUseCase getAll, GetDashboardByIdUseCase getById, GetDashboardMetricsUseCase getMetricsUseCase) {
     this.getAll = getAll;
     this.getById = getById;
+    this.getMetricsUseCase = getMetricsUseCase;
+  }
+
+  @GetMapping("/metrics")
+  public ResponseEntity<DashboardMetricsDto> getMetrics() {
+    return ResponseEntity.ok(getMetricsUseCase.execute());
   }
 
   @GetMapping

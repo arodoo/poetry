@@ -2445,6 +2445,18 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/DashboardOverviewResponse'
+  /api/v1/dashboard/metrics:
+    get:
+      tags:
+        - dashboard-controller
+      operationId: getMetrics
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DashboardMetricsDto'
   /api/v1/carousel/config:
     get:
       tags:
@@ -3052,6 +3064,11 @@ components:
           description: Creation date
           format: date-time
           example: 2023-01-01T00:00:00Z
+        nextPaymentDate:
+          type: string
+          description: Next payment date
+          format: date-time
+          example: 2024-02-01T00:00:00Z
         version:
           type: integer
           description: Version for locking
@@ -4274,6 +4291,59 @@ components:
           type: string
         lastUpdatedLabel:
           type: string
+    DashboardMetricsDto:
+      type: object
+      properties:
+        usersByStatus:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        enrollmentsOverTime:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        membershipsByStatus:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        tokenStatus:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        eventsByType:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        subscriptionsByDuration:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        scheduledEventsByStatus:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        sellerCodesByStatus:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        zonesConfiguration:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        themeUsage:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     CarouselConfigResponse:
       type: object
       properties:
