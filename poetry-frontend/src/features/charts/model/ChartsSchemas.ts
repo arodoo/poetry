@@ -18,6 +18,9 @@ export const DashboardMetricsSchema = z.object({
     birthdaysThisMonth: StringToNumberMapSchema,
     activeHours: StringToNumberMapSchema,
     populatedRegions: StringToNumberMapSchema,
+    accessLogTrend: StringToNumberMapSchema.optional().catch(() => ({})),
+    activeDaysOfWeek: StringToNumberMapSchema.optional().catch(() => ({})),
+    recentAccessLogs: z.array(z.any()).optional().catch(() => []),
 });
 
 export type DashboardMetrics = z.infer<typeof DashboardMetricsSchema>;

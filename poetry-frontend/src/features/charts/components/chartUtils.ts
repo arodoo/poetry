@@ -17,11 +17,11 @@ export const CHART_COLORS = [
     '#06b6d4', // cyan-500
 ];
 
-export function formatPieData(data: Record<string, number>) {
+export function formatPieData(data: Record<string, number>): { name: string; value: number }[] {
     return Object.entries(data).map(([name, value]) => ({ name, value }));
 }
 
-export function formatBarData(data: Record<string, number>, keyName = 'name', valueName = 'value') {
+export function formatBarData(data: Record<string, number>, keyName = 'name', valueName = 'value'): Record<string, string | number>[] {
     return Object.entries(data).map(([name, value]) => ({
         [keyName]: name,
         [valueName]: value,

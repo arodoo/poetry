@@ -1,6 +1,6 @@
 /*
- * File: index.ts
- * Purpose: Public surface for the charts feature.
+ * File: index.tsx
+ * Purpose: Public surface for the charts feature routing schema. It maps the root dashboard metrics boundaries and nested children configurations. The sub-routes provide drill-down detail pages for specific analytical charts.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'

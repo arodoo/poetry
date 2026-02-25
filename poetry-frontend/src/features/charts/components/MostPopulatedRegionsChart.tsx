@@ -24,8 +24,12 @@ export function MostPopulatedRegionsChart({
 }: MostPopulatedRegionsChartProps): ReactElement {
     const t = useT();
     const { locale } = useParams();
-  const navigate = useNavigate();
-    const chartData = formatPieData(data).map((entry: any, index: number) => ({ ...entry, fill: CHART_COLORS[index % CHART_COLORS.length] ?? '#8884d8' }));
+    const navigate = useNavigate();
+
+    const chartData = formatPieData(data).map((entry: { name: string; value: number }, index: number) => ({ 
+        ...entry, 
+        fill: CHART_COLORS[index % CHART_COLORS.length] ?? '#8884d8' 
+    }));
 
     return (
         <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-[350px]">

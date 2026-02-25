@@ -14,8 +14,13 @@ export function UsersByStatusChart({ data }: { data: Record<string, number> | un
   const t = useT();
   const { locale } = useParams();
   const navigate = useNavigate();
+  
   if (!data) return null;
-  const chartData = formatPieData(data).map((entry: any, index: number) => ({ ...entry, fill: CHART_COLORS[index % CHART_COLORS.length] ?? '#8884d8' }));
+  
+  const chartData = formatPieData(data).map((entry: { name: string; value: number }, index: number) => ({ 
+      ...entry, 
+      fill: CHART_COLORS[index % CHART_COLORS.length] ?? '#8884d8' 
+  }));
 
   return (
     <div className="flex h-[350px] flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">

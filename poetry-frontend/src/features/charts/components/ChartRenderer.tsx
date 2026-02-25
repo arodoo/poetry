@@ -15,10 +15,11 @@ import { SellerCodesByStatusChart } from './SellerCodesByStatusChart';
 import { BirthdaysThisMonthChart } from './BirthdaysThisMonthChart';
 import { MostActiveHoursChart } from './MostActiveHoursChart';
 import { MostPopulatedRegionsChart } from './MostPopulatedRegionsChart';
+import type { DashboardMetrics } from '../model/ChartsSchemas';
 
-export function ChartRenderer({ chartId, data }: { chartId: string | undefined; data: any }): ReactElement | null {
+export function ChartRenderer({ chartId, data }: { chartId: string | undefined; data: DashboardMetrics }): ReactElement | null {
     const t = useT();
-    if (!data) return null;
+    if (!chartId) return null;
 
     switch (chartId) {
         case 'usersByStatus': return <UsersByStatusChart data={data.usersByStatus} />;

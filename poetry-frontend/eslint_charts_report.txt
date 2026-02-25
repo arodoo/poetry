@@ -1,0 +1,95 @@
+(node:32584) ESLintIgnoreWarning: The ".eslintignore" file is no longer supported. Switch to using the "ignores" property in "eslint.config.js": https://eslint.org/docs/latest/use/configure/migration-guide#ignoring-files
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\components\ActiveHoursDetailsView.tsx
+  27:67   warning  Unsafe return of a value of type `any`                                                                              @typescript-eslint/no-unsafe-return
+  27:71   warning  Unsafe member access .id on an `any` value                                                                          @typescript-eslint/no-unsafe-member-access
+  28:40   error    Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined                  @typescript-eslint/no-unnecessary-condition
+  28:98   warning  Unsafe return of a value of type `any`                                                                              @typescript-eslint/no-unsafe-return
+  28:102  warning  Unsafe member access .userName on an `any` value                                                                    @typescript-eslint/no-unsafe-member-access
+  29:73   warning  Unsafe return of a value of type `any`                                                                              @typescript-eslint/no-unsafe-return
+  29:77   warning  Unsafe member access .email on an `any` value                                                                       @typescript-eslint/no-unsafe-member-access
+  30:41   error    Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined                  @typescript-eslint/no-unnecessary-condition
+  30:116  warning  Unsafe argument of type `any` assigned to a parameter of type `string | number | Date`                              @typescript-eslint/no-unsafe-argument
+  30:120  warning  Unsafe member access .timestamp on an `any` value                                                                   @typescript-eslint/no-unsafe-member-access
+  34:36   warning  Missing return type on function                                                                                     @typescript-eslint/explicit-function-return-type
+  44:69   error    Returning a void expression from an arrow function shorthand is forbidden. Please add braces to the arrow function  @typescript-eslint/no-confusing-void-expression
+  47:68   error    Returning a void expression from an arrow function shorthand is forbidden. Please add braces to the arrow function  @typescript-eslint/no-confusing-void-expression
+  50:70   error    Returning a void expression from an arrow function shorthand is forbidden. Please add braces to the arrow function  @typescript-eslint/no-confusing-void-expression
+  57:49   error    Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined                  @typescript-eslint/no-unnecessary-condition
+  83:46   warning  Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  83:54   warning  Unsafe return of a value of type `any`                                                                              @typescript-eslint/no-unsafe-return
+  83:54   warning  Unsafe call of a(n) `any` typed value                                                                               @typescript-eslint/no-unsafe-call
+  83:59   warning  Unsafe member access .id on an `any` value                                                                          @typescript-eslint/no-unsafe-member-access
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\components\ChartRenderer.tsx
+  19:87  warning  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  24:64  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  24:69  warning  Unsafe member access .usersByStatus on an `any` value            @typescript-eslint/no-unsafe-member-access
+  25:74  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  25:79  warning  Unsafe member access .birthdaysThisMonth on an `any` value       @typescript-eslint/no-unsafe-member-access
+  26:64  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  26:69  warning  Unsafe member access .activeHours on an `any` value              @typescript-eslint/no-unsafe-member-access
+  27:74  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  27:79  warning  Unsafe member access .populatedRegions on an `any` value         @typescript-eslint/no-unsafe-member-access
+  28:77  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  28:82  warning  Unsafe member access .enrollmentsOverTime on an `any` value      @typescript-eslint/no-unsafe-member-access
+  29:76  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  29:81  warning  Unsafe member access .membershipsByStatus on an `any` value      @typescript-eslint/no-unsafe-member-access
+  30:62  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  30:67  warning  Unsafe member access .eventsByType on an `any` value             @typescript-eslint/no-unsafe-member-access
+  31:84  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  31:89  warning  Unsafe member access .subscriptionsByDuration on an `any` value  @typescript-eslint/no-unsafe-member-access
+  32:84  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  32:89  warning  Unsafe member access .scheduledEventsByStatus on an `any` value  @typescript-eslint/no-unsafe-member-access
+  33:76  warning  Unsafe assignment of an `any` value                              @typescript-eslint/no-unsafe-assignment
+  33:81  warning  Unsafe member access .sellerCodesByStatus on an `any` value      @typescript-eslint/no-unsafe-member-access
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\components\MostActiveHoursChart.tsx
+   34:13   error    Unnecessary conditional, value is always falsy        @typescript-eslint/no-unnecessary-condition
+   53:36   warning  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+   85:57   warning  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+   86:103  warning  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+  100:1    error    File has too many lines (131). Maximum allowed is 80  max-lines
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\components\MostPopulatedRegionsChart.tsx
+  28:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  28:79  warning  Unsafe return of a value of type `any`    @typescript-eslint/no-unsafe-return
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\components\UsersByStatusChart.tsx
+  18:53  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  18:77  warning  Unsafe return of a value of type `any`    @typescript-eslint/no-unsafe-return
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\components\chartUtils.ts
+  20:8  warning  Missing return type on function  @typescript-eslint/explicit-function-return-type
+  20:8  warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types
+  24:8  warning  Missing return type on function  @typescript-eslint/explicit-function-return-type
+  24:8  warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\hooks\useChartsMetricsQuery.ts
+  11:8  warning  Missing return type on function  @typescript-eslint/explicit-function-return-type
+  11:8  warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types
+
+D:\zProyectos\01Java\poetry\poetry-frontend\src\features\charts\pages\ChartDetailsPage.tsx
+   25:15  warning  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+   25:36  warning  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+   25:41  warning  Unsafe member access [chartId] on an `any` value                                                                @typescript-eslint/no-unsafe-member-access
+   27:31  warning  Unsafe argument of type `any` assigned to a parameter of type `{ [s: string]: unknown; } | ArrayLike<unknown>`  @typescript-eslint/no-unsafe-argument
+   31:64  warning  Missing return type on function                                                                                 @typescript-eslint/explicit-function-return-type
+   37:27  warning  Invalid type "number" of template literal expression                                                            @typescript-eslint/restrict-template-expressions
+   62:74  warning  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+   62:92  warning  Unsafe argument of type `any` assigned to a parameter of type `string`                                          @typescript-eslint/no-unsafe-argument
+   62:96  warning  Unsafe member access .key on an `any` value                                                                     @typescript-eslint/no-unsafe-member-access
+   63:78  warning  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+   63:86  warning  Unsafe return of a value of type `any`                                                                          @typescript-eslint/no-unsafe-return
+   63:90  warning  Unsafe member access .value on an `any` value                                                                   @typescript-eslint/no-unsafe-member-access
+   83:59  warning  Unsafe assignment of an `any` value                                                                             @typescript-eslint/no-unsafe-assignment
+   83:67  warning  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+   96:1   error    File has too many lines (96). Maximum allowed is 80                                                             max-lines
+  100:66  warning  Unexpected any. Specify a different type                                                                        @typescript-eslint/no-explicit-any
+  100:74  warning  Unsafe return of a value of type `any`                                                                          @typescript-eslint/no-unsafe-return
+  100:79  warning  Unsafe member access .key on an `any` value                                                                     @typescript-eslint/no-unsafe-member-access
+
+✖ 73 problems (9 errors, 64 warnings)
+  3 errors and 0 warnings potentially fixable with the `--fix` option.
+

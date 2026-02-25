@@ -38,7 +38,7 @@ export function ChartsPage(): ReactElement {
       <div data-testid="charts-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <UsersByStatusChart data={data?.usersByStatus ?? {}} />
         <BirthdaysThisMonthChart data={data?.birthdaysThisMonth ?? {}} />
-        <MostActiveHoursChart data={data?.activeHours ?? {}} />
+        <MostActiveHoursChart data={data?.activeHours ?? {}} daysData={data?.activeDaysOfWeek ?? {}} />
         <MostPopulatedRegionsChart data={data?.populatedRegions ?? {}} />
         <FingerprintsOverTimeChart data={data?.enrollmentsOverTime ?? {}} />
         <MembershipsByStatusChart data={data?.membershipsByStatus ?? {}} />

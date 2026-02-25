@@ -1,18 +1,19 @@
 /*
  * File: DashboardMetricsAdapter.java
- * Purpose: Infrastructure adapter that queries database tables directly using JdbcClient
- * to fetch aggregated system metrics for the charts dashboard.
+ * Purpose: Infrastructure adapter that queries database tables directly using JdbcClient to fetch aggregated system metrics for the charts dashboard. It sidesteps the heavy ORM abstractions to perform complex aggregate grouping functions efficiently. This ensures the dashboard endpoints return instantaneously even with massive datasets.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 package com.poetry.poetry_backend.infrastructure.jpa.dashboard;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
+import com.poetry.poetry_backend.application.dashboard.dto.AccessLogRecordDto;
 import com.poetry.poetry_backend.application.dashboard.dto.DashboardMetricsDto;
 import com.poetry.poetry_backend.application.dashboard.port.DashboardMetricsQueryPort;
 
@@ -39,7 +40,10 @@ public class DashboardMetricsAdapter implements DashboardMetricsQueryPort {
         fetchCounts("SELECT status, COUNT(*) as c FROM seller_codes GROUP BY status"),
         fetchCounts("SELECT 'This Month' as m, COUNT(*) as c FROM user_demographics WHERE EXTRACT(MONTH FROM birth_date) = EXTRACT(MONTH FROM NOW()) GROUP BY m"),
         fetchCounts("SELECT EXTRACT(HOUR FROM created_at)::text as h, COUNT(*) as c FROM access_logs GROUP BY h"),
-        fetchCounts("SELECT z.name, COUNT(umz.membership_id) as c FROM user_membership_zones umz JOIN zones z ON umz.zone_id = z.id GROUP BY z.name")
+        fetchCounts("SELECT z.name, COUNT(umz.membership_id) as c FROM user_membership_zones umz JOIN zones z ON umz.zone_id = z.id GROUP BY z.name"),
+        fetchCounts("SELECT to_char(created_at, 'YYYY-MM-DD') as d, COUNT(*) as c FROM access_logs WHERE created_at > NOW() - INTERVAL '7 days' GROUP BY d ORDER BY d"),
+        fetchCounts("SELECT EXTRACT(ISODOW FROM created_at)::text as dow, COUNT(*) as c FROM access_logs GROUP BY dow"),
+        fetchRecentAccessLogs("SELECT a.id, CONCAT(u.first_name, ' ', u.last_name) as user_name, u.email, a.created_at FROM access_logs a JOIN users u ON a.user_id = u.id ORDER BY a.created_at DESC LIMIT 50")
     );
   }
 
@@ -49,5 +53,14 @@ public class DashboardMetricsAdapter implements DashboardMetricsQueryPort {
       result.put(rs.getString(1), rs.getLong(2));
     });
     return result;
+  }
+
+  private List<AccessLogRecordDto> fetchRecentAccessLogs(String sql) {
+    return jdbcClient.sql(sql).query((rs, rowNum) -> new AccessLogRecordDto(
+        rs.getLong("id"),
+        rs.getString("user_name"),
+        rs.getString("email"),
+        rs.getTimestamp("created_at").toLocalDateTime()
+    )).list();
   }
 }
