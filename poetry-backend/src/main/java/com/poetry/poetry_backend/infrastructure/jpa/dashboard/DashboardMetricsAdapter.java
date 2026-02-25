@@ -38,7 +38,7 @@ public class DashboardMetricsAdapter implements DashboardMetricsQueryPort {
         fetchCounts("SELECT status, COUNT(*) as c FROM events GROUP BY status"),
         fetchCounts("SELECT status, COUNT(*) as c FROM seller_codes GROUP BY status"),
         fetchCounts("SELECT 'This Month' as m, COUNT(*) as c FROM user_demographics WHERE EXTRACT(MONTH FROM birth_date) = EXTRACT(MONTH FROM NOW()) GROUP BY m"),
-        fetchCounts("SELECT EXTRACT(HOUR FROM created_at)::text as h, COUNT(*) as c FROM auth_audit_events GROUP BY h"),
+        fetchCounts("SELECT EXTRACT(HOUR FROM created_at)::text as h, COUNT(*) as c FROM access_logs GROUP BY h"),
         fetchCounts("SELECT z.name, COUNT(umz.membership_id) as c FROM user_membership_zones umz JOIN zones z ON umz.zone_id = z.id GROUP BY z.name")
     );
   }

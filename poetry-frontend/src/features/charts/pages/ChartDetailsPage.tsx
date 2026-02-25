@@ -26,10 +26,42 @@ export function ChartDetailsPage(): ReactElement {
         return Object.entries(chartData).map(([key, value]) => ({ key, value }));
     }, [data, chartId]);
 
-    const columns = useMemo(() => [
-        { key: 'key', header: t('ui.charts.details.key'), accessor: (row: any) => row.key },
-        { key: 'value', header: t('ui.charts.details.value'), accessor: (row: any) => row.value },
-    ] as any, [t]);
+    const columns = useMemo(() => {
+        const formatKey = (key: string, chartIdLocal?: string) => {
+            if (chartIdLocal === 'activeHours') {
+                const hour = parseInt(key, 10);
+                if (isNaN(hour)) return key;
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const h12 = hour % 12 === 0 ? 12 : hour % 12;
+                return `${h12}:00 ${ampm}`;
+            }
+            if (chartIdLocal === 'birthdaysThisMonth') return t(`ui.charts.details.birthdays`);
+            return key;
+        };
+
+        const getHeaderKey = (chartIdLocal?: string): string => {
+            switch(chartIdLocal) {
+                case 'activeHours': return t('ui.charts.details.time');
+                case 'populatedRegions': return t('ui.charts.details.region');
+                case 'birthdaysThisMonth': return t('ui.charts.details.month');
+                default: return t('ui.charts.details.key');
+            }
+        };
+
+        const getHeaderValue = (chartIdLocal?: string): string => {
+            switch(chartIdLocal) {
+                case 'activeHours': return t('ui.charts.details.checkIns');
+                case 'populatedRegions': return t('ui.charts.details.users');
+                case 'birthdaysThisMonth': return t('ui.charts.details.total');
+                default: return t('ui.charts.details.value');
+            }
+        };
+
+        return [
+            { key: 'key', header: getHeaderKey(chartId), accessor: (row: any) => formatKey(row.key, chartId) },
+            { key: 'value', header: getHeaderValue(chartId), accessor: (row: any) => row.value },
+        ];
+    }, [t, chartId]);
 
     return (
         <PageLayout title={chartTitle}>

@@ -63,7 +63,9 @@ public class FingerprintBasicBeans {
   @Bean
   public VerifyFingerprintUseCase verifyFingerprintUseCase(
       FingerprintQueryPort queryPort,
-      HidCapturePort capturePort) {
-    return new VerifyFingerprintUseCase(queryPort, capturePort);
+      HidCapturePort capturePort,
+      com.poetry.poetry_backend.application.fingerprint.port.AccessLogPort accessLogPort) {
+    return new com.poetry.poetry_backend.infrastructure.auth.accesslog.LoggingVerifyFingerprintUseCase(
+        queryPort, capturePort, accessLogPort);
   }
 }

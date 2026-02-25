@@ -22,8 +22,8 @@ export function BannerItem({
   const t = useT()
 
   const isUnknown = user === null
-  const isActive = membership?.status === 'active'
-  const isExpired = membership?.status === 'expired'
+  const isActive = membership?.status?.toLowerCase() === 'active'
+  const isExpired = membership?.status?.toLowerCase() === 'expired'
   const isInactive = membership !== null && !isActive && !isExpired
 
   // Border and accent color by state
