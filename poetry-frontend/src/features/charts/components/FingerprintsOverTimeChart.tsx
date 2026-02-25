@@ -5,17 +5,23 @@
  */
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { CHART_COLORS, formatBarData } from './chartUtils';
+import type { ReactElement } from 'react';
 import { useT } from '../../../shared/i18n/useT';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '../../../ui';
 
-export function FingerprintsOverTimeChart({ data }: { data: Record<string, number> | undefined }) {
+export function FingerprintsOverTimeChart({ data }: { data: Record<string, number> | undefined }): ReactElement | null {
   const t = useT();
+  const { locale } = useParams();
+  const navigate = useNavigate();
+
   if (!data) return null;
   const chartData = formatBarData(data, 'month', 'enrollments');
 
   return (
-    <div className="flex h-80 flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
+    <div className="flex h-[350px] flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
       <h3 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
-        {t('ui.charts.fingerprintsOverTime')}
+        {t('ui.charts.enrollmentsOverTime')}
       </h3>
       <div className="flex-1">
         <ResponsiveContainer width="100%" height="100%">
@@ -27,6 +33,11 @@ export function FingerprintsOverTimeChart({ data }: { data: Record<string, numbe
             <Bar dataKey="enrollments" fill={CHART_COLORS[0]} radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
+      </div>
+      <div className="mt-4 flex justify-end">
+        <Button variant="secondary" size="sm" onClick={() => { void navigate(`/${locale ?? 'en'}/charts/details/enrollmentsOverTime`); }}>
+          {t('ui.charts.viewMore')}
+        </Button>
       </div>
     </div>
   );

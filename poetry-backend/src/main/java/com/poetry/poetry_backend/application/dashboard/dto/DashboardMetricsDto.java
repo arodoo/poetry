@@ -12,10 +12,10 @@ public record DashboardMetricsDto(
     Map<String, Long> usersByStatus,
     Map<String, Long> enrollmentsOverTime,
     Map<String, Long> membershipsByStatus,
-    Map<String, Long> tokenStatus,
     Map<String, Long> eventsByType,
     Map<String, Long> subscriptionsByDuration,
     Map<String, Long> scheduledEventsByStatus,
     Map<String, Long> sellerCodesByStatus,
-    Map<String, Long> zonesConfiguration,
-    Map<String, Long> themeUsage) {}
+    Map<String, Long> birthdaysThisMonth,
+    Map<String, Long> activeHours,
+    Map<String, Long> populatedRegions) {}

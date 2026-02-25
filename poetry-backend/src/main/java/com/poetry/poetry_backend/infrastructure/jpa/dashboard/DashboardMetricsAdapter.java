@@ -33,13 +33,13 @@ public class DashboardMetricsAdapter implements DashboardMetricsQueryPort {
             + "FROM fingerprints WHERE enrolled_at > NOW() - INTERVAL '6 months' "
             + "GROUP BY month ORDER BY month"),
         fetchCounts("SELECT status, COUNT(*) as c FROM memberships GROUP BY status"),
-        fetchCounts("SELECT status, COUNT(*) as c FROM auth_refresh_tokens GROUP BY status"),
         fetchCounts("SELECT event_type, COUNT(*) as c FROM auth_audit_events GROUP BY event_type"),
         fetchCounts("SELECT duration_days::text as d, COUNT(*) as c FROM subscriptions GROUP BY d"),
         fetchCounts("SELECT status, COUNT(*) as c FROM events GROUP BY status"),
         fetchCounts("SELECT status, COUNT(*) as c FROM seller_codes GROUP BY status"),
-        fetchCounts("SELECT status, COUNT(*) as c FROM zones GROUP BY status"),
-        fetchCounts("SELECT theme_key, COUNT(*) as c FROM user_customization_selection GROUP BY theme_key")
+        fetchCounts("SELECT 'This Month' as m, COUNT(*) as c FROM user_demographics WHERE EXTRACT(MONTH FROM birth_date) = EXTRACT(MONTH FROM NOW()) GROUP BY m"),
+        fetchCounts("SELECT EXTRACT(HOUR FROM created_at)::text as h, COUNT(*) as c FROM auth_audit_events GROUP BY h"),
+        fetchCounts("SELECT z.name, COUNT(umz.membership_id) as c FROM user_membership_zones umz JOIN zones z ON umz.zone_id = z.id GROUP BY z.name")
     );
   }
 

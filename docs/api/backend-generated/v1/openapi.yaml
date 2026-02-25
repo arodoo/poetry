@@ -4222,10 +4222,6 @@ components:
         totalPages:
           type: integer
           format: int32
-        first:
-          type: boolean
-        last:
-          type: boolean
         size:
           type: integer
           format: int32
@@ -4243,6 +4239,10 @@ components:
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
         empty:
           type: boolean
     PageableObject:

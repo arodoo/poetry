@@ -14,6 +14,8 @@ export default defineConfig({
     baseURL: 'http://localhost:5173',
     headless: true,
     ignoreHTTPSErrors: true,
+    screenshot: 'only-on-failure',
+    trace: 'on-first-retry',
   },
   webServer: [
     {

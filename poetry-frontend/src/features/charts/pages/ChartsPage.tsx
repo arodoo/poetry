@@ -8,15 +8,17 @@ import { useChartsMetricsQuery } from '../hooks/useChartsMetricsQuery';
 import { UsersByStatusChart } from '../components/UsersByStatusChart';
 import { FingerprintsOverTimeChart } from '../components/FingerprintsOverTimeChart';
 import { MembershipsByStatusChart } from '../components/MembershipsByStatusChart';
-import { TokenStatusChart } from '../components/TokenStatusChart';
 import { EventsByTypeChart } from '../components/EventsByTypeChart';
 import { SubscriptionsByDurationChart } from '../components/SubscriptionsByDurationChart';
 import { ScheduledEventsByStatusChart } from '../components/ScheduledEventsByStatusChart';
 import { SellerCodesByStatusChart } from '../components/SellerCodesByStatusChart';
-import { ZonesConfigurationChart } from '../components/ZonesConfigurationChart';
-import { ThemeUsageChart } from '../components/ThemeUsageChart';
+import { BirthdaysThisMonthChart } from '../components/BirthdaysThisMonthChart';
+import { MostActiveHoursChart } from '../components/MostActiveHoursChart';
+import { MostPopulatedRegionsChart } from '../components/MostPopulatedRegionsChart';
 
-export function ChartsPage() {
+import type { ReactElement } from 'react';
+
+export function ChartsPage(): ReactElement {
   const t = useT();
   const { data, isLoading, isError } = useChartsMetricsQuery();
 
@@ -33,17 +35,17 @@ export function ChartsPage() {
       <h1 className="text-2xl font-bold text-[var(--color-text)]">
         {t('ui.route.charts.title')}
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <UsersByStatusChart data={data?.usersByStatus} />
-        <FingerprintsOverTimeChart data={data?.enrollmentsOverTime} />
-        <MembershipsByStatusChart data={data?.membershipsByStatus} />
-        <TokenStatusChart data={data?.tokenStatus} />
-        <EventsByTypeChart data={data?.eventsByType} />
-        <SubscriptionsByDurationChart data={data?.subscriptionsByDuration} />
-        <ScheduledEventsByStatusChart data={data?.scheduledEventsByStatus} />
-        <SellerCodesByStatusChart data={data?.sellerCodesByStatus} />
-        <ZonesConfigurationChart data={data?.zonesConfiguration} />
-        <ThemeUsageChart data={data?.themeUsage} />
+      <div data-testid="charts-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <UsersByStatusChart data={data?.usersByStatus ?? {}} />
+        <BirthdaysThisMonthChart data={data?.birthdaysThisMonth ?? {}} />
+        <MostActiveHoursChart data={data?.activeHours ?? {}} />
+        <MostPopulatedRegionsChart data={data?.populatedRegions ?? {}} />
+        <FingerprintsOverTimeChart data={data?.enrollmentsOverTime ?? {}} />
+        <MembershipsByStatusChart data={data?.membershipsByStatus ?? {}} />
+        <EventsByTypeChart data={data?.eventsByType ?? {}} />
+        <SubscriptionsByDurationChart data={data?.subscriptionsByDuration ?? {}} />
+        <ScheduledEventsByStatusChart data={data?.scheduledEventsByStatus ?? {}} />
+        <SellerCodesByStatusChart data={data?.sellerCodesByStatus ?? {}} />
       </div>
     </div>
   );

@@ -11,13 +11,13 @@ export const DashboardMetricsSchema = z.object({
     usersByStatus: StringToNumberMapSchema,
     enrollmentsOverTime: StringToNumberMapSchema,
     membershipsByStatus: StringToNumberMapSchema,
-    tokenStatus: StringToNumberMapSchema,
     eventsByType: StringToNumberMapSchema,
     subscriptionsByDuration: StringToNumberMapSchema,
     scheduledEventsByStatus: StringToNumberMapSchema,
     sellerCodesByStatus: StringToNumberMapSchema,
-    zonesConfiguration: StringToNumberMapSchema,
-    themeUsage: StringToNumberMapSchema,
+    birthdaysThisMonth: StringToNumberMapSchema,
+    activeHours: StringToNumberMapSchema,
+    populatedRegions: StringToNumberMapSchema,
 });
 
 export type DashboardMetrics = z.infer<typeof DashboardMetricsSchema>;
