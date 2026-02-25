@@ -14,10 +14,12 @@ Provides the main administrative and user dashboard views in the Poetry applicat
 ## Use Cases
 - View dashboard overview
 - Access quick links to features
+- Drill down into Sub-Dashboards for granular tabulated metrics (e.g. Access Logs trends, Populated Regions)
 
 ## Dependencies
 - Auth domain
 - Users domain
+- Access Logs domain (for retrieving and aggregating dynamic entrance charts)
 
 ## Status
-- Implemented
+- Implemented (Phase 4 Sub-Dashboards injected)

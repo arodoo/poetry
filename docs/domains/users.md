@@ -4,7 +4,7 @@
 The Users domain handles user accounts, roles, permissions and profile management. It exposes APIs for creating, updating and querying users and integrates with authentication and authorization layers.
 
 ## Entities
-- User
+- User (includes tracking for `birthDate` enabling demographic dashboard charting)
 - Role
 - Permission
 
