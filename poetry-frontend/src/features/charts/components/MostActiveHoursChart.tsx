@@ -3,7 +3,7 @@
  * Purpose: Presentational chart for most active hours based on events.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react';
+import { useMemo, type ReactElement } from 'react';
 import { useT } from '../../../shared/i18n/useT';
 import {
     Line,
@@ -14,7 +14,6 @@ import {
     XAxis,
     YAxis,
 } from 'recharts';
-import { formatBarData } from './chartUtils';
 import { Button } from '../../../ui';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -27,8 +26,32 @@ export function MostActiveHoursChart({
 }: MostActiveHoursChartProps): ReactElement {
     const t = useT();
     const { locale } = useParams();
-  const navigate = useNavigate();
-    const chartData = formatBarData(data);
+    const navigate = useNavigate();
+
+    const chartData = useMemo(() => {
+        if (!data) return [];
+        const tzOffsetHours = Math.floor(new Date().getTimezoneOffset() / 60);
+        const hoursMap = new Map<number, number>();
+        
+        for (let i = 0; i < 24; i++) hoursMap.set(i, 0);
+
+        Object.entries(data).forEach(([hourStr, count]) => {
+            const utcHour = parseInt(hourStr, 10);
+            if (!isNaN(utcHour)) {
+                let localHour = (utcHour - tzOffsetHours) % 24;
+                if (localHour < 0) localHour += 24;
+                hoursMap.set(localHour, (hoursMap.get(localHour) ?? 0) + count);
+            }
+        });
+
+        const result = [];
+        for (let i = 0; i < 24; i++) {
+            const ampm = i >= 12 ? 'PM' : 'AM';
+            const h12 = i % 12 === 0 ? 12 : i % 12;
+            result.push({ name: `${h12}:00 ${ampm}`, value: hoursMap.get(i) ?? 0 });
+        }
+        return result;
+    }, [data]);
 
     return (
         <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-[350px]">
