@@ -3,7 +3,18 @@
 for poetry-backend module, including format and
 style enforcement at 60 characters per line.
 All Rights Reserved. Arodi Emmanuel -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<repositories>
+		<repository>
+			<id>project-libs</id>
+			<url>file://${project.basedir}/libs</url>
+		</repository>
+	</repositories>
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -94,13 +105,11 @@ All Rights Reserved. Arodi Emmanuel -->
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- HID Digital Persona SDK -->
+		<!-- HID Digital Persona SDK (local repo: libs/) -->
 		<dependency>
 			<groupId>com.digitalpersona</groupId>
 			<artifactId>dpuareu</artifactId>
 			<version>3.2.0</version>
-			<scope>system</scope>
-			<systemPath>C:/Program Files/DigitalPersona/U.are.U RTE/Windows/Lib/Java/dpuareu.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

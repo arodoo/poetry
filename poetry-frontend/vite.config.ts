@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import { i18nKeyGen } from './tools/vite/i18nKeyGen'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-// Dynamic import for local JS plugin without types
+import { existsSync } from 'node:fs'
 
 // https://vite.dev/config/
 export default defineConfig(async (): Promise<UserConfig> => {
@@ -13,11 +13,17 @@ export default defineConfig(async (): Promise<UserConfig> => {
     '../tools/logs/frontend/devClientErrorLogger.mjs'
   )
   const devLoggerUrl: string = pathToFileURL(devLoggerAbs).href
-  const mod: unknown = await import(devLoggerUrl)
-  const devLoggerFactory: () => PluginOption = (
-    mod as { default: () => PluginOption }
-  ).default
-  const plugins: PluginOption[] = [react(), i18nKeyGen(), devLoggerFactory()]
+  let devLoggerPlugin: PluginOption = null
+  if (existsSync(devLoggerAbs)) {
+    const mod: unknown = await import(devLoggerUrl)
+    const factory = (mod as { default: () => PluginOption }).default
+    devLoggerPlugin = factory()
+  }
+  const plugins: PluginOption[] = [
+    react(),
+    i18nKeyGen(),
+    ...(devLoggerPlugin ? [devLoggerPlugin] : []),
+  ]
   // Dev proxy to backend API
   const server: UserConfig['server'] = {
     proxy: {

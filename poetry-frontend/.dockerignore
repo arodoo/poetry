@@ -1,0 +1,13 @@
+# File: poetry-frontend/.dockerignore
+# Purpose: Excludes heavy and unnecessary files from the Docker build context.
+# Prevents node_modules from being copied into the builder image (npm ci
+# installs fresh deps), and keeps the context small and fast.
+# All Rights Reserved Arodi Emmanuel
+
+node_modules
+dist
+.env*
+*.log
+coverage
+.vscode
+.git

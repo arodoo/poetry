@@ -23,6 +23,7 @@ import fingerprintEn from '../../../../features/fingerprint/locales/en.json'
 import devtoolsEn from '../../../../features/devtools/locales/en.json'
 import hardwareEn from '../../../../features/hardware/locales/en.json'
 import chartsEn from '../../../../features/charts/locales/en.json'
+import birthdayCheckEn from '../../../../features/birthday-check/locales/en.json'
 import { adminStatsEn } from './admin-stats/admin-stats'
 
 export const enCatalog: Record<string, string> = {
@@ -47,4 +48,5 @@ export const enCatalog: Record<string, string> = {
   ...hardwareEn,
   ...adminStatsEn,
   ...chartsEn,
+  ...birthdayCheckEn,
 }

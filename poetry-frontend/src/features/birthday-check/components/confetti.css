@@ -1,0 +1,46 @@
+/*
+ * File: confetti.css
+ * Purpose: Keyframe animations and token-driven color variables for the
+ * birthday confetti effect. Keeps all color values as CSS variables so
+ * TypeScript files remain free of hardcoded values.
+ * All Rights Reserved. Arodi Emmanuel
+ */
+
+:root {
+  --bd-c1: #f97316;
+  --bd-c2: #eab308;
+  --bd-c3: #22c55e;
+  --bd-c4: #3b82f6;
+  --bd-c5: #a855f7;
+  --bd-c6: #ec4899;
+  --bd-c7: #14b8a6;
+  --bd-c8: #f43f5e;
+}
+
+@keyframes bd-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes bd-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.bd-particle {
+  position: fixed;
+  top: 0;
+  pointer-events: none;
+  z-index: 9999;
+  animation: bd-fall linear infinite;
+  background: var(--bd-color);
+}
+
+.bd-circle {
+  border-radius: 50%;
+}
+
+.bd-popup {
+  animation: bd-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}

@@ -5,11 +5,18 @@
  */
 import type { ReactElement } from 'react'
 import { UserMenu } from '../user-menu'
+import { BirthdayCheckButton } from '../../../features/birthday-check'
 
 export function Navbar(): ReactElement {
   return (
-    <header className="border-b border-[var(--color-border)] bg-[var(--color-surface)] h-14">
-      <div className="h-full flex items-center justify-end px-4">
+    <header
+      className={
+        'border-b border-[var(--color-border)] ' +
+        'bg-[var(--color-surface)] h-14'
+      }
+    >
+      <div className="h-full flex items-center justify-end gap-2 px-4">
+        <BirthdayCheckButton />
         <UserMenu />
       </div>
     </header>

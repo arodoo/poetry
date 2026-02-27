@@ -1,0 +1,9 @@
+# File: libs/.gitignore
+# Purpose: Tracks the SDK JAR in the project-local Maven repo while
+# keeping the root JAR copy out of version control to avoid duplication.
+# All Rights Reserved Arodi Emmanuel
+
+# Keep the Maven local repo structure (checked into git for portability)
+!com/
+# Ignore the root-level copy (the Maven repo structure is sufficient)
+dpuareu-*.jar

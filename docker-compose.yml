@@ -1,0 +1,43 @@
+# File: docker-compose.yml
+# Purpose: Orchestrates the containerized services (PostgreSQL + React frontend).
+# The Spring Boot backend runs on the Windows host (bare metal) due to the
+# DigitalPersona U.are.U SDK requiring native JNI/USB access.
+# Start with: docker compose up --build
+# All Rights Reserved Arodi Emmanuel
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: poetry_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-poetry_db}
+      POSTGRES_USER: ${DB_USER:-poetry}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-poetry}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./poetry-frontend
+      dockerfile: Dockerfile
+    container_name: poetry_frontend
+    restart: unless-stopped
+    ports:
+      - '80:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+volumes:
+  pgdata:
+    name: poetry_pgdata

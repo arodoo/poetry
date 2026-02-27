@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- File: dpuareu-3.2.0.pom
+     Purpose: Maven POM descriptor for the DigitalPersona dpuareu SDK JAR
+     stored in the project-local repository (libs/). Required for Maven
+     to resolve this artifact without a remote registry.
+     All Rights Reserved Arodi Emmanuel -->
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.digitalpersona</groupId>
+  <artifactId>dpuareu</artifactId>
+  <version>3.2.0</version>
+  <packaging>jar</packaging>
+  <description>
+    DigitalPersona U.are.U SDK for Windows - Java bindings.
+    Windows-only: requires RTE drivers installed on host.
+    JNI native libs are loaded at runtime from
+    C:/Program Files/DigitalPersona/...
+  </description>
+</project>
