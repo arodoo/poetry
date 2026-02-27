@@ -70,6 +70,6 @@ def build_thesis_document():
 
     render_list_of_figures(doc)
 
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v29.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v30.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')

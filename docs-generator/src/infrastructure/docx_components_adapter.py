@@ -79,7 +79,14 @@ def render_table_of_contents(doc):
         run.font.underline = False
         run.font.color.rgb = RGBColor(*COLOR_BLACK)
 
+    instructions = doc.add_paragraph("⚠️ El índice es automático. Haz clic en el texto de abajo y presiona F9 (o Clic derecho -> Actualizar campos).")
+    instructions.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    if instructions.runs:
+        instructions.runs[0].font.color.rgb = RGBColor(120, 120, 120)
+        instructions.runs[0].font.size = Pt(10)
+
     p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.add_run()
     
     # 1. Begin field
@@ -102,6 +109,12 @@ def render_table_of_contents(doc):
     run._r.append(fldChar1)
     run._r.append(instrText)
     run._r.append(fldChar2)
+    
+    # Add visible placeholder text so the user can actually click it
+    update_text = OxmlElement('w:t')
+    update_text.text = "[ Clic derecho aquí -> Actualizar campos ]"
+    run._r.append(update_text)
+    
     run._r.append(fldChar3)
     
     run.font.name = FONT_NAME
