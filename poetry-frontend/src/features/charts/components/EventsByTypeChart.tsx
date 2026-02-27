@@ -15,7 +15,16 @@ export function EventsByTypeChart({ data }: { data: Record<string, number> | und
   const { locale } = useParams();
   const navigate = useNavigate();
   if (!data) return null;
-  const chartData = formatBarData(data, 'type', 'count');
+  const chartData = formatBarData(
+    Object.fromEntries(
+      Object.entries(data).map(([k, v]) => [
+        t(`ui.charts.events.${k}`),
+        v,
+      ])
+    ),
+    'type',
+    'count'
+  );
 
   return (
     <div className="flex h-full flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">

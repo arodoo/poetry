@@ -24,6 +24,7 @@ export function useChartDetailsTable(data: DashboardMetrics | undefined, chartId
                 return `${String(h12)}:00 ${ampm}`;
             }
             if (chartIdLocal === 'birthdaysThisMonth') return t('ui.charts.details.birthdays');
+            if (chartIdLocal === 'eventsByType') return t(`ui.charts.events.${key}`);
             return key;
         };
 
