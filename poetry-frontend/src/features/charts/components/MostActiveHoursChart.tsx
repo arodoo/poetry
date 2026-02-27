@@ -30,7 +30,7 @@ export function MostActiveHoursChart({
     );
 
     return (
-        <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-[400px]">
+        <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
                 <h3 className="text-lg font-medium text-foreground">
                     {t('ui.charts.activeHours')}

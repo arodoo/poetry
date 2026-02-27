@@ -35,7 +35,7 @@ export function ChartsPage(): ReactElement {
       <h1 className="text-2xl font-bold text-[var(--color-text)]">
         {t('ui.route.charts.title')}
       </h1>
-      <div data-testid="charts-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div data-testid="charts-grid" className="grid auto-rows-[350px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <UsersByStatusChart data={data?.usersByStatus ?? {}} />
         <BirthdaysThisMonthChart data={data?.birthdaysThisMonth ?? {}} />
         <MostActiveHoursChart data={data?.activeHours ?? {}} daysData={data?.activeDaysOfWeek ?? {}} />

@@ -18,7 +18,7 @@ export function EventsByTypeChart({ data }: { data: Record<string, number> | und
   const chartData = formatBarData(data, 'type', 'count');
 
   return (
-    <div className="flex h-[350px] flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
+    <div className="flex h-full flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
       <h3 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
         {t('ui.charts.eventsByType')}
       </h3>

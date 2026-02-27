@@ -1,8 +1,8 @@
 /*
  * File: ZoneBootstrap.java
- * Purpose: Bootstrap component that creates sample zones on application
- * startup for testing and development purposes. Injects 20 zones with
- * the first active user as manager to populate the zones list.
+ * Purpose: Bootstrap component that creates a single default zone on
+ * application startup. The zone is assigned to the admin user as manager
+ * and serves as the baseline geographic unit for the system.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
@@ -22,19 +22,17 @@ import com.poetry.poetry_backend.infrastructure.jpa.user.UserEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.zone.ZoneJpaRepository;
 
+/** Creates one default zone on startup if none exists. */
 @Component
 public class ZoneBootstrap {
   private static final Logger log =
-    LoggerFactory.getLogger(ZoneBootstrap.class);
+      LoggerFactory.getLogger(ZoneBootstrap.class);
   private final CreateZoneUseCase createZone;
   private final UserJpaRepository users;
   private final ZoneJpaRepository zones;
 
-  @Value("${zone.bootstrap.enabled:true}")
-  private boolean enabled;
-
-  @Value("${zone.bootstrap.count:20}")
-  private int zoneCount;
+  @Value("${admin.bootstrap.username:admin}")
+  private String adminUsername;
 
   public ZoneBootstrap(
       CreateZoneUseCase createZone,
@@ -48,44 +46,26 @@ public class ZoneBootstrap {
   @EventListener(ApplicationReadyEvent.class)
   @Order(4)
   public void onApplicationReady() {
-    if (!enabled) {
-      log.info("ZoneBootstrap: disabled via config");
-      return;
-    }
-
-    long existing = zones.count();
-    if (existing >= zoneCount) {
-      log.info("ZoneBootstrap: {} zones exist, skip", existing);
+    if (zones.count() > 0) {
+      log.info("ZoneBootstrap: zone already exists, skip");
       return;
     }
 
     List<UserEntity> activeUsers = users.findAll();
     if (activeUsers.isEmpty()) {
-      log.warn("ZoneBootstrap: no users found, cannot create zones");
+      log.warn("ZoneBootstrap: no users found, cannot create zone");
       return;
     }
 
-    Long managerId = activeUsers.get(0).getId();
-    log.info("ZoneBootstrap: creating {} zones with manager ID {}",
-      zoneCount, managerId);
+    Long managerId = users.findActiveByUsername(adminUsername)
+        .map(UserEntity::getId)
+        .orElseGet(() -> activeUsers.get(0).getId());
 
-    for (int i = 1; i <= zoneCount; i++) {
-      try {
-        String name = String.format("Zone-%02d", i);
-        String description = String.format(
-          "Sample zone %d for testing and development", i);
-        createZone.execute(name, description, managerId);
-        Thread.sleep(10);
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-        log.warn("ZoneBootstrap: interrupted during zone creation");
-        break;
-      } catch (Exception e) {
-        log.debug("ZoneBootstrap: failed creating zone {}: {}",
-          i, e.toString());
-      }
+    try {
+      createZone.execute("Zona Principal", "Zona operativa principal", managerId);
+      log.info("ZoneBootstrap: 'Zona Principal' created");
+    } catch (Exception e) {
+      log.warn("ZoneBootstrap: failed: {}", e.toString());
     }
-
-    log.info("ZoneBootstrap: sample zones creation complete");
   }
 }

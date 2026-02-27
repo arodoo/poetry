@@ -1,7 +1,8 @@
 /*
  * File: AdminUserBootstrap.java
- * Purpose: Bootstrap component that ensures a default admin user exists on
- * application startup by invoking the registration use case.
+ * Purpose: Bootstrap component that ensures a default admin user and three
+ * manager users exist on application startup. Invokes the registration use
+ * case for each and repairs roles when users already exist.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.infrastructure.startup.bootstrap;
@@ -20,17 +21,16 @@ import org.springframework.stereotype.Component;
 
 import com.poetry.poetry_backend.application.auth.exception.DuplicateUserException;
 import com.poetry.poetry_backend.application.auth.usecase.session.RegisterUseCase;
-import com.poetry.poetry_backend.application.sellercode.usecase.CreateSellerCodeUseCase;
 import com.poetry.poetry_backend.domain.auth.model.Role;
 import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 
-/** Ensures default admin user exists, repairing roles when already present. */
+/** Ensures admin + 3 manager users exist on startup. */
 @Component
 public class AdminUserBootstrap {
-  private static final Logger log = LoggerFactory.getLogger(AdminUserBootstrap.class);
+  private static final Logger log =
+      LoggerFactory.getLogger(AdminUserBootstrap.class);
   private final RegisterUseCase registerUseCase;
   private final UserJpaRepository users;
-  private final CreateSellerCodeUseCase createSellerCode;
 
   @Value("${admin.bootstrap.username:admin}")
   private String adminUsername;
@@ -41,85 +41,76 @@ public class AdminUserBootstrap {
   @Value("${admin.bootstrap.password:ChangeMe123!}")
   private String adminPassword;
 
-  // Optional: inject sample users on startup to help UI/dev testing.
-  @Value("${admin.bootstrap.injectSampleUsers:false}")
-  private boolean injectSampleUsers;
-
-  @Value("${admin.bootstrap.sampleCount:50}")
-  private int sampleCount;
+  // Fixed manager seeds: username, email
+  private static final String[][] MANAGERS = {
+    {"gerente1", "gerente1@example.com"},
+    {"gerente2", "gerente2@example.com"},
+    {"gerente3", "gerente3@example.com"}
+  };
 
   public AdminUserBootstrap(
       RegisterUseCase registerUseCase,
-      UserJpaRepository users,
-      CreateSellerCodeUseCase createSellerCode) {
+      UserJpaRepository users) {
     this.registerUseCase = registerUseCase;
     this.users = users;
-    this.createSellerCode = createSellerCode;
   }
 
   @EventListener(ApplicationReadyEvent.class)
   @Order(1)
   public void onApplicationReady() {
-    try {
-      Map<String, Object> payload =
-          Map.of("username", adminUsername, "email", adminEmail, "password", adminPassword);
-      log.info("AdminUserBootstrap: invoking RegisterUseCase with username={}", adminUsername);
-      registerUseCase.execute(payload);
-      log.info("AdminUserBootstrap: admin user '{}' created successfully", adminUsername);
-    } catch (DuplicateUserException duplicate) {
-      log.info("AdminUserBootstrap: admin exists; repairing roles");
-      ensureRoles();
-    } catch (Exception e) {
-      log.warn("AdminUserBootstrap: bootstrap failed: {}", e.toString());
-      ensureRoles();
-    }
+    createAdmin();
+    createManagers();
+  }
 
-    if (injectSampleUsers) {
-      try {
-        injectSampleUsersOnStartup();
-      } catch (Exception e) {
-        log.warn("AdminUserBootstrap: failed injecting sample users: {}", e.toString());
-      }
+  private void createAdmin() {
+    Map<String, Object> payload = Map.of(
+        "username", adminUsername,
+        "email", adminEmail,
+        "password", adminPassword);
+    try {
+      registerUseCase.execute(payload);
+      log.info("AdminUserBootstrap: admin '{}' created", adminUsername);
+    } catch (DuplicateUserException d) {
+      log.info("AdminUserBootstrap: admin exists; repairing roles");
+      ensureRole(adminUsername, Role.ADMIN.key());
+    } catch (Exception e) {
+      log.warn("AdminUserBootstrap: admin creation failed: {}", e.toString());
+      ensureRole(adminUsername, Role.ADMIN.key());
     }
   }
 
-  private void ensureRoles() {
-    users.findActiveByUsername(adminUsername).ifPresent(user -> {
-      if (user.getRoles() == null || user.getRoles().isEmpty()) {
-        user.setRoles(new HashSet<>(Set.of(Role.ADMIN.key())));
+  private void createManagers() {
+    for (String[] m : MANAGERS) {
+      String username = m[0];
+      String email = m[1];
+      Map<String, Object> payload = Map.of(
+          "username", username,
+          "email", email,
+          "password", adminPassword);
+      try {
+        registerUseCase.execute(payload);
+        log.info("AdminUserBootstrap: manager '{}' created", username);
+      } catch (DuplicateUserException d) {
+        log.info("AdminUserBootstrap: manager '{}' exists", username);
+      } catch (Exception e) {
+        log.warn("AdminUserBootstrap: manager '{}' failed: {}",
+            username, e.toString());
+      }
+      ensureRole(username, Role.MANAGER.key());
+    }
+  }
+
+  private void ensureRole(String username, String role) {
+    users.findActiveByUsername(username).ifPresent(user -> {
+      if (user.getRoles() == null || !user.getRoles().contains(role)) {
+        Set<String> roles = new HashSet<>(
+            user.getRoles() == null ? Set.of() : user.getRoles());
+        roles.add(role);
+        user.setRoles(roles);
         users.save(user);
-        log.info("AdminUserBootstrap: admin user '{}' roles repaired", adminUsername);
+        log.info("AdminUserBootstrap: role '{}' set for '{}'",
+            role, username);
       }
     });
-  }
-
-  private void injectSampleUsersOnStartup() {
-    log.info("AdminUserBootstrap: injecting {} sample users", sampleCount);
-    for (int i = 1; i <= sampleCount; i++) {
-      String username = String.format("testuser%03d", i);
-      String email = String.format("%s@example.com", username);
-      Map<String, Object> payload = Map.of("username", username, "email", email, "password", adminPassword);
-      try {
-        Map<String, Object> result = registerUseCase.execute(payload);
-        // If seller code creation is available, create a seller code per user immediately
-        if (injectSampleUsers && createSellerCode != null) {
-          try {
-            Object idObj = result.get("id");
-            Long userId = idObj instanceof Number ? ((Number) idObj).longValue() : null;
-            if (userId != null) {
-              String code = String.format("USER-SC-%05d", userId);
-              createSellerCode.execute(code, "default-org", userId, "active");
-            }
-          } catch (Exception ex) {
-            log.debug("AdminUserBootstrap: failed creating seller code for {}: {}", username, ex.toString());
-          }
-        }
-      } catch (DuplicateUserException d) {
-        // already exists, ignore
-      } catch (Exception e) {
-        log.debug("AdminUserBootstrap: failed creating sample user {}: {}", username, e.toString());
-      }
-    }
-    log.info("AdminUserBootstrap: sample users injection complete");
   }
 }

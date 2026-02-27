@@ -32,7 +32,7 @@ export function ActiveDaysChart({ data }: ActiveDaysChartProps): ReactElement {
     }, [data]);
 
     return (
-        <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-[400px]">
+        <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-full">
             <h3 className="text-lg font-medium text-foreground mb-4">
                 Busiest Days
             </h3>
