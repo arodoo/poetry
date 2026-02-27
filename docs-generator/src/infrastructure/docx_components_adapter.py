@@ -6,6 +6,8 @@ All Rights Reserved Arodi Emmanuel
 import os
 from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
 from src.domain.constants import COVER_SIZES, COLOR_BLACK, FONT_NAME
 
 def _cover_line(doc, text, size, bold=False, space_before=0, space_after=6):
@@ -61,6 +63,47 @@ def render_acknowledgments(doc):
         "de software ha sido fundamental para el desarrollo del Sistema Poetry."
     )
     run = p.add_run(text)
+    run.font.name = FONT_NAME
+    run.font.size = Pt(12)
+
+    doc.add_page_break()
+
+def render_table_of_contents(doc):
+    """
+    Injects an automatic Table of Contents field into the document.
+    Word will prompt to update it upon first opening, or it can be updated via F9.
+    """
+    h = doc.add_heading('ÍNDICE DE CONTENIDOS', level=1)
+    h.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    for run in h.runs:
+        run.font.underline = False
+        run.font.color.rgb = RGBColor(*COLOR_BLACK)
+
+    p = doc.add_paragraph()
+    run = p.add_run()
+    
+    # 1. Begin field
+    fldChar1 = OxmlElement('w:fldChar')
+    fldChar1.set(qn('w:fldCharType'), 'begin')
+    
+    # 2. Instruction Text: TOC \o "1-3" \h \z \u
+    instrText = OxmlElement('w:instrText')
+    instrText.set(qn('xml:space'), 'preserve')
+    instrText.text = 'TOC \\o "1-3" \\h \\z \\u'
+    
+    # 3. Separate
+    fldChar2 = OxmlElement('w:fldChar')
+    fldChar2.set(qn('w:fldCharType'), 'separate')
+    
+    # 4. End field
+    fldChar3 = OxmlElement('w:fldChar')
+    fldChar3.set(qn('w:fldCharType'), 'end')
+    
+    run._r.append(fldChar1)
+    run._r.append(instrText)
+    run._r.append(fldChar2)
+    run._r.append(fldChar3)
+    
     run.font.name = FONT_NAME
     run.font.size = Pt(12)
 

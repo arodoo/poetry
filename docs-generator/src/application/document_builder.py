@@ -8,7 +8,9 @@ import docx
 from docx.shared import RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from src.infrastructure.docx_styles_adapter import setup_document_styles
-from src.infrastructure.docx_components_adapter import render_cover_page, render_acknowledgments, render_list_of_figures
+from src.infrastructure.docx_components_adapter import (
+    render_cover_page, render_acknowledgments, render_table_of_contents, render_list_of_figures
+)
 from src.infrastructure.markdown_parser import parse_markdown_blocks
 from src.domain.constants import FONT_NAME, COLOR_BLACK
 
@@ -21,6 +23,18 @@ def build_thesis_document():
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     content_base = os.path.abspath(os.path.join(script_dir, '..', '..', 'content'))
+    
+    # Render Resumen/Abstract first (from preliminares directory)
+    prelim_dir = os.path.join(content_base, 'preliminares')
+    if os.path.exists(prelim_dir):
+        files = sorted([f for f in os.listdir(prelim_dir) if f.endswith('.md')])
+        for filename in files:
+            path = os.path.join(prelim_dir, filename)
+            with open(path, 'r', encoding='utf-8') as fh:
+                parse_markdown_blocks(doc, fh.read())
+        doc.add_page_break()
+
+    render_table_of_contents(doc)
     
     chapters_meta = [
         ('1', 'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 'capitulo_1'),
@@ -56,6 +70,6 @@ def build_thesis_document():
 
     render_list_of_figures(doc)
 
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v28.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v29.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
