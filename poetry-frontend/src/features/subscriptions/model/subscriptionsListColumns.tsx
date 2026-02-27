@@ -42,7 +42,7 @@ export function buildSubscriptionsListColumns(
       sortValue: (row: SubscriptionSummary): number => row.price ?? 0,
     },
     {
-      key: 'duration',
+      key: 'durationDays',
       header: t('ui.subscriptions.columns.duration'),
       width: 'sm',
       accessor: (row: SubscriptionSummary): string =>

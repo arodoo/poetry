@@ -27,7 +27,7 @@ export function SidebarItem(props: SidebarItemProps): ReactElement | null {
   const linkTo = `/${locale}${item.p}`
   const active: boolean = pathname.startsWith(linkTo)
   const base: string = active
-    ? 'bg-[var(--color-surface)]'
+    ? 'bg-[var(--color-muted)] text-[var(--color-text)] font-medium'
     : 'hover:bg-[var(--color-muted)]'
   const Icon: typeof item.icon = item.icon
   return (

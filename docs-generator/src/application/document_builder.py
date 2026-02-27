@@ -41,7 +41,8 @@ def build_thesis_document():
         ('2', 'CAPÍTULO 2. MARCO TEÓRICO Y TECNOLÓGICO', 'capitulo_2'),
         ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3'),
         ('4', 'CAPÍTULO 4. RESULTADOS Y CONCLUSIONES', 'capitulo_4'),
-        ('R', 'REFERENCIAS', 'referencias')
+        ('R', 'REFERENCIAS', 'referencias'),
+        ('A', 'ANEXOS', 'anexos')
     ]
 
     for num, title_text, subdir in chapters_meta:
@@ -70,6 +71,6 @@ def build_thesis_document():
 
     render_list_of_figures(doc)
 
-    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v30.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', 'Tesis_Poetry_v32.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')

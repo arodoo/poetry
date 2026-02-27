@@ -17,6 +17,7 @@
   "ui.subscriptions.columns.price": "Price",
   "ui.subscriptions.columns.duration": "Duration",
   "ui.subscriptions.columns.days": "days",
+  "ui.subscriptions.table.days": "days",
   "ui.subscriptions.columns.status": "Status",
   "ui.subscriptions.columns.actions": "Actions",
   "ui.subscriptions.columns.createdAt": "Created at",

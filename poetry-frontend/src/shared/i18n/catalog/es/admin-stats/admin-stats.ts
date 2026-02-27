@@ -28,4 +28,5 @@ export const adminStatsEs: Record<string, string> = {
   'ui.adminStats.columns.startDate': 'Inicio',
   'ui.adminStats.table.end': 'Fin',
   'ui.adminStats.columns.id': 'ID',
+  'ui.adminStats.table.empty': 'No se encontraron membresías',
 }

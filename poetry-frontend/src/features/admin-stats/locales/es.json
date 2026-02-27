@@ -20,5 +20,5 @@
   "ui.adminStats.columns.startDate": "Inicio",
   "ui.adminStats.table.end": "Fin",
   "ui.adminStats.columns.id": "ID",
-  "ui.adminStats.table.empty": "No se encontraron miembros"
+  "ui.adminStats.table.empty": "No se encontraron membresías"
 }

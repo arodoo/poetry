@@ -15,5 +15,7 @@
   "ui.charts.viewMore": "Ver Más",
   "ui.charts.details.rawData": "Datos en Bruto",
   "ui.charts.details.key": "Clave",
+  "ui.charts.details.month": "Mes",
+  "ui.charts.details.total": "Total",
   "ui.charts.details.value": "Valor"
 }

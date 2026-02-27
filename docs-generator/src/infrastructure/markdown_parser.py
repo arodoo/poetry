@@ -5,7 +5,7 @@ All Rights Reserved Arodi Emmanuel
 """
 import os
 import re
-from docx.shared import Pt, Cm, Inches
+from docx.shared import Pt, Cm, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from src.domain.constants import FONT_NAME
 from src.infrastructure.docx_styles_adapter import _ensure_style
@@ -23,44 +23,57 @@ _FIGURE_MAP = {
     'fig_metrics':  'fig_metrics.png',
 }
 
-def _clean(text):
-    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
-    text = re.sub(r'\*(.+?)\*', r'\1', text)
-    text = re.sub(r'`(.+?)`', r'\1', text)
-    return text
+def _add_formatted_runs(p, text):
+    """
+    Parses a string for **bold** and *italic* markdown and appends
+    corresponding runs to the paragraph `p`.
+    """
+    # Simple regex to tokenize text into formats.
+    # It looks for **text**, *text*, or regular text.
+    tokens = re.split(r'(\*\*.*?\*\*|\*.*?\*)', text)
+    
+    for token in tokens:
+        if not token:
+            continue
+        run = p.add_run()
+        run.font.name = FONT_NAME
+        run.font.size = Pt(12)
+        
+        if token.startswith('**') and token.endswith('**'):
+            run.text = token[2:-2]
+            run.bold = True
+        elif token.startswith('*') and token.endswith('*'):
+            run.text = token[1:-1]
+            run.italic = True
+        else:
+            run.text = token
 
 def _add_body(doc, text):
-    p = doc.add_paragraph(_clean(text))
+    p = doc.add_paragraph()
+    _add_formatted_runs(p, text)
     fmt = p.paragraph_format
     fmt.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     fmt.first_line_indent = Cm(0)
     fmt.line_spacing = 1.5
     fmt.space_after = Pt(0)
-    for run in p.runs:
-        run.font.name = FONT_NAME
-        run.font.size = Pt(12)
     return p
 
 def _add_bullet(doc, text):
     _ensure_style(doc, 'List Bullet')
-    p = doc.add_paragraph(_clean(text), style='List Bullet')
+    p = doc.add_paragraph(style='List Bullet')
+    _add_formatted_runs(p, text)
     fmt = p.paragraph_format
     fmt.first_line_indent = Cm(0)
     fmt.line_spacing = 1.5
-    for run in p.runs:
-        run.font.name = FONT_NAME
-        run.font.size = Pt(12)
     return p
 
 def _add_numbered(doc, text):
     _ensure_style(doc, 'List Number')
-    p = doc.add_paragraph(_clean(text), style='List Number')
+    p = doc.add_paragraph(style='List Number')
+    _add_formatted_runs(p, text)
     fmt = p.paragraph_format
     fmt.first_line_indent = Cm(0)
     fmt.line_spacing = 1.5
-    for run in p.runs:
-        run.font.name = FONT_NAME
-        run.font.size = Pt(12)
     return p
 
 def _add_image(doc, fig_key):
@@ -76,6 +89,20 @@ def _add_image(doc, fig_key):
     run = p.add_run()
     run.add_picture(path, width=Inches(5.8))
 
+def _add_code_block(doc, text):
+    text = re.sub(r'^```\w*\n', '', text)
+    text = re.sub(r'\n```$', '', text)
+    p = doc.add_paragraph(text)
+    fmt = p.paragraph_format
+    fmt.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    fmt.left_indent = Cm(1)
+    fmt.line_spacing = 1.0
+    for run in p.runs:
+        run.font.name = 'Courier New'
+        run.font.size = Pt(9)
+        run.font.color.rgb = RGBColor(40, 40, 40)
+    return p
+
 def parse_markdown_blocks(doc, content):
     content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
     content = re.sub(r'^(#+ .+)(\n)(?=[^\n])', r'\1\n\n', content, flags=re.MULTILINE)
@@ -83,6 +110,7 @@ def parse_markdown_blocks(doc, content):
     blocks = [b.strip() for b in content.strip().split('\n\n') if b.strip()]
     for block in blocks:
         if block.startswith('```'):
+            _add_code_block(doc, block)
             continue
         img_match = re.match(r'^!!(fig_\w+)!!$', block.strip())
         if img_match:

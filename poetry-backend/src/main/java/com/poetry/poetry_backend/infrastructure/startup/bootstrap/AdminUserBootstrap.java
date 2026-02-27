@@ -96,7 +96,8 @@ public class AdminUserBootstrap {
         log.warn("AdminUserBootstrap: manager '{}' failed: {}",
             username, e.toString());
       }
-      ensureRole(username, Role.MANAGER.key());
+      // Ensure manager role is set, and remove any accidental admin role
+      ensureExclusiveRole(username, Role.MANAGER.key());
     }
   }
 
@@ -111,6 +112,21 @@ public class AdminUserBootstrap {
         log.info("AdminUserBootstrap: role '{}' set for '{}'",
             role, username);
       }
+    });
+  }
+
+  /**
+   * Replace roles for a user with a single given role. Used for seeded
+   * manager accounts to ensure they are not granted admin privileges.
+   */
+  private void ensureExclusiveRole(String username, String role) {
+    users.findActiveByUsername(username).ifPresent(user -> {
+      Set<String> roles = new HashSet<>();
+      roles.add(role);
+      user.setRoles(roles);
+      users.save(user);
+      log.info("AdminUserBootstrap: exclusive role '{}' set for '{}'",
+          role, username);
     });
   }
 }

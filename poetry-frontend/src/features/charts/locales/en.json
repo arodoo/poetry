@@ -15,5 +15,7 @@
   "ui.charts.viewMore": "View More",
   "ui.charts.details.rawData": "Raw Data",
   "ui.charts.details.key": "Key",
+  "ui.charts.details.month": "Month",
+  "ui.charts.details.total": "Total",
   "ui.charts.details.value": "Value"
 }
