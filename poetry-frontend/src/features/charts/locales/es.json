@@ -8,6 +8,10 @@
   "ui.charts.scheduledEventsByStatus": "Eventos Programados",
   "ui.charts.sellerCodesByStatus": "Códigos de Vendedor",
   "ui.charts.birthdaysThisMonth": "Cumpleaños este Mes",
+  "ui.charts.events.refresh.issue": "Refresh Emitido",
+  "ui.charts.events.login.success": "Inicio de Sesión Exitoso",
+  "ui.charts.events.refresh.rotate": "Refresh Rotado",
+  "ui.charts.events.register": "Registro",
   "ui.charts.activeHours": "Horas Más Activas",
   "ui.charts.populatedRegions": "Regiones Más Pobladas",
   "ui.route.charts.title": "Gráficos",
@@ -17,5 +21,8 @@
   "ui.charts.details.key": "Clave",
   "ui.charts.details.month": "Mes",
   "ui.charts.details.total": "Total",
-  "ui.charts.details.value": "Valor"
+  "ui.charts.details.time": "Hora",
+  "ui.charts.details.value": "Valor",
+  "ui.charts.details.region": "Región",
+  "ui.charts.details.users": "Usuarios"
 }

@@ -17,7 +17,7 @@ export function AccessLogsRawDataView({ logs }: { logs: LogRow[] }): ReactElemen
         return [
             { key: 'id', header: 'ID', accessor: (row: LogRow) => row.id },
             { key: 'userName', header: t('ui.common.name'), accessor: (row: LogRow) => row.userName },
-            { key: 'email', header: 'Email', accessor: (row: LogRow) => row.email },
+            { key: 'email', header: t('ui.common.email'), accessor: (row: LogRow) => row.email },
             { key: 'timestamp', header: t('ui.charts.details.time'), accessor: (row: LogRow) => new Date(row.timestamp).toLocaleString() },
         ];
     }, [t]);

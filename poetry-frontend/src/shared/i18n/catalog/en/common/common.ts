@@ -22,6 +22,8 @@ export const commonEn: Record<string, string> = {
   'ui.table.pagination.next': 'Next',
   'ui.table.search.placeholder': 'Search...',
   'ui.table.search.clear': 'Clear search',
+  'ui.common.name': 'Name',
+  'ui.common.email': 'Email',
   'ui.table.sort.asc': 'Ascending',
   'ui.table.sort.desc': 'Descending',
   'ui.table.sort.none': 'Unsorted',
