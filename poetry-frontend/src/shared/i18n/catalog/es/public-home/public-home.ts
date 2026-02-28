@@ -4,10 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 export const publicHomeEs: Record<string, string> = {
-  
+
   'ui.public.home.cta.login': 'Iniciar sesión',
   'ui.public.home.cta.register': 'Crear cuenta',
-  
+
   'ui.public.home.features.community.title': 'Haz crecer tu comunidad',
   'ui.public.home.features.community.description':
     'Sigue la interacción y recibe nuevos miembros con facilidad.',

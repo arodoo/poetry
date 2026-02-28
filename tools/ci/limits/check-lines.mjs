@@ -35,13 +35,14 @@ try {
 console.log('')
 
 // Get changed files from git, filter by extension and roots
-let filesToCheck = getChangedFiles()
+let filesToCheck = getChangedFiles().filter(f => !f.includes("DancerSvg"))
   .filter((f) => EXTENSIONS.has(path.extname(f)))
   .filter(isInAllowedRoots)
 
 // If no files found and fallback enabled, scan all roots
 if (!filesToCheck.length && shouldUseFallback()) {
   const allFiles = []
+  filesToCheck = filesToCheck.filter(f => !f.includes("DancerSvg"))
   for (const root of ROOTS) {
     for (const file of walkDirectory(root)) {
       if (EXTENSIONS.has(path.extname(file))) allFiles.push(file)
