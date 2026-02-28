@@ -12,9 +12,9 @@ import { useT } from '../../../shared/i18n/useT'
 import type { I18nKey } from '../../../shared/i18n/generated/keys'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Text } from '../../../ui/Text/Text'
+import { Button } from '../../../ui/Button/Button'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
-import { PublicHeroSection } from '../components/PublicHeroSection'
-import { PublicFeatureList } from '../components/PublicFeatureList'
+// Render minimal public page: only login button per request
 import { usePublicLandingQuery } from '../hooks/usePublicQueries'
 
 export default function HomePage(): ReactElement {
@@ -38,28 +38,14 @@ export default function HomePage(): ReactElement {
   }
   const loginHref = `/${locale}/login`
   const registerHref = `/${locale}/register`
-  const heroTitle = t(landing.heroTitleKey as I18nKey)
-  const heroBody = t(landing.heroBodyKey as I18nKey)
   const loginLabel = t(landing.loginCtaKey as I18nKey)
-  const registerLabel = t(landing.registerCtaKey as I18nKey)
-  const features = landing.features.map((feature) => ({
-    title: t(feature.titleKey as I18nKey),
-    description: t(feature.descriptionKey as I18nKey),
-  }))
   return (
-    <div className="space-y-8">
-      <PublicHeroSection
-        heroTitle={heroTitle}
-        heroBody={heroBody}
-        loginLabel={loginLabel}
-        registerLabel={registerLabel}
-        loginHref={loginHref}
-        registerHref={registerHref}
-      />
-      <PublicFeatureList
-        heading={t('ui.public.home.features.heading')}
-        features={features}
-      />
-    </div>
+    <Stack as="section" gap="md" className="mx-auto max-w-3xl p-6">
+      <div data-testid="public-login-only">
+        <Button to={loginHref} variant="primary">
+          {loginLabel}
+        </Button>
+      </div>
+    </Stack>
   )
 }

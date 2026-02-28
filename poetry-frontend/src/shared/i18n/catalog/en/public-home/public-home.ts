@@ -10,6 +10,12 @@ export const publicHomeEn: Record<string, string> = {
   'ui.public.home.cta.login': 'Sign in',
   'ui.public.home.cta.register': 'Create account',
   'ui.public.home.features.heading': 'Why poets choose Poetry',
+  'ui.public.home.features.creative': 'Share your poetry with the world',
+  'ui.public.home.features.creative.desc':
+    'Build your stage, invite readers, and celebrate every verse.',
+  'ui.public.home.features.collaborate': 'Collaborate with other poets',
+  'ui.public.home.features.collaborate.desc':
+    'Co-create, gather feedback, and grow together as writers.',
   'ui.public.home.features.publish.title': 'Publish effortlessly',
   'ui.public.home.features.publish.description':
     'Schedule releases and spotlight collections in minutes.',
