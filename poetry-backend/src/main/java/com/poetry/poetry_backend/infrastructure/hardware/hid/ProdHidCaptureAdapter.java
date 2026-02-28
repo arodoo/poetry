@@ -41,16 +41,17 @@ public class ProdHidCaptureAdapter implements HidCapturePort {
                     Fid.Format.ANSI_381_2004,
                     Reader.ImageProcessing.IMG_PROC_DEFAULT,
                     reader.GetCapabilities().resolutions[0], timeoutMs);
-            if (result.quality != Reader.CaptureQuality.GOOD) {
+            if (result == null || result.quality != Reader.CaptureQuality.GOOD) {
                 throw new HidCaptureException(
                         HidCaptureException.HidErrorCode.UNKNOWN_ERROR,
-                        "Poor quality: " + result.quality);
+                        "Poor quality: " + (result != null ? result.quality : "null"));
             }
             Fmd fmd = UareUGlobal.GetEngine().CreateFmd(
                     result.image, Fmd.Format.ANSI_378_2004);
             return Base64.getEncoder().encodeToString(fmd.getData());
         } catch (UareUException e) {
             log.error("Capture failed: {}", e.getMessage());
+            closeReader();
             throw mapException(e);
         }
     }

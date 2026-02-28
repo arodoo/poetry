@@ -1,7 +1,7 @@
 /*
  * File: HardwareStatusPage.tsx
- * Purpose: Page component for hardware status monitoring.
- * Displays real-time reader status with polling countdown.
+ * Purpose: Hardware status page. Shows reconnection countdown ONLY when
+ * the reader is disconnected. Switches to idle state once connected.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -61,12 +61,22 @@ export function HardwareStatusPage(): ReactElement {
             status={data}
             lastCheck={formatDate(dataUpdatedAt)}
           />
-          <Text
-            size="sm"
-            className="mt-4 text-center text-[var(--color-text-muted)]"
-          >
-            {t('ui.hardware.status.reconnecting', { seconds: countdown })}
-          </Text>
+          {!data.connected && (
+            <Text
+              size="sm"
+              className="mt-4 text-center text-[var(--color-text-muted)]"
+            >
+              {t('ui.hardware.status.reconnecting', { seconds: countdown })}
+            </Text>
+          )}
+          {data.connected && (
+            <Text
+              size="sm"
+              className="mt-4 text-center text-[var(--color-success)]"
+            >
+              {t('ui.hardware.status.listening')}
+            </Text>
+          )}
         </div>
 
         <HardwareFingerprintTableShell />

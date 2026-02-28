@@ -16,6 +16,7 @@
   "ui.users.status.empty": "No users found",
   "ui.users.status.active": "Active",
   "ui.users.status.inactive": "Inactive",
+  "ui.users.status.archived": "Archived",
   "ui.users.columns.createdAt": "Created at",
   "ui.users.columns.fullName": "Full name",
   "ui.users.columns.username": "Username",
