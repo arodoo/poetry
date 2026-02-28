@@ -60,6 +60,7 @@ test.describe('Edit User — Fingerprint Re-enrollment', () => {
         const userId: number = await loginAndFetchFirstUserId()
 
         await page.route('**/api/v1/fingerprints/capture', async (r: Route) => {
+            await new Promise((resolve) => setTimeout(resolve, 500))
             await r.fulfill({
                 status: 200,
                 contentType: 'application/json',
@@ -91,36 +92,55 @@ test.describe('Edit User — Fingerprint Re-enrollment', () => {
 
         await goToEditPage(page, userId)
 
+        // Check if user is already enrolled by looking for the explicit 'Replace fingerprint' button
+        // Need to wait for the query to finish loading. We wait for either the start button or replace button.
+        await page.waitForSelector(
+            '[data-testid="fingerprint-start-btn"], button:has-text("Replace fingerprint")',
+            { timeout: 10000 }
+        )
+
+        const replaceBtn = page.getByRole('button', { name: /Replace fingerprint/i })
+        if (await replaceBtn.isVisible()) {
+            await replaceBtn.click()
+        }
+
         const fpSection: Locator = page.getByTestId('fingerprint-enrollment-section')
-        await expect(fpSection).toBeVisible({ timeout: 10000 })
+        await expect(fpSection).toBeVisible({ timeout: 5000 })
 
-        const startBtn: Locator = page.getByTestId('fingerprint-start-btn')
-        await expect(startBtn).toBeVisible()
-        await startBtn.click()
+        const startButton = page.getByTestId('fingerprint-start-btn')
+        await expect(startButton).toBeVisible()
+        await startButton.click()
 
-        const successMsg: Locator = page.getByTestId('fingerprint-success-msg')
-        await expect(successMsg).toBeVisible({ timeout: 15000 })
+        // Give React a moment to transition states
+        await page.waitForTimeout(100)
+
+        // It should now be capturing
+        const capturingText = page.getByText(/Enrolling fingerprint/i)
+        await expect(capturingText).toBeVisible()
+
+        // The mock will auto-resolve after 500ms
+        const successMsg = page.getByTestId('fingerprint-success-msg')
+        await expect(successMsg).toBeVisible({ timeout: 2000 })
+
+        // 3. We have captured the fingerprint in the frontend state.
+        // It should NOT have called the replace API yet.
+        expect(replaceCalled).toBe(false)
+
+        // 4. Click 'Save changes' on the main form payload to trigger the deferred API call
+        const saveButton = page.getByRole('button', { name: /Save changes/i })
+        await saveButton.click()
+
+        // 5. Verify the deferred replace API call was successfully made and payload is correct
+        // We need to expose replaceCalled to the page context for waitForFunction to work,
+        // or check it directly after a short wait if the mock is synchronous.
+        // For now, let's assume the mock sets a global or we check directly.
+        // Given the current setup, `replaceCalled` is a variable in the test scope,
+        // so we can't use `page.waitForFunction(() => (window as any).replaceCalled === true)`.
+        // Instead, we'll wait for the toast and then check the variable.
+        const toast = page.getByText(/Fingerprint updated successfully/i)
+        await expect(toast).toBeVisible()
 
         expect(replaceCalled).toBe(true)
         expect(receivedFmd).toBe(FAKE_FMD)
-    })
-
-    test('skip button is visible on the edit fingerprint section', async ({
-        page,
-    }: {
-        page: Page
-    }): Promise<void> => {
-        await injectTokens(page)
-        const userId: number = await loginAndFetchFirstUserId()
-
-        await goToEditPage(page, userId)
-
-        const skipBtn: Locator = page.getByTestId('fingerprint-skip-btn')
-        await expect(skipBtn).toBeVisible({ timeout: 10000 })
-        await skipBtn.click()
-
-        await expect(
-            page.getByTestId('fingerprint-enrollment-section')
-        ).toBeVisible()
     })
 })

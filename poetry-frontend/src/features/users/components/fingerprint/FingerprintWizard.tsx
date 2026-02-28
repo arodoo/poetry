@@ -15,7 +15,7 @@ import * as States from './FingerprintWizardStates'
 
 export interface FingerprintEnrollmentWizardProps {
   readonly onSuccess?: (fmd: string) => void
-  readonly onCancel?: () => void
+  readonly onCancel?: (() => void) | undefined
   readonly onValidate?: (startFn: () => void) => void
   readonly t: ReturnType<typeof useT>
 }

@@ -1,0 +1,143 @@
+{
+  "config": {
+    "configFile": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\playwright.config.ts",
+    "rootDir": "D:/zProyectos/01Java/poetry/poetry-frontend/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [["json"]],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "D:/zProyectos/01Java/poetry/poetry-frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/zProyectos/01Java/poetry/poetry-frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "users\\users-edit-fingerprint.spec.ts",
+      "file": "users/users-edit-fingerprint.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Edit User — Fingerprint Re-enrollment",
+          "file": "users/users-edit-fingerprint.spec.ts",
+          "line": 53,
+          "column": 6,
+          "specs": [
+            {
+              "title": "shows enrollment section and replaces fingerprint on success",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 6483,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText(/Enrolling fingerprint/i)\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/Enrolling fingerprint/i)\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText(/Enrolling fingerprint/i)\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/Enrolling fingerprint/i)\u001b[22m\n\n    at D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts:118:37",
+                        "location": {
+                          "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts",
+                          "column": 37,
+                          "line": 118
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 116 |\u001b[39m         \u001b[90m// It should now be capturing\u001b[39m\n \u001b[90m 117 |\u001b[39m         \u001b[36mconst\u001b[39m capturingText \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[35m/Enrolling fingerprint/i\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 118 |\u001b[39m         \u001b[36mawait\u001b[39m expect(capturingText)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m     |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 119 |\u001b[39m\n \u001b[90m 120 |\u001b[39m         \u001b[90m// The mock will auto-resolve after 500ms\u001b[39m\n \u001b[90m 121 |\u001b[39m         \u001b[36mconst\u001b[39m successMsg \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m'fingerprint-success-msg'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts",
+                            "column": 37,
+                            "line": 118
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText(/Enrolling fingerprint/i)\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/Enrolling fingerprint/i)\u001b[22m\n\n\n  116 |         // It should now be capturing\n  117 |         const capturingText = page.getByText(/Enrolling fingerprint/i)\n> 118 |         await expect(capturingText).toBeVisible()\n      |                                     ^\n  119 |\n  120 |         // The mock will auto-resolve after 500ms\n  121 |         const successMsg = page.getByTestId('fingerprint-success-msg')\n    at D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts:118:37"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-02-28T23:22:30.158Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-edit-fingerpri-96fc4-aces-fingerprint-on-success\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-edit-fingerpri-96fc4-aces-fingerprint-on-success\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts",
+                        "column": 37,
+                        "line": 118
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "62df49579d30bbc77241-afcedae4e341e7343c70",
+              "file": "users/users-edit-fingerprint.spec.ts",
+              "line": 54,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-02-28T23:22:29.311Z",
+    "duration": 7527.132,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

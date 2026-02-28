@@ -168,6 +168,11 @@
   "ui.users.breadcrumb.detail": "Detalle de usuario",
   "ui.users.breadcrumb.edit": "Editar usuario",
   "ui.users.fingerprint.toast.replaced": "Huella actualizada exitosamente",
-  "ui.users.edit.section.fingerprint": "Re-registro de Huella (Opcional)",
-  "ui.users.edit.section.fingerprint_desc": "Reemplaza la plantilla biométrica existente con una nueva captura"
+  "ui.users.edit.section.fingerprint": "Re-registro de Huella",
+  "ui.users.edit.section.fingerprint_desc": "Gestiona la plantilla biométrica de este usuario",
+  "ui.users.edit.fingerprint.enrolled.title": "Huella Registrada",
+  "ui.users.edit.fingerprint.enrolled.desc": "El usuario actualmente tiene una plantilla de huella dactilar vinculada a su cuenta.",
+  "ui.users.edit.fingerprint.enrolledAt": "Registrada",
+  "ui.users.edit.fingerprint.replaceAction": "Reemplazar huella",
+  "ui.users.edit.fingerprint.replacingWarning": "Estás a punto de capturar una nueva huella para reemplazar la actual."
 }

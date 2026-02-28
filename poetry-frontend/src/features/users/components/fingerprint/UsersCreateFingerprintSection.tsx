@@ -1,7 +1,7 @@
 /*
  * File: UsersCreateFingerprintSection.tsx
  * Purpose: Fingerprint enrollment section for the Create User flow.
- * Delegates to the shared FingerprintEnrollmentSection with mode='create'.
+ * Passes FMD to parent form state.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -19,11 +19,10 @@ export function UsersCreateFingerprintSection(
 ): ReactElement {
   return (
     <FingerprintEnrollmentSection
-      mode="create"
+      showSkipButton={true}
       onSuccess={props.onSuccess}
       onSkip={props.onSkip}
       t={props.t}
     />
   )
 }
-

@@ -1,11 +1,11 @@
 /*
  * File: UserEditPage.tsx
  * Purpose: Admin user edit page with ETag conditional updates and fingerprint
- * re-enrollment support. Replaces previous fingerprint when user enrols again.
+ * re-enrollment support. Defers fingerprint saving until form submission.
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import type { ReactElement } from 'react'
+import { useState, type ReactElement } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useT } from '../../../../shared/i18n/useT'
 import { useLocale } from '../../../../shared/i18n/hooks/useLocale'
@@ -14,6 +14,7 @@ import type { UsersFormValues } from '../../components/form/UsersForm'
 import { useUpdateUserMutation } from '../../hooks/mutations/useUsersMutations'
 import { useUserDetailWithETag } from '../../hooks/useUserDetailWithETag'
 import type { UserResponse } from '../../../../api/generated'
+import { replaceUserFingerprint } from '../../../../api/generated/sdk.gen'
 import {
   UpdateUserSchema,
   type UpdateUserInput,
@@ -33,6 +34,7 @@ export default function UserEditPage(): ReactElement {
   const mutation: ReturnType<typeof useUpdateUserMutation> =
     useUpdateUserMutation()
   const user: UserResponse | undefined = detailQuery.data?.user
+  const [capturedFmd, setCapturedFmd] = useState<string | null>(null)
 
   function handleSubmit(values: UsersFormValues): void {
     if (!user || !detailQuery.data?.etag) return
@@ -54,8 +56,18 @@ export default function UserEditPage(): ReactElement {
       },
       {
         onSuccess: (): void => {
-          push(t('ui.users.toast.update.success'))
-          void navigate(`/${locale}/users/${userId}`)
+          if (capturedFmd) {
+            void replaceUserFingerprint({
+              path: { userId: Number(userId) },
+              body: { fmd: capturedFmd },
+            }).then(() => {
+              push(t('ui.users.fingerprint.toast.replaced'))
+              void navigate(`/${locale}/users/${userId}`)
+            })
+          } else {
+            push(t('ui.users.toast.update.success'))
+            void navigate(`/${locale}/users/${userId}`)
+          }
         },
         onError: (): void => {
           push(t('ui.users.toast.update.error'))
@@ -80,13 +92,11 @@ export default function UserEditPage(): ReactElement {
       />
       <UsersEditFingerprintSection
         userId={Number(userId)}
-        onSuccess={(): void => {
-          push(t('ui.users.fingerprint.toast.replaced'))
+        onSuccess={(fmd: string): void => {
+          setCapturedFmd(fmd)
         }}
-        onSkip={(): void => undefined}
         t={t}
       />
     </>
   )
 }
-

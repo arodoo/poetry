@@ -1,0 +1,68 @@
+
+Running 2 tests using 1 worker
+
+  ✘  1 tests\e2e\users\users-edit-fingerprint.spec.ts:54:5 › Edit User — Fingerprint Re-enrollment › shows enrollment section and replaces fingerprint on success (6.6s)
+  ✘  2 tests\e2e\users\users-edit-fingerprint.spec.ts:143:5 › Edit User — Fingerprint Re-enrollment › skip button is visible on the edit fingerprint section (11.2s)
+
+
+  1) tests\e2e\users\users-edit-fingerprint.spec.ts:54:5 › Edit User — Fingerprint Re-enrollment › shows enrollment section and replaces fingerprint on success 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m failed
+
+    Locator:  getByText(/Scanning fingerprint/i)
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText(/Scanning fingerprint/i)[22m
+
+
+      113 |         // It should now be capturing
+      114 |         const capturingText = page.getByText(/Scanning fingerprint/i)
+    > 115 |         await expect(capturingText).toBeVisible()
+          |                                     ^
+      116 |
+      117 |         // The mock will auto-resolve after 500ms
+      118 |         const successMsg = page.getByTestId('fingerprint-success-msg')
+        at D:\zProyectos\01Java\poetry\poetry-frontend\tests\e2e\users\users-edit-fingerprint.spec.ts:115:37
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\users-users-edit-fingerpri-96fc4-aces-fingerprint-on-success\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\users-users-edit-fingerpri-96fc4-aces-fingerprint-on-success\error-context.md
+
+  2) tests\e2e\users\users-edit-fingerprint.spec.ts:143:5 › Edit User — Fingerprint Re-enrollment › skip button is visible on the edit fingerprint section 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m failed
+
+    Locator:  getByTestId('fingerprint-skip-btn')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for getByTestId('fingerprint-skip-btn')[22m
+
+
+      152 |
+      153 |         const skipBtn: Locator = page.getByTestId('fingerprint-skip-btn')
+    > 154 |         await expect(skipBtn).toBeVisible({ timeout: 10000 })
+          |                               ^
+      155 |         await skipBtn.click()
+      156 |
+      157 |         await expect(
+        at D:\zProyectos\01Java\poetry\poetry-frontend\tests\e2e\users\users-edit-fingerprint.spec.ts:154:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\users-users-edit-fingerpri-ee1e1-he-edit-fingerprint-section\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\users-users-edit-fingerpri-ee1e1-he-edit-fingerprint-section\error-context.md
+
+  2 failed
+    tests\e2e\users\users-edit-fingerprint.spec.ts:54:5 › Edit User — Fingerprint Re-enrollment › shows enrollment section and replaces fingerprint on success 
+    tests\e2e\users\users-edit-fingerprint.spec.ts:143:5 › Edit User — Fingerprint Re-enrollment › skip button is visible on the edit fingerprint section 

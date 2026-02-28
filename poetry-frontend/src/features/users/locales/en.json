@@ -168,6 +168,11 @@
   "ui.users.breadcrumb.detail": "User detail",
   "ui.users.breadcrumb.edit": "Edit user",
   "ui.users.fingerprint.toast.replaced": "Fingerprint updated successfully",
-  "ui.users.edit.section.fingerprint": "Fingerprint Re-enrollment (Optional)",
-  "ui.users.edit.section.fingerprint_desc": "Replace the existing biometric template with a new capture"
+  "ui.users.edit.section.fingerprint": "Fingerprint Re-enrollment",
+  "ui.users.edit.section.fingerprint_desc": "Manage the biometric template for this user",
+  "ui.users.edit.fingerprint.enrolled.title": "Fingerprint Enrolled",
+  "ui.users.edit.fingerprint.enrolled.desc": "This user currently has an active fingerprint template tied to their account.",
+  "ui.users.edit.fingerprint.enrolledAt": "Enrolled",
+  "ui.users.edit.fingerprint.replaceAction": "Replace fingerprint",
+  "ui.users.edit.fingerprint.replacingWarning": "You are about to scan a new fingerprint to replace the existing one."
 }
