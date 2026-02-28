@@ -5,23 +5,17 @@
  */
 import type { ReactElement } from 'react'
 import { Suspense } from 'react'
-import { Route } from 'react-router-dom'
-import {
-  HomePageLazy,
-  NotFoundPageLazy,
-} from '../../../shared/routing/lazyAdapters'
+import { Navigate, Route, useParams } from 'react-router-dom'
+import { NotFoundPageLazy } from '../../../shared/routing/lazyAdapters'
+
+function LocaleLoginRedirect(): ReactElement {
+  const { locale } = useParams<{ locale: string }>()
+  return <Navigate to={`/${locale}/login`} replace />
+}
 
 export function PublicRoutes(): ReactElement[] {
   return [
-    <Route
-      key="home"
-      path=":locale/"
-      element={
-        <Suspense fallback={null}>
-          <HomePageLazy />
-        </Suspense>
-      }
-    />,
+    <Route key="home" path=":locale/" element={<LocaleLoginRedirect />} />,
     <Route
       key="not-found"
       path="*"

@@ -10,7 +10,8 @@
       "Bash(grep:*)",
       "Bash(tail:*)",
       "Bash(ls:*)",
-      "Bash(head:*)"
+      "Bash(head:*)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }

@@ -16,7 +16,7 @@ export function AppRouteTree(): ReactElement {
   return (
     <Routes>
       {/* default locale redirect to en */}
-      <Route path="/" element={<Navigate to={`/${defaultLocale}`} replace />} />
+      <Route path="/" element={<Navigate to={`/${defaultLocale}/login`} replace />} />
       {/* redirect non-locale auth paths to default locale */}
       <Route
         path="/login"

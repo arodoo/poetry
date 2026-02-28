@@ -12,5 +12,7 @@
   "ui.publicLogin.error.invalid": "Usuario o contraseña inválidos",
   "ui.publicLogin.error.network": "Error de red. Inténtalo de nuevo.",
   "ui.publicLogin.error.server": "Error del servidor. Inténtalo de nuevo.",
-  "ui.publicLogin.error.generic": "Error al iniciar sesión. Inténtalo de nuevo."
+  "ui.publicLogin.error.generic": "Error al iniciar sesión. Inténtalo de nuevo.",
+  "ui.publicLogin.brand.name": "Poetry",
+  "ui.publicLogin.brand.tagline": "Donde el ritmo se encuentra con la elegancia"
 }

@@ -8,6 +8,7 @@ import {
   type LocaleServiceResult,
 } from '../services/localeService'
 import { i18nLogger } from '../utils/logger'
+import { getCurrentLocale } from '../../routing/localeUtils'
 
 export interface LocaleLoadResult {
   locale: string
@@ -41,14 +42,17 @@ export async function loadUserLocale(): Promise<LocaleLoadResult> {
     }
   }
 
-  const fallbackLocale: string = localeService.getDefaultLocale()
+  const urlLocale: string = getCurrentLocale()
+  const fallback: string = localeService.isValidLocale(urlLocale)
+    ? urlLocale
+    : localeService.getDefaultLocale()
   i18nLogger.logWarning(
-    `Backend locale fetch failed, using fallback: ${fallbackLocale}`,
+    `Backend locale fetch failed, using fallback: ${fallback}`,
     result.error
   )
 
   return {
-    locale: fallbackLocale,
+    locale: fallback,
     error: result.error ?? 'Failed to fetch locale',
   }
 }

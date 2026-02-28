@@ -6,6 +6,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { localeService } from '../services/localeService'
 import { loadUserLocale, type LocaleLoadResult } from '../utils/localeLoader'
+import { getCurrentLocale } from '../../routing/localeUtils'
 
 export interface UseLocaleResult {
   locale: string
@@ -16,7 +17,7 @@ export interface UseLocaleResult {
 
 export function useLocale(): UseLocaleResult {
   const [locale, setLocaleState] = useState<string>(
-    localeService.getDefaultLocale()
+    getCurrentLocale()
   )
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)

@@ -1,0 +1,21 @@
+/*
+ File: dancer.css
+ Purpose: Keyframe animation for the dancer mascot SVG on the login
+ page. The floating effect gives the character a lively presence and
+ reinforces the dance academy brand. All Rights Reserved. Arodi Emmanuel
+*/
+
+@keyframes dancer-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1.5deg);
+  }
+}
+
+.dancer-float {
+  animation: dancer-float 4s ease-in-out infinite;
+  transform-origin: 50% 95%;
+  display: inline-block;
+}
