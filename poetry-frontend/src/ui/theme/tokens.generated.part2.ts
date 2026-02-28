@@ -27,7 +27,6 @@ export function mapBundleToCssVars(bundle: TokenBundle): CssVars {
     theme: TokenTheme | undefined = findTheme(bundle.themes, cur.theme),
     spacings: KeyedValues | undefined = findKV(bundle.spacings, cur.spacing),
     radius: KeyedValues | undefined = findKV(bundle.radius, cur.radius),
-    shadows: KeyedValues | undefined = findKV(bundle.shadows, cur.shadow),
     fontSizes: TokenFontSizes | undefined = findFontSizes(
       bundle.fontSizes,
       cur.fontSize
@@ -62,7 +61,7 @@ export function mapBundleToCssVars(bundle: TokenBundle): CssVars {
     }
   }
 
-  applyTokenMappings(css, bundle, theme, spacings, radius, shadows, fontSizes)
+  applyTokenMappings(css, bundle, theme, spacings, radius, fontSizes)
   if (resolvedFontFamily) css[VAR.fontFamily('base')] = resolvedFontFamily
   return css
 }

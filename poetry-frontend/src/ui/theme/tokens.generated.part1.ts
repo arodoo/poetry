@@ -11,7 +11,6 @@ export const VAR: Readonly<{
   color: (name: string) => string
   spacing: (name: string) => string
   radius: (name: string) => string
-  shadow: (name: string) => string
   fontSize: (name: string) => string
   fontFamily: (name: string) => string
   fontWeight: (name: string) => string
@@ -20,7 +19,6 @@ export const VAR: Readonly<{
   color: (n: string): string => `--color-${n}`,
   spacing: (n: string): string => `--spacing-${n}`,
   radius: (n: string): string => `--radius-${n}`,
-  shadow: (n: string): string => `--shadow-${n}`,
   fontSize: (n: string): string => `--font-size-${n}`,
   fontFamily: (n: string): string => `--font-family-${n}`,
   fontWeight: (n: string): string => `--font-weight-${n}`,

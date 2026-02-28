@@ -59,13 +59,6 @@ export function TokenSelectors({
         field="radius"
         onChange={onChange}
       />
-      <SelectRow
-        label="Shadow"
-        value={current.shadow}
-        options={bundle.shadows}
-        field="shadow"
-        onChange={onChange}
-      />
     </div>
   )
 }

@@ -16,14 +16,12 @@ describe('TokensSchemas export', () => {
       fontSizes: [],
       spacings: [],
       radius: [],
-      shadows: [],
       current: {
         theme: '',
         font: '',
         fontSize: '',
         spacing: '',
         radius: '',
-        shadow: '',
       },
     })
     expect(ok.success).toBe(false)

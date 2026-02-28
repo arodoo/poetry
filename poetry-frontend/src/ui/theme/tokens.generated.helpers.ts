@@ -16,7 +16,6 @@ import {
   mapColors,
   mapSpacings,
   mapRadius,
-  mapShadows,
   mapFontSizes,
   mapFontWeights,
 } from './tokensMappers.generated'
@@ -27,13 +26,11 @@ export function applyTokenMappings(
   theme: TokenTheme | undefined,
   spacings: KeyedValues | undefined,
   radius: KeyedValues | undefined,
-  shadows: KeyedValues | undefined,
   fontSizes: TokenFontSizes | undefined
 ): void {
   if (theme) mapColors(css, theme)
   if (spacings) mapSpacings(css, spacings)
   if (radius) mapRadius(css, radius)
-  if (shadows) mapShadows(css, shadows)
   if (fontSizes) mapFontSizes(css, fontSizes)
   if (Array.isArray(bundle.fontWeights))
     mapFontWeights(css, bundle.fontWeights as readonly string[])

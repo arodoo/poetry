@@ -24,7 +24,6 @@ export interface TokenBundleCurrent {
   readonly fontSize: string
   readonly spacing: string
   readonly radius: string
-  readonly shadow: string
 }
 
 export interface TokenBundle {
@@ -34,7 +33,6 @@ export interface TokenBundle {
   readonly fontSizes: readonly TokenFontSizes[]
   readonly spacings: readonly KeyedValues[]
   readonly radius: readonly KeyedValues[]
-  readonly shadows: readonly KeyedValues[]
   readonly current: TokenBundleCurrent
 }
 
@@ -46,14 +44,12 @@ export const TokenBundleSchema: z.ZodType<TokenBundle> = z
     fontSizes: z.array(TokenFontSizesSchema).min(1),
     spacings: z.array(KeyedValuesSchema).min(1),
     radius: z.array(KeyedValuesSchema).min(1),
-    shadows: z.array(KeyedValuesSchema).min(1),
     current: z.object({
       theme: z.string().min(1),
       font: z.string().min(1),
       fontSize: z.string().min(1),
       spacing: z.string().min(1),
       radius: z.string().min(1),
-      shadow: z.string().min(1),
     }),
   })
   .readonly()

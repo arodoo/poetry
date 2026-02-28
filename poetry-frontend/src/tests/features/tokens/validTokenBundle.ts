@@ -32,6 +32,5 @@ export const validTokenBundle: Record<string, unknown> = {
     fontSize: 'default',
     spacing: 'default',
     radius: 'default',
-    shadow: 'default',
   },
 }

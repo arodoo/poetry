@@ -30,12 +30,6 @@ export function mapRadius(css: CssVars, radius: KeyedValues): void {
   })
 }
 
-export function mapShadows(css: CssVars, shadows: KeyedValues): void {
-  Object.entries(shadows.values).forEach(([k, v]: [string, string]): void => {
-    css[VAR.shadow(k)] = v
-  })
-}
-
 export function mapFontSizes(css: CssVars, fontSizes: TokenFontSizes): void {
   Object.entries(fontSizes.sizes).forEach(([k, v]: [string, string]): void => {
     css[VAR.fontSize(k)] = v

@@ -38,6 +38,5 @@ export const mockBundle: Record<string, unknown> = {
     fontSize: 'default',
     spacing: 'default',
     radius: 'default',
-    shadow: 'default',
   },
 }
