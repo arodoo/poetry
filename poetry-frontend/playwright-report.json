@@ -45,99 +45,204 @@
   },
   "suites": [
     {
-      "title": "users\\users-edit-fingerprint.spec.ts",
-      "file": "users/users-edit-fingerprint.spec.ts",
+      "title": "users\\users-list-navigation.spec.ts",
+      "file": "users/users-list-navigation.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [],
-      "suites": [
+      "specs": [
         {
-          "title": "Edit User — Fingerprint Re-enrollment",
-          "file": "users/users-edit-fingerprint.spec.ts",
-          "line": 53,
-          "column": 6,
-          "specs": [
+          "title": "create button navigates to new user page",
+          "ok": false,
+          "tags": [],
+          "tests": [
             {
-              "title": "shows enrollment section and replaces fingerprint on success",
-              "ok": false,
-              "tags": [],
-              "tests": [
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "",
-                  "projectName": "",
-                  "results": [
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 30110,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 6483,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText(/Enrolling fingerprint/i)\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/Enrolling fingerprint/i)\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText(/Enrolling fingerprint/i)\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/Enrolling fingerprint/i)\u001b[22m\n\n    at D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts:118:37",
-                        "location": {
-                          "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts",
-                          "column": 37,
-                          "line": 118
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 116 |\u001b[39m         \u001b[90m// It should now be capturing\u001b[39m\n \u001b[90m 117 |\u001b[39m         \u001b[36mconst\u001b[39m capturingText \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[35m/Enrolling fingerprint/i\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 118 |\u001b[39m         \u001b[36mawait\u001b[39m expect(capturingText)\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m     |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 119 |\u001b[39m\n \u001b[90m 120 |\u001b[39m         \u001b[90m// The mock will auto-resolve after 500ms\u001b[39m\n \u001b[90m 121 |\u001b[39m         \u001b[36mconst\u001b[39m successMsg \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m'fingerprint-success-msg'\u001b[39m)\u001b[0m"
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-list-navigation.spec.ts",
+                        "column": 14,
+                        "line": 17
                       },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts",
-                            "column": 37,
-                            "line": 118
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText(/Enrolling fingerprint/i)\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/Enrolling fingerprint/i)\u001b[22m\n\n\n  116 |         // It should now be capturing\n  117 |         const capturingText = page.getByText(/Enrolling fingerprint/i)\n> 118 |         await expect(capturingText).toBeVisible()\n      |                                     ^\n  119 |\n  120 |         // The mock will auto-resolve after 500ms\n  121 |         const successMsg = page.getByTestId('fingerprint-success-msg')\n    at D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts:118:37"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-02-28T23:22:30.158Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-edit-fingerpri-96fc4-aces-fingerprint-on-success\\test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-edit-fingerpri-96fc4-aces-fingerprint-on-success\\error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-edit-fingerprint.spec.ts",
-                        "column": 37,
-                        "line": 118
-                      }
+                      "message": "Error: page.waitForLoadState: Test timeout of 30000ms exceeded.\n\n  15 |   await injectTokens(page)\n  16 |   await page.goto('/en/users')\n> 17 |   await page.waitForLoadState('networkidle')\n     |              ^\n  18 |   const createButton: Locator = page.locator('a[href=\"/en/users/new\"]')\n  19 |   await expect(createButton).toBeVisible({ timeout: 15000 })\n  20 |   await createButton.click()\n    at D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-list-navigation.spec.ts:17:14"
                     }
                   ],
-                  "status": "unexpected"
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-28T23:41:53.551Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-list-navigatio-55f60--navigates-to-new-user-page\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-list-navigatio-55f60--navigates-to-new-user-page\\error-context.md"
+                    }
+                  ]
                 }
               ],
-              "id": "62df49579d30bbc77241-afcedae4e341e7343c70",
-              "file": "users/users-edit-fingerprint.spec.ts",
-              "line": 54,
-              "column": 5
+              "status": "unexpected"
             }
-          ]
+          ],
+          "id": "41314b7446a18832a5a4-3143b7ef461bebd4721d",
+          "file": "users/users-list-navigation.spec.ts",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "view button navigates to user detail page",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 30115,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-list-navigation.spec.ts",
+                        "column": 14,
+                        "line": 31
+                      },
+                      "message": "Error: page.waitForLoadState: Test timeout of 30000ms exceeded.\n\n  29 |   await injectTokens(page)\n  30 |   await page.goto('/en/users')\n> 31 |   await page.waitForLoadState('networkidle')\n     |              ^\n  32 |   const viewButton: Locator = page\n  33 |     .locator('[data-testid^=\"view-user-\"]')\n  34 |     .first()\n    at D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-list-navigation.spec.ts:31:14"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-28T23:42:24.584Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-list-navigatio-fa539-vigates-to-user-detail-page\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-list-navigatio-fa539-vigates-to-user-detail-page\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "41314b7446a18832a5a4-2f016e6df9b3a33638e7",
+          "file": "users/users-list-navigation.spec.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "edit button navigates to user edit page",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 30108,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-list-navigation.spec.ts",
+                        "column": 14,
+                        "line": 49
+                      },
+                      "message": "Error: page.waitForLoadState: Test timeout of 30000ms exceeded.\n\n  47 |   await injectTokens(page)\n  48 |   await page.goto('/en/users')\n> 49 |   await page.waitForLoadState('networkidle')\n     |              ^\n  50 |   const viewButton: Locator = page\n  51 |     .locator('[data-testid^=\"view-user-\"]')\n  52 |     .first()\n    at D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\tests\\e2e\\users\\users-list-navigation.spec.ts:49:14"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-28T23:42:55.652Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-list-navigatio-093fb-navigates-to-user-edit-page\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\zProyectos\\01Java\\poetry\\poetry-frontend\\test-results\\users-users-list-navigatio-093fb-navigates-to-user-edit-page\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "41314b7446a18832a5a4-7e7ebe87ffa52eaf4823",
+          "file": "users/users-list-navigation.spec.ts",
+          "line": 42,
+          "column": 1
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-02-28T23:22:29.311Z",
-    "duration": 7527.132,
+    "startTime": "2026-02-28T23:41:52.652Z",
+    "duration": 93274.819,
     "expected": 0,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 3,
     "flaky": 0
   }
 }

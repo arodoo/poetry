@@ -14,8 +14,7 @@ import { buildCreateFormSections } from '../../model/userFormSections'
 import { buildUserCreateBreadcrumbs } from '../../model/userBreadcrumbHelpers'
 import { UsersCreateFingerprintSection } from '../../components/fingerprint/UsersCreateFingerprintSection'
 import { useUsersCreatePage } from '../../hooks/useUsersCreatePage'
-import { UserFormSectionsRenderer } from '../../components/form/fields/FormSectionsRenderer'
-import { UserCreateFormActions } from '../../components/form/UserCreateFormActions'
+import { FormLayout } from '../../../../ui/FormLayout/FormLayout'
 
 export default function UsersCreatePage(): ReactElement {
   const t = useT()
@@ -50,18 +49,20 @@ export default function UsersCreatePage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbs} />
       </div>
-      <UserFormSectionsRenderer sections={sections} />
-      <UsersCreateFingerprintSection
-        onSuccess={handleFingerprintComplete}
-        onSkip={handleSkipFingerprint}
-        t={t}
-      />
-      <UserCreateFormActions
+      <FormLayout
+        sections={sections}
         onSubmit={handleCreateUser}
+        submitLabel={t('ui.users.actions.submit')}
+        cancelLabel={t('ui.users.actions.cancel')}
         onCancel={handleCancel}
         isSubmitting={isSubmitting}
-        t={t}
-      />
+      >
+        <UsersCreateFingerprintSection
+          onSuccess={handleFingerprintComplete}
+          onSkip={handleSkipFingerprint}
+          t={t}
+        />
+      </FormLayout>
     </PageLayout>
   )
 }

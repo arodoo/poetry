@@ -31,6 +31,7 @@ export function FormLayout(props: FormLayoutProps): ReactElement {
             </Card>
           )
         )}
+        {props.children}
         <div
           className={[
             'flex',

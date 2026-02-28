@@ -28,6 +28,7 @@ export interface UserEditFormProps {
   readonly onSubmit: (values: UsersFormValues) => void
   readonly isSubmitting: boolean
   readonly t: ReturnType<typeof useT>
+  readonly children?: React.ReactNode
 }
 
 export function UserEditForm(props: UserEditFormProps): ReactElement {
@@ -109,7 +110,9 @@ export function UserEditForm(props: UserEditFormProps): ReactElement {
         cancelLabel={props.t('ui.users.actions.cancel')}
         onCancel={handleCancel}
         isSubmitting={props.isSubmitting}
-      />
+      >
+        {props.children}
+      </FormLayout>
     </PageLayout>
   )
 }

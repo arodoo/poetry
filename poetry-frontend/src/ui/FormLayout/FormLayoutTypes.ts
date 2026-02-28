@@ -20,4 +20,5 @@ export interface FormLayoutProps {
   readonly cancelLabel?: string | undefined
   readonly onCancel?: (() => void) | undefined
   readonly isSubmitting?: boolean | undefined
+  readonly children?: ReactNode | undefined
 }

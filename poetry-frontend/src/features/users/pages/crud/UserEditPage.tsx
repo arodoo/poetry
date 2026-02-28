@@ -89,14 +89,15 @@ export default function UserEditPage(): ReactElement {
         onSubmit={handleSubmit}
         isSubmitting={mutation.isPending}
         t={t}
-      />
-      <UsersEditFingerprintSection
-        userId={Number(userId)}
-        onSuccess={(fmd: string): void => {
-          setCapturedFmd(fmd)
-        }}
-        t={t}
-      />
+      >
+        <UsersEditFingerprintSection
+          userId={Number(userId)}
+          onSuccess={(fmd: string): void => {
+            setCapturedFmd(fmd)
+          }}
+          t={t}
+        />
+      </UserEditForm>
     </>
   )
 }
