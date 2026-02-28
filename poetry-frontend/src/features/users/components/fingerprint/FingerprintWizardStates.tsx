@@ -19,7 +19,11 @@ interface StateProps {
 
 export function IdleState(props: StateProps): ReactElement {
   return (
-    <Button onClick={props.onStart} variant="primary">
+    <Button
+      onClick={props.onStart}
+      variant="primary"
+      data-testid="fingerprint-start-btn"
+    >
       {props.t('ui.users.fingerprint.wizard.start')}
     </Button>
   )
@@ -38,7 +42,10 @@ export function CapturingState(props: StateProps): ReactElement {
 export function SuccessState(props: StateProps): ReactElement {
   return (
     <Stack gap="sm">
-      <Text className="text-[var(--color-success)]">
+      <Text
+        className="text-[var(--color-success)]"
+        data-testid="fingerprint-success-msg"
+      >
         ✓ {props.t('ui.users.fingerprint.wizard.success')}
       </Text>
       <Text size="sm" className="text-[var(--color-text-muted)] italic">
@@ -59,7 +66,11 @@ export function ErrorState(props: StateProps): ReactElement {
           {props.t(props.errorMessage)}
         </Text>
       )}
-      <Button onClick={props.onStart} variant="secondary">
+      <Button
+        onClick={props.onStart}
+        variant="secondary"
+        data-testid="fingerprint-retry-btn"
+      >
         {props.t('ui.users.fingerprint.wizard.retry')}
       </Button>
     </Stack>

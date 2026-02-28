@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.EnrollFingerprintUseCase;
+import com.poetry.poetry_backend.application.fingerprint.usecase.enrollment.ReplaceUserFingerprintUseCase;
 import com.poetry.poetry_backend.domain.fingerprint.model.core.Fingerprint;
 import com.poetry.poetry_backend.interfaces.v1.fingerprint.dto.FingerprintDto;
 
@@ -29,9 +31,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Fingerprint Enrollment", description = "Fingerprint enrollment")
 public class FingerprintEnrollmentController {
         private final EnrollFingerprintUseCase enrollUseCase;
+        private final ReplaceUserFingerprintUseCase replaceUseCase;
 
-        public FingerprintEnrollmentController(EnrollFingerprintUseCase enrollUseCase) {
+        public FingerprintEnrollmentController(EnrollFingerprintUseCase enrollUseCase,
+                        ReplaceUserFingerprintUseCase replaceUseCase) {
                 this.enrollUseCase = enrollUseCase;
+                this.replaceUseCase = replaceUseCase;
         }
 
         @Operation(operationId = "linkFingerprintToUser", summary = "Link fingerprint data", // i18n-ignore
@@ -66,6 +71,23 @@ public class FingerprintEnrollmentController {
                 Fingerprint fp = enrollUseCase.execute(userId, request.fmd());
                 return ResponseEntity.status(201)
                                 .body(new FingerprintEnrollmentResponse(fp.id(), "ENROLLED"));
+        }
+
+        @Operation(operationId = "replaceUserFingerprint", summary = "Replace fingerprint", // i18n-ignore
+                        description = "Removes all active fingerprints for user and saves new FMD") // i18n-ignore
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Replaced"),
+                        @ApiResponse(responseCode = "404", description = "User not found"),
+                        @ApiResponse(responseCode = "401", description = "Unauthorized")
+        })
+        @PreAuthorize("hasAuthority('admin')")
+        @PutMapping("/replace")
+        public ResponseEntity<FingerprintEnrollmentResponse> replaceForUser(
+                        @PathVariable Long userId,
+                        @RequestBody FingerprintDto.LinkRequest request) {
+                Fingerprint fp = replaceUseCase.execute(userId, request.fmd());
+                return ResponseEntity.ok()
+                                .body(new FingerprintEnrollmentResponse(fp.id(), "REPLACED"));
         }
 
         public record FingerprintEnrollmentResponse(Long fingerprintId, String status) {

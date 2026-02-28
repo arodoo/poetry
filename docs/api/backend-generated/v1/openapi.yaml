@@ -110,6 +110,45 @@ paths:
       responses:
         '204':
           description: No Content
+  /api/v1/users/{userId}/fingerprints/replace:
+    put:
+      tags:
+        - Fingerprint Enrollment
+      summary: Replace fingerprint
+      description: Removes all active fingerprints for user and saves new FMD
+      operationId: replaceUserFingerprint
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkRequest'
+        required: true
+      responses:
+        '200':
+          description: Replaced
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
+        '404':
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FingerprintEnrollmentResponse'
   /api/v1/users/{userId}/demographics:
     get:
       tags:
@@ -2616,6 +2655,22 @@ components:
           format: int64
           example: 0
       description: Zone response with all fields
+    LinkRequest:
+      type: object
+      properties:
+        fmd:
+          type: string
+          description: Fingerprint Minutiae Data
+          example: Rk1E...
+      description: Link fingerprint request
+    FingerprintEnrollmentResponse:
+      type: object
+      properties:
+        fingerprintId:
+          type: integer
+          format: int64
+        status:
+          type: string
     UserDemographicsRequest:
       type: object
       properties:
@@ -3335,22 +3390,6 @@ components:
           description: Status
           example: active
       description: User creation request
-    LinkRequest:
-      type: object
-      properties:
-        fmd:
-          type: string
-          description: Fingerprint Minutiae Data
-          example: Rk1E...
-      description: Link fingerprint request
-    FingerprintEnrollmentResponse:
-      type: object
-      properties:
-        fingerprintId:
-          type: integer
-          format: int64
-        status:
-          type: string
     EnrollRequest:
       required:
         - fmd

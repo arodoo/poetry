@@ -165,5 +165,8 @@
   "ui.users.breadcrumb.users": "Usuarios",
   "ui.users.breadcrumb.new": "Nuevo usuario",
   "ui.users.breadcrumb.detail": "Detalle de usuario",
-  "ui.users.breadcrumb.edit": "Editar usuario"
+  "ui.users.breadcrumb.edit": "Editar usuario",
+  "ui.users.fingerprint.toast.replaced": "Huella actualizada exitosamente",
+  "ui.users.edit.section.fingerprint": "Re-registro de Huella (Opcional)",
+  "ui.users.edit.section.fingerprint_desc": "Reemplaza la plantilla biométrica existente con una nueva captura"
 }

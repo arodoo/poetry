@@ -1,6 +1,7 @@
 /*
  * File: UserEditPage.tsx
- * Purpose: Admin user edit page with ETag conditional updates.
+ * Purpose: Admin user edit page with ETag conditional updates and fingerprint
+ * re-enrollment support. Replaces previous fingerprint when user enrols again.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -19,6 +20,7 @@ import {
 } from '../../model/UsersSchemas'
 import { UserEditPageLoading } from '../../components/UserEditPageHelpers'
 import { UserEditForm } from '../../components/form/UserEditForm'
+import { UsersEditFingerprintSection } from '../../components/fingerprint/UsersEditFingerprintSection'
 
 export default function UserEditPage(): ReactElement {
   const userId: string = useParams()['id'] ?? ''
@@ -68,12 +70,23 @@ export default function UserEditPage(): ReactElement {
     return <UserEditPageLoading message={t('ui.users.status.error')} />
 
   return (
-    <UserEditForm
-      userId={userId}
-      user={user}
-      onSubmit={handleSubmit}
-      isSubmitting={mutation.isPending}
-      t={t}
-    />
+    <>
+      <UserEditForm
+        userId={userId}
+        user={user}
+        onSubmit={handleSubmit}
+        isSubmitting={mutation.isPending}
+        t={t}
+      />
+      <UsersEditFingerprintSection
+        userId={Number(userId)}
+        onSuccess={(): void => {
+          push(t('ui.users.fingerprint.toast.replaced'))
+        }}
+        onSkip={(): void => undefined}
+        t={t}
+      />
+    </>
   )
 }
+
