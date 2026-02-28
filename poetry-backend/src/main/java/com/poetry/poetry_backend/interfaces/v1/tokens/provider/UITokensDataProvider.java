@@ -14,7 +14,6 @@ import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontSizesProviderPor
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontWeightsProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontsProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.RadiusProviderPort;
-import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ShadowsProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.SpacingsProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
 
@@ -27,7 +26,6 @@ public class UITokensDataProvider {
   private final FontWeightsProviderPort fontWeightsProvider;
   private final SpacingsProviderPort spacingsProvider;
   private final RadiusProviderPort radiusProvider;
-  private final ShadowsProviderPort shadowsProvider;
   private final UITokensCurrentProvider currentProvider;
 
   public UITokensDataProvider(ThemesProviderPort themesProvider,
@@ -36,7 +34,6 @@ public class UITokensDataProvider {
       FontWeightsProviderPort fontWeightsProvider,
       SpacingsProviderPort spacingsProvider,
       RadiusProviderPort radiusProvider,
-      ShadowsProviderPort shadowsProvider,
       UITokensCurrentProvider currentProvider) {
     this.themesProvider = themesProvider;
     this.fontsProvider = fontsProvider;
@@ -45,7 +42,6 @@ public class UITokensDataProvider {
     this.fontWeightsProvider = fontWeightsProvider;
     this.spacingsProvider = spacingsProvider;
     this.radiusProvider = radiusProvider;
-    this.shadowsProvider = shadowsProvider;
     this.currentProvider = currentProvider;
   }
 
@@ -58,9 +54,8 @@ public class UITokensDataProvider {
     tokens.fontWeights = fontWeightsProvider.getFontWeights();
     tokens.spacings = spacingsProvider.getSpacings();
     tokens.radius = radiusProvider.getRadius();
-    tokens.shadows = shadowsProvider.getShadows();
     tokens.current = currentProvider.getCurrent(tokens.themes, tokens.fonts,
-        tokens.fontSizes, tokens.spacings, tokens.radius, tokens.shadows);
+        tokens.fontSizes, tokens.spacings, tokens.radius);
     return tokens;
   }
 }

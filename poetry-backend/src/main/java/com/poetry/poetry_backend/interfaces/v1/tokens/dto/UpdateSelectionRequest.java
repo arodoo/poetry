@@ -13,6 +13,5 @@ public record UpdateSelectionRequest(
         @NotBlank(message = "selection.font.missing") String font,
         @NotBlank(message = "selection.fontSize.missing") String fontSize,
         @NotBlank(message = "selection.spacing.missing") String spacing,
-        @NotBlank(message = "selection.radius.missing") String radius,
-        @NotBlank(message = "selection.shadow.missing") String shadow) {
+        @NotBlank(message = "selection.radius.missing") String radius) {
 }

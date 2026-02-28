@@ -27,7 +27,14 @@ export default {
         textSubtle: 'var(--color-textSubtle)',
         overlay: 'var(--color-overlay)',
       },
-      // spacing scale customized via CSS variables directly in components
+      spacing: {
+        xs: 'var(--spacing-xs)',
+        sm: 'var(--spacing-sm)',
+        md: 'var(--spacing-md)',
+        lg: 'var(--spacing-lg)',
+        xl: 'var(--spacing-xl)',
+        '2xl': 'var(--spacing-2xl)',
+      },
       fontSize: {
         xs: 'var(--font-size-xs)',
         sm: 'var(--font-size-sm)',

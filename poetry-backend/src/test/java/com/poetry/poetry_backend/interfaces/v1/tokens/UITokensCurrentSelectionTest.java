@@ -22,7 +22,6 @@ import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensCurrentProvider;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensDataProvider;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensRadiusProvider;
-import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensShadowsProvider;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.UITokensSpacingsProvider;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.fonts.UITokensFontFamiliesProvider;
 import com.poetry.poetry_backend.interfaces.v1.tokens.provider.fonts.UITokensFontSizesProvider;
@@ -75,7 +74,7 @@ class UITokensCurrentSelectionTest {
         new UITokensFontWeightsProvider(),
         new UITokensSpacingsProvider(),
         new UITokensRadiusProvider(),
-        new UITokensShadowsProvider(),
+        
         new UITokensCurrentProvider(resolve));
     UITokensDto dto = dataProvider.getTokens();
     assertEquals("alpha", dto.current.theme);

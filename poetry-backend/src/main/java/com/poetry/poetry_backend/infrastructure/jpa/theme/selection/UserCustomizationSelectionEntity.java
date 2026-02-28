@@ -24,8 +24,6 @@ public class UserCustomizationSelectionEntity {
   private String spacingKey;
   @Column(name = "radius_key", length = 50, nullable = false)
   private String radiusKey;
-  @Column(name = "shadow_key", length = 50, nullable = false)
-  private String shadowKey;
 
   public Long getId() { return id; }
   public Long getUserId() { return userId; }
@@ -34,7 +32,6 @@ public class UserCustomizationSelectionEntity {
   public String getFontSizeKey() { return fontSizeKey; }
   public String getSpacingKey() { return spacingKey; }
   public String getRadiusKey() { return radiusKey; }
-  public String getShadowKey() { return shadowKey; }
   public void setId(Long id) { this.id = id; }
   public void setUserId(Long userId) { this.userId = userId; }
   public void setThemeKey(String v) { this.themeKey = v; }
@@ -42,5 +39,4 @@ public class UserCustomizationSelectionEntity {
   public void setFontSizeKey(String v) { this.fontSizeKey = v; }
   public void setSpacingKey(String v) { this.spacingKey = v; }
   public void setRadiusKey(String v) { this.radiusKey = v; }
-  public void setShadowKey(String v) { this.shadowKey = v; }
 }

@@ -40,7 +40,6 @@ class UITokensSelectionFallbackTest {
             "Inter",
             "default",
             "default",
-            "default",
             "default"));
     themeCmd.deleteSoft(t2.getId());
     ResponseEntity<UITokensDto> resp = rest.getForEntity(

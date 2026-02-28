@@ -49,8 +49,7 @@ public class TokensFingerprintUpdater {
         TokensFingerprintHelpers.safe(dto.current.font) + ":" +
         TokensFingerprintHelpers.safe(dto.current.fontSize) + ":" +
         TokensFingerprintHelpers.safe(dto.current.spacing) + ":" +
-        TokensFingerprintHelpers.safe(dto.current.radius) + ":" +
-        TokensFingerprintHelpers.safe(dto.current.shadow);
+        TokensFingerprintHelpers.safe(dto.current.radius);
     TokensFingerprintHelpers.put(d, currentKey);
   }
 }

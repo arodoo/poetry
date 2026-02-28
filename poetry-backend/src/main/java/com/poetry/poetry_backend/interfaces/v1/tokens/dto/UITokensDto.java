@@ -1,7 +1,7 @@
 /*
  * File: UITokensDto.java
  * Purpose: DTOs for UI tokens response, including themes, fonts,
- * font sizes, spacings, radius, shadows, and current selections.
+ * font sizes, spacings, radius, and current selections.
  * Supports frontend UI library configuration and customization.
  * All Rights Reserved. Arodi Emmanuel
  */
@@ -19,7 +19,6 @@ public class UITokensDto {
   public List<FontSizeSet> fontSizes;
   public List<SpacingSet> spacings;
   public List<RadiusSet> radius;
-  public List<ShadowSet> shadows;
   public Current current;
 
   public static class Theme {
@@ -63,18 +62,11 @@ public class UITokensDto {
     public Map<String, String> values;
   }
 
-  public static class ShadowSet {
-    public String key;
-    public String label;
-    public Map<String, String> values;
-  }
-
   public static class Current {
     public String theme;
     public String font;
     public String fontSize;
     public String spacing;
     public String radius;
-    public String shadow;
   }
 }

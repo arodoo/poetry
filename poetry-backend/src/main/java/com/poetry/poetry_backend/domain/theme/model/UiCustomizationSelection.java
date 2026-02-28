@@ -10,8 +10,7 @@ public record UiCustomizationSelection(
     String fontKey,
     String fontSizeKey,
     String spacingKey,
-    String radiusKey,
-    String shadowKey) {
+    String radiusKey) {
   public UiCustomizationSelection {
     if (themeKey == null || themeKey.isBlank()) {
       throw new IllegalArgumentException("selection.theme.missing");
@@ -27,9 +26,6 @@ public record UiCustomizationSelection(
     }
     if (radiusKey == null || radiusKey.isBlank()) {
       throw new IllegalArgumentException("selection.radius.missing");
-    }
-    if (shadowKey == null || shadowKey.isBlank()) {
-      throw new IllegalArgumentException("selection.shadow.missing");
     }
   }
 }

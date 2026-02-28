@@ -24,11 +24,9 @@ export function TokensSelectionCard({
     labelKey: I18nKey
   }[] = [
     { key: 'theme', labelKey: 'ui.tokens.fields.theme' },
-    { key: 'font', labelKey: 'ui.tokens.fields.font' },
     { key: 'fontSize', labelKey: 'ui.tokens.fields.fontSize' },
     { key: 'spacing', labelKey: 'ui.tokens.fields.spacing' },
     { key: 'radius', labelKey: 'ui.tokens.fields.radius' },
-    { key: 'shadow', labelKey: 'ui.tokens.fields.shadow' },
   ]
 
   return (

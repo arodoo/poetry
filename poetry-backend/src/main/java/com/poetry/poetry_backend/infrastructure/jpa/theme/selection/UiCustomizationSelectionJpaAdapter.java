@@ -37,7 +37,6 @@ public class UiCustomizationSelectionJpaAdapter implements
     entity.setFontSizeKey(selection.fontSizeKey());
     entity.setSpacingKey(selection.spacingKey());
     entity.setRadiusKey(selection.radiusKey());
-    entity.setShadowKey(selection.shadowKey());
     UiCustomizationSelectionEntity saved = repo.save(entity);
     return toDomain(saved);
   }
@@ -48,8 +47,7 @@ public class UiCustomizationSelectionJpaAdapter implements
         e.getFontKey(),
         e.getFontSizeKey(),
         e.getSpacingKey(),
-        e.getRadiusKey(),
-        e.getShadowKey()
+        e.getRadiusKey()
     );
   }
 }

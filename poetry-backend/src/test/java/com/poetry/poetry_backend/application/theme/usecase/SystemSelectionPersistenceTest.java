@@ -32,7 +32,7 @@ class SystemSelectionPersistenceTest {
   void savesAndRetrievesSelection() {
     Theme t = themeCmd.save(Theme.createNew("persist-key", "Persist Key", Map.of("p", "#111111")));
     UiCustomizationSelection sel = new UiCustomizationSelection(
-        t.getKey(), "Inter", "default", "default", "default", "default");
+        t.getKey(), "Inter", "default", "default", "default");
     save.execute(sel);
     assertThat(get.execute()).isPresent().get().extracting(UiCustomizationSelection::themeKey)
         .isEqualTo(t.getKey());

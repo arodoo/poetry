@@ -43,8 +43,7 @@ public class ResolveCurrentSelectionUseCase {
       List<UITokensDto.Font> fonts,
       List<UITokensDto.FontSizeSet> fontSizes,
       List<UITokensDto.SpacingSet> spacings,
-      List<UITokensDto.RadiusSet> radius,
-      List<UITokensDto.ShadowSet> shadows) {
+      List<UITokensDto.RadiusSet> radius) {
     Optional<UiCustomizationSelection> stored = selectionQueryPort.getSystemSelection();
     if (stored.isPresent()) {
       UiCustomizationSelection s = stored.get();
@@ -52,7 +51,7 @@ public class ResolveCurrentSelectionUseCase {
       if (!themeStillExists) {
         String fallbackTheme = ResolveCurrentSelectionHelpers.fallbackThemeKey(themes);
         return new UiCustomizationSelection(fallbackTheme, s.fontKey(), s.fontSizeKey(),
-            s.spacingKey(), s.radiusKey(), s.shadowKey());
+            s.spacingKey(), s.radiusKey());
       }
       return s;
     }
@@ -69,7 +68,6 @@ public class ResolveCurrentSelectionUseCase {
         fontKey,
         ResolveCurrentSelectionHelpers.first(fontSizes, f -> f.key, "default"),
         ResolveCurrentSelectionHelpers.first(spacings, s -> s.key, "default"),
-        ResolveCurrentSelectionHelpers.first(radius, r -> r.key, "default"),
-        ResolveCurrentSelectionHelpers.first(shadows, s -> s.key, "default"));
+        ResolveCurrentSelectionHelpers.first(radius, r -> r.key, "default"));
   }
 }

@@ -43,14 +43,13 @@ export function useUpdateSelectionMutation(): UseMutationResult<
             const nextBundle = {
               ...(bundle as unknown as Record<string, unknown>),
             }
-            ;(nextBundle as Record<string, unknown>)['current'] = {
-              theme: variables.theme,
-              font: variables.font,
-              fontSize: variables.fontSize,
-              spacing: variables.spacing,
-              radius: variables.radius,
-              shadow: variables.shadow,
-            }
+              ; (nextBundle as Record<string, unknown>)['current'] = {
+                theme: variables.theme,
+                font: variables.font,
+                fontSize: variables.fontSize,
+                spacing: variables.spacing,
+                radius: variables.radius,
+              }
             copy['bundle'] = nextBundle as unknown
           }
           return copy

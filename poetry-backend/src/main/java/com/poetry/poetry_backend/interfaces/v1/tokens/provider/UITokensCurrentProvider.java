@@ -21,22 +21,20 @@ public class UITokensCurrentProvider {
     this.resolveCurrentSelectionUseCase = resolveCurrentSelectionUseCase;
   }
 
-  public UITokensDto.Current getCurrent(List<UITokensDto.Theme> themes,
-      List<UITokensDto.Font> fonts,
-      List<UITokensDto.FontSizeSet> fontSizes,
-      List<UITokensDto.SpacingSet> spacings,
-      List<UITokensDto.RadiusSet> radius,
-      List<UITokensDto.ShadowSet> shadows) {
-    // 1. Try stored selection
-    UiCustomizationSelection sel = resolveCurrentSelectionUseCase.execute(
-        themes, fonts, fontSizes, spacings, radius, shadows);
-    UITokensDto.Current dto = new UITokensDto.Current();
-    dto.theme = sel.themeKey();
-    dto.font = sel.fontKey();
-    dto.fontSize = sel.fontSizeKey();
-    dto.spacing = sel.spacingKey();
-    dto.radius = sel.radiusKey();
-    dto.shadow = sel.shadowKey();
-    return dto;
-  }
+    public UITokensDto.Current getCurrent(List<UITokensDto.Theme> themes,
+        List<UITokensDto.Font> fonts,
+        List<UITokensDto.FontSizeSet> fontSizes,
+        List<UITokensDto.SpacingSet> spacings,
+        List<UITokensDto.RadiusSet> radius) {
+      // 1. Try stored selection
+      UiCustomizationSelection sel = resolveCurrentSelectionUseCase.execute(
+          themes, fonts, fontSizes, spacings, radius);
+      UITokensDto.Current dto = new UITokensDto.Current();
+      dto.theme = sel.themeKey();
+      dto.font = sel.fontKey();
+      dto.fontSize = sel.fontSizeKey();
+      dto.spacing = sel.spacingKey();
+      dto.radius = sel.radiusKey();
+      return dto;
+    }
 }

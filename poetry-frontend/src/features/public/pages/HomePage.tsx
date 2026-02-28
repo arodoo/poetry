@@ -37,7 +37,6 @@ export default function HomePage(): ReactElement {
     )
   }
   const loginHref = `/${locale}/login`
-  const registerHref = `/${locale}/register`
   const loginLabel = t(landing.loginCtaKey as I18nKey)
   return (
     <Stack as="section" gap="md" className="mx-auto max-w-3xl p-6">

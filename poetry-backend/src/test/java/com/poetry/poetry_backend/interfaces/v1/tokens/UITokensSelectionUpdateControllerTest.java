@@ -34,7 +34,7 @@ class UITokensSelectionUpdateControllerTest {
   void updatesSelection() {
     Theme t = themeCmd.save(Theme.createNew("upd-key", "Upd Key", Map.of("p", "#111111")));
     UpdateSelectionRequest req = new UpdateSelectionRequest(
-        t.getKey(), "Inter", "default", "default", "default", "default");
+        t.getKey(), "Inter", "default", "default", "default");
     ResponseEntity<Void> putResp = rest.exchange("/api/v1/tokens/selection",
         HttpMethod.PUT, new HttpEntity<>(req, new HttpHeaders()), Void.class);
     assertThat(putResp.getStatusCode().is2xxSuccessful()).isTrue();

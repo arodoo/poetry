@@ -58,7 +58,7 @@ public class UITokensController {
     // Basic construction, validation of non-empty handled by record constructor &
     // annotations
     UiCustomizationSelection sel = new UiCustomizationSelection(
-        body.theme(), body.font(), body.fontSize(), body.spacing(), body.radius(), body.shadow());
+        body.theme(), body.font(), body.fontSize(), body.spacing(), body.radius());
     saveSelectionUseCase.execute(sel);
     return ResponseEntity.noContent().build();
   }

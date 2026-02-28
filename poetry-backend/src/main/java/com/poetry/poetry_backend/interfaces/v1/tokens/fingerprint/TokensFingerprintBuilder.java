@@ -24,7 +24,6 @@ public class TokensFingerprintBuilder {
       TokensFingerprintHelpers.updateSets(digest, "fs", dto.fontSizes, s -> s.key, s -> s.sizes);
       TokensFingerprintHelpers.updateSets(digest, "sp", dto.spacings, s -> s.key, s -> s.values);
       TokensFingerprintHelpers.updateSets(digest, "rd", dto.radius, s -> s.key, s -> s.values);
-      TokensFingerprintHelpers.updateSets(digest, "sh", dto.shadows, s -> s.key, s -> s.values);
       TokensFingerprintUpdater.updateCurrent(digest, dto);
       String hex = HexFormat.of().formatHex(digest.digest());
       // Return a proper weak ETag token. Spring's ResponseEntity#eTag expects the
