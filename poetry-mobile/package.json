@@ -4,7 +4,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "dev": "expo start",
+    "dev": "node ../tools/logs/mobile/dev-with-log.mjs",
+    "dev:raw": "expo start --port 8082",
+    "dev:log": "expo start --port 8082 --host lan",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -25,6 +27,7 @@
     "expo-camera": "~17.0.10",
     "expo-image": "~3.0.11",
     "expo-image-picker": "~17.0.10",
+    "expo-linking": "~8.0.11",
     "expo-location": "~19.0.8",
     "expo-media-library": "~18.2.1",
     "expo-router": "~6.0.23",
