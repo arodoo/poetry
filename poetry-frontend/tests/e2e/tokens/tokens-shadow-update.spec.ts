@@ -15,7 +15,6 @@ test.describe('Tokens Admin - Shadow Update', (): void => {
   }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
-    await page.waitForLoadState('networkidle')
 
     const shadowSelect = page.locator('select#shadow')
     await expect(shadowSelect).toBeVisible()
@@ -41,7 +40,6 @@ test.describe('Tokens Admin - Shadow Update', (): void => {
     ).toBeVisible({ timeout: 5000 })
 
     await page.reload()
-    await page.waitForLoadState('networkidle')
 
     const savedValue = await page.locator('select#shadow').inputValue()
     expect(savedValue).toBe(optionToSelect)

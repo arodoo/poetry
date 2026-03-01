@@ -14,7 +14,6 @@ test.describe('Membership Success Flow', () => {
 
     await injectTokens(page)
     await page.goto('/en/memberships/new')
-    await page.waitForLoadState('networkidle')
   })
 
   test('should create a membership successfully', async ({ page }) => {

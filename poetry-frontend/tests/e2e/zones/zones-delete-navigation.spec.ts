@@ -17,7 +17,6 @@ test.describe('Zones Delete Navigation', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/zones')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton = page.locator('[data-testid^="view-zone-"]').first()
     await firstViewButton.waitFor({ state: 'visible', timeout: 5000 })
@@ -27,7 +26,6 @@ test.describe('Zones Delete Navigation', (): void => {
 
     await firstViewButton.click()
     await page.waitForURL(`/en/zones/${zoneId}`)
-    await page.waitForLoadState('networkidle')
 
     await page.getByTestId('zone-detail-content').waitFor({
       state: 'visible',

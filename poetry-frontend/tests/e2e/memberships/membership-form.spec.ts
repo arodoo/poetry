@@ -9,7 +9,6 @@ test.describe('Membership Form Interactions', () => {
   test.beforeEach(async ({ page }) => {
     await injectTokens(page)
     await page.goto('/en/memberships/new')
-    await page.waitForLoadState('networkidle')
   })
 
   test('should validate seller code in real-time', async ({ page }) => {

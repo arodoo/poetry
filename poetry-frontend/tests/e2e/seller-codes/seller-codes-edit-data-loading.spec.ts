@@ -17,7 +17,6 @@ test.describe('Seller Code Edit Data Loading', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/seller-codes')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton: Locator = page
       .locator('[data-testid^="view-seller-code-"]')
@@ -32,13 +31,11 @@ test.describe('Seller Code Edit Data Loading', (): void => {
 
     await firstViewButton.click()
     await page.waitForURL(`/en/seller-codes/${sellerCodeId}`)
-    await page.waitForLoadState('networkidle')
 
     const editButton: Locator = page.getByTestId('edit-seller-code-button')
     await editButton.click()
 
     await page.waitForURL(`/en/seller-codes/edit/${sellerCodeId}`)
-    await page.waitForLoadState('networkidle')
 
     await expect(
       page.getByRole('heading', { name: /Edit seller code/i })

@@ -22,7 +22,6 @@ test('dump admin-stats DOM and network', async ({ page, request }) => {
   )
 
   await page.goto('/en/admin/stats')
-  await page.waitForLoadState('networkidle')
   await page.waitForTimeout(1000)
   const pageEl = await page.$('[data-testid="admin-stats-page"]')
   if (!pageEl) {

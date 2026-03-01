@@ -23,7 +23,6 @@ test('click code header sends sort=code,asc', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/seller-codes')
-  await page.waitForLoadState('networkidle')
   const th = page.locator('th', {
     hasText: /code/i,
   })
@@ -41,7 +40,6 @@ test('second click sends sort=code,desc', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/seller-codes')
-  await page.waitForLoadState('networkidle')
   const th = page.locator('th', {
     hasText: /code/i,
   })

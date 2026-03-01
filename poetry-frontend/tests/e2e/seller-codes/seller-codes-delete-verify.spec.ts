@@ -19,7 +19,6 @@ test.describe('Seller Code Delete Verification', (): void => {
     const testCode = `DELETE-TEST-${Date.now()}`
 
     await page.goto('/en/seller-codes/new')
-    await page.waitForLoadState('networkidle')
 
     await page.getByTestId('seller-code-input').fill(testCode)
     await page.getByTestId('seller-code-org-input').fill('delete-test-org')
@@ -56,7 +55,6 @@ test.describe('Seller Code Delete Verification', (): void => {
       '[data-testid^="view-seller-code-"]'
     )
     await viewButton.click()
-    await page.waitForLoadState('networkidle')
 
     const deleteButton: Locator = page.getByTestId('delete-seller-code-button')
     await expect(deleteButton).toBeVisible()

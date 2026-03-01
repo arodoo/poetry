@@ -10,7 +10,6 @@ async function createTestUser(
   page: Page
 ): Promise<{ id: string; username: string }> {
   await page.goto('/en/users/new')
-  await page.waitForLoadState('networkidle')
   const timestamp: number = Date.now()
   const username = `deletetest${String(timestamp)}`
   await page.getByTestId('user-firstname-input').fill('Delete')
@@ -42,14 +41,12 @@ test('delete button navigates to delete confirmation page', async ({
   await injectTokens(page)
   const { id: userId, username } = await createTestUser(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
   const searchInput = page.getByPlaceholder(/search/i)
   await searchInput.fill(username)
   await page.waitForTimeout(1000)
   const viewButton = page.getByTestId(`view-user-${userId}`)
   await viewButton.waitFor({ state: 'visible', timeout: 5000 })
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
   const deleteButton = page.getByTestId('delete-user-button')
   await deleteButton.waitFor({ state: 'visible', timeout: 5000 })
   await deleteButton.click()
@@ -65,7 +62,6 @@ test('delete confirmation page displays correctly', async ({
   await injectTokens(page)
   const { id: userId } = await createTestUser(page)
   await page.goto(`/en/users/${userId}/delete`)
-  await page.waitForLoadState('networkidle')
   const heading = page.getByRole('heading', { name: /delete/i, level: 1 })
   await expect(heading).toBeVisible()
   const confirmButton = page.getByTestId('confirm-delete-user-button')
@@ -82,7 +78,6 @@ test('cancel button navigates back to user detail', async ({
   await injectTokens(page)
   const { id: userId } = await createTestUser(page)
   await page.goto(`/en/users/${userId}/delete`)
-  await page.waitForLoadState('networkidle')
   const cancelButton = page.getByTestId('cancel-delete-user-button')
   await cancelButton.click()
   await page.waitForURL(new RegExp(`/en/users/${userId}$`))
@@ -97,7 +92,6 @@ test('confirm delete triggers API call and redirects', async ({
   await injectTokens(page)
   const { id: userId } = await createTestUser(page)
   await page.goto(`/en/users/${userId}/delete`)
-  await page.waitForLoadState('networkidle')
   const deleteApiPromise: Promise<Response> = page.waitForResponse(
     (response: Response): boolean =>
       response.url().includes(`/api/v1/users/${userId}`) &&
@@ -119,14 +113,12 @@ test('deleted user is removed from list after delete', async ({
   await injectTokens(page)
   const { id: userId, username } = await createTestUser(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
   const searchInput = page.getByPlaceholder(/search/i)
   await searchInput.fill(username)
   await page.waitForTimeout(1000)
   const userRow = page.getByTestId(`view-user-${userId}`)
   await expect(userRow).toBeVisible()
   await page.goto(`/en/users/${userId}/delete`)
-  await page.waitForLoadState('networkidle')
   const deleteApiPromise: Promise<Response> = page.waitForResponse(
     (response: Response): boolean =>
       response.url().includes(`/api/v1/users/${userId}`) &&
@@ -136,7 +128,6 @@ test('deleted user is removed from list after delete', async ({
   await confirmButton.click()
   await deleteApiPromise
   await page.waitForURL(/\/en\/users$/, { timeout: 5000 })
-  await page.waitForLoadState('networkidle')
   await searchInput.fill(username)
   await page.waitForTimeout(1000)
   const deletedUserRow = page.getByTestId(`view-user-${userId}`)

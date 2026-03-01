@@ -9,6 +9,5 @@ test.describe('Membership Eligibility Checks', () => {
   test.beforeEach(async ({ page }) => {
     await injectTokens(page)
     await page.goto('/en/memberships/new')
-    await page.waitForLoadState('networkidle')
   })
 })

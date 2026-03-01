@@ -11,7 +11,6 @@ test('should apply smooth opacity transition during fetching', async ({
 }) => {
   await injectTokens(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
 
   const tableContainer = page.getByTestId('data-table-wrapper')
   await expect(tableContainer).toBeVisible()

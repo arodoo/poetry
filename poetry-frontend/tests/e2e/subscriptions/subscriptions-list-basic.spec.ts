@@ -18,7 +18,6 @@ test('subscriptions list page loads successfully', async ({
   await page.goto('/en/subscriptions')
 
   // Wait for page to load
-  await page.waitForLoadState('networkidle')
 
   // Log current URL for debugging
   console.log('Current URL:', page.url())

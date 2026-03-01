@@ -10,7 +10,6 @@ test('delete confirmation page displays correctly', async ({
   await injectTokens(page)
   const { id: sellerCodeId, code } = await createTestSellerCode(page)
   await page.goto('/en/seller-codes')
-  await page.waitForLoadState('networkidle')
   const search = page.getByTestId('table-search-input')
   await search.fill(code)
   await page.waitForResponse(
@@ -24,7 +23,6 @@ test('delete confirmation page displays correctly', async ({
     `[data-testid="view-seller-code-${sellerCodeId}"]`
   )
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
 
   const deleteButton = page.getByTestId('delete-seller-code-button')
   await deleteButton.click()

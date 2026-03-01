@@ -27,7 +27,6 @@ test('TokensProvider fetch status and console', async ({
   })
 
   await page.goto('http://localhost:5173/en/users', {
-    waitUntil: 'networkidle',
   })
   await page.waitForTimeout(5000)
 

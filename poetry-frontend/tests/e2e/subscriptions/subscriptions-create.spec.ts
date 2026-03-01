@@ -13,7 +13,6 @@ async function createTestSubscription(
   const subscriptionName = `TestSub${String(timestamp)}`
 
   await page.goto('/en/subscriptions/new')
-  await page.waitForLoadState('networkidle')
 
   // Fill form fields
   await page.getByTestId('subscription-name-input').fill(subscriptionName)
@@ -48,7 +47,6 @@ test('loads create subscription form with all fields', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/subscriptions/new', { waitUntil: 'domcontentloaded' })
-  await page.waitForLoadState('networkidle')
 
   // Check page heading
   await expect(
@@ -82,7 +80,6 @@ test('creates new subscription successfully', async ({
 
   // Should redirect to subscriptions list
   await expect(page).toHaveURL(new RegExp('/en/subscriptions$'))
-  await page.waitForLoadState('networkidle')
 
   // Take screenshot for debugging
   await page.screenshot({
@@ -93,7 +90,6 @@ test('creates new subscription successfully', async ({
   const firstPageButton = page.getByTestId('pagination-first-page')
   if (await firstPageButton.isVisible()) {
     await firstPageButton.click()
-    await page.waitForLoadState('networkidle')
   }
 
   // Try searching for the subscription
@@ -122,7 +118,6 @@ test('cancel button navigates back to subscriptions list', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/subscriptions/new')
-  await page.waitForLoadState('networkidle')
 
   await expect(
     page.getByRole('heading', { name: 'Create Subscription' })
@@ -135,7 +130,6 @@ test('cancel button navigates back to subscriptions list', async ({
   await cancelButton.click()
 
   await expect(page).toHaveURL(new RegExp('/en/subscriptions$'))
-  await page.waitForLoadState('networkidle')
   await expect(
     page.getByRole('heading', { name: 'Subscription Plans' })
   ).toBeVisible({

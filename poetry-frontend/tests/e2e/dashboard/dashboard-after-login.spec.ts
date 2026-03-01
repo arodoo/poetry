@@ -14,7 +14,6 @@ test.describe('Dashboard after login', (): void => {
   }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/dashboard')
-    await page.waitForLoadState('networkidle')
 
     await expect(page.locator('h1')).toContainText('Dashboard', {
       timeout: 5000,
@@ -62,7 +61,6 @@ test.describe('Dashboard after login', (): void => {
 
     await injectTokens(page)
     await page.goto('/en/dashboard')
-    await page.waitForLoadState('networkidle')
 
     await page.waitForTimeout(3000)
 

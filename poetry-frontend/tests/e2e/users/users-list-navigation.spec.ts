@@ -1,11 +1,6 @@
-/*
- * File: users-list-navigation.spec.ts
- * Purpose: E2E tests for users list navigation actions.
- * All Rights Reserved. Arodi Emmanuel
- */
-import { test, expect, type Page, type Locator } from '@playwright/test'
+import { test, expect, type Page, type Locator, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import { getUserIdFromButton } from './users-list-helpers'
+import { getUserIdFromButton, waitForUsersApiResponse } from './users-list-helpers'
 
 test('create button navigates to new user page', async ({
   page,
@@ -13,8 +8,10 @@ test('create button navigates to new user page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const apiResponsePromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
+  await apiResponsePromise
+
   const createButton: Locator = page.locator('a[href="/en/users/new"]')
   await expect(createButton).toBeVisible({ timeout: 15000 })
   await createButton.click()
@@ -27,8 +24,9 @@ test('view button navigates to user detail page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const apiResponsePromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
+  await apiResponsePromise
   const viewButton: Locator = page
     .locator('[data-testid^="view-user-"]')
     .first()
@@ -36,7 +34,6 @@ test('view button navigates to user detail page', async ({
   const userId: string = await getUserIdFromButton(viewButton, 'view-user-')
   await viewButton.click()
   await expect(page).toHaveURL(new RegExp(`/en/users/${userId}$`))
-  await page.waitForLoadState('networkidle')
   await expect(page.locator('section')).toBeVisible({ timeout: 15000 })
 })
 test('edit button navigates to user edit page', async ({
@@ -45,15 +42,15 @@ test('edit button navigates to user edit page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const apiResponsePromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
+  await apiResponsePromise
   const viewButton: Locator = page
     .locator('[data-testid^="view-user-"]')
     .first()
   await expect(viewButton).toBeVisible({ timeout: 15000 })
   const userId: string = await getUserIdFromButton(viewButton, 'view-user-')
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
   const editButton: Locator = page.getByTestId('edit-user-button')
   await expect(editButton).toBeVisible({ timeout: 15000 })
   await editButton.click()

@@ -15,7 +15,6 @@ test.describe('Tokens Admin - Spacing Update', (): void => {
   }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
-    await page.waitForLoadState('networkidle')
 
     const spacingSelect = page.locator('select#spacing')
     await expect(spacingSelect).toBeVisible()
@@ -41,7 +40,6 @@ test.describe('Tokens Admin - Spacing Update', (): void => {
     ).toBeVisible({ timeout: 5000 })
 
     await page.reload()
-    await page.waitForLoadState('networkidle')
 
     const savedValue = await page.locator('select#spacing').inputValue()
     expect(savedValue).toBe(optionToSelect)

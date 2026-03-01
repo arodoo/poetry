@@ -13,7 +13,6 @@ test('document root CSS vars established', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
   const primary: string = await page.evaluate(() =>
     getComputedStyle(document.documentElement).getPropertyValue(
       '--color-primary'

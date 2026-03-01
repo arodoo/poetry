@@ -16,7 +16,6 @@ test.describe('Admin Stats Dashboard UI', () => {
 
   test('Loads dashboard and displays KPI cards with data', async ({ page }) => {
     await page.goto('/en/admin/stats')
-    await page.waitForLoadState('networkidle')
 
     // Wait for page to load - could be loading, error, or actual page
     await page.waitForTimeout(2000)
@@ -56,7 +55,6 @@ test.describe('Admin Stats Dashboard UI', () => {
 
   test('Loads member lists when switching tabs', async ({ page }) => {
     await page.goto('/en/admin/stats')
-    await page.waitForLoadState('networkidle')
 
     // Wait for tabs to be visible
     const tabs = page.locator('[role="tablist"]')
@@ -71,7 +69,6 @@ test.describe('Admin Stats Dashboard UI', () => {
     })
 
     await page.getByRole('tab', { name: /Expiring/i }).click()
-    await page.waitForLoadState('networkidle')
     await expect(page.locator('tbody tr')).not.toHaveCount(0, {
       timeout: 10000,
     })
@@ -81,7 +78,6 @@ test.describe('Admin Stats Dashboard UI', () => {
 
     // Click on "Expired" tab
     await page.getByRole('tab', { name: /Expired/i }).click()
-    await page.waitForLoadState('networkidle')
     await expect(page.locator('tbody tr')).not.toHaveCount(0, {
       timeout: 10000,
     })

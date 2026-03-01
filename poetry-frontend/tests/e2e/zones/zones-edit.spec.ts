@@ -18,7 +18,6 @@ test.describe('Zones Detail and Edit Flow', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/zones')
-    await page.waitForLoadState('networkidle')
 
     await expect(page.getByRole('heading', { name: /Zones/i })).toBeVisible({
       timeout: 10000,
@@ -36,7 +35,6 @@ test.describe('Zones Detail and Edit Flow', (): void => {
 
     await firstViewButton.click()
     await page.waitForURL(`/en/zones/${zoneId}`, { timeout: 10000 })
-    await page.waitForLoadState('networkidle')
 
     await expect(
       page.getByRole('heading', { name: /Zone Details/i })
@@ -52,7 +50,6 @@ test.describe('Zones Detail and Edit Flow', (): void => {
 
     await editButton.click()
     await page.waitForURL(`/en/zones/edit/${zoneId}`, { timeout: 10000 })
-    await page.waitForLoadState('networkidle')
 
     await expect(page.getByRole('heading', { name: /Edit zone/i })).toBeVisible(
       {

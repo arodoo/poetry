@@ -18,7 +18,6 @@ test.describe('Membership Delete Cancel', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/memberships')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton = page
       .locator('[data-testid^="view-membership-"]')
@@ -27,7 +26,6 @@ test.describe('Membership Delete Cancel', (): void => {
     const membershipId = testIdAttr?.replace('view-membership-', '') || ''
 
     await page.goto(`/en/memberships/${membershipId}/delete`)
-    await page.waitForLoadState('networkidle')
 
     const cancelButton = page.getByTestId('cancel-delete-membership-button')
     await cancelButton.waitFor({ state: 'visible', timeout: 5000 })

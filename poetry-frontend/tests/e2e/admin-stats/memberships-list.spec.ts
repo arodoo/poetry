@@ -34,7 +34,6 @@ test.describe('Admin Stats - Memberships List', () => {
     })
 
     await page.goto('/en/admin/stats')
-    await page.waitForLoadState('networkidle')
   })
 
   test('renders memberships tabs and table', async ({ page }) => {

@@ -13,7 +13,6 @@ test.describe('Membership Detail Delete Navigation', (): void => {
 
     // Ensure we're on the app origin so page.evaluate can access localStorage and fetch.
     await page.goto('/en')
-    await page.waitForLoadState('networkidle')
 
     // Try to create a fresh membership via the browser (same-origin, with tokens in localStorage).
     // This avoids races with parallel tests that may delete existing seed data.
@@ -53,13 +52,11 @@ test.describe('Membership Detail Delete Navigation', (): void => {
 
     if (createdId) {
       await page.goto(`/en/memberships/${createdId}`)
-      await page.waitForLoadState('networkidle')
       return
     }
 
     // Fallback: iterate list entries to find a deletable membership
     await page.goto('/en/memberships')
-    await page.waitForLoadState('networkidle')
 
     const viewButtons: Locator = page.locator(
       '[data-testid^="view-membership-"]'
@@ -79,7 +76,6 @@ test.describe('Membership Detail Delete Navigation', (): void => {
         await page.waitForURL(`/en/memberships/${candidateId}`, {
           timeout: 10000,
         })
-        await page.waitForLoadState('networkidle')
 
         // If this detail shows a delete action, pick it and continue the test.
         const hasDelete = await page
@@ -93,7 +89,6 @@ test.describe('Membership Detail Delete Navigation', (): void => {
 
         // otherwise go back to the list and try next
         await page.goto('/en/memberships')
-        await page.waitForLoadState('networkidle')
       } catch {
         // try next candidate
       }

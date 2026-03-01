@@ -11,7 +11,6 @@ test.describe('DataTable Search Focus', () => {
     await injectTokens(page)
 
     await page.goto('http://localhost:5173/en/users', {
-      waitUntil: 'networkidle',
     })
 
     await page.waitForSelector('table', {

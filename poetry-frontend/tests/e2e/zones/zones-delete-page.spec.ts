@@ -17,14 +17,12 @@ test.describe('Zones Delete Confirmation Page', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/zones')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton = page.locator('[data-testid^="view-zone-"]').first()
     const testIdAttr = await firstViewButton.getAttribute('data-testid')
     const zoneId = testIdAttr?.replace('view-zone-', '') || ''
 
     await page.goto(`/en/zones/${zoneId}/delete`)
-    await page.waitForLoadState('networkidle')
 
     const heading = page.getByRole('heading', { name: /delete/i, level: 1 })
     await expect(heading).toBeVisible()

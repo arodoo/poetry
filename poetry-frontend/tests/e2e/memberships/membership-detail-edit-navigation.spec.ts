@@ -18,7 +18,6 @@ test.describe('Membership Detail Edit Navigation', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/memberships')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton: Locator = page
       .locator('[data-testid^="view-membership-"]')
@@ -33,7 +32,6 @@ test.describe('Membership Detail Edit Navigation', (): void => {
 
     await firstViewButton.click()
     await page.waitForURL(`/en/memberships/${membershipId}`)
-    await page.waitForLoadState('networkidle')
 
     const editButton: Locator = page.getByTestId('edit-membership-button')
     await editButton.waitFor({ state: 'visible', timeout: 5000 })

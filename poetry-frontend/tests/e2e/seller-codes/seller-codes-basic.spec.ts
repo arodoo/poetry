@@ -13,7 +13,6 @@ test('seller codes list page loads successfully', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/seller-codes')
-  await page.waitForLoadState('networkidle')
   await expect(page.getByRole('heading', { name: 'Seller Codes' })).toBeVisible(
     {
       timeout: 15000,
@@ -32,7 +31,6 @@ test('create button navigates to new seller code page', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/seller-codes')
-  await page.waitForLoadState('networkidle')
   const createButton: Locator = page.locator(
     '[data-testid="create-seller-code-button"]'
   )
@@ -49,7 +47,6 @@ test('seller code detail page renders sections', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/seller-codes')
-  await page.waitForLoadState('networkidle')
   const viewButton: Locator = page
     .locator('[data-testid^="view-seller-code-"]')
     .first()
@@ -61,7 +58,6 @@ test('seller code detail page renders sections', async ({
     return
   }
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
   await expect(
     page.getByRole('heading', { name: 'Seller Code Detail', level: 1 })
   ).toBeVisible({
@@ -77,7 +73,6 @@ test('create seller code form has required fields', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/seller-codes/new')
-  await page.waitForLoadState('networkidle')
   await expect(page.getByTestId('seller-code-input')).toBeVisible({
     timeout: 15000,
   })

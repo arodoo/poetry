@@ -18,7 +18,6 @@ test.describe('Membership Edit Form', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/memberships')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton: Locator = page
       .locator('[data-testid^="view-membership-"]')
@@ -32,11 +31,9 @@ test.describe('Membership Edit Form', (): void => {
 
     await firstViewButton.click()
     await page.waitForURL(`/en/memberships/${membershipId}`)
-    await page.waitForLoadState('networkidle')
 
     await page.getByTestId('edit-membership-button').click()
     await page.waitForURL(`/en/memberships/${membershipId}/edit`)
-    await page.waitForLoadState('networkidle')
 
     await expect(page.getByRole('heading', { name: /Edit/i })).toBeVisible()
 

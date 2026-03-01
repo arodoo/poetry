@@ -26,7 +26,6 @@ test('subscriptions list page renders with 20 seeded plans', async ({
 
   // Wait for URL and network to settle
   await page.waitForURL(/\/en\/subscriptions$/)
-  await page.waitForLoadState('networkidle')
 
   // Check if we got redirected or have an error page
   const currentUrl: string = page.url()

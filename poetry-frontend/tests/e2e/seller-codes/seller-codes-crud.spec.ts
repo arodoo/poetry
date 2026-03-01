@@ -20,7 +20,6 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/seller-codes/new')
-    await page.waitForLoadState('networkidle')
 
     await expect(
       page.getByRole('heading', { name: /Create seller code/i })
@@ -95,7 +94,6 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     test.skip(!createdSellerCodeId, 'No seller code created yet')
 
     await page.goto('/en/seller-codes')
-    await page.waitForLoadState('networkidle')
 
     const searchInput: Locator = page.getByPlaceholder(/search/i)
     await searchInput.fill(TEST_SELLER_CODE)
@@ -105,7 +103,6 @@ test.describe('Seller Codes CRUD Operations', (): void => {
       `[data-testid="view-seller-code-${createdSellerCodeId}"]`
     )
     await viewButton.click()
-    await page.waitForLoadState('networkidle')
 
     await expect(
       page.getByRole('heading', { name: /Seller Code Detail/i })
@@ -125,7 +122,6 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     test.skip(!createdSellerCodeId, 'No seller code created yet')
 
     await page.goto(`/en/seller-codes/${createdSellerCodeId}`)
-    await page.waitForLoadState('networkidle')
 
     const editButton: Locator = page.getByTestId('edit-seller-code-button')
     await editButton.click()
@@ -164,7 +160,6 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     test.skip(!createdSellerCodeId, 'No seller code created yet')
 
     await page.goto(`/en/seller-codes/${createdSellerCodeId}`)
-    await page.waitForLoadState('networkidle')
 
     const deleteButton: Locator = page.getByTestId('delete-seller-code-button')
     await expect(deleteButton).toBeVisible()

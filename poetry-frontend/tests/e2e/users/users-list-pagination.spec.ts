@@ -6,14 +6,7 @@
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-
-async function waitForPagedUsersApi(page: Page): Promise<Response> {
-  return page.waitForResponse(
-    (res: Response): boolean =>
-      res.url().includes('/api/v1/users/paged') &&
-      res.request().method() === 'GET'
-  )
-}
+import { waitForUsersApiResponse } from './users-list-helpers'
 
 test('pagination displays correct info for first page', async ({
   page,
@@ -21,9 +14,8 @@ test('pagination displays correct info for first page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
-  const apiPromise: Promise<Response> = waitForPagedUsersApi(page)
+  const apiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForURL(/\/en\/users$/)
   const apiRes: Response = await apiPromise
   expect(apiRes.status()).toBe(200)
   const json = await apiRes.json()
@@ -41,12 +33,12 @@ test('next button navigates to second page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const initialApiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForURL(/\/en\/users$/)
-  await page.waitForLoadState('networkidle')
+  await initialApiPromise
   const nextBtn = page.getByRole('button', { name: 'Next' })
   await expect(nextBtn).toBeVisible()
-  const apiPromise: Promise<Response> = waitForPagedUsersApi(page)
+  const apiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await nextBtn.click()
   const apiRes: Response = await apiPromise
   expect(apiRes.url()).toContain('page=1')
@@ -59,8 +51,9 @@ test('previous button disabled on first page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const apiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForURL(/\/en\/users$/)
+  await apiPromise
   const prevBtn = page.getByRole('button', { name: 'Previous' })
   await expect(prevBtn).toBeVisible()
   await expect(prevBtn).toBeDisabled()
@@ -72,13 +65,13 @@ test('page size selector changes items per page', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const initialApiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForURL(/\/en\/users$/)
-  await page.waitForLoadState('networkidle')
+  await initialApiPromise
   const sizeSelect = page.locator('select')
   await expect(sizeSelect).toBeVisible()
   expect(await sizeSelect.inputValue()).toBe('10')
-  const apiPromise: Promise<Response> = waitForPagedUsersApi(page)
+  const apiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await sizeSelect.selectOption('25')
   const apiRes: Response = await apiPromise
   expect(apiRes.url()).toContain('size=25')
@@ -92,14 +85,18 @@ test('navigation between pages updates page indicator', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const initialApiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
-  await page.waitForURL(/\/en\/users$/)
-  await page.waitForLoadState('networkidle')
+  await initialApiPromise
   await expect(page.getByText('Page 1')).toBeVisible()
   const nextBtn = page.getByRole('button', { name: 'Next' })
+  const apiPromiseNext: Promise<Response> = waitForUsersApiResponse(page)
   await nextBtn.click()
+  await apiPromiseNext
   await expect(page.getByText('Page 2')).toBeVisible({ timeout: 10000 })
   const prevBtn = page.getByRole('button', { name: 'Previous' })
+  const apiPromisePrev: Promise<Response> = waitForUsersApiResponse(page)
   await prevBtn.click()
+  await apiPromisePrev
   await expect(page.getByText('Page 1')).toBeVisible({ timeout: 10000 })
 })

@@ -20,7 +20,6 @@ test('memberships list page renders with data', async ({
     throw new Error('tests.memberships.initialResponse.missing')
   expect(initialResponse.status()).toBe(200)
   await page.waitForURL(/\/en\/memberships$/)
-  await page.waitForLoadState('networkidle')
   const apiResponse: Response = await apiResponsePromise
   expect(apiResponse.status()).toBe(200)
   await expect(page.getByRole('heading', { name: /membership/i })).toBeVisible({

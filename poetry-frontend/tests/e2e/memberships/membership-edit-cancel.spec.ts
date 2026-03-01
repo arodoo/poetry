@@ -18,7 +18,6 @@ test.describe('Membership Edit Cancel', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/memberships')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton: Locator = page
       .locator('[data-testid^="view-membership-"]')
@@ -32,13 +31,11 @@ test.describe('Membership Edit Cancel', (): void => {
 
     await firstViewButton.click()
     await page.waitForURL(`/en/memberships/${membershipId}`)
-    await page.waitForLoadState('networkidle')
 
     const editButton: Locator = page.getByTestId('edit-membership-button')
     await editButton.click()
 
     await page.waitForURL(`/en/memberships/${membershipId}/edit`)
-    await page.waitForLoadState('networkidle')
 
     const cancelButton: Locator = page.getByRole('button', {
       name: /Cancel/i,

@@ -9,7 +9,6 @@ test.describe('Membership User Search', () => {
   test.beforeEach(async ({ page }) => {
     await injectTokens(page)
     await page.goto('/en/memberships/new')
-    await page.waitForLoadState('networkidle')
   })
 
   test('should debounce search requests', async ({ page }) => {

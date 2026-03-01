@@ -15,7 +15,6 @@ test.describe('Tokens Admin - Font Update', (): void => {
   }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
-    await page.waitForLoadState('networkidle')
 
     const fontSelect = page.locator('select#font')
     await expect(fontSelect).toBeVisible()
@@ -41,7 +40,6 @@ test.describe('Tokens Admin - Font Update', (): void => {
     ).toBeVisible({ timeout: 5000 })
 
     await page.reload()
-    await page.waitForLoadState('networkidle')
 
     const savedValue = await page.locator('select#font').inputValue()
     expect(savedValue).toBe(optionToSelect)

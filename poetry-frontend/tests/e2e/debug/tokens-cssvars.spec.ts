@@ -11,7 +11,6 @@ test('page loads and CSS variables are set', async ({
   page: Page
 }): Promise<void> => {
   await page.goto('http://localhost:5173/en/users', {
-    waitUntil: 'networkidle',
   })
   // Give tokens provider time to apply
   await page.waitForTimeout(3000)

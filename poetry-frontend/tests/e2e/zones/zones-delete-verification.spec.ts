@@ -17,7 +17,6 @@ test.describe('Zones Delete Verification', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/zones')
-    await page.waitForLoadState('networkidle')
 
     const firstViewButton = page.locator('[data-testid^="view-zone-"]').first()
     const testIdAttr = await firstViewButton.getAttribute('data-testid')
@@ -32,13 +31,11 @@ test.describe('Zones Delete Verification', (): void => {
 
     await firstViewButton.click()
     await page.waitForURL(`/en/zones/${zoneId}`)
-    await page.waitForLoadState('networkidle')
 
     const deleteButton = page.getByTestId('delete-zone-button')
     await deleteButton.click()
 
     await page.waitForURL(new RegExp(`/en/zones/${zoneId}/delete`))
-    await page.waitForLoadState('networkidle')
 
     const deleteApiPromise: Promise<Response> = page.waitForResponse(
       (response: Response): boolean =>
@@ -52,7 +49,6 @@ test.describe('Zones Delete Verification', (): void => {
     await deleteApiPromise
 
     await page.waitForURL(/\/en\/zones$/, { timeout: 5000 })
-    await page.waitForLoadState('networkidle')
 
     const deletedZoneButton = page.locator(
       `[data-testid="view-zone-${zoneId}"]`

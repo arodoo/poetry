@@ -46,7 +46,6 @@ test('dump banner DOM after enrollment', async ({ page, request }) => {
   })
 
   await page.goto('/en/devtools/simulator')
-  await page.waitForLoadState('networkidle')
   await page.getByRole('textbox').first().fill('MOCK_VALID_FMD_DATA')
   await page.getByRole('button', { name: 'Simulate Enrollment' }).click()
   await page.waitForTimeout(500)

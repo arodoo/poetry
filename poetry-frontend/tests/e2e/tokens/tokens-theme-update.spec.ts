@@ -15,7 +15,6 @@ test.describe('Tokens Admin - Theme Update', (): void => {
   }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
-    await page.waitForLoadState('networkidle')
 
     const themeSelect = page.locator('select#theme')
     await expect(themeSelect).toBeVisible()
@@ -45,7 +44,6 @@ test.describe('Tokens Admin - Theme Update', (): void => {
     ).toBeVisible({ timeout: 5000 })
 
     await page.reload()
-    await page.waitForLoadState('networkidle')
 
     const savedValue = await page.locator('select#theme').inputValue()
     expect(savedValue).toBe(optionToSelect)

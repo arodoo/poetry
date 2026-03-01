@@ -23,7 +23,6 @@ test('click username header sends sort=username,asc', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
   const th = page.locator('th', {
     hasText: /username/i,
   })
@@ -41,7 +40,6 @@ test('second click sends sort=username,desc', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/users')
-  await page.waitForLoadState('networkidle')
   const th = page.locator('th', {
     hasText: /username/i,
   })

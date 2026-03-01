@@ -10,7 +10,6 @@ async function createTestSubscription(
   page: Page
 ): Promise<{ id: string; name: string }> {
   await page.goto('/en/subscriptions/new')
-  await page.waitForLoadState('networkidle')
 
   const timestamp: number = Date.now()
   const subscriptionName = `DeleteTest${String(timestamp)}`
@@ -51,7 +50,6 @@ test('delete button navigates to delete confirmation page', async ({
 
   // Navigate to subscriptions list and find our test subscription
   await page.goto('/en/subscriptions')
-  await page.waitForLoadState('networkidle')
 
   // Search for our test subscription
   const searchInput = page.getByPlaceholder(/search/i)
@@ -64,7 +62,6 @@ test('delete button navigates to delete confirmation page', async ({
   const viewButton = page.getByTestId(`view-subscription-${subscriptionId}`)
   await viewButton.waitFor({ state: 'visible', timeout: 5000 })
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
 
   // Click delete button
   const deleteButton = page.getByTestId('delete-subscription-button')
@@ -75,7 +72,6 @@ test('delete button navigates to delete confirmation page', async ({
   await expect(page).toHaveURL(
     new RegExp(`/en/subscriptions/${subscriptionId}/delete$`)
   )
-  await page.waitForLoadState('networkidle')
 
   // Check delete confirmation page
   await expect(
@@ -98,7 +94,6 @@ test('confirm deletion removes subscription from list', async ({
 
   // Navigate to delete page directly
   await page.goto(`/en/subscriptions/${subscriptionId}/delete`)
-  await page.waitForLoadState('networkidle')
 
   // Wait for delete API response
   const deleteApiPromise: Promise<Response> = page.waitForResponse(
@@ -117,7 +112,6 @@ test('confirm deletion removes subscription from list', async ({
 
   // Should redirect to subscriptions list
   await expect(page).toHaveURL(new RegExp('/en/subscriptions$'))
-  await page.waitForLoadState('networkidle')
 
   // Verify subscription no longer appears in list
   await expect(page.getByText(subscriptionName)).not.toBeVisible({
@@ -139,7 +133,6 @@ test('cancel button on delete page navigates back to detail', async ({
 
   // Navigate to delete page directly
   await page.goto(`/en/subscriptions/${subscriptionId}/delete`)
-  await page.waitForLoadState('networkidle')
 
   // Click cancel button
   const cancelButton = page.getByTestId('cancel-delete-subscription-button')
@@ -150,7 +143,6 @@ test('cancel button on delete page navigates back to detail', async ({
   await expect(page).toHaveURL(
     new RegExp(`/en/subscriptions/${subscriptionId}$`)
   )
-  await page.waitForLoadState('networkidle')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible({
     timeout: 15000,
   })

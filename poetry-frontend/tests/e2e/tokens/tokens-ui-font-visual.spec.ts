@@ -18,7 +18,6 @@ test.describe('Tokens UI - Font Visual Update', () => {
   }) => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
-    await page.waitForLoadState('networkidle')
 
     const fontSelect = page.locator('select#font')
     await expect(fontSelect).toBeVisible()

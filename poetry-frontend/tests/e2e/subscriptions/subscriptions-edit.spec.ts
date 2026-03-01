@@ -43,7 +43,6 @@ test('edit subscription form loads with current data', async ({
     'view-subscription-'
   )
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
 
   // Click edit button
   const editButton: Locator = page.getByTestId('edit-subscription-button')
@@ -54,7 +53,6 @@ test('edit subscription form loads with current data', async ({
   await expect(page).toHaveURL(
     new RegExp(`/en/subscriptions/${subscriptionId}/edit$`)
   )
-  await page.waitForLoadState('networkidle')
 
   // Check page heading
   await expect(
@@ -97,13 +95,11 @@ test.skip('can change subscription status and save successfully', async ({
     'view-subscription-'
   )
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
 
   // Click edit button
   const editButton: Locator = page.getByTestId('edit-subscription-button')
   await expect(editButton).toBeVisible({ timeout: 15000 })
   await editButton.click()
-  await page.waitForLoadState('networkidle')
 
   // Get current status
   const statusSelect = page.getByTestId('subscription-status-select')
@@ -131,7 +127,6 @@ test.skip('can change subscription status and save successfully', async ({
   await expect(page).toHaveURL(
     new RegExp(`/en/subscriptions/${subscriptionId}$`)
   )
-  await page.waitForLoadState('networkidle')
 
   // Verify status was updated on detail page
   const statusDisplay = page.getByTestId('subscription-status-display')
@@ -161,13 +156,11 @@ test('cancel button navigates back to detail page', async ({
     'view-subscription-'
   )
   await viewButton.click()
-  await page.waitForLoadState('networkidle')
 
   // Click edit button
   const editButton: Locator = page.getByTestId('edit-subscription-button')
   await expect(editButton).toBeVisible({ timeout: 15000 })
   await editButton.click()
-  await page.waitForLoadState('networkidle')
 
   // Click cancel button
   const cancelButton = page.getByTestId('subscription-cancel-button')
@@ -178,7 +171,6 @@ test('cancel button navigates back to detail page', async ({
   await expect(page).toHaveURL(
     new RegExp(`/en/subscriptions/${subscriptionId}$`)
   )
-  await page.waitForLoadState('networkidle')
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible({
     timeout: 15000,
   })
