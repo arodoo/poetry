@@ -16,8 +16,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(properties = {
+@Transactional
     "admin.bootstrap.username=admin",
     "admin.bootstrap.email=admin@example.com",
     "admin.bootstrap.password=ChangeMe123!"

@@ -16,7 +16,10 @@
       "Bash(mvn test-compile:*)",
       "Bash(mvn test:*)",
       "Bash(netstat:*)",
-      "Bash(mvn dependency:tree:*)"
+      "Bash(mvn dependency:tree:*)",
+      "Bash(xargs cat:*)",
+      "Bash(psql:*)",
+      "Bash(/tmp/check_all.sh:*)"
     ]
   }
 }

@@ -18,8 +18,10 @@ import org.springframework.http.ResponseEntity;
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
 import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
 class UITokensSoftDeleteExclusionTest {
   @Autowired private ThemeCommandPort command;
   @Autowired private TestRestTemplate rest;

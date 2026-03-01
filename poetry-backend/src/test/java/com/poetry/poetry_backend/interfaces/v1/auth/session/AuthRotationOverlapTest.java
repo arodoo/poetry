@@ -22,8 +22,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(properties = {
+@Transactional
                 "auth.rotationOverlapSeconds=1",
                 "auth.secretKey=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAA!!11",
                 "auth.previousSecretKey=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbBB??22"

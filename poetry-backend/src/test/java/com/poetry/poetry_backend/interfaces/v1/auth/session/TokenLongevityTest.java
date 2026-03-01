@@ -24,8 +24,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.entity.RefreshTokenEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.auth.repository.RefreshTokenRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc
 class TokenLongevityTest {
   @Autowired

@@ -12,6 +12,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.poetry.poetry_backend.application.theme.port.ThemeCommandPort;
 import com.poetry.poetry_backend.application.theme.usecase.selection.GetSystemSelectionUseCase;
@@ -20,6 +21,7 @@ import com.poetry.poetry_backend.domain.theme.model.Theme;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
 
 @SpringBootTest
+@Transactional
 class SystemSelectionPersistenceTest {
   @Autowired
   private SaveSystemSelectionUseCase save;
