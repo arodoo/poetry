@@ -66,6 +66,12 @@ class UITokensCurrentSelectionTest {
         });
     CustomizationSelectionQueryPort selectionQuery = java.util.Optional::<UiCustomizationSelection>empty;
     var resolve = new ResolveCurrentSelectionUseCase(active, selectionQuery);
+    com.poetry.poetry_backend.application.i18n.port.I18nQueryPort i18n = 
+      new com.poetry.poetry_backend.application.i18n.port.I18nQueryPort() {
+        @Override public String defaultLocale() { return "en"; }
+        @Override public java.util.List<String> supportedLocales() { return java.util.List.of("en"); }
+        @Override public String resolve(String k, String l) { return k; }
+      };
     var dataProvider = new UITokensDataProvider(
         themesProvider,
         new UITokensFontsProvider(),
@@ -74,8 +80,8 @@ class UITokensCurrentSelectionTest {
         new UITokensFontWeightsProvider(),
         new UITokensSpacingsProvider(),
         new UITokensRadiusProvider(),
-        
-        new UITokensCurrentProvider(resolve));
+        new UITokensCurrentProvider(resolve, i18n),
+        i18n);
     UITokensDto dto = dataProvider.getTokens();
     assertEquals("alpha", dto.current.theme);
   }

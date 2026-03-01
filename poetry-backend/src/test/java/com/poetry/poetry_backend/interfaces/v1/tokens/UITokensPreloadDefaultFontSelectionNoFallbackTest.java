@@ -17,7 +17,6 @@ import com.poetry.poetry_backend.application.theme.port.CustomizationSelectionQu
 import com.poetry.poetry_backend.application.theme.usecase.crud.GetActiveThemeUseCase;
 import com.poetry.poetry_backend.application.theme.usecase.selection.ResolveCurrentSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.Theme;
-import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
 import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontsProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.ThemesProviderPort;
@@ -37,7 +36,7 @@ class UITokensPreloadDefaultFontSelectionNoFallbackTest {
       font("roboto", "Roboto", "roboto.woff2", "h1", false),
       font("inter", "Inter", "inter.woff2", "h2", true)
     );
-    GetActiveThemeUseCase active = new GetActiveThemeUseCase(
+    var active = new GetActiveThemeUseCase(
       new com.poetry.poetry_backend.application.theme.port.ThemeQueryPort() {
         @Override public List<Theme> findAll() { return List.of(); }
         @Override public Optional<Theme> findById(Long id) { return Optional.empty(); }
@@ -45,7 +44,13 @@ class UITokensPreloadDefaultFontSelectionNoFallbackTest {
         @Override public Optional<Theme> findActive() { return Optional.empty(); }
       }
     );
-    CustomizationSelectionQueryPort selectionQuery = Optional::<UiCustomizationSelection>empty;
+    com.poetry.poetry_backend.application.i18n.port.I18nQueryPort i18n = 
+      new com.poetry.poetry_backend.application.i18n.port.I18nQueryPort() {
+        @Override public String defaultLocale() { return "en"; }
+        @Override public List<String> supportedLocales() { return List.of("en"); }
+        @Override public String resolve(String k, String l) { return k; }
+      };
+    CustomizationSelectionQueryPort selectionQuery = Optional::empty;
     var resolve = new ResolveCurrentSelectionUseCase(active, selectionQuery);
     var dataProvider = new UITokensDataProvider(
       themesProvider,
@@ -55,8 +60,8 @@ class UITokensPreloadDefaultFontSelectionNoFallbackTest {
       new UITokensFontWeightsProvider(),
       new UITokensSpacingsProvider(),
       new UITokensRadiusProvider(),
-      
-      new UITokensCurrentProvider(resolve)
+      new UITokensCurrentProvider(resolve, i18n),
+      i18n
     );
     assertNotEquals("roboto", dataProvider.getTokens().current.font, "non-preload not chosen");
   }
