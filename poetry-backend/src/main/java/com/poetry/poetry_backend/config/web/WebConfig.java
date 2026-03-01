@@ -38,6 +38,7 @@ public class WebConfig {
     
     var source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/api/**", c);
+    source.registerCorsConfiguration("/ws/**", c);
     return source;
   }
 }

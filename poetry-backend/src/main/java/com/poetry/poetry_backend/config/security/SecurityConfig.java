@@ -56,7 +56,9 @@ public class SecurityConfig {
                 "/api/v1/auth/logout",
                 "/api/v1/auth/status",
                 "/api/v1/public/forgot-password",
-                "/api/v1/fingerprints/verify")
+                "/api/v1/fingerprints/verify",
+                // WebSocket upgrade — JWT validated in first WS frame
+                "/ws/fingerprint")
             .permitAll()
             .requestMatchers(HttpMethod.GET,
                 "/api/v1/tokens",

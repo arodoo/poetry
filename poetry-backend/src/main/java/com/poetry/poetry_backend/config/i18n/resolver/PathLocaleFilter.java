@@ -41,7 +41,8 @@ final class PathLocaleFilter extends OncePerRequestFilter {
       @NonNull HttpServletResponse res,
       @NonNull FilterChain chain) throws ServletException, IOException {
     String uri = req.getRequestURI();
-    if (uri == null || uri.length() < 4) {
+    if (uri == null || uri.length() < 4
+        || uri.startsWith("/ws/")) {
       chain.doFilter(req, res);
       return;
     }
