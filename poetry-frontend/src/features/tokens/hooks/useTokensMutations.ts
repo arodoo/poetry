@@ -49,6 +49,7 @@ export function useUpdateSelectionMutation(): UseMutationResult<
                 fontSize: variables.fontSize,
                 spacing: variables.spacing,
                 radius: variables.radius,
+                language: variables.language,
               }
             copy['bundle'] = nextBundle as unknown
           }

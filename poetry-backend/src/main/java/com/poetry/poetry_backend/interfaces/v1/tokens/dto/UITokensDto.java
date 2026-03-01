@@ -19,7 +19,18 @@ public class UITokensDto {
   public List<FontSizeSet> fontSizes;
   public List<SpacingSet> spacings;
   public List<RadiusSet> radius;
+  public List<Language> languages;
   public Current current;
+
+  public static class Language {
+    public String key;
+    public String label;
+
+    public Language(String key, String label) {
+      this.key = key;
+      this.label = label;
+    }
+  }
 
   public static class Theme {
     public String key;
@@ -68,5 +79,6 @@ public class UITokensDto {
     public String fontSize;
     public String spacing;
     public String radius;
+    public String language;
   }
 }

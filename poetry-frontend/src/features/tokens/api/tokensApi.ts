@@ -19,6 +19,7 @@ export type UpdateSelectionInput = Readonly<{
   fontSize: string
   spacing: string
   radius: string
+  language: string
 }>
 
 export async function getTokens(): Promise<TokensApiResponse> {

@@ -38,5 +38,10 @@ export function buildTokenFields(bundle: TokenBundle): readonly {
       labelKey: 'ui.tokens.fields.radius',
       options: asOptions(bundle.radius as unknown as { key: string }[]),
     },
+    {
+      key: 'language',
+      labelKey: 'ui.tokens.fields.language',
+      options: asOptions(bundle.languages as unknown as { key: string }[]),
+    },
   ]
 }

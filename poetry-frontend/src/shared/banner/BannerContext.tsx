@@ -1,15 +1,17 @@
 /*
  * File: BannerContext.tsx
  * Purpose: Context provider for managing registration banners.
- * Handles fetching user and membership data and managing banner lifecycle.
+ * Delegates data fetching to bannerFetch. Surfaces fetch errors as
+ * visible error banners instead of silently discarding them.
  * All Rights Reserved. Arodi Emmanuel
  */
-
 import { useState, useCallback, type ReactNode, type ReactElement } from 'react'
-import { fetchUserById } from '../../features/users/api/usersApi'
-import { fetchMembershipsPage } from '../../features/memberships/api/membershipsApi'
-import { getUserDemographics } from '../../features/userdemographics/api/userDemographicsApi'
+import { fetchBannerData } from './bannerFetch'
 import { BannerContext, type BannerData } from './BannerStore'
+
+const MAX_BANNERS = 10
+const BANNER_TTL_MS = 60_000
+const ERROR_TTL_MS = 10_000
 
 export function BannerProvider({
   children,
@@ -19,45 +21,31 @@ export function BannerProvider({
   const [banners, setBanners] = useState<BannerData[]>([])
 
   const remove = useCallback((id: string) => {
-    setBanners((prev: BannerData[]) =>
-      prev.filter((b: BannerData) => b.id !== id)
-    )
+    setBanners((prev) => prev.filter((b) => b.id !== id))
   }, [])
 
   const push = useCallback(
     async (userId: number | null) => {
+      const id = crypto.randomUUID()
       try {
-        let user = null
-        let membership = null
-        let phone: string | null = null
-
-        if (userId !== null) {
-          user = await fetchUserById(userId.toString())
-          const memberships = await fetchMembershipsPage(
-            0,
-            1,
-            userId.toString()
-          )
-          membership = memberships.content?.[0] ?? null
-          const demographics = await getUserDemographics(userId)
-          phone = demographics?.phone ?? null
-        }
-
-        const id = crypto.randomUUID()
-        const newBanner: BannerData = { id, user, membership, phone }
-
-        setBanners((prev: BannerData[]) => {
-          const updated = [...prev, newBanner]
-          return updated.length > 10
-            ? updated.slice(updated.length - 10)
+        const data = userId !== null
+          ? await fetchBannerData(userId)
+          : { user: null, membership: null, phone: null }
+        const banner: BannerData = { id, ...data }
+        setBanners((prev) => {
+          const updated = [...prev, banner]
+          return updated.length > MAX_BANNERS
+            ? updated.slice(updated.length - MAX_BANNERS)
             : updated
         })
-
-        setTimeout(() => {
-          remove(id)
-        }, 60000)
-      } catch (error) {
-        console.error('Failed to fetch banner data', error)
+        setTimeout(() => remove(id), BANNER_TTL_MS)
+      } catch (err) {
+        console.error('[Banner] fetch failed', err)
+        const errBanner: BannerData = {
+          id, user: null, membership: null, phone: null, fetchError: true,
+        }
+        setBanners((prev) => [...prev, errBanner])
+        setTimeout(() => remove(id), ERROR_TTL_MS)
       }
     },
     [remove]

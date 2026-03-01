@@ -13,6 +13,7 @@ export interface TokensFormState {
   fontSize: string
   spacing: string
   radius: string
+  language: string
 }
 
 export interface UseTokensFormStateResult {
@@ -30,6 +31,7 @@ export function useTokensFormState(
     fontSize: initial.fontSize,
     spacing: initial.spacing,
     radius: initial.radius,
+    language: initial.language,
   })
 
   const setField: (field: keyof TokensFormState, value: string) => void = (

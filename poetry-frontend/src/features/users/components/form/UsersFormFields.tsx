@@ -3,10 +3,7 @@
  * Purpose: Input fields for the users form, separated to respect line limit.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement, type ChangeEvent } from 'react'
-import { Stack } from '../../../../ui/Stack/Stack'
-import { Select } from '../../../../ui/Select/Select'
-import { Text } from '../../../../ui/Text/Text'
+import { type ReactElement } from 'react'
 import type { useT } from '../../../../shared/i18n/useT'
 import { UsersBasicFields } from './fields/UsersBasicFields'
 import { UsersPasswordField } from './fields/UsersPasswordField'
@@ -26,9 +23,6 @@ function shouldShowPassword(rolesString: string): boolean {
 }
 
 export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
-  function handleLocaleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    props.setLocale(e.target.value)
-  }
   return (
     <>
       <UsersBasicFields
@@ -42,20 +36,6 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
         onEmailChange={props.setEmail}
         t={props.t}
       />
-      <Stack gap="xs">
-        <Text size="sm" className="font-medium">
-          {props.t('ui.users.form.locale.label')}
-        </Text>
-        <Select
-          value={props.locale}
-          onChange={handleLocaleChange}
-          required
-          data-testid="user-locale-select"
-        >
-          <option value="en">{props.t('ui.users.form.locale.en')}</option>
-          <option value="es">{props.t('ui.users.form.locale.es')}</option>
-        </Select>
-      </Stack>
       <UsersRolesField
         value={props.rolesString}
         onChange={props.setRolesString}

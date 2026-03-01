@@ -14,6 +14,7 @@
   "ui.tokens.fields.fontSize": "Tamaño de Fuente",
   "ui.tokens.fields.spacing": "Espaciado",
   "ui.tokens.fields.radius": "Radio de Borde",
+  "ui.tokens.fields.language": "Idioma del Sistema",
   "ui.tokens.fields.shadow": "Sombra",
   "ui.tokens.actions.save": "Guardar Selección",
   "ui.tokens.actions.cancel": "Cancelar",

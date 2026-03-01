@@ -54,4 +54,5 @@ export const commonEn: Record<string, string> = {
   'ui.common.no': 'No',
   'ui.common.none': 'None',
   'ui.common.search': 'Search',
+  'ui.banner.fetchError': 'Could not load member data',
 }

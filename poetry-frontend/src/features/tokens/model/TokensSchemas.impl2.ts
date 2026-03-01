@@ -10,12 +10,14 @@ import type {
   TokenFont,
   KeyedValues,
   TokenFontSizes,
+  TokenLanguage,
 } from './TokensSchemas.impl1'
 import {
   TokenThemeSchema,
   TokenFontSchema,
   KeyedValuesSchema,
   TokenFontSizesSchema,
+  TokenLanguageSchema,
 } from './TokensSchemas.impl1'
 
 export interface TokenBundleCurrent {
@@ -24,6 +26,7 @@ export interface TokenBundleCurrent {
   readonly fontSize: string
   readonly spacing: string
   readonly radius: string
+  readonly language: string
 }
 
 export interface TokenBundle {
@@ -33,6 +36,7 @@ export interface TokenBundle {
   readonly fontSizes: readonly TokenFontSizes[]
   readonly spacings: readonly KeyedValues[]
   readonly radius: readonly KeyedValues[]
+  readonly languages: readonly TokenLanguage[]
   readonly current: TokenBundleCurrent
 }
 
@@ -44,12 +48,14 @@ export const TokenBundleSchema: z.ZodType<TokenBundle> = z
     fontSizes: z.array(TokenFontSizesSchema).min(1),
     spacings: z.array(KeyedValuesSchema).min(1),
     radius: z.array(KeyedValuesSchema).min(1),
+    languages: z.array(TokenLanguageSchema).min(1),
     current: z.object({
       theme: z.string().min(1),
       font: z.string().min(1),
       fontSize: z.string().min(1),
       spacing: z.string().min(1),
       radius: z.string().min(1),
+      language: z.string().min(1),
     }),
   })
   .readonly()

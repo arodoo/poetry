@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.poetry.poetry_backend.application.i18n.port.I18nQueryPort;
 import com.poetry.poetry_backend.application.theme.usecase.selection.ResolveCurrentSelectionUseCase;
 import com.poetry.poetry_backend.domain.theme.model.UiCustomizationSelection;
 import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
@@ -16,9 +17,12 @@ import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 @Component
 public class UITokensCurrentProvider {
   private final ResolveCurrentSelectionUseCase resolveCurrentSelectionUseCase;
+  private final I18nQueryPort i18nQueryPort;
 
-  public UITokensCurrentProvider(ResolveCurrentSelectionUseCase resolveCurrentSelectionUseCase) {
+  public UITokensCurrentProvider(ResolveCurrentSelectionUseCase resolveCurrentSelectionUseCase,
+      I18nQueryPort i18nQueryPort) {
     this.resolveCurrentSelectionUseCase = resolveCurrentSelectionUseCase;
+    this.i18nQueryPort = i18nQueryPort;
   }
 
     public UITokensDto.Current getCurrent(List<UITokensDto.Theme> themes,
@@ -35,6 +39,7 @@ public class UITokensCurrentProvider {
       dto.fontSize = sel.fontSizeKey();
       dto.spacing = sel.spacingKey();
       dto.radius = sel.radiusKey();
+      dto.language = i18nQueryPort.defaultLocale();
       return dto;
     }
 }

@@ -11,7 +11,12 @@
       "Bash(tail:*)",
       "Bash(ls:*)",
       "Bash(head:*)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(timeout 30 mvn spring-boot:run:*)",
+      "Bash(mvn test-compile:*)",
+      "Bash(mvn test:*)",
+      "Bash(netstat:*)",
+      "Bash(mvn dependency:tree:*)"
     ]
   }
 }

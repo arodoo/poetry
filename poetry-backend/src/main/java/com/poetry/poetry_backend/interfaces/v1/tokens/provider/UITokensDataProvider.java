@@ -8,6 +8,7 @@ package com.poetry.poetry_backend.interfaces.v1.tokens.provider;
 
 import org.springframework.stereotype.Component;
 
+import com.poetry.poetry_backend.application.i18n.port.I18nQueryPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.dto.UITokensDto;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontFamiliesProviderPort;
 import com.poetry.poetry_backend.interfaces.v1.tokens.ports.FontSizesProviderPort;
@@ -27,6 +28,7 @@ public class UITokensDataProvider {
   private final SpacingsProviderPort spacingsProvider;
   private final RadiusProviderPort radiusProvider;
   private final UITokensCurrentProvider currentProvider;
+  private final I18nQueryPort i18nQueryPort;
 
   public UITokensDataProvider(ThemesProviderPort themesProvider,
       FontsProviderPort fontsProvider, FontFamiliesProviderPort fontFamiliesProvider,
@@ -34,7 +36,8 @@ public class UITokensDataProvider {
       FontWeightsProviderPort fontWeightsProvider,
       SpacingsProviderPort spacingsProvider,
       RadiusProviderPort radiusProvider,
-      UITokensCurrentProvider currentProvider) {
+      UITokensCurrentProvider currentProvider,
+      I18nQueryPort i18nQueryPort) {
     this.themesProvider = themesProvider;
     this.fontsProvider = fontsProvider;
     this.fontFamiliesProvider = fontFamiliesProvider;
@@ -43,6 +46,7 @@ public class UITokensDataProvider {
     this.spacingsProvider = spacingsProvider;
     this.radiusProvider = radiusProvider;
     this.currentProvider = currentProvider;
+    this.i18nQueryPort = i18nQueryPort;
   }
 
   public UITokensDto getTokens() {
@@ -54,6 +58,9 @@ public class UITokensDataProvider {
     tokens.fontWeights = fontWeightsProvider.getFontWeights();
     tokens.spacings = spacingsProvider.getSpacings();
     tokens.radius = radiusProvider.getRadius();
+    tokens.languages = i18nQueryPort.supportedLocales().stream()
+        .map(tag -> new UITokensDto.Language(tag, tag.equals("es") ? "Español" : "English"))
+        .toList();
     tokens.current = currentProvider.getCurrent(tokens.themes, tokens.fonts,
         tokens.fontSizes, tokens.spacings, tokens.radius);
     return tokens;

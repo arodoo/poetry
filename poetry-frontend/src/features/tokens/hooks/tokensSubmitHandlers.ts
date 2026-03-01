@@ -21,6 +21,7 @@ export function createTokensSubmitHandler(
       fontSize: formState.fontSize,
       spacing: formState.spacing,
       radius: formState.radius,
+      language: formState.language,
     }
 
     onSubmit(input)

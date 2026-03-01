@@ -14,6 +14,7 @@
   "ui.tokens.fields.fontSize": "Font Size",
   "ui.tokens.fields.spacing": "Spacing",
   "ui.tokens.fields.radius": "Border Radius",
+  "ui.tokens.fields.language": "System Language",
   "ui.tokens.fields.shadow": "Shadow",
   "ui.tokens.actions.save": "Save Selection",
   "ui.tokens.actions.cancel": "Cancel",

@@ -64,6 +64,7 @@ export function AdminTokensPage(): ReactElement {
     fontSize: bundle.current.fontSize,
     spacing: bundle.current.spacing,
     radius: bundle.current.radius,
+    language: bundle.current.language,
   })
 
   return (

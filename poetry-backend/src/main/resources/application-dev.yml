@@ -15,6 +15,7 @@ spring:
   logging:
     level:
       com.poetry: DEBUG
+      org.springframework.security: TRACE
 
   # Multipart upload limits for carousel images and videos
   servlet:

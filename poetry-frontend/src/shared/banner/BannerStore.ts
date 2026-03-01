@@ -12,6 +12,7 @@ export interface BannerData {
   user: UserResponse | null
   membership: MembershipResponse | null
   phone: string | null
+  fetchError?: boolean
 }
 
 interface BannerContextType {

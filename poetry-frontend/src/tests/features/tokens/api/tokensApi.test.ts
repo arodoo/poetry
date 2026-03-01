@@ -16,16 +16,14 @@ vi.spyOn(generatedSdk, 'getTokens').mockResolvedValue({
     fontSizes: [{ key: 'default', label: 'Default', sizes: { base: '1rem' } }],
     spacings: [{ key: 'default', label: 'Default', values: { md: '1rem' } }],
     radius: [{ key: 'default', label: 'Default', values: { md: '4px' } }],
-    shadows: [
-      { key: 'default', label: 'Default', values: { md: '0 0 2px #000' } },
-    ],
+    languages: [{ key: 'es', label: 'Spanish' }],
     current: {
       theme: 'default',
       font: 'inter',
       fontSize: 'default',
       spacing: 'default',
       radius: 'default',
-      shadow: 'default',
+      language: 'es',
     },
   },
   request: new Request('http://localhost/api/v1/tokens'),

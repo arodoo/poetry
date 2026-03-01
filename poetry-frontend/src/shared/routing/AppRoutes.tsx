@@ -10,9 +10,15 @@ import { AdminRoutes } from './config/routesAdmin'
 import { PublicAuthRoutes } from './config/routesAuthPublic'
 import { getEnv } from '../config/env'
 import { AuthenticatedRoutes } from './config/routesAuthenticated'
+import { useTokensQuery } from '../../features/tokens/hooks/useTokensQueries'
 
 export function AppRouteTree(): ReactElement {
-  const defaultLocale: string = getEnv().VITE_DEFAULT_LOCALE
+  const { data, isLoading } = useTokensQuery()
+  const defaultLocale: string =
+    data?.bundle.current.language ?? getEnv().VITE_DEFAULT_LOCALE
+
+  if (isLoading) return <></>
+
   return (
     <Routes>
       {/* default locale redirect to en */}

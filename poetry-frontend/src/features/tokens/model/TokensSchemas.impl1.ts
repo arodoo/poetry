@@ -65,3 +65,11 @@ export interface TokenFontSizes {
 export const TokenFontSizesSchema: z.ZodType<TokenFontSizes> = z
   .object({ key: z.string(), label: z.string(), sizes: z.record(z.string()) })
   .readonly()
+
+export interface TokenLanguage {
+  readonly key: string
+  readonly label: string
+}
+export const TokenLanguageSchema: z.ZodType<TokenLanguage> = z
+  .object({ key: z.string(), label: z.string() })
+  .readonly()

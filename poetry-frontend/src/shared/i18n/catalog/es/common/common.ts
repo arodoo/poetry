@@ -54,4 +54,5 @@ export const commonEs: Record<string, string> = {
   'ui.common.no': 'No',
   'ui.common.none': 'Ninguna',
   'ui.common.search': 'Buscar',
+  'ui.banner.fetchError': 'No se pudieron cargar los datos del miembro',
 }

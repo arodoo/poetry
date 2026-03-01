@@ -59,6 +59,13 @@ export function TokenSelectors({
         field="radius"
         onChange={onChange}
       />
+      <SelectRow
+        label="Language"
+        value={current.language}
+        options={bundle.languages}
+        field="language"
+        onChange={onChange}
+      />
     </div>
   )
 }

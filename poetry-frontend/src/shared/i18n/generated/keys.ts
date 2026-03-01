@@ -33,6 +33,7 @@ export const I18N_KEYS: readonly string[] = [
   'ui.auth.unauthorized.message',
   'ui.auth.unauthorized.title',
   'ui.banner.close',
+  'ui.banner.fetchError',
   'ui.banner.membership',
   'ui.banner.newRegistration',
   'ui.banner.nextPayment',

@@ -2856,6 +2856,7 @@ components:
       required:
         - font
         - fontSize
+        - language
         - radius
         - spacing
         - theme
@@ -2871,6 +2872,8 @@ components:
         spacing:
           type: string
         radius:
+          type: string
+        language:
           type: string
     UpdateRequest:
       type: object
@@ -3945,6 +3948,8 @@ components:
           type: string
         radius:
           type: string
+        language:
+          type: string
     Font:
       type: object
       properties:
@@ -3985,6 +3990,13 @@ components:
           type: object
           additionalProperties:
             type: string
+    Language:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
     RadiusSet:
       type: object
       properties:
@@ -4049,6 +4061,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RadiusSet'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
         current:
           $ref: '#/components/schemas/Current'
     PageResponseDtoSubscriptionResponse:
@@ -4249,12 +4265,12 @@ components:
     PageEventResponse:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         first:
           type: boolean
         last:
@@ -4288,10 +4304,10 @@ components:
           $ref: '#/components/schemas/SortObject'
         paged:
           type: boolean
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
         unpaged:
