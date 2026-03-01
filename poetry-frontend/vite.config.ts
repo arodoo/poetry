@@ -32,6 +32,11 @@ export default defineConfig(async (): Promise<UserConfig> => {
         changeOrigin: true,
         secure: false,
       },
+      '/ws': {
+        target: 'ws://localhost:8080',
+        changeOrigin: true,
+        ws: true,
+      },
     },
   }
   return { plugins, server }

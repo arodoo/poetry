@@ -1,77 +1,86 @@
 /*
  * File: useListenerLoop.ts
- * Purpose: Fingerprint listener loop using backend capture and verify.
- * Calls /capture (blocks until finger), then /verify (matches FMD to userId).
- * Pushes banner on every detection. Stops cleanly on abort.
+ * Purpose: WebSocket-based fingerprint listener replacing HTTP long-polling.
+ * Connects to /ws/fingerprint, authenticates via first frame, and calls
+ * push() on every scan event. Reconnects automatically on drop.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { useCallback } from 'react'
-import { captureFingerprint, verifyFingerprint } from '../../../api/generated'
+import { useCallback, useRef } from 'react'
 import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 import { useBanner } from '../../../shared/banner/BannerStore'
 
-const CAPTURE_TIMEOUT_MS = 30000
-const RETRY_DELAY_MS = 3000
+const RECONNECT_DELAY_MS = 2_000
+const MAX_RECONNECT_DELAY_MS = 30_000
+
+function buildWsUrl(): string {
+  const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+  return `${proto}//${window.location.host}/ws/fingerprint`
+}
 
 // Module-level flag — survives StrictMode double-mount
-let loopActive = false
+let listenerActive = false
 
 export function useListenerLoop() {
   const { push } = useBanner()
+  const delayRef = useRef(RECONNECT_DELAY_MS)
+  const socketRef = useRef<WebSocket | null>(null)
 
   const stop = useCallback(() => {
-    loopActive = false
+    listenerActive = false
+    socketRef.current?.close()
+    socketRef.current = null
+    console.info('[WS] stopped')
   }, [])
 
-  const start = useCallback(async () => {
-    console.info('[Loop] start called, loopActive=', loopActive)
-    if (loopActive) return
-    loopActive = true
-    console.info('[Loop] loop started')
+  const connect = useCallback(() => {
+    if (!listenerActive) return
+    const token = tokenStorage.load()?.accessToken ?? ''
+    const ws = new WebSocket(buildWsUrl())
+    socketRef.current = ws
+    console.info('[WS] connecting...')
 
-    while (loopActive) {
+    ws.onopen = () => {
+      console.info('[WS] connected — authenticating')
+      ws.send(token)
+      delayRef.current = RECONNECT_DELAY_MS
+    }
+
+    ws.onmessage = (ev: MessageEvent) => {
       try {
-        const token = tokenStorage.load()?.accessToken ?? ''
-        const headers = { Authorization: `Bearer ${token}` }
-
-        console.info('[Loop] calling capture...')
-        const captured = await captureFingerprint({
-          body: { timeoutMs: CAPTURE_TIMEOUT_MS },
-          headers,
-        })
-        console.info('[Loop] capture result:', captured.data)
-
-        if (!captured.data?.success || !captured.data.fmd) {
-          console.info('[Loop] capture failed, retrying...')
-          await new Promise((r) => setTimeout(r, RETRY_DELAY_MS))
-          continue
+        const data = JSON.parse(ev.data as string) as {
+          type: string
+          userId?: number
         }
-
-        console.info('[Loop] calling verify...')
-        const verified = await verifyFingerprint({
-          body: { fmd: captured.data.fmd },
-          headers,
-        })
-        console.info('[Loop] verify result:', verified.data)
-
-        if (verified.data?.matched && verified.data.userId) {
-          console.info(
-            '[Loop] pushing banner for userId:',
-            verified.data.userId
-          )
-          void push(verified.data.userId)
-        } else if (verified.data && !verified.data.matched) {
-          console.info('[Loop] unknown finger, pushing null banner')
+        if (data.type === 'MATCH' && data.userId != null) {
+          void push(data.userId)
+        } else if (data.type === 'UNKNOWN') {
           void push(null)
         }
-      } catch (err) {
-        console.error('[Loop] error:', err)
-        if (!loopActive) break
-        await new Promise((r) => setTimeout(r, RETRY_DELAY_MS))
+      } catch {
+        console.warn('[WS] bad frame:', ev.data)
       }
     }
-    console.info('[Loop] loop stopped')
+
+    ws.onerror = (e) => console.error('[WS] error', e)
+
+    ws.onclose = () => {
+      console.info('[WS] closed — reconnecting in', delayRef.current, 'ms')
+      if (!listenerActive) return
+      setTimeout(() => {
+        delayRef.current = Math.min(
+          delayRef.current * 2,
+          MAX_RECONNECT_DELAY_MS
+        )
+        connect()
+      }, delayRef.current)
+    }
   }, [push])
+
+  const start = useCallback(() => {
+    if (listenerActive) return
+    listenerActive = true
+    connect()
+  }, [connect])
 
   return { start, stop }
 }
