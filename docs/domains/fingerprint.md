@@ -61,27 +61,44 @@ and membership status. Unknown fingerprints show "Unrecognized fingerprint".
 ### Architecture
 
 ```
-FingerprintListenerProvider (App root)
-  └── useListenerLoop
-        └── loop: POST /capture (blocks) → POST /verify → push banner
+Frontend (React)
+  └── FingerprintListenerProvider (App root)
+        └── useListenerLoop (WebSocket client)
+              └── ws://localhost/ws/fingerprint (JSON events)
+                    └── Backend: FingerprintWebSocketHandler
+                          └── ScanResultHandler (HID + verify + broadcast)
+                                └── broadcastMatch(userId) → all connected clients
 ```
+
+The listener establishes a **persistent WebSocket** connection on app mount.
+The backend broadcasts match events to all connected clients in real-time.
+No polling. No long-blocking HTTP. No StrictMode concurrency issues.
 
 ### Key files
 
 | File | Purpose |
 |------|---------|
-| `src/features/fingerprint/FingerprintListenerProvider.tsx` | Global provider, starts/stops loop on auth status |
-| `src/features/fingerprint/hooks/useListenerLoop.ts` | Async loop: capture → verify → banner |
-| `src/shared/banner/BannerContext.tsx` | Fetches user + membership, manages 60s lifetime |
-| `src/shared/banner/BannerItem.tsx` | Renders banner (known user or unknown fingerprint) |
+| **Frontend** | |
+| `src/features/fingerprint/FingerprintListenerProvider.tsx` | Global provider, starts/stops WS on auth status |
+| `src/features/fingerprint/hooks/useListenerLoop.ts` | WebSocket client: connects, authenticates, handles events |
+| `src/shared/banner/BannerContext.tsx` | Fetches user + membership on match event, manages 60s lifetime |
+| `src/shared/banner/BannerList.tsx` | Renders stacked banners, portal to fullscreen or body |
+| `src/shared/banner/BannerItem.tsx` | Single banner card (known user or unknown fingerprint) |
+| **Backend** | |
+| `config/websocket/WebSocketConfig.java` | Registers `/ws/fingerprint` handler |
+| `infrastructure/websocket/FingerprintWebSocketHandler.java` | Raw WebSocket handler, JWT auth on first frame, broadcasts events |
+| `infrastructure/websocket/WsBroadcaster.java` | Sends JSON to all connected sessions |
+| `infrastructure/hardware/hid/ScanResultHandler.java` | Captures → verifies → calls `broadcastMatch(userId)` |
 
-### Loop behavior
+### WebSocket Event Flow
 
-1. Calls `POST /capture` (blocks on backend until finger detected)
-2. On success, calls `POST /verify` with the captured FMD
-3. `matched: true` → fetches user + membership + demographics → shows banner
-4. `matched: false` → banner with "Unrecognized fingerprint"
-5. On error → waits 3s and retries
+1. **Connection**: Frontend connects to `ws://localhost/ws/fingerprint`
+2. **Auth**: Frontend sends JWT access token in first text frame
+3. **Handler validates**: `FingerprintWebSocketHandler.handleTextMessage()` parses JWT
+4. **Match event**: When finger detected, backend sends `{"type":"MATCH","userId":2}`
+5. **Banner**: Frontend calls `push(2)` → fetches user + membership → shows banner
+6. **Unknown**: Finger not matched → `{"type":"UNKNOWN"}` → banner with warning
+7. **Reconnect**: On socket close, auto-reconnect with exponential backoff (2s → 30s max)
 
 ### Banner membership status
 
@@ -114,6 +131,76 @@ are decoded with URL-safe Base64 normalization (`-`→`+`, `_`→`/`).
 - `ProdHidCaptureAdapter.decodeFmd()` normalizes before decoding
 - Match score from HID SDK: lower = better (FAR-based), threshold = 21474
 
+### Critical: PathLocaleFilter must exclude /ws/ paths
+
+**BUG TRAP:** `PathLocaleFilter` (@Order(HIGHEST_PRECEDENCE)) strips leading
+2-letter segments thinking they are locale codes (e.g., `en`, `es`).
+
+The string **`"ws"`** matches the regex `^[a-zA-Z]{2}$`, so:
+- Request: `GET /ws/fingerprint`
+- Filter sees: `"ws"` looks like a locale → strips it
+- Wrapped URI becomes: `/fingerprint` (no longer matches `/ws/fingerprint`)
+- Result: Spring Security denies access → **HTTP 403**
+
+**The fix:** `PathLocaleFilter.doFilterInternal()` must check and skip WebSocket paths:
+
+```java
+if (uri == null || uri.length() < 4 || uri.startsWith("/ws/")) {
+  chain.doFilter(req, res);
+  return;
+}
+```
+
+Without this, WebSocket handshakes fail silently. The frontend logs:
+```
+consoleWrap.ts:27 [WS] error
+WebSocket connection to 'ws://localhost:8080/ws/fingerprint' failed
+```
+
+And the banner never appears because the WebSocket never connects.
+
+## Proxy Configuration (Dev & Prod)
+
+WebSocket connections must pass through the same origin as the frontend.
+Direct cross-origin connections fail (even with CORS).
+
+### Development (Vite)
+
+`vite.config.ts` must proxy `/ws/` to backend:
+
+```javascript
+const server = {
+  proxy: {
+    '/ws': {
+      target: 'ws://localhost:8080',
+      changeOrigin: true,
+      ws: true,  // Enable WebSocket support
+    },
+  },
+}
+```
+
+This ensures frontend connects to `ws://localhost:5173/ws/fingerprint` (same origin)
+which Vite proxies to `ws://localhost:8080/ws/fingerprint` (backend).
+
+### Production (Nginx)
+
+`nginx.conf` must have a `/ws/` location block with WebSocket headers:
+
+```nginx
+location /ws/ {
+    proxy_pass http://backend:8080;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_read_timeout 3600s;  # Long timeout for persistent connection
+}
+```
+
+Without this, browsers reject the upgrade: `WebSocket connection failed`.
+
 ## SDK Requirements
 
 - HID Digital Persona SDK installed on backend server
@@ -133,42 +220,15 @@ a new one. Without this, the hardware lock could hold for up to 30 seconds.
 | Use Case | `CancelCaptureUseCase.java` |
 | Controller | `FingerprintCaptureController.java` → `@DeleteMapping("/capture")` |
 
-## Known Bug: Why the Listener Skips Reads
+## Historical Note: Migration from HTTP Long-Polling
 
-### Root Cause (documented for future reference)
+Previous versions used `POST /capture` (blocking) → `POST /verify` polling.
+Issues:
+- Blocking JNI calls held hardware for up to 30s
+- React 18 StrictMode caused double-mounts → concurrent requests → dropped reads
+- No real-time broadcasting → latency
 
-`POST /capture` is a **blocking JNI call** inside a `synchronized` block in
-`ProdHidCaptureAdapter`. The C++ driver holds the hardware laser open until
-a finger is detected or the timeout expires.
-
-**React 18 Strict Mode** mounts every component twice in development. If
-the listener hook is not guarded, two concurrent loops can both call
-`/capture`. The first loop's HTTP request occupies the hardware. When the
-user places their finger, the first loop reads it — but if that loop's HTTP
-socket was already abandoned (component unmounted), the FMD is silently
-dropped. The user sees nothing. The second valid loop then starts a new
-capture, but the finger is gone.
-
-### The Fix (what works)
-
-A **module-level `loopActive` boolean** (`let loopActive = false`) with a
-guard at the start of `start()`:
-
-```typescript
-if (loopActive) return  // StrictMode double-mount guard
-loopActive = true
-```
-
-Because the flag lives **at module scope** (not inside the React component),
-it survives unmount/remount cycles. The second StrictMode call hits the
-guard and returns immediately, leaving only one hardware request in flight
-at any time.
-
-### What does NOT work
-
-| Approach | Why it fails |
-|---|---|
-| `AbortController` on the `fetch` | Closes the HTTP socket but the **JNI thread keeps the hardware blocked** for up to 30s. The next loop hits the synchronized gate and fails. |
-| `Symbol`-based `currentRunId` | Both StrictMode mounts get unique Symbols, so both pass the guard and start concurrent loops. |
+**Current solution:** Persistent WebSocket with server-side broadcasting.
+All match events push to connected clients instantly. No polling. No concurrency.
 
 All Rights Reserved Arodi Emmanuel
