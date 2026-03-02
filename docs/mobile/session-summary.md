@@ -18,7 +18,7 @@ keyboard shortcuts work (r, a, m, etc.).
 ### 2. Clean Log Output ✅
 
 **Problem**: PTY output includes ANSI escape codes, cursor movements,
-progress bars — making log files 200+ lines of noise.
+progress bars — making log files 200+ lines of noise. 
 
 **Solution**: Filter output in `log-filter.mjs` — strips ANSI, only
 passes error keywords (`error`, `failed`, `warn`, `exception`, etc.)

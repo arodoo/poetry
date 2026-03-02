@@ -1,73 +1,69 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Canonical mobile feature folder & file structure for React Native with Expo. Enforces consistency with backend DDD and web frontend patterns."
+    "version": "2.0",
+    "description": "Canonical mobile feature structure for offline-first inventory organizer. Data lives in local SQLite. Google Drive backup is a paid feature. Backend only handles subscriptions and monitoring."
   },
   "postCreationSteps": [
     {
       "step": "Register i18n in shared/i18n/catalog/{en,es}/index.ts",
       "critical": true,
-      "action": "import <feature>En from '../../../../features/<feature>/locales/en.json' and spread ...<feature>En in catalog"
+      "action": "import <feature> from '../../../../features/<feature>/locales/en' and add to catalog default export"
     },
     {
-      "step": "Register routes in app navigation (Expo Router)",
+      "step": "Register routes in Expo Router",
       "critical": true,
-      "action": "Create screen files in app/<feature>/ and update navigation stack"
+      "action": "Create screen files in app/(app)/<feature>/ or app/(tabs)/<feature>/"
     },
     {
-      "step": "Configure Mapbox if feature uses maps",
-      "critical": false,
-      "action": "Import MapboxGL in feature and ensure MAPBOX_ACCESS_TOKEN is in env"
+      "step": "Register SQLite repository in shared/storage/db.ts",
+      "critical": true,
+      "action": "Add CREATE TABLE migration and export repository factory"
     }
   ],
   "structure": {
     "features": {
       "path": "poetry-mobile/src/features",
+      "description": "One folder per bounded context. Each feature is self-contained.",
       "files": [
         {
           "path": "<feature>/model/<Feature>Schemas.ts",
           "required": true,
-          "description": "Zod schemas + model types (must match OpenAPI)"
+          "description": "Zod schemas + TypeScript types for domain entities"
         },
         {
-          "path": "<feature>/api/<feature>Api.ts",
+          "path": "<feature>/storage/<feature>Repository.ts",
           "required": true,
-          "description": "API wrapper functions calling generated SDK or apiClient"
+          "description": "SQLite CRUD operations for this feature's entities"
         },
         {
-          "path": "<feature>/hooks/use<Feature>Queries.ts",
+          "path": "<feature>/hooks/use<Feature>.ts",
           "required": true,
-          "description": "React Query hooks for queries"
-        },
-        {
-          "path": "<feature>/hooks/use<Feature>Mutations.ts",
-          "required": false,
-          "description": "React Query hooks for mutations (optional if read-only)"
+          "description": "React hooks exposing storage operations to screens"
         },
         {
           "path": "<feature>/components",
           "required": true,
-          "description": "Presentational React Native components folder"
+          "description": "Presentational React Native components"
         },
         {
           "path": "<feature>/screens",
           "required": true,
-          "description": "Screen-level components (route targets)"
+          "description": "Screen-level components (Expo Router targets)"
         },
         {
-          "path": "<feature>/locales/en.json",
+          "path": "<feature>/locales/en.ts",
           "required": true,
-          "description": "English i18n namespace"
+          "description": "English i18n strings (TS export, not JSON)"
         },
         {
-          "path": "<feature>/locales/es.json",
+          "path": "<feature>/locales/es.ts",
           "required": true,
-          "description": "Spanish i18n namespace"
+          "description": "Spanish i18n strings (TS export, not JSON)"
         },
         {
           "path": "<feature>/index.ts",
           "required": true,
-          "description": "Public re-exports (types, hooks, screens)"
+          "description": "Public re-exports: types, hooks, screens"
         }
       ]
     },
@@ -75,59 +71,64 @@
       "path": "poetry-mobile/src/shared",
       "files": [
         {
-          "path": "config/env.ts",
+          "path": "storage/db.ts",
           "required": true,
-          "description": "Environment schema with Zod validation"
+          "description": "SQLite database initialization, migrations, connection singleton"
         },
         {
-          "path": "http/apiClient.ts",
+          "path": "storage/StorageError.ts",
           "required": true,
-          "description": "Axios client factory with JWT interceptors"
+          "description": "Typed storage error class for consistent error handling"
+        },
+        {
+          "path": "sync/SyncStateStorage.ts",
+          "required": true,
+          "description": "Tracks last sync timestamp and sync status in SecureStore"
+        },
+        {
+          "path": "sync/googleDriveClient.ts",
+          "required": true,
+          "description": "Google Drive API wrapper for backup and restore operations"
+        },
+        {
+          "path": "auth/AuthContext.ts",
+          "required": true,
+          "description": "Auth context type definitions and useAuth hook"
+        },
+        {
+          "path": "auth/AuthProvider.tsx",
+          "required": true,
+          "description": "Manages auth status, user profile, subscription tier, backup consent"
+        },
+        {
+          "path": "auth/AuthGate.tsx",
+          "required": true,
+          "description": "Route guard - allows local-only mode without login"
         },
         {
           "path": "auth/tokenStorage.ts",
           "required": true,
-          "description": "Secure token storage using Expo SecureStore"
+          "description": "JWT storage in expo-secure-store"
         },
         {
-          "path": "auth/useSession.ts",
+          "path": "config/env.ts",
           "required": true,
-          "description": "Session hook for authentication state"
+          "description": "Zod-validated environment variables"
+        },
+        {
+          "path": "http/apiClient.ts",
+          "required": true,
+          "description": "Axios client for backend (subscriptions, analytics only)"
         },
         {
           "path": "i18n/index.ts",
           "required": true,
-          "description": "i18n bootstrap with i18next"
-        },
-        {
-          "path": "theme/ThemeProvider.tsx",
-          "required": true,
-          "description": "Theme provider consuming design tokens from backend"
-        },
-        {
-          "path": "components",
-          "required": true,
-          "description": "Shared UI component library"
+          "description": "i18next initialization"
         },
         {
           "path": "query/queryClient.ts",
           "required": true,
-          "description": "TanStack Query client configuration"
-        },
-        {
-          "path": "mapbox/MapboxConfig.ts",
-          "required": true,
-          "description": "Mapbox initialization and configuration"
-        }
-      ]
-    },
-    "api": {
-      "path": "poetry-mobile/src/api",
-      "files": [
-        {
-          "path": "generated",
-          "required": true,
-          "description": "Auto-generated SDK from OpenAPI spec (never edit manually)"
+          "description": "TanStack Query client for backend calls"
         }
       ]
     },
@@ -136,60 +137,73 @@
       "description": "Expo Router file-based routing",
       "files": [
         {
-          "path": "(auth)/login.tsx",
-          "required": true,
-          "description": "Login screen"
-        },
-        {
-          "path": "(tabs)/_layout.tsx",
-          "required": true,
-          "description": "Tab navigator layout"
-        },
-        {
           "path": "_layout.tsx",
           "required": true,
-          "description": "Root layout with providers"
+          "description": "Root layout: QueryClient, AuthProvider, i18n"
+        },
+        {
+          "path": "index.tsx",
+          "required": true,
+          "description": "Entry redirect"
+        },
+        {
+          "path": "(auth)/_layout.tsx",
+          "required": true,
+          "description": "Auth group - login optional (local mode allowed)"
+        },
+        {
+          "path": "(auth)/login.tsx",
+          "required": true,
+          "description": "Google Sign-In screen"
+        },
+        {
+          "path": "(app)/_layout.tsx",
+          "required": true,
+          "description": "Main app group with tab navigator"
+        },
+        {
+          "path": "(app)/(tabs)/_layout.tsx",
+          "required": true,
+          "description": "Bottom tab bar layout"
         }
       ]
     }
   },
   "rules": {
     "naming": {
-      "features": "lowercase (e.g., events, profile)",
-      "components": "PascalCase (e.g., EventCard.tsx)",
-      "hooks": "camelCase with 'use' prefix (e.g., useEventQueries.ts)",
-      "screens": "PascalCase with 'Screen' suffix (e.g., EventDetailScreen.tsx)"
+      "features": "lowercase (e.g., inventory, categories, tags)",
+      "components": "PascalCase (e.g., ItemCard.tsx)",
+      "hooks": "camelCase with 'use' prefix (e.g., useInventory.ts)",
+      "screens": "PascalCase with 'Screen' suffix (e.g., ItemDetailScreen.tsx)",
+      "repositories": "camelCase with 'Repository' suffix (e.g., inventoryRepository.ts)"
     },
     "fileLimits": {
-      "maxLines": 80,
+      "maxLines": 60,
       "maxCharsPerLine": 80,
-      "exceptions": ["JSON files", "generated SDK"]
+      "exceptions": ["JSON files", "package-lock.json"]
     },
-    "apiCalls": {
-      "primary": "Use generated SDK from OpenAPI",
-      "fallback": "Use shared/http/apiClient.ts (never raw fetch/axios)",
-      "authentication": "JWT via Axios interceptors"
+    "dataAccess": {
+      "local": "Always via repository pattern in feature/storage/",
+      "remote": "Only apiClient.ts for backend (subscriptions, analytics)",
+      "forbidden": "No raw SQLite queries in hooks or components",
+      "validation": "Zod at every read/write boundary"
     },
-    "validation": {
-      "runtime": "Zod schemas for all API responses",
-      "compile": "TypeScript strict mode",
-      "schemas": "Must match OpenAPI definitions"
+    "offlineFirst": {
+      "principle": "App must be fully functional with no network connection",
+      "networkErrors": "Must degrade gracefully, never crash",
+      "syncFailures": "Queue for retry, never block the user"
     },
     "i18n": {
       "noHardcodedStrings": true,
       "locales": ["en", "es"],
-      "keyFormat": "<feature>.<context>.<key>"
-    },
-    "styling": {
-      "framework": "React Native StyleSheet + themed tokens",
-      "noHardcodedColors": true,
-      "noHardcodedSizes": true,
-      "source": "Design tokens from /api/v1/tokens"
+      "keyFormat": "<feature>.<context>.<key>",
+      "fileFormat": "TypeScript export default object (not JSON)"
     },
     "testing": {
       "location": "poetry-mobile/src/tests/<feature>/",
       "framework": "Jest + React Native Testing Library",
-      "coverage": "Unit tests for hooks, API, components"
+      "sqliteMock": "Use in-memory SQLite mock for all storage tests",
+      "coverage": "Happy path + error path + offline scenario per feature"
     }
   },
   "dependencies": {
@@ -197,18 +211,20 @@
       "react-native",
       "expo",
       "expo-router",
+      "expo-sqlite",
+      "expo-secure-store",
+      "expo-auth-session",
       "@tanstack/react-query",
       "zod",
-      "axios",
-      "expo-secure-store"
-    ],
-    "mapbox": [
-      "@rnmapbox/maps"
+      "axios"
     ],
     "ui": [
       "react-native-reanimated",
-      "react-native-gesture-handler"
+      "react-native-gesture-handler",
+      "react-native-safe-area-context",
+      "react-native-screens"
     ],
+    "removed": ["@rnmapbox/maps — removed, app is not map-based"],
     "dev": [
       "typescript",
       "eslint",
