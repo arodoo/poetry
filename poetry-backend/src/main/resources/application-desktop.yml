@@ -1,0 +1,40 @@
+# File: application-desktop.yml
+# Purpose: Spring Boot profile for desktop mode. Configures the
+# backend to serve frontend static files, use embedded Postgres,
+# and disable dev-only features like Swagger and live reload.
+# All Rights Reserved. Arodi Emmanuel
+
+spring:
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+  web:
+    resources:
+      add-mappings: true
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+server:
+  error:
+    include-stacktrace: never
+  compression:
+    enabled: true
+    mime-types:
+      - text/html
+      - text/css
+      - application/javascript
+      - application/json
+      - image/svg+xml
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+carousel:
+  upload-dir: ./uploads/carousel

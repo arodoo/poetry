@@ -56,11 +56,7 @@ def render_acknowledgments(doc):
     p.paragraph_format.space_before = Pt(12)
 
     text = (
-        "Expreso mi más profundo agradecimiento a mi asesor de tesis, "
-        "el Mtro. Luis Rolando Guarneros Nolasco, por su guía técnica, "
-        "su paciencia y sus valiosas contribuciones que permitieron elevar "
-        "el estándar de esta investigación. Su visión sobre la ingeniería "
-        "de software ha sido fundamental para el desarrollo del Sistema Poetry."
+        "A todo aquel a quien corresponda."
     )
     run = p.add_run(text)
     run.font.name = FONT_NAME
