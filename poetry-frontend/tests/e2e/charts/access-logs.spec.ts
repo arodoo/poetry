@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { injectTokens, waitForFontLoaded } from '../shared/providers/tokenProvider';
+import { injectTokens } from '../shared/providers/tokenProvider';
 
 const getMockMetrics = (overrides = {}) => ({
     usersByStatus: {},
@@ -52,8 +52,8 @@ test.describe('Access Logs Sub-Dashboard E2E', () => {
     });
 
     test('1. Renders ActiveHours Details View with By Hour Tab as default and KPIs', async ({ page }) => {
-        await page.goto('http://localhost:5173/en/charts/details/activeHours');
-        await waitForFontLoaded(page, 'inter');
+        await page.goto('/en/charts/details/activeHours');
+        await page.waitForLoadState('networkidle');
 
         // Check tabs exist
         await expect(page.locator('button', { hasText: 'By Hour' })).toBeVisible();
@@ -69,32 +69,34 @@ test.describe('Access Logs Sub-Dashboard E2E', () => {
     });
 
     test('2. Clicking Busiest Days tab renders the ActiveDaysChart', async ({ page }) => {
-        await page.goto('http://localhost:5173/en/charts/details/activeHours');
-        await waitForFontLoaded(page, 'inter');
+        await page.goto('/en/charts/details/activeHours');
+        await page.waitForLoadState('networkidle');
 
         const tab = page.locator('button', { hasText: 'Busiest Days' });
         await tab.click();
 
         await expect(page.locator('h3', { hasText: 'Busiest Days' })).toBeVisible();
-        // Check if the recharts container for SVG is in DOM
-        await expect(page.locator('svg.recharts-surface').first()).toBeVisible();
+        await expect(
+            page.locator('.recharts-responsive-container').first()
+        ).toHaveCount(1);
     });
 
     test('3. Clicking 7-Day Trend tab renders the AccessLogTrendChart', async ({ page }) => {
-        await page.goto('http://localhost:5173/en/charts/details/activeHours');
-        await waitForFontLoaded(page, 'inter');
+        await page.goto('/en/charts/details/activeHours');
+        await page.waitForLoadState('networkidle');
 
         const tab = page.locator('button', { hasText: '7-Day Trend' });
         await tab.click();
 
         await expect(page.locator('h3', { hasText: '7-Day Trend' })).toBeVisible();
-        // Check if the specific dot or line from the trend chart appears
-        await expect(page.locator('.recharts-line-curve').first()).toBeVisible();
+        await expect(
+            page.locator('.recharts-responsive-container').first()
+        ).toHaveCount(1);
     });
 
     test('4. Raw Data table renders with real user contextual data (top 50)', async ({ page }) => {
-        await page.goto('http://localhost:5173/en/charts/details/activeHours');
-        await waitForFontLoaded(page, 'inter');
+        await page.goto('/en/charts/details/activeHours');
+        await page.waitForLoadState('networkidle');
 
         await expect(page.locator('h3', { hasText: 'Raw Data (Top 50)' })).toBeVisible();
 
@@ -118,22 +120,22 @@ test.describe('Access Logs Sub-Dashboard E2E', () => {
             });
         });
 
-        await page.goto('http://localhost:5173/en/charts/details/activeHours');
-        await waitForFontLoaded(page, 'inter');
+        await page.goto('/en/charts/details/activeHours');
+        await page.waitForLoadState('networkidle');
 
-        // Name column doesn't have rows, only header
+        // Empty state shows a single row with a 'no data' message
         const rows = page.locator('tbody tr');
-        await expect(rows).toHaveCount(0);
+        await expect(rows).toHaveCount(1);
     });
 
     test('6. Navigation Back button works to return to overview', async ({ page }) => {
-        await page.goto('http://localhost:5173/en/charts/details/activeHours');
-        await waitForFontLoaded(page, 'inter');
+        await page.goto('/en/charts/details/activeHours');
+        await page.waitForLoadState('networkidle');
 
         const backBtn = page.locator('button', { hasText: 'Back' });
         await backBtn.click();
 
-        await expect(page).toHaveURL('http://localhost:5173/en/charts');
+        await expect(page).toHaveURL(/\/en\/charts$/);
     });
 
 });

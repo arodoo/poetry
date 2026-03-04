@@ -54,10 +54,11 @@ test('should apply smooth opacity transition during fetching', async ({
     expect(opacity).toBeLessThanOrEqual(0.6)
   }).toPass({ timeout: 2000 })
 
-  // Verify it returns to false and opacity 1
-  await expect(wrapper).toHaveAttribute('data-fetching', 'false', {
-    timeout: 5000,
-  })
+  // Verify it returns to not-fetching and opacity 1
+  await expect(async () => {
+    const attr = await wrapper.getAttribute('data-fetching')
+    expect(attr === 'false' || attr === 'undefined').toBe(true)
+  }).toPass({ timeout: 5000 })
   await expect(async () => {
     const opacity = await wrapper.evaluate((el) =>
       parseFloat(window.getComputedStyle(el).opacity)

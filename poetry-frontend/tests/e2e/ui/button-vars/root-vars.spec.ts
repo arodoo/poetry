@@ -13,21 +13,22 @@ test('document root CSS vars established', async ({
 }): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/users')
-  const primary: string = await page.evaluate(() =>
-    getComputedStyle(document.documentElement).getPropertyValue(
-      '--color-primary'
+  await page.waitForLoadState('networkidle')
+  await expect(async () => {
+    const primary: string = await page.evaluate(() =>
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-primary')
     )
-  )
+    expect(primary.trim()).not.toBe('')
+  }).toPass({ timeout: 10000 })
   const error: string = await page.evaluate(() =>
-    getComputedStyle(document.documentElement).getPropertyValue('--color-error')
+    getComputedStyle(document.documentElement)
+      .getPropertyValue('--color-error')
   )
   const text: string = await page.evaluate(() =>
-    getComputedStyle(document.documentElement).getPropertyValue('--color-text')
+    getComputedStyle(document.documentElement)
+      .getPropertyValue('--color-text')
   )
-  expect(primary).toBeTruthy()
-  expect(primary).not.toBe('')
-  expect(error).toBeTruthy()
-  expect(error).not.toBe('')
-  expect(text).toBeTruthy()
-  expect(text).not.toBe('')
+  expect(error.trim()).not.toBe('')
+  expect(text.trim()).not.toBe('')
 })

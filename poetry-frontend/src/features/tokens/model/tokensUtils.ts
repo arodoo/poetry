@@ -18,5 +18,6 @@ export function getSafeInitial(data?: unknown): TokenBundleCurrent {
     fontSize: 'medium',
     spacing: 'medium',
     radius: 'medium',
+    language: 'en',
   }
 }

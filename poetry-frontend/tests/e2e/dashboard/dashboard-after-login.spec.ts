@@ -15,31 +15,22 @@ test.describe('Dashboard after login', (): void => {
     await injectTokens(page)
     await page.goto('/en/dashboard')
 
-    await expect(page.locator('h1')).toContainText('Dashboard', {
-      timeout: 5000,
-    })
+    await expect(
+      page.locator('h1').filter({ hasText: /Display|Pantalla/i })
+    ).toBeVisible({ timeout: 10000 })
 
-    const errorElement = page.locator('[data-testid="dashboard-error"]')
-    const loadingElement = page.locator('[data-testid="dashboard-loading"]')
-    const emptyElement = page.locator('[data-testid="dashboard-empty"]')
-    const totalPoems = page.locator('[data-testid="dashboard-total-poems"]')
+    const carouselRoot = page.locator('[data-testid="carousel-root"]')
 
     await page.waitForTimeout(2000)
 
-    const hasError = await errorElement.isVisible().catch(() => false)
-    const hasLoading = await loadingElement.isVisible().catch(() => false)
-    const hasEmpty = await emptyElement.isVisible().catch(() => false)
-    const hasContent = await totalPoems.isVisible().catch(() => false)
+    const hasCarousel = await carouselRoot.isVisible().catch(() => false)
 
     console.log('Dashboard state:', {
-      hasError,
-      hasLoading,
-      hasEmpty,
-      hasContent,
+      hasCarousel,
       url: page.url(),
     })
 
-    expect(hasError || hasLoading || hasEmpty || hasContent).toBe(true)
+    expect(hasCarousel).toBe(true)
   })
 
   test('verifies no infinite loop errors in console', async ({

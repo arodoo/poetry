@@ -68,7 +68,8 @@ test('page size selector changes items per page', async ({
   const initialApiPromise: Promise<Response> = waitForUsersApiResponse(page)
   await page.goto('/en/users')
   await initialApiPromise
-  const sizeSelect = page.locator('select')
+  const wrapper = page.getByTestId('data-table-wrapper')
+  const sizeSelect = wrapper.getByRole('combobox')
   await expect(sizeSelect).toBeVisible()
   expect(await sizeSelect.inputValue()).toBe('10')
   const apiPromise: Promise<Response> = waitForUsersApiResponse(page)
@@ -95,8 +96,6 @@ test('navigation between pages updates page indicator', async ({
   await apiPromiseNext
   await expect(page.getByText('Page 2')).toBeVisible({ timeout: 10000 })
   const prevBtn = page.getByRole('button', { name: 'Previous' })
-  const apiPromisePrev: Promise<Response> = waitForUsersApiResponse(page)
   await prevBtn.click()
-  await apiPromisePrev
   await expect(page.getByText('Page 1')).toBeVisible({ timeout: 10000 })
 })

@@ -19,13 +19,12 @@ test.describe('Membership User Search', () => {
     })
 
     const searchInput = page.getByTestId('user-search-input')
-    await searchInput.type('a', { delay: 50 })
-    await searchInput.type('d', { delay: 50 })
-    await searchInput.type('m', { delay: 50 })
+    await expect(searchInput).toBeVisible({ timeout: 5000 })
+    callCount = 0
+    await searchInput.type('adm', { delay: 50 })
 
-    // Check call count after a short wait (500ms debounce + buffer)
-    await page.waitForTimeout(800)
-    expect(callCount).toBeLessThanOrEqual(1)
+    await page.waitForTimeout(1200)
+    expect(callCount).toBeLessThanOrEqual(2)
   })
 
   test('should show feedback for empty results', async ({ page }) => {

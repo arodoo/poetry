@@ -16,15 +16,17 @@ async function waitForUsersApi(page: Page): Promise<Response> {
   )
 }
 
-test('click username header sends sort=username,asc', async ({
+test('click full name header sends sort=username,asc', async ({
   page,
 }: {
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const initP = waitForUsersApi(page)
   await page.goto('/en/users')
+  await initP
   const th = page.locator('th', {
-    hasText: /username/i,
+    hasText: /full name/i,
   })
   const apiP = waitForUsersApi(page)
   await th.click()
@@ -39,14 +41,18 @@ test('second click sends sort=username,desc', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const initP = waitForUsersApi(page)
   await page.goto('/en/users')
+  await initP
   const th = page.locator('th', {
-    hasText: /username/i,
+    hasText: /full name/i,
   })
+  const ascP = waitForUsersApi(page)
   await th.click()
-  await waitForUsersApi(page)
-  const apiP = waitForUsersApi(page)
+  const ascRes = await ascP
+  expect(ascRes.url()).toContain('sort=username%2Casc')
+  const descP = waitForUsersApi(page)
   await th.click()
-  const res = await apiP
+  const res = await descP
   expect(res.url()).toContain('sort=username%2Cdesc')
 })

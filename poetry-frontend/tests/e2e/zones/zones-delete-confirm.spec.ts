@@ -5,8 +5,15 @@
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import { seedZone, type SeedZone } from '../shared/fixtures/seedApi'
 
 test.describe('Zones Delete Confirmation', (): void => {
+  let zone: SeedZone
+
+  test.beforeAll(async (): Promise<void> => {
+    zone = await seedZone({ name: 'e2e-confirm-del' })
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -16,37 +23,29 @@ test.describe('Zones Delete Confirmation', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/zones')
-
-    const firstViewButton = page.locator('[data-testid^="view-zone-"]').first()
-    const testIdAttr = await firstViewButton.getAttribute('data-testid')
-    const zoneId = testIdAttr?.replace('view-zone-', '') || ''
-
-    await page.goto(`/en/zones/${zoneId}/delete`)
+    await page.goto(`/en/zones/${zone.id}/delete`)
+    await expect(
+      page.getByTestId('confirm-delete-zone-button')
+    ).toBeVisible({ timeout: 10000 })
 
     const deleteApiPromise: Promise<Response> = page.waitForResponse(
       (response: Response): boolean =>
-        response.url().includes(`/api/v1/zones/${zoneId}`) &&
+        response.url().includes(`/api/v1/zones/${zone.id}`) &&
         response.request().method() === 'DELETE'
     )
 
-    const confirmButton = page.getByTestId('confirm-delete-zone-button')
-    await confirmButton.click()
-
+    await page.getByTestId('confirm-delete-zone-button').click()
     const deleteResponse: Response = await deleteApiPromise
+    const status = deleteResponse.status()
 
-    if (deleteResponse.status() === 200 || deleteResponse.status() === 204) {
-      await expect(page.getByText(/Zone deleted successfully/i)).toBeVisible({
-        timeout: 1000,
-      })
-
+    if (status === 200 || status === 204) {
+      await expect(
+        page.getByText(/Zone deleted successfully/i)
+      ).toBeVisible({ timeout: 5000 })
       await page.waitForURL(/\/en\/zones$/, { timeout: 5000 })
-      await expect(page).toHaveURL(/\/en\/zones$/)
     } else {
-      const responseBody = await deleteResponse.text()
-      throw new Error(
-        `Delete failed with status ${deleteResponse.status()}: ${responseBody}`
-      )
+      const body = await deleteResponse.text()
+      throw new Error(`Delete failed: ${status}: ${body}`)
     }
   })
 })

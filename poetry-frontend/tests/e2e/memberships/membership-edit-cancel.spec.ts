@@ -6,8 +6,23 @@
  */
 import { test, expect, type Page, type Locator } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import {
+  seedMembership,
+  deleteMembership,
+  type SeedMembership,
+} from '../shared/fixtures/seedApi'
 
 test.describe('Membership Edit Cancel', (): void => {
+  let m: SeedMembership
+
+  test.beforeAll(async (): Promise<void> => {
+    m = await seedMembership()
+  })
+
+  test.afterAll(async (): Promise<void> => {
+    if (m?.id) await deleteMembership(m.id).catch(() => {})
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -17,25 +32,13 @@ test.describe('Membership Edit Cancel', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/memberships')
-
-    const firstViewButton: Locator = page
-      .locator('[data-testid^="view-membership-"]')
-      .first()
-    await expect(firstViewButton).toBeVisible({ timeout: 5000 })
-
-    const testIdAttr: string | null =
-      await firstViewButton.getAttribute('data-testid')
-    const membershipId: string =
-      testIdAttr?.replace('view-membership-', '') || ''
-
-    await firstViewButton.click()
-    await page.waitForURL(`/en/memberships/${membershipId}`)
+    await page.goto(`/en/memberships/${m.id}`)
 
     const editButton: Locator = page.getByTestId('edit-membership-button')
+    await expect(editButton).toBeVisible({ timeout: 10000 })
     await editButton.click()
 
-    await page.waitForURL(`/en/memberships/${membershipId}/edit`)
+    await page.waitForURL(`/en/memberships/${m.id}/edit`)
 
     const cancelButton: Locator = page.getByRole('button', {
       name: /Cancel/i,
@@ -43,7 +46,7 @@ test.describe('Membership Edit Cancel', (): void => {
     await expect(cancelButton).toBeVisible()
     await cancelButton.click()
 
-    await page.waitForURL(`/en/memberships/${membershipId}`)
-    await expect(page).toHaveURL(`/en/memberships/${membershipId}`)
+    await page.waitForURL(`/en/memberships/${m.id}`)
+    await expect(page).toHaveURL(new RegExp(`/en/memberships/${m.id}$`))
   })
 })

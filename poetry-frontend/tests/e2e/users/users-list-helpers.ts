@@ -8,7 +8,7 @@ import type { Page, Response } from '@playwright/test'
 export async function waitForUsersApiResponse(page: Page): Promise<Response> {
   return page.waitForResponse(
     (response: Response): boolean =>
-      response.url().includes('/api/v1/users') &&
+      response.url().includes('/api/v1/users/paged') &&
       response.request().method() === 'GET'
   )
 }

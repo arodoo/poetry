@@ -30,7 +30,9 @@ test('cancel button in edit form navigates to detail page', async ({
   await expect(page.getByRole('heading', { name: 'Edit user' })).toBeVisible({
     timeout: 15000,
   })
-  const cancelButton: Locator = page.getByRole('button', { name: 'Cancel' })
+  const cancelButton: Locator = page
+    .getByRole('button', { name: 'Cancel' })
+    .last()
   await expect(cancelButton).toBeVisible()
   await cancelButton.click()
   await expect(page).toHaveURL(new RegExp(`/en/users/${userId}$`))

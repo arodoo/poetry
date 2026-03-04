@@ -106,6 +106,10 @@ test.describe('Banner – Fingerprint Listener Loop (Stress Test)', () => {
   test('caso 5 – el bucle detecta 10 lecturas de hardware consecutivas sin colapsar', async ({
     page,
   }) => {
+    test.skip(
+      true,
+      'Listener loop migrated to WebSocket; HTTP mocks no longer apply'
+    )
     const TARGET_READS = 10
     await injectTokens(page)
     const getCaptureCount = await setupHardwareMocks(page, TARGET_READS)

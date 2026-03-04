@@ -22,10 +22,10 @@ test('click code header sends sort=code,asc', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const initP = waitForSellerCodesApi(page)
   await page.goto('/en/seller-codes')
-  const th = page.locator('th', {
-    hasText: /code/i,
-  })
+  await initP
+  const th = page.getByRole('columnheader', { name: 'Code' })
   const apiP = waitForSellerCodesApi(page)
   await th.click()
   const res = await apiP
@@ -39,14 +39,16 @@ test('second click sends sort=code,desc', async ({
   page: Page
 }): Promise<void> => {
   await injectTokens(page)
+  const initP = waitForSellerCodesApi(page)
   await page.goto('/en/seller-codes')
-  const th = page.locator('th', {
-    hasText: /code/i,
-  })
+  await initP
+  const th = page.getByRole('columnheader', { name: 'Code' })
+  const ascP = waitForSellerCodesApi(page)
   await th.click()
-  await waitForSellerCodesApi(page)
-  const apiP = waitForSellerCodesApi(page)
+  const ascRes = await ascP
+  expect(ascRes.url()).toContain('sort=code%2Casc')
+  const descP = waitForSellerCodesApi(page)
   await th.click()
-  const res = await apiP
+  const res = await descP
   expect(res.url()).toContain('sort=code%2Cdesc')
 })

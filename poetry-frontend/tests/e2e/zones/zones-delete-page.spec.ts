@@ -5,8 +5,23 @@
  */
 import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import {
+  seedZone,
+  deleteZone,
+  type SeedZone,
+} from '../shared/fixtures/seedApi'
 
 test.describe('Zones Delete Confirmation Page', (): void => {
+  let zone: SeedZone
+
+  test.beforeAll(async (): Promise<void> => {
+    zone = await seedZone({ name: 'e2e-delete-page' })
+  })
+
+  test.afterAll(async (): Promise<void> => {
+    if (zone?.id) await deleteZone(zone.id).catch(() => {})
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -16,16 +31,10 @@ test.describe('Zones Delete Confirmation Page', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/zones')
-
-    const firstViewButton = page.locator('[data-testid^="view-zone-"]').first()
-    const testIdAttr = await firstViewButton.getAttribute('data-testid')
-    const zoneId = testIdAttr?.replace('view-zone-', '') || ''
-
-    await page.goto(`/en/zones/${zoneId}/delete`)
+    await page.goto(`/en/zones/${zone.id}/delete`)
 
     const heading = page.getByRole('heading', { name: /delete/i, level: 1 })
-    await expect(heading).toBeVisible()
+    await expect(heading).toBeVisible({ timeout: 10000 })
 
     const confirmButton = page.getByTestId('confirm-delete-zone-button')
     await expect(confirmButton).toBeVisible()

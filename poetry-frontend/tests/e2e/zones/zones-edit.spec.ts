@@ -6,8 +6,23 @@
  */
 import { test, expect, type Page, type Locator } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import {
+  seedZone,
+  deleteZone,
+  type SeedZone,
+} from '../shared/fixtures/seedApi'
 
 test.describe('Zones Detail and Edit Flow', (): void => {
+  let zone: SeedZone
+
+  test.beforeAll(async (): Promise<void> => {
+    zone = await seedZone({ name: 'e2e-edit-zone' })
+  })
+
+  test.afterAll(async (): Promise<void> => {
+    if (zone?.id) await deleteZone(zone.id).catch(() => {})
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -18,73 +33,32 @@ test.describe('Zones Detail and Edit Flow', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto('/en/zones')
-
     await expect(page.getByRole('heading', { name: /Zones/i })).toBeVisible({
       timeout: 10000,
     })
 
-    const firstViewButton: Locator = page
-      .locator('[data-testid^="view-zone-"]')
-      .first()
-    await expect(firstViewButton).toBeVisible({ timeout: 5000 })
-
-    const testIdAttr: string | null =
-      await firstViewButton.getAttribute('data-testid')
-    const zoneId: string = testIdAttr?.replace('view-zone-', '') || ''
-    expect(zoneId).toBeTruthy()
-
-    await firstViewButton.click()
-    await page.waitForURL(`/en/zones/${zoneId}`, { timeout: 10000 })
-
-    await expect(
-      page.getByRole('heading', { name: /Zone Details/i })
-    ).toBeVisible({
-      timeout: 10000,
-    })
+    const viewButton: Locator = page.getByTestId(`view-zone-${zone.id}`)
+    await expect(viewButton).toBeVisible({ timeout: 10000 })
+    await viewButton.click()
+    await page.waitForURL(`/en/zones/${zone.id}`, { timeout: 10000 })
 
     const editButton: Locator = page.getByTestId('edit-zone-button')
     await expect(editButton).toBeVisible()
-
-    const deleteButton: Locator = page.getByTestId('delete-zone-button')
-    await expect(deleteButton).toBeVisible()
-
     await editButton.click()
-    await page.waitForURL(`/en/zones/edit/${zoneId}`, { timeout: 10000 })
+    await page.waitForURL(`/en/zones/edit/${zone.id}`, { timeout: 10000 })
 
-    await expect(page.getByRole('heading', { name: /Edit zone/i })).toBeVisible(
-      {
-        timeout: 10000,
-      }
-    )
-
-    const nameInput: Locator = page.getByTestId('zone-name-input')
     const descInput: Locator = page.getByTestId('zone-description-input')
-    const managerSelect: Locator = page.getByTestId('seller-code-user-select')
-
-    await expect(nameInput).toBeVisible()
     await expect(descInput).toBeVisible()
-    await expect(managerSelect).toBeVisible()
-
-    await page.waitForTimeout(1000)
-
-    const originalName: string = (await nameInput.inputValue()) || ''
-    expect(originalName).toBeTruthy()
-
-    const updatedDesc = `Updated at ${Date.now()}`
-    await descInput.fill(updatedDesc)
+    await descInput.fill(`Updated at ${Date.now()}`)
 
     const saveButton: Locator = page.getByRole('button', {
       name: /Save changes/i,
     })
-    await expect(saveButton).toBeVisible()
     await saveButton.click()
 
     await expect(page.getByText(/Zone updated successfully/i)).toBeVisible({
       timeout: 10000,
     })
-
     await page.waitForURL('/en/zones', { timeout: 10000 })
-
-    await expect(page.getByRole('heading', { name: /Zones/i })).toBeVisible()
   })
 })

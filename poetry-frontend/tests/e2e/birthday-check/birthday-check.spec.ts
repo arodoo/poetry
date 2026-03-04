@@ -39,9 +39,11 @@ test.describe('Birthday Check', (): void => {
       params: { search: 'admin', size: 5 },
       headers: { Authorization: `Bearer ${t.accessToken}` },
     })
-    type Page = { content: { id: number; username: string }[] }
-    const body = (await resp.json()) as Page
-    const found = body.content.find((u) => u.username === 'admin')
+    const body = (await resp.json()) as
+      | { content: { id: number; username: string }[] }
+      | { id: number; username: string }[]
+    const list = Array.isArray(body) ? body : body.content
+    const found = list.find((u) => u.username === 'admin')
     if (found != null) adminId = found.id
     await ctx.dispose()
     await putDemographics(TODAY)
@@ -80,7 +82,7 @@ test.describe('Birthday Check', (): void => {
     await page.goto('/es/dashboard')
     await page.getByTestId('birthday-check-button').click()
     await page.getByTestId('birthday-popup').waitFor()
-    await page.getByRole('button', { name: /Cerrar/i }).click()
+    await page.getByRole('button', { name: /Cerrar|Close/i }).click()
     await expect(page.getByTestId('birthday-popup')).not.toBeVisible()
   })
 

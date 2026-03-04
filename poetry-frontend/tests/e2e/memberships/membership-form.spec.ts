@@ -5,8 +5,25 @@
  */
 import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import { authedApi } from '../shared/fixtures/seedApi'
+
+async function deleteAdminMemberships(): Promise<void> {
+  const api = await authedApi()
+  const r = await api.get('/api/v1/memberships?size=100')
+  if (!r.ok()) { await api.dispose(); return }
+  const data = await r.json()
+  const items = Array.isArray(data)
+    ? (data as { id: number; userId: number }[])
+    : ((data as { content?: { id: number; userId: number }[] }).content ?? [])
+  for (const m of items.filter((i) => i.userId === 1)) {
+    await api.delete(`/api/v1/memberships/${m.id}`).catch(() => {})
+  }
+  await api.dispose()
+}
+
 test.describe('Membership Form Interactions', () => {
   test.beforeEach(async ({ page }) => {
+    await deleteAdminMemberships()
     await injectTokens(page)
     await page.goto('/en/memberships/new')
   })
@@ -15,33 +32,34 @@ test.describe('Membership Form Interactions', () => {
     await page.getByTestId('user-search-input').fill('admin')
     await page.getByTestId('user-search-result-1').click()
     await expect(page.getByTestId('subscription-select')).toBeVisible({
-      timeout: 5000,
+      timeout: 10000,
     })
 
     await page
       .getByTestId('subscription-select')
-      .selectOption({ label: 'Basic Monthly' })
-    // We fill a code that should be invalid in the real system or we'll see what the real system says
+      .selectOption({ index: 1 })
     await page.getByTestId('membership-seller-code-input').fill('INVALID')
     await page.getByTestId('submit-membership-button').click()
 
-    // Wait for the real API response
-    await expect(page.getByTestId('eligibility-error')).toBeVisible({
-      timeout: 10000,
-    })
+    // Invalid seller code triggers a toast error notification
+    await expect(
+      page.getByText(/invalid|inactive|inválido|inactivo/i)
+    ).toBeVisible({ timeout: 10000 })
   })
 
   test('should disable submit button until form is valid', async ({ page }) => {
     await page.getByTestId('user-search-input').fill('admin')
     await page.getByTestId('user-search-result-1').click()
 
+    // Submit button appears only after eligibility passes
     const submitBtn = page.getByTestId('submit-membership-button')
-    await expect(submitBtn).toBeVisible({ timeout: 5000 })
-    await expect(submitBtn).toBeDisabled()
+    await expect(submitBtn).toBeVisible({ timeout: 10000 })
 
-    // Fill sub but not seller code
-    await page.getByTestId('subscription-select').selectOption({ index: 1 })
-    await expect(submitBtn).toBeDisabled()
+    // Button is enabled; submitting without subscription shows error
+    await submitBtn.click()
+    await expect(
+      page.getByText(/subscription required|suscripción/i)
+    ).toBeVisible({ timeout: 5000 })
   })
 
   test('should reset form state when a new user is selected', async ({
@@ -51,15 +69,23 @@ test.describe('Membership Form Interactions', () => {
 
     await searchInput.fill('admin')
     await page.getByTestId('user-search-result-1').click()
-    await expect(page.getByTestId('eligibility-checking')).toBeVisible()
+    // Wait for eligibility to resolve (subscription select appears)
+    await expect(page.getByTestId('subscription-select')).toBeVisible({
+      timeout: 10000,
+    })
 
-    // Switch user immediately
+    // Switch user – form should reset and re-check eligibility
+    await searchInput.fill('')
     await searchInput.fill('test')
     await page
       .getByTestId(/user-search-result-/)
       .first()
       .click()
-    await expect(page.getByTestId('eligibility-checking')).toBeVisible()
+    // Selected user label should update
+    await expect(page.getByTestId('selected-user-label')).toContainText(
+      /test/i,
+      { timeout: 10000 }
+    )
   })
 
   test('should navigate back to list on cancellation', async ({ page }) => {

@@ -5,8 +5,23 @@
  */
 import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import {
+  seedZone,
+  deleteZone,
+  type SeedZone,
+} from '../shared/fixtures/seedApi'
 
 test.describe('Zones Delete Cancel', (): void => {
+  let zone: SeedZone
+
+  test.beforeAll(async (): Promise<void> => {
+    zone = await seedZone({ name: 'e2e-cancel-delete' })
+  })
+
+  test.afterAll(async (): Promise<void> => {
+    if (zone?.id) await deleteZone(zone.id).catch(() => {})
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -16,18 +31,13 @@ test.describe('Zones Delete Cancel', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/zones')
-
-    const firstViewButton = page.locator('[data-testid^="view-zone-"]').first()
-    const testIdAttr = await firstViewButton.getAttribute('data-testid')
-    const zoneId = testIdAttr?.replace('view-zone-', '') || ''
-
-    await page.goto(`/en/zones/${zoneId}/delete`)
+    await page.goto(`/en/zones/${zone.id}/delete`)
 
     const cancelButton = page.getByTestId('cancel-delete-zone-button')
+    await expect(cancelButton).toBeVisible({ timeout: 10000 })
     await cancelButton.click()
 
-    await page.waitForURL(new RegExp(`/en/zones/${zoneId}$`))
-    await expect(page).toHaveURL(new RegExp(`/en/zones/${zoneId}$`))
+    await page.waitForURL(new RegExp(`/en/zones/${zone.id}$`))
+    await expect(page).toHaveURL(new RegExp(`/en/zones/${zone.id}$`))
   })
 })

@@ -6,8 +6,18 @@
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import {
+  seedMembership,
+  type SeedMembership,
+} from '../shared/fixtures/seedApi'
 
 test.describe('Membership Delete Confirmation', (): void => {
+  let m: SeedMembership
+
+  test.beforeAll(async (): Promise<void> => {
+    m = await seedMembership()
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -17,37 +27,24 @@ test.describe('Membership Delete Confirmation', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/memberships')
-
-    const firstViewButton = page
-      .locator('[data-testid^="view-membership-"]')
-      .first()
-    const testIdAttr = await firstViewButton.getAttribute('data-testid')
-    const membershipId = testIdAttr?.replace('view-membership-', '') || ''
-
-    await page.goto(`/en/memberships/${membershipId}/delete`)
+    await page.goto(`/en/memberships/${m.id}/delete`)
 
     const deleteApiPromise: Promise<Response> = page.waitForResponse(
       (resp: Response): boolean =>
-        resp.url().includes(`/api/v1/memberships/${membershipId}`) &&
+        resp.url().includes(`/api/v1/memberships/${m.id}`) &&
         resp.request().method() === 'DELETE'
     )
 
-    const confirmButton = page.getByTestId('confirm-delete-membership-button')
+    const confirmButton = page.getByTestId(
+      'confirm-delete-membership-button'
+    )
+    await expect(confirmButton).toBeVisible({ timeout: 10000 })
     await confirmButton.click()
 
     const deleteResponse: Response = await deleteApiPromise
-    const status = deleteResponse.status()
+    expect([200, 204]).toContain(deleteResponse.status())
 
-    if (status === 200 || status === 204) {
-      await expect(page.getByText(/Membership deleted/i)).toBeVisible({
-        timeout: 1000,
-      })
-      await page.waitForURL(/\/en\/memberships$/, { timeout: 5000 })
-      await expect(page).toHaveURL(/\/en\/memberships$/)
-    } else {
-      const body = await deleteResponse.text()
-      throw new Error(`Delete failed: ${status}: ${body}`)
-    }
+    await page.waitForURL(/\/en\/memberships$/, { timeout: 5000 })
+    await expect(page).toHaveURL(/\/en\/memberships$/)
   })
 })

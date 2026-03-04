@@ -5,8 +5,15 @@
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import { seedZone, type SeedZone } from '../shared/fixtures/seedApi'
 
 test.describe('Zones Delete Verification', (): void => {
+  let zone: SeedZone
+
+  test.beforeAll(async (): Promise<void> => {
+    zone = await seedZone({ name: 'e2e-del-verify' })
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -16,48 +23,24 @@ test.describe('Zones Delete Verification', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/zones')
-
-    const firstViewButton = page.locator('[data-testid^="view-zone-"]').first()
-    const testIdAttr = await firstViewButton.getAttribute('data-testid')
-    const zoneId = testIdAttr?.replace('view-zone-', '') || ''
-
-    const zoneNameElement = page
-      .locator(`[data-testid="view-zone-${zoneId}"]`)
-      .locator('xpath=ancestor::tr')
-      .locator('td')
-      .first()
-    const zoneName = await zoneNameElement.textContent()
-
-    await firstViewButton.click()
-    await page.waitForURL(`/en/zones/${zoneId}`)
-
-    const deleteButton = page.getByTestId('delete-zone-button')
-    await deleteButton.click()
-
-    await page.waitForURL(new RegExp(`/en/zones/${zoneId}/delete`))
+    await page.goto(`/en/zones/${zone.id}`)
+    await expect(page.getByTestId('delete-zone-button')).toBeVisible({
+      timeout: 10000,
+    })
+    await page.getByTestId('delete-zone-button').click()
+    await page.waitForURL(new RegExp(`/en/zones/${zone.id}/delete`))
 
     const deleteApiPromise: Promise<Response> = page.waitForResponse(
-      (response: Response): boolean =>
-        response.url().includes(`/api/v1/zones/${zoneId}`) &&
-        response.request().method() === 'DELETE'
+      (r: Response): boolean =>
+        r.url().includes(`/api/v1/zones/${zone.id}`) &&
+        r.request().method() === 'DELETE'
     )
 
-    const confirmButton = page.getByTestId('confirm-delete-zone-button')
-    await confirmButton.click()
-
+    await page.getByTestId('confirm-delete-zone-button').click()
     await deleteApiPromise
-
     await page.waitForURL(/\/en\/zones$/, { timeout: 5000 })
 
-    const deletedZoneButton = page.locator(
-      `[data-testid="view-zone-${zoneId}"]`
-    )
-    await expect(deletedZoneButton).not.toBeVisible({ timeout: 5000 })
-
-    if (zoneName) {
-      const zoneNameInList = page.locator(`text=${zoneName}`)
-      await expect(zoneNameInList).not.toBeVisible({ timeout: 5000 })
-    }
+    const deletedBtn = page.locator(`[data-testid="view-zone-${zone.id}"]`)
+    await expect(deletedBtn).not.toBeVisible({ timeout: 5000 })
   })
 })

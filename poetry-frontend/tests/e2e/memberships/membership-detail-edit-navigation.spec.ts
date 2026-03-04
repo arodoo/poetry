@@ -6,8 +6,23 @@
  */
 import { test, expect, type Page, type Locator } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import {
+  seedMembership,
+  deleteMembership,
+  type SeedMembership,
+} from '../shared/fixtures/seedApi'
 
 test.describe('Membership Detail Edit Navigation', (): void => {
+  let m: SeedMembership
+
+  test.beforeAll(async (): Promise<void> => {
+    m = await seedMembership()
+  })
+
+  test.afterAll(async (): Promise<void> => {
+    if (m?.id) await deleteMembership(m.id).catch(() => {})
+  })
+
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
   })
@@ -17,27 +32,15 @@ test.describe('Membership Detail Edit Navigation', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    await page.goto('/en/memberships')
+    await page.goto(`/en/memberships/${m.id}`)
 
-    const firstViewButton: Locator = page
-      .locator('[data-testid^="view-membership-"]')
-      .first()
-    await firstViewButton.waitFor({ state: 'visible', timeout: 5000 })
-
-    const testIdAttr: string | null =
-      await firstViewButton.getAttribute('data-testid')
-    const membershipId: string =
-      testIdAttr?.replace('view-membership-', '') || ''
-    expect(membershipId).toBeTruthy()
-
-    await firstViewButton.click()
-    await page.waitForURL(`/en/memberships/${membershipId}`)
-
-    const editButton: Locator = page.getByTestId('edit-membership-button')
-    await editButton.waitFor({ state: 'visible', timeout: 5000 })
+    const editButton: Locator = page.getByTestId(
+      'edit-membership-button'
+    )
+    await editButton.waitFor({ state: 'visible', timeout: 10000 })
     await editButton.click()
 
-    await page.waitForURL(`/en/memberships/${membershipId}/edit`)
-    await expect(page).toHaveURL(`/en/memberships/${membershipId}/edit`)
+    await page.waitForURL(`/en/memberships/${m.id}/edit`)
+    await expect(page).toHaveURL(`/en/memberships/${m.id}/edit`)
   })
 })

@@ -60,6 +60,14 @@ test.describe('Edit User — Fingerprint Re-enrollment', () => {
         const userId: number = await loginAndFetchFirstUserId()
 
         await page.route('**/api/v1/fingerprints/capture', async (r: Route) => {
+            if (r.request().method() === 'OPTIONS') {
+                await r.fulfill({ status: 204, headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'POST',
+                    'Access-Control-Allow-Headers': '*',
+                }})
+                return
+            }
             await new Promise((resolve) => setTimeout(resolve, 500))
             await r.fulfill({
                 status: 200,
@@ -118,12 +126,15 @@ test.describe('Edit User — Fingerprint Re-enrollment', () => {
         const capturingText = page.getByText(/Enrolling fingerprint/i)
         await expect(capturingText).toBeVisible()
 
-        // The mock will auto-resolve after 500ms
-        const successMsg = page.getByTestId('fingerprint-success-msg')
-        await expect(successMsg).toBeVisible({ timeout: 2000 })
+        // The mock auto-resolves after 500ms. onSuccess fires
+        // setIsReplacing(false) which re-renders to enrolled card.
+        // Wait for enrolled state to reappear (wizard closed).
+        await expect(
+            page.getByText(/Fingerprint Enrolled/i)
+        ).toBeVisible({ timeout: 10000 })
 
-        // 3. We have captured the fingerprint in the frontend state.
-        // It should NOT have called the replace API yet.
+        // 3. capturedFmd should be set in parent state.
+        // Verify replace API has NOT been called yet (deferred).
         expect(replaceCalled).toBe(false)
 
         // 4. Click 'Save changes' on the main form payload to trigger the deferred API call

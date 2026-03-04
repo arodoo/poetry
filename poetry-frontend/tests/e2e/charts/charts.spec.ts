@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { injectTokens, waitForFontLoaded } from '../shared/providers/tokenProvider';
+import { injectTokens } from '../shared/providers/tokenProvider';
 
 const getMockMetrics = (overrides = {}) => ({
     usersByStatus: { Active: 50, Inactive: 10 },
@@ -64,7 +64,7 @@ test.describe('Charts Feature E2E', () => {
         await page.goto('/es/charts');
 
         // 4. Wait for basic rendering
-        await waitForFontLoaded(page, 'inter');
+        await page.waitForLoadState('networkidle');
         await expect(page.locator('h1').filter({ hasText: /Gráficos|Charts/i })).toBeVisible({ timeout: 15000 });
     });
 
@@ -115,7 +115,7 @@ test.describe('Charts Feature E2E', () => {
             });
         });
         await page.goto('/es/charts/details/usersByStatus');
-        await waitForFontLoaded(page, 'inter');
+        await page.waitForLoadState('networkidle');
 
         await expect(page.locator('h3').filter({ hasText: /Datos en Bruto|Raw Data/i })).toBeVisible();
         await expect(page.locator('table')).toBeVisible();
@@ -144,8 +144,9 @@ test.describe('Charts Feature E2E', () => {
     });
 
     test('8. Most Active Hours chart navigates and displays data', async ({ page }) => {
-        const chartCard = page.locator('h3').filter({ hasText: /Horas Más Activas|Most Active Hours/i }).locator('..');
-        await chartCard.locator('button').click();
+        const heading = page.locator('h3').filter({ hasText: /Horas Más Activas|Most Active Hours/i });
+        const card = page.locator('[data-testid="charts-grid"] > div').filter({ has: heading });
+        await card.locator('button').click();
         await expect(page).toHaveURL(/.*\/charts\/details\/activeHours/);
         await expect(page.locator('h1').filter({ hasText: /Horas Más Activas|Most Active Hours/i })).toBeVisible();
     });
@@ -258,7 +259,7 @@ test.describe('Charts Feature E2E', () => {
         await page.goto('/es/charts');
         await injectTokens(page);
         await page.reload();
-        await waitForFontLoaded(page, 'inter');
+        await page.waitForLoadState('networkidle');
         await expect(page.locator('h1').filter({ hasText: /Gráficos|Charts/i })).toBeVisible();
     });
 });

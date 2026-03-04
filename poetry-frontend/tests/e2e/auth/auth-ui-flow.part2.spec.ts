@@ -42,7 +42,9 @@ test.describe('Login UI Flow Part2', (): void => {
       page.locator('button[type="submit"]').click(),
     ])
     expect(page.url()).toContain('/dashboard')
-    await expect(page.locator('text=Welcome to Dashboard')).toBeVisible()
+    await expect(
+      page.locator('h1').filter({ hasText: /Display|Pantalla/i })
+    ).toBeVisible({ timeout: 10000 })
     const tokens: TokenResponseLike | null = await getTokens(page)
     expect(tokens).not.toBeNull()
     if (tokens) {

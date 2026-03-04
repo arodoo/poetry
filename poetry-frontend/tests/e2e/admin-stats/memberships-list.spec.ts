@@ -52,12 +52,14 @@ test.describe('Admin Stats - Memberships List', () => {
       page.getByRole('columnheader', { name: 'Member' })
     ).toBeVisible()
     await expect(
-      page.getByRole('columnheader', { name: 'Status' })
+      page.getByRole('columnheader', { name: 'Plan' })
     ).toBeVisible()
     await expect(
-      page.getByRole('columnheader', { name: 'Dates' })
+      page.getByRole('columnheader', { name: 'Seller' })
     ).toBeVisible()
-    await expect(page.getByRole('columnheader', { name: 'Plan' })).toBeVisible()
+    await expect(
+      page.getByRole('columnheader', { name: 'Access' })
+    ).toBeVisible()
   })
 
   test('switches tabs and updates content', async ({ page }) => {
