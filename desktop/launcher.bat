@@ -6,9 +6,10 @@ rem starts PostgreSQL, backend, and opens the browser.
 rem All Rights Reserved Arodi Emmanuel
 
 set "APP_HOME=%~dp0"
-set "JAVA=%APP_HOME%jre\bin\javaw.exe"
+if "%APP_HOME:~-1%"=="\" set "APP_HOME=%APP_HOME:~0,-1%"
+set "JAVA=%APP_HOME%\jre\bin\javaw.exe"
 
-"%JAVA%" ^
+start "" "%JAVA%" ^
   -Xmx512m ^
-  -Dpoetry.home="%APP_HOME%" ^
-  -jar "%APP_HOME%poetry-launcher.jar"
+  "-Dpoetry.home=%APP_HOME%" ^
+  -jar "%APP_HOME%\poetry-launcher.jar"

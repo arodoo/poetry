@@ -18,7 +18,7 @@ FROM node:20-alpine AS frontend
 WORKDIR /build
 COPY poetry-frontend/ ./
 RUN npm ci --silent && \
-    npx vite build --base=./ --mode desktop
+    npx vite build --mode desktop
 
 # ── Stage 3: Compile launcher JAR ──────────────────────
 FROM eclipse-temurin:21-jdk-alpine AS launcher
@@ -30,6 +30,12 @@ RUN mkdir -p out && \
     jar cfe /build/poetry-launcher.jar \
       poetry.desktop.PoetryLauncher \
       poetry/desktop/*.class
+
+# ── Stage 5a: Build standalone uninstaller EXE ────────
+FROM amake/innosetup:latest AS uninstaller
+COPY desktop/uninstall.iss /work/
+WORKDIR /work
+RUN mkdir -p /work/Output && iscc uninstall.iss
 
 # ── Stage 4: Download Windows JRE 21 (Adoptium) ───────
 FROM alpine:3.19 AS jre
@@ -78,13 +84,20 @@ postgresql-16.6-1-windows-x64-binaries.zip" && \
 # Launcher BAT (entry point for the installed app)
 COPY desktop/launcher.bat ./Poetry.bat
 
+# Uninstaller EXE
+COPY --from=uninstaller /work/Output/un-install.exe \
+  ./un-install.exe
+
+# Fix permissions for Inno Setup compatibility
+RUN chmod -R a+rX /bundle
+
 # ── Stage 6: Build installer via Inno Setup ────────────
-FROM amake/innosetup:6 AS installer
+FROM amake/innosetup:latest AS installer
 COPY --from=bundler /bundle/ /work/bundle/
 COPY desktop/installer.iss /work/
 WORKDIR /work
-RUN iscc installer.iss
+RUN mkdir -p /work/Output && iscc installer.iss
 
-# ── Output stage: extract the installer ────────────────
+# ── Output stage: extract the installer and uninstaller ─
 FROM scratch AS output
 COPY --from=installer /work/Output/ /

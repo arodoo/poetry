@@ -99,3 +99,6 @@ docs-generator/assets/
 
 # Backend Uploads
 poetry-backend/uploads/
+
+# Desktop installer output
+desktop/output/

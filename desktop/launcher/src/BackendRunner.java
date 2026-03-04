@@ -2,13 +2,15 @@
  * File: BackendRunner.java
  * Purpose: Starts the Spring Boot backend as a child process
  * with desktop profile, embedded PG connection, and static
- * file serving for the frontend SPA.
- * All Rights Reserved. Arodi Emmanuel
+ * file serving for the frontend SPA. Uses the bundled JRE
+ * so no system Java installation is required.
+ * All Rights Reserved Arodi Emmanuel
  */
 
 package poetry.desktop;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +19,19 @@ public final class BackendRunner {
   private final String jar;
   private final int pgPort;
   private final String staticDir;
+  private final String javaExe;
   private Process process;
 
   BackendRunner(String jar, int pgPort, String staticDir) {
     this.jar = jar;
     this.pgPort = pgPort;
     this.staticDir = staticDir;
+    this.javaExe = resolveJava();
   }
 
   void start() throws IOException {
     List<String> cmd = new ArrayList<>();
-    cmd.add("java");
+    cmd.add(javaExe);
     cmd.add("-Xmx512m");
     cmd.add("-jar");
     cmd.add(jar);
@@ -52,5 +56,12 @@ public final class BackendRunner {
     if (process != null && process.isAlive()) {
       process.destroy();
     }
+  }
+
+  private static String resolveJava() {
+    String home = System.getProperty("poetry.home", "");
+    Path bundled = Path.of(home, "jre", "bin", "java.exe");
+    if (bundled.toFile().exists()) return bundled.toString();
+    return "java";
   }
 }

@@ -26,7 +26,7 @@ public final class PoetryLauncher {
     String jar = findJar(appDir, "poetry-backend");
     String statics = appDir.resolve("static").toString();
     new BackendRunner(jar, pgPort, statics).start();
-    Thread.sleep(4000);
+    BackendProbe.waitReady(30);
     BrowserOpener.open("http://localhost:8080");
     TrayManager.install(dataDir);
   }
