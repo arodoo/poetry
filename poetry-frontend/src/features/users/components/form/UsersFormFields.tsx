@@ -14,6 +14,7 @@ import type { UsersFormState } from './useUsersFormState'
 export interface UsersFormFieldsProps
   extends Omit<UsersFormState, 'setActive'> {
   readonly showPassword: boolean
+  readonly isEditing?: boolean
   readonly t: ReturnType<typeof useT>
 }
 
@@ -30,6 +31,7 @@ export function UsersFormFields(props: UsersFormFieldsProps): ReactElement {
         lastName={props.lastName}
         username={props.username}
         email={props.email}
+        isEditing={props.isEditing}
         onFirstNameChange={props.setFirstName}
         onLastNameChange={props.setLastName}
         onUsernameChange={props.setUsername}

@@ -9,18 +9,20 @@ import { Select } from '../../../../ui/Select/Select'
 import { Text } from '../../../../ui/Text/Text'
 
 interface Props {
+  t: (k: string) => string
   currency: string
   setCurrency: (v: string) => void
 }
 
 export default function SubscriptionCurrencyField({
+  t,
   currency,
   setCurrency,
 }: Props): ReactElement {
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
-        Currency
+        {t('ui.subscriptions.table.currency')}
       </Text>
       <Select
         value={currency}
@@ -32,6 +34,7 @@ export default function SubscriptionCurrencyField({
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="GBP">GBP</option>
+        <option value="MXN">MXN</option>
       </Select>
     </Stack>
   )

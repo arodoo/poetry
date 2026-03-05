@@ -46,7 +46,6 @@ describe('HomePage', () => {
       isLoading: false,
     })
     render(createElement(MemoryRouter, {}, createElement(HomePage)))
-    expect(screen.getByTestId('public-hero')).toBeInTheDocument()
-    expect(screen.getByTestId('public-features')).toBeInTheDocument()
+    expect(screen.getByTestId('public-login-only')).toBeInTheDocument()
   })
 })

@@ -13,6 +13,7 @@ import { useTokensQuery } from '../../features/tokens/hooks/useTokensQueries'
 import { mapBundleToCssVars } from '../../ui/theme/tokens'
 import useApplyCssVars from './hooks/useApplyCssVars'
 import useLoadFontsFromBundle from './hooks/useLoadFontsFromBundle'
+import useApplyTokenLanguage from './hooks/useApplyTokenLanguage'
 import useTokensErrorLogger from './useTokensErrorLogger'
 import TokensErrorView from './TokensErrorView'
 
@@ -78,6 +79,11 @@ export function TokensProvider({ children }: TokensProviderProps): ReactNode {
   useLoadFontsFromBundle(
     isTokenData(data)
       ? (data.bundle as unknown as import('../fonts/loadFontTypes').TokenBundle)
+      : undefined
+  )
+  useApplyTokenLanguage(
+    isTokenData(data)
+      ? (data.bundle.current?.language as string | undefined)
       : undefined
   )
 

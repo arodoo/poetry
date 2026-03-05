@@ -28,9 +28,9 @@ export function buildZonesListColumns(
     },
     {
       key: 'name',
-      header: t('ui.zones.columns.id'),
+      header: t('ui.zones.columns.name'),
       width: 'xs',
-      accessor: (item: ZoneResponse) => String(item.id ?? '-'),
+      accessor: (item: ZoneResponse) => item.name ?? '-',
       sortValue: (item: ZoneResponse): string => item.name ?? '',
     },
     {
@@ -69,9 +69,15 @@ export function buildZonesListColumns(
       header: t('ui.zones.columns.manager'),
       width: 'md',
       accessor: (row: ZoneResponse): string =>
-        toTemplateString(row.managerId ?? '-'),
+        toTemplateString(
+          (row as Record<string, unknown>)['managerUsername'] ??
+            row.managerId ?? '-'
+        ),
       sortValue: (row: ZoneResponse): string =>
-        toTemplateString(row.managerId ?? ''),
+        toTemplateString(
+          (row as Record<string, unknown>)['managerUsername'] ??
+            row.managerId ?? ''
+        ),
     },
     {
       key: 'actions',

@@ -9,18 +9,20 @@ import { TextArea } from '../../../../ui/TextArea/TextArea'
 import { Text } from '../../../../ui/Text/Text'
 
 interface Props {
+  t: (k: string) => string
   description: string
   setDescription: (v: string) => void
 }
 
 export default function SubscriptionDescriptionField({
+  t,
   description,
   setDescription,
 }: Props): ReactElement {
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
-        Description
+        {t('ui.subscriptions.table.description')}
       </Text>
       <TextArea
         value={description}

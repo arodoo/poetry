@@ -22,5 +22,12 @@
   "ui.tokens.toast.update.success": "Tokens actualizados exitosamente",
   "ui.tokens.toast.update.error": "Error al actualizar tokens",
   "ui.tokens.breadcrumbs.admin": "Administración",
-  "ui.tokens.breadcrumbs.tokens": "Tokens UI"
+  "ui.tokens.breadcrumbs.tokens": "Tokens UI",
+  "ui.tokens.creator.title": "Creador de Temas",
+  "ui.tokens.creator.subtitle": "Crea un tema personalizado eligiendo colores o partiendo de una base existente",
+  "ui.tokens.creator.namePlaceholder": "Nombre del tema…",
+  "ui.tokens.creator.baseLabel": "Copiar de base…",
+  "ui.tokens.creator.submit": "Crear Tema",
+  "ui.tokens.creator.success": "Tema creado exitosamente",
+  "ui.tokens.creator.error": "Error al crear el tema"
 }

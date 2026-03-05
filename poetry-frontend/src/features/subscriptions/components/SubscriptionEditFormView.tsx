@@ -22,10 +22,10 @@ interface Props {
   durationDays: number
   setDurationDays: (v: number) => void
   status: 'active' | 'inactive'
-  // Accept the narrower setter signature used by the form state
   setStatus: (v: 'active' | 'inactive') => void
   isPending: boolean
   onCancel: () => void
+  onSubmit: () => void
   submitLabel: string
 }
 
@@ -34,6 +34,7 @@ export default function SubscriptionEditFormView(props: Props): ReactElement {
     <form
       onSubmit={(e) => {
         e.preventDefault()
+        props.onSubmit()
       }}
       noValidate
     >

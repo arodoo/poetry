@@ -20,6 +20,7 @@ public record ZoneResponse(
         @Schema(description = "Zone name", example = "Main Store") String name,
         @Schema(description = "Zone description", example = "Primary retail zone") String description,
         @Schema(description = "Manager user ID", example = "42") Long managerId,
+        @Schema(description = "Manager username", example = "jdoe") String managerUsername,
         @Schema(description = "Status", example = "active") String status,
         @Schema(description = "Creation date", example = "2023-01-01T00:00:00Z") Instant createdAt,
         @Schema(description = "Version for locking", example = "0") long version) {
@@ -30,8 +31,17 @@ public record ZoneResponse(
                 z.name(),
                 z.description(),
                 z.managerId(),
+                null,
                 z.status(),
                 z.createdAt(),
                 z.version());
+    }
+
+    public static ZoneResponse withManager(
+            Zone z, String managerUsername) {
+        return new ZoneResponse(
+                z.id(), z.name(), z.description(),
+                z.managerId(), managerUsername,
+                z.status(), z.createdAt(), z.version());
     }
 }

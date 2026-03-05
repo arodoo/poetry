@@ -26,7 +26,12 @@ export function buildEditFormSections(
       title: t('ui.users.edit.section.profile'),
       description: t('ui.users.edit.section.profile_desc'),
       fields: (
-        <UsersFormFields {...formState} showPassword={showPassword} t={t} />
+        <UsersFormFields
+          {...formState}
+          showPassword={showPassword}
+          isEditing={true}
+          t={t}
+        />
       ),
     },
     {

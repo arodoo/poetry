@@ -19,7 +19,7 @@ describe('Memberships Schemas', () => {
       sellerCode: 'ABC',
       zoneIds: [1, 2],
       allZones: false,
-      status: 'active',
+      status: 'ACTIVE',
     } as unknown as MembershipCreateRequest
 
     const parsed = CreateMembershipSchema.safeParse(payload)

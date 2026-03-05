@@ -16,6 +16,7 @@ export interface UsersBasicFieldsProps {
   readonly lastName: string
   readonly username: string
   readonly email: string
+  readonly isEditing?: boolean
   readonly onFirstNameChange: (value: string) => void
   readonly onLastNameChange: (value: string) => void
   readonly onUsernameChange: (value: string) => void
@@ -48,6 +49,7 @@ export function UsersBasicFields(props: UsersBasicFieldsProps): ReactElement {
           }}
           placeholder={props.t('ui.users.form.username.placeholder')}
           required
+          disabled={props.isEditing}
           data-testid="user-username-input"
         />
       </Stack>

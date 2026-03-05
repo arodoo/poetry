@@ -52,11 +52,13 @@ export default function SubscriptionFormFields(
     <Card padding="lg" shadow={true}>
       <SubscriptionNameField t={t} name={name} setName={setName} />
       <SubscriptionDescriptionField
+        t={t}
         description={description}
         setDescription={setDescription}
       />
       <SubscriptionPriceField t={t} price={price} setPrice={setPrice} />
       <SubscriptionCurrencyField
+        t={t}
         currency={currency}
         setCurrency={setCurrency}
       />

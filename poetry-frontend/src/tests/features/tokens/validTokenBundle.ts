@@ -12,8 +12,8 @@ export const validTokenBundle: Record<string, unknown> = {
     },
   ],
   fonts: [{ key: 'inter', label: 'Inter', weights: [400] }],
-  fontFamilies: [{ key: 'inter', label: 'Inter', family: 'Inter, sans-serif' }],
   fontWeights: ['400'],
+  languages: [{ key: 'en', label: 'English' }],
   fontSizes: [
     {
       key: 'default',
@@ -32,5 +32,6 @@ export const validTokenBundle: Record<string, unknown> = {
     fontSize: 'default',
     spacing: 'default',
     radius: 'default',
+    language: 'en',
   },
 }

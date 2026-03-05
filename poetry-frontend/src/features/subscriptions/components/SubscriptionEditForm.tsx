@@ -8,13 +8,14 @@ import type { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
+import { useToast } from '../../../shared/toast/toastContext'
 import SubscriptionEditFormView from './SubscriptionEditFormView'
 import { useSubscriptionDetailQuery } from '../hooks/useSubscriptionsQueries'
 import { useUpdateSubscriptionMutation } from '../hooks/useSubscriptionsMutations'
-// Container for subscription edit form state and wiring. No direct model imports
 import { buildOnCancel } from './subscriptionEditHelpers'
 import { useSubscriptionEditState } from './useSubscriptionEditState'
-// submit behavior lives in helpers; view renders the form
+import { submitSubscriptionUpdate } from './form/subscriptionSubmitHelper'
+import type { UpdateSubscriptionInput } from '../model/SubscriptionsSchemas'
 
 interface Props {
   id: string | undefined
@@ -23,7 +24,7 @@ export default function SubscriptionEditForm({ id }: Props): ReactElement {
   const t = useT()
   const { locale } = useLocale()
   const navigate = useNavigate()
-  // toast handled by submit helper when invoked by parent
+  const toast = useToast()
   const query = useSubscriptionDetailQuery(id ?? '')
   const mutation = useUpdateSubscriptionMutation()
 
@@ -41,8 +42,21 @@ export default function SubscriptionEditForm({ id }: Props): ReactElement {
     status,
     setStatus,
   } = useSubscriptionEditState(query.data)
-  // The submit handler behavior is executed via submitSubscriptionUpdate
-  // caller in the parent container; keep the logic in helpers to stay concise.
+
+  const handleSubmit = (): void => {
+    if (!id) return
+    const input: UpdateSubscriptionInput = {
+      name, description, price, currency, durationDays, status,
+    }
+    submitSubscriptionUpdate(
+      mutation, id, input,
+      () => {
+        toast.push(t('ui.subscriptions.toast.update.success'))
+        void navigate(`/${locale}/subscriptions/${id}`)
+      },
+      () => toast.push(t('ui.subscriptions.toast.update.error'))
+    )
+  }
 
   const onCancel = buildOnCancel(navigate, locale, id)
 
@@ -65,6 +79,7 @@ export default function SubscriptionEditForm({ id }: Props): ReactElement {
       setStatus={setStatus}
       isPending={mutation.isPending}
       onCancel={onCancel}
+      onSubmit={handleSubmit}
       submitLabel={submitLabel}
     />
   )

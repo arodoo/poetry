@@ -22,6 +22,7 @@ vi.spyOn(generatedSdk, 'getTokens').mockResolvedValue({
     shadows: [
       { key: 'default', label: 'Default', values: { md: '0 0 2px #000' } },
     ],
+    languages: [{ key: 'en', label: 'English' }],
     current: {
       theme: 'amber',
       font: 'inter',
@@ -29,6 +30,7 @@ vi.spyOn(generatedSdk, 'getTokens').mockResolvedValue({
       spacing: 'default',
       radius: 'default',
       shadow: 'default',
+      language: 'en',
     },
   },
   request: new Request('http://localhost/api/v1/tokens'),

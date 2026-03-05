@@ -22,5 +22,12 @@
   "ui.tokens.toast.update.success": "Tokens updated successfully",
   "ui.tokens.toast.update.error": "Failed to update tokens",
   "ui.tokens.breadcrumbs.admin": "Admin",
-  "ui.tokens.breadcrumbs.tokens": "UI Tokens"
+  "ui.tokens.breadcrumbs.tokens": "UI Tokens",
+  "ui.tokens.creator.title": "Theme Creator",
+  "ui.tokens.creator.subtitle": "Create a custom theme by picking colors or starting from an existing base",
+  "ui.tokens.creator.namePlaceholder": "Theme name…",
+  "ui.tokens.creator.baseLabel": "Copy from base…",
+  "ui.tokens.creator.submit": "Create Theme",
+  "ui.tokens.creator.success": "Theme created successfully",
+  "ui.tokens.creator.error": "Failed to create theme"
 }
