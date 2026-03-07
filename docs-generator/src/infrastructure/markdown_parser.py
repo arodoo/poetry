@@ -103,11 +103,49 @@ def _add_code_block(doc, text):
         run.font.color.rgb = RGBColor(40, 40, 40)
     return p
 
+def _collapse_list_items(block, marker_re):
+    """
+    Rejoin multi-line list items into single logical items.
+
+    Markdown files are line-wrapped at ~60 chars. A bullet like:
+        - **Diseñar** un núcleo de dominio desacoplado utilizando
+        Domain-Driven Design para aislar las reglas de negocio de
+        la infraestructura tecnológica.
+
+    must become ONE item, not three. A continuation line is any
+    line that does NOT start with a new list marker.
+    """
+    items = []
+    current = None
+    for line in block.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if re.match(marker_re, stripped):
+            if current is not None:
+                items.append(current)
+            current = re.sub(marker_re, '', stripped, count=1).strip()
+        elif current is not None:
+            current += ' ' + stripped
+        else:
+            current = stripped
+    if current is not None:
+        items.append(current)
+    return items
+
+
 def parse_markdown_blocks(doc, content):
     content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
-    content = re.sub(r'^(#+ .+)(\n)(?=[^\n])', r'\1\n\n', content, flags=re.MULTILINE)
+    content = re.sub(
+        r'^(#+ .+)(\n)(?=[^\n])',
+        r'\1\n\n', content, flags=re.MULTILINE
+    )
 
-    blocks = [b.strip() for b in content.strip().split('\n\n') if b.strip()]
+    blocks = [
+        b.strip()
+        for b in content.strip().split('\n\n')
+        if b.strip()
+    ]
     for block in blocks:
         if block.startswith('```'):
             _add_code_block(doc, block)
@@ -122,15 +160,11 @@ def parse_markdown_blocks(doc, content):
         elif block.startswith('### '):
             doc.add_heading(block[4:].strip(), level=3)
         elif re.match(r'^[-*] ', block):
-            for line in block.splitlines():
-                item = re.sub(r'^[-*]\s+', '', line.strip())
-                if item:
-                    _add_bullet(doc, item)
+            for item in _collapse_list_items(block, r'^[-*]\s+'):
+                _add_bullet(doc, item)
         elif re.match(r'^\d+\.', block):
-            for line in block.splitlines():
-                m = re.match(r'^\d+\.\s*(.+)', line.strip())
-                if m:
-                    _add_numbered(doc, m.group(1))
+            for item in _collapse_list_items(block, r'^\d+\.\s*'):
+                _add_numbered(doc, item)
         else:
             text = ' '.join(block.splitlines()).strip()
             _add_body(doc, text)
