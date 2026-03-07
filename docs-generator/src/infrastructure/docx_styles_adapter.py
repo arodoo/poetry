@@ -9,12 +9,21 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 from src.domain.constants import MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP, MARGIN_BOTTOM, FONT_NAME
 
-def configure_margins(doc):
-    for section in doc.sections:
+def configure_margins(doc, content_top_cm=4):
+    from docx.shared import Cm
+    from docx.enum.section import WD_SECTION
+    for i, section in enumerate(doc.sections):
         section.left_margin = MARGIN_LEFT
         section.right_margin = MARGIN_RIGHT
-        section.top_margin = MARGIN_TOP
         section.bottom_margin = MARGIN_BOTTOM
+        if i == 0:
+            # Cover section: use template's own top margin
+            section.top_margin = MARGIN_TOP
+        else:
+            # Content section: use larger top margin so text
+            # clears the institutional header image.
+            section.top_margin = Cm(content_top_cm)
+            section.start_type = WD_SECTION.NEW_PAGE
 
 def _ensure_style(doc, name, style_type=1): # 1 is WD_STYLE_TYPE.PARAGRAPH
     try:
@@ -34,14 +43,27 @@ def configure_normal_style(doc):
     fmt.space_before = Pt(0)
     fmt.space_after = Pt(0)
 
+def _set_outline_level(style, level):
+    """
+    Inject <w:outlineLvl w:val='level'/> into style's pPr so that
+    Word's TOC field can detect the heading. Without this tag,
+    TOC \\o returns 'No entries found'.
+    """
+    pPr = style.element.get_or_add_pPr()
+    outlineLvl = pPr.find(qn('w:outlineLvl'))
+    if outlineLvl is None:
+        outlineLvl = OxmlElement('w:outlineLvl')
+        pPr.append(outlineLvl)
+    outlineLvl.set(qn('w:val'), str(level))
+
 def configure_heading_styles(doc):
     all_headings = {
-        'Title':     (16, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.CENTER, True),
-        'Heading 1': (16, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.CENTER, True),
-        'Heading 2': (14, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.LEFT, False),
-        'Heading 3': (12, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.LEFT, False),
+        'Title':     (16, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.CENTER, True, None),
+        'Heading 1': (16, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.CENTER, True,  0),
+        'Heading 2': (14, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.LEFT,   False, 1),
+        'Heading 3': (12, Pt(0), Pt(0), WD_ALIGN_PARAGRAPH.LEFT,   False, 2),
     }
-    for name, (size, before, after, align, bold) in all_headings.items():
+    for name, (size, before, after, align, bold, outline) in all_headings.items():
         style = _ensure_style(doc, name)
         font = style.font
         font.name = FONT_NAME
@@ -54,6 +76,8 @@ def configure_heading_styles(doc):
         fmt.space_before = before
         fmt.space_after = after
         fmt.line_spacing = 1.5
+        if outline is not None:
+            _set_outline_level(style, outline)
 
 def set_page_numbers(doc):
     section = doc.sections[0]
