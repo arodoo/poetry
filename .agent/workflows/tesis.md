@@ -24,3 +24,5 @@ The problem is that upon payment, students receive a card with the expiration da
 The process is as follows: the student arrives, is registered, pays, their membership is activated, and each time they arrive, they place their finger on the screen and their status appears. Additionally, the owner has access to precise metrics for their students.
 
 ## General important considerations: technologies: react, spring boot, postgresql, docker, windows, bash. Number of developers: 1. used git, local ci/cd. Playright for testing, Twilind for styles
+
+check 'docs-generator\generate-docx.md' before generating docx

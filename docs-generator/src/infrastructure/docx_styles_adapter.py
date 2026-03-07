@@ -79,11 +79,13 @@ def configure_heading_styles(doc):
         if outline is not None:
             _set_outline_level(style, outline)
 
-def set_page_numbers(doc):
-    section = doc.sections[0]
-    section.different_first_page_header_footer = True
-    footer = section.footer
-    paragraph = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+def _write_page_number(footer_obj):
+    """Write PAGE field bottom-right into the given footer object."""
+    paragraph = (
+        footer_obj.paragraphs[0]
+        if footer_obj.paragraphs
+        else footer_obj.add_paragraph()
+    )
     paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run = paragraph.add_run()
     fldChar1 = OxmlElement('w:fldChar')
@@ -97,6 +99,21 @@ def set_page_numbers(doc):
     run._r.append(fldChar2)
     run.font.name = FONT_NAME
     run.font.size = Pt(10)
+
+def set_page_numbers(doc):
+    """Apply PAGE footer to every section while preserving template link headers."""
+    for i, section in enumerate(doc.sections):
+        if i == 0:
+            # Force true on cover so page 1 is clean
+            section.different_first_page_header_footer = True
+            _write_page_number(section.footer)
+        else:
+            # For section 1+ (content), DO NOT touch different_first_page_header_footer!
+            # The template uses the first page header to store the background image.
+            _write_page_number(section.footer)
+            if section.different_first_page_header_footer:
+                _write_page_number(section.first_page_footer)
+
 
 def setup_document_styles(doc):
     configure_margins(doc)
