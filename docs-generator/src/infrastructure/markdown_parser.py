@@ -63,6 +63,7 @@ def _add_bullet(doc, text):
     p = doc.add_paragraph(style='List Bullet')
     _add_formatted_runs(p, text)
     fmt = p.paragraph_format
+    fmt.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     fmt.first_line_indent = Cm(0)
     fmt.line_spacing = 1.5
     return p
@@ -72,6 +73,7 @@ def _add_numbered(doc, text):
     p = doc.add_paragraph(style='List Number')
     _add_formatted_runs(p, text)
     fmt = p.paragraph_format
+    fmt.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     fmt.first_line_indent = Cm(0)
     fmt.line_spacing = 1.5
     return p
