@@ -22,3 +22,5 @@ Ergonomic management for access control and membership status at the Chely Boops
 The problem is that upon payment, students receive a card with the expiration date and the signature of the person who sold it.
 
 The process is as follows: the student arrives, is registered, pays, their membership is activated, and each time they arrive, they place their finger on the screen and their status appears. Additionally, the owner has access to precise metrics for their students.
+
+## General important considerations: technologies: react, spring boot, postgresql, docker, windows, bash. Number of developers: 1. used git, local ci/cd. Playright for testing, Twilind for styles

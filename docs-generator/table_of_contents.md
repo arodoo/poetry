@@ -17,18 +17,18 @@
 - 1.5 Justificación
 - 1.6 Alcances y Limitaciones
 
-## CAPÍTULO 2: MARCO TEÓRICO Y TECNOLÓGICO
+## CAPÍTULO 2: FUNDAMENTO TEÓRICO Y TECNOLÓGICO
 - 2.1 Domain-Driven Design (DDD)
 - 2.2 Arquitectura Limpia (Clean Architecture)
 - 2.3 Principios SOLID
 - 2.4 Tecnologías Backend (Java, Spring Boot, JPA/Hibernate)
-- 2.5 Tecnologías Frontend (React, Vite, CSS Vanilla)
+- 2.5 Tecnologías Frontend (React, Vite, Tailwind CSS)
 - 2.6 Gestión de Base de Datos (PostgreSQL/H2)
-- 2.7 Control de Versiones y CI/CD (GitHub Actions, Husky)
+- 2.7 Control de Versiones y CI/CD (Git, CI/CD Local con Husky)
 
 ## CAPÍTULO 3: DESARROLLO E IMPLEMENTACIÓN
 - 3.1 Especificación de Requerimientos
-- 3.2 Arquitectura del Sistema
+- 3.2 Arquitectura de la Plataforma
     - 3.2.1 Capa de Dominio (Entidades, Value Objects)
     - 3.2.2 Capa de Aplicación (Use Cases, DTOs)
     - 3.2.3 Capa de Infraestructura (Adaptores, Repositorios)

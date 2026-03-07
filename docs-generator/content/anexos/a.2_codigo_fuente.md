@@ -7,7 +7,7 @@
 
 # A.2 Código Fuente Relevante
 
-Se presentan extractos del código de producción del Sistema Poetry, seleccionados por su representatividad arquitectónica. Cada bloque ilustra un principio de diseño distinto, desde la capa de dominio hasta la capa de interfaces.
+Se presentan extractos del código de producción de Poetry, seleccionados por su representatividad arquitectónica. Cada bloque ilustra un principio de diseño distinto, desde la capa de dominio hasta la capa de interfaces.
 
 ## A.2.1 Dominio: Entidad de Suscripción
 
