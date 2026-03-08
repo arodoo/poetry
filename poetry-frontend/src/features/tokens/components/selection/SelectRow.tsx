@@ -1,14 +1,16 @@
 /*
  File: SelectRow.tsx
- Purpose: Small select-row helper used by TokenSwitcherPanel. It renders a
- label and a select bound to token fields so callers can reuse a consistent
- control. The component prefers provided options but gracefully falls back to
- the current value.
+ Purpose: Searchable select-row helper used by TokenSwitcherPanel.
+ Renders a label and a SearchableSelect bound to token fields so
+ callers can reuse a consistent control. Gracefully falls back to
+ the current value when no options are provided.
  All Rights Reserved. Arodi Emmanuel
 */
-import { type ReactElement, memo } from 'react'
+import { type ReactElement, memo, useMemo } from 'react'
+import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 
-interface SelectOption {
+interface SelectRowOption {
   key: string
   label: string
 }
@@ -16,7 +18,7 @@ interface SelectOption {
 interface SelectRowProps {
   label: string
   value: string
-  options: readonly SelectOption[] | undefined
+  options: readonly SelectRowOption[] | undefined
   field: string
   onChange: (field: string, value: string) => void
 }
@@ -30,29 +32,29 @@ export const SelectRow: React.MemoExoticComponent<
   field,
   onChange,
 }: SelectRowProps): ReactElement {
-  const handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    onChange(field, e.target.value)
-  }
-  const safe: readonly SelectOption[] =
+  const safe: readonly SelectRowOption[] =
     options && options.length > 0 ? options : [{ key: value, label: value }]
+
+  const selectOptions: SelectOption[] = useMemo(
+    () =>
+      safe.map((o: SelectRowOption): SelectOption => ({
+        value: o.key,
+        label: o.label,
+      })),
+    [safe]
+  )
+
   return (
     <label className="flex flex-col gap-1 text-xs" key={field}>
       <span>{label}</span>
-      <select
-        className="border rounded p-1 bg-[var(--color-background,#fff)]"
+      <SearchableSelect
+        options={selectOptions}
         value={value}
-        onChange={handleChange}
-      >
-        {safe.map(
-          (o: SelectOption): ReactElement => (
-            <option key={o.key} value={o.key}>
-              {o.label}
-            </option>
-          )
-        )}
-      </select>
+        onChange={(v: string): void => {
+          onChange(field, v)
+        }}
+        data-testid={`token-row-${field}`}
+      />
     </label>
   )
 })

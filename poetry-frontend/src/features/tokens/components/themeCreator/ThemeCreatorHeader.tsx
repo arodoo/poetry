@@ -34,9 +34,13 @@ export function ThemeCreatorHeader(p: Props): ReactElement {
                    bg-surface text-text text-sm"
       >
         <option value="">{p.t('ui.tokens.creator.baseLabel')}</option>
-        {p.themes.map((th: TokenTheme): ReactElement => (
-          <option key={th.key} value={th.key}>{th.label}</option>
-        ))}
+        {p.themes.map(
+          (th: TokenTheme): ReactElement => (
+            <option key={th.key} value={th.key}>
+              {th.label}
+            </option>
+          )
+        )}
       </select>
     </div>
   )

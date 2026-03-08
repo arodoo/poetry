@@ -7,7 +7,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useState, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-// z not needed here; validation done via schema import
 import { useT } from '../../../shared/i18n/useT'
 import { useLogin } from '../hooks/useLogin'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
@@ -16,6 +15,9 @@ import { isMutationPending } from '../utils/loginHandlers'
 import { LoginFormSchema } from '../model/PublicLoginSchemas'
 import { classifyError } from '../utils/classifyError'
 import { mapLoginErrors } from '../utils/loginValidation'
+import { getMe } from '../../auth/api/authApi'
+import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
+import { hasOnlyUserRole } from '../utils/roleCheck'
 import type { UseLoginPageReturn, LoginForm } from './useLoginPage.types'
 import type { UseMutationResult } from '@tanstack/react-query'
 import type { AuthTokens } from '../../auth/model/AuthTokensSchemas'
@@ -57,7 +59,18 @@ export function useLoginPage(): UseLoginPageReturn {
         return
       }
       const ok: () => void = (): void => {
-        navigate('/' + locale + '/dashboard', { replace: true })
+        getMe()
+          .then((me) => {
+            if (hasOnlyUserRole(me.roles)) {
+              tokenStorage.clear()
+              setGeneralError(t('ui.publicLogin.error.roleBlocked'))
+              return
+            }
+            navigate('/' + locale + '/dashboard', { replace: true })
+          })
+          .catch(() => {
+            navigate('/' + locale + '/dashboard', { replace: true })
+          })
       }
       const fail: (err: Error) => void = (err: Error): void => {
         setGeneralError(t(classifyError(String(err))))
@@ -68,16 +81,8 @@ export function useLoginPage(): UseLoginPageReturn {
   )
 
   return {
-    t,
-    form,
-    setForm,
-    onSubmit,
+    t, form, setForm, onSubmit,
     isLoading: isMutationPending(mutation),
-    error: generalError,
-    fieldErrors,
-    qs,
-    toast,
-    navigate,
-    location,
+    error: generalError, fieldErrors, qs, toast, navigate, location,
   }
 }

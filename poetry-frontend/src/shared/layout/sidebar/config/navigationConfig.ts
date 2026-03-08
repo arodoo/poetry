@@ -39,7 +39,7 @@ export function getNavigationItems(): NavigationItem[] {
     {
       id: 'charts',
       p: '/charts',
-      roles: ['admin', 'manager'],
+      roles: ['admin'],
       icon: ChartPieIcon,
     },
     {
@@ -57,25 +57,25 @@ export function getNavigationItems(): NavigationItem[] {
     {
       id: 'subscriptions',
       p: '/subscriptions',
-      roles: ['admin', 'manager'],
+      roles: ['admin'],
       icon: CreditCardIcon,
     },
     {
       id: 'zones',
       p: '/zones',
-      roles: ['admin', 'manager'],
+      roles: ['admin'],
       icon: MapPinIcon,
     },
     {
       id: 'sellerCodes',
       p: '/seller-codes',
-      roles: ['admin', 'manager'],
+      roles: ['admin'],
       icon: TicketIcon,
     },
     {
       id: 'adminTokens',
       p: '/admin/tokens',
-      roles: ['admin', 'manager'],
+      roles: ['admin'],
       icon: KeyIcon,
     },
     {

@@ -1,13 +1,14 @@
 /*
  * File: ZonesFormStatus.tsx
- * Purpose: Status select component for zone forms (create/edit).
- * Renders dropdown for active/inactive status selection.
+ * Purpose: Searchable status select for zone forms (create/edit).
+ * Renders filterable dropdown for active/inactive status.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement, type ChangeEvent } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import { Stack } from '../../../ui/Stack/Stack'
-import { Select } from '../../../ui/Select/Select'
+import { SearchableSelect } from '../../../ui/SearchableSelect/SearchableSelect'
 import { Text } from '../../../ui/Text/Text'
+import type { SelectOption } from '../../../ui/SearchableSelect/SearchableSelect.types'
 import type { useT } from '../../../shared/i18n/useT'
 
 export interface ZonesFormStatusProps {
@@ -17,24 +18,28 @@ export interface ZonesFormStatusProps {
 }
 
 export function ZonesFormStatus(props: ZonesFormStatusProps): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () => [
+      { value: 'active', label: props.t('ui.zones.status.active') },
+      { value: 'inactive', label: props.t('ui.zones.status.inactive') },
+    ],
+    [props.t]
+  )
+
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
         {props.t('ui.zones.form.status.label')}
       </Text>
-      <Select
+      <SearchableSelect
+        options={options}
         value={props.status}
-        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-          const raw: string = e.target.value
-          const v: 'active' | 'inactive' = raw as 'active' | 'inactive'
-          props.onStatusChange(v)
+        onChange={(v: string): void => {
+          props.onStatusChange(v as 'active' | 'inactive')
         }}
         required
         data-testid="zone-status-select"
-      >
-        <option value="active">{props.t('ui.zones.status.active')}</option>
-        <option value="inactive">{props.t('ui.zones.status.inactive')}</option>
-      </Select>
+      />
     </Stack>
   )
 }

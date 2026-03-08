@@ -1,6 +1,6 @@
 /*
  * File: adminRoutesConfig.tsx
- * Purpose: Admin route configurations.
+ * Purpose: Admin route configurations with role-based access.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -36,10 +36,10 @@ export function AdminRoutesConfig(): ReactElement[] {
   return [
     AdminTokensRoute(),
     ...UsersRoutes(),
+    ...MembershipsRoutes(),
     ...SellerCodesRoutes(),
     ...SubscriptionsRoutes(),
     ...ZonesRoutes(),
-    ...MembershipsRoutes(),
     ...DevtoolsRoutes(),
     ...AdminStatsRoutes(),
     ...HardwareRoutes(),

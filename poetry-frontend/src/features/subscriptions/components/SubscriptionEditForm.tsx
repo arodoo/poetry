@@ -46,10 +46,17 @@ export default function SubscriptionEditForm({ id }: Props): ReactElement {
   const handleSubmit = (): void => {
     if (!id) return
     const input: UpdateSubscriptionInput = {
-      name, description, price, currency, durationDays, status,
+      name,
+      description,
+      price,
+      currency,
+      durationDays,
+      status,
     }
     submitSubscriptionUpdate(
-      mutation, id, input,
+      mutation,
+      id,
+      input,
       () => {
         toast.push(t('ui.subscriptions.toast.update.success'))
         void navigate(`/${locale}/subscriptions/${id}`)

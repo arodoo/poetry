@@ -17,13 +17,11 @@ test('zones list shows name and manager username', async ({
   await page.goto('/en/zones')
   await page.waitForLoadState('load')
 
-  await expect(
-    page.getByRole('heading', { name: /Zones/i })
-  ).toBeVisible({ timeout: 10000 })
+  await expect(page.getByRole('heading', { name: /Zones/i })).toBeVisible({
+    timeout: 10000,
+  })
 
-  const firstRow: Locator = page
-    .locator('table tbody tr')
-    .first()
+  const firstRow: Locator = page.locator('table tbody tr').first()
   await expect(firstRow).toBeVisible({ timeout: 10000 })
 
   const cells: Locator = firstRow.locator('td')

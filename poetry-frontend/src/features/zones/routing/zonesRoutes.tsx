@@ -1,12 +1,13 @@
 /*
  * File: zonesRoutes.tsx
- * Purpose: Admin route configurations for zones feature.
+ * Purpose: Admin-only route configurations for zones feature.
  * All Rights Reserved. Arodi Emmanuel
  */
 
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
+import { RequireRole } from '../../../shared/routing/guards/RequireRole'
 import { lazy } from 'react'
 
 const ZonesListPageLazy = lazy(() => import('../pages/ZonesListPage'))
@@ -22,7 +23,9 @@ export function ZonesRoutes(): ReactElement[] {
       path=":locale/zones"
       element={
         <AdminRoute>
-          <ZonesListPageLazy />
+          <RequireRole role="admin">
+            <ZonesListPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -31,7 +34,9 @@ export function ZonesRoutes(): ReactElement[] {
       path=":locale/zones/:id"
       element={
         <AdminRoute>
-          <ZoneDetailPageLazy />
+          <RequireRole role="admin">
+            <ZoneDetailPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -40,7 +45,9 @@ export function ZonesRoutes(): ReactElement[] {
       path=":locale/zones/new"
       element={
         <AdminRoute>
-          <ZoneCreatePageLazy />
+          <RequireRole role="admin">
+            <ZoneCreatePageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -49,7 +56,9 @@ export function ZonesRoutes(): ReactElement[] {
       path=":locale/zones/edit/:id"
       element={
         <AdminRoute>
-          <ZoneEditPageLazy />
+          <RequireRole role="admin">
+            <ZoneEditPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -58,7 +67,9 @@ export function ZonesRoutes(): ReactElement[] {
       path=":locale/zones/:id/delete"
       element={
         <AdminRoute>
-          <ZoneDeletePageLazy />
+          <RequireRole role="admin">
+            <ZoneDeletePageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,

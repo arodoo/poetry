@@ -17,12 +17,10 @@ const pageCls =
   ' from-violet-950 via-purple-900 to-indigo-900'
 
 const asideCls =
-  'hidden lg:flex flex-col' +
-  ' items-center justify-center w-1/2 gap-8 p-12'
+  'hidden lg:flex flex-col' + ' items-center justify-center w-1/2 gap-8 p-12'
 
 const mainCls =
-  'flex flex-col items-center' +
-  ' justify-center w-full lg:w-1/2 p-6'
+  'flex flex-col items-center' + ' justify-center w-full lg:w-1/2 p-6'
 
 export function LoginLayout(props: Props): ReactElement {
   return (

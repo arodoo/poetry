@@ -33,20 +33,16 @@ test.describe('Membership Edit Form', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto(`/en/memberships/${m.id}`)
-    await expect(
-      page.getByTestId('edit-membership-button')
-    ).toBeVisible({ timeout: 10000 })
+    await expect(page.getByTestId('edit-membership-button')).toBeVisible({
+      timeout: 10000,
+    })
 
     await page.getByTestId('edit-membership-button').click()
     await page.waitForURL(`/en/memberships/${m.id}/edit`)
 
-    await expect(
-      page.getByRole('heading', { name: /Edit/i })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Edit/i })).toBeVisible()
 
-    const sellerCodeInput = page.getByTestId(
-      'membership-seller-code-input'
-    )
+    const sellerCodeInput = page.getByTestId('membership-seller-code-input')
     await expect(sellerCodeInput).toBeVisible()
 
     await sellerCodeInput.clear()
@@ -58,9 +54,9 @@ test.describe('Membership Edit Form', (): void => {
     })
     await saveButton.click()
 
-    await expect(
-      page.getByText(/Membership updated/i)
-    ).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/Membership updated/i)).toBeVisible({
+      timeout: 10000,
+    })
 
     await page.waitForURL('/en/memberships', { timeout: 10000 })
   })

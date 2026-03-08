@@ -25,7 +25,10 @@ export function ThemeCreatorFormView(p: Props): ReactElement {
   return (
     <form
       data-testid="theme-creator-form"
-      onSubmit={(e): void => { e.preventDefault(); p.onSubmit() }}
+      onSubmit={(e): void => {
+        e.preventDefault()
+        p.onSubmit()
+      }}
       className="space-y-md"
     >
       <ThemeCreatorHeader

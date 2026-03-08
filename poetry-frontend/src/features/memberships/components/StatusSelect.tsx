@@ -1,10 +1,12 @@
 /*
  * File: StatusSelect.tsx
- * Purpose: Extracted status select field from MembershipFormFields.
+ * Purpose: Searchable status select for membership forms.
+ * Provides ACTIVE/INACTIVE filtering via SearchableSelect.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Select } from '../../../ui/Select/Select'
+import { type ReactElement, useMemo } from 'react'
+import { SearchableSelect } from '../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../ui/SearchableSelect/SearchableSelect.types'
 
 interface Props {
   value: 'ACTIVE' | 'INACTIVE'
@@ -17,20 +19,27 @@ export default function StatusSelect({
   onChange,
   t,
 }: Props): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () => [
+      { value: 'ACTIVE', label: t('ui.memberships.status.active') },
+      { value: 'INACTIVE', label: t('ui.memberships.status.inactive') },
+    ],
+    [t]
+  )
+
   return (
     <div>
       <label className="block text-sm font-medium mb-1">
         {t('ui.memberships.form.status.label')}
       </label>
-      <Select
+      <SearchableSelect
+        options={options}
         value={value}
-        onChange={(e) => {
-          onChange(e.target.value as 'ACTIVE' | 'INACTIVE')
+        onChange={(v: string): void => {
+          onChange(v as 'ACTIVE' | 'INACTIVE')
         }}
-      >
-        <option value="ACTIVE">{t('ui.memberships.status.active')}</option>
-        <option value="INACTIVE">{t('ui.memberships.status.inactive')}</option>
-      </Select>
+        data-testid="membership-status-select"
+      />
     </div>
   )
 }

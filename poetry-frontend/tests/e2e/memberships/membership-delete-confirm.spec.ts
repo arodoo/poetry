@@ -6,10 +6,7 @@
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import {
-  seedMembership,
-  type SeedMembership,
-} from '../shared/fixtures/seedApi'
+import { seedMembership, type SeedMembership } from '../shared/fixtures/seedApi'
 
 test.describe('Membership Delete Confirmation', (): void => {
   let m: SeedMembership
@@ -35,9 +32,7 @@ test.describe('Membership Delete Confirmation', (): void => {
         resp.request().method() === 'DELETE'
     )
 
-    const confirmButton = page.getByTestId(
-      'confirm-delete-membership-button'
-    )
+    const confirmButton = page.getByTestId('confirm-delete-membership-button')
     await expect(confirmButton).toBeVisible({ timeout: 10000 })
     await confirmButton.click()
 

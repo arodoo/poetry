@@ -16,14 +16,16 @@ interface Props {
 export function ThemeCreatorColorsGrid(props: Props): ReactElement {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-sm">
-      {THEME_COLOR_KEYS.map((key: string): ReactElement => (
-        <ThemeCreatorColorRow
-          key={key}
-          colorKey={key}
-          value={props.colors[key] ?? '#888888'}
-          onChange={props.onColorChange}
-        />
-      ))}
+      {THEME_COLOR_KEYS.map(
+        (key: string): ReactElement => (
+          <ThemeCreatorColorRow
+            key={key}
+            colorKey={key}
+            value={props.colors[key] ?? '#888888'}
+            onChange={props.onColorChange}
+          />
+        )
+      )}
     </div>
   )
 }

@@ -1,12 +1,14 @@
 /*
  * File: UsersLocaleField.tsx
- * Purpose: Locale selection field for user forms with EN/ES options.
+ * Purpose: Searchable locale selection field for user forms.
+ * Provides EN/ES options through a filterable dropdown.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement, type ChangeEvent } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import { Stack } from '../../../../../ui/Stack/Stack'
-import { Select } from '../../../../../ui/Select/Select'
+import { SearchableSelect } from '../../../../../ui/SearchableSelect/SearchableSelect'
 import { Text } from '../../../../../ui/Text/Text'
+import type { SelectOption } from '../../../../../ui/SearchableSelect/SearchableSelect.types'
 import type { useT } from '../../../../../shared/i18n/useT'
 
 export interface UsersLocaleFieldProps {
@@ -16,23 +18,26 @@ export interface UsersLocaleFieldProps {
 }
 
 export function UsersLocaleField(props: UsersLocaleFieldProps): ReactElement {
-  function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    props.onChange(e.target.value)
-  }
+  const options: SelectOption[] = useMemo(
+    () => [
+      { value: 'en', label: props.t('ui.users.form.locale.en') },
+      { value: 'es', label: props.t('ui.users.form.locale.es') },
+    ],
+    [props.t]
+  )
+
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
         {props.t('ui.users.form.locale.label')}
       </Text>
-      <Select
+      <SearchableSelect
+        options={options}
         value={props.value}
-        onChange={handleChange}
+        onChange={props.onChange}
         required
         data-testid="user-locale-select"
-      >
-        <option value="en">{props.t('ui.users.form.locale.en')}</option>
-        <option value="es">{props.t('ui.users.form.locale.es')}</option>
-      </Select>
+      />
     </Stack>
   )
 }

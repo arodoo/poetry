@@ -33,8 +33,12 @@ export function AdminTokensPage(): ReactElement {
 
   const { bundle } = data
   const { handleSubmit, handleCancel } = buildTokensPageHandlers({
-    formState, resetForm, current: bundle.current, t,
-    toast, mutate: mutation.mutate,
+    formState,
+    resetForm,
+    current: bundle.current,
+    t,
+    toast,
+    mutate: mutation.mutate,
   })
 
   return (

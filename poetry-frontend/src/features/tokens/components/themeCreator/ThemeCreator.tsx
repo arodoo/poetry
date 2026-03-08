@@ -22,8 +22,12 @@ export function ThemeCreator(props: Props): ReactElement {
   const mutation = useCreateThemeMutation()
   const st = useThemeCreatorState(props.themes)
   const handleSubmit = buildThemeSubmit({
-    mutation, toast, t: props.t,
-    name: st.name, colors: st.colors, reset: st.reset,
+    mutation,
+    toast,
+    t: props.t,
+    name: st.name,
+    colors: st.colors,
+    reset: st.reset,
   })
 
   return (

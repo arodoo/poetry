@@ -16,18 +16,17 @@ test('document root CSS vars established', async ({
   await page.waitForLoadState('networkidle')
   await expect(async () => {
     const primary: string = await page.evaluate(() =>
-      getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary')
+      getComputedStyle(document.documentElement).getPropertyValue(
+        '--color-primary'
+      )
     )
     expect(primary.trim()).not.toBe('')
   }).toPass({ timeout: 10000 })
   const error: string = await page.evaluate(() =>
-    getComputedStyle(document.documentElement)
-      .getPropertyValue('--color-error')
+    getComputedStyle(document.documentElement).getPropertyValue('--color-error')
   )
   const text: string = await page.evaluate(() =>
-    getComputedStyle(document.documentElement)
-      .getPropertyValue('--color-text')
+    getComputedStyle(document.documentElement).getPropertyValue('--color-text')
   )
   expect(error.trim()).not.toBe('')
   expect(text.trim()).not.toBe('')

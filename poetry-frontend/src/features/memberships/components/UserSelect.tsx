@@ -1,10 +1,12 @@
 /*
  * File: UserSelect.tsx
- * Purpose: Extracted user select field from MembershipFormFields to reduce file size.
+ * Purpose: Searchable user select field for membership forms.
+ * Converts user list to searchable options for quick filtering.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Select } from '../../../ui/Select/Select'
+import { type ReactElement, useMemo } from 'react'
+import { SearchableSelect } from '../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../ui/SearchableSelect/SearchableSelect.types'
 import type { UserResponse } from '../../../api/generated'
 
 interface Props {
@@ -20,23 +22,30 @@ export default function UserSelect({
   onChange,
   t,
 }: Props): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () =>
+      users.map((u: UserResponse): SelectOption => ({
+        value: String(u.id),
+        label: u.username ?? '',
+        sublabel: u.email ?? '',
+      })),
+    [users]
+  )
+
   return (
     <div>
       <label className="block text-sm font-medium mb-1">
         {t('ui.memberships.form.user.label')}
       </label>
-      <Select
-        value={value}
-        onChange={(e) => {
-          onChange(Number(e.target.value))
+      <SearchableSelect
+        options={options}
+        value={String(value)}
+        onChange={(v: string): void => {
+          onChange(Number(v))
         }}
-      >
-        {users.map((u) => (
-          <option key={u.id} value={u.id}>
-            {u.username}
-          </option>
-        ))}
-      </Select>
+        placeholder={t('ui.memberships.form.user.search')}
+        data-testid="membership-user-select"
+      />
     </div>
   )
 }

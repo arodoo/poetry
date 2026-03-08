@@ -4,11 +4,12 @@
  * Relies on i18n keys in the users locale namespace.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement, ChangeEvent } from 'react'
+import { type ReactElement, type ChangeEvent, useMemo } from 'react'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Input } from '../../../ui/Input/Input'
-import { Select } from '../../../ui/Select/Select'
+import { SearchableSelect } from '../../../ui/SearchableSelect/SearchableSelect'
 import { Text } from '../../../ui/Text/Text'
+import type { SelectOption } from '../../../ui/SearchableSelect/SearchableSelect.types'
 import type { useT } from '../../../shared/i18n/useT'
 import type { UserDemographicsFormState } from '../hooks/useUserDemographicsForm'
 
@@ -17,6 +18,16 @@ type Props = Omit<UserDemographicsFormState, 'saveForUser'> & {
 }
 
 export function UserDemographicsFields(props: Props): ReactElement {
+  const genderOptions: SelectOption[] = useMemo(
+    () => [
+      { value: '', label: props.t('ui.users.form.gender.placeholder') },
+      { value: 'female', label: props.t('ui.users.form.gender.female') },
+      { value: 'male', label: props.t('ui.users.form.gender.male') },
+      { value: 'other', label: props.t('ui.users.form.gender.other') },
+    ],
+    [props.t]
+  )
+
   return (
     <Stack gap="md">
       <Stack gap="xs">
@@ -36,22 +47,12 @@ export function UserDemographicsFields(props: Props): ReactElement {
         <Text size="sm" className="font-medium">
           {props.t('ui.users.form.gender.label')}
         </Text>
-        <Select
+        <SearchableSelect
+          options={genderOptions}
           value={props.gender}
-          onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-            props.setGender(e.target.value)
-          }}
+          onChange={props.setGender}
           data-testid="user-gender-select"
-        >
-          <option value="">
-            {props.t('ui.users.form.gender.placeholder')}
-          </option>
-          <option value="female">
-            {props.t('ui.users.form.gender.female')}
-          </option>
-          <option value="male">{props.t('ui.users.form.gender.male')}</option>
-          <option value="other">{props.t('ui.users.form.gender.other')}</option>
-        </Select>
+        />
       </Stack>
       <Stack gap="xs">
         <Text size="sm" className="font-medium">

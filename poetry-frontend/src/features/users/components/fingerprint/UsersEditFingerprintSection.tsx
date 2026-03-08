@@ -68,12 +68,16 @@ export function UsersEditFingerprintSection(
               </Text>
               <div className="mt-3 flex items-center gap-2 bg-[var(--color-surface-hover)] px-3 py-2 rounded-md w-fit border border-[var(--color-border)] shadow-sm">
                 <FingerPrintIcon className="w-5 h-5 text-[var(--color-text-muted)]" />
-                <Text size="sm" className="font-mono text-[var(--color-text-muted)]">
-                  {props.t('ui.users.edit.fingerprint.enrolledAt')}: {formatDate(activeFingerprint.enrolledAt)}
+                <Text
+                  size="sm"
+                  className="font-mono text-[var(--color-text-muted)]"
+                >
+                  {props.t('ui.users.edit.fingerprint.enrolledAt')}:{' '}
+                  {formatDate(activeFingerprint.enrolledAt)}
                 </Text>
               </div>
             </div>
-            
+
             <Button
               variant="secondary"
               icon={<ArrowPathIcon className="w-4 h-4" />}

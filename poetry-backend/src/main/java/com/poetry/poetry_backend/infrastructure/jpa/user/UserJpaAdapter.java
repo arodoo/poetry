@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.application.user.port.UserQueryPort;
 import com.poetry.poetry_backend.domain.shared.model.PageResult;
@@ -21,9 +22,10 @@ public class UserJpaAdapter implements UserQueryPort, UserCommandPort {
   private final UserJpaQueryAdapter queryAdapter;
   private final UserJpaCommandAdapter commandAdapter;
 
-  public UserJpaAdapter(UserJpaRepository repo) {
+  public UserJpaAdapter(
+      UserJpaRepository repo, PasswordHasherPort hasher) {
     this.queryAdapter = new UserJpaQueryAdapter(repo);
-    this.commandAdapter = new UserJpaCommandAdapter(repo);
+    this.commandAdapter = new UserJpaCommandAdapter(repo, hasher);
   }
 
   public List<com.poetry.poetry_backend.domain.user.model.core.User> findAll() {

@@ -28,9 +28,10 @@ export function BannerProvider({
     async (userId: number | null) => {
       const id = crypto.randomUUID()
       try {
-        const data = userId !== null
-          ? await fetchBannerData(userId)
-          : { user: null, membership: null, phone: null }
+        const data =
+          userId !== null
+            ? await fetchBannerData(userId)
+            : { user: null, membership: null, phone: null }
         const banner: BannerData = { id, ...data }
         setBanners((prev) => {
           const updated = [...prev, banner]
@@ -42,7 +43,11 @@ export function BannerProvider({
       } catch (err) {
         console.error('[Banner] fetch failed', err)
         const errBanner: BannerData = {
-          id, user: null, membership: null, phone: null, fetchError: true,
+          id,
+          user: null,
+          membership: null,
+          phone: null,
+          fetchError: true,
         }
         setBanners((prev) => [...prev, errBanner])
         setTimeout(() => remove(id), ERROR_TTL_MS)

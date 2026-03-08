@@ -10,7 +10,12 @@ import { ProfileRoutes } from '../../../features/profile/routing/profileRoutes'
 import { chartsRoutes } from '../../../features/charts'
 
 export function AuthenticatedRoutes(): ReactElement[] {
-  return [...AccountRoutes(), ...CarouselRoutes(), ...ProfileRoutes(), ...chartsRoutes()]
+  return [
+    ...AccountRoutes(),
+    ...CarouselRoutes(),
+    ...ProfileRoutes(),
+    ...chartsRoutes(),
+  ]
 }
 
 export default AuthenticatedRoutes

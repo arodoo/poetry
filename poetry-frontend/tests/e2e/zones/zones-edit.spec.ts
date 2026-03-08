@@ -6,11 +6,7 @@
  */
 import { test, expect, type Page, type Locator } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import {
-  seedZone,
-  deleteZone,
-  type SeedZone,
-} from '../shared/fixtures/seedApi'
+import { seedZone, deleteZone, type SeedZone } from '../shared/fixtures/seedApi'
 
 test.describe('Zones Detail and Edit Flow', (): void => {
   let zone: SeedZone

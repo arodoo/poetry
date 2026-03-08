@@ -26,8 +26,7 @@ test('TokensProvider fetch status and console', async ({
     if (status === 403) failedRequests.push({ url, status })
   })
 
-  await page.goto('http://localhost:5173/en/users', {
-  })
+  await page.goto('http://localhost:5173/en/users', {})
   await page.waitForTimeout(5000)
 
   console.log('All /api/v1/ requests:', allRequests)

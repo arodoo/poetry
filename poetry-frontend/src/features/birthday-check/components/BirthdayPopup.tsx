@@ -28,10 +28,7 @@ export function BirthdayPopup({ celebrants, onClose }: Props): ReactElement {
       />
       <BirthdayConfetti />
       <div className="relative z-10 w-full max-w-sm mx-4">
-        <BirthdayPopupContent
-          celebrants={celebrants}
-          onClose={onClose}
-        />
+        <BirthdayPopupContent celebrants={celebrants} onClose={onClose} />
       </div>
     </div>
   )

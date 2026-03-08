@@ -4,7 +4,13 @@
  * Catches Bug #2 where the handler was a no-op.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { test, expect, type Page, type Locator, type Response } from '@playwright/test'
+import {
+  test,
+  expect,
+  type Page,
+  type Locator,
+  type Response,
+} from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 import { waitForSubscriptionsApiResponse } from './subscriptions-list-helpers'
 
@@ -12,12 +18,16 @@ test.setTimeout(90000)
 
 test('subscription edit form submits and shows toast', async ({
   page,
-}: { page: Page }): Promise<void> => {
+}: {
+  page: Page
+}): Promise<void> => {
   await injectTokens(page)
   await page.goto('/en/subscriptions')
   await waitForSubscriptionsApiResponse(page)
 
-  const viewBtn: Locator = page.locator('[data-testid^="view-subscription-"]').first()
+  const viewBtn: Locator = page
+    .locator('[data-testid^="view-subscription-"]')
+    .first()
   await expect(viewBtn).toBeVisible({ timeout: 15000 })
   const testId = (await viewBtn.getAttribute('data-testid')) ?? ''
   const id = testId.replace('view-subscription-', '')

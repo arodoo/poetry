@@ -1,11 +1,12 @@
 /*
  * File: devtoolsRoutes.tsx
- * Purpose: DevTools route for the standalone simulator.
+ * Purpose: Admin-only DevTools route for the standalone simulator.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
+import { RequireRole } from '../../../shared/routing/guards/RequireRole'
 import SimulatorPage from '../pages/SimulatorPage'
 
 export function DevtoolsRoutes(): ReactElement[] {
@@ -15,7 +16,9 @@ export function DevtoolsRoutes(): ReactElement[] {
       path=":locale/devtools/simulator"
       element={
         <AdminRoute>
-          <SimulatorPage />
+          <RequireRole role="admin">
+            <SimulatorPage />
+          </RequireRole>
         </AdminRoute>
       }
     />,

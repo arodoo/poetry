@@ -7,27 +7,19 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import { test, expect, request as pw } from '@playwright/test'
-import {
-  getAuthTokens,
-  injectTokens,
-} from '../shared/providers/tokenProvider'
+import { getAuthTokens, injectTokens } from '../shared/providers/tokenProvider'
 
 const API = 'http://localhost:8080'
 const TODAY = new Date().toISOString().slice(0, 10)
 let adminId = 1
 
-async function putDemographics(
-  birthDate: string | null
-): Promise<void> {
+async function putDemographics(birthDate: string | null): Promise<void> {
   const t = await getAuthTokens()
   const ctx = await pw.newContext({ baseURL: API })
-  await ctx.put(
-    `/api/v1/users/${String(adminId)}/demographics`,
-    {
-      data: { birthDate },
-      headers: { Authorization: `Bearer ${t.accessToken}` },
-    }
-  )
+  await ctx.put(`/api/v1/users/${String(adminId)}/demographics`, {
+    data: { birthDate },
+    headers: { Authorization: `Bearer ${t.accessToken}` },
+  })
   await ctx.dispose()
 }
 
@@ -56,16 +48,18 @@ test.describe('Birthday Check', (): void => {
   test('button visible in navbar', async ({ page }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/es/dashboard')
-    await expect(page.getByTestId('birthday-check-button'))
-      .toBeVisible({ timeout: 15000 })
+    await expect(page.getByTestId('birthday-check-button')).toBeVisible({
+      timeout: 15000,
+    })
   })
 
   test('click opens popup', async ({ page }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/es/dashboard')
     await page.getByTestId('birthday-check-button').click()
-    await expect(page.getByTestId('birthday-popup'))
-      .toBeVisible({ timeout: 10000 })
+    await expect(page.getByTestId('birthday-popup')).toBeVisible({
+      timeout: 10000,
+    })
   })
 
   test('popup shows @admin', async ({ page }): Promise<void> => {
@@ -92,10 +86,8 @@ test.describe('Birthday Check', (): void => {
       await injectTokens(page)
       await page.goto('/es/dashboard')
       await page.getByTestId('birthday-check-button').click()
-      await page.getByTestId('birthday-popup')
-        .waitFor({ timeout: 10000 })
-      await expect(page.getByTestId('birthday-empty-state'))
-        .toBeVisible()
+      await page.getByTestId('birthday-popup').waitFor({ timeout: 10000 })
+      await expect(page.getByTestId('birthday-empty-state')).toBeVisible()
     } finally {
       await putDemographics(TODAY)
     }

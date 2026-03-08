@@ -1,14 +1,14 @@
 /*
  * File: SellerCodesFormStatus.tsx
- * Purpose: Small subcomponent that renders the status select used by seller
- * codes create/edit forms. Extracted to keep the main form fields file
- * short and within repository line limits.
+ * Purpose: Searchable status select for seller codes create/edit forms.
+ * Extracted to keep main form fields short and within line limits.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement, type ChangeEvent } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import { Stack } from '../../../ui/Stack/Stack'
-import { Select } from '../../../ui/Select/Select'
+import { SearchableSelect } from '../../../ui/SearchableSelect/SearchableSelect'
 import { Text } from '../../../ui/Text/Text'
+import type { SelectOption } from '../../../ui/SearchableSelect/SearchableSelect.types'
 import type { useT } from '../../../shared/i18n/useT'
 
 export interface SellerCodesFormStatusProps {
@@ -20,34 +20,29 @@ export interface SellerCodesFormStatusProps {
 export function SellerCodesFormStatus(
   props: SellerCodesFormStatusProps
 ): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () => [
+      { value: 'active', label: props.t('ui.sellerCodes.status.active') },
+      { value: 'inactive', label: props.t('ui.sellerCodes.status.inactive') },
+      { value: 'expired', label: props.t('ui.sellerCodes.status.expired') },
+    ],
+    [props.t]
+  )
+
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
         {props.t('ui.sellerCodes.form.status.label')}
       </Text>
-      <Select
+      <SearchableSelect
+        options={options}
         value={props.status}
-        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-          const raw: string = e.target.value
-          const v: 'active' | 'inactive' | 'expired' = raw as
-            | 'active'
-            | 'inactive'
-            | 'expired'
-          props.onStatusChange(v)
+        onChange={(v: string): void => {
+          props.onStatusChange(v as 'active' | 'inactive' | 'expired')
         }}
         required
         data-testid="seller-code-status-select"
-      >
-        <option value="active">
-          {props.t('ui.sellerCodes.status.active')}
-        </option>
-        <option value="inactive">
-          {props.t('ui.sellerCodes.status.inactive')}
-        </option>
-        <option value="expired">
-          {props.t('ui.sellerCodes.status.expired')}
-        </option>
-      </Select>
+      />
     </Stack>
   )
 }

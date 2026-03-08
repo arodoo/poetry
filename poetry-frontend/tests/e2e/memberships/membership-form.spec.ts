@@ -10,7 +10,10 @@ import { authedApi } from '../shared/fixtures/seedApi'
 async function deleteAdminMemberships(): Promise<void> {
   const api = await authedApi()
   const r = await api.get('/api/v1/memberships?size=100')
-  if (!r.ok()) { await api.dispose(); return }
+  if (!r.ok()) {
+    await api.dispose()
+    return
+  }
   const data = await r.json()
   const items = Array.isArray(data)
     ? (data as { id: number; userId: number }[])
@@ -35,9 +38,7 @@ test.describe('Membership Form Interactions', () => {
       timeout: 10000,
     })
 
-    await page
-      .getByTestId('subscription-select')
-      .selectOption({ index: 1 })
+    await page.getByTestId('subscription-select').selectOption({ index: 1 })
     await page.getByTestId('membership-seller-code-input').fill('INVALID')
     await page.getByTestId('submit-membership-button').click()
 

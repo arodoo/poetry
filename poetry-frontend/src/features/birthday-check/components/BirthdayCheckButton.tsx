@@ -18,7 +18,9 @@ export function BirthdayCheckButton(): ReactElement {
     <>
       <button
         data-testid="birthday-check-button"
-        onClick={(): void => { void check() }}
+        onClick={(): void => {
+          void check()
+        }}
         disabled={isLoading}
         className={
           'rounded-lg px-3 py-1.5 text-sm font-medium ' +
@@ -28,9 +30,7 @@ export function BirthdayCheckButton(): ReactElement {
       >
         {t('ui.navbar.birthdayCheck')}
       </button>
-      {isOpen && (
-        <BirthdayPopup celebrants={celebrants} onClose={close} />
-      )}
+      {isOpen && <BirthdayPopup celebrants={celebrants} onClose={close} />}
     </>
   )
 }

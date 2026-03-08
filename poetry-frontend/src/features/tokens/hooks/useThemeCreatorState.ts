@@ -13,7 +13,9 @@ const INITIAL_GREY = 'hsl(220 10% 65%)'
 
 function buildDefault(): Record<string, string> {
   const m: Record<string, string> = {}
-  THEME_COLOR_KEYS.forEach((k: string): void => { m[k] = INITIAL_GREY })
+  THEME_COLOR_KEYS.forEach((k: string): void => {
+    m[k] = INITIAL_GREY
+  })
   return m
 }
 
@@ -25,10 +27,13 @@ export function useThemeCreatorState(themes: readonly TokenTheme[]) {
     setColors((prev) => ({ ...prev, [key]: val }))
   }, [])
 
-  const applyBase = useCallback((themeKey: string): void => {
-    const found = themes.find((t) => t.key === themeKey)
-    if (found) setColors({ ...found.colors })
-  }, [themes])
+  const applyBase = useCallback(
+    (themeKey: string): void => {
+      const found = themes.find((t) => t.key === themeKey)
+      if (found) setColors({ ...found.colors })
+    },
+    [themes]
+  )
 
   const reset = useCallback((): void => {
     setName('')

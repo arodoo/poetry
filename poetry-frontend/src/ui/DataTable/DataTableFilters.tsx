@@ -1,13 +1,15 @@
 /*
  * File: DataTableFilters.tsx
- * Purpose: Renders dropdown select filters for DataTable.
- * Each FilterDef produces a styled select element with
+ * Purpose: Renders searchable dropdown filters for DataTable.
+ * Each FilterDef produces a SearchableSelect component with
  * an "All" reset option and selected value tracking.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement, ChangeEvent } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import type { FilterDef, ActiveFilters } from './FilterTypes'
 import { useT } from '../../shared/i18n/useT'
+import { SearchableSelect } from '../SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../SearchableSelect/SearchableSelect.types'
 
 interface Props {
   readonly filters: readonly FilterDef[]
@@ -15,41 +17,46 @@ interface Props {
   readonly onChange: (key: string, value: string) => void
 }
 
-const selectCls =
-  'px-3 py-2 rounded-lg text-sm ' +
-  'border border-[var(--color-border,#d0d0d0)] ' +
-  'bg-[var(--color-surface,#fff)] ' +
-  'text-[var(--color-text,#1a1a1a)] ' +
-  'focus:outline-none focus:ring-2 ' +
-  'focus:ring-[var(--color-primary,#6366f1)] ' +
-  'focus:border-transparent transition-shadow'
+function FilterItem(p: {
+  def: FilterDef
+  value: string
+  onChange: (key: string, value: string) => void
+  allLabel: string
+}): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () => [
+      { value: '', label: `${p.def.label}: ${p.allLabel}` },
+      ...p.def.options.map((o) => ({ value: o.value, label: o.label })),
+    ],
+    [p.def, p.allLabel]
+  )
+
+  return (
+    <SearchableSelect
+      options={options}
+      value={p.value}
+      onChange={(v: string): void => {
+        p.onChange(p.def.key, v)
+      }}
+      data-testid={`table-filter-${p.def.key}`}
+    />
+  )
+}
 
 export function DataTableFilters(props: Props): ReactElement {
   const t = useT()
+  const allLabel = t('ui.table.filter.all')
   return (
     <>
       {props.filters.map(
         (def: FilterDef): ReactElement => (
-          <select
+          <FilterItem
             key={def.key}
+            def={def}
             value={props.active[def.key] ?? ''}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-              props.onChange(def.key, e.target.value)
-            }}
-            className={selectCls}
-            data-testid={`table-filter-${def.key}`}
-          >
-            <option value="">
-              {def.label}: {t('ui.table.filter.all')}
-            </option>
-            {def.options.map(
-              (opt): ReactElement => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              )
-            )}
-          </select>
+            onChange={props.onChange}
+            allLabel={allLabel}
+          />
         )
       )}
     </>

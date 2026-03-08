@@ -1,10 +1,12 @@
 /*
  * File: SubscriptionSelect.tsx
- * Purpose: Extracted subscription select field from MembershipFormFields.
+ * Purpose: Searchable subscription select for membership forms.
+ * Converts subscription list to filterable dropdown options.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement } from 'react'
-import { Select } from '../../../ui/Select/Select'
+import { type ReactElement, useMemo } from 'react'
+import { SearchableSelect } from '../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../ui/SearchableSelect/SearchableSelect.types'
 import type { SubscriptionResponse } from '../../../api/generated'
 
 interface Props {
@@ -20,27 +22,29 @@ export default function SubscriptionSelect({
   onChange,
   t,
 }: Props): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () =>
+      subscriptions.map((s: SubscriptionResponse): SelectOption => ({
+        value: String(s.id),
+        label: s.name ?? '',
+      })),
+    [subscriptions]
+  )
+
   return (
     <div>
       <label className="block text-sm font-medium mb-1">
         {t('ui.memberships.form.subscription.label')}
       </label>
-      <Select
-        data-testid="subscription-select"
-        value={value}
-        onChange={(e) => {
-          onChange(Number(e.target.value))
+      <SearchableSelect
+        options={options}
+        value={String(value)}
+        onChange={(v: string): void => {
+          onChange(Number(v))
         }}
-      >
-        <option value={0} disabled>
-          {t('ui.memberships.form.subscription.placeholder')}
-        </option>
-        {subscriptions.map((s) => (
-          <option key={s.id} value={s.id}>
-            {s.name}
-          </option>
-        ))}
-      </Select>
+        placeholder={t('ui.memberships.form.subscription.placeholder')}
+        data-testid="subscription-select"
+      />
     </div>
   )
 }

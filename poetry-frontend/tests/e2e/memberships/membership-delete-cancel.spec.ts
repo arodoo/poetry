@@ -34,15 +34,11 @@ test.describe('Membership Delete Cancel', (): void => {
   }): Promise<void> => {
     await page.goto(`/en/memberships/${m.id}/delete`)
 
-    const cancelButton = page.getByTestId(
-      'cancel-delete-membership-button'
-    )
+    const cancelButton = page.getByTestId('cancel-delete-membership-button')
     await cancelButton.waitFor({ state: 'visible', timeout: 5000 })
     await cancelButton.click()
 
     await page.waitForURL(new RegExp(`/en/memberships/${m.id}$`))
-    await expect(page).toHaveURL(
-      new RegExp(`/en/memberships/${m.id}$`)
-    )
+    await expect(page).toHaveURL(new RegExp(`/en/memberships/${m.id}$`))
   })
 })

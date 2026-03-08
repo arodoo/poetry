@@ -1,15 +1,15 @@
 /*
  * File: UserSearchField.tsx
- * Purpose: Searchable user field for membership forms.
- * Features: Debounced search, results dropdown, selection handling.
+ * Purpose: Searchable user field for membership sell forms.
+ * Uses SearchableSelect with API-driven options loaded via
+ * debounced search query on the users endpoint.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement, useState, useRef } from 'react'
-import { Input } from '../../../../ui/Input/Input'
+import { type ReactElement, useState, useMemo } from 'react'
+import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 import { useT } from '../../../../shared/i18n/useT'
 import { useUsersPageQuery } from '../../../users/hooks/useUsersQueries'
-import { useDebouncedCallback } from '../../../../shared/hooks/useDebouncedCallback'
-import { useDocumentClick } from '../../../../shared/hooks/useDocumentClick'
 import type { UserResponse } from '../../../../api/generated'
 
 interface Props {
@@ -22,30 +22,27 @@ export default function UserSearchField({
   selectedUser,
 }: Props): ReactElement {
   const t = useT()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-
+  const [searchTerm] = useState('')
   const usersQuery = useUsersPageQuery(0, 10, searchTerm)
   const users = usersQuery.data?.content ?? []
 
-  const debouncedSearch = useDebouncedCallback((val: string) => {
-    setSearchTerm(val)
-    setIsOpen(true)
-  }, 300)
+  const options: SelectOption[] = useMemo(
+    () =>
+      users.map((u: UserResponse): SelectOption => ({
+        value: String(u.id),
+        label: `${u.firstName} ${u.lastName}`,
+        sublabel: `@${u.username} - ${u.email}`,
+      })),
+    [users]
+  )
 
-  useDocumentClick(isOpen, [containerRef], () => {
-    setIsOpen(false)
-  })
-
-  const handleSelect = (user: UserResponse): void => {
-    onSelect(user)
-    setIsOpen(false)
-    setSearchTerm('')
+  const handleChange = (val: string): void => {
+    const user = users.find((u) => String(u.id) === val)
+    if (user) onSelect(user)
   }
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div>
       <label
         className="block text-sm font-medium mb-1"
         data-testid="selected-user-label"
@@ -54,58 +51,15 @@ export default function UserSearchField({
           ? `${selectedUser.firstName} ${selectedUser.lastName} (@${selectedUser.username})`
           : t('ui.memberships.form.user.label')}
       </label>
-      <Input
-        data-testid="user-search-input"
+      <SearchableSelect
+        options={options}
+        value={selectedUser ? String(selectedUser.id) : ''}
+        onChange={handleChange}
         placeholder={t('ui.memberships.form.user.search')}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          debouncedSearch(e.target.value)
-        }}
-        onFocus={() => {
-          if (searchTerm) setIsOpen(true)
-        }}
-        autoComplete="off"
+        loading={usersQuery.isLoading}
+        emptyText={t('ui.memberships.form.user.notFound')}
+        data-testid="user-search-input"
       />
-      {isOpen && (
-        <div
-          className="absolute z-10 w-full mt-1 bg-surface border rounded shadow-lg max-h-60 overflow-auto"
-          data-testid="user-search-results"
-        >
-          {usersQuery.isLoading && (
-            <div
-              className="p-2 text-sm text-textMuted"
-              data-testid="user-search-loading"
-            >
-              {t('ui.memberships.form.user.searching')}
-            </div>
-          )}
-          {!usersQuery.isLoading && users.length === 0 && (
-            <div
-              className="p-2 text-sm text-textMuted"
-              data-testid="user-search-empty"
-            >
-              {t('ui.memberships.form.user.notFound')}
-            </div>
-          )}
-          {users.map((u: UserResponse) => (
-            <button
-              key={u.id}
-              type="button"
-              data-testid={`user-search-result-${u.id}`}
-              className="w-full text-left p-2 hover:bg-surfaceHover text-sm"
-              onClick={() => {
-                handleSelect(u)
-              }}
-            >
-              <div className="font-medium">
-                {u.firstName} {u.lastName}
-              </div>
-              <div className="text-xs text-textMuted">
-                @{u.username} - {u.email}
-              </div>
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   )
 }

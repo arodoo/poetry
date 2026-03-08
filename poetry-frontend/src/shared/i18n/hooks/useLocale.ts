@@ -16,9 +16,7 @@ export interface UseLocaleResult {
 }
 
 export function useLocale(): UseLocaleResult {
-  const [locale, setLocaleState] = useState<string>(
-    getCurrentLocale()
-  )
+  const [locale, setLocaleState] = useState<string>(getCurrentLocale())
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const initDoneRef: React.RefObject<boolean> = useRef<boolean>(false)

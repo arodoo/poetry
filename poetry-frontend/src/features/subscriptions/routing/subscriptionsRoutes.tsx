@@ -1,11 +1,12 @@
 /*
  * File: subscriptionsRoutes.tsx
- * Purpose: Subscriptions admin route configurations.
+ * Purpose: Subscriptions admin-only route configurations.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
+import { RequireRole } from '../../../shared/routing/guards/RequireRole'
 import {
   SubscriptionsListPageLazy,
   SubscriptionsCreatePageLazy,
@@ -21,7 +22,9 @@ export function SubscriptionsRoutes(): ReactElement[] {
       path=":locale/subscriptions/new"
       element={
         <AdminRoute>
-          <SubscriptionsCreatePageLazy />
+          <RequireRole role="admin">
+            <SubscriptionsCreatePageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -30,7 +33,9 @@ export function SubscriptionsRoutes(): ReactElement[] {
       path=":locale/subscriptions/:id/delete"
       element={
         <AdminRoute>
-          <SubscriptionDeletePageLazy />
+          <RequireRole role="admin">
+            <SubscriptionDeletePageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -39,7 +44,9 @@ export function SubscriptionsRoutes(): ReactElement[] {
       path=":locale/subscriptions/:id/edit"
       element={
         <AdminRoute>
-          <SubscriptionEditPageLazy />
+          <RequireRole role="admin">
+            <SubscriptionEditPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -48,7 +55,9 @@ export function SubscriptionsRoutes(): ReactElement[] {
       path=":locale/subscriptions/:id"
       element={
         <AdminRoute>
-          <SubscriptionDetailPageLazy />
+          <RequireRole role="admin">
+            <SubscriptionDetailPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -57,7 +66,9 @@ export function SubscriptionsRoutes(): ReactElement[] {
       path=":locale/subscriptions"
       element={
         <AdminRoute>
-          <SubscriptionsListPageLazy />
+          <RequireRole role="admin">
+            <SubscriptionsListPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,

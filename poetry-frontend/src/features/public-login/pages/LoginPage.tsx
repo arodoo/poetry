@@ -13,18 +13,16 @@ import { LoginLayout } from '../components/LoginLayout'
 import { useLoginPage } from '../hooks/useLoginPage'
 
 export default function LoginPage(): ReactElement {
-  const {
-    t, form, setForm, onSubmit,
-    isLoading, error, fieldErrors,
-  } = useLoginPage()
+  const { t, form, setForm, onSubmit, isLoading, error, fieldErrors } =
+    useLoginPage()
   const { locale } = useLocale()
   const forgotPath = `/${locale}/forgot-password`
 
   function setUsername(v: string): void {
-    setForm(p => ({ ...p, username: v }))
+    setForm((p) => ({ ...p, username: v }))
   }
   function setPassword(v: string): void {
-    setForm(p => ({ ...p, password: v }))
+    setForm((p) => ({ ...p, password: v }))
   }
 
   const left = (
@@ -59,9 +57,7 @@ export default function LoginPage(): ReactElement {
         errorMessage={error ?? undefined}
       />
       <p className="mt-4 text-purple-200 text-sm">
-        <Link to={forgotPath}>
-          {t('ui.publicLogin.forgotLink')}
-        </Link>
+        <Link to={forgotPath}>{t('ui.publicLogin.forgotLink')}</Link>
       </p>
     </>
   )

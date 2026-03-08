@@ -13,14 +13,18 @@ import static com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaCommandSu
 import java.time.Instant;
 import java.util.Set;
 
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 import com.poetry.poetry_backend.application.user.port.UserCommandPort;
 import com.poetry.poetry_backend.domain.user.model.core.User;
 
 public class UserJpaCommandAdapter implements UserCommandPort {
   private final UserJpaRepository repository;
+  private final PasswordHasherPort hasher;
 
-  public UserJpaCommandAdapter(UserJpaRepository repository) {
+  public UserJpaCommandAdapter(
+      UserJpaRepository repository, PasswordHasherPort hasher) {
     this.repository = repository;
+    this.hasher = hasher;
   }
 
   @Override
@@ -31,7 +35,7 @@ public class UserJpaCommandAdapter implements UserCommandPort {
     applyProfile(entity, firstName, lastName, email, locale);
     entity.setUsername(username);
     if (password != null && !password.isBlank()) {
-      entity.setPasswordHash(password);
+      entity.setPasswordHash(hasher.hash(password));
     }
     entity.setRoles(roles);
     entity.setStatus(status != null ? status : "active");
@@ -51,7 +55,7 @@ public class UserJpaCommandAdapter implements UserCommandPort {
   @Override
   public User updatePassword(Long id, long version, String password) {
     UserEntity entity = guard(repository, id, version);
-    entity.setPasswordHash(password);
+    entity.setPasswordHash(hasher.hash(password));
     return persist(repository, entity);
   }
 

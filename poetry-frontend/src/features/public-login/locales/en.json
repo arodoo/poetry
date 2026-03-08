@@ -13,6 +13,7 @@
   "ui.publicLogin.error.network": "Network error. Please try again.",
   "ui.publicLogin.error.server": "Server error. Please try again.",
   "ui.publicLogin.error.generic": "Login failed. Please try again.",
+  "ui.publicLogin.error.roleBlocked": "Access denied. Your role does not have permission to access this panel.",
   "ui.publicLogin.brand.name": "Poetry",
   "ui.publicLogin.brand.tagline": "Where rhythm meets elegance"
 }

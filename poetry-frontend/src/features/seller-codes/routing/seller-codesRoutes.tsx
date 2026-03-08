@@ -1,11 +1,12 @@
 /*
  * File: seller-codesRoutes.tsx
- * Purpose: Seller codes admin route configurations for CRUD operations.
+ * Purpose: Seller codes admin-only route configurations.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
+import { RequireRole } from '../../../shared/routing/guards/RequireRole'
 import {
   SellerCodesListPageLazy,
   SellerCodeCreatePageLazy,
@@ -21,7 +22,9 @@ export function SellerCodesRoutes(): ReactElement[] {
       path=":locale/seller-codes/new"
       element={
         <AdminRoute>
-          <SellerCodeCreatePageLazy />
+          <RequireRole role="admin">
+            <SellerCodeCreatePageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -30,7 +33,9 @@ export function SellerCodesRoutes(): ReactElement[] {
       path=":locale/seller-codes/edit/:id"
       element={
         <AdminRoute>
-          <SellerCodeEditPageLazy />
+          <RequireRole role="admin">
+            <SellerCodeEditPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -39,7 +44,9 @@ export function SellerCodesRoutes(): ReactElement[] {
       path=":locale/seller-codes/:id"
       element={
         <AdminRoute>
-          <SellerCodeDetailPageLazy />
+          <RequireRole role="admin">
+            <SellerCodeDetailPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -48,7 +55,9 @@ export function SellerCodesRoutes(): ReactElement[] {
       path=":locale/seller-codes/:id/delete"
       element={
         <AdminRoute>
-          <SellerCodeDeletePageLazy />
+          <RequireRole role="admin">
+            <SellerCodeDeletePageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -57,7 +66,9 @@ export function SellerCodesRoutes(): ReactElement[] {
       path=":locale/seller-codes"
       element={
         <AdminRoute>
-          <SellerCodesListPageLazy />
+          <RequireRole role="admin">
+            <SellerCodesListPageLazy />
+          </RequireRole>
         </AdminRoute>
       }
     />,

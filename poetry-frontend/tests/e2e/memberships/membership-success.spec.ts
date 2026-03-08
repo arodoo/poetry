@@ -10,7 +10,10 @@ import { authedApi } from '../shared/fixtures/seedApi'
 async function deleteAdminMemberships(): Promise<void> {
   const api = await authedApi()
   const r = await api.get('/api/v1/memberships?size=100')
-  if (!r.ok()) { await api.dispose(); return }
+  if (!r.ok()) {
+    await api.dispose()
+    return
+  }
   const data = await r.json()
   const items = Array.isArray(data)
     ? (data as { id: number; userId: number }[])
@@ -44,18 +47,16 @@ test.describe('Membership Success Flow', () => {
     const subSelect = page.getByTestId('subscription-select')
     await expect(subSelect).toBeVisible({ timeout: 10000 })
 
-    await expect(
-      page.getByTestId('selected-user-label')
-    ).toContainText(/admin/i)
+    await expect(page.getByTestId('selected-user-label')).toContainText(
+      /admin/i
+    )
 
     // Form interaction
     const subOptions = subSelect.locator('option')
     await expect(subOptions).not.toHaveCount(0, { timeout: 5000 })
     await subSelect.selectOption({ index: 1 })
 
-    await page
-      .getByTestId('membership-seller-code-input')
-      .fill('codigo001')
+    await page.getByTestId('membership-seller-code-input').fill('codigo001')
 
     const submitBtn = page.getByTestId('submit-membership-button')
     await expect(submitBtn).toBeEnabled({ timeout: 2000 })

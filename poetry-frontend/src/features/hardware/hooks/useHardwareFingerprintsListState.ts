@@ -15,7 +15,10 @@ export function useHardwareFingerprintsListState(
   data: MergedFingerprint[]
 ): HardwareFingerprintsListState {
   const listState = useListPageState()
-  const [sort, setSort] = useState<SortState>({ key: 'enrolled', direction: 'desc' })
+  const [sort, setSort] = useState<SortState>({
+    key: 'enrolled',
+    direction: 'desc',
+  })
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({})
 
   const onFilterChange = (key: string, value: string): void => {
@@ -24,16 +27,22 @@ export function useHardwareFingerprintsListState(
   }
 
   const processedData = useMemo((): MergedFingerprint[] => {
-    let res = applyFilters(data as unknown as Record<string, unknown>[], activeFilters) as unknown as MergedFingerprint[]
+    let res = applyFilters(
+      data as unknown as Record<string, unknown>[],
+      activeFilters
+    ) as unknown as MergedFingerprint[]
     if (listState.search) {
       const q = listState.search.toLowerCase()
-      res = res.filter(v => v.username.toLowerCase().includes(q) || String(v.id).includes(q))
+      res = res.filter(
+        (v) => v.username.toLowerCase().includes(q) || String(v.id).includes(q)
+      )
     }
     if (sort.direction) {
       const dir = sort.direction === 'asc' ? 1 : -1
       res = [...res].sort((a, b) => {
         const k = sort.key as keyof MergedFingerprint
-        const aVal = String(a[k]), bVal = String(b[k])
+        const aVal = String(a[k]),
+          bVal = String(b[k])
         return aVal < bVal ? -dir : aVal > bVal ? dir : 0
       })
     }
@@ -47,6 +56,14 @@ export function useHardwareFingerprintsListState(
     (listState.page + 1) * listState.size
   )
 
-  return { ...listState, sort, setSort, activeFilters, onFilterChange, paginatedData, totalElements, totalPages }
+  return {
+    ...listState,
+    sort,
+    setSort,
+    activeFilters,
+    onFilterChange,
+    paginatedData,
+    totalElements,
+    totalPages,
+  }
 }
-

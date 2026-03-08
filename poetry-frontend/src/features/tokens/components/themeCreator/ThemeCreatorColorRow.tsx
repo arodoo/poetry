@@ -30,9 +30,7 @@ export function ThemeCreatorColorRow(props: Props): ReactElement {
         }}
         className="w-8 h-8 rounded cursor-pointer border border-border"
       />
-      <span className="text-xs text-textMuted font-mono">
-        {hex}
-      </span>
+      <span className="text-xs text-textMuted font-mono">{hex}</span>
     </div>
   )
 }

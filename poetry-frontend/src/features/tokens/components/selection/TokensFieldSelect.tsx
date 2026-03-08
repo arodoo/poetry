@@ -1,11 +1,12 @@
 /*
  File: TokensFieldSelect.tsx
- Purpose: Small presentational wrapper for a token select field used by
- TokensSelectionForm. Keeps the parent form file short and preserves
- runtime behavior. All Rights Reserved. Arodi Emmanuel
+ Purpose: Searchable presentational wrapper for a token select field
+ used by TokensSelectionForm. Keeps the parent form file short and
+ preserves runtime behavior. All Rights Reserved. Arodi Emmanuel
 */
-import type { ReactElement, ChangeEvent } from 'react'
-import { Select } from '../../../../ui/Select/Select'
+import { type ReactElement, useMemo } from 'react'
+import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 import { Label } from '../../../../ui/Label/Label'
 import type { I18nKey } from '../../../../shared/i18n/generated/keys'
 import { formatTokenLabel } from '../../model/tokensPageHelpers'
@@ -21,23 +22,25 @@ export interface TokensFieldSelectProps {
 }
 
 export function TokensFieldSelect(props: TokensFieldSelectProps): ReactElement {
+  const selectOptions: SelectOption[] = useMemo(
+    () =>
+      props.options.map((opt) => ({
+        value: opt.key,
+        label: formatTokenLabel(opt.key),
+      })),
+    [props.options]
+  )
+
   return (
     <div className="space-y-2">
       <Label htmlFor={props.id}>{props.t(props.labelKey)}</Label>
-      <Select
-        id={props.id}
+      <SearchableSelect
+        options={selectOptions}
         value={props.value}
-        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-          props.onChange(e.currentTarget.value)
-        }}
+        onChange={props.onChange}
         disabled={props.disabled}
-      >
-        {props.options.map((opt) => (
-          <option key={opt.key} value={opt.key}>
-            {formatTokenLabel(opt.key)}
-          </option>
-        ))}
-      </Select>
+        data-testid={`token-field-${props.id}`}
+      />
     </div>
   )
 }

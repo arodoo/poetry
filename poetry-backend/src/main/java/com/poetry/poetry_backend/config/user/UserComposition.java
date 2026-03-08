@@ -13,6 +13,7 @@ package com.poetry.poetry_backend.config.user;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
 import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
 import com.poetry.poetry_backend.application.user.port.*;
@@ -23,8 +24,9 @@ import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
 @Configuration
 public class UserComposition {
   @Bean
-  UserJpaAdapter userJpaAdapter(UserJpaRepository repo) {
-    return new UserJpaAdapter(repo);
+  UserJpaAdapter userJpaAdapter(
+      UserJpaRepository repo, PasswordHasherPort hasher) {
+    return new UserJpaAdapter(repo, hasher);
   }
 
   @Bean

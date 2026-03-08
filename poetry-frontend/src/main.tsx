@@ -49,7 +49,7 @@ client.interceptors.request.use((request: Request): Request => {
   const tokens = tokenStorage.load()
   console.log('[SDK Interceptor] Request URL:', request.url)
   console.log('[SDK Interceptor] Tokens:', tokens ? 'LOADED' : 'NONE')
-  
+
   // Prevent aggressive browser caching of API responses
   request.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
   request.headers.set('Pragma', 'no-cache')

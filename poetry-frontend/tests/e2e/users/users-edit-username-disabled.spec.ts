@@ -18,9 +18,7 @@ test('username field is disabled in user edit form', async ({
   await page.goto('/en/users')
   await page.waitForLoadState('load')
 
-  const viewBtn: Locator = page
-    .locator('[data-testid^="view-user-"]')
-    .first()
+  const viewBtn: Locator = page.locator('[data-testid^="view-user-"]').first()
   await expect(viewBtn).toBeVisible({ timeout: 15000 })
   const userId = await getUserIdFromButton(viewBtn, 'view-user-')
   await viewBtn.click()
@@ -29,13 +27,9 @@ test('username field is disabled in user edit form', async ({
   await expect(editBtn).toBeVisible({ timeout: 15000 })
   await editBtn.click()
 
-  await expect(page).toHaveURL(
-    new RegExp(`/en/users/${userId}/edit$`)
-  )
+  await expect(page).toHaveURL(new RegExp(`/en/users/${userId}/edit$`))
 
-  const usernameInput: Locator = page.getByTestId(
-    'user-username-input'
-  )
+  const usernameInput: Locator = page.getByTestId('user-username-input')
   await expect(usernameInput).toBeVisible({ timeout: 10000 })
   await expect(usernameInput).toBeDisabled()
 })

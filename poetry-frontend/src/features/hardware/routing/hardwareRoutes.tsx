@@ -6,6 +6,7 @@
 import type { ReactElement } from 'react'
 import { Route } from 'react-router-dom'
 import { AdminRoute } from '../../../shared/routing/guards/AdminRoute'
+import { RequireRole } from '../../../shared/routing/guards/RequireRole'
 import { HardwareStatusPage } from '../pages/HardwareStatusPage'
 import FingerprintDetailPage from '../pages/FingerprintDetailPage'
 
@@ -16,7 +17,9 @@ export function HardwareRoutes(): ReactElement[] {
       path=":locale/hardware"
       element={
         <AdminRoute>
-          <HardwareStatusPage />
+          <RequireRole role="admin">
+            <HardwareStatusPage />
+          </RequireRole>
         </AdminRoute>
       }
     />,
@@ -25,7 +28,9 @@ export function HardwareRoutes(): ReactElement[] {
       path=":locale/hardware/fingerprints/:id"
       element={
         <AdminRoute>
-          <FingerprintDetailPage />
+          <RequireRole role="admin">
+            <FingerprintDetailPage />
+          </RequireRole>
         </AdminRoute>
       }
     />,

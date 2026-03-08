@@ -1,6 +1,15 @@
-import { test, expect, type Page, type Locator, type Response } from '@playwright/test'
+import {
+  test,
+  expect,
+  type Page,
+  type Locator,
+  type Response,
+} from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import { getUserIdFromButton, waitForUsersApiResponse } from './users-list-helpers'
+import {
+  getUserIdFromButton,
+  waitForUsersApiResponse,
+} from './users-list-helpers'
 
 test('create button navigates to new user page', async ({
   page,

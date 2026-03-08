@@ -12,24 +12,22 @@ import { CONFETTI_PARTICLES } from './confettiData'
 export function BirthdayConfetti(): ReactElement {
   return (
     <>
-      {CONFETTI_PARTICLES.map(
-        ([left, size, dur, delay, cssVar, circle], i) => (
-          <span
-            key={i}
-            className={`bd-particle${circle ? ' bd-circle' : ''}`}
-            style={
-              {
-                left: `${String(left)}%`,
-                width: `${String(size)}px`,
-                height: `${String(size)}px`,
-                animationDuration: `${String(dur)}s`,
-                animationDelay: `${String(delay)}s`,
-                '--bd-color': `var(${cssVar})`,
-              } as CSSProperties
-            }
-          />
-        )
-      )}
+      {CONFETTI_PARTICLES.map(([left, size, dur, delay, cssVar, circle], i) => (
+        <span
+          key={i}
+          className={`bd-particle${circle ? ' bd-circle' : ''}`}
+          style={
+            {
+              left: `${String(left)}%`,
+              width: `${String(size)}px`,
+              height: `${String(size)}px`,
+              animationDuration: `${String(dur)}s`,
+              animationDelay: `${String(delay)}s`,
+              '--bd-color': `var(${cssVar})`,
+            } as CSSProperties
+          }
+        />
+      ))}
     </>
   )
 }

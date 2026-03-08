@@ -1,12 +1,14 @@
 /*
  * File: SubscriptionStatusField.tsx
- * Purpose: Status select for subscription form.
+ * Purpose: Searchable status select for subscription forms.
+ * Provides active/inactive filtering via SearchableSelect.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement, ChangeEvent } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import { Stack } from '../../../../ui/Stack/Stack'
-import { Select } from '../../../../ui/Select/Select'
+import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
 import { Text } from '../../../../ui/Text/Text'
+import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 
 interface Props {
   t: (k: string) => string
@@ -19,23 +21,27 @@ export default function SubscriptionStatusField({
   status,
   setStatus,
 }: Props): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () => [
+      { value: 'active', label: t('ui.subscriptions.status.active') },
+      { value: 'inactive', label: t('ui.subscriptions.status.inactive') },
+    ],
+    [t]
+  )
+
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
         {t('ui.subscriptions.table.status')}
       </Text>
-      <Select
+      <SearchableSelect
+        options={options}
         value={status}
-        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-          setStatus(e.target.value as 'active' | 'inactive')
+        onChange={(v: string): void => {
+          setStatus(v as 'active' | 'inactive')
         }}
         data-testid="subscription-status-select"
-      >
-        <option value="active">{t('ui.subscriptions.status.active')}</option>
-        <option value="inactive">
-          {t('ui.subscriptions.status.inactive')}
-        </option>
-      </Select>
+      />
     </Stack>
   )
 }

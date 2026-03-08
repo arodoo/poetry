@@ -1,18 +1,27 @@
 /*
  * File: SubscriptionCurrencyField.tsx
- * Purpose: Currency select for subscription form.
+ * Purpose: Searchable currency select for subscription forms.
+ * Offers USD/EUR/GBP/MXN through a filterable dropdown.
  * All Rights Reserved. Arodi Emmanuel
  */
-import type { ReactElement, ChangeEvent } from 'react'
+import type { ReactElement } from 'react'
 import { Stack } from '../../../../ui/Stack/Stack'
-import { Select } from '../../../../ui/Select/Select'
+import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
 import { Text } from '../../../../ui/Text/Text'
+import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 
 interface Props {
   t: (k: string) => string
   currency: string
   setCurrency: (v: string) => void
 }
+
+const CURRENCY_OPTIONS: SelectOption[] = [
+  { value: 'USD', label: 'USD' },
+  { value: 'EUR', label: 'EUR' },
+  { value: 'GBP', label: 'GBP' },
+  { value: 'MXN', label: 'MXN' },
+]
 
 export default function SubscriptionCurrencyField({
   t,
@@ -24,18 +33,12 @@ export default function SubscriptionCurrencyField({
       <Text size="sm" className="font-medium">
         {t('ui.subscriptions.table.currency')}
       </Text>
-      <Select
+      <SearchableSelect
+        options={CURRENCY_OPTIONS}
         value={currency}
-        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-          setCurrency(e.target.value)
-        }}
+        onChange={setCurrency}
         data-testid="subscription-currency-select"
-      >
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        <option value="MXN">MXN</option>
-      </Select>
+      />
     </Stack>
   )
 }

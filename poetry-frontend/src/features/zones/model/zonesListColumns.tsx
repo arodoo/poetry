@@ -71,12 +71,14 @@ export function buildZonesListColumns(
       accessor: (row: ZoneResponse): string =>
         toTemplateString(
           (row as Record<string, unknown>)['managerUsername'] ??
-            row.managerId ?? '-'
+            row.managerId ??
+            '-'
         ),
       sortValue: (row: ZoneResponse): string =>
         toTemplateString(
           (row as Record<string, unknown>)['managerUsername'] ??
-            row.managerId ?? ''
+            row.managerId ??
+            ''
         ),
     },
     {

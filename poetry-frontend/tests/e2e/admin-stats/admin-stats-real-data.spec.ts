@@ -17,10 +17,9 @@ test.describe('Admin Stats - Real Data', (): void => {
     await injectTokens(page)
     await page.goto('/en/admin/stats')
 
-    await page.waitForSelector(
-      '[data-testid="admin-stats-page"]',
-      { timeout: 20000 }
-    )
+    await page.waitForSelector('[data-testid="admin-stats-page"]', {
+      timeout: 20000,
+    })
 
     const totalCard = page.getByTestId('kpi-card-total')
     await expect(totalCard).toBeVisible({ timeout: 10000 })
@@ -39,10 +38,9 @@ test.describe('Admin Stats - Real Data', (): void => {
     await injectTokens(page)
     await page.goto('/en/admin/stats')
 
-    await page.waitForSelector(
-      '[data-testid="admin-stats-page"]',
-      { timeout: 20000 }
-    )
+    await page.waitForSelector('[data-testid="admin-stats-page"]', {
+      timeout: 20000,
+    })
 
     const table = page.locator('table')
     await expect(table).toBeVisible({ timeout: 10000 })

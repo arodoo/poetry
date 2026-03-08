@@ -1,13 +1,14 @@
 /*
  * File: UsersFormStatus.tsx
- * Purpose: Status select component for user forms (create/edit).
- * Renders dropdown for active/inactive status selection.
+ * Purpose: Searchable status select component for user forms.
+ * Renders filterable dropdown for active/inactive status selection.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement, type ChangeEvent } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import { Stack } from '../../../../ui/Stack/Stack'
-import { Select } from '../../../../ui/Select/Select'
+import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
 import { Text } from '../../../../ui/Text/Text'
+import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 import type { useT } from '../../../../shared/i18n/useT'
 
 export interface UsersFormStatusProps {
@@ -17,24 +18,28 @@ export interface UsersFormStatusProps {
 }
 
 export function UsersFormStatus(props: UsersFormStatusProps): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () => [
+      { value: 'active', label: props.t('ui.users.status.active') },
+      { value: 'inactive', label: props.t('ui.users.status.inactive') },
+    ],
+    [props.t]
+  )
+
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
         {props.t('ui.users.form.status.label')}
       </Text>
-      <Select
+      <SearchableSelect
+        options={options}
         value={props.status}
-        onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-          const raw: string = e.target.value
-          const v: 'active' | 'inactive' = raw as 'active' | 'inactive'
-          props.onStatusChange(v)
+        onChange={(v: string): void => {
+          props.onStatusChange(v as 'active' | 'inactive')
         }}
         required
         data-testid="user-status-select"
-      >
-        <option value="active">{props.t('ui.users.status.active')}</option>
-        <option value="inactive">{props.t('ui.users.status.inactive')}</option>
-      </Select>
+      />
     </Stack>
   )
 }

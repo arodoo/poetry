@@ -11,24 +11,16 @@ export default defineConfig({
   retries: 0,
   workers: 2,
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://localhost:8080',
     headless: true,
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },
-  webServer: [
-    {
-      command: 'npm run dev:raw',
-      url: 'http://localhost:5173',
-      reuseExistingServer: true,
-      timeout: 30000,
-    },
-    {
-      command: 'node ../tools/logs/backend/dev-with-log.mjs',
-      url: 'http://localhost:8080',
-      reuseExistingServer: true,
-      timeout: 60000,
-    },
-  ],
+  webServer: {
+    command: 'node ../tools/logs/backend/dev-with-log.mjs',
+    url: 'http://localhost:8080',
+    reuseExistingServer: true,
+    timeout: 60000,
+  },
 })

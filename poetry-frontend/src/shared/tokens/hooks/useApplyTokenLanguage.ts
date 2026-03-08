@@ -24,10 +24,7 @@ export default function useApplyTokenLanguage(
     if (language === urlLocale) return
     setLocale(language)
     const path = window.location.pathname
-    const newPath = path.replace(
-      /^\/[a-z]{2}(\/|$)/,
-      `/${language}$1`
-    )
+    const newPath = path.replace(/^\/[a-z]{2}(\/|$)/, `/${language}$1`)
     if (newPath !== path) {
       window.history.replaceState(null, '', newPath)
     }

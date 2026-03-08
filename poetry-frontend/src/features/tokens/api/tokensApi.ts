@@ -69,11 +69,11 @@ export async function getTokens(): Promise<TokensApiResponse> {
 
       const enhancedError: Error = new Error(
         `Token bundle validation failed. Backend data model doesn't match frontend schema.\n` +
-        `Validation errors:\n${details}\n\n` +
-        `This usually means:\n` +
-        `- Backend changed data structure without updating frontend\n` +
-        `- Missing required fields in backend response\n` +
-        `- Type mismatch between backend and frontend models`
+          `Validation errors:\n${details}\n\n` +
+          `This usually means:\n` +
+          `- Backend changed data structure without updating frontend\n` +
+          `- Missing required fields in backend response\n` +
+          `- Type mismatch between backend and frontend models`
       )
       enhancedError.name = 'TokenBundleValidationError'
       throw enhancedError

@@ -1,12 +1,14 @@
 /*
  * File: index.tsx
- * Purpose: Public surface for the charts feature routing schema. It maps the root dashboard metrics boundaries and nested children configurations. The sub-routes provide drill-down detail pages for specific analytical charts.
+ * Purpose: Admin-only charts feature routing schema. Maps dashboard
+ * metrics boundaries and nested detail page configurations.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { Suspense } from 'react'
 import { Route } from 'react-router-dom'
 import { RequireAuth } from '../../shared/routing/guards/RequireAuth'
+import { RequireRole } from '../../shared/routing/guards/RequireRole'
 import { AppShell } from '../../shared/layout'
 import { ChartsPage } from './pages/ChartsPage'
 import { ChartDetailsPage } from './pages/ChartDetailsPage'
@@ -18,11 +20,13 @@ export function chartsRoutes(): ReactElement[] {
       path=":locale/charts"
       element={
         <RequireAuth>
-          <AppShell>
-            <Suspense fallback={null}>
-              <ChartsPage />
-            </Suspense>
-          </AppShell>
+          <RequireRole role="admin">
+            <AppShell>
+              <Suspense fallback={null}>
+                <ChartsPage />
+              </Suspense>
+            </AppShell>
+          </RequireRole>
         </RequireAuth>
       }
     />,
@@ -31,11 +35,13 @@ export function chartsRoutes(): ReactElement[] {
       path=":locale/charts/details/:chartId"
       element={
         <RequireAuth>
-          <AppShell>
-            <Suspense fallback={null}>
-              <ChartDetailsPage />
-            </Suspense>
-          </AppShell>
+          <RequireRole role="admin">
+            <AppShell>
+              <Suspense fallback={null}>
+                <ChartDetailsPage />
+              </Suspense>
+            </AppShell>
+          </RequireRole>
         </RequireAuth>
       }
     />,

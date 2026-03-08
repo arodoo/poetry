@@ -14,15 +14,24 @@ export function buildFingerprintDetailSections(
     {
       title: t('ui.hardware.fingerprints.detail.section.overview'),
       items: [
-        { label: t('ui.hardware.fingerprints.detail.id'), value: String(fp.id) },
-        { label: t('ui.hardware.fingerprints.detail.user'), value: fp.username },
+        {
+          label: t('ui.hardware.fingerprints.detail.id'),
+          value: String(fp.id),
+        },
+        {
+          label: t('ui.hardware.fingerprints.detail.user'),
+          value: fp.username,
+        },
         { label: t('ui.hardware.fingerprints.detail.email'), value: fp.email },
       ],
     },
     {
       title: t('ui.hardware.fingerprints.detail.section.technical'),
       items: [
-        { label: t('ui.hardware.fingerprints.detail.status'), value: fp.status },
+        {
+          label: t('ui.hardware.fingerprints.detail.status'),
+          value: fp.status,
+        },
         {
           label: t('ui.hardware.fingerprints.detail.enrolled'),
           value: fp.enrolledAt,

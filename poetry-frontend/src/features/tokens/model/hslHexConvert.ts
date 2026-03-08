@@ -16,7 +16,9 @@ export function hslToHex(hsl: string): string {
   const f = (n: number): string => {
     const k = (n + h * 12) % 12
     const c = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
-    return Math.round(255 * c).toString(16).padStart(2, '0')
+    return Math.round(255 * c)
+      .toString(16)
+      .padStart(2, '0')
   }
   return `#${f(0)}${f(8)}${f(4)}`
 }
@@ -25,7 +27,8 @@ export function hexToHsl(hex: string): string {
   const r = parseInt(hex.slice(1, 3), 16) / 255
   const g = parseInt(hex.slice(3, 5), 16) / 255
   const b = parseInt(hex.slice(5, 7), 16) / 255
-  const max = Math.max(r, g, b), min = Math.min(r, g, b)
+  const max = Math.max(r, g, b),
+    min = Math.min(r, g, b)
   const l = (max + min) / 2
   if (max === min) return `hsl(0 0% ${Math.round(l * 100)}%)`
   const d = max - min

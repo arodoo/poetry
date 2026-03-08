@@ -22,25 +22,27 @@ export default function FingerprintDetailPage(): ReactElement {
   const idStr = params['id'] ?? ''
   const t = useT()
   const { locale } = useLocale()
-  
+
   const fpQuery = useFingerprintsQuery()
   const usersQuery = useUsersListForSelect()
-  
+
   const isLoading = fpQuery.isLoading || usersQuery.isLoading
   const isError = fpQuery.isError || usersQuery.isError
-  
-  const fingerprint = (fpQuery.data ?? []).find(f => String(f.id) === idStr)
-  const user = (usersQuery.data ?? []).find(u => u.id === fingerprint?.userId)
-  
-  const merged: MergedFingerprint | undefined = fingerprint ? {
-    id: fingerprint.id ?? 0,
-    userId: fingerprint.userId ?? 0,
-    username: user?.username ?? t('ui.common.unknown'),
-    email: user?.email ?? '',
-    status: fingerprint.status ?? 'UNKNOWN',
-    enrolledAt: fingerprint.enrolledAt ?? '',
-    version: fingerprint.version ?? 0,
-  } : undefined
+
+  const fingerprint = (fpQuery.data ?? []).find((f) => String(f.id) === idStr)
+  const user = (usersQuery.data ?? []).find((u) => u.id === fingerprint?.userId)
+
+  const merged: MergedFingerprint | undefined = fingerprint
+    ? {
+        id: fingerprint.id ?? 0,
+        userId: fingerprint.userId ?? 0,
+        username: user?.username ?? t('ui.common.unknown'),
+        email: user?.email ?? '',
+        status: fingerprint.status ?? 'UNKNOWN',
+        enrolledAt: fingerprint.enrolledAt ?? '',
+        version: fingerprint.version ?? 0,
+      }
+    : undefined
 
   const sections = merged ? buildFingerprintDetailSections(merged, t) : []
   const breadcrumbs = buildFingerprintDetailBreadcrumbs(locale, t)
@@ -53,7 +55,7 @@ export default function FingerprintDetailPage(): ReactElement {
       <div className="mb-4">
         <Breadcrumb items={breadcrumbs} />
       </div>
-      
+
       {isLoading ? (
         <Text>{t('ui.common.loading')}</Text>
       ) : isError || !merged ? (

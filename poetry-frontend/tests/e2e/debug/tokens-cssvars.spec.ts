@@ -10,8 +10,7 @@ test('page loads and CSS variables are set', async ({
 }: {
   page: Page
 }): Promise<void> => {
-  await page.goto('http://localhost:5173/en/users', {
-  })
+  await page.goto('http://localhost:5173/en/users', {})
   // Give tokens provider time to apply
   await page.waitForTimeout(3000)
   const primaryColor: string = await page.evaluate(() =>

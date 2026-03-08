@@ -35,9 +35,7 @@ test('subscription edit form has i18n labels and MXN', async ({
   )
   await expect(currencySelect).toBeVisible({ timeout: 10000 })
 
-  const mxnOption: Locator = currencySelect.locator(
-    'option[value="MXN"]'
-  )
+  const mxnOption: Locator = currencySelect.locator('option[value="MXN"]')
   await expect(mxnOption).toBeAttached()
 
   const descLabel = page.locator(

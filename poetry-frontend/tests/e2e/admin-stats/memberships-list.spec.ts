@@ -51,9 +51,7 @@ test.describe('Admin Stats - Memberships List', () => {
     await expect(
       page.getByRole('columnheader', { name: 'Member' })
     ).toBeVisible()
-    await expect(
-      page.getByRole('columnheader', { name: 'Plan' })
-    ).toBeVisible()
+    await expect(page.getByRole('columnheader', { name: 'Plan' })).toBeVisible()
     await expect(
       page.getByRole('columnheader', { name: 'Seller' })
     ).toBeVisible()

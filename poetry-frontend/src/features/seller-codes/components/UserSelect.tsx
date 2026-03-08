@@ -1,10 +1,13 @@
 /*
  * File: UserSelect.tsx
- * Purpose: User dropdown select component using generated SDK.
+ * Purpose: Searchable user dropdown for seller code forms. Uses
+ * generated SDK to fetch users and presents them in a filterable
+ * SearchableSelect component for quick selection.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement } from 'react'
-import { Select } from '../../../ui/Select/Select'
+import { type ReactElement, useMemo } from 'react'
+import { SearchableSelect } from '../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../ui/SearchableSelect/SearchableSelect.types'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Text } from '../../../ui/Text/Text'
 import type { UserResponse } from '../../../api/generated'
@@ -21,35 +24,36 @@ export interface UserSelectProps {
 export function UserSelect(props: UserSelectProps): ReactElement {
   const { data: users, isLoading, isError } = useUsersListForSelect()
 
+  const options: SelectOption[] = useMemo(
+    () =>
+      (users ?? []).map((u: UserResponse): SelectOption => ({
+        value: u.id?.toString() ?? '',
+        label: u.username ?? '',
+        sublabel: u.email ?? '',
+      })),
+    [users]
+  )
+
+  const placeholder = isLoading
+    ? props.t('ui.sellerCodes.form.user.loading')
+    : isError
+      ? props.t('ui.sellerCodes.form.user.error')
+      : props.t('ui.sellerCodes.form.user.placeholder')
+
   return (
     <Stack gap="xs">
       <Text size="sm" className="font-medium">
         {props.t('ui.sellerCodes.form.user.label')}
       </Text>
-      <Select
+      <SearchableSelect
+        options={options}
         value={props.value}
-        onChange={(e): void => {
-          props.onChange(e.target.value)
-        }}
-        required={props.required}
+        onChange={props.onChange}
+        placeholder={placeholder}
         disabled={isLoading || isError}
+        loading={isLoading}
         data-testid="seller-code-user-select"
-      >
-        <option value="">
-          {isLoading
-            ? props.t('ui.sellerCodes.form.user.loading')
-            : isError
-              ? props.t('ui.sellerCodes.form.user.error')
-              : props.t('ui.sellerCodes.form.user.placeholder')}
-        </option>
-        {!isLoading &&
-          !isError &&
-          users?.map((user: UserResponse) => (
-            <option key={user.id} value={user.id?.toString() ?? ''}>
-              {user.username} ({user.email ?? ''})
-            </option>
-          ))}
-      </Select>
+      />
     </Stack>
   )
 }

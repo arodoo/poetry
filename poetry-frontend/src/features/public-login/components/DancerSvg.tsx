@@ -24,31 +24,24 @@ export function DancerSvg(): ReactElement {
         <circle cx="80" cy="20" r="9" className="fill-stone-800" />
         <circle cx="80" cy="44" r="24" className="fill-rose-100" />
         <circle cx="72" cy="41" r="7" className="fill-white" />
-        <circle
-          cx={72 + x} cy={41 + y} r="3.5"
-          className="fill-violet-900"
-        />
+        <circle cx={72 + x} cy={41 + y} r="3.5" className="fill-violet-900" />
         <circle cx="88" cy="41" r="7" className="fill-white" />
-        <circle
-          cx={88 + x} cy={41 + y} r="3.5"
-          className="fill-violet-900"
-        />
-        <rect
-          x="76" y="67" width="8" height="9"
-          className="fill-rose-100"
-        />
+        <circle cx={88 + x} cy={41 + y} r="3.5" className="fill-violet-900" />
+        <rect x="76" y="67" width="8" height="9" className="fill-rose-100" />
         <path
           d="M68,76 Q80,72 92,76 L90,105 Q80,102 70,105 Z"
           className="fill-violet-700"
         />
         <path
           d="M70,83 Q50,67 32,52"
-          strokeWidth={5} strokeLinecap="round"
+          strokeWidth={5}
+          strokeLinecap="round"
           className="fill-none stroke-rose-100"
         />
         <path
           d="M90,83 Q110,67 128,52"
-          strokeWidth={5} strokeLinecap="round"
+          strokeWidth={5}
+          strokeLinecap="round"
           className="fill-none stroke-rose-100"
         />
         <path
@@ -65,18 +58,18 @@ export function DancerSvg(): ReactElement {
         />
         <path
           d="M72,205 Q68,220 62,240"
-          strokeWidth={5} strokeLinecap="round"
+          strokeWidth={5}
+          strokeLinecap="round"
           className="fill-none stroke-rose-100"
         />
         <path
           d="M88,205 Q92,220 98,240"
-          strokeWidth={5} strokeLinecap="round"
+          strokeWidth={5}
+          strokeLinecap="round"
           className="fill-none stroke-rose-100"
         />
-        <ellipse cx="60" cy="242" rx="10" ry="5"
-          className="fill-violet-900" />
-        <ellipse cx="100" cy="242" rx="10" ry="5"
-          className="fill-violet-900" />
+        <ellipse cx="60" cy="242" rx="10" ry="5" className="fill-violet-900" />
+        <ellipse cx="100" cy="242" rx="10" ry="5" className="fill-violet-900" />
       </svg>
     </div>
   )

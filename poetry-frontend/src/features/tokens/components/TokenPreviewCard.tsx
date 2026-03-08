@@ -13,9 +13,9 @@ export function TokenPreviewCard(): ReactElement {
         Token Preview
       </h3>
       <p className="text-textMuted text-base mb-md transition-colors duration-300">
-        This card automatically reflects changes in the selected theme,
-        spacing, radius, shadow, and font size. Adjust the settings
-        above to see real-time updates here.
+        This card automatically reflects changes in the selected theme, spacing,
+        radius, shadow, and font size. Adjust the settings above to see
+        real-time updates here.
       </p>
       <div className="flex gap-md transition-all duration-300">
         <button className="bg-primary text-onPrimary px-md py-sm rounded-md shadow-sm transition-all duration-300 hover:opacity-90 active:scale-95">

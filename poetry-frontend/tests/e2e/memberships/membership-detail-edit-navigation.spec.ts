@@ -34,9 +34,7 @@ test.describe('Membership Detail Edit Navigation', (): void => {
   }): Promise<void> => {
     await page.goto(`/en/memberships/${m.id}`)
 
-    const editButton: Locator = page.getByTestId(
-      'edit-membership-button'
-    )
+    const editButton: Locator = page.getByTestId('edit-membership-button')
     await editButton.waitFor({ state: 'visible', timeout: 10000 })
     await editButton.click()
 

@@ -24,9 +24,9 @@ test.describe('Zones Delete Confirmation', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto(`/en/zones/${zone.id}/delete`)
-    await expect(
-      page.getByTestId('confirm-delete-zone-button')
-    ).toBeVisible({ timeout: 10000 })
+    await expect(page.getByTestId('confirm-delete-zone-button')).toBeVisible({
+      timeout: 10000,
+    })
 
     const deleteApiPromise: Promise<Response> = page.waitForResponse(
       (response: Response): boolean =>
@@ -39,9 +39,9 @@ test.describe('Zones Delete Confirmation', (): void => {
     const status = deleteResponse.status()
 
     if (status === 200 || status === 204) {
-      await expect(
-        page.getByText(/Zone deleted successfully/i)
-      ).toBeVisible({ timeout: 5000 })
+      await expect(page.getByText(/Zone deleted successfully/i)).toBeVisible({
+        timeout: 5000,
+      })
       await page.waitForURL(/\/en\/zones$/, { timeout: 5000 })
     } else {
       const body = await deleteResponse.text()
