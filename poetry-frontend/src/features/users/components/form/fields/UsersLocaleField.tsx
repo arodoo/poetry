@@ -35,6 +35,7 @@ export function UsersLocaleField(props: UsersLocaleFieldProps): ReactElement {
         options={options}
         value={props.value}
         onChange={props.onChange}
+        searchable={false}
         required
         data-testid="user-locale-select"
       />

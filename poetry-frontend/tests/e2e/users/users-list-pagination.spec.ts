@@ -7,6 +7,8 @@
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 import { waitForUsersApiResponse } from './users-list-helpers'
+import { selectOption } from
+  '../shared/helpers/searchableSelectHelper'
 
 test('pagination displays correct info for first page', async ({
   page,
@@ -69,14 +71,14 @@ test('page size selector changes items per page', async ({
   await page.goto('/en/users')
   await initialApiPromise
   const wrapper = page.getByTestId('data-table-wrapper')
-  const sizeSelect = wrapper.getByRole('combobox')
-  await expect(sizeSelect).toBeVisible()
-  expect(await sizeSelect.inputValue()).toBe('10')
+  const sizeBtn = page.getByTestId('page-size-select')
+  await expect(sizeBtn).toBeVisible()
+  await expect(sizeBtn).toContainText('10')
   const apiPromise: Promise<Response> = waitForUsersApiResponse(page)
-  await sizeSelect.selectOption('25')
+  await selectOption(page, 'page-size-select', '25')
   const apiRes: Response = await apiPromise
   expect(apiRes.url()).toContain('size=25')
-  expect(await sizeSelect.inputValue()).toBe('25')
+  await expect(sizeBtn).toContainText('25')
   await expect(page.getByText(/Showing 1-\d+ of \d+/)).toBeVisible()
 })
 

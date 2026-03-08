@@ -38,6 +38,7 @@ export function PageControls(props: Props): ReactElement {
           onChange={(v: string): void => {
             props.onPageSizeChange(Number(v))
           }}
+          searchable={false}
           data-testid="page-size-select"
         />
       </div>

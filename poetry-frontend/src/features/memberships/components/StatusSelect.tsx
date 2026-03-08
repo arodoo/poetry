@@ -38,6 +38,7 @@ export default function StatusSelect({
         onChange={(v: string): void => {
           onChange(v as 'ACTIVE' | 'INACTIVE')
         }}
+        searchable={false}
         data-testid="membership-status-select"
       />
     </div>

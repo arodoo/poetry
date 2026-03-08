@@ -21,14 +21,20 @@ test.describe('Theme Creator', (): void => {
     await expect(creator).toBeVisible({ timeout: 10000 })
 
     const nameInput = page.getByTestId('theme-creator-name')
-    await nameInput.fill('E2E Test Theme')
+    const name = `E2E-${Date.now()}`
+    await nameInput.fill(name)
 
-    const baseSelect = page.getByTestId('theme-creator-base')
-    await baseSelect.selectOption({ index: 1 })
+    const base = page.getByTestId('theme-creator-base')
+    await base.click()
+    const dropdown = page.getByTestId('theme-creator-base-dropdown')
+    await expect(dropdown).toBeVisible({ timeout: 5000 })
+    const firstOpt = dropdown.locator('button').first()
+    await firstOpt.click()
 
     const postPromise: Promise<Response> = page.waitForResponse(
       (r: Response): boolean =>
-        r.url().includes('/api/v1/themes') && r.request().method() === 'POST',
+        r.url().includes('/api/v1/themes') &&
+        r.request().method() === 'POST',
       { timeout: 30000 }
     )
 
@@ -36,9 +42,9 @@ test.describe('Theme Creator', (): void => {
     const resp: Response = await postPromise
     expect(resp.status()).toBeLessThan(300)
 
-    await expect(page.getByText(/theme created|tema creado/i)).toBeVisible({
-      timeout: 10000,
-    })
+    await expect(
+      page.getByText(/theme created|tema creado/i)
+    ).toBeVisible({ timeout: 10000 })
 
     await expect(nameInput).toHaveValue('')
   })

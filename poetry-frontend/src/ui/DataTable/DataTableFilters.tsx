@@ -38,6 +38,7 @@ function FilterItem(p: {
       onChange={(v: string): void => {
         p.onChange(p.def.key, v)
       }}
+      searchable={false}
       data-testid={`table-filter-${p.def.key}`}
     />
   )

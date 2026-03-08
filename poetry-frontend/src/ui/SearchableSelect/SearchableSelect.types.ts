@@ -21,5 +21,6 @@ export interface SearchableSelectProps {
   readonly required?: boolean
   readonly loading?: boolean
   readonly emptyText?: string
+  readonly searchable?: boolean
   readonly 'data-testid'?: string
 }

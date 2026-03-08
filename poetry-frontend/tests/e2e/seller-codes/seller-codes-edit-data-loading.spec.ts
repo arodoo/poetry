@@ -55,8 +55,17 @@ test.describe('Seller Code Edit Data Loading', (): void => {
 
     const codeValue: string = (await codeInput.inputValue()) || ''
     const orgValue: string = (await orgInput.inputValue()) || ''
-    const userValue: string = (await userSelect.inputValue()) || ''
-    const statusValue: string = (await statusSelect.inputValue()) || ''
+    const statusValue: string =
+      (await statusSelect.textContent()) || ''
+
+    const userLabel = page.getByTestId(
+      'seller-code-user-select-selected'
+    )
+    const hasUser = await userLabel.isVisible()
+      .catch(() => false)
+    const userValue: string = hasUser
+      ? ((await userLabel.textContent()) ?? '').trim()
+      : ''
 
     console.log('Code input value:', codeValue)
     console.log('Org input value:', orgValue)
@@ -66,6 +75,6 @@ test.describe('Seller Code Edit Data Loading', (): void => {
     expect(codeValue).toBeTruthy()
     expect(orgValue).toBeTruthy()
     expect(userValue).toBeTruthy()
-    expect(statusValue).toBeTruthy()
+    expect(statusValue.trim()).toBeTruthy()
   })
 })

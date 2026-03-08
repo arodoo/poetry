@@ -4,7 +4,9 @@
  * form. Extracted to keep ThemeCreatorFormView under line limits.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement } from 'react'
+import { type ReactElement, useMemo } from 'react'
+import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
+import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 import type { TokenTheme } from '../../model/TokensSchemas'
 
 interface Props {
@@ -16,8 +18,13 @@ interface Props {
 }
 
 export function ThemeCreatorHeader(p: Props): ReactElement {
+  const options: SelectOption[] = useMemo(
+    () => p.themes.map((th) => ({ value: th.key, label: th.label })),
+    [p.themes]
+  )
+
   return (
-    <div className="flex flex-wrap gap-md">
+    <div className="flex flex-wrap gap-md items-end">
       <input
         data-testid="theme-creator-name"
         type="text"
@@ -27,21 +34,15 @@ export function ThemeCreatorHeader(p: Props): ReactElement {
         className="px-sm py-xs border border-border rounded-md
                    bg-surface text-text text-sm flex-1 min-w-[200px]"
       />
-      <select
-        data-testid="theme-creator-base"
-        onChange={(e): void => p.onBaseChange(e.target.value)}
-        className="px-sm py-xs border border-border rounded-md
-                   bg-surface text-text text-sm"
-      >
-        <option value="">{p.t('ui.tokens.creator.baseLabel')}</option>
-        {p.themes.map(
-          (th: TokenTheme): ReactElement => (
-            <option key={th.key} value={th.key}>
-              {th.label}
-            </option>
-          )
-        )}
-      </select>
+      <div className="min-w-[180px]">
+        <SearchableSelect
+          options={options}
+          value=""
+          onChange={p.onBaseChange}
+          placeholder={p.t('ui.tokens.creator.baseLabel')}
+          data-testid="theme-creator-base"
+        />
+      </div>
     </div>
   )
 }

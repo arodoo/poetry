@@ -7,6 +7,7 @@
  */
 import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import { selectOption } from '../shared/helpers/searchableSelectHelper'
 
 test.describe('Tokens - Language applies to UI', (): void => {
   test('saving Spanish applies es locale to URL', async ({
@@ -16,11 +17,9 @@ test.describe('Tokens - Language applies to UI', (): void => {
   }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
+    await page.waitForLoadState('networkidle')
 
-    const langSelect = page.locator('select#language')
-    await expect(langSelect).toBeVisible({ timeout: 10000 })
-
-    await langSelect.selectOption('es')
+    await selectOption(page, 'token-field-language', 'es')
     await page.click('button[type="submit"]')
 
     await expect(
@@ -29,7 +28,7 @@ test.describe('Tokens - Language applies to UI', (): void => {
 
     await page.waitForURL(/\/es\//, { timeout: 15000 })
 
-    await langSelect.selectOption('en')
+    await selectOption(page, 'token-field-language', 'en')
     await page.click('button[type="submit"]')
 
     await expect(

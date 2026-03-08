@@ -1,4 +1,6 @@
 import type { Page, Response } from '@playwright/test'
+import { selectOption, selectDifferentOption } from
+  '../shared/helpers/searchableSelectHelper'
 
 export async function createTestSellerCode(
   page: Page
@@ -9,25 +11,11 @@ export async function createTestSellerCode(
   const code = `DELTEST${String(timestamp)}`
   await page.getByTestId('seller-code-input').fill(code)
   await page.getByTestId('seller-code-org-input').fill('ORG-TEST')
-  const userSelect = page.getByTestId('seller-code-user-select')
-  await userSelect.waitFor({ state: 'visible', timeout: 10000 })
-  await page.waitForTimeout(500)
-  const options = userSelect.locator('option')
-  const optionsCount: number = await options.count()
-  let selected = false
-  for (let i = 0; i < optionsCount; i += 1) {
-    const opt = options.nth(i)
-    const text = (await opt.textContent()) || ''
-    const value = (await opt.getAttribute('value')) || ''
-    if (text.toLowerCase().includes('admin') && value) {
-      await userSelect.selectOption(value)
-      selected = true
-      break
-    }
-  }
-  if (!selected) {
-    await userSelect.selectOption({ index: 1 })
-  }
+  const userTid = 'seller-code-user-select'
+  await page.getByTestId(userTid).waitFor(
+    { state: 'visible', timeout: 10000 }
+  )
+  await selectDifferentOption(page, userTid)
   const createApiPromise: Promise<Response> = page.waitForResponse(
     (response: Response): boolean =>
       response.url().includes('/api/v1/seller-codes') &&

@@ -5,6 +5,10 @@
  */
 import { test, expect, type Page, type Locator } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import {
+  selectOption,
+  selectDifferentOption,
+} from '../shared/helpers/searchableSelectHelper'
 
 const TEST_SELLER_CODE = `TEST-${Date.now()}`
 let createdSellerCodeId: string | null = null
@@ -33,27 +37,13 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     const userSelect: Locator = page.getByTestId('seller-code-user-select')
     await expect(userSelect).toBeVisible()
 
-    // Wait for users to load (select should have more than just placeholder)
     await page.waitForTimeout(2000)
 
-    const options: Locator = userSelect.locator('option')
-    const optionsCount: number = await options.count()
+    await selectDifferentOption(page, 'seller-code-user-select')
 
-    // If no users loaded, check if it's showing error or loading state
-    if (optionsCount <= 1) {
-      const firstOption: string = (await options.first().textContent()) || ''
-      console.log('User select state:', firstOption)
-
-      // If still loading or error, this test needs users in the database
-      test.skip(true, 'No users available in database for selection')
-    }
-
-    expect(optionsCount).toBeGreaterThan(1)
-
-    await userSelect.selectOption({ index: 1 })
-
-    const statusSelect: Locator = page.getByTestId('seller-code-status-select')
-    await statusSelect.selectOption('active')
+    await selectOption(
+      page, 'seller-code-status-select', 'active'
+    )
 
     const submitButton: Locator = page.getByRole('button', {
       name: /Create seller code/i,
@@ -133,8 +123,9 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     const orgInput: Locator = page.getByTestId('seller-code-org-input')
     await orgInput.fill('updated-org-456')
 
-    const statusSelect: Locator = page.getByTestId('seller-code-status-select')
-    await statusSelect.selectOption('inactive')
+    await selectOption(
+      page, 'seller-code-status-select', 'inactive'
+    )
 
     const saveButton: Locator = page.getByRole('button', {
       name: /Save changes/i,

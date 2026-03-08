@@ -37,6 +37,7 @@ export function UsersFormStatus(props: UsersFormStatusProps): ReactElement {
         onChange={(v: string): void => {
           props.onStatusChange(v as 'active' | 'inactive')
         }}
+        searchable={false}
         required
         data-testid="user-status-select"
       />

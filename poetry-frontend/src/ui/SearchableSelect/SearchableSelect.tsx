@@ -9,6 +9,8 @@ import type { ReactElement } from 'react'
 import { Input } from '../Input/Input'
 import { useSearchableSelect } from './useSearchableSelect'
 import { SearchableSelectDropdown } from './SearchableSelectDropdown'
+import { StaticTrigger } from './StaticTrigger'
+import { SelectedLabel } from './SelectedLabel'
 import type { SearchableSelectProps, SelectOption } from './SearchableSelect.types'
 
 export type { SearchableSelectProps, SelectOption }
@@ -16,7 +18,7 @@ export type { SearchableSelectProps, SelectOption }
 export function SearchableSelect(props: SearchableSelectProps): ReactElement {
   const {
     options, value, onChange, placeholder, disabled,
-    loading, emptyText, 'data-testid': testId,
+    loading, emptyText, searchable = true, 'data-testid': testId,
   } = props
 
   const state = useSearchableSelect(options, value, onChange)
@@ -25,28 +27,33 @@ export function SearchableSelect(props: SearchableSelectProps): ReactElement {
 
   return (
     <div className="relative" ref={state.containerRef}>
-      <Input
-        data-testid={testId}
-        placeholder={placeholder ?? 'Search…'}
-        defaultValue=""
-        disabled={disabled}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-          state.onInputChange(e.target.value)
-        }}
-        onFocus={state.onFocus}
-        autoComplete="off"
-      />
-      {displayText && !state.isOpen && (
-        <div
-          className="mt-1 text-xs text-textMuted truncate"
-          data-testid={testId ? `${testId}-selected` : undefined}
-        >
-          {displayText}
-        </div>
+      {searchable ? (
+        <Input
+          data-testid={testId}
+          placeholder={placeholder ?? 'Search\u2026'}
+          defaultValue=""
+          disabled={disabled}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+            state.onInputChange(e.target.value)
+          }}
+          onFocus={state.onFocus}
+          autoComplete="off"
+        />
+      ) : (
+        <StaticTrigger
+          testId={testId}
+          displayText={displayText}
+          placeholder={placeholder}
+          disabled={disabled}
+          onClick={state.toggleOpen}
+        />
+      )}
+      {searchable && displayText && !state.isOpen && (
+        <SelectedLabel testId={testId} text={displayText} />
       )}
       {state.isOpen && (
         <SearchableSelectDropdown
-          filtered={state.filtered}
+          filtered={searchable ? state.filtered : options}
           loading={loading}
           emptyText={emptyText ?? 'No results'}
           onSelect={state.select}

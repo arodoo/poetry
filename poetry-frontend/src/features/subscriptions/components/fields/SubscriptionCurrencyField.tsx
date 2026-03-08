@@ -37,6 +37,7 @@ export default function SubscriptionCurrencyField({
         options={CURRENCY_OPTIONS}
         value={currency}
         onChange={setCurrency}
+        searchable={false}
         data-testid="subscription-currency-select"
       />
     </Stack>

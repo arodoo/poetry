@@ -17,6 +17,7 @@ export interface SearchableSelectState {
   containerRef: React.RefObject<HTMLDivElement | null>
   onInputChange: (value: string) => void
   onFocus: () => void
+  toggleOpen: () => void
   close: () => void
   select: (value: string) => void
 }
@@ -62,9 +63,13 @@ export function useSearchableSelect(
     setIsOpen(true)
   }, [])
 
+  const toggleOpen = useCallback((): void => {
+    setIsOpen((prev: boolean) => !prev)
+  }, [])
+
   return {
     query, isOpen, filtered, containerRef,
-    onInputChange: debouncedSet, onFocus, close: () => setIsOpen(false),
-    select,
+    onInputChange: debouncedSet, onFocus, toggleOpen,
+    close: () => setIsOpen(false), select,
   }
 }

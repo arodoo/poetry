@@ -40,6 +40,7 @@ export function SellerCodesFormStatus(
         onChange={(v: string): void => {
           props.onStatusChange(v as 'active' | 'inactive' | 'expired')
         }}
+        searchable={false}
         required
         data-testid="seller-code-status-select"
       />

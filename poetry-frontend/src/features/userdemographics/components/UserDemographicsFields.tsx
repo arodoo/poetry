@@ -51,6 +51,7 @@ export function UserDemographicsFields(props: Props): ReactElement {
           options={genderOptions}
           value={props.gender}
           onChange={props.setGender}
+          searchable={false}
           data-testid="user-gender-select"
         />
       </Stack>

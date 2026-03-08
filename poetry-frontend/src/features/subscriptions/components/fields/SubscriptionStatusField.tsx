@@ -40,6 +40,7 @@ export default function SubscriptionStatusField({
         onChange={(v: string): void => {
           setStatus(v as 'active' | 'inactive')
         }}
+        searchable={false}
         data-testid="subscription-status-select"
       />
     </Stack>

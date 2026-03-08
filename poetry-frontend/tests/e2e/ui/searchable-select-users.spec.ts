@@ -1,12 +1,13 @@
 /*
  * File: searchable-select-users.spec.ts
  * Purpose: E2E test verifying SearchableSelect dropdown works
- * on the users page. Tests open/filter/select interactions
- * using real page controls and form fields.
+ * on the users page. Tests static page-size select (no search)
+ * and confirms click-to-open plus option selection behavior.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
+import { selectOption } from '../shared/helpers/searchableSelectHelper'
 
 test.describe('SearchableSelect on users page', (): void => {
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
@@ -22,36 +23,20 @@ test.describe('SearchableSelect on users page', (): void => {
   }: {
     page: Page
   }): Promise<void> => {
-    const input = page.locator('[data-testid="page-size-select"]')
-    await input.click()
-    const dropdown = page.locator(
-      '[data-testid="page-size-select-dropdown"]'
-    )
-    await expect(dropdown).toBeVisible({ timeout: 5000 })
-    const opt25 = page.locator(
-      '[data-testid="page-size-select-opt-25"]'
-    )
-    await opt25.click()
-    const display = page.locator(
-      '[data-testid="page-size-select-selected"]'
-    )
-    await expect(display).toContainText('25')
+    await selectOption(page, 'page-size-select', '25')
+    const trigger = page.getByTestId('page-size-select')
+    await expect(trigger).toContainText('25')
   })
 
-  test('page-size dropdown filters options by typing', async ({
+  test('page-size dropdown shows all size options', async ({
     page,
   }: {
     page: Page
   }): Promise<void> => {
-    const input = page.locator('[data-testid="page-size-select"]')
-    await input.click()
-    await input.fill('50')
-    const dropdown = page.locator(
-      '[data-testid="page-size-select-dropdown"]'
-    )
-    await expect(dropdown).toBeVisible()
-    const options = dropdown.locator('button')
-    await expect(options).toHaveCount(1)
-    await expect(options.first()).toContainText('50')
+    await page.getByTestId('page-size-select').click()
+    const dropdown = page.getByTestId('page-size-select-dropdown')
+    await expect(dropdown).toBeVisible({ timeout: 5000 })
+    const buttons = dropdown.locator('button')
+    await expect(buttons).toHaveCount(4)
   })
 })
