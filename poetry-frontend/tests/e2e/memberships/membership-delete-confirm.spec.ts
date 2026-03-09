@@ -6,12 +6,19 @@
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import { seedMembership, type SeedMembership } from '../shared/fixtures/seedApi'
+import {
+  seedMembership,
+  type SeedMembership,
+} from '../shared/fixtures/seedApi'
+import {
+  deleteAdminMemberships,
+} from './membership-form-helpers'
 
 test.describe('Membership Delete Confirmation', (): void => {
   let m: SeedMembership
 
   test.beforeAll(async (): Promise<void> => {
+    await deleteAdminMemberships()
     m = await seedMembership()
   })
 
@@ -26,20 +33,24 @@ test.describe('Membership Delete Confirmation', (): void => {
   }): Promise<void> => {
     await page.goto(`/en/memberships/${m.id}/delete`)
 
-    const deleteApiPromise: Promise<Response> = page.waitForResponse(
-      (resp: Response): boolean =>
-        resp.url().includes(`/api/v1/memberships/${m.id}`) &&
-        resp.request().method() === 'DELETE'
+    const apiPromise: Promise<Response> = page.waitForResponse(
+      (r: Response): boolean =>
+        r.url().includes(`/api/v1/memberships/${m.id}`) &&
+        r.request().method() === 'DELETE'
     )
 
-    const confirmButton = page.getByTestId('confirm-delete-membership-button')
-    await expect(confirmButton).toBeVisible({ timeout: 10000 })
-    await confirmButton.click()
+    const btn = page.getByTestId(
+      'confirm-delete-membership-button'
+    )
+    await expect(btn).toBeVisible({ timeout: 10000 })
+    await btn.click()
 
-    const deleteResponse: Response = await deleteApiPromise
-    expect([200, 204]).toContain(deleteResponse.status())
+    const resp: Response = await apiPromise
+    expect([200, 204]).toContain(resp.status())
 
-    await page.waitForURL(/\/en\/memberships$/, { timeout: 5000 })
+    await page.waitForURL(/\/en\/memberships$/, {
+      timeout: 5000,
+    })
     await expect(page).toHaveURL(/\/en\/memberships$/)
   })
 })

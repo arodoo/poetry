@@ -47,12 +47,12 @@ test('subscription edit form has i18n labels and MXN', async ({
   await page.click('body')
 
   const descLabel = page.locator(
-    'label:has-text("Description"), label:has-text("Descripción")'
+    'p:has-text("Description"), p:has-text("Descripción")'
   )
-  await expect(descLabel).toBeVisible()
+  await expect(descLabel.first()).toBeVisible()
 
   const currLabel = page.locator(
-    'label:has-text("Currency"), label:has-text("Moneda")'
+    'p:has-text("Currency"), p:has-text("Moneda")'
   )
-  await expect(currLabel).toBeVisible()
+  await expect(currLabel.first()).toBeVisible()
 })

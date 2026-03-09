@@ -21,6 +21,24 @@ export async function selectOption(
     .click()
 }
 
+export async function selectFirstOption(
+  page: Page,
+  testId: string,
+  searchText?: string
+): Promise<void> {
+  const input = page.getByTestId(testId)
+  await input.click()
+  if (searchText) {
+    await input.fill(searchText)
+    await page.waitForTimeout(350)
+  }
+  const dd = page.getByTestId(`${testId}-dropdown`)
+  await expect(dd).toBeVisible({ timeout: 5000 })
+  const btn = dd.locator('button').first()
+  await expect(btn).toBeVisible({ timeout: 5000 })
+  await btn.click()
+}
+
 export async function selectDifferentOption(
   page: Page,
   testId: string

@@ -39,7 +39,8 @@ public class UserHasMembershipJpaAdapter
   }
 
   public Optional<UserHasMembership> findActiveByUserId(Long uid, Instant now) {
-    return repo.findActiveByUserId(uid, now).map(e -> toModel(e, now, null));
+    return repo.findActiveListByUserId(uid, now).stream()
+        .findFirst().map(e -> toModel(e, now, null));
   }
 
   public List<UserHasMembership> findExpiringSoon(Instant now, Instant limit) {

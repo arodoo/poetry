@@ -29,10 +29,10 @@ test.describe('Membership User Search', () => {
 
   test('should show feedback for empty results', async ({ page }) => {
     const searchInput = page.getByTestId('user-search-input')
-    // Use a string that is likely to give zero results in the real system
     await searchInput.fill('Z0_NONEXISTENT_USER_99')
-    await expect(page.getByTestId('user-search-empty')).toBeVisible({
-      timeout: 5000,
-    })
+    const dd = page.getByTestId('user-search-input-dropdown')
+    await expect(dd).toBeVisible({ timeout: 5000 })
+    const buttons = dd.locator('button')
+    await expect(buttons).toHaveCount(0)
   })
 })

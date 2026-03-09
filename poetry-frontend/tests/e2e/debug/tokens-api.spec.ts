@@ -11,7 +11,7 @@ test('tokens API returns themes and colors', async ({
   page: Page
 }): Promise<void> => {
   const response: import('@playwright/test').APIResponse =
-    await page.request.get('http://localhost:5173/api/v1/tokens')
+    await page.request.get('http://localhost:8080/api/v1/tokens')
   expect(response.ok()).toBeTruthy()
   const data = (await response.json()) as {
     themes?: { colors?: { primary?: string } }[]

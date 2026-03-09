@@ -8,6 +8,10 @@
 
 package com.poetry.poetry_backend.domain.membership.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.CONFLICT)
 public class MembershipVersionMismatchException
     extends RuntimeException {
   public MembershipVersionMismatchException(Long id) {

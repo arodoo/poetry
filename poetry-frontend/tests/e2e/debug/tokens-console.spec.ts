@@ -4,12 +4,14 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { test, expect, type Page } from '@playwright/test'
+import { injectTokens } from '../shared/providers/tokenProvider'
 
 test('TokensProvider fetch status and console', async ({
   page,
 }: {
   page: Page
 }): Promise<void> => {
+  await injectTokens(page)
   const consoleLogs: string[] = []
   const errors: string[] = []
   const failedRequests: { url: string; status: number }[] = []
@@ -26,8 +28,8 @@ test('TokensProvider fetch status and console', async ({
     if (status === 403) failedRequests.push({ url, status })
   })
 
-  await page.goto('http://localhost:5173/en/users', {})
-  await page.waitForTimeout(5000)
+  await page.goto('/en/users', { waitUntil: 'networkidle' })
+  await page.waitForTimeout(2000)
 
   console.log('All /api/v1/ requests:', allRequests)
   console.log('Failed HTTP 403 requests:', failedRequests)

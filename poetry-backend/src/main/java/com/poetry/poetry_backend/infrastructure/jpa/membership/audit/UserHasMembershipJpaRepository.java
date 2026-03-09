@@ -8,7 +8,6 @@ package com.poetry.poetry_backend.infrastructure.jpa.membership.audit;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +22,10 @@ public interface UserHasMembershipJpaRepository
   List<UserHasMembershipEntity> findByUserId(Long userId);
 
   @Query("SELECT m FROM UserHasMembershipEntity m "
-      + "WHERE m.userId = :userId AND m.endDate > :now AND m.status = 'active'")
-  Optional<UserHasMembershipEntity> findActiveByUserId(Long userId, Instant now);
+      + "WHERE m.userId = :userId AND m.endDate > :now "
+      + "AND m.status = 'active' ORDER BY m.endDate DESC")
+  List<UserHasMembershipEntity> findActiveListByUserId(
+      Long userId, Instant now);
 
   @Query("SELECT m FROM UserHasMembershipEntity m "
       + "WHERE m.endDate BETWEEN :now AND :limit AND m.status = 'active'")

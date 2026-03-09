@@ -10,7 +10,7 @@ test.describe('DataTable Search Focus', () => {
   test('should maintain focus while typing with delays', async ({ page }) => {
     await injectTokens(page)
 
-    await page.goto('http://localhost:5173/en/users', {})
+    await page.goto('/en/users', {})
 
     await page.waitForSelector('table', {
       state: 'visible',

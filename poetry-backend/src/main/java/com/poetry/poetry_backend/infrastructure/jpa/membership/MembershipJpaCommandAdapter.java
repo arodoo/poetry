@@ -94,11 +94,11 @@ public class MembershipJpaCommandAdapter
   }
 
   private void cancelActiveUserHasMembership(Long userId) {
-    userHasMembershipRepo
-        .findActiveByUserId(userId, Instant.now())
-        .ifPresent(uhm -> {
-          uhm.setStatus("cancelled");
-          userHasMembershipRepo.save(uhm);
-        });
+    var active = userHasMembershipRepo
+        .findActiveListByUserId(userId, Instant.now());
+    for (var uhm : active) {
+      uhm.setStatus("cancelled");
+      userHasMembershipRepo.save(uhm);
+    }
   }
 }
