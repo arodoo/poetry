@@ -10,16 +10,21 @@ package poetry.desktop;
 
 import java.awt.*;
 import java.nio.file.Path;
+import javax.swing.ImageIcon;
 
 public final class TrayManager {
 
   private TrayManager() {}
 
-  public static void install(Path dataDir) {
+  public static void install(Path appDir) {
     if (!SystemTray.isSupported()) { keepAlive(); return; }
     try {
-      Image icon = Toolkit.getDefaultToolkit()
-        .createImage(new byte[]{0});
+      Image icon = new ImageIcon(
+        appDir.resolve("poetry.png").toString()
+      ).getImage();
+      if (icon.getWidth(null) < 1) {
+        throw new IllegalStateException("Tray icon missing");
+      }
       PopupMenu menu = new PopupMenu();
       MenuItem open = new MenuItem("Open Browser");
       open.addActionListener(e ->
@@ -32,8 +37,9 @@ public final class TrayManager {
       TrayIcon ti = new TrayIcon(icon, "Poetry", menu);
       ti.setImageAutoSize(true);
       SystemTray.getSystemTray().add(ti);
-    } catch (AWTException e) {
-      System.err.println("[Poetry] Tray failed");
+    } catch (AWTException | RuntimeException e) {
+      System.err.println("[Poetry] Tray failed: "
+        + e.getMessage());
     }
     keepAlive();
   }

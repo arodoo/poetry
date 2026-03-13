@@ -50,7 +50,7 @@ windows/x64/jre/hotspot/normal/eclipse" && \
 
 # ── Stage 5: Assemble the app bundle ──────────────────
 FROM alpine:3.19 AS bundler
-RUN apk add --no-cache curl unzip
+RUN apk add --no-cache curl unzip imagemagick rsvg-convert
 
 WORKDIR /bundle/Poetry
 
@@ -73,6 +73,11 @@ COPY sdk/UareU/RTE/x64/ ./native/rte-x64/
 
 # SDK Java JAR
 COPY poetry-backend/libs/dpuareu-3.2.0.jar ./
+
+# Desktop icon assets
+COPY desktop/poetry.svg ./poetry.svg
+RUN rsvg-convert -w 256 -h 256 poetry.svg > poetry.png && \
+  convert poetry.png poetry.ico
 
 # Portable PostgreSQL 16 (Windows x64 binaries)
 RUN curl -fSL -o /tmp/pg.zip \

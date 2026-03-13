@@ -20,6 +20,7 @@ PrivilegesRequired=admin
 WizardStyle=modern
 UninstallDisplayName=Poetry
 MinVersion=10.0
+SetupIconFile=bundle\Poetry\poetry.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -30,10 +31,12 @@ Source: "bundle\Poetry\*"; DestDir: "{app}"; \
   Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\Poetry"; Filename: "{app}\Poetry.bat"
+Name: "{group}\Poetry"; Filename: "{app}\Poetry.bat"; \
+  IconFilename: "{app}\poetry.ico"
 Name: "{group}\Uninstall Poetry"; \
   Filename: "{uninstallexe}"
 Name: "{autodesktop}\Poetry"; Filename: "{app}\Poetry.bat"; \
+  IconFilename: "{app}\poetry.ico"; \
   Tasks: desktopicon
 
 [Tasks]
@@ -68,4 +71,45 @@ begin
     HKLM, 'SOFTWARE\DigitalPersona'
   );
   Result := KeyExists;
+end;
+
+procedure StopPoetryProcesses;
+var
+  AppRoot: String;
+  ScriptPath: String;
+  ScriptText: String;
+  Args: String;
+  ResultCode: Integer;
+begin
+  AppRoot := Lowercase(ExpandConstant('{app}'));
+  ScriptPath := ExpandConstant('{tmp}\poetry-stop.ps1');
+  ScriptText :=
+    '$app=$args[0].ToLowerInvariant();' + #13#10 +
+    '$procs=Get-CimInstance Win32_Process | Where-Object {' +
+    '$n=$_.Name.ToLowerInvariant();' +
+    '(($n -eq ''java.exe'') -or ($n -eq ''javaw.exe'') ' +
+    '-or ($n -eq ''postgres.exe'') -or ($n -eq ''pg_ctl.exe'')) ' +
+    '-and ((($_.ExecutablePath) -and ' +
+    '$_.ExecutablePath.ToLowerInvariant().StartsWith($app+''\'')) ' +
+    '-or (($_.CommandLine) -and ' +
+    '$_.CommandLine.ToLowerInvariant().Contains($app)))};' + #13#10 +
+    '$ids=@($procs | Select-Object -Expand ProcessId -Unique);' + #13#10 +
+    'if($ids.Count -gt 0){' +
+    'Stop-Process -Id $ids -Force -ErrorAction SilentlyContinue;' +
+    'Start-Sleep -Seconds 2}';
+  SaveStringToFile(ScriptPath, ScriptText, False);
+  Args := '-NoProfile -ExecutionPolicy Bypass -File "' +
+    ScriptPath + '" "' + AppRoot + '"';
+  Exec('powershell.exe', Args, '', SW_HIDE,
+    ewWaitUntilTerminated, ResultCode);
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  if CurUninstallStep = usUninstall then begin
+    StopPoetryProcesses;
+  end else if CurUninstallStep = usPostUninstall then begin
+    if DirExists(ExpandConstant('{app}')) then
+      DelTree(ExpandConstant('{app}'), True, True, True);
+  end;
 end;

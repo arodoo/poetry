@@ -19,16 +19,22 @@ public final class PoetryLauncher {
   public static void main(String[] args) throws Exception {
     Path appDir = resolveAppDir();
     Path dataDir = resolveDataDir();
-    System.out.println("[Poetry] App:  " + appDir);
-    System.out.println("[Poetry] Data: " + dataDir);
-
-    int pgPort = EmbeddedPostgres.start(appDir, dataDir);
-    String jar = findJar(appDir, "poetry-backend");
-    String statics = appDir.resolve("static").toString();
-    new BackendRunner(jar, pgPort, statics).start();
-    BackendProbe.waitReady(30);
-    BrowserOpener.open("http://localhost:8080");
-    TrayManager.install(dataDir);
+    Path logFile = DesktopLog.setup(dataDir);
+    try {
+      System.out.println("[Poetry] App:  " + appDir);
+      System.out.println("[Poetry] Data: " + dataDir);
+      int pgPort = EmbeddedPostgres.start(appDir, dataDir);
+      String jar = findJar(appDir, "poetry-backend");
+      String statics = appDir.resolve("static").toString();
+      new BackendRunner(jar, pgPort, statics).start();
+      BackendProbe.waitReady(90);
+      BrowserOpener.open("http://localhost:8080");
+      TrayManager.install(appDir);
+    } catch (Exception e) {
+      e.printStackTrace();
+      DesktopAlert.show(logFile, e);
+      throw e;
+    }
   }
 
   private static Path resolveAppDir() {

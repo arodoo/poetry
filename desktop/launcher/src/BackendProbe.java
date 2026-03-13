@@ -14,7 +14,8 @@ public final class BackendProbe {
 
   private static final String HEALTH =
     "http://localhost:8080/api/v1/health";
-  private static final int INTERVAL_MS = 500;
+  private static final int INTERVAL_MS = 1000;
+  private static final int HTTP_TIMEOUT_MS = 2000;
 
   private BackendProbe() {}
 
@@ -36,8 +37,8 @@ public final class BackendProbe {
     try {
       HttpURLConnection c =
         (HttpURLConnection) new URL(HEALTH).openConnection();
-      c.setConnectTimeout(400);
-      c.setReadTimeout(400);
+      c.setConnectTimeout(HTTP_TIMEOUT_MS);
+      c.setReadTimeout(HTTP_TIMEOUT_MS);
       c.setRequestMethod("GET");
       int code = c.getResponseCode();
       c.disconnect();

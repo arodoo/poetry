@@ -43,7 +43,12 @@ public final class BackendRunner {
       + "file:" + staticDir + "/");
     cmd.add("--spring.profiles.active=desktop");
     ProcessBuilder pb = new ProcessBuilder(cmd);
-    pb.inheritIO();
+    pb.redirectErrorStream(true);
+    pb.redirectOutput(
+      ProcessBuilder.Redirect.appendTo(
+        DesktopLog.file("backend.log")
+      )
+    );
     pb.environment().put("DB_USERNAME", "poetry");
     pb.environment().put("DB_PASSWORD", "poetry_desktop");
     process = pb.start();

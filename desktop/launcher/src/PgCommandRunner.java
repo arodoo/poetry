@@ -18,8 +18,7 @@ public final class PgCommandRunner {
   static void run(Path bin, String... cmd) {
     try {
       cmd[0] = bin.resolve(cmd[0] + ".exe").toString();
-      new ProcessBuilder(cmd)
-        .inheritIO().start().waitFor();
+      process(cmd).start().waitFor();
     } catch (IOException | InterruptedException e) {
       throw new RuntimeException("PG cmd failed", e);
     }
@@ -28,8 +27,7 @@ public final class PgCommandRunner {
   static Process runBackground(Path bin, String... cmd) {
     try {
       cmd[0] = bin.resolve(cmd[0] + ".exe").toString();
-      return new ProcessBuilder(cmd)
-        .inheritIO().start();
+      return process(cmd).start();
     } catch (IOException e) {
       throw new RuntimeException("PG start failed", e);
     }
@@ -38,10 +36,21 @@ public final class PgCommandRunner {
   static int runSafe(Path bin, String... cmd) {
     try {
       cmd[0] = bin.resolve(cmd[0] + ".exe").toString();
-      return new ProcessBuilder(cmd)
-        .inheritIO().start().waitFor();
+      return process(cmd).start().waitFor();
     } catch (IOException | InterruptedException e) {
       return -1;
     }
+  }
+
+  private static ProcessBuilder process(String... cmd)
+    throws IOException {
+    ProcessBuilder pb = new ProcessBuilder(cmd);
+    pb.redirectErrorStream(true);
+    pb.redirectOutput(
+      ProcessBuilder.Redirect.appendTo(
+        DesktopLog.file("postgres.log")
+      )
+    );
+    return pb;
   }
 }
