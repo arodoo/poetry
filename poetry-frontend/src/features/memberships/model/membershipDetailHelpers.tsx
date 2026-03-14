@@ -4,7 +4,7 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import type { MembershipResponse } from '../../../api/generated'
+import type { MembershipResponse, ZoneResponse } from '../../../api/generated'
 import type { DetailViewSection } from '../../../ui/DetailView/DetailView'
 import type { DetailViewItem } from '../../../ui/DetailView/DetailView'
 import { Badge } from '../../../ui/Badge/Badge'
@@ -12,10 +12,33 @@ import { Inline } from '../../../ui/Inline/Inline'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
 import { formatDate } from '../../../shared/utils/dateUtils'
 
+function buildZoneBadges(
+  zones: readonly ZoneResponse[]
+): ReactElement {
+  return (
+    <Inline gap="xs">
+      {zones.map(
+        (zone: ZoneResponse): ReactElement => (
+          <Badge key={zone.id} tone="neutral" size="sm">
+            {zone.name ?? toTemplateString(zone.id ?? 0)}
+          </Badge>
+        )
+      )}
+    </Inline>
+  )
+}
+
 export function buildMembershipDetailSections(
   membership: MembershipResponse,
+  allZones: readonly ZoneResponse[],
   t: (key: string) => string
 ): readonly DetailViewSection[] {
+  const displayZones: readonly ZoneResponse[] = membership.allZones
+    ? allZones
+    : allZones.filter(
+        (z: ZoneResponse) => membership.zoneIds?.includes(z.id ?? -1) ?? false
+      )
+
   return [
     {
       title: t('ui.memberships.detail.section.basic'),
@@ -39,25 +62,16 @@ export function buildMembershipDetailSections(
       items: [
         {
           label: t('ui.memberships.form.allZones.label'),
-          value: membership.allZones ? t('ui.common.yes') : t('ui.common.no'),
+          value: membership.allZones
+            ? t('ui.common.yes')
+            : t('ui.common.no'),
         },
         {
           label: t('ui.memberships.columns.zones'),
           value:
-            membership.zoneIds && membership.zoneIds.length > 0 ? (
-              <Inline gap="xs">
-                {membership.zoneIds.map(
-                  (zoneId: number): ReactElement => (
-                    <Badge key={zoneId} tone="neutral" size="sm">
-                      {t('ui.memberships.columns.zone')}{' '}
-                      {toTemplateString(zoneId)}
-                    </Badge>
-                  )
-                )}
-              </Inline>
-            ) : (
-              t('ui.common.none')
-            ),
+            displayZones.length > 0
+              ? buildZoneBadges(displayZones)
+              : t('ui.common.none'),
           fullWidth: true,
         },
       ] as readonly DetailViewItem[],

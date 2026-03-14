@@ -30,6 +30,7 @@ export function Switch({
     'transition-transform shadow translate-x-0 data-[on=true]:translate-x-4'
   const track: string =
     'relative h-4 w-8 rounded-full transition-colors ' +
+    'p-0 border-0 overflow-hidden ' +
     'bg-[var(--color-border,#d4d4d4)] ' +
     'data-[on=true]:bg-[var(--color-primary)] '
   const ring: string =

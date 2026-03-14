@@ -16,7 +16,8 @@ import type { BreadcrumbItem } from '../../../ui/Breadcrumb/Breadcrumb'
 import { useT } from '../../../shared/i18n/useT'
 import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { useMembershipDetailQuery } from '../hooks/useMembershipsQueries'
-import type { MembershipResponse } from '../../../api/generated'
+import { useZonesListQuery } from '../../zones/hooks/useZonesQueries'
+import type { MembershipResponse, ZoneResponse } from '../../../api/generated'
 import { buildMembershipDetailSections } from '../model/membershipDetailHelpers'
 import { buildMembershipDetailBreadcrumbs } from '../model/membershipBreadcrumbHelpers'
 
@@ -27,10 +28,12 @@ export default function MembershipDetailPage(): ReactElement {
   const { locale }: { locale: string } = useLocale()
   const detailQuery: ReturnType<typeof useMembershipDetailQuery> =
     useMembershipDetailQuery(membershipId)
+  const zonesQuery: ReturnType<typeof useZonesListQuery> = useZonesListQuery()
   const { data, isLoading, isError } = detailQuery
   const membership: MembershipResponse | undefined = data
+  const zones: readonly ZoneResponse[] = zonesQuery.data ?? []
   const sections: readonly DetailViewSection[] = membership
-    ? buildMembershipDetailSections(membership, t)
+    ? buildMembershipDetailSections(membership, zones, t)
     : []
   const breadcrumbItems: readonly BreadcrumbItem[] =
     buildMembershipDetailBreadcrumbs(locale, t)
