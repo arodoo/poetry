@@ -11,11 +11,13 @@ import { PublicAuthRoutes } from './config/routesAuthPublic'
 import { getEnv } from '../config/env'
 import { AuthenticatedRoutes } from './config/routesAuthenticated'
 import { useTokensQuery } from '../../features/tokens/hooks/useTokensQueries'
+import { useLocaleUrlSync } from './hooks/useLocaleUrlSync'
 
 export function AppRouteTree(): ReactElement {
   const { data, isLoading } = useTokensQuery()
   const defaultLocale: string =
     data?.bundle.current.language ?? getEnv().VITE_DEFAULT_LOCALE
+  useLocaleUrlSync()
 
   if (isLoading) return <></>
 
