@@ -4,6 +4,8 @@
  * and soft delete with validations for user, subscription, seller code
  * and zones. Cascades cancellation to user_has_membership on deactivation
  * or deletion so the fingerprint banner reflects the correct state.
+ * Also syncs user_has_membership on create so the stats page reflects
+ * all memberships, not just those seeded by bootstrap.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -12,10 +14,12 @@ package com.poetry.poetry_backend.infrastructure.jpa.membership;
 import static com.poetry.poetry_backend.infrastructure.jpa.membership.MembershipJpaCommandSupport.*;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
 import com.poetry.poetry_backend.application.membership.port.MembershipCommandPort;
 import com.poetry.poetry_backend.domain.membership.model.Membership;
+import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.UserHasMembershipEntity;
 import com.poetry.poetry_backend.infrastructure.jpa.membership.audit.UserHasMembershipJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.sellercode.SellerCodeJpaRepository;
 import com.poetry.poetry_backend.infrastructure.jpa.subscription.SubscriptionJpaRepository;
@@ -59,7 +63,9 @@ public class MembershipJpaCommandAdapter
     MembershipEntity entity = new MembershipEntity();
     applyFields(entity, userId, subscriptionId, sellerCode,
         zoneIds, allZones, status);
-    return persist(repo, entity);
+    Membership result = persist(repo, entity);
+    assignUserHasMembership(userId, subscriptionId, sellerCode, allZones);
+    return result;
   }
 
   public Membership update(
@@ -91,6 +97,24 @@ public class MembershipJpaCommandAdapter
     entity.setDeletedAt(Instant.now());
     repo.save(entity);
     cancelActiveUserHasMembership(userId);
+  }
+
+  private void assignUserHasMembership(
+      Long userId, Long subscriptionId,
+      String sellerCode, Boolean allZones) {
+    int days = subscriptionRepo.findById(subscriptionId)
+        .map(s -> s.getDurationDays() != null ? s.getDurationDays() : 30)
+        .orElse(30);
+    Instant start = Instant.now();
+    UserHasMembershipEntity uhm = new UserHasMembershipEntity();
+    uhm.setUserId(userId);
+    uhm.setSubscriptionId(subscriptionId);
+    uhm.setSellerCode(sellerCode);
+    uhm.setStartDate(start);
+    uhm.setEndDate(start.plus(days, ChronoUnit.DAYS));
+    uhm.setAllZones(Boolean.TRUE.equals(allZones));
+    uhm.setStatus("active");
+    userHasMembershipRepo.save(uhm);
   }
 
   private void cancelActiveUserHasMembership(Long userId) {
