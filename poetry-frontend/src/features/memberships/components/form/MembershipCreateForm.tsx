@@ -17,13 +17,14 @@ import SellerCodeInput from '../SellerCodeInput'
 import { useMembershipValidation } from '../../hooks/useMembershipValidation'
 import { useMembershipFormData } from '../../hooks/useMembershipFormData'
 import { useCreateMembershipMutation } from '../../hooks/useMembershipsMutations'
+import ZoneSelect from '../ZoneSelect'
 import type { UserResponse } from '../../../../api/generated'
 
 export default function MembershipCreateForm(): ReactElement {
   const t = useT()
   const { locale } = useLocale()
   const navigate = useNavigate()
-  const { subscriptions } = useMembershipFormData()
+  const { subscriptions, zones } = useMembershipFormData()
   const validation = useMembershipValidation()
   const createMutation = useCreateMembershipMutation()
 
@@ -32,6 +33,8 @@ export default function MembershipCreateForm(): ReactElement {
   const [subscriptionId, setSubscriptionId] = useState<number>(0)
   const [sellerCode, setSellerCode] = useState('')
   const [eligibilityPassed, setEligibilityPassed] = useState(false)
+  const [allZones, setAllZones] = useState(false)
+  const [zoneIds, setZoneIds] = useState<readonly number[]>([])
 
   const handleUserSelect = async (user: UserResponse) => {
     setSelectedUser(user)
@@ -80,8 +83,8 @@ export default function MembershipCreateForm(): ReactElement {
         subscriptionId,
         sellerCode,
         status: 'ACTIVE',
-        allZones: false,
-        zoneIds: [],
+        allZones,
+        zoneIds: [...zoneIds],
       },
       {
         onSuccess: () => {
@@ -127,6 +130,14 @@ export default function MembershipCreateForm(): ReactElement {
               value={sellerCode}
               onChange={setSellerCode}
               placeholder={t('ui.memberships.form.sellerCode.placeholder')}
+            />
+            <ZoneSelect
+              zones={zones}
+              zoneIds={zoneIds}
+              allZones={allZones}
+              onZoneIdsChange={setZoneIds}
+              onAllZonesChange={setAllZones}
+              t={t}
             />
 
             <div className="flex gap-2 justify-end">

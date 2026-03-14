@@ -54,10 +54,13 @@ export function MembershipEditForm({
             values={formState.values}
             users={formData.users}
             subscriptions={formData.subscriptions}
+            zones={formData.zones}
             onUserChange={formState.setUserId}
             onSubscriptionChange={formState.setSubscriptionId}
             onSellerCodeChange={formState.setSellerCode}
             onStatusChange={formState.setStatus}
+            onZoneIdsChange={formState.setZoneIds}
+            onAllZonesChange={formState.setAllZones}
             t={t}
           />
           <div className="flex gap-2">

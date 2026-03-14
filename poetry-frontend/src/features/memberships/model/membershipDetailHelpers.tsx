@@ -21,20 +21,16 @@ export function buildMembershipDetailSections(
       title: t('ui.memberships.detail.section.basic'),
       items: [
         {
-          label: t('ui.memberships.columns.id'),
-          value: String(membership.id ?? ''),
+          label: t('ui.memberships.columns.user'),
+          value: membership.userName ?? '-',
         },
         {
-          label: t('ui.memberships.columns.userId'),
-          value: String(membership.userId ?? ''),
+          label: t('ui.memberships.columns.subscription'),
+          value: membership.subscriptionName ?? '-',
         },
         {
-          label: t('ui.memberships.columns.subscriptionId'),
-          value: String(membership.subscriptionId ?? ''),
-        },
-        {
-          label: t('ui.memberships.columns.sellerCode'),
-          value: membership.sellerCode ?? '-',
+          label: t('ui.memberships.columns.seller'),
+          value: membership.sellerName ?? '-',
         },
       ] as readonly DetailViewItem[],
     },
@@ -89,6 +85,10 @@ export function buildMembershipDetailSections(
         {
           label: t('ui.memberships.columns.createdAt'),
           value: formatDate(membership.createdAt),
+        },
+        {
+          label: t('ui.memberships.columns.nextPaymentDate'),
+          value: formatDate(membership.nextPaymentDate),
         },
       ] as readonly DetailViewItem[],
     },

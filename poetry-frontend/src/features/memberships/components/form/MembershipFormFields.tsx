@@ -7,21 +7,26 @@ import type { ReactElement } from 'react'
 import type {
   UserResponse,
   SubscriptionResponse,
+  ZoneResponse,
 } from '../../../../api/generated'
 import type { MembershipFormValues } from '../MembershipFormValues'
 import UserSelect from '../UserSelect'
 import SubscriptionSelect from '../SubscriptionSelect'
 import SellerCodeInput from '../SellerCodeInput'
 import StatusSelect from '../StatusSelect'
+import ZoneSelect from '../ZoneSelect'
 
 interface Props {
   readonly values: MembershipFormValues
   readonly users: readonly UserResponse[]
   readonly subscriptions: readonly SubscriptionResponse[]
+  readonly zones: readonly ZoneResponse[]
   readonly onUserChange: (userId: number) => void
   readonly onSubscriptionChange: (subscriptionId: number) => void
   readonly onSellerCodeChange: (code: string) => void
   readonly onStatusChange: (status: 'ACTIVE' | 'INACTIVE') => void
+  readonly onZoneIdsChange: (ids: readonly number[]) => void
+  readonly onAllZonesChange: (all: boolean) => void
   readonly t: (key: string) => string
 }
 
@@ -29,10 +34,13 @@ export function MembershipFormFields({
   values,
   users,
   subscriptions,
+  zones,
   onUserChange,
   onSubscriptionChange,
   onSellerCodeChange,
   onStatusChange,
+  onZoneIdsChange,
+  onAllZonesChange,
   t,
 }: Props): ReactElement {
   return (
@@ -54,7 +62,19 @@ export function MembershipFormFields({
         onChange={onSellerCodeChange}
         placeholder={t('ui.memberships.form.sellerCode.placeholder')}
       />
-      <StatusSelect value={values.status} onChange={onStatusChange} t={t} />
+      <StatusSelect
+        value={values.status}
+        onChange={onStatusChange}
+        t={t}
+      />
+      <ZoneSelect
+        zones={zones}
+        zoneIds={values.zoneIds}
+        allZones={values.allZones}
+        onZoneIdsChange={onZoneIdsChange}
+        onAllZonesChange={onAllZonesChange}
+        t={t}
+      />
     </>
   )
 }
