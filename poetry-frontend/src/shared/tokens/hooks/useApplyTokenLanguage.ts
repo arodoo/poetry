@@ -6,18 +6,19 @@
  * so the UI reflects the chosen language immediately.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { useEffect, useRef } from 'react'
-import { useLocale } from '../../i18n/hooks/useLocale'
+import { useContext, useEffect, useRef } from 'react'
+import { I18nCtx } from '../../i18n/context'
 import { getCurrentLocale } from '../../routing/localeUtils'
 
 export default function useApplyTokenLanguage(
   language: string | undefined
 ): void {
-  const { setLocale } = useLocale()
+  const ctx = useContext(I18nCtx)
+  const setLocale = ctx?.setLocale
   const prevRef = useRef<string | undefined>(undefined)
 
   useEffect((): void => {
-    if (!language) return
+    if (!language || !setLocale) return
     const urlLocale = getCurrentLocale()
     if (prevRef.current === language) return
     prevRef.current = language
