@@ -13,7 +13,7 @@ export const DashboardMetricsSchema = z.object({
   membershipsByStatus: StringToNumberMapSchema,
   eventsByType: StringToNumberMapSchema,
   subscriptionsByDuration: StringToNumberMapSchema,
-  scheduledEventsByStatus: StringToNumberMapSchema,
+
   sellerCodesByStatus: StringToNumberMapSchema,
   birthdaysThisMonth: StringToNumberMapSchema,
   activeHours: StringToNumberMapSchema,

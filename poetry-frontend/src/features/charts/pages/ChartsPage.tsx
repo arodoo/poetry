@@ -10,7 +10,7 @@ import { FingerprintsOverTimeChart } from '../components/FingerprintsOverTimeCha
 import { MembershipsByStatusChart } from '../components/MembershipsByStatusChart'
 import { EventsByTypeChart } from '../components/EventsByTypeChart'
 import { SubscriptionsByDurationChart } from '../components/SubscriptionsByDurationChart'
-import { ScheduledEventsByStatusChart } from '../components/ScheduledEventsByStatusChart'
+
 import { SellerCodesByStatusChart } from '../components/SellerCodesByStatusChart'
 import { BirthdaysThisMonthChart } from '../components/BirthdaysThisMonthChart'
 import { MostActiveHoursChart } from '../components/MostActiveHoursChart'
@@ -57,9 +57,6 @@ export function ChartsPage(): ReactElement {
         <EventsByTypeChart data={data?.eventsByType ?? {}} />
         <SubscriptionsByDurationChart
           data={data?.subscriptionsByDuration ?? {}}
-        />
-        <ScheduledEventsByStatusChart
-          data={data?.scheduledEventsByStatus ?? {}}
         />
         <SellerCodesByStatusChart data={data?.sellerCodesByStatus ?? {}} />
       </div>

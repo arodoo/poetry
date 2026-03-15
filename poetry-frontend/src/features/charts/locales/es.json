@@ -5,7 +5,7 @@
   "ui.charts.tokenStatus": "Estado de Tokens de Refresco",
   "ui.charts.eventsByType": "Eventos de Auditoría",
   "ui.charts.subscriptionsByDuration": "Duración de Suscripciones",
-  "ui.charts.scheduledEventsByStatus": "Eventos Programados",
+
   "ui.charts.sellerCodesByStatus": "Códigos de Vendedor",
   "ui.charts.birthdaysThisMonth": "Cumpleaños este Mes",
   "ui.charts.events.refresh.issue": "Refresh Emitido",

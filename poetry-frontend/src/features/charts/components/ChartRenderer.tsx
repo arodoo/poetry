@@ -10,7 +10,7 @@ import { FingerprintsOverTimeChart } from './FingerprintsOverTimeChart'
 import { MembershipsByStatusChart } from './MembershipsByStatusChart'
 import { EventsByTypeChart } from './EventsByTypeChart'
 import { SubscriptionsByDurationChart } from './SubscriptionsByDurationChart'
-import { ScheduledEventsByStatusChart } from './ScheduledEventsByStatusChart'
+
 import { SellerCodesByStatusChart } from './SellerCodesByStatusChart'
 import { BirthdaysThisMonthChart } from './BirthdaysThisMonthChart'
 import { MostActiveHoursChart } from './MostActiveHoursChart'
@@ -45,10 +45,6 @@ export function ChartRenderer({
     case 'subscriptionsByDuration':
       return (
         <SubscriptionsByDurationChart data={data.subscriptionsByDuration} />
-      )
-    case 'scheduledEventsByStatus':
-      return (
-        <ScheduledEventsByStatusChart data={data.scheduledEventsByStatus} />
       )
     case 'sellerCodesByStatus':
       return <SellerCodesByStatusChart data={data.sellerCodesByStatus} />

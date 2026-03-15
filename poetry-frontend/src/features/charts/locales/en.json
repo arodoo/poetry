@@ -5,7 +5,7 @@
   "ui.charts.tokenStatus": "Refresh Tokens Status",
   "ui.charts.eventsByType": "Audit Events",
   "ui.charts.subscriptionsByDuration": "Subscriptions Duration",
-  "ui.charts.scheduledEventsByStatus": "Scheduled Events",
+
   "ui.charts.sellerCodesByStatus": "Seller Codes",
   "ui.charts.birthdaysThisMonth": "Birthdays This Month",
   "ui.charts.events.refresh.issue": "Refresh Issued",

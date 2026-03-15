@@ -15,7 +15,6 @@ public record DashboardMetricsDto(
     Map<String, Long> membershipsByStatus,
     Map<String, Long> eventsByType,
     Map<String, Long> subscriptionsByDuration,
-    Map<String, Long> scheduledEventsByStatus,
     Map<String, Long> sellerCodesByStatus,
     Map<String, Long> birthdaysThisMonth,
     Map<String, Long> activeHours,

@@ -1,12 +1,20 @@
 /*
  * File: MostPopulatedRegionsChart.tsx
- * Purpose: Presentational chart for populated regions (zones).
+ * Purpose: Horizontal bar chart for populated regions (zones).
+ * Bars work better than pie slices for varied zone names.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
-import { Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
-import { formatPieData, CHART_COLORS } from './chartUtils'
+import {
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
+import { formatBarData, CHART_COLORS } from './chartUtils'
 import { Button } from '../../../ui'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -21,12 +29,7 @@ export function MostPopulatedRegionsChart({
   const { locale } = useParams()
   const navigate = useNavigate()
 
-  const chartData = formatPieData(data).map(
-    (entry: { name: string; value: number }, index: number) => ({
-      ...entry,
-      fill: CHART_COLORS[index % CHART_COLORS.length] ?? '#8884d8',
-    })
-  )
+  const chartData = formatBarData(data, 'region', 'count')
 
   return (
     <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-full">
@@ -35,15 +38,17 @@ export function MostPopulatedRegionsChart({
       </h3>
       <div className="h-64 w-full flex-grow">
         <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={chartData}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              label
+          <BarChart
+            data={chartData}
+            layout="vertical"
+            margin={{ left: 20, right: 20 }}
+          >
+            <XAxis type="number" hide />
+            <YAxis
+              type="category"
+              dataKey="region"
+              width={100}
+              tick={{ fontSize: 12 }}
             />
             <Tooltip
               contentStyle={{
@@ -52,7 +57,12 @@ export function MostPopulatedRegionsChart({
                 color: 'var(--color-foreground)',
               }}
             />
-          </PieChart>
+            <Bar
+              dataKey="count"
+              fill={CHART_COLORS[0]}
+              radius={[0, 4, 4, 0]}
+            />
+          </BarChart>
         </ResponsiveContainer>
       </div>
       <div className="mt-4 flex justify-end">
@@ -60,7 +70,9 @@ export function MostPopulatedRegionsChart({
           variant="secondary"
           size="sm"
           onClick={() => {
-            void navigate(`/${locale ?? 'en'}/charts/details/populatedRegions`)
+            void navigate(
+              `/${locale ?? 'en'}/charts/details/populatedRegions`
+            )
           }}
         >
           {t('ui.charts.viewMore')}
