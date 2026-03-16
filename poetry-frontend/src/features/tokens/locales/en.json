@@ -28,6 +28,20 @@
   "ui.tokens.creator.namePlaceholder": "Theme name…",
   "ui.tokens.creator.baseLabel": "Copy from base…",
   "ui.tokens.creator.submit": "Create Theme",
+  "ui.tokens.creator.updateSubmit": "Update Theme",
   "ui.tokens.creator.success": "Theme created successfully",
-  "ui.tokens.creator.error": "Failed to create theme"
+  "ui.tokens.creator.error": "Failed to create theme",
+  "ui.tokens.creator.updateSuccess": "Theme updated successfully",
+  "ui.tokens.creator.updateError": "Failed to update theme",
+  "ui.tokens.creator.cancelEdit": "Cancel Edit",
+  "ui.tokens.list.title": "Created Themes",
+  "ui.tokens.list.empty": "No custom themes created",
+  "ui.tokens.list.loading": "Loading themes…",
+  "ui.tokens.list.edit": "Edit",
+  "ui.tokens.list.delete": "Delete",
+  "ui.tokens.list.deleting": "Deleting…",
+  "ui.tokens.list.active": "Active",
+  "ui.tokens.list.deleteConfirm": "Are you sure you want to delete theme",
+  "ui.tokens.list.deleteSuccess": "Theme deleted successfully",
+  "ui.tokens.list.deleteError": "Failed to delete theme"
 }

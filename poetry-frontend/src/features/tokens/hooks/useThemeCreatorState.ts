@@ -40,5 +40,5 @@ export function useThemeCreatorState(themes: readonly TokenTheme[]) {
     setColors(buildDefault())
   }, [])
 
-  return { name, setName, colors, setColor, applyBase, reset }
+  return { name, setName, colors, setColor, setColors, applyBase, reset }
 }

@@ -18,6 +18,7 @@ interface Props {
   readonly onColorChange: (key: string, v: string) => void
   readonly onSubmit: () => void
   readonly isSubmitting: boolean
+  readonly isEditing?: boolean
   readonly t: (k: string) => string
 }
 
@@ -49,7 +50,9 @@ export function ThemeCreatorFormView(p: Props): ReactElement {
         className="bg-primary text-onPrimary px-md py-sm rounded-md
                    disabled:opacity-50 text-sm"
       >
-        {p.t('ui.tokens.creator.submit')}
+        {p.isEditing
+          ? p.t('ui.tokens.creator.updateSubmit')
+          : p.t('ui.tokens.creator.submit')}
       </button>
     </form>
   )

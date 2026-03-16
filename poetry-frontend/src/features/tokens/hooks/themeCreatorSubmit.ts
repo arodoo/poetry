@@ -5,8 +5,8 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { UseMutationResult } from '@tanstack/react-query'
-import type { ThemeResponse } from '../../../../api/generated'
-import type { CreateThemeInput } from '../../api/themeCreatorApi'
+import type { ThemeResponse } from '../../../api/generated'
+import type { CreateThemeInput } from '../api/themeCreatorApi'
 
 interface Deps {
   mutation: UseMutationResult<ThemeResponse, unknown, CreateThemeInput>

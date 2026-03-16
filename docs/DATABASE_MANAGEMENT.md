@@ -87,7 +87,7 @@ features/db-management/
 5. Rollback on any error
 
 ### File Handling
-- **Excel**: Generated in-memory via Apache POI (5.2.5)
+- **Excel**: Generated in-memory via Apache POI (5.2.5). Cell values truncated to 32,767 chars (POI limit) — prevents crashes on large Base64 fingerprint fields
 - **SQL**: Streamed as text, supports large backups
 - **Restore**: Parses multi-line SQL, respects quoted strings
 - All downloads have `Content-Disposition: attachment` headers
@@ -97,15 +97,11 @@ features/db-management/
 - Uses JDBC metadata (no Hibernate internals)
 - Handles 30 tables including fingerprints (FMD field as Base64 TEXT)
 
-## E2E Tests (22 tests across 4 files)
+## E2E Tests (5 tests, 1 file)
 
 Located in `tests/e2e/db-management/`:
 
-- `db-management-page.spec.ts` — UI rendering, tabs, navigation (5 tests)
-- `db-management-excel.spec.ts` — Export selection, checkboxes, API call (4 tests)
-- `db-management-backup.spec.ts` — Backup button, loading state, API (4 tests)
-- `db-management-restore.spec.ts` — File upload, confirmation dialog (5 tests)
-- `db-management-api.spec.ts` — Direct API validation (4 tests)
+- `excel-export-errors.spec.ts` — 5 error scenarios for the Excel export button (HTTP 500, 401, 403, network abort, 503). Uses `page.route()` interception; does not require a live export endpoint.
 
 ## Usage
 
@@ -116,7 +112,7 @@ Located in `tests/e2e/db-management/`:
 
 ## Dependencies Added
 
-- **Backend**: `org.apache.poi:poi-ooxml:5.2.5`
+- **Backend**: `org.apache.poi:poi-ooxml:5.2.5` + `commons-io:2.15.1` (POI 5.2.5 requires commons-io ≥ 2.12 — Spring Boot ships an older version)
 - **Frontend**: None (uses native Blob/fetch APIs)
 
 ## File Counts

@@ -28,6 +28,20 @@
   "ui.tokens.creator.namePlaceholder": "Nombre del tema…",
   "ui.tokens.creator.baseLabel": "Copiar de base…",
   "ui.tokens.creator.submit": "Crear Tema",
+  "ui.tokens.creator.updateSubmit": "Actualizar Tema",
   "ui.tokens.creator.success": "Tema creado exitosamente",
-  "ui.tokens.creator.error": "Error al crear el tema"
+  "ui.tokens.creator.error": "Error al crear el tema",
+  "ui.tokens.creator.updateSuccess": "Tema actualizado exitosamente",
+  "ui.tokens.creator.updateError": "Error al actualizar el tema",
+  "ui.tokens.creator.cancelEdit": "Cancelar Edición",
+  "ui.tokens.list.title": "Temas Creados",
+  "ui.tokens.list.empty": "No hay temas personalizados creados",
+  "ui.tokens.list.loading": "Cargando temas…",
+  "ui.tokens.list.edit": "Editar",
+  "ui.tokens.list.delete": "Eliminar",
+  "ui.tokens.list.deleting": "Eliminando…",
+  "ui.tokens.list.active": "Activo",
+  "ui.tokens.list.deleteConfirm": "¿Estás seguro de que deseas eliminar el tema",
+  "ui.tokens.list.deleteSuccess": "Tema eliminado exitosamente",
+  "ui.tokens.list.deleteError": "Error al eliminar el tema"
 }
