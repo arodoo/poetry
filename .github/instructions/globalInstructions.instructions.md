@@ -18,6 +18,7 @@ applyTo: '**'
 - When offering a solution, pick the one that considers scallable architecture
   and long term maintenance, and offer me to implement it with a simple 'GO'
 - Never modify 'docs\api\backend-generated\v1\openapi.yaml' manually
+- The frontend runs on 5173 in dev, but in production it runs through the backend; consider both cases because it should work in both.
 
 ## Architecture & Documentation
 

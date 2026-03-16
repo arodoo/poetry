@@ -12,7 +12,8 @@ export const base: string =
   'inline-flex items-center justify-center font-medium rounded ' +
   'appearance-none select-none focus:outline-none focus:ring ' +
   'focus:ring-[var(--focus-ring-color)] focus:ring-offset-1 ' +
-  'focus:ring-[length:var(--focus-ring-width)]'
+  'focus:ring-[length:var(--focus-ring-width)] ' +
+  'disabled:opacity-50 disabled:cursor-not-allowed'
 
 export const sizeClasses: Record<'sm' | 'md', string> = {
   sm: 'text-xs px-2 py-1',

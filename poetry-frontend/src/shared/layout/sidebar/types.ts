@@ -16,6 +16,7 @@ export type ItemId =
   | 'adminStats'
   | 'hardware'
   | 'charts'
+  | 'dbManagement'
 
 export interface SidebarProps {
   isOpen: boolean

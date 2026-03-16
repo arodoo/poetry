@@ -14,6 +14,7 @@ import {
   ChartBarIcon,
   CpuChipIcon,
   ChartPieIcon,
+  CircleStackIcon,
 } from '@heroicons/react/24/outline'
 import type { ItemId, NavigationItem } from '../types'
 
@@ -29,6 +30,7 @@ export function getLabelKey(id: ItemId): string {
     adminStats: 'ui.adminStats.title',
     hardware: 'ui.hardware.breadcrumb',
     charts: 'ui.route.charts.title',
+    dbManagement: 'ui.route.dbManagement.title',
   }
   return map[id]
 }
@@ -89,6 +91,12 @@ export function getNavigationItems(): NavigationItem[] {
       p: '/hardware',
       roles: ['admin'],
       icon: CpuChipIcon,
+    },
+    {
+      id: 'dbManagement',
+      p: '/db-management',
+      roles: ['admin'],
+      icon: CircleStackIcon,
     },
   ]
 }

@@ -16,6 +16,7 @@ import { MembershipsRoutes } from '../../features/memberships/routing/membership
 import { DevtoolsRoutes } from '../../features/devtools'
 import { AdminStatsRoutes } from '../../features/admin-stats/routing/adminStatsRoutes'
 import { HardwareRoutes } from '../../features/hardware'
+import { DbManagementRoutes } from '../../features/db-management'
 
 function AdminTokensRoute(): ReactElement {
   return (
@@ -43,5 +44,6 @@ export function AdminRoutesConfig(): ReactElement[] {
     ...DevtoolsRoutes(),
     ...AdminStatsRoutes(),
     ...HardwareRoutes(),
+    ...DbManagementRoutes(),
   ]
 }

@@ -24,6 +24,7 @@ import devtoolsEs from '../../../../features/devtools/locales/es.json'
 import hardwareEs from '../../../../features/hardware/locales/es.json'
 import chartsEs from '../../../../features/charts/locales/es.json'
 import birthdayCheckEs from '../../../../features/birthday-check/locales/es.json'
+import dbManagementEs from '../../../../features/db-management/locales/es.json'
 import { adminStatsEs } from './admin-stats/admin-stats'
 
 export const esCatalog: Record<string, string> = {
@@ -49,4 +50,5 @@ export const esCatalog: Record<string, string> = {
   ...adminStatsEs,
   ...chartsEs,
   ...birthdayCheckEs,
+  ...dbManagementEs,
 }
