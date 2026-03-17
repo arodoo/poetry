@@ -1,103 +1,106 @@
 /*
  * File: AutoBackupSection.tsx
- * Purpose: Displays the automatically generated backup from app startup.
- * Shows backup info and allows downloading the pre-generated SQL file.
+ * Purpose: Displays auto backups in a DataTable.
  * All Rights Reserved. Arodi Emmanuel
  */
-
-import { type ReactElement, useState, useEffect } from 'react'
+import type { ReactElement } from 'react'
+import { useState } from 'react'
 import { Card } from '../../../ui/Card/Card'
-import { Button } from '../../../ui/Button/Button'
 import { Text } from '../../../ui/Text/Text'
+import { DataTable } from '../../../ui/DataTable/DataTable'
+import { DataTableControls } from '../../../ui/DataTable/DataTableControls'
 import { useT } from '../../../shared/i18n/useT'
-import { useToast } from '../../../shared/toast/toastContext'
-import { fetchJson } from '../../../shared/http/fetchClient'
-import { downloadBlob } from '../api/downloadBlob'
-
-interface BackupInfo {
-  fileName: string
-  generatedAt: string
-  sizeBytes: number
-}
+import { useAutoBackupsQuery } from '../hooks/useAutoBackupsQuery'
+import { useAutoBackupActions } from '../hooks/useAutoBackupActions'
+import {
+  buildAutoBackupColumns,
+  type AutoBackupRow,
+} from '../model/autoBackupColumns'
+import { toSortParam, type SortState } from '../../../ui/DataTable/SortTypes'
+import { DeleteBackupConfirmDialog } from './DeleteBackupConfirmDialog'
+import { RestoreToBackupConfirmDialog } from './RestoreToBackupConfirmDialog'
 
 export function AutoBackupSection(): ReactElement {
   const t = useT()
-  const toast = useToast()
-  const [loading, setLoading] = useState(true)
-  const [info, setInfo] = useState<BackupInfo | null>(null)
-
-  useEffect(() => {
-    const loadInfo = async (): Promise<void> => {
-      try {
-        const data = await fetchJson<BackupInfo>(
-          '/api/v1/db-management/backup/auto/info'
-        )
-        setInfo(data)
-      } catch {
-        toast.push(t('ui.dbManagement.autoBackup.error'), 'error')
-      } finally {
-        setLoading(false)
-      }
+  const [search, setSearch] = useState('')
+  const [sort, setSort] = useState<SortState>({
+    key: 'generatedAt',
+    direction: 'desc',
+  })
+  const {
+    del,
+    setDel,
+    rst,
+    setRst,
+    handleDownload,
+    handleDelete,
+    handleRestore,
+  } = useAutoBackupActions()
+  const q = useAutoBackupsQuery(0, 10, search, toSortParam(sort))
+  const data: AutoBackupRow[] = q.data?.content ?? []
+  const cols = buildAutoBackupColumns(
+    handleDownload,
+    (i, n) => {
+      setDel({ id: i, name: n })
+    },
+    (i, n) => {
+      setRst({ id: i, name: n })
     }
-    loadInfo()
-  }, [t, toast])
-
-  const handleDownload = async (): Promise<void> => {
-    setLoading(true)
-    try {
-      const response = await fetch('/api/v1/db-management/backup/auto', {
-        credentials: 'include',
-      })
-      if (!response.ok) throw new Error('Failed to fetch')
-      const blob = await response.blob()
-      downloadBlob(blob, info?.fileName ?? 'auto-backup.sql')
-      toast.push(t('ui.dbManagement.autoBackup.downloadSuccess'), 'success')
-    } catch {
-      toast.push(t('ui.dbManagement.autoBackup.error'), 'error')
-    } finally {
-      setLoading(false)
-    }
+  )
+  const p = q.data
+  const pg = {
+    currentPage: p?.number ?? 0,
+    pageSize: p?.size ?? 10,
+    totalElements: p?.totalElements ?? 0,
+    totalPages: p?.totalPages ?? 0,
+    onPageChange: () => undefined,
+    onPageSizeChange: () => undefined,
   }
-
-  const formatSize = (bytes: number): string => {
-    if (bytes < 1024) return `${bytes} B`
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-  }
-
-  const formatDate = (iso: string): string => {
-    return new Date(iso).toLocaleString()
-  }
-
   return (
     <Card padding="md" data-testid="auto-backup-section">
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-        <Text className="text-[var(--color-textMuted)] whitespace-normal">
-          {t('ui.dbManagement.autoBackup.description')}
-        </Text>
-
-        {loading && <Text>{t('ui.dbManagement.loading')}</Text>}
-
-        {info && !loading && (
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button variant="primary" onClick={handleDownload}>
-              {t('ui.dbManagement.autoBackup.download')}
-            </Button>
-          </div>
-        )}
+      <Text className="text-[var(--color-textMuted)] whitespace-normal mb-4">
+        {t('ui.dbManagement.autoBackup.description')}
+      </Text>
+      <div className="mb-4">
+        <DataTableControls
+          search={{ value: search, onSearchChange: setSearch }}
+          columns={cols}
+        />
       </div>
-
-      {info && !loading && (
-        <div className="mt-4 p-4 bg-[var(--color-bgSubtle)] rounded-lg">
-          <Text className="font-medium break-all">{info.fileName}</Text>
-          <Text className="text-sm text-[var(--color-textMuted)]">
-            {t('ui.dbManagement.autoBackup.generated')}:{' '}
-            {formatDate(info.generatedAt)}
-          </Text>
-          <Text className="text-sm text-[var(--color-textMuted)]">
-            {t('ui.dbManagement.autoBackup.size')}: {formatSize(info.sizeBytes)}
-          </Text>
-        </div>
+      <DataTable
+        columns={cols}
+        data={data}
+        keyExtractor={(r: AutoBackupRow) => String(r.id)}
+        emptyMessage={t('ui.autoBackup.empty')}
+        sort={sort}
+        onSortChange={setSort}
+        isLoading={q.isLoading}
+        fetching={q.isFetching}
+        pagination={pg}
+      />
+      {del && (
+        <DeleteBackupConfirmDialog
+          open
+          fileName={del.name}
+          onConfirm={() => {
+            void handleDelete()
+          }}
+          onCancel={() => {
+            setDel(null)
+          }}
+        />
+      )}
+      {rst && (
+        <RestoreToBackupConfirmDialog
+          open
+          fileName={rst.name}
+          onConfirm={() => {
+            void handleRestore()
+          }}
+          onCancel={() => {
+            setRst(null)
+          }}
+        />
       )}
     </Card>
   )
