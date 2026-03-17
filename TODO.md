@@ -1,0 +1,1 @@
+a partir del respaldo 100 comenzará a borrarlos (Todo esto hay que comunicarlo al usuario de algún modo). Usaras los componentes table para mostrarlos, le vas a poner botones de 'borrar', 'descargar', 'exportar en excel' y volver a este punto de la DB obviamente con modales de confirmación para cada botón sensible explicando lo irreversible de la acción.

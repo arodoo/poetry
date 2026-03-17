@@ -33,5 +33,13 @@
   "ui.dbManagement.help.howToRestoreSteps": "1. Ve a la pestaña 'Restaurar Base de Datos'\n2. Haz clic en 'Seleccionar archivo' y elige tu respaldo (.sql)\n3. Clic en 'Restaurar Base de Datos'\n4. Confirma la acción en la ventana emergente\n5. Espera a que termine el proceso",
   "ui.dbManagement.help.warning": "Nota importante",
   "ui.dbManagement.help.warningText": "Restaurar un respaldo reemplazará TODOS los datos actuales. Asegúrate de tener un respaldo reciente antes de restaurar.",
-  "ui.dbManagement.help.close": "Cerrar"
+  "ui.dbManagement.help.close": "Cerrar",
+  "ui.dbManagement.autoBackup.title": "Respaldo Automático",
+  "ui.dbManagement.autoBackup.description": "Respaldos generados automáticamente al iniciar la aplicación.",
+  "ui.dbManagement.autoBackup.loadInfo": "Cargar información del respaldo",
+  "ui.dbManagement.autoBackup.generated": "Generado",
+  "ui.dbManagement.autoBackup.size": "Tamaño",
+  "ui.dbManagement.autoBackup.download": "Descargar Respaldo Automático",
+  "ui.dbManagement.autoBackup.downloadSuccess": "Respaldo descargado exitosamente",
+  "ui.dbManagement.autoBackup.error": "Error al cargar el respaldo automático"
 }

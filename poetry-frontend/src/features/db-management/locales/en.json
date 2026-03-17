@@ -33,5 +33,13 @@
   "ui.dbManagement.help.howToRestoreSteps": "1. Go to the 'Restore Database' tab\n2. Click 'Select file' and choose your backup (.sql)\n3. Click 'Restore Database'\n4. Confirm the action in the popup window\n5. Wait for the process to finish",
   "ui.dbManagement.help.warning": "Important note",
   "ui.dbManagement.help.warningText": "Restoring a backup will replace ALL current data. Make sure you have a recent backup before restoring.",
-  "ui.dbManagement.help.close": "Close"
+  "ui.dbManagement.help.close": "Close",
+  "ui.dbManagement.autoBackup.title": "Auto Backup",
+  "ui.dbManagement.autoBackup.description": "Backups automatically generated when the application starts.",
+  "ui.dbManagement.autoBackup.loadInfo": "Load backup info",
+  "ui.dbManagement.autoBackup.generated": "Generated",
+  "ui.dbManagement.autoBackup.size": "Size",
+  "ui.dbManagement.autoBackup.download": "Download Auto Backup",
+  "ui.dbManagement.autoBackup.downloadSuccess": "Auto backup downloaded successfully",
+  "ui.dbManagement.autoBackup.error": "Failed to load auto backup"
 }

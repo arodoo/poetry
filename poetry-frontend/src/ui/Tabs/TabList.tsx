@@ -47,7 +47,7 @@ export function TabList({ children, className }: TabListProps): ReactElement {
       aria-orientation="horizontal"
       ref={listRef}
       onKeyDown={onKey}
-      className={clsx('flex gap-2 border-b pb-1', className)}
+      className={clsx('flex gap-2 border-b pb-1 overflow-x-auto', className)}
     >
       <span role="tab" className="sr-only" tabIndex={-1} />
       {finalChildren}

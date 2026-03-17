@@ -15,6 +15,7 @@ import { useT } from '../../../shared/i18n/useT'
 import { ExcelExportSection } from '../components/ExcelExportSection'
 import { BackupSection } from '../components/BackupSection'
 import { RestoreSection } from '../components/RestoreSection'
+import { AutoBackupSection } from '../components/AutoBackupSection'
 import { DbManagementHelpModal } from '../components/DbManagementHelpModal'
 
 export function DbManagementPage(): ReactElement {
@@ -42,6 +43,10 @@ export function DbManagementPage(): ReactElement {
             {
               label: t('ui.dbManagement.backup.title'),
               panel: <BackupSection />,
+            },
+            {
+              label: t('ui.dbManagement.autoBackup.title'),
+              panel: <AutoBackupSection />,
             },
             {
               label: t('ui.dbManagement.restore.title'),
