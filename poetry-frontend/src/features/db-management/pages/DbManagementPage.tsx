@@ -15,6 +15,7 @@ import { useT } from '../../../shared/i18n/useT'
 import { ExcelExportSection } from '../components/ExcelExportSection'
 import { BackupSection } from '../components/BackupSection'
 import { RestoreSection } from '../components/RestoreSection'
+import { DbManagementHelpModal } from '../components/DbManagementHelpModal'
 
 export function DbManagementPage(): ReactElement {
   const t = useT()
@@ -22,12 +23,15 @@ export function DbManagementPage(): ReactElement {
   return (
     <div className="p-6" data-testid="db-management-page">
       <Stack gap="lg">
-        <Heading level={1}>
-          {t('ui.dbManagement.title')}
-        </Heading>
-        <Text className="text-[var(--color-textMuted)]">
-          {t('ui.dbManagement.subtitle')}
-        </Text>
+        <div className="flex flex-row items-center justify-between">
+          <Stack gap="sm">
+            <Heading level={1}>{t('ui.dbManagement.title')}</Heading>
+            <Text className="text-[var(--color-textMuted)]">
+              {t('ui.dbManagement.subtitle')}
+            </Text>
+          </Stack>
+          <DbManagementHelpModal />
+        </div>
         <Tabs
           idBase="db-mgmt"
           items={[

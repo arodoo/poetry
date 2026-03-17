@@ -23,5 +23,15 @@
   "ui.dbManagement.restore.confirm.message": "This will replace ALL existing data in the database. This action cannot be undone. Are you sure?",
   "ui.dbManagement.restore.confirm.yes": "Yes, restore",
   "ui.dbManagement.restore.confirm.no": "Cancel",
-  "ui.route.dbManagement.title": "Database"
+  "ui.route.dbManagement.title": "Database",
+  "ui.dbManagement.help.title": "Help - Database Management",
+  "ui.dbManagement.help.whatIs": "What is a backup?",
+  "ui.dbManagement.help.whatIsDesc": "A backup is a copy of your database. Think of it as a snapshot of all your data at a specific point in time. If something goes wrong, you can use this copy to recover your information.",
+  "ui.dbManagement.help.howToBackup": "How to create a backup?",
+  "ui.dbManagement.help.howToBackupSteps": "1. Go to the 'SQL Backup' tab\n2. Click 'Download Backup'\n3. The file will download to your computer\n4. Save it in a safe place",
+  "ui.dbManagement.help.howToRestore": "How to restore a backup?",
+  "ui.dbManagement.help.howToRestoreSteps": "1. Go to the 'Restore Database' tab\n2. Click 'Select file' and choose your backup (.sql)\n3. Click 'Restore Database'\n4. Confirm the action in the popup window\n5. Wait for the process to finish",
+  "ui.dbManagement.help.warning": "Important note",
+  "ui.dbManagement.help.warningText": "Restoring a backup will replace ALL current data. Make sure you have a recent backup before restoring.",
+  "ui.dbManagement.help.close": "Close"
 }

@@ -23,5 +23,15 @@
   "ui.dbManagement.restore.confirm.message": "Esto reemplazará TODOS los datos existentes en la base de datos. Esta acción no se puede deshacer. ¿Estás seguro?",
   "ui.dbManagement.restore.confirm.yes": "Sí, restaurar",
   "ui.dbManagement.restore.confirm.no": "Cancelar",
-  "ui.route.dbManagement.title": "Base de Datos"
+  "ui.route.dbManagement.title": "Base de Datos",
+  "ui.dbManagement.help.title": "Ayuda - Gestión de Base de Datos",
+  "ui.dbManagement.help.whatIs": "¿Qué es un respaldo?",
+  "ui.dbManagement.help.whatIsDesc": "Un respaldo es una copia de seguridad de tu base de datos. Imagínalo como una fotografía de todos tus datos en un momento específico. Si algo sale mal, puedes usar esta copia para recuperar tu información.",
+  "ui.dbManagement.help.howToBackup": "¿Cómo hacer un respaldo?",
+  "ui.dbManagement.help.howToBackupSteps": "1. Ve a la pestaña 'Respaldo SQL'\n2. Haz clic en 'Descargar Respaldo'\n3. El archivo se descargará en tu computadora\n4. Guárdalo en un lugar seguro",
+  "ui.dbManagement.help.howToRestore": "¿Cómo restaurar un respaldo?",
+  "ui.dbManagement.help.howToRestoreSteps": "1. Ve a la pestaña 'Restaurar Base de Datos'\n2. Haz clic en 'Seleccionar archivo' y elige tu respaldo (.sql)\n3. Clic en 'Restaurar Base de Datos'\n4. Confirma la acción en la ventana emergente\n5. Espera a que termine el proceso",
+  "ui.dbManagement.help.warning": "Nota importante",
+  "ui.dbManagement.help.warningText": "Restaurar un respaldo reemplazará TODOS los datos actuales. Asegúrate de tener un respaldo reciente antes de restaurar.",
+  "ui.dbManagement.help.close": "Cerrar"
 }

@@ -42,3 +42,8 @@ export { DataTable } from './DataTable/DataTable'
 export { DetailView } from './DetailView/DetailView'
 export { FormLayout } from './FormLayout/FormLayout'
 export { Breadcrumb } from './Breadcrumb/Breadcrumb'
+export { ThemeList } from './ThemeList/ThemeList'
+export type {
+  ThemeListProps,
+  ThemeListItemData,
+} from './ThemeList/ThemeList.types'
