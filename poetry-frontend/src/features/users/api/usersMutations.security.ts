@@ -1,7 +1,6 @@
 /*
  * File: usersMutations.security.ts
  * Purpose: User security mutation (password update).
- * Placeholder for future backend implementation.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { UserResponse } from '../../../api/generated'
@@ -9,14 +8,21 @@ import {
   UpdateUserSecuritySchema,
   type UpdateUserSecurityInput,
 } from '../model/UsersSchemas'
+import { updateUserPassword } from '../../../api/generated/sdk.gen'
 
 export async function updateUserSecurity(
   id: string,
   input: UpdateUserSecurityInput,
-  _etag?: string
+  etag?: string
 ): Promise<UserResponse> {
-  UpdateUserSecuritySchema.parse(input)
-  void _etag
-  const msg = `Password update not yet implemented for user ${id}`
-  return Promise.reject(new Error(msg))
+  const validated = UpdateUserSecuritySchema.parse(input)
+  const options: Parameters<typeof updateUserPassword>[0] = {
+    path: { id: Number(id) },
+    body: { password: validated.password },
+  }
+  if (etag) {
+    options.headers = { 'If-Match': etag }
+  }
+  await updateUserPassword(options)
+  return {} as UserResponse
 }

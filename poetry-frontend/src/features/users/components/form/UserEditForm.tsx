@@ -90,7 +90,9 @@ export function UserEditForm(props: UserEditFormProps): ReactElement {
     false,
     props.t,
     demographicsState,
-    addressState
+    addressState,
+    props.userId,
+    locale
   )
   const breadcrumbs: ReturnType<typeof buildUserEditBreadcrumbs> =
     buildUserEditBreadcrumbs(props.userId, locale, props.t)

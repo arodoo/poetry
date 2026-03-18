@@ -28,6 +28,8 @@ tags:
     description: User address management
   - name: fingerprints
     description: Fingerprint verification
+  - name: db-management
+    description: Database management operations
   - name: fingerprints
     description: Fingerprint management
   - name: user-demographics
@@ -364,6 +366,45 @@ paths:
           description: Not found
         '403':
           description: Forbidden
+        '409':
+          description: Version conflict
+        '401':
+          description: Unauthorized
+  /api/v1/users/{id}/password:
+    put:
+      tags:
+        - users
+      summary: Update user password
+      description:
+        Admin can set a new password for a user with optimistic locking
+      operationId: updateUserPassword
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: If-Match
+          in: header
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordUpdateRequest'
+        required: true
+      responses:
+        '400':
+          description: Invalid password
+        '403':
+          description: Forbidden
+        '204':
+          description: Password updated
+        '404':
+          description: User not found
         '409':
           description: Version conflict
         '401':
@@ -1697,6 +1738,46 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/EventResponse'
+  /api/v1/db-management/restore:
+    post:
+      tags:
+        - db-management
+      summary: Restore database from SQL backup
+      operationId: restoreDb
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RestoreResponse'
+  /api/v1/db-management/backup/auto/{id}/restore:
+    post:
+      tags:
+        - db-management
+      summary: Restore to backup
+      operationId: restoreToBackup
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
   /api/v1/dashboard:
     get:
       tags:
@@ -2472,6 +2553,135 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/EventResponse'
+  /api/v1/db-management/tables:
+    get:
+      tags:
+        - db-management
+      summary: List all database tables
+      operationId: listDbTables
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TableInfoResponse'
+  /api/v1/db-management/export/excel:
+    get:
+      tags:
+        - db-management
+      summary: Export tables to Excel
+      operationId: exportDbExcel
+      parameters:
+        - name: tables
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+            default:
+              - all
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+  /api/v1/db-management/backup:
+    get:
+      tags:
+        - db-management
+      summary: Generate full SQL backup
+      operationId: backupDb
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+  /api/v1/db-management/backup/auto/{id}:
+    get:
+      tags:
+        - db-management
+      summary: Download backup
+      operationId: downloadAutoBackup
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+    delete:
+      tags:
+        - db-management
+      summary: Delete backup
+      operationId: deleteAutoBackup
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+  /api/v1/db-management/backup/auto/list:
+    get:
+      tags:
+        - db-management
+      summary: List auto backups
+      operationId: listAutoBackups
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ''
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            default: 'generatedAt,desc'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageResultBackupInfo'
   /api/v1/dashboard/overview:
     get:
       tags:
@@ -2640,6 +2850,10 @@ components:
           description: Manager user ID
           format: int64
           example: 42
+        managerUsername:
+          type: string
+          description: Manager username
+          example: jdoe
         status:
           type: string
           description: Status
@@ -2852,6 +3066,15 @@ components:
           format: date-time
           example: 2023-01-01T00:00:00Z
       description: User response representation
+    UserPasswordUpdateRequest:
+      required:
+        - password
+      type: object
+      properties:
+        password:
+          maxLength: 2147483647
+          minLength: 10
+          type: string
     UpdateSelectionRequest:
       required:
         - font
@@ -3668,6 +3891,17 @@ components:
           type: string
           description: Image URL
       description: Event creation request
+    RestoreResponse:
+      type: object
+      properties:
+        tablesRestored:
+          type: integer
+          format: int32
+          example: 30
+        status:
+          type: string
+          example: success
+      description: Restore operation result
     CreateDashboardRequest:
       type: object
       properties:
@@ -4265,16 +4499,12 @@ components:
     PageEventResponse:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
-        first:
-          type: boolean
-        last:
-          type: boolean
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -4292,6 +4522,10 @@ components:
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
         empty:
           type: boolean
     PageableObject:
@@ -4302,14 +4536,14 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/SortObject'
-        paged:
-          type: boolean
         pageNumber:
           type: integer
           format: int32
         pageSize:
           type: integer
           format: int32
+        paged:
+          type: boolean
         unpaged:
           type: boolean
     SortObject:
@@ -4321,6 +4555,55 @@ components:
           type: boolean
         unsorted:
           type: boolean
+    TableInfoResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: users
+        rowCount:
+          type: integer
+          format: int64
+          example: 42
+      description: Table metadata
+    BackupInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        fileName:
+          type: string
+        generatedAt:
+          type: integer
+          format: int64
+        sizeBytes:
+          type: integer
+          format: int64
+    PageResultBackupInfo:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackupInfo'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        currentPage:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        empty:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
     DashboardOverviewResponse:
       type: object
       properties:
@@ -4377,11 +4660,6 @@ components:
             type: integer
             format: int64
         subscriptionsByDuration:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-        scheduledEventsByStatus:
           type: object
           additionalProperties:
             type: integer

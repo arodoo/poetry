@@ -4,6 +4,10 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { FormLayoutSection } from '../../../ui/FormLayout/FormLayout'
+import { Link } from 'react-router-dom'
+import { Button } from '../../../ui/Button/Button'
+import { Stack } from '../../../ui/Stack/Stack'
+import { Text } from '../../../ui/Text/Text'
 import { UsersFormFields } from '../components/form/UsersFormFields'
 import type { UsersFormState } from '../components/form/useUsersFormState'
 import { UserDemographicsFields } from '../../userdemographics/components/UserDemographicsFields'
@@ -19,8 +23,21 @@ export function buildEditFormSections(
   showPassword: boolean,
   t: (key: string) => string,
   demographicsState: DemoState,
-  addressState: AddrState
+  addressState: AddrState,
+  userId: string,
+  locale: string
 ): readonly FormLayoutSection[] {
+  const securityLink = (
+    <Stack gap="sm">
+      <Text size="sm">
+        {t('ui.users.security.form.description', { id: userId })}
+      </Text>
+      <Button as={Link} to={`/${locale}/users/${userId}/security`} size="sm">
+        {t('ui.users.security.form.title')}
+      </Button>
+    </Stack>
+  )
+
   return [
     {
       title: t('ui.users.edit.section.profile'),
@@ -33,6 +50,11 @@ export function buildEditFormSections(
           t={t}
         />
       ),
+    },
+    {
+      title: t('ui.users.edit.section.security'),
+      description: t('ui.users.edit.section.security_desc'),
+      fields: securityLink,
     },
     {
       title: t('ui.users.form.demographics.section'),

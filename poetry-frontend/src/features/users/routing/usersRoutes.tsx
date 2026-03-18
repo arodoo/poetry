@@ -12,6 +12,7 @@ import {
   UserDetailPageLazy,
   UserEditPageLazy,
   UserDeletePageLazy,
+  UserSecurityPageLazy,
 } from '../../../shared/routing/lazyAdapters'
 
 export function UsersRoutes(): ReactElement[] {
@@ -49,6 +50,15 @@ export function UsersRoutes(): ReactElement[] {
       element={
         <AdminRoute>
           <UserDetailPageLazy />
+        </AdminRoute>
+      }
+    />,
+    <Route
+      key="users-security"
+      path=":locale/users/:id/security"
+      element={
+        <AdminRoute>
+          <UserSecurityPageLazy />
         </AdminRoute>
       }
     />,
