@@ -11,19 +11,37 @@ import { useSearchableSelect } from './useSearchableSelect'
 import { SearchableSelectDropdown } from './SearchableSelectDropdown'
 import { StaticTrigger } from './StaticTrigger'
 import { SelectedLabel } from './SelectedLabel'
-import type { SearchableSelectProps, SelectOption } from './SearchableSelect.types'
+import type {
+  SearchableSelectProps,
+  SelectOption,
+} from './SearchableSelect.types'
 
 export type { SearchableSelectProps, SelectOption }
 
 export function SearchableSelect(props: SearchableSelectProps): ReactElement {
   const {
-    options, value, onChange, placeholder, disabled,
-    loading, emptyText, searchable = true, 'data-testid': testId,
+    options,
+    value,
+    onChange,
+    onInputChange,
+    placeholder,
+    disabled,
+    loading,
+    emptyText,
+    searchable = true,
+    'data-testid': testId,
   } = props
 
   const state = useSearchableSelect(options, value, onChange)
   const selected = options.find((o: SelectOption) => o.value === value)
   const displayText = selected?.label ?? ''
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    state.onInputChange(e.target.value)
+    if (onInputChange) {
+      onInputChange(e.target.value)
+    }
+  }
 
   return (
     <div className="relative" ref={state.containerRef}>
@@ -33,9 +51,7 @@ export function SearchableSelect(props: SearchableSelectProps): ReactElement {
           placeholder={placeholder ?? 'Search\u2026'}
           defaultValue=""
           disabled={disabled}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-            state.onInputChange(e.target.value)
-          }}
+          onChange={handleInputChange}
           onFocus={state.onFocus}
           autoComplete="off"
         />

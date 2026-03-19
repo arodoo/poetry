@@ -16,6 +16,7 @@ export interface SearchableSelectProps {
   readonly options: readonly SelectOption[]
   readonly value: string
   readonly onChange: (value: string) => void
+  readonly onInputChange?: (value: string) => void
   readonly placeholder?: string
   readonly disabled?: boolean
   readonly required?: boolean

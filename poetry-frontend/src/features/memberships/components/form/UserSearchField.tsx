@@ -5,11 +5,12 @@
  * debounced search query on the users endpoint.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { type ReactElement, useState, useMemo } from 'react'
+import { type ReactElement, useState, useMemo, useEffect } from 'react'
 import { SearchableSelect } from '../../../../ui/SearchableSelect/SearchableSelect'
 import type { SelectOption } from '../../../../ui/SearchableSelect/SearchableSelect.types'
 import { useT } from '../../../../shared/i18n/useT'
 import { useUsersPageQuery } from '../../../users/hooks/useUsersQueries'
+import { useDebouncedCallback } from '../../../../shared/hooks/useDebouncedCallback'
 import type { UserResponse } from '../../../../api/generated'
 
 interface Props {
@@ -22,23 +23,39 @@ export default function UserSearchField({
   selectedUser,
 }: Props): ReactElement {
   const t = useT()
-  const [searchTerm] = useState('')
-  const usersQuery = useUsersPageQuery(0, 10, searchTerm)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
+
+  const debouncedSetSearch = useDebouncedCallback((value: string) => {
+    setDebouncedSearch(value)
+  }, 300)
+
+  useEffect(() => {
+    debouncedSetSearch(searchTerm)
+  }, [searchTerm, debouncedSetSearch])
+
+  const usersQuery = useUsersPageQuery(0, 10, debouncedSearch)
   const users = usersQuery.data?.content ?? []
 
   const options: SelectOption[] = useMemo(
     () =>
-      users.map((u: UserResponse): SelectOption => ({
-        value: String(u.id),
-        label: `${u.firstName} ${u.lastName}`,
-        sublabel: `@${u.username} - ${u.email}`,
-      })),
+      users.map(
+        (u: UserResponse): SelectOption => ({
+          value: String(u.id),
+          label: `${u.firstName} ${u.lastName}`,
+          sublabel: `@${u.username} - ${u.email}`,
+        })
+      ),
     [users]
   )
 
   const handleChange = (val: string): void => {
     const user = users.find((u) => String(u.id) === val)
     if (user) onSelect(user)
+  }
+
+  const handleInputChange = (value: string): void => {
+    setSearchTerm(value)
   }
 
   return (
@@ -55,6 +72,7 @@ export default function UserSearchField({
         options={options}
         value={selectedUser ? String(selectedUser.id) : ''}
         onChange={handleChange}
+        onInputChange={handleInputChange}
         placeholder={t('ui.memberships.form.user.search')}
         loading={usersQuery.isLoading}
         emptyText={t('ui.memberships.form.user.notFound')}
