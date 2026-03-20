@@ -4,8 +4,10 @@
  * on orchestration within the repository line limits.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
 import { useT } from '../../../i18n/useT'
+import { I18nCtx } from '../../../i18n/context'
 import { useLogout } from '../../../../features/auth/hooks/useLogout'
 import { useMeQuery } from '../../../../features/auth/hooks/useMe'
 
@@ -22,8 +24,8 @@ export type NavigateFunction = ReturnType<typeof useNavigate>
 
 export function useUserMenuDependencies(): UserMenuDependencies {
   const translate: ReturnType<typeof useT> = useT()
-  const params: { locale?: string } = useParams() as { locale?: string }
-  const locale: string = params.locale ?? 'en'
+  const i18nCtx = useContext(I18nCtx)
+  const locale = i18nCtx?.locale ?? 'en'
   const logoutMutation: ReturnType<typeof useLogout> = useLogout()
   const navigate: ReturnType<typeof useNavigate> = useNavigate()
   const me: ReturnType<typeof useMeQuery> = useMeQuery()

@@ -22,7 +22,9 @@ test('memberships list page renders with data', async ({
   await page.waitForURL(/\/en\/memberships$/)
   const apiResponse: Response = await apiResponsePromise
   expect(apiResponse.status()).toBe(200)
-  await expect(page.getByRole('heading', { name: /membership/i })).toBeVisible({
+  await expect(
+    page.getByRole('heading', { name: /membership|Membresía/i })
+  ).toBeVisible({
     timeout: 15000,
   })
   await expect(

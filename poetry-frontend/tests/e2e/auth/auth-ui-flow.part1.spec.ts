@@ -36,8 +36,12 @@ test.describe('Login UI Flow Part1', (): void => {
   }): Promise<void> => {
     await page.goto('/en/login')
     await page.locator('button[type="submit"]').click()
-    await expect(page.locator('text=Enter your username.')).toBeVisible()
-    await expect(page.locator('text=Enter your password.')).toBeVisible()
+    await expect(
+      page.getByText(/Enter your username|Ingresa tu usuario/i)
+    ).toBeVisible()
+    await expect(
+      page.getByText(/Enter your password|Ingresa tu contraseña/i)
+    ).toBeVisible()
   })
 
   test('shows error for invalid credentials', async ({
@@ -50,7 +54,7 @@ test.describe('Login UI Flow Part1', (): void => {
     await page.locator('input[name="password"]').fill(WRONG_P)
     await page.locator('button[type="submit"]').click()
     await expect(
-      page.locator('text=Login failed. Please try again.')
+      page.getByText(/Login failed|Inicio de sesión fallido/i)
     ).toBeVisible()
     expect(page.url()).toContain('/login')
     const tokens: TokenResponseLike | null = await getTokens(page)

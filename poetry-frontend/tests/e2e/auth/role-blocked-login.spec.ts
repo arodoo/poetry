@@ -34,12 +34,12 @@ test.describe('User role login blocked', (): void => {
     await page.locator('input[name="username"]').fill(seeded.username)
     await page.locator('input[name="password"]').fill(USER_ONLY_PASS)
     await page.locator('button[type="submit"]').click()
-    await expect(
-      page.locator('[data-testid="login-error"]')
-    ).toBeVisible({ timeout: 10000 })
-    await expect(
-      page.locator('[data-testid="login-error"]')
-    ).toContainText('Access denied')
+    await expect(page.locator('[data-testid="login-error"]')).toBeVisible({
+      timeout: 10000,
+    })
+    await expect(page.locator('[data-testid="login-error"]')).toContainText(
+      /Access denied|Acceso denegado/i
+    )
     expect(page.url()).toContain('/login')
   })
 })

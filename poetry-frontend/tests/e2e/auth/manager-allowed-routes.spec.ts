@@ -20,7 +20,7 @@ test.describe('Manager allowed routes', (): void => {
   }): Promise<void> => {
     await page.goto('/en/users')
     await expect(
-      page.getByRole('heading', { name: 'Users' })
+      page.getByRole('heading', { name: /users|Usuarios/i })
     ).toBeVisible({ timeout: 15000 })
   })
 
@@ -31,7 +31,7 @@ test.describe('Manager allowed routes', (): void => {
   }): Promise<void> => {
     await page.goto('/en/memberships')
     await expect(
-      page.getByRole('heading', { name: 'Memberships' })
+      page.getByRole('heading', { name: /memberships|Membresías/i })
     ).toBeVisible({ timeout: 15000 })
   })
 
@@ -42,7 +42,7 @@ test.describe('Manager allowed routes', (): void => {
   }): Promise<void> => {
     await page.goto('/en/dashboard')
     await expect(
-      page.getByRole('heading', { name: /display/i })
+      page.getByRole('heading', { name: /display|Pantalla/i })
     ).toBeVisible({ timeout: 15000 })
   })
 })

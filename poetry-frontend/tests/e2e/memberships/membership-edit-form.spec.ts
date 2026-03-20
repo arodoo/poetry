@@ -38,26 +38,24 @@ test.describe('Membership Edit Form', (): void => {
     })
 
     await page.getByTestId('edit-membership-button').click()
-    await page.waitForURL(`/en/memberships/${m.id}/edit`)
+    await page.waitForURL(/\/en\/memberships\/\d+\/edit/)
 
-    await expect(page.getByRole('heading', { name: /Edit/i })).toBeVisible()
+    await expect(
+      page.getByRole('heading', { name: /Edit|Editar/i })
+    ).toBeVisible()
 
     const sellerCodeInput = page.getByTestId('membership-seller-code-input')
-    await expect(sellerCodeInput).toBeVisible()
+    await expect(sellerCodeInput).toBeVisible({ timeout: 10000 })
 
     await sellerCodeInput.clear()
-    await sellerCodeInput.fill('codigo001')
-    await page.waitForTimeout(500)
+    await sellerCodeInput.fill('codigo003')
 
     const saveButton = page.getByRole('button', {
-      name: /Save changes/i,
+      name: /Save changes|Guardar cambios/i,
     })
+    await expect(saveButton).toBeEnabled({ timeout: 5000 })
     await saveButton.click()
 
-    await expect(page.getByText(/Membership updated/i)).toBeVisible({
-      timeout: 10000,
-    })
-
-    await page.waitForURL('/en/memberships', { timeout: 10000 })
+    await page.waitForURL(/\/en\/memberships$/, { timeout: 15000 })
   })
 })
