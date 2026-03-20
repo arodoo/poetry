@@ -30,5 +30,14 @@ public final class ThemeConstants {
             new ThemeDefinition("grove", "Grove", DarkPalettes.forest()),
             new ThemeDefinition("dusk", "Dusk", DarkPalettes.purple()),
             new ThemeDefinition("ink", "Ink", DarkPalettes.mono()),
+            new ThemeDefinition("midnight", "Midnight", DarkPalettes.midnight()),
+            new ThemeDefinition("nebula", "Nebula", DarkPalettes.nebula()),
+            new ThemeDefinition("volcanic", "Volcanic", DarkPalettes.volcanic()),
+            new ThemeDefinition("neon", "Neon", DarkPalettes.neon()),
+            new ThemeDefinition("coral", "Coral", DarkPalettes.coral()),
+            new ThemeDefinition("aurora", "Aurora", DarkPalettes.aurora()),
+            new ThemeDefinition("abyss", "Abyss", DarkPalettes.abyss()),
+            new ThemeDefinition("ember", "Ember", DarkPalettes.ember()),
+            new ThemeDefinition("twilight", "Twilight", DarkPalettes.twilight()),
     };
 }
