@@ -145,6 +145,6 @@ def build_thesis_document():
     # so Word's TOC field can detect them (paragraph-level, not style-level).
     _fix_all_heading_outline_levels(doc)
 
-    output_path = os.path.abspath(os.path.join(content_base, '..', '..', 'Tesis_Poetry_v43.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', '..', 'Tesis_Poetry_v44.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')

@@ -64,11 +64,21 @@ def render_acknowledgments(doc):
 
     doc.add_page_break()
 
+def _enable_auto_update_fields(doc):
+    """Set updateFields=true so Word recalculates TOC on open."""
+    settings = doc.settings.element
+    existing = settings.find(qn('w:updateFields'))
+    if existing is None:
+        uf = OxmlElement('w:updateFields')
+        uf.set(qn('w:val'), 'true')
+        settings.append(uf)
+
 def render_table_of_contents(doc):
     """
     Injects an automatic Table of Contents field into the document.
-    Word will prompt to update it upon first opening, or it can be updated via F9.
+    Also enables auto-update so Word recalculates on open.
     """
+    _enable_auto_update_fields(doc)
     h = doc.add_heading('ÍNDICE DE CONTENIDOS', level=1)
     h.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     for run in h.runs:
@@ -126,14 +136,28 @@ def render_list_of_figures(doc):
         run.font.color.rgb = RGBColor(*COLOR_BLACK)
 
     figures = [
-        ('Figura 3.2', 'Arquitectura de Contenedores del Sistema Poetry (C4 L2)'),
-        ('Figura 3.3', 'Esquema Entidad-Relación normalizado (3NF)'),
-        ('Figura 3.4', 'Secuencia de Autenticación y Control de Acceso Biométrico'),
-        ('Figura 3.5', 'Capas Tecnológicas del Sistema (generado con matplotlib)'),
+        ('Figura 1.1', 'Línea Temporal del Control de Acceso'),
+        ('Figura 1.2', 'Tríada de Problemas Operativos'),
+        ('Figura 2.1', 'Mapa de Contextos Delimitados (DDD)'),
+        ('Figura 2.2', 'Arquitectura Limpia — Martin, 2017'),
+        ('Figura 2.3', 'Principios SOLID — Martin, 2002'),
+        ('Figura 2.4', 'Reconciliación del Virtual DOM'),
+        ('Figura 3.2', 'Arquitectura de Contenedores (C4 L2)'),
+        ('Figura 3.3', 'Esquema Entidad-Relación (3NF)'),
+        ('Figura 3.4', 'Secuencia de Autenticación Biométrica'),
+        ('Figura 3.5', 'Capas Tecnológicas del Sistema'),
         ('Figura 4.1', 'Pirámide de Pruebas — Cohn, 2009'),
-        ('Figura 4.2', 'Interfaz de acceso biométrico (Chely Boops)'),
+        ('Figura 4.2', 'Interfaz de acceso biométrico'),
         ('Figura 4.3', 'Dashboard principal de administración'),
-        ('Figura 4.4', 'Panel estadístico y métricas del sistema'),
+        ('Figura 4.4', 'Panel estadístico y métricas'),
+        ('Figura 4.5', 'Gestión de usuarios'),
+        ('Figura 4.6', 'Venta de membresía'),
+        ('Figura 4.7', 'Panel de hardware biométrico (ADMIN)'),
+        ('Figura 4.8', 'Controles de personalización'),
+        ('Figura 4.9', 'Cambio de tema en tiempo real'),
+        ('Figura 4.10', 'Carrusel de imágenes'),
+        ('Figura 4.11', 'Configuración del carrusel'),
+        ('Figura 4.12', 'Respaldo de BD y exportación'),
     ]
     for fig_num, fig_caption in figures:
         p = doc.add_paragraph(style='List Bullet')

@@ -13,6 +13,12 @@ from src.infrastructure.docx_styles_adapter import _ensure_style
 _ASSETS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'content', 'assets'))
 
 _FIGURE_MAP = {
+    'fig_access_evolution': 'fig_access_evolution.png',
+    'fig_problem_triad':    'fig_problem_triad.png',
+    'fig_ddd_layers':       'fig_ddd_layers.png',
+    'fig_clean_rings':      'fig_clean_rings.png',
+    'fig_solid_pillars':    'fig_solid_pillars.png',
+    'fig_vdom_diff':        'fig_vdom_diff.png',
     'fig_arch':     'fig_arch.png',
     'fig_erd':      'fig_erd.png',
     'fig_sequence': 'fig_sequence.png',
@@ -21,6 +27,28 @@ _FIGURE_MAP = {
     'fig_access':   'fig_access.png',
     'fig_dashboard':'fig_dashboard.png',
     'fig_metrics':  'fig_metrics.png',
+    'fig_hardware_admin': (
+        'fig_admin_hardware_view'
+        '(check_finger_print_status_and_'
+        'enrrolled_fingerprints)admin_only.png'),
+    'fig_theme_change': (
+        'fig_cambio_de_tema(otro_tema_ha_sido'
+        '_seleccionado_y_la_interfaz_ha_'
+        'cambiado).png'),
+    'fig_carrousel': 'fig_carrousel.png',
+    'fig_carrousel_config': (
+        'fig_carrousel_configuration.png'),
+    'fig_control_tokens': (
+        'fig_control_tokes(languages, themes,,'
+        ' font-size,spacing).png'),
+    'fig_user_mgmt': (
+        'fig_gestión_usuarios.png'),
+    'fig_db_backup': (
+        'fig_respaldo_de_db_automatico_y_'
+        'restauracion_exportacion_de_datos_'
+        'en_excel_y_db.png'),
+    'fig_membership_sale': (
+        'fig_venta_membresía.png'),
 }
 
 def _add_formatted_runs(p, text):
@@ -56,6 +84,23 @@ def _add_body(doc, text):
     fmt.first_line_indent = Cm(0)
     fmt.line_spacing = 1.5
     fmt.space_after = Pt(0)
+    return p
+
+
+def _add_caption(doc, text):
+    """Render figure caption: centered, 10pt italic, small spacing."""
+    # Strip surrounding *...*
+    raw = re.sub(r'^\*|\*$', '', text.strip())
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    fmt = p.paragraph_format
+    fmt.space_before = Pt(2)
+    fmt.space_after = Pt(8)
+    fmt.line_spacing = 1.15
+    run = p.add_run(raw)
+    run.font.name = FONT_NAME
+    run.font.size = Pt(10)
+    run.font.italic = True
     return p
 
 def _add_bullet(doc, text):
@@ -153,8 +198,16 @@ def parse_markdown_blocks(doc, content):
             _add_code_block(doc, block)
             continue
         img_match = re.match(r'^!!(fig_\w+)!!$', block.strip())
+        # Detect figure captions: *Figura N.N: ...*
+        caption_match = re.match(
+            r'^\*Figura\s+\d+[\.,]\d+.*\*$',
+            block.strip(), re.DOTALL
+        )
         if img_match:
             _add_image(doc, img_match.group(1))
+        elif caption_match:
+            raw = ' '.join(block.splitlines()).strip()
+            _add_caption(doc, raw)
         elif block.startswith('# '):
             doc.add_heading(block[2:].strip(), level=1)
         elif block.startswith('## '):
@@ -168,5 +221,8 @@ def parse_markdown_blocks(doc, content):
             for item in _collapse_list_items(block, r'^\d+\.\s*'):
                 _add_numbered(doc, item)
         else:
-            text = ' '.join(block.splitlines()).strip()
+            lines = [ln.strip() for ln in block.splitlines()]
+            text = ' '.join(ln for ln in lines if ln)
+            # Collapse any double spaces introduced by line-wrap stripping
+            text = re.sub(r'  +', ' ', text)
             _add_body(doc, text)
