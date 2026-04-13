@@ -49,6 +49,9 @@ _FIGURE_MAP = {
         'en_excel_y_db.png'),
     'fig_membership_sale': (
         'fig_venta_membresía.png'),
+    'fig_ci_pipeline': 'fig_ci_pipeline.png',
+    'fig_sdk_flow': 'fig_sdk_flow.png',
+    'fig_component_tree': 'fig_component_tree.png',
 }
 
 def _add_formatted_runs(p, text):

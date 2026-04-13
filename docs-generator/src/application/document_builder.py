@@ -115,7 +115,7 @@ def build_thesis_document():
     chapters_meta = [
         ('1', 'CAPÍTULO 1. INTRODUCCIÓN Y GENERALIDADES', 'capitulo_1'),
         ('2', 'CAPÍTULO 2. MARCO TEÓRICO Y TECNOLÓGICO', 'capitulo_2'),
-        ('3', 'CAPÍTULO 3. DESARROLLO E IMPLEMENTACIÓN', 'capitulo_3'),
+        ('3', 'CAPÍTULO 3. METODOLOGÍA Y ARTEFACTOS DE DISEÑO', 'capitulo_3'),
         ('4', 'CAPÍTULO 4. RESULTADOS Y CONCLUSIONES', 'capitulo_4'),
         ('R', 'REFERENCIAS', 'referencias'),
         ('A', 'ANEXOS', 'anexos')
@@ -145,6 +145,6 @@ def build_thesis_document():
     # so Word's TOC field can detect them (paragraph-level, not style-level).
     _fix_all_heading_outline_levels(doc)
 
-    output_path = os.path.abspath(os.path.join(content_base, '..', '..', 'Tesis_Poetry_v44.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', '..', 'Tesis_Poetry_v45.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')

@@ -26,15 +26,18 @@
 - 2.6 Gestión de Base de Datos (PostgreSQL/H2)
 - 2.7 Control de Versiones y CI/CD (Git, CI/CD Local con Husky)
 
-## CAPÍTULO 3: DESARROLLO E IMPLEMENTACIÓN
-- 3.1 Especificación de Requerimientos
-- 3.2 Arquitectura de la Plataforma
-    - 3.2.1 Capa de Dominio (Entidades, Value Objects)
-    - 3.2.2 Capa de Aplicación (Use Cases, DTOs)
-    - 3.2.3 Capa de Infraestructura (Adaptores, Repositorios)
-- 3.3 Diseño de la Base de Datos (Esquema E-R)
-- 3.4 Integración de API (OpenAPI/V3)
-- 3.5 Desarrollo del Frontend y Experiencia de Usuario (UX)
+## CAPÍTULO 3: METODOLOGÍA Y ARTEFACTOS DE DISEÑO
+- 3.1 Enfoque Metodológico y Estandarización
+    - 3.1.1 Pipeline CI/CD Local y Reglas de Calidad
+- 3.2 Artefactos de Requerimientos y Reglas de Negocio
+- 3.3 Artefactos de Diseño Arquitectónico (Blueprints DDD)
+    - 3.3.1 Diagrama de Pipeline CI/CD
+- 3.4 Contratos de Integración (OpenAPI y SDKs)
+    - 3.4.1 Diagrama de Flujo de Generación SDK
+- 3.5 Artefactos de Persistencia y Modelado de Datos
+    - 3.5.1 Esquema Entidad-Relación Normalizado
+- 3.6 Artefactos de Interfaz y Catálogo de Componentes
+    - 3.6.1 Diagrama de Árbol de Componentes
 
 ## CAPÍTULO 4: RESULTADOS, PRUEBAS Y CONCLUSIONES
 - 4.1 Estrategia de Pruebas (Unitarias, E2E con Playwright)

@@ -21,6 +21,9 @@ from diagrams.ddd_contexts import generate as gen_ddd
 from diagrams.clean_rings import generate as gen_clean
 from diagrams.solid_pillars import generate as gen_solid
 from diagrams.vdom_diff import generate as gen_vdom
+from diagrams.ci_pipeline import generate as gen_ci
+from diagrams.sdk_flow import generate as gen_sdk
+from diagrams.component_tree import generate as gen_tree
 
 
 def main():
@@ -37,6 +40,9 @@ def main():
     gen_sequence()
     gen_stack()
     gen_pyramid()
+    gen_ci()
+    gen_sdk()
+    gen_tree()
     print('All diagrams generated.')
 
 
