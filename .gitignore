@@ -95,6 +95,7 @@ sdk/
 docs-generator/content/assets/
 docs-generator/assets/
 *.docx
+*.pptx
 **/__pycache__/
 
 # Backend Uploads
