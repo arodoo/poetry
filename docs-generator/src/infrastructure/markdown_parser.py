@@ -52,6 +52,7 @@ _FIGURE_MAP = {
     'fig_ci_pipeline': 'fig_ci_pipeline.png',
     'fig_sdk_flow': 'fig_sdk_flow.png',
     'fig_component_tree': 'fig_component_tree.png',
+    'fig_psp_levels': 'fig_psp_levels.png',
 }
 
 def _add_formatted_runs(p, text):

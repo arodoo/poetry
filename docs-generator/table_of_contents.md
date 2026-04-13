@@ -27,7 +27,7 @@
 - 2.7 Control de Versiones y CI/CD (Git, CI/CD Local con Husky)
 
 ## CAPÍTULO 3: METODOLOGÍA Y ARTEFACTOS DE DISEÑO
-- 3.1 Enfoque Metodológico y Estandarización
+- 3.1 Metodología PSP y Estandarización
     - 3.1.1 Pipeline CI/CD Local y Reglas de Calidad
 - 3.2 Artefactos de Requerimientos y Reglas de Negocio
 - 3.3 Artefactos de Diseño Arquitectónico (Blueprints DDD)

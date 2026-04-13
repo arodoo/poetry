@@ -24,6 +24,7 @@ from diagrams.vdom_diff import generate as gen_vdom
 from diagrams.ci_pipeline import generate as gen_ci
 from diagrams.sdk_flow import generate as gen_sdk
 from diagrams.component_tree import generate as gen_tree
+from diagrams.psp_levels import generate as gen_psp
 
 
 def main():
@@ -43,6 +44,7 @@ def main():
     gen_ci()
     gen_sdk()
     gen_tree()
+    gen_psp()
     print('All diagrams generated.')
 
 
