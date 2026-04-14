@@ -13,7 +13,7 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 from pptx import Presentation
-from pptx.util import Inches, Pt
+from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -21,12 +21,12 @@ ASSETS = os.path.abspath(
     os.path.join(HERE, '..', 'content', 'assets'))
 AUTHOR = 'Arodi Emmanuel Hernández Pérez'
 PROJECT = 'Poetry'
+DARK = RGBColor(0x1A, 0x23, 0x7E)
 
 
 def tpl_path():
     """Find the template pptx in this directory."""
-    files = glob.glob(os.path.join(HERE, '*.pptx'))
-    return files[0]
+    return glob.glob(os.path.join(HERE, '*.pptx'))[0]
 
 
 def img(name):
@@ -34,17 +34,24 @@ def img(name):
     return os.path.join(ASSETS, name)
 
 
-def set_shape_text(slide, name_part, text):
-    """Set text on a shape found by partial name."""
+def set_body(slide, text, height=2.5):
+    """Set text on the content box and resize it."""
     for sh in slide.shapes:
-        if name_part in sh.name and sh.has_text_frame:
+        nm = sh.name
+        if 'Rectangle' in nm or (
+                sh.has_text_frame and len(
+                    sh.text_frame.text) > 30
+                and sh.top / 914400 > 2.0):
             sh.text_frame.paragraphs[0].text = text
+            sh.height = Inches(height)
             return sh
     return None
 
 
-def add_img(slide, path, left, top, width):
-    """Add an image to a slide at given position."""
-    slide.shapes.add_picture(
-        path, Inches(left), Inches(top),
-        Inches(width))
+def move_slide(prs, old_idx, new_idx):
+    """Move slide from old_idx to new_idx."""
+    sldIdLst = prs.slides._sldIdLst
+    items = list(sldIdLst)
+    el = items[old_idx]
+    sldIdLst.remove(el)
+    sldIdLst.insert(new_idx, el)

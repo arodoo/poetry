@@ -2,7 +2,8 @@
 File: docs-generator/pptx/run_pptx.py
 Purpose: Main orchestrator that loads the PPTX
          template, populates all 12 template slides,
-         adds visual evidence slides and saves output.
+         inserts evidence slides after Desarrollo
+         and reorders them before the closing slides.
 All Rights Reserved Arodi Emmanuel
 """
 
@@ -14,30 +15,16 @@ sys.path.insert(0, os.path.dirname(
 sys.stdout.reconfigure(encoding='utf-8')
 
 from pptx import Presentation
-from generate_pptx import tpl_path, AUTHOR, PROJECT
-from build_template import portada, agenda, intro
+from generate_pptx import tpl_path, move_slide
+from build_template import portada, agenda
 from build_template_2 import (
-    problema, objetivos, justificacion, metodologia,
+    intro, problema, objetivos, justificacion,
 )
 from build_template_3 import (
-    desarrollo, resultados, futuros,
-    referencias, gracias,
+    metodologia, desarrollo, resultados,
+    futuros, referencias, gracias,
 )
 from build_evidence import add_evidence
-
-
-def _fix_footers(prs):
-    for slide in prs.slides:
-        for sh in slide.shapes:
-            if not sh.has_text_frame:
-                continue
-            t = sh.text_frame.text.strip()
-            if t == 'Proyecto':
-                sh.text_frame.paragraphs[0].text = (
-                    PROJECT)
-            if t == 'Nombre Completo del Alumno':
-                sh.text_frame.paragraphs[0].text = (
-                    AUTHOR)
 
 
 def main():
@@ -56,12 +43,19 @@ def main():
     futuros(s[9])
     referencias(s[10])
     gracias(s[11])
+
+    n_before = len(prs.slides)
     add_evidence(prs)
-    _fix_footers(prs)
+    n_added = len(prs.slides) - n_before
+
+    for i in range(n_added):
+        src = n_before + i
+        dst = 8 + i
+        move_slide(prs, src, dst)
 
     out = os.path.join(
         os.path.dirname(tpl_path()),
-        '..', '..', 'Presentacion_Poetry_v2.pptx')
+        '..', '..', 'Presentacion_Poetry_v3.pptx')
     prs.save(os.path.abspath(out))
     print(f'Saved: {os.path.abspath(out)}')
     print(f'Slides: {len(prs.slides)}')
