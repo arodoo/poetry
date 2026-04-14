@@ -19,7 +19,7 @@ from pptx.dml.color import RGBColor
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.abspath(
     os.path.join(HERE, '..', 'content', 'assets'))
-AUTHOR = 'Arodi Emmanuel Hernández Pérez'
+AUTHOR = 'Arodi Emmanuel Haro Palacios'
 PROJECT = 'Poetry'
 DARK = RGBColor(0x1A, 0x23, 0x7E)
 
@@ -35,14 +35,16 @@ def img(name):
 
 
 def set_body(slide, text, height=2.5):
-    """Set text on the content box and resize it."""
+    """Clear and set text on content box."""
     for sh in slide.shapes:
         nm = sh.name
         if 'Rectangle' in nm or (
                 sh.has_text_frame and len(
                     sh.text_frame.text) > 30
                 and sh.top / 914400 > 2.0):
-            sh.text_frame.paragraphs[0].text = text
+            sh.text_frame.clear()
+            p = sh.text_frame.paragraphs[0]
+            p.text = text
             sh.height = Inches(height)
             return sh
     return None

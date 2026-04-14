@@ -68,6 +68,7 @@ def referencias(s):
     for sh in s.shapes:
         if sh.has_text_frame and 'APA' in (
                 sh.text_frame.text):
+            sh.text_frame.clear()
             sh.text_frame.paragraphs[0].text = (
                 'Humphrey (2005). PSP.\n'
                 'Martin (2017). Clean Architecture.\n'

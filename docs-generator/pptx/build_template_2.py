@@ -14,6 +14,7 @@ def intro(s):
     for sh in s.shapes:
         if sh.has_text_frame and 'finalidad' in (
                 sh.text_frame.text):
+            sh.text_frame.clear()
             sh.text_frame.paragraphs[0].text = (
                 'El control de acceso en academias '
                 'de danza opera de forma manual, '
@@ -56,6 +57,7 @@ def justificacion(s):
     for sh in s.shapes:
         if sh.has_text_frame and 'argumentos' in (
                 sh.text_frame.text):
+            sh.text_frame.clear()
             sh.text_frame.paragraphs[0].text = (
                 '70% de academias pequeñas usa '
                 'registro manual. Errores generan '
