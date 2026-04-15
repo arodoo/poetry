@@ -9,12 +9,19 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 from src.domain.constants import MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP, MARGIN_BOTTOM, FONT_NAME
 
-def configure_margins(doc):
-    for section in doc.sections:
+def configure_margins(doc, content_top_cm=4):
+    """Set margins per section. Content uses 4 cm top."""
+    from docx.shared import Cm
+    from docx.enum.section import WD_SECTION
+    for i, section in enumerate(doc.sections):
         section.left_margin = MARGIN_LEFT
         section.right_margin = MARGIN_RIGHT
         section.bottom_margin = MARGIN_BOTTOM
-        section.top_margin = MARGIN_TOP
+        if i == 0:
+            section.top_margin = MARGIN_TOP
+        else:
+            section.top_margin = Cm(content_top_cm)
+            section.start_type = WD_SECTION.NEW_PAGE
 
 def _ensure_style(doc, name, style_type=1): # 1 is WD_STYLE_TYPE.PARAGRAPH
     try:
@@ -92,17 +99,19 @@ def _write_page_number(footer_obj):
     run.font.size = Pt(10)
 
 def set_page_numbers(doc):
-    """Apply PAGE footer to every section except cover."""
+    """Apply PAGE footer preserving template headers."""
     for i, section in enumerate(doc.sections):
         if i == 0:
-            continue
-        section.footer.is_linked_to_previous = False
-        _write_page_number(section.footer)
-        section.first_page_footer.is_linked_to_previous = False
-        _write_page_number(section.first_page_footer)
+            section.different_first_page_header_footer = True
+            _write_page_number(section.footer)
+        else:
+            _write_page_number(section.footer)
+            if section.different_first_page_header_footer:
+                _write_page_number(section.first_page_footer)
 
 
 def setup_document_styles(doc):
+    """Apply all document-level styles in order."""
     configure_margins(doc)
     configure_normal_style(doc)
     configure_heading_styles(doc)

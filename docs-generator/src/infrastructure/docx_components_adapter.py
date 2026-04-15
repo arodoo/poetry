@@ -43,23 +43,8 @@ def render_cover_page(doc):
 
     doc.add_page_break()
 
-def _clear_section_headers(section):
-    """Give section an empty header so it does NOT inherit."""
-    section.header.is_linked_to_previous = False
-    for p in section.header.paragraphs:
-        p.clear()
-    section.first_page_header.is_linked_to_previous = False
-    for p in section.first_page_header.paragraphs:
-        p.clear()
-    sectPr = section._sectPr
-    for el in sectPr.findall(qn('w:titlePg')):
-        sectPr.remove(el)
-
-
 def render_acknowledgments(doc):
-    """Render acknowledgments in its own headerless section."""
-    from docx.enum.section import WD_SECTION
-
+    """Render acknowledgments on a page break."""
     h = doc.add_heading('AGRADECIMIENTOS', level=1)
     h.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     for run in h.runs:
@@ -78,11 +63,7 @@ def render_acknowledgments(doc):
     run.font.name = FONT_NAME
     run.font.size = Pt(12)
 
-    doc.add_section(WD_SECTION.NEW_PAGE)
-    ack_sec = doc.sections[-2]
-    content_sec = doc.sections[-1]
-    _clear_section_headers(ack_sec)
-    _clear_section_headers(content_sec)
+    doc.add_page_break()
 
 def _enable_auto_update_fields(doc):
     """Set updateFields=true so Word recalculates TOC on open."""
