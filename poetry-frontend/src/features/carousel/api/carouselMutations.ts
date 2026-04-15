@@ -10,7 +10,7 @@ import {
 } from '../model/CarouselSchemas'
 import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
-const BASE = 'http://localhost:8080/api/v1/carousel'
+const BASE = '/api/v1/carousel'
 
 function authHeader(): HeadersInit {
   const token = tokenStorage.load()?.accessToken

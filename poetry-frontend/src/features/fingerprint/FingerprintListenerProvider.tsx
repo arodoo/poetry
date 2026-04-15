@@ -1,13 +1,14 @@
 /*
  * File: FingerprintListenerProvider.tsx
  * Purpose: Global provider that runs the fingerprint listener loop.
- * Starts automatically when the user is authenticated, stops on logout.
- * Lives at the App root so banners appear regardless of the current page.
+ * Only starts when hardware scanner is active (not auto-start).
+ * Polls scanner state and connects WebSocket only when scanning.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useEffect, type ReactNode, type ReactElement } from 'react'
 import { useSession } from '../../shared/security/session/useSession'
 import { useListenerLoop } from './hooks/useListenerLoop'
+import { useHardwareScanningState } from '../hardware/hooks/useHardwareScanningState'
 
 export function FingerprintListenerProvider({
   children,
@@ -16,16 +17,16 @@ export function FingerprintListenerProvider({
 }): ReactElement {
   const { status } = useSession()
   const { start, stop } = useListenerLoop()
+  const scanning = useHardwareScanningState()
 
   useEffect(() => {
-    console.info('[FingerprintListener] status=', status)
-    if (status === 'authenticated') {
+    if (status === 'authenticated' && scanning) {
       void start()
     } else {
       stop()
     }
     return stop
-  }, [status, start, stop])
+  }, [status, scanning, start, stop])
 
   return <>{children}</>
 }

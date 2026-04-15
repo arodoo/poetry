@@ -1,10 +1,7 @@
 /*
  * File: UserComposition.java
- * Purpose: Composition for user-related beans and adapters used by the
- * application layer. This class wires user ports to JPA or in-memory
- * adapters and exposes use-cases as beans for controllers to consume.
- * Separating composition improves maintainability and supports DI-based
- * testing.
+ * Purpose: Wires user JPA adapters, cascade service, and query
+ * use-cases. Mutations live in UserMutationComposition.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -14,19 +11,35 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.poetry.poetry_backend.application.auth.port.security.PasswordHasherPort;
-import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
-import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
+import com.poetry.poetry_backend.application.fingerprint.port.*;
+import com.poetry.poetry_backend.application.membership.port.MembershipCommandPort;
+import com.poetry.poetry_backend.application.sellercode.port.SellerCodeCommandPort;
 import com.poetry.poetry_backend.application.user.port.*;
+import com.poetry.poetry_backend.application.user.service.UserCascadeService;
 import com.poetry.poetry_backend.application.user.usecase.*;
-import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaAdapter;
-import com.poetry.poetry_backend.infrastructure.jpa.user.UserJpaRepository;
+import com.poetry.poetry_backend.infrastructure.jpa.user.*;
+import com.poetry.poetry_backend.infrastructure.jpa.userdemographics.*;
 
 @Configuration
 public class UserComposition {
   @Bean
   UserJpaAdapter userJpaAdapter(
-      UserJpaRepository repo, PasswordHasherPort hasher) {
-    return new UserJpaAdapter(repo, hasher);
+      UserJpaRepository r, PasswordHasherPort h) {
+    return new UserJpaAdapter(r, h);
+  }
+
+  @Bean
+  UserDemographicsCommandAdapter userDemographicsCommandAdapter(
+      UserDemographicsJpaRepository r) {
+    return new UserDemographicsCommandAdapter(r);
+  }
+
+  @Bean
+  UserCascadeService userCascadeService(
+      FingerprintQueryPort fq, FingerprintCommandPort fc,
+      MembershipCommandPort mc, SellerCodeCommandPort sc,
+      UserDemographicsCommandPort dc) {
+    return new UserCascadeService(fq, fc, mc, sc, dc);
   }
 
   @Bean
@@ -42,23 +55,5 @@ public class UserComposition {
   @Bean
   GetUserByIdUseCase getUserByIdUseCase(UserQueryPort q) {
     return new GetUserByIdUseCase(q);
-  }
-
-  @Bean
-  CreateUserUseCase createUserUseCase(UserCommandPort c) {
-    return new CreateUserUseCase(c);
-  }
-
-  @Bean
-  UpdateUserUseCase updateUserUseCase(UserCommandPort c) {
-    return new UpdateUserUseCase(c);
-  }
-
-  @Bean
-  DeleteUserUseCase deleteUserUseCase(
-      UserCommandPort c,
-      FingerprintQueryPort fq,
-      FingerprintCommandPort fc) {
-    return new DeleteUserUseCase(c, fq, fc);
   }
 }

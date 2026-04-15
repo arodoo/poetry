@@ -23,4 +23,6 @@ public interface SellerCodeCommandPort {
       String status);
 
   void softDelete(Long id, long version);
+
+  void softDeleteByUserId(Long userId);
 }

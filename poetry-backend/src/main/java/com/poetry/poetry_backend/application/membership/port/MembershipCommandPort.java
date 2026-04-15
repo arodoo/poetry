@@ -33,4 +33,6 @@ public interface MembershipCommandPort {
       String status);
 
   void softDelete(Long id, long version);
+
+  void softDeleteByUserId(Long userId);
 }

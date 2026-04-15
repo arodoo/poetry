@@ -31,4 +31,7 @@ public interface SellerCodeJpaRepository extends JpaRepository<SellerCodeEntity,
 
   @Query("select sc from SellerCodeEntity sc where sc.code = :code and sc.deletedAt is null")
   Optional<SellerCodeEntity> findActiveByCode(String code);
+
+  @Query("select sc from SellerCodeEntity sc where sc.userId = :userId and sc.deletedAt is null")
+  List<SellerCodeEntity> findActiveByUserId(Long userId);
 }

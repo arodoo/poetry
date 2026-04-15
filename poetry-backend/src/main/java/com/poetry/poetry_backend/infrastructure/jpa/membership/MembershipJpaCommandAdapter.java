@@ -99,6 +99,17 @@ public class MembershipJpaCommandAdapter
     cancelActiveUserHasMembership(userId);
   }
 
+  @Override
+  public void softDeleteByUserId(Long userId) {
+    Instant now = Instant.now();
+    repo.findActiveByUserId(userId).forEach(m -> {
+      m.setStatus("inactive");
+      m.setDeletedAt(now);
+      repo.save(m);
+    });
+    cancelActiveUserHasMembership(userId);
+  }
+
   private void assignUserHasMembership(
       Long userId, Long subscriptionId,
       String sellerCode, Boolean allZones) {

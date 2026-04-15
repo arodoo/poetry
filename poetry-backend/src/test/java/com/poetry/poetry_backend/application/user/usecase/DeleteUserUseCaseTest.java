@@ -1,6 +1,7 @@
 /*
  * File: DeleteUserUseCaseTest.java
- * Purpose: Placeholder delete use case test.
+ * Purpose: Unit test for DeleteUserUseCase verifying soft-delete
+ * and cascade via UserCascadeService.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.application.user.usecase;
@@ -12,55 +13,31 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import com.poetry.poetry_backend.application.fingerprint.port.FingerprintCommandPort;
-import com.poetry.poetry_backend.application.fingerprint.port.FingerprintQueryPort;
-import com.poetry.poetry_backend.application.user.port.UserCommandPort;
-import com.poetry.poetry_backend.domain.user.model.core.User;
+import com.poetry.poetry_backend.application.fingerprint.port.*;
+import com.poetry.poetry_backend.application.membership.port.MembershipCommandPort;
+import com.poetry.poetry_backend.application.sellercode.port.SellerCodeCommandPort;
+import com.poetry.poetry_backend.application.user.port.*;
+import com.poetry.poetry_backend.application.user.service.UserCascadeService;
 
 class DeleteUserUseCaseTest {
   @Test
-  void deletesUser() {
+  void deletesUserAndCascades() {
     final long[] deleted = {0};
-    UserCommandPort commands = new UserCommandPort() {
-      public User create(
-          String f,
-          String l,
-          String e,
-          String u,
-          String loc,
-          String p,
-          java.util.Set<String> r,
-          String status) {
-        return null;
-      }
-
-      public User update(
-          Long id,
-          long version,
-          String f,
-          String l,
-          String e,
-          String loc,
-          java.util.Set<String> r,
-          String status) {
-        return null;
-      }
-
-      public User updatePassword(Long id, long version, String password) {
-        return null;
-      }
-
-      public void softDelete(Long id, long version) {
-        deleted[0] = id;
-      }
-    };
-
-    FingerprintQueryPort fqPort = mock(FingerprintQueryPort.class);
-    when(fqPort.findByUserId(any())).thenReturn(Collections.emptyList());
-    FingerprintCommandPort fcPort = mock(FingerprintCommandPort.class);
-
-    var uc = new DeleteUserUseCase(commands, fqPort, fcPort);
+    UserCommandPort cmd = mock(UserCommandPort.class);
+    doAnswer(inv -> { deleted[0] = inv.getArgument(0); return null; })
+        .when(cmd).softDelete(anyLong(), anyLong());
+    var fq = mock(FingerprintQueryPort.class);
+    when(fq.findByUserId(any())).thenReturn(Collections.emptyList());
+    var mc = mock(MembershipCommandPort.class);
+    var sc = mock(SellerCodeCommandPort.class);
+    var dc = mock(UserDemographicsCommandPort.class);
+    var cascade = new UserCascadeService(
+        fq, mock(FingerprintCommandPort.class), mc, sc, dc);
+    var uc = new DeleteUserUseCase(cmd, cascade);
     uc.execute(11L, 1L);
     assertEquals(11L, deleted[0]);
+    verify(mc).softDeleteByUserId(11L);
+    verify(sc).softDeleteByUserId(11L);
+    verify(dc).deleteByUserId(11L);
   }
 }

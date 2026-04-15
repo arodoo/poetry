@@ -66,4 +66,13 @@ public class SellerCodeJpaCommandAdapter implements SellerCodeCommandPort {
     entity.setDeletedAt(Instant.now());
     repository.save(entity);
   }
+
+  @Override
+  public void softDeleteByUserId(Long userId) {
+    Instant now = Instant.now();
+    repository.findActiveByUserId(userId).forEach(sc -> {
+      sc.setDeletedAt(now);
+      repository.save(sc);
+    });
+  }
 }

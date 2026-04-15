@@ -1,15 +1,16 @@
 /*
  * File: BirthdaysJpaAdapter.java
  * Purpose: JPA implementation of BirthdaysQueryPort. Queries the
- * user_demographics table for today's birth month and day, then
- * resolves each userId to an active user. Builds a lean BirthdayUser
- * from the user entity, handling null first/last names gracefully.
+ * user_demographics table for today's birth month and day using
+ * the system default timezone (not UTC) so birthdays match the
+ * local date where the server runs. Builds lean BirthdayUser
+ * records from active users, handling null names gracefully.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.infrastructure.jpa.birthdays;
 
 import java.time.LocalDate;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +35,7 @@ public class BirthdaysJpaAdapter implements BirthdaysQueryPort {
 
   @Override
   public List<BirthdayUser> findTodaysBirthdays() {
-    LocalDate today = LocalDate.now(ZoneOffset.UTC);
+    LocalDate today = LocalDate.now(ZoneId.systemDefault());
     return demographicsRepo
         .findByBirthMonthAndDay(
             today.getMonthValue(), today.getDayOfMonth())

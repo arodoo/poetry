@@ -31,5 +31,13 @@
   "ui.hardware.fingerprints.detail.status": "Status",
   "ui.hardware.fingerprints.detail.version": "Version",
   "ui.hardware.fingerprints.detail.enrolled": "Enrolled At",
-  "ui.hardware.fingerprints.detail.error": "Fingerprint not found or error loading data"
+  "ui.hardware.fingerprints.detail.error": "Fingerprint not found or error loading data",
+  "ui.hardware.scanner.start": "Start Scanning",
+  "ui.hardware.scanner.stop": "Stop Scanning",
+  "ui.hardware.scanner.idle": "Scanner idle — click Start to begin",
+  "ui.hardware.scanner.disconnected": "No reader detected. Connect a fingerprint reader and refresh.",
+  "ui.hardware.fingerprints.delete": "Delete",
+  "ui.hardware.fingerprints.delete.confirm": "Delete this fingerprint?",
+  "ui.hardware.fingerprints.delete.success": "Fingerprint deleted",
+  "ui.hardware.fingerprints.delete.error": "Failed to delete fingerprint"
 }

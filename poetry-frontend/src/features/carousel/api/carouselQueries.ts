@@ -9,7 +9,7 @@ import {
   type CarouselConfig,
 } from '../model/CarouselSchemas'
 
-const BASE = 'http://localhost:8080/api/v1/carousel'
+const BASE = '/api/v1/carousel'
 
 export async function fetchCarouselConfig(): Promise<CarouselConfig> {
   const res = await fetch(`${BASE}/config`)

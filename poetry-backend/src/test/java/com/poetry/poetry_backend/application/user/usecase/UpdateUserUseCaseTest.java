@@ -1,65 +1,58 @@
 /*
  * File: UpdateUserUseCaseTest.java
- * Purpose: Placeholder update use case test.
+ * Purpose: Tests for UpdateUserUseCase: cascade on inactive,
+ * no cascade on active status.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.application.user.usecase;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import com.poetry.poetry_backend.application.user.port.UserCommandPort;
+import com.poetry.poetry_backend.application.fingerprint.port.*;
+import com.poetry.poetry_backend.application.membership.port.MembershipCommandPort;
+import com.poetry.poetry_backend.application.sellercode.port.SellerCodeCommandPort;
+import com.poetry.poetry_backend.application.user.port.*;
+import com.poetry.poetry_backend.application.user.service.UserCascadeService;
 import com.poetry.poetry_backend.domain.user.model.core.User;
 
 class UpdateUserUseCaseTest {
-  @Test
-  void updatesUser() {
-    UserCommandPort commands = new UserCommandPort() {
-      public User create(
-          String f,
-          String l,
-          String e,
-          String u,
-          String loc,
-          String p,
-          Set<String> r,
-          String status) {
-        return null;
-      }
+  private UserCascadeService cascade(MembershipCommandPort mc,
+      SellerCodeCommandPort sc, UserDemographicsCommandPort dc) {
+    var fq = mock(FingerprintQueryPort.class);
+    when(fq.findByUserId(any())).thenReturn(Collections.emptyList());
+    return new UserCascadeService(fq, mock(FingerprintCommandPort.class), mc, sc, dc);
+  }
 
-      public User update(
-          Long id,
-          long version,
-          String f,
-          String l,
-          String e,
-          String loc,
-          Set<String> r,
-          String status) {
-        return new User(id, f, l, e, "u", loc, status, r, null, null, null, version);
-      }
+  private UserCommandPort cmd(String st) {
+    var c = mock(UserCommandPort.class);
+    when(c.update(anyLong(), anyLong(), any(), any(), any(), any(), any(), any()))
+        .thenAnswer(i -> new User(i.getArgument(0),
+            "N", "L", "e", "u", "en", st, Set.of("R"), null, null, null, 1L));
+    return c;
+  }
 
-      public User updatePassword(Long id, long version, String password) {
-        return null;
-      }
+  @Test void cascadesOnInactive() {
+    var mc = mock(MembershipCommandPort.class);
+    var dc = mock(UserDemographicsCommandPort.class);
+    var uc = new UpdateUserUseCase(cmd("inactive"),
+        cascade(mc, mock(SellerCodeCommandPort.class), dc));
+    var u = uc.execute(7L, 1L, "N", "L", "e", "en", Set.of("R"), "inactive");
+    assertEquals("inactive", u.status());
+    verify(mc).softDeleteByUserId(7L);
+    verify(dc).deleteByUserId(7L);
+  }
 
-      public void softDelete(Long id, long version) {
-      }
-    };
-    var uc = new UpdateUserUseCase(commands);
-    var updated = uc.execute(
-        7L,
-        1L,
-        "NF",
-        "NL",
-        "ne",
-        "en",
-        Set.of("R"),
-        "inactive");
-    assertEquals(7L, updated.id());
-    assertEquals("inactive", updated.status());
+  @Test void noCascadeOnActive() {
+    var mc = mock(MembershipCommandPort.class);
+    var uc = new UpdateUserUseCase(cmd("active"),
+        cascade(mc, mock(SellerCodeCommandPort.class), mock(UserDemographicsCommandPort.class)));
+    uc.execute(7L, 1L, "N", "L", "e", "en", Set.of("R"), "active");
+    verify(mc, never()).softDeleteByUserId(anyLong());
   }
 }

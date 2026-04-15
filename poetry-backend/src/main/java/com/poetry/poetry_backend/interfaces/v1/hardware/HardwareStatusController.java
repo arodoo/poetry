@@ -1,7 +1,8 @@
 /*
  * File: HardwareStatusController.java
  * Purpose: REST endpoint for hardware status monitoring.
- * Returns current state of connected fingerprint reader.
+ * Returns current state of connected fingerprint reader
+ * and whether the scanner loop is active.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poetry.poetry_backend.application.fingerprint.port.HidCapturePort;
 import com.poetry.poetry_backend.application.fingerprint.port.HidReaderStatus;
+import com.poetry.poetry_backend.infrastructure.hardware.hid.FingerprintScannerService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,15 +26,22 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class HardwareStatusController {
 
     private final HidCapturePort capturePort;
+    private final FingerprintScannerService scanner;
 
-    public HardwareStatusController(HidCapturePort capturePort) {
+    public HardwareStatusController(
+            HidCapturePort capturePort,
+            FingerprintScannerService scanner) {
         this.capturePort = capturePort;
+        this.scanner = scanner;
     }
 
-    @Operation(operationId = "getHardwareStatus", summary = "Get reader status")
+    @Operation(
+            operationId = "getHardwareStatus",
+            summary = "Get reader status")
     @GetMapping("/status")
     public ResponseEntity<HardwareStatusDto> getStatus() {
         HidReaderStatus status = capturePort.getReaderStatus();
-        return ResponseEntity.ok(HardwareStatusDto.from(status));
+        return ResponseEntity.ok(
+                HardwareStatusDto.from(status, scanner.isRunning()));
     }
 }

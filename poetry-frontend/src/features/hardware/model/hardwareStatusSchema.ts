@@ -12,6 +12,7 @@ export const HardwareStatusSchema = z.object({
   readerModel: z.string().nullable(),
   sdkVersion: z.string().nullable(),
   errorMessage: z.string().nullable(),
+  scanning: z.boolean(),
 })
 
 export type HardwareStatus = z.infer<typeof HardwareStatusSchema>

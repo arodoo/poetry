@@ -26,3 +26,12 @@ springdoc:
     enabled: false
   swagger-ui:
     enabled: false
+
+# Carousel media upload directory (prod: persistent path)
+carousel:
+  upload-dir: ./uploads/carousel
+
+# Multipart upload limits
+spring.servlet.multipart:
+  max-file-size: 200MB
+  max-request-size: 200MB

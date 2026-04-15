@@ -63,4 +63,8 @@ public class SellerCodeJpaAdapter
   public void softDelete(Long id, long version) {
     commandAdapter.softDelete(id, version);
   }
+
+  public void softDeleteByUserId(Long userId) {
+    commandAdapter.softDeleteByUserId(userId);
+  }
 }

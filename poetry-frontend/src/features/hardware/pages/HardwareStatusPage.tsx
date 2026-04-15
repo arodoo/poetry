@@ -1,37 +1,25 @@
 /*
  * File: HardwareStatusPage.tsx
- * Purpose: Hardware status page. Shows reconnection countdown ONLY when
- * the reader is disconnected. Switches to idle state once connected.
+ * Purpose: Hardware status page. Shows reader connection state
+ * and scanner controls. Keeps app usable without a reader.
  * All Rights Reserved. Arodi Emmanuel
  */
 
-import { type ReactElement, useState, useEffect } from 'react'
+import { type ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Heading } from '../../../ui/Heading/Heading'
 import { Text } from '../../../ui/Text/Text'
 import { useHardwareStatusQuery } from '../hooks/useHardwareStatusQuery'
 import { HardwareStatusCard } from '../components/HardwareStatusCard'
+import { ScannerControls } from '../components/ScannerControls'
 import { formatDate } from '../../../shared/utils/dateUtils'
 import { HardwareFingerprintTableShell } from '../components/HardwareFingerprintTableShell'
 
 export function HardwareStatusPage(): ReactElement {
   const t = useT()
-  const { data, isLoading, error, dataUpdatedAt } = useHardwareStatusQuery()
-  const [countdown, setCountdown] = useState(5)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prev) => (prev <= 1 ? 5 : prev - 1))
-    }, 1000)
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
-
-  useEffect(() => {
-    setCountdown(5)
-  }, [dataUpdatedAt])
+  const { data, isLoading, error, dataUpdatedAt } =
+    useHardwareStatusQuery()
 
   if (isLoading) {
     return (
@@ -40,7 +28,6 @@ export function HardwareStatusPage(): ReactElement {
       </div>
     )
   }
-
   if (error || !data) {
     return (
       <div className="p-6" data-testid="hardware-error">
@@ -61,24 +48,8 @@ export function HardwareStatusPage(): ReactElement {
             status={data}
             lastCheck={formatDate(dataUpdatedAt)}
           />
-          {!data.connected && (
-            <Text
-              size="sm"
-              className="mt-4 text-center text-[var(--color-text-muted)]"
-            >
-              {t('ui.hardware.status.reconnecting', { seconds: countdown })}
-            </Text>
-          )}
-          {data.connected && (
-            <Text
-              size="sm"
-              className="mt-4 text-center text-[var(--color-success)]"
-            >
-              {t('ui.hardware.status.listening')}
-            </Text>
-          )}
+          <ScannerControls status={data} />
         </div>
-
         <HardwareFingerprintTableShell />
       </Stack>
     </div>

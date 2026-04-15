@@ -31,5 +31,13 @@
   "ui.hardware.fingerprints.detail.status": "Estado",
   "ui.hardware.fingerprints.detail.version": "Versión",
   "ui.hardware.fingerprints.detail.enrolled": "Registrado En",
-  "ui.hardware.fingerprints.detail.error": "Huella no encontrada o error al cargar datos"
+  "ui.hardware.fingerprints.detail.error": "Huella no encontrada o error al cargar datos",
+  "ui.hardware.scanner.start": "Iniciar Escaneo",
+  "ui.hardware.scanner.stop": "Detener Escaneo",
+  "ui.hardware.scanner.idle": "Escáner inactivo — presiona Iniciar para comenzar",
+  "ui.hardware.scanner.disconnected": "No se detectó lector. Conecta un lector de huellas y actualiza.",
+  "ui.hardware.fingerprints.delete": "Eliminar",
+  "ui.hardware.fingerprints.delete.confirm": "¿Eliminar esta huella dactilar?",
+  "ui.hardware.fingerprints.delete.success": "Huella eliminada",
+  "ui.hardware.fingerprints.delete.error": "Error al eliminar la huella dactilar"
 }

@@ -35,7 +35,7 @@ public class SellerCodeEntity {
   @Column(nullable = false, unique = true, length = 100)
   private String code;
 
-  @Column(nullable = false, length = 100)
+  @Column(nullable = true, length = 100)
   private String organizationId;
 
   @Column(nullable = false)

@@ -34,6 +34,10 @@ public interface MembershipJpaRepository
             + "WHERE m.id = :id AND m.deletedAt IS NULL")
     Optional<MembershipEntity> findActiveById(Long id);
 
+    @Query("SELECT m FROM MembershipEntity m "
+            + "WHERE m.userId = :userId AND m.deletedAt IS NULL")
+    List<MembershipEntity> findActiveByUserId(Long userId);
+
     @Query("SELECT CASE WHEN COUNT(m) > 0 THEN true ELSE false END "
             + "FROM MembershipEntity m "
             + "WHERE m.subscriptionId = :subscriptionId "

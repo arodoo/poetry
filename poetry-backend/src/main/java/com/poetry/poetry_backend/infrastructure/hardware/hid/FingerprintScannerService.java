@@ -1,16 +1,14 @@
 /*
  * File: FingerprintScannerService.java
- * Purpose: Background service that runs a continuous capture loop via the HID
- * SDK and pushes results to WebSocket clients through ScanResultHandler.
- * Replaces HTTP long-polling with an event-driven push architecture.
+ * Purpose: On-demand fingerprint capture service. Does NOT auto-start.
+ * Scanning begins only via startScanner() and stops via stopScanner().
+ * Avoids blocking the app when no reader is connected.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.infrastructure.hardware.hid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import com.poetry.poetry_backend.application.fingerprint.port.HidCapturePort;
@@ -22,7 +20,6 @@ public class FingerprintScannerService {
 
     private static final Logger log =
             LoggerFactory.getLogger(FingerprintScannerService.class);
-    private static final int RETRY_DELAY_MS = 200;
 
     private final ScanResultHandler handler;
     private final HidCapturePort capturePort;
@@ -34,10 +31,16 @@ public class FingerprintScannerService {
         this.capturePort = capturePort;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void startScanner() {
+    public synchronized void startScanner() {
+        if (running) return;
+        if (!capturePort.isReaderConnected()) {
+            log.warn("[Scanner] no reader connected");
+            return;
+        }
         running = true;
-        Thread t = new Thread(this::scanLoop, "fingerprint-scanner");
+        Thread t = new Thread(
+            new ScanLoop(handler, capturePort, this::markStopped, log),
+            "fingerprint-scanner");
         t.setDaemon(true);
         t.start();
         log.info("[Scanner] started");
@@ -49,20 +52,7 @@ public class FingerprintScannerService {
         capturePort.cancelCapture();
     }
 
-    private void scanLoop() {
-        while (running) {
-            try {
-                handler.handleOne();
-            } catch (Exception e) {
-                log.warn("[Scanner] error: {} retrying in {}ms",
-                        e.getMessage(), RETRY_DELAY_MS);
-                try {
-                    Thread.sleep(RETRY_DELAY_MS);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }
-        log.info("[Scanner] stopped");
-    }
+    public boolean isRunning() { return running; }
+
+    void markStopped() { running = false; }
 }
