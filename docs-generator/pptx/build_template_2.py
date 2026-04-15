@@ -1,12 +1,15 @@
 """
 File: docs-generator/pptx/build_template_2.py
-Purpose: Populates template slides 3-8 with intro,
-         problem, objectives, justification, PSP
-         methodology and development with diagrams.
+Purpose: Populates template slides 3-6 with intro,
+         problem, objectives and justification,
+         using fit_img for bounded image placement.
 All Rights Reserved Arodi Emmanuel
 """
 
-from generate_pptx import img, set_body, Inches
+from generate_pptx import (
+    img, set_body, fit_img,
+    Inches, SAFE_BOTTOM,
+)
 from build_template import _footer
 
 
@@ -28,16 +31,16 @@ def intro(s):
 
 
 def problema(s):
-    b = set_body(s,
-                 'Control manual de asistencia: '
-                 'registros en papel, suplantación '
-                 'de identidad y pérdida de ingresos'
-                 ' por membresías vencidas no '
-                 'detectadas a tiempo.',
-                 height=1.5)
-    s.shapes.add_picture(
-        img('fig_problem_triad.png'),
-        Inches(2.5), Inches(4.0), Inches(8.0))
+    set_body(s,
+             'Control manual de asistencia: '
+             'registros en papel, suplantación '
+             'de identidad y pérdida de ingresos'
+             ' por membresías vencidas no '
+             'detectadas a tiempo.',
+             height=1.2)
+    top = 3.8
+    fit_img(s, img('fig_problem_triad.png'),
+            3.0, top, 7.0, SAFE_BOTTOM - top)
     _footer(s)
 
 
@@ -49,7 +52,7 @@ def objetivos(s):
              '2. Validación de membresía < 200ms\n'
              '3. Métricas de asistencia en vivo\n'
              '4. Reportes financieros automáticos',
-             height=3.0)
+             height=2.8)
     _footer(s)
 
 

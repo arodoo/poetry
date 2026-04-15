@@ -7,7 +7,8 @@ All Rights Reserved Arodi Emmanuel
 """
 
 from generate_pptx import (
-    img, set_body, AUTHOR, PROJECT,
+    img, set_body, fit_img,
+    AUTHOR, PROJECT, SAFE_BOTTOM,
     Inches, Pt, DARK,
 )
 
@@ -21,7 +22,11 @@ def _footer(slide):
         if t == 'Proyecto':
             sh.text_frame.paragraphs[0].text = PROJECT
         if t == 'Nombre Completo del Alumno':
+            sh.text_frame.clear()
             sh.text_frame.paragraphs[0].text = AUTHOR
+            sh.width = Inches(4.5)
+            for r in sh.text_frame.paragraphs[0].runs:
+                r.font.size = Pt(9)
 
 
 def portada(s):
@@ -30,6 +35,7 @@ def portada(s):
             continue
         t = sh.text_frame.text
         if 'Título' in t or 'Titulo' in t:
+            sh.text_frame.clear()
             sh.text_frame.paragraphs[0].text = (
                 'Poetry: Acceso Biométrico')
         if 'presentado' in t.lower():
@@ -49,5 +55,5 @@ def agenda(s):
              'V. Metodología PSP\n'
              'VI. Desarrollo y Evidencia\n'
              'VII. Resultados\n'
-             'VIII. Trabajos Futuros', height=3.5)
+             'VIII. Trabajos Futuros', height=3.0)
     _footer(s)

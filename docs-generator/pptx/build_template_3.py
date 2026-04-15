@@ -2,11 +2,14 @@
 File: docs-generator/pptx/build_template_3.py
 Purpose: Populates template slides 7-12: methodology,
          desarrollo, resultados, trabajos futuros,
-         referencias and closing with diagrams.
+         referencias and closing with fit_img.
 All Rights Reserved Arodi Emmanuel
 """
 
-from generate_pptx import img, set_body, Inches, AUTHOR
+from generate_pptx import (
+    img, set_body, fit_img,
+    Inches, AUTHOR, SAFE_BOTTOM,
+)
 from build_template import _footer
 
 
@@ -18,10 +21,9 @@ def metodologia(s):
              'PSP1: Blueprints JSON\n'
              'PSP2: 13 Gates CI/CD\n'
              'PSP2.1: OpenAPI + Catálogo UI',
-             height=2.8)
-    s.shapes.add_picture(
-        img('fig_psp_levels.png'),
-        Inches(6.0), Inches(3.2), Inches(6.5))
+             height=2.5)
+    fit_img(s, img('fig_psp_levels.png'),
+            6.5, 2.8, 6.0, SAFE_BOTTOM - 2.8)
     _footer(s)
 
 
@@ -33,10 +35,10 @@ def desarrollo(s):
              'Testing: JUnit + Playwright E2E\n'
              'Infraestructura: Docker Compose\n'
              'SDK generado desde OpenAPI',
-             height=2.5)
-    s.shapes.add_picture(
-        img('fig_arch.png'),
-        Inches(3.0), Inches(4.5), Inches(7.0))
+             height=2.2)
+    top = 4.5
+    fit_img(s, img('fig_arch.png'),
+            2.5, top, 8.0, SAFE_BOTTOM - top)
     _footer(s)
 
 
@@ -47,10 +49,10 @@ def resultados(s):
              'Docker Compose: despliegue '
              'reproducible\n'
              'ORM JPA: migraciones automáticas',
-             height=2.0)
-    s.shapes.add_picture(
-        img('fig_pyramid.png'),
-        Inches(3.0), Inches(4.2), Inches(7.0))
+             height=1.8)
+    top = 4.3
+    fit_img(s, img('fig_pyramid.png'),
+            3.5, top, 5.5, SAFE_BOTTOM - top)
     _footer(s)
 
 
@@ -71,11 +73,11 @@ def referencias(s):
             sh.text_frame.clear()
             sh.text_frame.paragraphs[0].text = (
                 'Humphrey (2005). PSP.\n'
-                'Martin (2017). Clean Architecture.\n'
-                'Pressman (2014). Ing. Software.\n'
+                'Martin (2017). Clean Arch.\n'
+                'Pressman (2014). Ing. Soft.\n'
                 'Fowler (2010). Contracts.\n'
-                'Nielsen (1993). Usability Eng.')
-            sh.height = Inches(3.0)
+                'Nielsen (1993). Usability.')
+            sh.height = Inches(2.5)
     _footer(s)
 
 
@@ -85,7 +87,8 @@ def gracias(s):
             continue
         t = sh.text_frame.text.strip()
         if t == 'Nombre Completo del Alumno':
+            sh.text_frame.clear()
             sh.text_frame.paragraphs[0].text = AUTHOR
         if t == 'Proyecto':
-            sh.text_frame.paragraphs[0].text = (
-                'Poetry')
+            sh.text_frame.clear()
+            sh.text_frame.paragraphs[0].text = 'Poetry'

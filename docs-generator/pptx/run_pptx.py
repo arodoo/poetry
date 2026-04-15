@@ -56,8 +56,13 @@ def main():
     out = os.path.join(
         os.path.dirname(tpl_path()),
         '..', '..', 'Presentacion_Poetry.pptx')
-    prs.save(os.path.abspath(out))
-    print(f'Saved: {os.path.abspath(out)}')
+    out = os.path.abspath(out)
+    try:
+        prs.save(out)
+    except PermissionError:
+        out = out.replace('.pptx', '_new.pptx')
+        prs.save(out)
+    print(f'Saved: {out}')
     print(f'Slides: {len(prs.slides)}')
 
 
