@@ -9,21 +9,12 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 from src.domain.constants import MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP, MARGIN_BOTTOM, FONT_NAME
 
-def configure_margins(doc, content_top_cm=4):
-    from docx.shared import Cm
-    from docx.enum.section import WD_SECTION
-    for i, section in enumerate(doc.sections):
+def configure_margins(doc):
+    for section in doc.sections:
         section.left_margin = MARGIN_LEFT
         section.right_margin = MARGIN_RIGHT
         section.bottom_margin = MARGIN_BOTTOM
-        if i == 0:
-            # Cover section: use template's own top margin
-            section.top_margin = MARGIN_TOP
-        else:
-            # Content section: use larger top margin so text
-            # clears the institutional header image.
-            section.top_margin = Cm(content_top_cm)
-            section.start_type = WD_SECTION.NEW_PAGE
+        section.top_margin = MARGIN_TOP
 
 def _ensure_style(doc, name, style_type=1): # 1 is WD_STYLE_TYPE.PARAGRAPH
     try:
@@ -101,18 +92,14 @@ def _write_page_number(footer_obj):
     run.font.size = Pt(10)
 
 def set_page_numbers(doc):
-    """Apply PAGE footer to every section while preserving template link headers."""
+    """Apply PAGE footer to every section except cover."""
     for i, section in enumerate(doc.sections):
         if i == 0:
-            # Force true on cover so page 1 is clean
-            section.different_first_page_header_footer = True
-            _write_page_number(section.footer)
-        else:
-            # For section 1+ (content), DO NOT touch different_first_page_header_footer!
-            # The template uses the first page header to store the background image.
-            _write_page_number(section.footer)
-            if section.different_first_page_header_footer:
-                _write_page_number(section.first_page_footer)
+            continue
+        section.footer.is_linked_to_previous = False
+        _write_page_number(section.footer)
+        section.first_page_footer.is_linked_to_previous = False
+        _write_page_number(section.first_page_footer)
 
 
 def setup_document_styles(doc):

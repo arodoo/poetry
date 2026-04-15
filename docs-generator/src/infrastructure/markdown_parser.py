@@ -29,8 +29,7 @@ _FIGURE_MAP = {
     'fig_metrics':  'fig_metrics.png',
     'fig_hardware_admin': (
         'fig_admin_hardware_view'
-        '(check_finger_print_status_and_'
-        'enrrolled_fingerprints)admin_only.png'),
+        '(check_finger_print_status_only.png'),
     'fig_theme_change': (
         'fig_cambio_de_tema(otro_tema_ha_sido'
         '_seleccionado_y_la_interfaz_ha_'

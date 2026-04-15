@@ -43,26 +43,46 @@ def render_cover_page(doc):
 
     doc.add_page_break()
 
+def _clear_section_headers(section):
+    """Give section an empty header so it does NOT inherit."""
+    section.header.is_linked_to_previous = False
+    for p in section.header.paragraphs:
+        p.clear()
+    section.first_page_header.is_linked_to_previous = False
+    for p in section.first_page_header.paragraphs:
+        p.clear()
+    sectPr = section._sectPr
+    for el in sectPr.findall(qn('w:titlePg')):
+        sectPr.remove(el)
+
+
 def render_acknowledgments(doc):
+    """Render acknowledgments in its own headerless section."""
+    from docx.enum.section import WD_SECTION
+
     h = doc.add_heading('AGRADECIMIENTOS', level=1)
     h.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     for run in h.runs:
         run.font.underline = False
         run.font.color.rgb = RGBColor(*COLOR_BLACK)
 
+    dedication = (
+        'A mi familia, a mis amigos, '
+        'a mis profesores y a mi naci\u00f3n.'
+    )
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p.paragraph_format.line_spacing = 1.5
     p.paragraph_format.space_before = Pt(12)
-
-    text = (
-        "A todo aquel a quien corresponda."
-    )
-    run = p.add_run(text)
+    run = p.add_run(dedication)
     run.font.name = FONT_NAME
     run.font.size = Pt(12)
 
-    doc.add_page_break()
+    doc.add_section(WD_SECTION.NEW_PAGE)
+    ack_sec = doc.sections[-2]
+    content_sec = doc.sections[-1]
+    _clear_section_headers(ack_sec)
+    _clear_section_headers(content_sec)
 
 def _enable_auto_update_fields(doc):
     """Set updateFields=true so Word recalculates TOC on open."""
@@ -142,17 +162,21 @@ def render_list_of_figures(doc):
         ('Figura 2.2', 'Arquitectura Limpia — Martin, 2017'),
         ('Figura 2.3', 'Principios SOLID — Martin, 2002'),
         ('Figura 2.4', 'Reconciliación del Virtual DOM'),
-        ('Figura 3.2', 'Arquitectura de Contenedores (C4 L2)'),
-        ('Figura 3.3', 'Esquema Entidad-Relación (3NF)'),
-        ('Figura 3.4', 'Secuencia de Autenticación Biométrica'),
-        ('Figura 3.5', 'Capas Tecnológicas del Sistema'),
+        ('Figura 3.1', 'Niveles PSP del proyecto'),
+        ('Figura 3.2', 'Secuencia de Autenticación Biométrica'),
+        ('Figura 3.3', 'Arquitectura de Contenedores (C4 L2)'),
+        ('Figura 3.4', 'Pipeline CI/CD local'),
+        ('Figura 3.5', 'Flujo de Generación SDK'),
+        ('Figura 3.6', 'Esquema Entidad-Relación (3NF)'),
+        ('Figura 3.7', 'Capas Tecnológicas del Sistema'),
+        ('Figura 3.8', 'Árbol de Componentes React'),
         ('Figura 4.1', 'Pirámide de Pruebas — Cohn, 2009'),
         ('Figura 4.2', 'Interfaz de acceso biométrico'),
         ('Figura 4.3', 'Dashboard principal de administración'),
         ('Figura 4.4', 'Panel estadístico y métricas'),
         ('Figura 4.5', 'Gestión de usuarios'),
         ('Figura 4.6', 'Venta de membresía'),
-        ('Figura 4.7', 'Panel de hardware biométrico (ADMIN)'),
+        ('Figura 4.7', 'Estado del lector biométrico (ADMIN)'),
         ('Figura 4.8', 'Controles de personalización'),
         ('Figura 4.9', 'Cambio de tema en tiempo real'),
         ('Figura 4.10', 'Carrusel de imágenes'),

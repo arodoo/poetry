@@ -10,7 +10,10 @@ import docx
 from docx.shared import RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
-from src.infrastructure.docx_styles_adapter import setup_document_styles
+from src.infrastructure.docx_styles_adapter import (
+    setup_document_styles, configure_heading_styles,
+    configure_normal_style
+)
 from src.infrastructure.docx_components_adapter import (
     render_acknowledgments, render_table_of_contents, render_list_of_figures
 )
@@ -98,8 +101,12 @@ def build_thesis_document():
     # Trim all old content from the template after the cover pages
     _trim_template_after_cover(doc)
 
-    setup_document_styles(doc)
+    # Styles must exist before rendering headings
+    configure_normal_style(doc)
+    configure_heading_styles(doc)
     render_acknowledgments(doc)
+    # Margins and page numbers after all sections exist
+    setup_document_styles(doc)
 
     prelim_dir = os.path.join(content_base, 'preliminares')
     if os.path.exists(prelim_dir):
@@ -145,6 +152,6 @@ def build_thesis_document():
     # so Word's TOC field can detect them (paragraph-level, not style-level).
     _fix_all_heading_outline_levels(doc)
 
-    output_path = os.path.abspath(os.path.join(content_base, '..', '..', 'Tesis_Poetry_v45.docx'))
+    output_path = os.path.abspath(os.path.join(content_base, '..', '..', 'Tesis Arodi v2.docx'))
     doc.save(output_path)
     print(f'Saved: {output_path}')
