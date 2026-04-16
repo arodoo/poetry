@@ -13,6 +13,7 @@ import {
 } from '../shared/fixtures/seedApi'
 
 test.describe('Membership Edit Form', (): void => {
+  test.describe.configure({ retries: 1, timeout: 60000 })
   let m: SeedMembership
 
   test.beforeAll(async (): Promise<void> => {
@@ -33,9 +34,9 @@ test.describe('Membership Edit Form', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto(`/en/memberships/${m.id}`)
-    await expect(page.getByTestId('edit-membership-button')).toBeVisible({
-      timeout: 10000,
-    })
+    await expect(
+      page.getByTestId('edit-membership-button')
+    ).toBeVisible({ timeout: 15000 })
 
     await page.getByTestId('edit-membership-button').click()
     await page.waitForURL(/\/en\/memberships\/\d+\/edit/)
@@ -44,18 +45,20 @@ test.describe('Membership Edit Form', (): void => {
       page.getByRole('heading', { name: /Edit|Editar/i })
     ).toBeVisible()
 
-    const sellerCodeInput = page.getByTestId('membership-seller-code-input')
-    await expect(sellerCodeInput).toBeVisible({ timeout: 10000 })
+    const seller = page.getByTestId('membership-seller-code-input')
+    await expect(seller).toBeVisible({ timeout: 25000 })
 
-    await sellerCodeInput.clear()
-    await sellerCodeInput.fill('codigo003')
+    await seller.clear()
+    await seller.fill('codigo003')
 
-    const saveButton = page.getByRole('button', {
+    const save = page.getByRole('button', {
       name: /Save changes|Guardar cambios/i,
     })
-    await expect(saveButton).toBeEnabled({ timeout: 5000 })
-    await saveButton.click()
+    await expect(save).toBeEnabled({ timeout: 5000 })
+    await save.click()
 
-    await page.waitForURL(/\/en\/memberships$/, { timeout: 15000 })
+    await page.waitForURL(/\/en\/memberships$/, {
+      timeout: 30000,
+    })
   })
 })

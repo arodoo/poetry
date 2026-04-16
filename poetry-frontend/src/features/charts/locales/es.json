@@ -7,6 +7,7 @@
   "ui.charts.subscriptionsByDuration": "Duración de Suscripciones",
 
   "ui.charts.sellerCodesByStatus": "Códigos de Vendedor",
+  "ui.charts.scheduledEventsByStatus": "Eventos Programados",
   "ui.charts.birthdaysThisMonth": "Cumpleaños este Mes",
   "ui.charts.events.refresh.issue": "Refresh Emitido",
   "ui.charts.events.login.success": "Inicio de Sesión Exitoso",

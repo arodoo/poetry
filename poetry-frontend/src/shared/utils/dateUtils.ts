@@ -25,3 +25,22 @@ export function formatDate(
     return '-'
   }
 }
+
+/** Formats into DD-MM-YYYY HH:mm. Returns '-' if invalid. */
+export function formatDateTime(
+  date: string | number | Date | null | undefined
+): string {
+  if (!date) return '-'
+  try {
+    const d = new Date(date)
+    if (isNaN(d.getTime())) return '-'
+    const day = String(d.getDate()).padStart(2, '0')
+    const mo = String(d.getMonth() + 1).padStart(2, '0')
+    const yr = d.getFullYear()
+    const hr = String(d.getHours()).padStart(2, '0')
+    const mn = String(d.getMinutes()).padStart(2, '0')
+    return `${day}-${mo}-${yr} ${hr}:${mn}`
+  } catch {
+    return '-'
+  }
+}

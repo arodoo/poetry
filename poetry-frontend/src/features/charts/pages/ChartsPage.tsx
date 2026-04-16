@@ -12,6 +12,7 @@ import { EventsByTypeChart } from '../components/EventsByTypeChart'
 import { SubscriptionsByDurationChart } from '../components/SubscriptionsByDurationChart'
 
 import { SellerCodesByStatusChart } from '../components/SellerCodesByStatusChart'
+import { ScheduledEventsChart } from '../components/ScheduledEventsChart'
 import { BirthdaysThisMonthChart } from '../components/BirthdaysThisMonthChart'
 import { MostActiveHoursChart } from '../components/MostActiveHoursChart'
 import { MostPopulatedRegionsChart } from '../components/MostPopulatedRegionsChart'
@@ -57,6 +58,9 @@ export function ChartsPage(): ReactElement {
         <EventsByTypeChart data={data?.eventsByType ?? {}} />
         <SubscriptionsByDurationChart
           data={data?.subscriptionsByDuration ?? {}}
+        />
+        <ScheduledEventsChart
+          data={data?.scheduledEventsByStatus ?? {}}
         />
         <SellerCodesByStatusChart data={data?.sellerCodesByStatus ?? {}} />
       </div>

@@ -23,12 +23,17 @@ test.describe('Carousel – no hardcoded localhost', () => {
     await injectTokens(page)
     await page.goto('/en/dashboard')
     await page.waitForTimeout(3000)
-    const hardcoded = urls.filter((u) =>
-      u.includes('localhost:8080')
+    expect(
+      urls.length,
+      'At least one carousel request'
+    ).toBeGreaterThan(0)
+    const origin = new URL(page.url()).origin
+    const foreign = urls.filter(
+      (u) => !u.startsWith(origin)
     )
     expect(
-      hardcoded,
-      'No carousel request should use localhost:8080'
+      foreign,
+      'All carousel requests use current origin'
     ).toHaveLength(0)
   })
 })

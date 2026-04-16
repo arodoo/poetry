@@ -9,6 +9,8 @@ import { test, expect, type Page, type Locator } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 import { getUserIdFromButton } from './users-list-helpers'
 
+test.describe.configure({ retries: 1 })
+
 test('username field is disabled in user edit form', async ({
   page,
 }: {

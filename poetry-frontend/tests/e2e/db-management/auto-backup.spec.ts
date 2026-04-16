@@ -43,31 +43,31 @@ test.describe('Auto Backup - 4th tab', () => {
   })
 
   test('displays backup list with buttons', async ({ page }) => {
-    await page.goto('http://localhost:5173/es/db-management')
-    await page.getByRole('tab', { name: 'Respaldo Automático' }).click()
+    await page.goto('/en/db-management')
+    await page.getByRole('tab', { name: 'Auto Backup' }).click()
     await page.waitForTimeout(500)
     await expect(
-      page.getByRole('button', { name: 'Descargar' }).first()
+      page.getByRole('button', { name: 'Download' }).first()
     ).toBeVisible({ timeout: 15000 })
   })
 
   test('delete button opens confirmation dialog', async ({ page }) => {
-    await page.goto('http://localhost:5173/es/db-management')
-    await page.getByRole('tab', { name: 'Respaldo Automático' }).click()
+    await page.goto('/en/db-management')
+    await page.getByRole('tab', { name: 'Auto Backup' }).click()
     await page
-      .getByRole('button', { name: 'Eliminar' })
+      .getByRole('button', { name: 'Delete' })
       .first()
       .click({ timeout: 15000 })
-    await expect(page.getByText(/¿Estás seguro/i)).toBeVisible()
+    await expect(page.getByText(/Are you sure/i)).toBeVisible()
   })
 
   test('restore button opens confirmation dialog', async ({ page }) => {
-    await page.goto('http://localhost:5173/es/db-management')
-    await page.getByRole('tab', { name: 'Respaldo Automático' }).click()
+    await page.goto('/en/db-management')
+    await page.getByRole('tab', { name: 'Auto Backup' }).click()
     await page
-      .getByRole('button', { name: 'Restaurar' })
+      .getByRole('button', { name: 'Restore' })
       .first()
       .click({ timeout: 15000 })
-    await expect(page.getByText(/¿Estás seguro/i)).toBeVisible()
+    await expect(page.getByText(/Are you sure/i)).toBeVisible()
   })
 })

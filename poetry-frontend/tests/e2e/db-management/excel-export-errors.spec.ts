@@ -11,7 +11,7 @@ import { injectTokens } from '../shared/providers/tokenProvider'
 
 const TABLES_ROUTE = '**/api/v1/db-management/tables'
 const EXCEL_ROUTE = '**/api/v1/db-management/export/excel**'
-const ERROR_TOAST = 'Error al exportar a Excel'
+const ERROR_TOAST = 'Excel export failed'
 
 const STUB_TABLES = JSON.stringify([
   { name: 'users', rowCount: 10 },
@@ -27,7 +27,7 @@ async function setupPage(page: Page): Promise<void> {
       body: STUB_TABLES,
     })
   })
-  await page.goto('http://localhost:5173/es/db-management')
+  await page.goto('/en/db-management')
   await expect(
     page.getByTestId('excel-export-btn')
   ).toBeVisible({ timeout: 10_000 })

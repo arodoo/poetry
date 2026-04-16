@@ -25,7 +25,7 @@ test.describe('Seller Code – nullable orgId', () => {
     const ctx = await adminCtx()
     const code = `NOORG-${Date.now()}`
     const resp = await ctx.post('/api/v1/seller-codes', {
-      data: { code, userId: 1, organizationId: null },
+      data: { code, userId: 1, organizationId: null, status: 'ACTIVE' },
     })
     expect(resp.status()).toBeLessThan(300)
     const body = (await resp.json()) as { id: number; code: string }
@@ -38,7 +38,7 @@ test.describe('Seller Code – nullable orgId', () => {
     const ctx = await adminCtx()
     const code = `EMPTYORG-${Date.now()}`
     const resp = await ctx.post('/api/v1/seller-codes', {
-      data: { code, userId: 1, organizationId: '' },
+      data: { code, userId: 1, organizationId: '', status: 'ACTIVE' },
     })
     expect(resp.status()).toBeLessThan(300)
     const body = (await resp.json()) as { id: number }

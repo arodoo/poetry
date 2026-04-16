@@ -12,6 +12,7 @@ import { EventsByTypeChart } from './EventsByTypeChart'
 import { SubscriptionsByDurationChart } from './SubscriptionsByDurationChart'
 
 import { SellerCodesByStatusChart } from './SellerCodesByStatusChart'
+import { ScheduledEventsChart } from './ScheduledEventsChart'
 import { BirthdaysThisMonthChart } from './BirthdaysThisMonthChart'
 import { MostActiveHoursChart } from './MostActiveHoursChart'
 import { MostPopulatedRegionsChart } from './MostPopulatedRegionsChart'
@@ -48,6 +49,10 @@ export function ChartRenderer({
       )
     case 'sellerCodesByStatus':
       return <SellerCodesByStatusChart data={data.sellerCodesByStatus} />
+    case 'scheduledEventsByStatus':
+      return (
+        <ScheduledEventsChart data={data.scheduledEventsByStatus} />
+      )
     default:
       return <div className="p-4">{t('ui.common.notFound')}</div>
   }

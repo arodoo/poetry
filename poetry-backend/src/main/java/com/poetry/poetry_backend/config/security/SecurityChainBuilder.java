@@ -1,14 +1,12 @@
 /*
  * File: SecurityChainBuilder.java
  * Purpose: Builds the SecurityFilterChain with all authorization
- * rules. In desktop mode, permits every non-API path so the SPA
- * loads without tokens (PathLocaleFilter strips /en/ /es/ before
- * security evaluates, so a wildcard non-API matcher is needed).
+ * rules. Permits every non-API path so the embedded SPA loads
+ * without tokens. API routes require JWT authentication.
  * All Rights Reserved. Arodi Emmanuel
  */
 package com.poetry.poetry_backend.config.security;
 
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,12 +21,6 @@ import com.poetry.poetry_backend.infrastructure.security.JwtAuthFilter;
 
 final class SecurityChainBuilder {
 
-  private final Environment env;
-
-  SecurityChainBuilder(Environment env) {
-    this.env = env;
-  }
-
   SecurityFilterChain build(
       HttpSecurity http,
       CorsConfigurationSource corsSource,
@@ -39,11 +31,9 @@ final class SecurityChainBuilder {
         .sessionManagement(sm ->
             sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(reg -> {
-          if (isDesktop()) {
-            reg.requestMatchers(new NegatedRequestMatcher(
-                new RegexRequestMatcher("^/api/.*", null)
-            )).permitAll();
-          }
+          reg.requestMatchers(new NegatedRequestMatcher(
+              new RegexRequestMatcher("^/api/.*", null)
+          )).permitAll();
           PublicEndpoints.configure(reg);
         })
         .httpBasic(AbstractHttpConfigurer::disable)
@@ -52,12 +42,5 @@ final class SecurityChainBuilder {
         new JwtAuthFilter(props),
         UsernamePasswordAuthenticationFilter.class);
     return http.build();
-  }
-
-  private boolean isDesktop() {
-    for (String p : env.getActiveProfiles()) {
-      if ("desktop".equals(p)) return true;
-    }
-    return false;
   }
 }

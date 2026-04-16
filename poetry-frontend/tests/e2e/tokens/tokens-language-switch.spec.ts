@@ -11,10 +11,8 @@ import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 import { selectOption } from '../shared/helpers/searchableSelectHelper'
 
-const VITE = 'http://localhost:5173'
-
 async function goToTokensPage(page: Page, locale: 'en' | 'es'): Promise<void> {
-  await page.goto(`${VITE}/${locale}/admin/tokens`)
+  await page.goto(`/${locale}/admin/tokens`)
   await page.waitForLoadState('networkidle')
 }
 

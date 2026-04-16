@@ -10,7 +10,10 @@ import { test, expect, request as pw } from '@playwright/test'
 import { getAuthTokens, injectTokens } from '../shared/providers/tokenProvider'
 
 const API = 'http://localhost:8080'
-const TODAY = new Date().toISOString().slice(0, 10)
+const d = new Date()
+const TODAY = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
+  .map((n) => String(n).padStart(2, '0'))
+  .join('-')
 let adminId = 1
 
 async function putDemographics(birthDate: string | null): Promise<void> {

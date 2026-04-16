@@ -1,17 +1,16 @@
 /*
  * File: SpaForwardController.java
- * Purpose: Catch-all error handler active only in "desktop" profile.
- * Forwards unknown non-API routes to /index.html for SPA routing.
- * API paths keep their original error status and empty body.
+ * Purpose: Catch-all error handler for SPA routing.
+ * Forwards unknown non-API routes to /index.html.
+ * API paths keep their original error status.
  * All Rights Reserved. Arodi Emmanuel
  */
 
-package com.poetry.poetry_backend.config.desktop;
+package com.poetry.poetry_backend.config.web;
 
 import java.io.IOException;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-@Profile("desktop")
 public class SpaForwardController implements ErrorController {
 
   @RequestMapping("/error")

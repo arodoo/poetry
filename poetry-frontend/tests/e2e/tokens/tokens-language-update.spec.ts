@@ -37,6 +37,11 @@ test.describe('Tokens Admin - Language Update', (): void => {
     await page.waitForLoadState('networkidle')
     await selectOption(page, 'token-field-language', 'en')
     await page.click('button[type="submit"]')
+
+    await expect(
+      page.getByText(/updated|actualizados/i)
+    ).toBeVisible({ timeout: 10000 })
+
     await page.waitForURL(/\/en\//, { timeout: 15000 })
   })
 })

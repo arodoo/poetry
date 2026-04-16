@@ -4,6 +4,7 @@
  All Rights Reserved. Arodi Emmanuel
 */
 import { type ReactElement } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useTokensQuery } from '../hooks/useTokensQueries'
 import { useUpdateSelectionMutation } from '../hooks/useTokensMutations'
 import { useT } from '../../../shared/i18n/useT'
@@ -21,6 +22,8 @@ import { getSafeInitial } from '../model/tokensUtils'
 export function AdminTokensPage(): ReactElement {
   const t: (k: I18nKey) => string = useT()
   const { locale } = useLocale()
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   const toast = useToast()
   const { data, isLoading, error } = useTokensQuery()
   const mutation = useUpdateSelectionMutation()
@@ -38,6 +41,8 @@ export function AdminTokensPage(): ReactElement {
     current: bundle.current,
     t,
     toast,
+    navigate,
+    currentPathname: pathname,
     mutate: mutation.mutate,
   })
 

@@ -60,6 +60,7 @@ test.describe('Switch visual styles', (): void => {
       (el: Element) => getComputedStyle(el).backgroundColor
     )
     await sw.click()
+    await page.waitForTimeout(500)
     const bgAfter = await sw.evaluate(
       (el: Element) => getComputedStyle(el).backgroundColor
     )

@@ -39,6 +39,7 @@ export function AutoBackupSection(): ReactElement {
   const q = useAutoBackupsQuery(0, 10, search, toSortParam(sort))
   const data: AutoBackupRow[] = q.data?.content ?? []
   const cols = buildAutoBackupColumns(
+    t,
     handleDownload,
     (i, n) => {
       setDel({ id: i, name: n })

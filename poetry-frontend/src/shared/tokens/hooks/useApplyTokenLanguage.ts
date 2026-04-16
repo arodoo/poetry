@@ -8,10 +8,9 @@
  */
 import { useContext, useEffect, useRef } from 'react'
 import { I18nCtx } from '../../i18n/context'
-import { getCurrentLocale } from '../../routing/localeUtils'
 
-// URL sync (replaceState → navigate) is handled by useLocaleUrlSync
-// inside the Router context. This hook only updates the i18n locale state.
+// URL sync is handled by useLocaleUrlSync + tokensLocaleNav.
+// This hook only updates the i18n locale state.
 export default function useApplyTokenLanguage(
   language: string | undefined
 ): void {
@@ -23,7 +22,6 @@ export default function useApplyTokenLanguage(
     if (!language || !setLocale) return
     if (prevRef.current === language) return
     prevRef.current = language
-    if (language === getCurrentLocale()) return
     setLocale(language)
   }, [language, setLocale])
 }
