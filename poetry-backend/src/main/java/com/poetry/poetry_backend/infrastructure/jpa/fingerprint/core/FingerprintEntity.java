@@ -33,7 +33,7 @@ public class FingerprintEntity {
   @EqualsAndHashCode.Include
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private Long userId;
 
   @Column(name = "fmd", columnDefinition = "TEXT")

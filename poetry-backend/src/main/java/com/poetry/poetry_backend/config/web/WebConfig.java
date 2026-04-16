@@ -26,19 +26,21 @@ public class WebConfig {
   @Bean
   CorsConfigurationSource corsSource(AppConfigPort cfg) {
     var c = new CorsConfiguration();
-    List<String> origins = cfg.corsAllowedOrigins();
-    // Explicit origins + patterns to satisfy dev localhost variants.
-    c.setAllowedOrigins(origins);
-    c.setAllowedOriginPatterns(origins);
-    c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    c.setAllowedOrigins(cfg.corsAllowedOrigins());
+    c.setAllowedOriginPatterns(
+      PrivateNetCorsPatterns.build(cfg.corsAllowedOrigins())
+    );
+    c.setAllowedMethods(
+      List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
+    );
     c.setAllowedHeaders(List.of("*"));
     c.setExposedHeaders(List.of("ETag", "Content-Type"));
     c.setAllowCredentials(true);
     c.setMaxAge(3600L);
-    
-    var source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/api/**", c);
-    source.registerCorsConfiguration("/ws/**", c);
-    return source;
+
+    var src = new UrlBasedCorsConfigurationSource();
+    src.registerCorsConfiguration("/api/**", c);
+    src.registerCorsConfiguration("/ws/**", c);
+    return src;
   }
 }
