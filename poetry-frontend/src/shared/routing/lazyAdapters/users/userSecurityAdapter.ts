@@ -6,8 +6,7 @@
 import { lazy } from 'react'
 
 export const UserSecurityPageLazy = lazy(async () => {
-  const { default: UserSecurityPage } = await import(
-    '../../../../features/users/pages/UserSecurityPage'
-  )
+  const { default: UserSecurityPage } =
+    await import('../../../../features/users/pages/UserSecurityPage')
   return { default: UserSecurityPage }
 })

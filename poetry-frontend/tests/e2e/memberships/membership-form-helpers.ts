@@ -7,9 +7,7 @@
  */
 import { type Page, expect } from '@playwright/test'
 import { authedApi } from '../shared/fixtures/seedApi'
-import {
-  selectFirstOption,
-} from '../shared/helpers/searchableSelectHelper'
+import { selectFirstOption } from '../shared/helpers/searchableSelectHelper'
 
 interface MembershipItem {
   id: number
@@ -19,14 +17,16 @@ interface MembershipItem {
 export async function deleteAdminMemberships(): Promise<void> {
   const api = await authedApi()
   const r = await api.get('/api/v1/memberships?size=100')
-  if (!r.ok()) { await api.dispose(); return }
+  if (!r.ok()) {
+    await api.dispose()
+    return
+  }
   const data = await r.json()
   const items: MembershipItem[] = Array.isArray(data)
     ? (data as MembershipItem[])
     : ((data as { content?: MembershipItem[] }).content ?? [])
   for (const m of items.filter((i) => i.userId === 1)) {
-    await api.delete(`/api/v1/memberships/${m.id}`)
-      .catch(() => {})
+    await api.delete(`/api/v1/memberships/${m.id}`).catch(() => {})
   }
   await api.dispose()
 }
@@ -36,7 +36,7 @@ export async function pickUserAndWaitEligibility(
   search: string
 ): Promise<void> {
   await selectFirstOption(page, 'user-search-input', search)
-  await expect(
-    page.getByTestId('submit-membership-button')
-  ).toBeVisible({ timeout: 15000 })
+  await expect(page.getByTestId('submit-membership-button')).toBeVisible({
+    timeout: 15000,
+  })
 }

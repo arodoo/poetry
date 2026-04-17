@@ -18,9 +18,7 @@ const ALLOWED_ORIGINS = [
 
 test.describe('CORS — LAN access', (): void => {
   for (const origin of ALLOWED_ORIGINS) {
-    test(`preflight allows ${origin}`, async ({
-      request,
-    }): Promise<void> => {
+    test(`preflight allows ${origin}`, async ({ request }): Promise<void> => {
       const r = await request.fetch(API, {
         method: 'OPTIONS',
         headers: {

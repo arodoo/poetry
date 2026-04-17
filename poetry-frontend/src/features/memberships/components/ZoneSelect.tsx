@@ -46,20 +46,19 @@ export default function ZoneSelect({
       />
       {!allZones && zones.length > 0 && (
         <div className="flex flex-wrap gap-3 mt-2">
-          {zones.map((zone: ZoneResponse): ReactElement => (
-            <label
-              key={zone.id}
-              className="flex items-center gap-1 text-sm"
-            >
-              <Checkbox
-                checked={zoneIds.includes(zone.id ?? 0)}
-                onChange={(e): void => {
-                  toggle(zone.id ?? 0, e.target.checked)
-                }}
-              />
-              {zone.name}
-            </label>
-          ))}
+          {zones.map(
+            (zone: ZoneResponse): ReactElement => (
+              <label key={zone.id} className="flex items-center gap-1 text-sm">
+                <Checkbox
+                  checked={zoneIds.includes(zone.id ?? 0)}
+                  onChange={(e): void => {
+                    toggle(zone.id ?? 0, e.target.checked)
+                  }}
+                />
+                {zone.name}
+              </label>
+            )
+          )}
         </div>
       )}
     </div>

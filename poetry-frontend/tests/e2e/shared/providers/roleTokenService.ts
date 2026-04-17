@@ -33,9 +33,7 @@ async function api(): Promise<APIRequestContext> {
   return request.newContext({ baseURL: BASE })
 }
 
-export async function loginAs(
-  role: 'admin' | 'manager'
-): Promise<RoleTokens> {
+export async function loginAs(role: 'admin' | 'manager'): Promise<RoleTokens> {
   const ctx = await api()
   const resp = await ctx.post('/api/v1/auth/login', {
     data: { username: ROLE_USERS[role], password: PASS },

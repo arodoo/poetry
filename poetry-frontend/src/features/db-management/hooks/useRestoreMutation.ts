@@ -12,7 +12,6 @@ import type { RestoreResult } from '../model/dbManagementTypes'
 
 export function useRestoreMutation() {
   return useMutation<RestoreResult, Error, File>({
-    mutationFn: (file: File) =>
-      uploadRestore(file),
+    mutationFn: (file: File) => uploadRestore(file),
   })
 }

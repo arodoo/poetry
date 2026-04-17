@@ -37,10 +37,12 @@ export const SelectRow: React.MemoExoticComponent<
 
   const selectOptions: SelectOption[] = useMemo(
     () =>
-      safe.map((o: SelectRowOption): SelectOption => ({
-        value: o.key,
-        label: o.label,
-      })),
+      safe.map(
+        (o: SelectRowOption): SelectOption => ({
+          value: o.key,
+          label: o.label,
+        })
+      ),
     [safe]
   )
 

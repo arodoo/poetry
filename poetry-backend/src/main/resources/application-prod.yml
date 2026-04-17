@@ -1,5 +1,8 @@
 # File: application-prod.yml
-# Purpose: Production profile with persistent database
+# Purpose: Production profile with persistent database. Forces
+# a non-destructive Hibernate schema strategy and disables all
+# sample-data bootstrappers so deploying a new app version on
+# a client machine never rewrites the existing database.
 # All Rights Reserved. Arodi Emmanuel
 
 spring:
@@ -9,6 +12,13 @@ spring:
       enabled: false
     livereload:
       enabled: false
+  jpa:
+    hibernate:
+      # `update` keeps client rows, only applies new schema
+      # deltas. SafeDdlGuard fails startup if this is set to
+      # a destructive value such as create or create-drop.
+      ddl-auto: update
+    show-sql: false
 
   # Production logging
   logging:
@@ -17,6 +27,9 @@ spring:
 
 # Production server settings
 server:
+  # Bind to all network interfaces for LAN access via
+  # http://boops.mx:8080 (hosts-file entry on each client).
+  address: 0.0.0.0
   error:
     include-stacktrace: never
 
@@ -35,3 +48,17 @@ carousel:
 spring.servlet.multipart:
   max-file-size: 200MB
   max-request-size: 200MB
+
+# Data-safety: block sample-data injection in production so the
+# client database is never polluted or overwritten on restarts.
+admin:
+  bootstrap:
+    injectSampleUsers: false
+    sampleCount: 0
+membership:
+  bootstrap:
+    enabled: false
+    count: 0
+zone:
+  bootstrap:
+    count: 0

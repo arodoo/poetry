@@ -18,9 +18,8 @@ vi.mock('../../../../features/account/pages/SecurityPage', () => ({
 
 describe('AccountPage.wiring', () => {
   it('renders SecurityPage once', async () => {
-    const { default: AccountPage } = await import(
-      '../../../../features/account/pages/AccountPage'
-    )
+    const { default: AccountPage } =
+      await import('../../../../features/account/pages/AccountPage')
     render(createElement(AccountPage))
     expect(mocks.SecurityPage).toHaveBeenCalledTimes(1)
   })

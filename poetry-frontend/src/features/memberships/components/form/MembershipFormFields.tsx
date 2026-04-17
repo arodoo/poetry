@@ -62,11 +62,7 @@ export function MembershipFormFields({
         onChange={onSellerCodeChange}
         placeholder={t('ui.memberships.form.sellerCode.placeholder')}
       />
-      <StatusSelect
-        value={values.status}
-        onChange={onStatusChange}
-        t={t}
-      />
+      <StatusSelect value={values.status} onChange={onStatusChange} t={t} />
       <ZoneSelect
         zones={zones}
         zoneIds={values.zoneIds}

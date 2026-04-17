@@ -32,10 +32,7 @@ export function RestoreConfirmDialog({
       size="sm"
       labelledBy="restore-confirm-title"
     >
-      <div
-        className="p-6"
-        data-testid="restore-confirm-dialog"
-      >
+      <div className="p-6" data-testid="restore-confirm-dialog">
         <div id="restore-confirm-title">
           <Heading level={3}>
             {t('ui.dbManagement.restore.confirm.title')}

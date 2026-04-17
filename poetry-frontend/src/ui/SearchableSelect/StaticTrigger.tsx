@@ -31,9 +31,7 @@ export function StaticTrigger(props: StaticTriggerProps): ReactElement {
       onClick={onClick}
     >
       {displayText || (
-        <span className="text-textMuted">
-          {placeholder ?? 'Select\u2026'}
-        </span>
+        <span className="text-textMuted">{placeholder ?? 'Select\u2026'}</span>
       )}
     </button>
   )

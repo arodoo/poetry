@@ -10,16 +10,13 @@ import {
   injectTokens,
   waitForCssChange,
 } from '../shared/providers/tokenProvider'
-import { selectDifferentOption } from
-  '../shared/helpers/searchableSelectHelper'
+import { selectDifferentOption } from '../shared/helpers/searchableSelectHelper'
 
 const TID = 'token-field-font'
 test.setTimeout(120000)
 
 test.describe('Tokens UI - Font Visual', (): void => {
-  test('updates font-family after save', async ({
-    page,
-  }): Promise<void> => {
+  test('updates font-family after save', async ({ page }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
     await page.waitForLoadState('networkidle')
@@ -35,12 +32,9 @@ test.describe('Tokens UI - Font Visual', (): void => {
     await page.click('button[type="submit"]')
 
     const toast = /updated|actualizados/i
-    await expect(page.getByText(toast))
-      .toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(toast)).toBeVisible({ timeout: 5000 })
 
-    await waitForCssChange(
-      page, 'document', 'fontFamily', before
-    )
+    await waitForCssChange(page, 'document', 'fontFamily', before)
     const after = await page.evaluate(
       () => getComputedStyle(document.body).fontFamily
     )

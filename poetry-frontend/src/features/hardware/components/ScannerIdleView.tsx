@@ -22,8 +22,10 @@ export function ScannerIdleView(p: Props): ReactElement {
         {p.t('ui.hardware.scanner.idle')}
       </Text>
       <Button
-        size="sm" disabled={p.busy}
-        onClick={p.onStart} data-testid="scanner-start-btn"
+        size="sm"
+        disabled={p.busy}
+        onClick={p.onStart}
+        data-testid="scanner-start-btn"
       >
         {p.t('ui.hardware.scanner.start')}
       </Button>

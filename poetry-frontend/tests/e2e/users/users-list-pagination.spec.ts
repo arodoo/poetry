@@ -7,8 +7,7 @@
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 import { waitForUsersApiResponse } from './users-list-helpers'
-import { selectOption } from
-  '../shared/helpers/searchableSelectHelper'
+import { selectOption } from '../shared/helpers/searchableSelectHelper'
 
 test('pagination displays correct info for first page', async ({
   page,

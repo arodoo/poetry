@@ -41,9 +41,7 @@ test.describe('Seller Codes CRUD Operations', (): void => {
 
     await selectDifferentOption(page, 'seller-code-user-select')
 
-    await selectOption(
-      page, 'seller-code-status-select', 'active'
-    )
+    await selectOption(page, 'seller-code-status-select', 'active')
 
     const submitButton: Locator = page.getByRole('button', {
       name: /Create seller code/i,
@@ -123,9 +121,7 @@ test.describe('Seller Codes CRUD Operations', (): void => {
     const orgInput: Locator = page.getByTestId('seller-code-org-input')
     await orgInput.fill('updated-org-456')
 
-    await selectOption(
-      page, 'seller-code-status-select', 'inactive'
-    )
+    await selectOption(page, 'seller-code-status-select', 'inactive')
 
     const saveButton: Locator = page.getByRole('button', {
       name: /Save changes/i,

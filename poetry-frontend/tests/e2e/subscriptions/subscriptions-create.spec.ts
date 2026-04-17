@@ -5,8 +5,7 @@
  */
 import { test, expect, type Page, type Response } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import { selectOption } from
-  '../shared/helpers/searchableSelectHelper'
+import { selectOption } from '../shared/helpers/searchableSelectHelper'
 
 async function createTestSubscription(
   page: Page
@@ -22,13 +21,9 @@ async function createTestSubscription(
     .getByTestId('subscription-description-input')
     .fill('Test subscription description')
   await page.getByTestId('subscription-price-input').fill('19.99')
-  await selectOption(
-    page, 'subscription-currency-select', 'USD'
-  )
+  await selectOption(page, 'subscription-currency-select', 'USD')
   await page.getByTestId('subscription-duration-input').fill('30')
-  await selectOption(
-    page, 'subscription-status-select', 'active'
-  )
+  await selectOption(page, 'subscription-status-select', 'active')
 
   // Wait for create API response
   const createApiPromise: Promise<Response> = page.waitForResponse(

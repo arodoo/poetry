@@ -50,9 +50,7 @@ export function ChartRenderer({
     case 'sellerCodesByStatus':
       return <SellerCodesByStatusChart data={data.sellerCodesByStatus} />
     case 'scheduledEventsByStatus':
-      return (
-        <ScheduledEventsChart data={data.scheduledEventsByStatus} />
-      )
+      return <ScheduledEventsChart data={data.scheduledEventsByStatus} />
     default:
       return <div className="p-4">{t('ui.common.notFound')}</div>
   }

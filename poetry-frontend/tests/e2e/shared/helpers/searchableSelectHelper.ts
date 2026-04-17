@@ -44,10 +44,8 @@ export async function selectDifferentOption(
   testId: string
 ): Promise<string> {
   const selLoc = page.getByTestId(`${testId}-selected`)
-  const hasSelected = await selLoc.isVisible()
-    .catch(() => false)
-  const selected = hasSelected
-    ? ((await selLoc.textContent()) ?? '') : ''
+  const hasSelected = await selLoc.isVisible().catch(() => false)
+  const selected = hasSelected ? ((await selLoc.textContent()) ?? '') : ''
   await page.getByTestId(testId).click()
   const dd = page.getByTestId(`${testId}-dropdown`)
   await expect(dd).toBeVisible({ timeout: 5000 })

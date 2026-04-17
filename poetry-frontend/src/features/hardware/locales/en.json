@@ -5,6 +5,8 @@
   "ui.hardware.status.disconnected": "Disconnected",
   "ui.hardware.status.reconnecting": "Reconnecting in {{seconds}} seconds...",
   "ui.hardware.status.listening": "Reader active — listening for fingerprints",
+  "ui.hardware.status.tryConnect": "Try to connect",
+  "ui.hardware.status.tryConnect.loading": "Checking reader...",
   "ui.hardware.status.model": "Reader Model",
   "ui.hardware.status.sdk": "SDK Version",
   "ui.hardware.breadcrumb": "Hardware",

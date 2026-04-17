@@ -13,15 +13,9 @@ import { downloadBlob } from '../api/downloadBlob'
 export function useBackupDownload() {
   return useMutation({
     mutationFn: async () => {
-      const blob: Blob =
-        await downloadBackupBlob()
-      const ts: string = new Date()
-        .toISOString()
-        .slice(0, 10)
-      downloadBlob(
-        blob,
-        `poetry-backup-${ts}.sql`
-      )
+      const blob: Blob = await downloadBackupBlob()
+      const ts: string = new Date().toISOString().slice(0, 10)
+      downloadBlob(blob, `poetry-backup-${ts}.sql`)
     },
   })
 }

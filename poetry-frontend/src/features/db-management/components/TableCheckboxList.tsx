@@ -24,8 +24,7 @@ export function TableCheckboxList({
   onToggleAll,
 }: Props): ReactElement {
   const t = useT()
-  const allSelected: boolean =
-    selected.length === tables.length
+  const allSelected: boolean = selected.length === tables.length
   return (
     <div data-testid="table-checkbox-list">
       <label className="flex items-center gap-2 mb-3 font-medium">
@@ -39,10 +38,7 @@ export function TableCheckboxList({
       </label>
       <div className="grid grid-cols-2 gap-2">
         {tables.map((tbl: TableInfo) => (
-          <label
-            key={tbl.name}
-            className="flex items-center gap-2 text-sm"
-          >
+          <label key={tbl.name} className="flex items-center gap-2 text-sm">
             <input
               type="checkbox"
               checked={selected.includes(tbl.name)}

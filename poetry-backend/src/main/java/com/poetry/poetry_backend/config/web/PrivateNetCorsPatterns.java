@@ -18,7 +18,9 @@ final class PrivateNetCorsPatterns {
     "http://10.*:*",
     "http://172.[16-31].*:*",
     "http://localhost:*",
-    "http://127.0.0.1:*"
+    "http://127.0.0.1:*",
+    "http://boops.mx",
+    "http://boops.mx:*"
   );
 
   private PrivateNetCorsPatterns() { }

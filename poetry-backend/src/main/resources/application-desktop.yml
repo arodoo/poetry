@@ -1,7 +1,9 @@
 # File: application-desktop.yml
-# Purpose: Spring Boot profile for desktop mode. Configures the
-# backend to serve frontend static files, use embedded Postgres,
-# and disable dev-only features like Swagger and live reload.
+# Purpose: Spring Boot profile for desktop mode. Serves frontend
+# static files and uses embedded Postgres. This profile is
+# data-safe: the schema is preserved across app updates and no
+# sample data is injected, so the end-user database is never
+# overwritten when the installer replaces the binaries.
 # All Rights Reserved. Arodi Emmanuel
 
 spring:
@@ -17,8 +19,20 @@ spring:
     multipart:
       max-file-size: 200MB
       max-request-size: 200MB
+  jpa:
+    hibernate:
+      # Never drop client data on startup. `update` adds new
+      # columns/tables introduced by app updates without
+      # rewriting existing rows. Any value other than
+      # update/validate/none is rejected by SafeDdlGuard.
+      ddl-auto: update
+    show-sql: false
 
 server:
+  # Bind to all interfaces so LAN clients can reach the app
+  # via http://boops.mx:8080 (resolved via the client hosts
+  # file). No internet connectivity is required.
+  address: 0.0.0.0
   error:
     include-stacktrace: never
   compression:
@@ -38,3 +52,18 @@ springdoc:
 
 carousel:
   upload-dir: ./uploads/carousel
+
+# Data-safety: never inject sample rows on startup in client
+# machines. Admin bootstrap stays on because it is idempotent
+# (catches DuplicateUserException) and only repairs roles.
+admin:
+  bootstrap:
+    injectSampleUsers: false
+    sampleCount: 0
+membership:
+  bootstrap:
+    enabled: false
+    count: 0
+zone:
+  bootstrap:
+    count: 0

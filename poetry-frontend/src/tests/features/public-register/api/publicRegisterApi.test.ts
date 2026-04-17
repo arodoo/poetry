@@ -17,9 +17,8 @@ describe('publicRegisterApi', () => {
   it('sends Idempotency-Key header', async () => {
     const mocked = vi.mocked(Fetch.fetchJson)
     mocked.mockResolvedValueOnce({ success: true })
-    const RegApi = await import(
-      '../../../../features/public-register/api/publicRegisterApi'
-    )
+    const RegApi =
+      await import('../../../../features/public-register/api/publicRegisterApi')
     await RegApi.registerRequest({
       username: 'u',
       email: 'e@e.com',

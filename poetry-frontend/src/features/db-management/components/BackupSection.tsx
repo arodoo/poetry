@@ -22,10 +22,7 @@ export function BackupSection(): ReactElement {
   const handleBackup = (): void => {
     backup.mutate(undefined, {
       onError: () => {
-        toast.push(
-          t('ui.dbManagement.backup.error'),
-          'error'
-        )
+        toast.push(t('ui.dbManagement.backup.error'), 'error')
       },
     })
   }

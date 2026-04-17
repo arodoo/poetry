@@ -7,9 +7,7 @@
  */
 import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import {
-  selectFirstOption,
-} from '../shared/helpers/searchableSelectHelper'
+import { selectFirstOption } from '../shared/helpers/searchableSelectHelper'
 import {
   deleteAdminMemberships,
   pickUserAndWaitEligibility,
@@ -42,9 +40,9 @@ test.describe('Membership Form Interactions', () => {
     await expect(submitBtn).toBeVisible({ timeout: 10000 })
 
     await submitBtn.click()
-    await expect(
-      page.getByText(/required|requerida/i).first()
-    ).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(/required|requerida/i).first()).toBeVisible({
+      timeout: 5000,
+    })
   })
 
   test('should reset form state when a new user is selected', async ({
@@ -53,9 +51,9 @@ test.describe('Membership Form Interactions', () => {
     await pickUserAndWaitEligibility(page, 'admin')
 
     await selectFirstOption(page, 'user-search-input')
-    await expect(page.getByTestId('selected-user-label')).toBeVisible(
-      { timeout: 10000 }
-    )
+    await expect(page.getByTestId('selected-user-label')).toBeVisible({
+      timeout: 10000,
+    })
   })
 
   test('should navigate back to list on cancellation', async ({ page }) => {

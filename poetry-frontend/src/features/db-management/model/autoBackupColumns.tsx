@@ -24,9 +24,15 @@ export function buildAutoBackupColumns(
   onDelete: ActionCb,
   onRestore: ActionCb
 ): readonly DataTableColumn<AutoBackupRow>[] {
-  const dl = (i: number, n: string): void => { void onDownload(i, n) }
-  const rs = (i: number, n: string): void => { void onRestore(i, n) }
-  const rm = (i: number, n: string): void => { void onDelete(i, n) }
+  const dl = (i: number, n: string): void => {
+    void onDownload(i, n)
+  }
+  const rs = (i: number, n: string): void => {
+    void onRestore(i, n)
+  }
+  const rm = (i: number, n: string): void => {
+    void onDelete(i, n)
+  }
   return [
     {
       key: 'fileName',
@@ -48,8 +54,11 @@ export function buildAutoBackupColumns(
       width: 'xl',
       accessor: (r: AutoBackupRow): ReactElement => (
         <AutoBackupActions
-          id={r.id} fileName={r.fileName}
-          onDownload={dl} onRestore={rs} onDelete={rm}
+          id={r.id}
+          fileName={r.fileName}
+          onDownload={dl}
+          onRestore={rs}
+          onDelete={rm}
         />
       ),
     },

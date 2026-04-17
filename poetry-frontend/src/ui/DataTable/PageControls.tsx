@@ -25,7 +25,8 @@ export function PageControls(props: Props): ReactElement {
   const perPageLabel = t('ui.table.pagination.perPage')
 
   const sizeOptions: SelectOption[] = useMemo(
-    () => SIZES.map((s) => ({ value: String(s), label: `${s} ${perPageLabel}` })),
+    () =>
+      SIZES.map((s) => ({ value: String(s), label: `${s} ${perPageLabel}` })),
     [perPageLabel]
   )
 

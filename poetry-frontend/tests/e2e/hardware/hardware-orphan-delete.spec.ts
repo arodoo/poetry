@@ -35,7 +35,11 @@ test.describe('Orphan fingerprint delete', (): void => {
   })
 
   test.afterEach(async (): Promise<void> => {
-    try { await cleanupFp(fpId) } catch { /* already deleted */ }
+    try {
+      await cleanupFp(fpId)
+    } catch {
+      /* already deleted */
+    }
   })
 
   test('orphan shows Unknown and can be deleted', async ({

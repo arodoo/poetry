@@ -5,6 +5,8 @@
   "ui.hardware.status.disconnected": "Desconectado",
   "ui.hardware.status.reconnecting": "Reconectando en {{seconds}} segundos...",
   "ui.hardware.status.listening": "Lector activo — escuchando huellas",
+  "ui.hardware.status.tryConnect": "Intentar conectar",
+  "ui.hardware.status.tryConnect.loading": "Verificando lector...",
   "ui.hardware.status.model": "Modelo del Lector",
   "ui.hardware.status.sdk": "Versión del SDK",
   "ui.hardware.breadcrumb": "Hardware",

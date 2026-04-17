@@ -12,8 +12,10 @@ import PasswordToggleButton from './PasswordToggleButton'
 import getPadClass from './PasswordToggleUtils'
 import clsx from 'clsx'
 
-export interface PasswordInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+export interface PasswordInputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'type' | 'size'
+> {
   showLabel: string
   hideLabel: string
   fieldSize?: 'sm' | 'md' | 'lg'

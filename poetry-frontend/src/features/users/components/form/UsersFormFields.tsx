@@ -11,8 +11,10 @@ import { UsersRolesField } from './fields/UsersRolesField'
 import { UsersFormStatus } from './UsersFormStatus'
 import type { UsersFormState } from './useUsersFormState'
 
-export interface UsersFormFieldsProps
-  extends Omit<UsersFormState, 'setActive'> {
+export interface UsersFormFieldsProps extends Omit<
+  UsersFormState,
+  'setActive'
+> {
   readonly showPassword: boolean
   readonly isEditing?: boolean
   readonly t: ReturnType<typeof useT>

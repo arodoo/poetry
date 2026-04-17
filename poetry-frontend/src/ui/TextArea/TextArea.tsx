@@ -10,8 +10,7 @@ import {
 } from 'react'
 import clsx from 'clsx'
 
-export interface TextAreaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   invalid?: boolean
 }
 

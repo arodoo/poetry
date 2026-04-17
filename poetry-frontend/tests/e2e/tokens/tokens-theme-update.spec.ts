@@ -7,8 +7,7 @@
  */
 import { test, expect, type Page } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import { selectDifferentOption } from
-  '../shared/helpers/searchableSelectHelper'
+import { selectDifferentOption } from '../shared/helpers/searchableSelectHelper'
 
 const TID = 'token-field-theme'
 const TOAST = /updated|actualizados/i
@@ -16,7 +15,9 @@ const TOAST = /updated|actualizados/i
 test.describe('Tokens - Theme Update', (): void => {
   test('saves theme change', async ({
     page,
-  }: { page: Page }): Promise<void> => {
+  }: {
+    page: Page
+  }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/admin/tokens')
     await page.waitForLoadState('networkidle')
@@ -26,12 +27,12 @@ test.describe('Tokens - Theme Update', (): void => {
 
     const picked = await selectDifferentOption(page, TID)
     await page.click('button[type="submit"]')
-    await expect(page.getByText(TOAST))
-      .toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(TOAST)).toBeVisible({ timeout: 5000 })
 
     await page.reload()
     await page.waitForLoadState('networkidle')
-    await expect(page.getByTestId(`${TID}-selected`))
-      .toContainText(picked, { timeout: 10000 })
+    await expect(page.getByTestId(`${TID}-selected`)).toContainText(picked, {
+      timeout: 10000,
+    })
   })
 })

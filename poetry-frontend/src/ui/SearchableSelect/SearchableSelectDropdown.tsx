@@ -23,10 +23,11 @@ export function SearchableSelectDropdown(props: Props): ReactElement {
     'rounded shadow-lg max-h-60 overflow-auto'
 
   return (
-    <div className={base} data-testid={testId ? `${testId}-dropdown` : undefined}>
-      {loading && (
-        <div className="p-2 text-sm text-textMuted">Loading…</div>
-      )}
+    <div
+      className={base}
+      data-testid={testId ? `${testId}-dropdown` : undefined}
+    >
+      {loading && <div className="p-2 text-sm text-textMuted">Loading…</div>}
       {!loading && filtered.length === 0 && (
         <div className="p-2 text-sm text-textMuted">{emptyText}</div>
       )}

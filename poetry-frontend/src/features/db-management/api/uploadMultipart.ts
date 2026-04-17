@@ -9,18 +9,13 @@
 import { getEnv } from '../../../shared/config/env'
 import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
-export async function uploadMultipart<T>(
-  path: string,
-  file: File
-): Promise<T> {
-  const base: string = getEnv()
-    .VITE_API_BASE_URL.replace(/\/$/, '')
+export async function uploadMultipart<T>(path: string, file: File): Promise<T> {
+  const base: string = getEnv().VITE_API_BASE_URL.replace(/\/$/, '')
   const url = `${base}${path}`
   const tokens = tokenStorage.load()
   const headers: Record<string, string> = {}
   if (tokens?.accessToken) {
-    headers['Authorization'] =
-      `Bearer ${tokens.accessToken}`
+    headers['Authorization'] = `Bearer ${tokens.accessToken}`
   }
   const formData = new FormData()
   formData.append('file', file)
@@ -30,9 +25,7 @@ export async function uploadMultipart<T>(
     body: formData,
   })
   if (!response.ok) {
-    throw new Error(
-      `Upload failed: ${response.status}`
-    )
+    throw new Error(`Upload failed: ${response.status}`)
   }
   return response.json() as Promise<T>
 }

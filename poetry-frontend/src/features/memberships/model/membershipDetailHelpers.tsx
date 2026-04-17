@@ -12,9 +12,7 @@ import { Inline } from '../../../ui/Inline/Inline'
 import { toTemplateString } from '../../../shared/utils/templateSafe'
 import { formatDate } from '../../../shared/utils/dateUtils'
 
-function buildZoneBadges(
-  zones: readonly ZoneResponse[]
-): ReactElement {
+function buildZoneBadges(zones: readonly ZoneResponse[]): ReactElement {
   return (
     <Inline gap="xs">
       {zones.map(
@@ -62,9 +60,7 @@ export function buildMembershipDetailSections(
       items: [
         {
           label: t('ui.memberships.form.allZones.label'),
-          value: membership.allZones
-            ? t('ui.common.yes')
-            : t('ui.common.no'),
+          value: membership.allZones ? t('ui.common.yes') : t('ui.common.no'),
         },
         {
           label: t('ui.memberships.columns.zones'),

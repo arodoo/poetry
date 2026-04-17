@@ -22,8 +22,11 @@ export function ScannerActiveView(p: Props): ReactElement {
         {p.t('ui.hardware.status.listening')}
       </Text>
       <Button
-        size="sm" variant="danger" disabled={p.busy}
-        onClick={p.onStop} data-testid="scanner-stop-btn"
+        size="sm"
+        variant="danger"
+        disabled={p.busy}
+        onClick={p.onStop}
+        data-testid="scanner-stop-btn"
       >
         {p.t('ui.hardware.scanner.stop')}
       </Button>

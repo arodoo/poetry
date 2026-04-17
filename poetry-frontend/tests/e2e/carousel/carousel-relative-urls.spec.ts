@@ -11,9 +11,7 @@ import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 
 test.describe('Carousel – no hardcoded localhost', () => {
-  test('config request uses relative path', async ({
-    page,
-  }) => {
+  test('config request uses relative path', async ({ page }) => {
     const urls: string[] = []
     page.on('request', (req) => {
       if (req.url().includes('carousel')) {
@@ -23,17 +21,9 @@ test.describe('Carousel – no hardcoded localhost', () => {
     await injectTokens(page)
     await page.goto('/en/dashboard')
     await page.waitForTimeout(3000)
-    expect(
-      urls.length,
-      'At least one carousel request'
-    ).toBeGreaterThan(0)
+    expect(urls.length, 'At least one carousel request').toBeGreaterThan(0)
     const origin = new URL(page.url()).origin
-    const foreign = urls.filter(
-      (u) => !u.startsWith(origin)
-    )
-    expect(
-      foreign,
-      'All carousel requests use current origin'
-    ).toHaveLength(0)
+    const foreign = urls.filter((u) => !u.startsWith(origin))
+    expect(foreign, 'All carousel requests use current origin').toHaveLength(0)
   })
 })

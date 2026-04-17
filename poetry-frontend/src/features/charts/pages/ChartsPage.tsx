@@ -59,9 +59,7 @@ export function ChartsPage(): ReactElement {
         <SubscriptionsByDurationChart
           data={data?.subscriptionsByDuration ?? {}}
         />
-        <ScheduledEventsChart
-          data={data?.scheduledEventsByStatus ?? {}}
-        />
+        <ScheduledEventsChart data={data?.scheduledEventsByStatus ?? {}} />
         <SellerCodesByStatusChart data={data?.sellerCodesByStatus ?? {}} />
       </div>
     </div>

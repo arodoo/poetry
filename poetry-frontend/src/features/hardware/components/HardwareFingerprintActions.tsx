@@ -28,13 +28,16 @@ export function HardwareFingerprintActions({
     <Inline gap="xs">
       <Button
         to={`/${locale}/hardware/fingerprints/${String(row.id)}`}
-        size="sm" width="fixed-small"
+        size="sm"
+        width="fixed-small"
         data-testid={`view-fp-${String(row.id)}`}
       >
         {t('ui.hardware.fingerprints.table.view')}
       </Button>
       <Button
-        size="sm" variant="danger" width="fixed-small"
+        size="sm"
+        variant="danger"
+        width="fixed-small"
         disabled={busy}
         onClick={() => handleDelete(row.id, msg)}
         data-testid={`delete-fp-${String(row.id)}`}

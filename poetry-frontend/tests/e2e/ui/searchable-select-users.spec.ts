@@ -13,9 +13,9 @@ test.describe('SearchableSelect on users page', (): void => {
   test.beforeEach(async ({ page }: { page: Page }): Promise<void> => {
     await injectTokens(page)
     await page.goto('/en/users')
-    await expect(
-      page.getByRole('heading', { name: 'Users' })
-    ).toBeVisible({ timeout: 15000 })
+    await expect(page.getByRole('heading', { name: 'Users' })).toBeVisible({
+      timeout: 15000,
+    })
   })
 
   test('page-size dropdown opens and selects a value', async ({

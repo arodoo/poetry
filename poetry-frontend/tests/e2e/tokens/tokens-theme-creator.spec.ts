@@ -33,8 +33,7 @@ test.describe('Theme Creator', (): void => {
 
     const postPromise: Promise<Response> = page.waitForResponse(
       (r: Response): boolean =>
-        r.url().includes('/api/v1/themes') &&
-        r.request().method() === 'POST',
+        r.url().includes('/api/v1/themes') && r.request().method() === 'POST',
       { timeout: 30000 }
     )
 
@@ -42,9 +41,9 @@ test.describe('Theme Creator', (): void => {
     const resp: Response = await postPromise
     expect(resp.status()).toBeLessThan(300)
 
-    await expect(
-      page.getByText(/theme created|tema creado/i)
-    ).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/theme created|tema creado/i)).toBeVisible({
+      timeout: 10000,
+    })
 
     await expect(nameInput).toHaveValue('')
   })

@@ -34,9 +34,9 @@ test.describe('Membership Edit Form', (): void => {
     page: Page
   }): Promise<void> => {
     await page.goto(`/en/memberships/${m.id}`)
-    await expect(
-      page.getByTestId('edit-membership-button')
-    ).toBeVisible({ timeout: 15000 })
+    await expect(page.getByTestId('edit-membership-button')).toBeVisible({
+      timeout: 15000,
+    })
 
     await page.getByTestId('edit-membership-button').click()
     await page.waitForURL(/\/en\/memberships\/\d+\/edit/)

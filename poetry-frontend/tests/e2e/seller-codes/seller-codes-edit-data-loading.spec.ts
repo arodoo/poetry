@@ -55,14 +55,10 @@ test.describe('Seller Code Edit Data Loading', (): void => {
 
     const codeValue: string = (await codeInput.inputValue()) || ''
     const orgValue: string = (await orgInput.inputValue()) || ''
-    const statusValue: string =
-      (await statusSelect.textContent()) || ''
+    const statusValue: string = (await statusSelect.textContent()) || ''
 
-    const userLabel = page.getByTestId(
-      'seller-code-user-select-selected'
-    )
-    const hasUser = await userLabel.isVisible()
-      .catch(() => false)
+    const userLabel = page.getByTestId('seller-code-user-select-selected')
+    const hasUser = await userLabel.isVisible().catch(() => false)
     const userValue: string = hasUser
       ? ((await userLabel.textContent()) ?? '').trim()
       : ''

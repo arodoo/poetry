@@ -39,9 +39,8 @@ describe('AccountPage', () => {
         },
       })
     )
-    const { default: AccountPage } = await import(
-      '../../../../features/account/pages/AccountPage'
-    )
+    const { default: AccountPage } =
+      await import('../../../../features/account/pages/AccountPage')
     render(createElement(AccountPage))
     expect(capturedLocaleProps[0]?.locale).toBe('en-US')
     expect(capturedLocaleProps[0]?.isLoading).toBe(false)

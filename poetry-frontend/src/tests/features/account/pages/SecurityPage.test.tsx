@@ -26,9 +26,8 @@ describe('SecurityPage', () => {
           }),
       })
     )
-    const { default: SecurityPage } = await import(
-      '../../../../features/account/pages/SecurityPage'
-    )
+    const { default: SecurityPage } =
+      await import('../../../../features/account/pages/SecurityPage')
     render(createElement(SecurityPage))
     expect(
       screen.getByRole('heading', {

@@ -57,11 +57,7 @@ export function MostPopulatedRegionsChart({
                 color: 'var(--color-foreground)',
               }}
             />
-            <Bar
-              dataKey="count"
-              fill={CHART_COLORS[0]}
-              radius={[0, 4, 4, 0]}
-            />
+            <Bar dataKey="count" fill={CHART_COLORS[0]} radius={[0, 4, 4, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -70,9 +66,7 @@ export function MostPopulatedRegionsChart({
           variant="secondary"
           size="sm"
           onClick={() => {
-            void navigate(
-              `/${locale ?? 'en'}/charts/details/populatedRegions`
-            )
+            void navigate(`/${locale ?? 'en'}/charts/details/populatedRegions`)
           }}
         >
           {t('ui.charts.viewMore')}

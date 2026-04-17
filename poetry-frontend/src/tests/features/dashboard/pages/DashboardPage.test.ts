@@ -32,9 +32,8 @@ describe('DashboardPage', () => {
       isLoading: false,
       isError: false,
     })
-    const { default: DashboardPage } = await import(
-      '../../../../features/dashboard/pages/DashboardPage'
-    )
+    const { default: DashboardPage } =
+      await import('../../../../features/dashboard/pages/DashboardPage')
     render(
       createElement(
         I18nCtx.Provider,

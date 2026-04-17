@@ -6,8 +6,7 @@
 import { test, expect, type Page, type Locator } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
 import { getUserIdFromButton } from './users-list-helpers'
-import { selectOption } from
-  '../shared/helpers/searchableSelectHelper'
+import { selectOption } from '../shared/helpers/searchableSelectHelper'
 
 test('user edit form correctly loads new demographic and address fields', async ({
   page,
@@ -48,9 +47,7 @@ test('user edit form correctly loads new demographic and address fields', async 
 
   await page.getByTestId('user-phone-input').fill(testPhone)
   await page.getByTestId('user-birthdate-input').fill(testBirthDate)
-  await selectOption(
-    page, 'user-gender-select', testGender
-  )
+  await selectOption(page, 'user-gender-select', testGender)
   await page.getByTestId('user-address-line1-input').fill(testLine1)
   await page.getByTestId('user-address-line2-input').fill(testLine2)
   await page.getByTestId('user-address-city-input').fill(testCity)
@@ -78,8 +75,7 @@ test('user edit form correctly loads new demographic and address fields', async 
   await expect(page.getByTestId('user-birthdate-input')).toHaveValue(
     testBirthDate
   )
-  await expect(page.getByTestId('user-gender-select'))
-    .toContainText(/female/i)
+  await expect(page.getByTestId('user-gender-select')).toContainText(/female/i)
   await expect(page.getByTestId('user-address-line1-input')).toHaveValue(
     testLine1
   )

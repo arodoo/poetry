@@ -22,9 +22,9 @@ test.describe('Tokens Admin - Language Update', (): void => {
     await selectOption(page, 'token-field-language', 'es')
     await page.click('button[type="submit"]')
 
-    await expect(
-      page.getByText(/updated|actualizados/i)
-    ).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/updated|actualizados/i)).toBeVisible({
+      timeout: 10000,
+    })
 
     await page.goto('/')
     await expect(page).toHaveURL(/\/es\//, { timeout: 10000 })
@@ -38,9 +38,9 @@ test.describe('Tokens Admin - Language Update', (): void => {
     await selectOption(page, 'token-field-language', 'en')
     await page.click('button[type="submit"]')
 
-    await expect(
-      page.getByText(/updated|actualizados/i)
-    ).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(/updated|actualizados/i)).toBeVisible({
+      timeout: 10000,
+    })
 
     await page.waitForURL(/\/en\//, { timeout: 15000 })
   })

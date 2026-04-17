@@ -29,7 +29,7 @@ export function useDeleteFingerprint(): DeleteFp {
         .then(() => qc.invalidateQueries({ queryKey: ['fingerprints'] }))
         .finally(() => setBusy(false))
     },
-    [qc],
+    [qc]
   )
 
   return { busy, handleDelete }

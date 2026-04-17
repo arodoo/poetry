@@ -7,9 +7,7 @@
  */
 import { test, expect } from '@playwright/test'
 import { injectTokens } from '../shared/providers/tokenProvider'
-import {
-  selectFirstOption,
-} from '../shared/helpers/searchableSelectHelper'
+import { selectFirstOption } from '../shared/helpers/searchableSelectHelper'
 import {
   deleteAdminMemberships,
   pickUserAndWaitEligibility,
@@ -25,9 +23,9 @@ test.describe('Membership Success Flow', () => {
   test('should create a membership successfully', async ({ page }) => {
     await pickUserAndWaitEligibility(page, 'admin')
 
-    await expect(
-      page.getByTestId('selected-user-label')
-    ).toContainText(/admin/i)
+    await expect(page.getByTestId('selected-user-label')).toContainText(
+      /admin/i
+    )
 
     await selectFirstOption(page, 'subscription-select')
     const seller = page.getByTestId('membership-seller-code-input')
@@ -37,9 +35,6 @@ test.describe('Membership Success Flow', () => {
     await expect(submitBtn).toBeEnabled({ timeout: 2000 })
     await submitBtn.click()
 
-    await expect(page).toHaveURL(
-      /\/en\/memberships$/,
-      { timeout: 10000 }
-    )
+    await expect(page).toHaveURL(/\/en\/memberships$/, { timeout: 10000 })
   })
 })

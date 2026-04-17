@@ -1,6 +1,8 @@
 import type { Page, Response } from '@playwright/test'
-import { selectOption, selectDifferentOption } from
-  '../shared/helpers/searchableSelectHelper'
+import {
+  selectOption,
+  selectDifferentOption,
+} from '../shared/helpers/searchableSelectHelper'
 
 export async function createTestSellerCode(
   page: Page
@@ -12,9 +14,7 @@ export async function createTestSellerCode(
   await page.getByTestId('seller-code-input').fill(code)
   await page.getByTestId('seller-code-org-input').fill('ORG-TEST')
   const userTid = 'seller-code-user-select'
-  await page.getByTestId(userTid).waitFor(
-    { state: 'visible', timeout: 10000 }
-  )
+  await page.getByTestId(userTid).waitFor({ state: 'visible', timeout: 10000 })
   await selectDifferentOption(page, userTid)
   const createApiPromise: Promise<Response> = page.waitForResponse(
     (response: Response): boolean =>

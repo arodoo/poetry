@@ -24,11 +24,13 @@ export default function UserSelect({
 }: Props): ReactElement {
   const options: SelectOption[] = useMemo(
     () =>
-      users.map((u: UserResponse): SelectOption => ({
-        value: String(u.id),
-        label: u.username ?? '',
-        sublabel: u.email ?? '',
-      })),
+      users.map(
+        (u: UserResponse): SelectOption => ({
+          value: String(u.id),
+          label: u.username ?? '',
+          sublabel: u.email ?? '',
+        })
+      ),
     [users]
   )
 

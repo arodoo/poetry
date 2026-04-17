@@ -30,16 +30,10 @@ export function RestoreSection(): ReactElement {
       onSuccess: () => {
         setFile(null)
         if (inputRef.current) inputRef.current.value = ''
-        toast.push(
-          t('ui.dbManagement.restore.success'),
-          'success'
-        )
+        toast.push(t('ui.dbManagement.restore.success'), 'success')
       },
       onError: () => {
-        toast.push(
-          t('ui.dbManagement.restore.error'),
-          'error'
-        )
+        toast.push(t('ui.dbManagement.restore.error'), 'error')
       },
     })
   }
@@ -68,7 +62,9 @@ export function RestoreSection(): ReactElement {
         <Button
           variant="danger"
           disabled={!file || restore.isPending}
-          onClick={() => { setShowConfirm(true) }}
+          onClick={() => {
+            setShowConfirm(true)
+          }}
           data-testid="restore-btn"
         >
           {restore.isPending
@@ -79,7 +75,9 @@ export function RestoreSection(): ReactElement {
       <RestoreConfirmDialog
         open={showConfirm}
         onConfirm={handleRestore}
-        onCancel={() => { setShowConfirm(false) }}
+        onCancel={() => {
+          setShowConfirm(false)
+        }}
       />
     </Card>
   )

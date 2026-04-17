@@ -14,12 +14,12 @@ interface SubscriptionEditModule {
 export const SubscriptionEditPageLazy: LazyExoticComponent<() => ReactElement> =
   lazy(
     (): Promise<{ default: () => ReactElement }> =>
-      import(
-        '../../../../features/subscriptions/pages/SubscriptionEditPage'
-      ).then((module: unknown): { default: () => ReactElement } => {
-        const typed: SubscriptionEditModule = module as SubscriptionEditModule
-        const page: () => ReactElement =
-          typed.default ?? (typed.SubscriptionEditPage as () => ReactElement)
-        return { default: page }
-      })
+      import('../../../../features/subscriptions/pages/SubscriptionEditPage').then(
+        (module: unknown): { default: () => ReactElement } => {
+          const typed: SubscriptionEditModule = module as SubscriptionEditModule
+          const page: () => ReactElement =
+            typed.default ?? (typed.SubscriptionEditPage as () => ReactElement)
+          return { default: page }
+        }
+      )
   )

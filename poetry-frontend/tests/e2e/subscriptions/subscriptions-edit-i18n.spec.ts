@@ -36,9 +36,7 @@ test('subscription edit form has i18n labels and MXN', async ({
   await expect(currencySelect).toBeVisible({ timeout: 10000 })
 
   await currencySelect.click()
-  const dd = page.getByTestId(
-    'subscription-currency-select-dropdown'
-  )
+  const dd = page.getByTestId('subscription-currency-select-dropdown')
   await expect(dd).toBeVisible({ timeout: 5000 })
   const mxnOpt = dd.locator(
     '[data-testid="subscription-currency-select-opt-MXN"]'
@@ -51,8 +49,6 @@ test('subscription edit form has i18n labels and MXN', async ({
   )
   await expect(descLabel.first()).toBeVisible()
 
-  const currLabel = page.locator(
-    'p:has-text("Currency"), p:has-text("Moneda")'
-  )
+  const currLabel = page.locator('p:has-text("Currency"), p:has-text("Moneda")')
   await expect(currLabel.first()).toBeVisible()
 })

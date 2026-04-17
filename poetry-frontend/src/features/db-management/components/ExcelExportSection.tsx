@@ -44,16 +44,10 @@ export function ExcelExportSection(): ReactElement {
   const handleExport = (): void => {
     exportMut.mutate(selected, {
       onSuccess: () => {
-        toast.push(
-          t('ui.dbManagement.excel.success'),
-          'success'
-        )
+        toast.push(t('ui.dbManagement.excel.success'), 'success')
       },
       onError: () => {
-        toast.push(
-          t('ui.dbManagement.excel.error'),
-          'error'
-        )
+        toast.push(t('ui.dbManagement.excel.error'), 'error')
       },
     })
   }

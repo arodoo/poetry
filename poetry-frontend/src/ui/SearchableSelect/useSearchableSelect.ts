@@ -68,8 +68,14 @@ export function useSearchableSelect(
   }, [])
 
   return {
-    query, isOpen, filtered, containerRef,
-    onInputChange: debouncedSet, onFocus, toggleOpen,
-    close: () => setIsOpen(false), select,
+    query,
+    isOpen,
+    filtered,
+    containerRef,
+    onInputChange: debouncedSet,
+    onFocus,
+    toggleOpen,
+    close: () => setIsOpen(false),
+    select,
   }
 }

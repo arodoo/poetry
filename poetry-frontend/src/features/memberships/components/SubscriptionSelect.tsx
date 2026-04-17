@@ -24,10 +24,12 @@ export default function SubscriptionSelect({
 }: Props): ReactElement {
   const options: SelectOption[] = useMemo(
     () =>
-      subscriptions.map((s: SubscriptionResponse): SelectOption => ({
-        value: String(s.id),
-        label: s.name ?? '',
-      })),
+      subscriptions.map(
+        (s: SubscriptionResponse): SelectOption => ({
+          value: String(s.id),
+          label: s.name ?? '',
+        })
+      ),
     [subscriptions]
   )
 

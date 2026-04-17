@@ -13,12 +13,13 @@ import { Text } from '../../../ui/Text/Text'
 import { useHardwareStatusQuery } from '../hooks/useHardwareStatusQuery'
 import { HardwareStatusCard } from '../components/HardwareStatusCard'
 import { ScannerControls } from '../components/ScannerControls'
+import { TryConnectButton } from '../components/TryConnectButton'
 import { formatDate } from '../../../shared/utils/dateUtils'
 import { HardwareFingerprintTableShell } from '../components/HardwareFingerprintTableShell'
 
 export function HardwareStatusPage(): ReactElement {
   const t = useT()
-  const { data, isLoading, error, dataUpdatedAt } =
+  const { data, isLoading, error, dataUpdatedAt, isFetching } =
     useHardwareStatusQuery()
 
   if (isLoading) {
@@ -28,12 +29,11 @@ export function HardwareStatusPage(): ReactElement {
       </div>
     )
   }
-  if (error || !data) {
-    return (
-      <div className="p-6" data-testid="hardware-error">
-        <Text className="text-[var(--color-error)]">{error?.message}</Text>
-      </div>
-    )
+  const safe = data ?? {
+    connected: false,
+    readerModel: null,
+    sdkVersion: null,
+    errorMessage: error?.message ?? null,
   }
 
   return (
@@ -45,10 +45,13 @@ export function HardwareStatusPage(): ReactElement {
         </Text>
         <div className="max-w-md">
           <HardwareStatusCard
-            status={data}
+            status={safe}
             lastCheck={formatDate(dataUpdatedAt)}
           />
-          <ScannerControls status={data} />
+          <div className="mt-3">
+            <TryConnectButton isFetching={isFetching} />
+          </div>
+          <ScannerControls status={safe} />
         </div>
         <HardwareFingerprintTableShell />
       </Stack>

@@ -274,11 +274,9 @@ test.describe('Charts Feature E2E', () => {
     await chartCard.locator('button').click()
     await expect(page).toHaveURL(/.*\/charts\/details\/subscriptionsByDuration/)
     await expect(
-      page
-        .locator('h1')
-        .filter({
-          hasText: /Duración de Suscripciones|Subscriptions Duration/i,
-        })
+      page.locator('h1').filter({
+        hasText: /Duración de Suscripciones|Subscriptions Duration/i,
+      })
     ).toBeVisible()
   })
 

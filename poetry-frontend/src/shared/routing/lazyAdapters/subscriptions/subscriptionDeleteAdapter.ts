@@ -15,12 +15,13 @@ export const SubscriptionDeletePageLazy: LazyExoticComponent<
   () => ReactElement
 > = lazy(
   (): Promise<{ default: () => ReactElement }> =>
-    import(
-      '../../../../features/subscriptions/pages/SubscriptionDeletePage'
-    ).then((module: unknown): { default: () => ReactElement } => {
-      const typed: SubscriptionDeleteModule = module as SubscriptionDeleteModule
-      const page: () => ReactElement =
-        typed.default ?? (typed.SubscriptionDeletePage as () => ReactElement)
-      return { default: page }
-    })
+    import('../../../../features/subscriptions/pages/SubscriptionDeletePage').then(
+      (module: unknown): { default: () => ReactElement } => {
+        const typed: SubscriptionDeleteModule =
+          module as SubscriptionDeleteModule
+        const page: () => ReactElement =
+          typed.default ?? (typed.SubscriptionDeletePage as () => ReactElement)
+        return { default: page }
+      }
+    )
 )

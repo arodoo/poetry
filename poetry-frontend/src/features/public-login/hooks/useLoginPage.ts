@@ -81,8 +81,16 @@ export function useLoginPage(): UseLoginPageReturn {
   )
 
   return {
-    t, form, setForm, onSubmit,
+    t,
+    form,
+    setForm,
+    onSubmit,
     isLoading: isMutationPending(mutation),
-    error: generalError, fieldErrors, qs, toast, navigate, location,
+    error: generalError,
+    fieldErrors,
+    qs,
+    toast,
+    navigate,
+    location,
   }
 }

@@ -31,23 +31,35 @@ export function ScheduledEventsChart({
       <div className="flex-1">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
-            <Pie data={chartData} cx="50%" cy="50%"
-              innerRadius={40} outerRadius={80} dataKey="value" />
-            <Tooltip contentStyle={{
-              borderRadius: '8px', border: 'none',
-              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            }} />
+            <Pie
+              data={chartData}
+              cx="50%"
+              cy="50%"
+              innerRadius={40}
+              outerRadius={80}
+              dataKey="value"
+            />
+            <Tooltip
+              contentStyle={{
+                borderRadius: '8px',
+                border: 'none',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              }}
+            />
             <Legend />
           </PieChart>
         </ResponsiveContainer>
       </div>
       <div className="mt-4 flex justify-end">
-        <Button variant="secondary" size="sm"
+        <Button
+          variant="secondary"
+          size="sm"
           onClick={() => {
             void navigate(
               `/${locale ?? 'en'}/charts/details/scheduledEventsByStatus`
             )
-          }}>
+          }}
+        >
           {t('ui.charts.viewMore')}
         </Button>
       </div>

@@ -28,16 +28,13 @@ async function setupPage(page: Page): Promise<void> {
     })
   })
   await page.goto('/en/db-management')
-  await expect(
-    page.getByTestId('excel-export-btn')
-  ).toBeVisible({ timeout: 10_000 })
+  await expect(page.getByTestId('excel-export-btn')).toBeVisible({
+    timeout: 10_000,
+  })
   await page.getByTestId('select-all-tables').check()
 }
 
-async function interceptExcelWith(
-  page: Page,
-  status: number
-): Promise<void> {
+async function interceptExcelWith(page: Page, status: number): Promise<void> {
   await page.route(EXCEL_ROUTE, async (route: Route) => {
     await route.fulfill({ status })
   })
@@ -48,27 +45,21 @@ test.describe('Excel Export — error scenarios', () => {
     await interceptExcelWith(page, 500)
     await setupPage(page)
     await page.getByTestId('excel-export-btn').click()
-    await expect(
-      page.getByText(ERROR_TOAST)
-    ).toBeVisible({ timeout: 5_000 })
+    await expect(page.getByText(ERROR_TOAST)).toBeVisible({ timeout: 5_000 })
   })
 
   test('2. HTTP 401 unauthorized muestra toast de error', async ({ page }) => {
     await interceptExcelWith(page, 401)
     await setupPage(page)
     await page.getByTestId('excel-export-btn').click()
-    await expect(
-      page.getByText(ERROR_TOAST)
-    ).toBeVisible({ timeout: 5_000 })
+    await expect(page.getByText(ERROR_TOAST)).toBeVisible({ timeout: 5_000 })
   })
 
   test('3. HTTP 403 forbidden muestra toast de error', async ({ page }) => {
     await interceptExcelWith(page, 403)
     await setupPage(page)
     await page.getByTestId('excel-export-btn').click()
-    await expect(
-      page.getByText(ERROR_TOAST)
-    ).toBeVisible({ timeout: 5_000 })
+    await expect(page.getByText(ERROR_TOAST)).toBeVisible({ timeout: 5_000 })
   })
 
   test('4. Falla de red (abort) muestra toast de error', async ({ page }) => {
@@ -77,17 +68,13 @@ test.describe('Excel Export — error scenarios', () => {
     })
     await setupPage(page)
     await page.getByTestId('excel-export-btn').click()
-    await expect(
-      page.getByText(ERROR_TOAST)
-    ).toBeVisible({ timeout: 5_000 })
+    await expect(page.getByText(ERROR_TOAST)).toBeVisible({ timeout: 5_000 })
   })
 
   test('5. HTTP 503 unavailable muestra toast de error', async ({ page }) => {
     await interceptExcelWith(page, 503)
     await setupPage(page)
     await page.getByTestId('excel-export-btn').click()
-    await expect(
-      page.getByText(ERROR_TOAST)
-    ).toBeVisible({ timeout: 5_000 })
+    await expect(page.getByText(ERROR_TOAST)).toBeVisible({ timeout: 5_000 })
   })
 })

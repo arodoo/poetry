@@ -17,15 +17,13 @@ export async function getHardwareStatus(): Promise<HardwareStatus> {
 }
 
 export async function startScanner(): Promise<{ scanning: boolean }> {
-  return fetchJson<{ scanning: boolean }>(
-    '/api/v1/hardware/scanner/start',
-    { method: 'POST' }
-  )
+  return fetchJson<{ scanning: boolean }>('/api/v1/hardware/scanner/start', {
+    method: 'POST',
+  })
 }
 
 export async function stopScanner(): Promise<{ scanning: boolean }> {
-  return fetchJson<{ scanning: boolean }>(
-    '/api/v1/hardware/scanner/stop',
-    { method: 'POST' }
-  )
+  return fetchJson<{ scanning: boolean }>('/api/v1/hardware/scanner/stop', {
+    method: 'POST',
+  })
 }

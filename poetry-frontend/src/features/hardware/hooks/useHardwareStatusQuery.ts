@@ -1,8 +1,9 @@
 /*
  * File: useHardwareStatusQuery.ts
- * Purpose: React Query hook for hardware status with 30s polling.
- * Reduced from 5s to avoid unnecessary load. Manual controls
- * handle real-time scanner state changes via invalidation.
+ * Purpose: React Query hook for reader status. Fetches ONCE on
+ * mount and never polls automatically, so the app stays fully
+ * responsive even without a reader attached. The Try Connect
+ * button invalidates this key to re-probe on demand.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -10,13 +11,20 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { getHardwareStatus } from '../api/hardwareApi'
 import type { HardwareStatus } from '../model/hardwareStatusSchema'
 
-const POLL_INTERVAL_MS = 30_000
+export const HARDWARE_STATUS_KEY: readonly string[] = [
+  'hardware',
+  'status',
+] as const
 
 export function useHardwareStatusQuery(): UseQueryResult<HardwareStatus> {
   return useQuery<HardwareStatus>({
-    queryKey: ['hardware', 'status'],
+    queryKey: [...HARDWARE_STATUS_KEY],
     queryFn: getHardwareStatus,
-    refetchInterval: POLL_INTERVAL_MS,
-    refetchIntervalInBackground: false,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: 'always',
+    staleTime: Infinity,
+    retry: false,
   })
 }

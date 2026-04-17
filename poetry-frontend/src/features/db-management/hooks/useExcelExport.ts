@@ -13,8 +13,7 @@ import { downloadBlob } from '../api/downloadBlob'
 export function useExcelExport() {
   return useMutation({
     mutationFn: async (tables: string[]) => {
-      const blob: Blob =
-        await exportExcelBlob(tables)
+      const blob: Blob = await exportExcelBlob(tables)
       downloadBlob(blob, 'poetry-export.xlsx')
     },
   })

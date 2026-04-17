@@ -32,9 +32,7 @@ test.describe('SearchableSelect on user form', (): void => {
     page: Page
   }): Promise<void> => {
     await page.getByTestId('user-status-select').click()
-    const dropdown = page.getByTestId(
-      'user-status-select-dropdown'
-    )
+    const dropdown = page.getByTestId('user-status-select-dropdown')
     await expect(dropdown).toBeVisible({ timeout: 5000 })
     const buttons = dropdown.locator('button')
     await expect(buttons).toHaveCount(2)

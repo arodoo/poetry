@@ -14,12 +14,12 @@ interface SellerCodesListModule {
 export const SellerCodesListPageLazy: LazyExoticComponent<() => ReactElement> =
   lazy(
     (): Promise<{ default: () => ReactElement }> =>
-      import(
-        '../../../../features/seller-codes/pages/SellerCodesListPage'
-      ).then((module: unknown): { default: () => ReactElement } => {
-        const typed: SellerCodesListModule = module as SellerCodesListModule
-        const page: () => ReactElement =
-          typed.default ?? (typed.SellerCodesListPage as () => ReactElement)
-        return { default: page }
-      })
+      import('../../../../features/seller-codes/pages/SellerCodesListPage').then(
+        (module: unknown): { default: () => ReactElement } => {
+          const typed: SellerCodesListModule = module as SellerCodesListModule
+          const page: () => ReactElement =
+            typed.default ?? (typed.SellerCodesListPage as () => ReactElement)
+          return { default: page }
+        }
+      )
   )

@@ -26,11 +26,13 @@ export function UserSelect(props: UserSelectProps): ReactElement {
 
   const options: SelectOption[] = useMemo(
     () =>
-      (users ?? []).map((u: UserResponse): SelectOption => ({
-        value: u.id?.toString() ?? '',
-        label: u.username ?? '',
-        sublabel: u.email ?? '',
-      })),
+      (users ?? []).map(
+        (u: UserResponse): SelectOption => ({
+          value: u.id?.toString() ?? '',
+          label: u.username ?? '',
+          sublabel: u.email ?? '',
+        })
+      ),
     [users]
   )
 

@@ -6,10 +6,7 @@
 
 const LOCALE_RE = /^\/([a-z]{2})(\/|$)/
 
-type NavFn = (
-  path: string,
-  opts?: { replace?: boolean }
-) => void
+type NavFn = (path: string, opts?: { replace?: boolean }) => void
 
 export function navigateToNewLocale(
   newLang: string | undefined,
@@ -19,8 +16,6 @@ export function navigateToNewLocale(
   const match = LOCALE_RE.exec(currentPath)
   const urlLocale = match?.[1]
   if (!newLang || !urlLocale || newLang === urlLocale) return
-  const newPath = currentPath.replace(
-    LOCALE_RE, `/${newLang}$2`
-  )
+  const newPath = currentPath.replace(LOCALE_RE, `/${newLang}$2`)
   navigate(newPath, { replace: true })
 }

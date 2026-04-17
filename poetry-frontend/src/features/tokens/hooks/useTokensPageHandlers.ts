@@ -39,9 +39,7 @@ export function buildTokensPageHandlers(d: Deps) {
             d.navigate
           )
         },
-        onError: () => d.toast.push(
-          d.t('ui.tokens.toast.update.error')
-        ),
+        onError: () => d.toast.push(d.t('ui.tokens.toast.update.error')),
       })
     }
   )

@@ -6,13 +6,9 @@
  * All Rights Reserved. Arodi Emmanuel
  */
 
-export function downloadBlob(
-  blob: Blob,
-  filename: string
-): void {
+export function downloadBlob(blob: Blob, filename: string): void {
   const url: string = URL.createObjectURL(blob)
-  const a: HTMLAnchorElement =
-    document.createElement('a')
+  const a: HTMLAnchorElement = document.createElement('a')
   a.href = url
   a.download = filename
   document.body.appendChild(a)
