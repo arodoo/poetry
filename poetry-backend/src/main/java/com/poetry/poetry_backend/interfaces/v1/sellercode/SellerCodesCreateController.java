@@ -43,7 +43,7 @@ public class SellerCodesCreateController {
   public ResponseEntity<SellerCodeResponse> create(
       @RequestBody SellerCodeCreateRequest r) {
     var sc = create.execute(
-        r.code(), r.organizationId(), r.userId(), r.status());
+        r.code(), r.userId(), r.status());
     return ResponseEntity.status(201).body(
         SellerCodeResponse.fromDomain(sc));
   }

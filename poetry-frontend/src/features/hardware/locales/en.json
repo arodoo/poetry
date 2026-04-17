@@ -3,7 +3,6 @@
   "ui.hardware.status.subtitle": "Fingerprint reader monitoring",
   "ui.hardware.status.connected": "Connected",
   "ui.hardware.status.disconnected": "Disconnected",
-  "ui.hardware.status.reconnecting": "Reconnecting in {{seconds}} seconds...",
   "ui.hardware.status.listening": "Reader active — listening for fingerprints",
   "ui.hardware.status.tryConnect": "Try to connect",
   "ui.hardware.status.tryConnect.loading": "Checking reader...",

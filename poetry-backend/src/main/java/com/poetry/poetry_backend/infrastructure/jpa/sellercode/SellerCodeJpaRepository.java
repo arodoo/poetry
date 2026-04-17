@@ -23,7 +23,7 @@ public interface SellerCodeJpaRepository extends JpaRepository<SellerCodeEntity,
   @Query("select sc from SellerCodeEntity sc where sc.deletedAt is null")
   Page<SellerCodeEntity> findAllActive(Pageable pageable);
 
-  @Query("select sc from SellerCodeEntity sc where sc.deletedAt is null and (lower(sc.code) like lower(concat('%', :search, '%')) or lower(sc.organizationId) like lower(concat('%', :search, '%')))")
+  @Query("select sc from SellerCodeEntity sc where sc.deletedAt is null and lower(sc.code) like lower(concat('%', :search, '%'))")
   Page<SellerCodeEntity> searchActive(String search, Pageable pageable);
 
   @Query("select sc from SellerCodeEntity sc where sc.id = :id and sc.deletedAt is null")

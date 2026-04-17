@@ -17,7 +17,6 @@ public final class SellerCodeRehydrator {
   public static SellerCode rehydrate(
       Long id,
       String code,
-      String organizationId,
       Long userId,
       String status,
       Instant createdAt,
@@ -25,6 +24,6 @@ public final class SellerCodeRehydrator {
       Instant deletedAt,
       long version) {
     return new SellerCode(
-        id, code, organizationId, userId, status, createdAt, updatedAt, deletedAt, version);
+        id, code, userId, status, createdAt, updatedAt, deletedAt, version);
   }
 }

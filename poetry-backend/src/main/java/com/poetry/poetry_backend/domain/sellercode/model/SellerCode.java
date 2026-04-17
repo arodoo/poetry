@@ -1,8 +1,8 @@
 /*
  * File: SellerCode.java
  * Purpose: Immutable record representing seller code aggregate state.
- * Contains unique code identifier, organization reference, and status
- * tracking for seller validation and analytics within the system.
+ * Contains unique code identifier, user reference, and status tracking
+ * for seller validation and analytics within the system.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -13,7 +13,6 @@ import java.time.Instant;
 public record SellerCode(
     Long id,
     String code,
-    String organizationId,
     Long userId,
     String status,
     Instant createdAt,

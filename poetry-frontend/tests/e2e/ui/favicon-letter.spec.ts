@@ -16,4 +16,7 @@ test('poetry.svg shows Boops letter B', async ({ request }) => {
   // Guard against font-substitution bug (3-dots glyph in alpine
   // ImageMagick). Must declare a font the bundler stage installs.
   expect(body).toMatch(/DejaVu Serif/)
+  // No decorative circles above the B (users mistook them for
+  // "3 dots" at small icon sizes on Windows taskbar).
+  expect(body).not.toMatch(/<circle/)
 })

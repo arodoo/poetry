@@ -121,7 +121,6 @@ public class MembershipBootstrapSupport {
         return new SellerCode(
             entity.getId(),
             entity.getCode(),
-            entity.getOrganizationId(),
             entity.getUserId(),
             entity.getStatus(),
             entity.getCreatedAt(),

@@ -29,13 +29,12 @@ public class SellerCodeJpaCommandAdapter implements SellerCodeCommandPort {
 
   @Override
   public SellerCode create(
-      String code, String organizationId, Long userId, String status) {
+      String code, Long userId, String status) {
     if (!userRepository.existsById(userId)) {
       throw InvalidUserException.userNotFound(userId);
     }
     SellerCodeEntity entity = new SellerCodeEntity();
     entity.setCode(code);
-    entity.setOrganizationId(organizationId);
     entity.setUserId(userId);
     entity.setStatus(status);
     return persist(repository, entity);
@@ -46,7 +45,6 @@ public class SellerCodeJpaCommandAdapter implements SellerCodeCommandPort {
       Long id,
       long version,
       String code,
-      String organizationId,
       Long userId,
       String status) {
     if (!userRepository.existsById(userId)) {
@@ -54,7 +52,6 @@ public class SellerCodeJpaCommandAdapter implements SellerCodeCommandPort {
     }
     SellerCodeEntity entity = guard(repository, id, version);
     entity.setCode(code);
-    entity.setOrganizationId(organizationId);
     entity.setUserId(userId);
     entity.setStatus(status);
     return persist(repository, entity);

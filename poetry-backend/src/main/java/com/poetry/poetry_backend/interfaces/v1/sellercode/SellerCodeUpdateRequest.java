@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Update seller code request")
 public record SellerCodeUpdateRequest(
         @Schema(description = "Unique code", example = "SC-2024-001") String code,
-        @Schema(description = "Organization ID", example = "ORG-123") String organizationId,
         @Schema(description = "User ID", example = "5") Long userId,
         @Schema(description = "Status", example = "ACTIVE") String status) {
 }

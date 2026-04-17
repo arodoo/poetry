@@ -60,7 +60,7 @@ public class AdminSellerCodeBootstrap {
         if (!exists) {
           try {
             createSellerCode.execute(
-                code, "default-org", user.getId(), "ACTIVE");
+                code, user.getId(), "ACTIVE");
             log.info("AdminSellerCodeBootstrap: '{}' -> '{}'",
                 username, code);
           } catch (Exception e) {

@@ -14,7 +14,6 @@ import jakarta.validation.constraints.NotNull;
 @Schema(description = "Create seller code request")
 public record SellerCodeCreateRequest(
         @NotBlank @Schema(description = "Unique code", example = "SC-2024-001") String code,
-        @Schema(description = "Organization ID (optional)", example = "ORG-123") String organizationId,
         @NotNull @Schema(description = "User ID", example = "5") Long userId,
         @NotBlank @Schema(description = "Status", example = "ACTIVE") String status) {
 }

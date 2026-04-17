@@ -23,9 +23,8 @@ public class UpdateSellerCodeUseCase {
       Long id,
       long version,
       String code,
-      String organizationId,
       Long userId,
       String status) {
-    return commands.update(id, version, code, organizationId, userId, status);
+    return commands.update(id, version, code, userId, status);
   }
 }

@@ -3,7 +3,6 @@
   "ui.hardware.status.subtitle": "Monitoreo del lector de huellas",
   "ui.hardware.status.connected": "Conectado",
   "ui.hardware.status.disconnected": "Desconectado",
-  "ui.hardware.status.reconnecting": "Reconectando en {{seconds}} segundos...",
   "ui.hardware.status.listening": "Lector activo — escuchando huellas",
   "ui.hardware.status.tryConnect": "Intentar conectar",
   "ui.hardware.status.tryConnect.loading": "Verificando lector...",

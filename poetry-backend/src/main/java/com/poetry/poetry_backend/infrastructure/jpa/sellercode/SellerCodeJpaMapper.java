@@ -19,7 +19,6 @@ public final class SellerCodeJpaMapper {
     return SellerCodeRehydrator.rehydrate(
         e.getId(),
         e.getCode(),
-        e.getOrganizationId(),
         e.getUserId(),
         e.getStatus(),
         e.getCreatedAt(),

@@ -18,7 +18,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record SellerCodeResponse(
         @Schema(description = "Seller code ID", example = "1") Long id,
         @Schema(description = "Unique code", example = "SC-2024-001") String code,
-        @Schema(description = "Organization ID", example = "ORG-123") String organizationId,
         @Schema(description = "User ID", example = "5") Long userId,
         @Schema(description = "Status", example = "ACTIVE") String status,
         @Schema(description = "Creation date", example = "2023-01-01T00:00:00Z") Instant createdAt,
@@ -28,7 +27,6 @@ public record SellerCodeResponse(
         return new SellerCodeResponse(
                 sc.id(),
                 sc.code(),
-                sc.organizationId(),
                 sc.userId(),
                 sc.status(),
                 sc.createdAt(),

@@ -46,18 +46,17 @@ public class SellerCodeJpaAdapter
   }
 
   public SellerCode create(
-      String code, String organizationId, Long userId, String status) {
-    return commandAdapter.create(code, organizationId, userId, status);
+      String code, Long userId, String status) {
+    return commandAdapter.create(code, userId, status);
   }
 
   public SellerCode update(
       Long id,
       long version,
       String code,
-      String organizationId,
       Long userId,
       String status) {
-    return commandAdapter.update(id, version, code, organizationId, userId, status);
+    return commandAdapter.update(id, version, code, userId, status);
   }
 
   public void softDelete(Long id, long version) {

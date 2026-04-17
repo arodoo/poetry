@@ -80,7 +80,6 @@ All log files are hot reloaded in changues
   Command at poetry-frontend\package.json
 - Mobile SDK generation (`npm run mobile-sdk:generate`): Mobile SDK up to date
   with OpenAPI. Command at poetry-mobile\package.json
-- DB squema at 'docs\db-schema.sql'
 
 ### Front-Mobile/Back Anti-Drift
 
