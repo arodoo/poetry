@@ -18,11 +18,9 @@ export function buildCreateFormSections(
       fields: (
         <SellerCodesFormFields
           code={formState.code}
-          organizationId={formState.organizationId}
           userId={formState.userId}
           status={formState.status}
           onCodeChange={formState.setCode}
-          onOrganizationIdChange={formState.setOrganizationId}
           onUserIdChange={formState.setUserId}
           onStatusChange={formState.setStatus}
           t={t}
@@ -43,11 +41,9 @@ export function buildEditFormSections(
       fields: (
         <SellerCodesFormFields
           code={formState.code}
-          organizationId={formState.organizationId}
           userId={formState.userId}
           status={formState.status}
           onCodeChange={formState.setCode}
-          onOrganizationIdChange={formState.setOrganizationId}
           onUserIdChange={formState.setUserId}
           onStatusChange={formState.setStatus}
           t={t}

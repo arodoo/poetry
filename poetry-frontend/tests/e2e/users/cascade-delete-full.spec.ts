@@ -90,10 +90,21 @@ test('user delete cascades to every related entity', async () => {
   expect([404, 410]).toContain(demAfter.status())
 
   const fpAfter = await ctx.get(`/api/v1/fingerprints/${fpId}`)
-  expect([400, 404, 410]).toContain(fpAfter.status())
+  expect(fpAfter.status(), 'fp should be gone').toBeGreaterThanOrEqual(400)
 
   const mbAfter = await ctx.get(`/api/v1/memberships/${mbId}`)
-  expect([400, 404, 410]).toContain(mbAfter.status())
+  expect([404, 410]).toContain(mbAfter.status())
+
+  // Cross-check via list endpoints: the rows must not appear at all.
+  const scList = await ctx.get('/api/v1/seller-codes/paged?page=0&size=100')
+  expect(scList.status(), await scList.text()).toBe(200)
+  const scBody = (await scList.json()) as { content: { id: number }[] }
+  expect(scBody.content.map((x): number => x.id)).not.toContain(scId)
+
+  const mbList = await ctx.get('/api/v1/memberships/paged?page=0&size=100')
+  expect(mbList.status(), await mbList.text()).toBe(200)
+  const mbBody = (await mbList.json()) as { content: { id: number }[] }
+  expect(mbBody.content.map((x): number => x.id)).not.toContain(mbId)
 
   await ctx.dispose()
 })

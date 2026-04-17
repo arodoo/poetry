@@ -21,7 +21,6 @@ export type CreateSellerCodeInput = SellerCodeCreateRequest
 export const CreateSellerCodeSchema: z.ZodType<CreateSellerCodeInput> =
   z.object({
     code: z.string().min(3, 'sellerCodes.validation.code'),
-    organizationId: z.string().optional(),
     userId: z.number({ required_error: 'sellerCodes.validation.userId' }),
     status: z.string().optional(),
   }) as z.ZodType<CreateSellerCodeInput>
@@ -37,7 +36,6 @@ export type UpdateSellerCodeInput = SellerCodeUpdateRequest
 export const UpdateSellerCodeSchema: z.ZodType<UpdateSellerCodeInput> =
   z.object({
     code: z.string().min(3, 'sellerCodes.validation.code').optional(),
-    organizationId: z.string().optional(),
     userId: z.number().optional(),
     status: z.string().optional(),
   }) as z.ZodType<UpdateSellerCodeInput>

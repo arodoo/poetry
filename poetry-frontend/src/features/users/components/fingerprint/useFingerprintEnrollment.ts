@@ -34,9 +34,6 @@ export function useFingerprintEnrollment(): {
     setErrorMessage('')
 
     try {
-      const baseUrl =
-        (import.meta.env['VITE_API_URL'] as string | undefined) ??
-        'http://localhost:8080'
       const tokens = tokenStorage.load()
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
@@ -45,7 +42,7 @@ export function useFingerprintEnrollment(): {
         headers['Authorization'] = `Bearer ${tokens.accessToken}`
       }
 
-      const response = await fetch(`${baseUrl}/api/v1/fingerprints/capture`, {
+      const response = await fetch(`/api/v1/fingerprints/capture`, {
         method: 'POST',
         headers,
         credentials: 'include',

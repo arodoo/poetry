@@ -20,9 +20,6 @@ export function updateSellerCodeSubmitHandler(
       code: formState.code,
       userId: Number(formState.userId),
       status: formState.status,
-      ...(formState.organizationId && {
-        organizationId: formState.organizationId,
-      }),
     }
     onSuccess(input)
   }

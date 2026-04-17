@@ -34,10 +34,6 @@ export function buildSellerCodeDetailSections(
             </Badge>
           ),
         },
-        {
-          label: t('ui.sellerCodes.form.organization.label'),
-          value: sellerCode.organizationId ?? '-',
-        },
       ] as readonly DetailViewItem[],
     },
     {

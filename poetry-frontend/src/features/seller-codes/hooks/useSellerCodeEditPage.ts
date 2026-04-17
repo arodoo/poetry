@@ -28,7 +28,6 @@ export function useSellerCodeEditPage(): {
       sellerCode
         ? {
             code: sellerCode.code ?? '',
-            organizationId: sellerCode.organizationId ?? '',
             userId: sellerCode.userId ? String(sellerCode.userId) : '',
             status: (sellerCode.status ?? 'inactive') as
               | 'active'

@@ -59,13 +59,6 @@ export function buildSellerCodesListColumns(
       ],
     },
     {
-      key: 'organizationId',
-      header: t('ui.sellerCodes.columns.organization'),
-      width: 'lg',
-      accessor: (row: SellerCodeSummary): string => row.organizationId ?? '-',
-      sortValue: (row: SellerCodeSummary): string => row.organizationId ?? '',
-    },
-    {
       key: 'actions',
       header: t('ui.sellerCodes.columns.actions'),
       accessor: (row: SellerCodeSummary): ReactElement => (

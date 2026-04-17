@@ -13,7 +13,6 @@ describe('SellerCodesSchemas', () => {
     const valid = {
       code: 'ABC123',
       userId: 1,
-      organizationId: 'org-1',
       status: 'active',
     }
     const result = CreateSellerCodeSchema.safeParse(valid)

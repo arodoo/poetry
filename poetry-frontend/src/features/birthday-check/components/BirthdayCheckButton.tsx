@@ -8,11 +8,13 @@
 import type { ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
 import { useBirthdayCheck } from '../hooks/useBirthdayCheck'
+import { useBirthdayAutoOpen } from '../hooks/useBirthdayAutoOpen'
 import { BirthdayPopup } from './BirthdayPopup'
 
 export function BirthdayCheckButton(): ReactElement {
   const t = useT()
   const { isOpen, celebrants, isLoading, check, close } = useBirthdayCheck()
+  useBirthdayAutoOpen(check)
 
   return (
     <>
