@@ -44,6 +44,10 @@ springdoc:
 carousel:
   upload-dir: ./uploads/carousel
 
+# Default timezone for date-sensitive features (birthdays).
+app:
+  timezone: America/Mexico_City
+
 # Multipart upload limits
 spring.servlet.multipart:
   max-file-size: 200MB

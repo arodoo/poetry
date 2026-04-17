@@ -50,7 +50,8 @@ windows/x64/jre/hotspot/normal/eclipse" && \
 
 # ── Stage 5: Assemble the app bundle ──────────────────
 FROM alpine:3.19 AS bundler
-RUN apk add --no-cache curl unzip imagemagick rsvg-convert
+RUN apk add --no-cache curl unzip imagemagick rsvg-convert \
+  ttf-dejavu fontconfig && fc-cache -f
 
 WORKDIR /bundle/Poetry
 

@@ -25,17 +25,20 @@ import com.poetry.poetry_backend.infrastructure.jpa.userdemographics.UserDemogra
 public class BirthdaysJpaAdapter implements BirthdaysQueryPort {
   private final UserDemographicsJpaRepository demographicsRepo;
   private final UserJpaRepository userRepo;
+  private final ZoneId zone;
 
   public BirthdaysJpaAdapter(
       UserDemographicsJpaRepository demographicsRepo,
-      UserJpaRepository userRepo) {
+      UserJpaRepository userRepo,
+      ZoneId zone) {
     this.demographicsRepo = demographicsRepo;
     this.userRepo = userRepo;
+    this.zone = zone;
   }
 
   @Override
   public List<BirthdayUser> findTodaysBirthdays() {
-    LocalDate today = LocalDate.now(ZoneId.systemDefault());
+    LocalDate today = LocalDate.now(zone);
     return demographicsRepo
         .findByBirthMonthAndDay(
             today.getMonthValue(), today.getDayOfMonth())

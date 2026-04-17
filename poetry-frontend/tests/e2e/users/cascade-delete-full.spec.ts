@@ -1,9 +1,10 @@
 /*
  * File: cascade-delete-full.spec.ts
- * Purpose: E2E regression verifying that deleting a user also
- * cleans up their seller codes and demographics (soft-delete).
- * Protects against the client-reported ghost data left behind
- * when administrators remove users from the system.
+ * Purpose: E2E regression verifying that deleting a user cascades to
+ * seller codes, demographics, memberships and fingerprints. Protects
+ * against the client-reported ghost-data leftovers when an admin
+ * removes a user. Seeds each related entity before delete and asserts
+ * it returns 404/410 afterwards.
  * All Rights Reserved. Arodi Emmanuel
  */
 
@@ -40,7 +41,7 @@ async function seedUser(ctx: APIRequestContext): Promise<number> {
   return ((await r.json()) as { id: number }).id
 }
 
-test('user delete cascades to seller codes + demographics', async () => {
+test('user delete cascades to every related entity', async () => {
   const ctx = await adminCtx()
   const userId = await seedUser(ctx)
 
@@ -54,6 +55,24 @@ test('user delete cascades to seller codes + demographics', async () => {
     data: { birthDate: '1990-01-15' },
   })
   expect(dem.ok()).toBe(true)
+
+  const fp = await ctx.post(
+    `/api/v1/users/${userId}/fingerprints/enroll`,
+    { data: { fmd: `FMD-${Date.now()}` } }
+  )
+  expect(fp.status(), await fp.text()).toBe(201)
+  const fpId = ((await fp.json()) as { fingerprintId: number }).fingerprintId
+
+  const mb = await ctx.post('/api/v1/memberships', {
+    data: {
+      userId,
+      subscriptionId: 1,
+      sellerCode: 'codigo001',
+      allZones: true,
+    },
+  })
+  expect(mb.status(), await mb.text()).toBe(201)
+  const mbId = ((await mb.json()) as { id: number }).id
 
   const userResp = await ctx.get(`/api/v1/users/${userId}`)
   const etag = userResp.headers()['etag'] ?? ''
@@ -69,6 +88,12 @@ test('user delete cascades to seller codes + demographics', async () => {
 
   const demAfter = await ctx.get(`/api/v1/users/${userId}/demographics`)
   expect([404, 410]).toContain(demAfter.status())
+
+  const fpAfter = await ctx.get(`/api/v1/fingerprints/${fpId}`)
+  expect([400, 404, 410]).toContain(fpAfter.status())
+
+  const mbAfter = await ctx.get(`/api/v1/memberships/${mbId}`)
+  expect([400, 404, 410]).toContain(mbAfter.status())
 
   await ctx.dispose()
 })

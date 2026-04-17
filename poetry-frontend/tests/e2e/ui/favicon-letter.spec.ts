@@ -13,4 +13,7 @@ test('poetry.svg shows Boops letter B', async ({ request }) => {
   const body = await resp.text()
   expect(body).toMatch(/>B<\/text>/)
   expect(body).not.toMatch(/>P<\/text>/)
+  // Guard against font-substitution bug (3-dots glyph in alpine
+  // ImageMagick). Must declare a font the bundler stage installs.
+  expect(body).toMatch(/DejaVu Serif/)
 })

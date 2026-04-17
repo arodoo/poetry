@@ -7,6 +7,9 @@
  */
 package com.poetry.poetry_backend.config.birthdays;
 
+import java.time.ZoneId;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,8 +24,10 @@ public class BirthdaysComposition {
   @Bean
   BirthdaysJpaAdapter birthdaysJpaAdapter(
       UserDemographicsJpaRepository demographicsRepo,
-      UserJpaRepository userRepo) {
-    return new BirthdaysJpaAdapter(demographicsRepo, userRepo);
+      UserJpaRepository userRepo,
+      @Value("${app.timezone:America/Mexico_City}") String tz) {
+    return new BirthdaysJpaAdapter(
+        demographicsRepo, userRepo, ZoneId.of(tz));
   }
 
   @Bean

@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.poetry.poetry_backend.infrastructure.storage.UploadDirResolver;
+
 @Configuration
 public class CarouselResourceConfig implements WebMvcConfigurer {
 
@@ -20,7 +22,8 @@ public class CarouselResourceConfig implements WebMvcConfigurer {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    String location = "file:" + uploadDir + "/";
+    String location = UploadDirResolver.resolve(uploadDir)
+        .toUri().toString();
     registry
         .addResourceHandler("/api/v1/carousel/media/**")
         .addResourceLocations(location)

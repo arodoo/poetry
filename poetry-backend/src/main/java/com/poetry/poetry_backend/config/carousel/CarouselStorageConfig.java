@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.poetry.poetry_backend.infrastructure.storage.LocalFileStorageAdapter;
+import com.poetry.poetry_backend.infrastructure.storage.UploadDirResolver;
 
 @Configuration
 public class CarouselStorageConfig {
@@ -21,6 +22,7 @@ public class CarouselStorageConfig {
   @Bean
   LocalFileStorageAdapter localFileStorageAdapter(
       @Value("${carousel.upload-dir}") String uploadDir) {
-    return new LocalFileStorageAdapter(Path.of(uploadDir));
+    Path resolved = UploadDirResolver.resolve(uploadDir);
+    return new LocalFileStorageAdapter(resolved);
   }
 }

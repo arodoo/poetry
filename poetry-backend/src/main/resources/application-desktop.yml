@@ -53,6 +53,12 @@ springdoc:
 carousel:
   upload-dir: ./uploads/carousel
 
+# Default timezone used to decide "today" for the birthday
+# popup and any other date-driven feature. Override per site
+# if the client is outside Mexico Central Time.
+app:
+  timezone: America/Mexico_City
+
 # Data-safety: never inject sample rows on startup in client
 # machines. Admin bootstrap stays on because it is idempotent
 # (catches DuplicateUserException) and only repairs roles.
