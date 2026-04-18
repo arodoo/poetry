@@ -1,1 +1,0 @@
-Fix al CI errores reported (gotteb by runnign ci comand checker)
