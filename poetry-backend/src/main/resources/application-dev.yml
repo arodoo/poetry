@@ -3,6 +3,9 @@
 # All Rights Reserved. Arodi Emmanuel
 
 spring:
+  jpa:
+    show-sql: true
+
   devtools:
     restart:
       enabled: true
@@ -23,10 +26,6 @@ spring:
       max-file-size: 200MB
       max-request-size: 200MB
 
-# Carousel media upload directory (dev: within the project workspace)
-carousel:
-  upload-dir: ./uploads/carousel
-
 # Disable caching for dev
 server:
   error:
@@ -42,3 +41,15 @@ springdoc:
     path: /swagger-ui.html
   packages-to-scan: com.poetry.poetry_backend.interfaces
   show-actuator: false
+
+# Dev-only: seed sample data on startup
+admin:
+  bootstrap:
+    injectSampleUsers: true
+    sampleCount: 50
+membership:
+  bootstrap:
+    enabled: true
+zone:
+  bootstrap:
+    count: 1

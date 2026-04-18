@@ -41,3 +41,7 @@ services:
 volumes:
   pgdata:
     name: poetry_pgdata
+  # Mount this volume when running the backend container:
+  # docker run -v poetry_uploads:/data/uploads poetry-backend
+  poetry_uploads:
+    name: poetry_uploads

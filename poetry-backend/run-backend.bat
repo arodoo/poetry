@@ -15,4 +15,4 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo Starting backend on port 8080...
-java -jar target\poetry-backend-0.0.1-SNAPSHOT.jar
+java -Dspring.profiles.active=dev -jar target\poetry-backend-0.0.1-SNAPSHOT.jar

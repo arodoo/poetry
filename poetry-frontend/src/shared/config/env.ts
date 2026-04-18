@@ -22,11 +22,9 @@ const schema: z.ZodTypeAny = z
     VITE_API_BASE_URL: z
       .string()
       .default('')
-      .refine(
-        (v: string): boolean =>
-          v === '' || /^https?:\/\//i.test(v),
-        { message: 'VITE_API_BASE_URL must be empty or http(s) URL' }
-      ),
+      .refine((v: string): boolean => v === '' || /^https?:\/\//i.test(v), {
+        message: 'VITE_API_BASE_URL must be empty or http(s) URL',
+      }),
     VITE_LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
     VITE_FEATURE_AUTH: z
       .string()

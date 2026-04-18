@@ -45,10 +45,9 @@ initEnv()
 startTokenRefreshScheduler()
 
 // Configure authentication and cache-busting for generated SDK client
+client.setConfig({ baseUrl: '' })
 client.interceptors.request.use((request: Request): Request => {
   const tokens = tokenStorage.load()
-  console.log('[SDK Interceptor] Request URL:', request.url)
-  console.log('[SDK Interceptor] Tokens:', tokens ? 'LOADED' : 'NONE')
 
   // Prevent aggressive browser caching of API responses
   request.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
@@ -56,7 +55,6 @@ client.interceptors.request.use((request: Request): Request => {
   request.headers.set('Expires', '0')
 
   if (tokens?.accessToken) {
-    console.log('[SDK Interceptor] Adding Authorization header')
     request.headers.set('Authorization', `Bearer ${tokens.accessToken}`)
   }
   return request

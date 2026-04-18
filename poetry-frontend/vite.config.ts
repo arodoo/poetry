@@ -6,7 +6,8 @@ import { pathToFileURL } from 'node:url'
 import { existsSync } from 'node:fs'
 
 // https://vite.dev/config/
-export default defineConfig(async (): Promise<UserConfig> => {
+export default defineConfig(
+  async ({ command }: { command: string }): Promise<UserConfig> => {
   const rootDir: string = process.cwd()
   const devLoggerAbs: string = resolve(
     rootDir,
@@ -39,5 +40,12 @@ export default defineConfig(async (): Promise<UserConfig> => {
       },
     },
   }
-  return { plugins, server }
+  return {
+    plugins,
+    server,
+    esbuild:
+      command === 'build'
+        ? { drop: ['console', 'debugger'] }
+        : {},
+  }
 })

@@ -28,10 +28,9 @@ test('carousel real upload returns 201 and is listed', async (): Promise<void> =
   expect(up.status(), await up.text()).toBe(201)
   const created = (await up.json()) as { id: number; filename: string }
   expect(created.filename).toMatch(/\.png$/i)
-  const media = await ctx.get(
-    `/api/v1/carousel/media/${created.filename}`,
-    { headers: auth }
-  )
+  const media = await ctx.get(`/api/v1/carousel/media/${created.filename}`, {
+    headers: auth,
+  })
   expect(media.status()).toBe(200)
   const list = await ctx.get('/api/v1/carousel/config', { headers: auth })
   expect(list.ok()).toBe(true)

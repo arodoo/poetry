@@ -56,10 +56,9 @@ test('user delete cascades to every related entity', async () => {
   })
   expect(dem.ok()).toBe(true)
 
-  const fp = await ctx.post(
-    `/api/v1/users/${userId}/fingerprints/enroll`,
-    { data: { fmd: `FMD-${Date.now()}` } }
-  )
+  const fp = await ctx.post(`/api/v1/users/${userId}/fingerprints/enroll`, {
+    data: { fmd: `FMD-${Date.now()}` },
+  })
   expect(fp.status(), await fp.text()).toBe(201)
   const fpId = ((await fp.json()) as { fingerprintId: number }).fingerprintId
 

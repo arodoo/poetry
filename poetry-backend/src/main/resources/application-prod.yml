@@ -40,10 +40,6 @@ springdoc:
   swagger-ui:
     enabled: false
 
-# Carousel media upload directory (prod: persistent path)
-carousel:
-  upload-dir: ./uploads/carousel
-
 # Default timezone for date-sensitive features (birthdays).
 app:
   timezone: America/Mexico_City
