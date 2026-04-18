@@ -24,7 +24,8 @@
     "pw:test": "playwright test",
     "pw:test:ui": "playwright test --ui",
     "pw:codegen": "playwright codegen http://localhost:5173",
-    "pw:install": "playwright install --with-deps"
+    "pw:install": "playwright install --with-deps",
+    "purge:test-data": "node tools/purge-test-data.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

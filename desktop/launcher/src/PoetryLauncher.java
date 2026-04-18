@@ -28,7 +28,7 @@ public final class PoetryLauncher {
       String statics = appDir.resolve("static").toString();
       new BackendRunner(jar, pgPort, statics).start();
       BackendProbe.waitReady(90);
-      BrowserOpener.open("http://localhost:8080");
+      BrowserOpener.open("http://127.0.0.1:8080");
       TrayManager.install(appDir);
     } catch (Exception e) {
       e.printStackTrace();

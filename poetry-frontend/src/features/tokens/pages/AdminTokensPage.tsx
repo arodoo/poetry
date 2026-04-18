@@ -14,6 +14,7 @@ import type { I18nKey } from '../../../shared/i18n/generated/keys'
 import { PageLayout } from '../../../ui/PageLayout/PageLayout'
 import { Breadcrumb } from '../../../ui/Breadcrumb/Breadcrumb'
 import { AdminTokensContent } from './AdminTokensContent'
+import { AdminTokensStatusView } from './AdminTokensStatusView'
 import { useTokensFormState } from '../hooks/useTokensFormState'
 import { buildTokensPageHandlers } from '../hooks/useTokensPageHandlers'
 import { buildTokensBreadcrumbs } from '../model/tokensPageHelpers'
@@ -30,9 +31,22 @@ export function AdminTokensPage(): ReactElement {
   const safeInitial = getSafeInitial(data)
   const { formState, setField, resetForm } = useTokensFormState(safeInitial)
 
-  if (isLoading) return <p>{t('ui.admin.tokens.loading')}</p>
-  if (error) return <p>{t('ui.admin.tokens.error')}</p>
-  if (!data) return <p>{t('ui.admin.tokens.empty')}</p>
+  const title = t('ui.admin.tokens.title')
+  const subtitle = t('ui.admin.tokens.subtitle')
+  const crumbs = <Breadcrumb items={buildTokensBreadcrumbs(locale, t)} />
+  const status = (msg: string, variant?: 'info' | 'error'): ReactElement => (
+    <AdminTokensStatusView
+      title={title}
+      subtitle={subtitle}
+      crumbs={crumbs}
+      message={msg}
+      variant={variant}
+    />
+  )
+
+  if (isLoading) return status(t('ui.admin.tokens.loading'))
+  if (error) return status(t('ui.admin.tokens.error'), 'error')
+  if (!data) return status(t('ui.admin.tokens.empty'))
 
   const { bundle } = data
   const { handleSubmit, handleCancel } = buildTokensPageHandlers({
@@ -47,11 +61,8 @@ export function AdminTokensPage(): ReactElement {
   })
 
   return (
-    <PageLayout
-      title={t('ui.admin.tokens.title')}
-      subtitle={t('ui.admin.tokens.subtitle')}
-    >
-      <Breadcrumb items={buildTokensBreadcrumbs(locale, t)} />
+    <PageLayout title={title} subtitle={subtitle}>
+      {crumbs}
       <AdminTokensContent
         bundle={bundle}
         formState={formState}

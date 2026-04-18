@@ -13,7 +13,11 @@ import { tokenStorage } from '../../../shared/security/tokens/tokenStorage'
 
 interface DeleteFp {
   busy: boolean
-  handleDelete: (id: number, confirmMsg: string) => void
+  handleDelete: (
+    id: number,
+    confirmMsg: string,
+    onSuccess?: () => void
+  ) => void
 }
 
 export function useDeleteFingerprint(): DeleteFp {
@@ -21,12 +25,15 @@ export function useDeleteFingerprint(): DeleteFp {
   const [busy, setBusy] = useState(false)
 
   const handleDelete = useCallback(
-    (id: number, confirmMsg: string) => {
+    (id: number, confirmMsg: string, onSuccess?: () => void) => {
       if (!window.confirm(confirmMsg)) return
       setBusy(true)
       const token = tokenStorage.load()?.accessToken ?? ''
       void deleteFingerprint(id, token)
-        .then(() => qc.invalidateQueries({ queryKey: ['fingerprints'] }))
+        .then(() => {
+          qc.invalidateQueries({ queryKey: ['fingerprints'] })
+          if (onSuccess) onSuccess()
+        })
         .finally(() => setBusy(false))
     },
     [qc]

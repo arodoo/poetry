@@ -15,6 +15,7 @@ import { useFingerprintsQuery } from '../hooks/useFingerprintsQuery'
 import { useUsersListForSelect } from '../../seller-codes/hooks/useUsersListForSelect'
 import { buildFingerprintDetailSections } from '../model/fingerprintDetailHelpers'
 import { buildFingerprintDetailBreadcrumbs } from '../model/fingerprintBreadcrumbHelpers'
+import { FingerprintDetailDeleteAction } from '../components/FingerprintDetailDeleteAction'
 import type { MergedFingerprint } from '../components/HardwareFingerprintTableShell'
 
 export default function FingerprintDetailPage(): ReactElement {
@@ -46,6 +47,9 @@ export default function FingerprintDetailPage(): ReactElement {
 
   const sections = merged ? buildFingerprintDetailSections(merged, t) : []
   const breadcrumbs = buildFingerprintDetailBreadcrumbs(locale, t)
+  const actions = merged ? (
+    <FingerprintDetailDeleteAction id={merged.id} />
+  ) : undefined
 
   return (
     <PageLayout
@@ -63,7 +67,7 @@ export default function FingerprintDetailPage(): ReactElement {
           {t('ui.hardware.fingerprints.detail.error')}
         </Text>
       ) : (
-        <DetailView sections={sections} />
+        <DetailView sections={sections} actions={actions} />
       )}
     </PageLayout>
   )
