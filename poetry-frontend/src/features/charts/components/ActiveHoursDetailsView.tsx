@@ -1,84 +1,68 @@
 /*
  * File: ActiveHoursDetailsView.tsx
- * Purpose: A dedicated sub-dashboard for Access Logs comprising multiple tabs and a raw data table. It isolates the logic of managing the different metric subsets into a clean component avoiding massive files. Users can seamlessly tab between weekly trends, hourly peaks, and raw check-in instances.
+ * Purpose: Drill-through sub-dashboard for active hours combining three
+ * tabs (By Hour / Busiest Days / 7-Day Trend) with the raw access logs
+ * table. Tab labels are fully i18n-driven and theme-aware.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useState, type ReactElement } from 'react'
+import { useT } from '../../../shared/i18n/useT'
 import { MostActiveHoursChart } from './MostActiveHoursChart'
 import { ActiveDaysChart } from './ActiveDaysChart'
 import { AccessLogTrendChart } from './AccessLogTrendChart'
 import { AccessLogsRawDataView } from './AccessLogsRawDataView'
 import type { DashboardMetrics } from '../model/ChartsSchemas'
 
-interface ActiveHoursDetailsViewProps {
-  data: DashboardMetrics
-}
+type TabKey = 'hour' | 'day' | 'trend'
 
 export function ActiveHoursDetailsView({
   data,
-}: ActiveHoursDetailsViewProps): ReactElement {
-  const [activeTab, setActiveTab] = useState<'hour' | 'day' | 'trend'>('hour')
-
-  const logs = data.recentAccessLogs ?? []
-
-  const tabClass = (tab: string) =>
-    `px-4 py-2 font-medium text-sm transition-colors border-b-2 ${
-      activeTab === tab
+}: {
+  data: DashboardMetrics
+}): ReactElement {
+  const t = useT()
+  const [active, setActive] = useState<TabKey>('hour')
+  const tabs: { key: TabKey; label: string }[] = [
+    { key: 'hour', label: t('ui.charts.tabs.byHour') },
+    { key: 'day', label: t('ui.charts.tabs.busiestDays') },
+    { key: 'trend', label: t('ui.charts.tabs.sevenDayTrend') },
+  ]
+  const tabClass = (tab: TabKey): string =>
+    [
+      'px-4 py-2 text-sm font-medium border-b-2 transition-colors',
+      active === tab
         ? 'border-primary text-primary'
-        : 'border-transparent text-text-muted hover:text-text hover:border-divider'
-    }`
-
+        : 'border-transparent text-textMuted hover:text-text hover:border-border',
+    ].join(' ')
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex border-b border-divider gap-4">
-        <button
-          className={tabClass('hour')}
-          onClick={() => {
-            setActiveTab('hour')
-          }}
-        >
-          By Hour
-        </button>
-        <button
-          className={tabClass('day')}
-          onClick={() => {
-            setActiveTab('day')
-          }}
-        >
-          Busiest Days
-        </button>
-        <button
-          className={tabClass('trend')}
-          onClick={() => {
-            setActiveTab('trend')
-          }}
-        >
-          7-Day Trend
-        </button>
+      <div className="flex gap-4 border-b border-border">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            type="button"
+            className={tabClass(tab.key)}
+            onClick={(): void => {
+              setActive(tab.key)
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
-
-      {activeTab === 'hour' && (
-        <div className="w-full">
+      <div className="h-[360px] w-full">
+        {active === 'hour' ? (
           <MostActiveHoursChart
             data={data.activeHours}
             daysData={data.activeDaysOfWeek ?? {}}
           />
-        </div>
-      )}
-
-      {activeTab === 'day' && (
-        <div className="w-full">
+        ) : active === 'day' ? (
           <ActiveDaysChart data={data.activeDaysOfWeek ?? {}} />
-        </div>
-      )}
-
-      {activeTab === 'trend' && (
-        <div className="w-full">
+        ) : (
           <AccessLogTrendChart data={data.accessLogTrend ?? {}} />
-        </div>
-      )}
-
-      <AccessLogsRawDataView logs={logs} />
+        )}
+      </div>
+      <AccessLogsRawDataView logs={data.recentAccessLogs ?? []} />
     </div>
   )
 }

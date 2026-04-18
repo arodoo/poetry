@@ -1,77 +1,62 @@
 /*
  * File: MostPopulatedRegionsChart.tsx
- * Purpose: Horizontal bar chart for populated regions (zones).
- * Bars work better than pie slices for varied zone names.
+ * Purpose: Horizontal bar chart for populated regions, rendered inside
+ * the shared ChartCard with themed axes and palette-driven fill.
+ * Bars stay legible across every theme via runtime CSS variables.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { useT } from '../../../shared/i18n/useT'
 import {
   Bar,
   BarChart,
+  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
-import { formatBarData, CHART_COLORS } from './chartUtils'
-import { Button } from '../../../ui'
-import { useNavigate, useParams } from 'react-router-dom'
-
-interface MostPopulatedRegionsChartProps {
-  data: Record<string, number>
-}
+import { useT } from '../../../shared/i18n/useT'
+import { formatBarData } from './chartUtils'
+import { pickColor } from './shared/chartTheme'
+import { AXIS_BASE, GRID_BASE, TOOLTIP_CURSOR } from './shared/chartAxisProps'
+import { ChartCard } from './shared/ChartCard'
+import { ChartTooltip } from './shared/ChartTooltip'
 
 export function MostPopulatedRegionsChart({
   data,
-}: MostPopulatedRegionsChartProps): ReactElement {
+}: {
+  data: Record<string, number>
+}): ReactElement {
   const t = useT()
-  const { locale } = useParams()
-  const navigate = useNavigate()
-
   const chartData = formatBarData(data, 'region', 'count')
-
   return (
-    <div className="bg-surface rounded-lg shadow-sm p-4 border border-divider flex flex-col h-full">
-      <h3 className="text-lg font-medium text-foreground mb-4">
-        {t('ui.charts.populatedRegions')}
-      </h3>
-      <div className="h-64 w-full flex-grow">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={chartData}
-            layout="vertical"
-            margin={{ left: 20, right: 20 }}
-          >
-            <XAxis type="number" hide />
-            <YAxis
-              type="category"
-              dataKey="region"
-              width={100}
-              tick={{ fontSize: 12 }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'var(--color-surface)',
-                borderColor: 'var(--color-divider)',
-                color: 'var(--color-foreground)',
-              }}
-            />
-            <Bar dataKey="count" fill={CHART_COLORS[0]} radius={[0, 4, 4, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="mt-4 flex justify-end">
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => {
-            void navigate(`/${locale ?? 'en'}/charts/details/populatedRegions`)
-          }}
+    <ChartCard
+      title={t('ui.charts.populatedRegions')}
+      detailsId="populatedRegions"
+    >
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={chartData}
+          layout="vertical"
+          margin={{ top: 4, right: 12, left: 8, bottom: 0 }}
         >
-          {t('ui.charts.viewMore')}
-        </Button>
-      </div>
-    </div>
+          <CartesianGrid {...GRID_BASE} vertical horizontal={false} />
+          <XAxis type="number" {...AXIS_BASE} allowDecimals={false} />
+          <YAxis
+            type="category"
+            dataKey="region"
+            width={100}
+            {...AXIS_BASE}
+          />
+          <Tooltip content={<ChartTooltip />} cursor={TOOLTIP_CURSOR} />
+          <Bar
+            dataKey="count"
+            fill={pickColor(0)}
+            radius={[0, 4, 4, 0]}
+            maxBarSize={24}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
   )
 }

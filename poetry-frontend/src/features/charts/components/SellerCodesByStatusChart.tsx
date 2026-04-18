@@ -1,14 +1,16 @@
 /*
  * File: SellerCodesByStatusChart.tsx
- * Purpose: Pie chart representing seller codes grouped by status.
+ * Purpose: Donut chart showing seller codes grouped by status, rendered
+ * within the shared ChartCard with themed tooltip and palette rotation.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
-import { CHART_COLORS, formatPieData } from './chartUtils'
 import type { ReactElement } from 'react'
+import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { useT } from '../../../shared/i18n/useT'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Button } from '../../../ui'
+import { formatPieData } from './chartUtils'
+import { pickColor, CHART_TOKENS } from './shared/chartTheme'
+import { ChartCard } from './shared/ChartCard'
+import { ChartTooltip } from './shared/ChartTooltip'
 
 export function SellerCodesByStatusChart({
   data,
@@ -16,53 +18,37 @@ export function SellerCodesByStatusChart({
   data: Record<string, number> | undefined
 }): ReactElement | null {
   const t = useT()
-  const { locale } = useParams()
-  const navigate = useNavigate()
   if (!data) return null
   const chartData = formatPieData(data).map((entry, index) => ({
     ...entry,
-    fill: CHART_COLORS[(index + 7) % CHART_COLORS.length] ?? '#8884d8',
+    fill: pickColor(index, 7),
   }))
-
   return (
-    <div className="flex h-full flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
-      <h3 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
-        {t('ui.charts.sellerCodesByStatus')}
-      </h3>
-      <div className="flex-1">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={chartData}
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              dataKey="value"
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: '8px',
-                border: 'none',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              }}
-            />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="mt-4 flex justify-end">
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => {
-            void navigate(
-              `/${locale ?? 'en'}/charts/details/sellerCodesByStatus`
-            )
-          }}
-        >
-          {t('ui.charts.viewMore')}
-        </Button>
-      </div>
-    </div>
+    <ChartCard
+      title={t('ui.charts.sellerCodesByStatus')}
+      detailsId="sellerCodesByStatus"
+    >
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={chartData}
+            cx="50%"
+            cy="50%"
+            innerRadius={50}
+            outerRadius={80}
+            paddingAngle={3}
+            dataKey="value"
+            stroke={CHART_TOKENS.surface}
+            strokeWidth={2}
+          />
+          <Tooltip content={<ChartTooltip />} />
+          <Legend
+            verticalAlign="bottom"
+            height={28}
+            wrapperStyle={{ fontSize: 12, color: CHART_TOKENS.text }}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartCard>
   )
 }

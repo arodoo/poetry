@@ -1,17 +1,40 @@
 /*
  * File: useChartDetailsTable.ts
- * Purpose: Extracts the DataTable configuration for ChartDetailsPage to keep the main component under 80 lines.
+ * Purpose: Builds the DataTable configuration for the chart details page
+ * in a theme and i18n aware way. Delegates key formatting and header
+ * resolution to pure helpers to keep this hook concise.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useMemo } from 'react'
 import type { DashboardMetrics } from '../model/ChartsSchemas'
+import {
+  formatDetailKey,
+  getDetailsHeaderKey,
+  getDetailsHeaderValue,
+} from './chartDetailsTableHelpers'
+
+interface DetailsRow {
+  key: string
+  value: number
+}
+
+interface DetailsColumn {
+  key: string
+  header: string
+  accessor: (row: DetailsRow) => string | number
+}
+
+interface DetailsTable {
+  tableData: DetailsRow[]
+  columns: DetailsColumn[]
+}
 
 export function useChartDetailsTable(
   data: DashboardMetrics | undefined,
   chartId: string | undefined,
   t: (key: string) => string
-) {
-  const tableData = useMemo(() => {
+): DetailsTable {
+  const tableData = useMemo<DetailsRow[]>(() => {
     if (!data || !chartId) return []
     const chartData = data[chartId as keyof DashboardMetrics]
     if (!chartData) return []
@@ -20,61 +43,22 @@ export function useChartDetailsTable(
     )
   }, [data, chartId])
 
-  const columns = useMemo(() => {
-    const formatKey = (key: string, chartIdLocal?: string): string => {
-      if (chartIdLocal === 'activeHours') {
-        const hour = parseInt(key, 10)
-        if (isNaN(hour)) return key
-        const ampm = hour >= 12 ? 'PM' : 'AM'
-        const h12 = hour % 12 === 0 ? 12 : hour % 12
-        return `${String(h12)}:00 ${ampm}`
-      }
-      if (chartIdLocal === 'birthdaysThisMonth')
-        return t('ui.charts.details.birthdays')
-      if (chartIdLocal === 'eventsByType') return t(`ui.charts.events.${key}`)
-      return key
-    }
-
-    const getHeaderKey = (chartIdLocal?: string): string => {
-      switch (chartIdLocal) {
-        case 'activeHours':
-          return t('ui.charts.details.time')
-        case 'populatedRegions':
-          return t('ui.charts.details.region')
-        case 'birthdaysThisMonth':
-          return t('ui.charts.details.month')
-        default:
-          return t('ui.charts.details.key')
-      }
-    }
-
-    const getHeaderValue = (chartIdLocal?: string): string => {
-      switch (chartIdLocal) {
-        case 'activeHours':
-          return t('ui.charts.details.checkIns')
-        case 'populatedRegions':
-          return t('ui.charts.details.users')
-        case 'birthdaysThisMonth':
-          return t('ui.charts.details.total')
-        default:
-          return t('ui.charts.details.value')
-      }
-    }
-
-    return [
+  const columns = useMemo<DetailsColumn[]>(
+    () => [
       {
         key: 'key',
-        header: getHeaderKey(chartId),
-        accessor: (row: { key: string; value: number }) =>
-          formatKey(row.key, chartId),
+        header: getDetailsHeaderKey(chartId, t),
+        accessor: (row: DetailsRow): string =>
+          formatDetailKey(row.key, chartId, t),
       },
       {
         key: 'value',
-        header: getHeaderValue(chartId),
-        accessor: (row: { key: string; value: number }) => row.value,
+        header: getDetailsHeaderValue(chartId, t),
+        accessor: (row: DetailsRow): number => row.value,
       },
-    ]
-  }, [t, chartId])
+    ],
+    [t, chartId]
+  )
 
   return { tableData, columns }
 }

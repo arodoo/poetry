@@ -1,14 +1,17 @@
 /*
  * File: UsersByStatusChart.tsx
- * Purpose: Pie chart component displaying users grouped by their status.
+ * Purpose: Donut chart displaying users grouped by status using the
+ * shared ChartCard shell, theme palette and themed tooltip. Provides a
+ * "View More" drill-through to the dedicated details page.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
-import { CHART_COLORS, formatPieData } from './chartUtils'
 import type { ReactElement } from 'react'
+import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { useT } from '../../../shared/i18n/useT'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Button } from '../../../ui'
+import { formatPieData } from './chartUtils'
+import { pickColor, CHART_TOKENS } from './shared/chartTheme'
+import { ChartCard } from './shared/ChartCard'
+import { ChartTooltip } from './shared/ChartTooltip'
 
 export function UsersByStatusChart({
   data,
@@ -16,57 +19,37 @@ export function UsersByStatusChart({
   data: Record<string, number> | undefined
 }): ReactElement | null {
   const t = useT()
-  const { locale } = useParams()
-  const navigate = useNavigate()
-
   if (!data) return null
-
-  const chartData = formatPieData(data).map(
-    (entry: { name: string; value: number }, index: number) => ({
-      ...entry,
-      fill: CHART_COLORS[index % CHART_COLORS.length] ?? '#8884d8',
-    })
-  )
-
+  const chartData = formatPieData(data).map((entry, index) => ({
+    ...entry,
+    fill: pickColor(index),
+  }))
   return (
-    <div className="flex h-full flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
-      <h3 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
-        {t('ui.charts.usersByStatus')}
-      </h3>
-      <div className="flex-1">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={chartData}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={80}
-              paddingAngle={5}
-              dataKey="value"
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: '8px',
-                border: 'none',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              }}
-            />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="mt-4 flex justify-end">
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => {
-            void navigate(`/${locale ?? 'en'}/charts/details/usersByStatus`)
-          }}
-        >
-          {t('ui.charts.viewMore')}
-        </Button>
-      </div>
-    </div>
+    <ChartCard
+      title={t('ui.charts.usersByStatus')}
+      detailsId="usersByStatus"
+    >
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={chartData}
+            cx="50%"
+            cy="50%"
+            innerRadius={55}
+            outerRadius={80}
+            paddingAngle={4}
+            dataKey="value"
+            stroke={CHART_TOKENS.surface}
+            strokeWidth={2}
+          />
+          <Tooltip content={<ChartTooltip />} />
+          <Legend
+            verticalAlign="bottom"
+            height={28}
+            wrapperStyle={{ fontSize: 12, color: CHART_TOKENS.text }}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartCard>
   )
 }

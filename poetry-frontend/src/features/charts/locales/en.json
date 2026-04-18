@@ -25,5 +25,18 @@
   "ui.charts.details.time": "Time",
   "ui.charts.details.value": "Value",
   "ui.charts.details.region": "Region",
-  "ui.charts.details.users": "Users"
+  "ui.charts.details.users": "Users",
+  "ui.charts.details.id": "ID",
+  "ui.charts.details.birthdays": "Birthdays",
+  "ui.charts.details.checkIns": "Check-ins",
+  "ui.charts.details.rawDataTop": "Raw Data (Top {count})",
+  "ui.charts.kpi.peakHour": "Peak Hour",
+  "ui.charts.kpi.busiestDay": "Busiest Day",
+  "ui.charts.tabs.byHour": "By Hour",
+  "ui.charts.tabs.busiestDays": "Busiest Days",
+  "ui.charts.tabs.sevenDayTrend": "7-Day Trend",
+  "ui.charts.section.busiestDays": "Busiest Days",
+  "ui.charts.section.sevenDayTrend": "7-Day Trend",
+  "ui.charts.time.am": "AM",
+  "ui.charts.time.pm": "PM"
 }

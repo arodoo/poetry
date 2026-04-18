@@ -1,8 +1,11 @@
 /*
  * File: EventsByTypeChart.tsx
- * Purpose: Bar chart showing audit events grouped by type.
+ * Purpose: Horizontal bar chart for audit events grouped by type,
+ * rendered inside the shared ChartCard with themed axes, grid and a
+ * palette-driven informational fill.
  * All Rights Reserved. Arodi Emmanuel
  */
+import type { ReactElement } from 'react'
 import {
   Bar,
   BarChart,
@@ -12,11 +15,12 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { CHART_COLORS, formatBarData } from './chartUtils'
-import type { ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Button } from '../../../ui'
+import { formatBarData } from './chartUtils'
+import { pickColor } from './shared/chartTheme'
+import { AXIS_BASE, GRID_BASE, TOOLTIP_CURSOR } from './shared/chartAxisProps'
+import { ChartCard } from './shared/ChartCard'
+import { ChartTooltip } from './shared/ChartTooltip'
 
 export function EventsByTypeChart({
   data,
@@ -24,71 +28,39 @@ export function EventsByTypeChart({
   data: Record<string, number> | undefined
 }): ReactElement | null {
   const t = useT()
-  const { locale } = useParams()
-  const navigate = useNavigate()
   if (!data) return null
-  const chartData = formatBarData(
-    Object.fromEntries(
-      Object.entries(data).map(([k, v]) => [t(`ui.charts.events.${k}`), v])
-    ),
-    'type',
-    'count'
+  const translated = Object.fromEntries(
+    Object.entries(data).map(([k, v]) => [t(`ui.charts.events.${k}`), v])
   )
-
+  const chartData = formatBarData(translated, 'type', 'count')
   return (
-    <div className="flex h-full flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
-      <h3 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
-        {t('ui.charts.eventsByType')}
-      </h3>
-      <div className="flex-1">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={chartData}
-            layout="vertical"
-            margin={{ top: 0, right: 10, left: 10, bottom: 0 }}
-          >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              horizontal={false}
-              stroke="var(--color-divider)"
-            />
-            <XAxis
-              type="number"
-              tick={{ fill: 'var(--color-text-muted)', fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <YAxis
-              dataKey="type"
-              type="category"
-              width={80}
-              tick={{ fill: 'var(--color-text-muted)', fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <Tooltip
-              cursor={{ fill: 'var(--color-divider)', opacity: 0.2 }}
-              contentStyle={{
-                borderRadius: '8px',
-                border: 'none',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              }}
-            />
-            <Bar dataKey="count" fill={CHART_COLORS[6]} radius={[0, 4, 4, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="mt-4 flex justify-end">
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => {
-            void navigate(`/${locale ?? 'en'}/charts/details/eventsByType`)
-          }}
+    <ChartCard
+      title={t('ui.charts.eventsByType')}
+      detailsId="eventsByType"
+    >
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={chartData}
+          layout="vertical"
+          margin={{ top: 4, right: 12, left: 8, bottom: 0 }}
         >
-          {t('ui.charts.viewMore')}
-        </Button>
-      </div>
-    </div>
+          <CartesianGrid {...GRID_BASE} vertical horizontal={false} />
+          <XAxis type="number" {...AXIS_BASE} allowDecimals={false} />
+          <YAxis
+            dataKey="type"
+            type="category"
+            width={110}
+            {...AXIS_BASE}
+          />
+          <Tooltip content={<ChartTooltip />} cursor={TOOLTIP_CURSOR} />
+          <Bar
+            dataKey="count"
+            fill={pickColor(3)}
+            radius={[0, 4, 4, 0]}
+            maxBarSize={22}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
   )
 }

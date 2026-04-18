@@ -25,5 +25,18 @@
   "ui.charts.details.time": "Hora",
   "ui.charts.details.value": "Valor",
   "ui.charts.details.region": "Región",
-  "ui.charts.details.users": "Usuarios"
+  "ui.charts.details.users": "Usuarios",
+  "ui.charts.details.id": "ID",
+  "ui.charts.details.birthdays": "Cumpleaños",
+  "ui.charts.details.checkIns": "Entradas",
+  "ui.charts.details.rawDataTop": "Datos en Bruto (Top {count})",
+  "ui.charts.kpi.peakHour": "Hora Pico",
+  "ui.charts.kpi.busiestDay": "Día Más Activo",
+  "ui.charts.tabs.byHour": "Por Hora",
+  "ui.charts.tabs.busiestDays": "Días Más Activos",
+  "ui.charts.tabs.sevenDayTrend": "Tendencia 7 Días",
+  "ui.charts.section.busiestDays": "Días Más Activos",
+  "ui.charts.section.sevenDayTrend": "Tendencia de 7 Días",
+  "ui.charts.time.am": "a. m.",
+  "ui.charts.time.pm": "p. m."
 }

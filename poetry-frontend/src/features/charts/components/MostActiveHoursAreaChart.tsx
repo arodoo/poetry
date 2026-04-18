@@ -1,6 +1,7 @@
 /*
  * File: MostActiveHoursAreaChart.tsx
- * Purpose: Visual rendering component decoupled to maintain exact line limits under 80lines.
+ * Purpose: Inner recharts AreaChart for the active-hours panel.
+ * Draws a gradient-filled primary area with a themed tooltip and axes.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
@@ -13,71 +14,56 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { CHART_TOKENS } from './shared/chartTheme'
+import { AXIS_BASE, GRID_BASE } from './shared/chartAxisProps'
+import { ChartTooltip } from './shared/ChartTooltip'
+import type { HourPoint } from './mostActiveHoursUtils'
 
 export function MostActiveHoursAreaChart({
   chartData,
 }: {
-  chartData: { name: string; value: number }[]
+  chartData: HourPoint[]
 }): ReactElement {
-  const tooltipStyle = {
-    backgroundColor: 'var(--color-surface)',
-    borderColor: 'var(--color-divider)',
-    color: 'var(--color-foreground)',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-  }
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
         data={chartData}
-        margin={{ top: 5, right: 0, left: -20, bottom: 0 }}
+        margin={{ top: 5, right: 4, left: -18, bottom: 0 }}
       >
         <defs>
           <linearGradient id="colorActive" x1="0" y1="0" x2="0" y2="1">
             <stop
               offset="5%"
-              stopColor="var(--color-primary)"
-              stopOpacity={0.3}
+              stopColor={CHART_TOKENS.primary}
+              stopOpacity={0.45}
             />
             <stop
               offset="95%"
-              stopColor="var(--color-primary)"
+              stopColor={CHART_TOKENS.primary}
               stopOpacity={0}
             />
           </linearGradient>
         </defs>
-        <CartesianGrid
-          strokeDasharray="3 3"
-          stroke="var(--color-divider)"
-          vertical={false}
-        />
+        <CartesianGrid {...GRID_BASE} />
         <XAxis
           dataKey="name"
-          stroke="var(--color-text-muted)"
-          fontSize={11}
+          {...AXIS_BASE}
           tickMargin={8}
           minTickGap={15}
         />
-        <YAxis
-          stroke="var(--color-text-muted)"
-          fontSize={11}
-          allowDecimals={false}
-        />
-        <Tooltip
-          contentStyle={tooltipStyle}
-          itemStyle={{ color: 'var(--color-primary)', fontWeight: 'bold' }}
-        />
+        <YAxis allowDecimals={false} {...AXIS_BASE} />
+        <Tooltip content={<ChartTooltip />} />
         <Area
           type="monotone"
           dataKey="value"
-          stroke="var(--color-primary)"
+          stroke={CHART_TOKENS.primary}
           strokeWidth={3}
           fillOpacity={1}
           fill="url(#colorActive)"
           activeDot={{
-            r: 6,
-            fill: 'var(--color-primary)',
-            stroke: 'var(--color-surface)',
+            r: 5,
+            fill: CHART_TOKENS.primary,
+            stroke: CHART_TOKENS.surface,
             strokeWidth: 2,
           }}
         />

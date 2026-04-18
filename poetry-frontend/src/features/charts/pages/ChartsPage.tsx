@@ -25,7 +25,7 @@ export function ChartsPage(): ReactElement {
 
   if (isLoading) {
     return (
-      <div className="p-8 text-center text-[var(--color-text)]">
+      <div className="p-8 text-center text-text">
         {t('ui.common.loading')}
       </div>
     )
@@ -33,13 +33,13 @@ export function ChartsPage(): ReactElement {
 
   if (isError) {
     return (
-      <div className="p-8 text-center text-red-500">{t('ui.common.error')}</div>
+      <div className="p-8 text-center text-error">{t('ui.common.error')}</div>
     )
   }
 
   return (
     <div className="flex flex-col gap-6 p-6">
-      <h1 className="text-2xl font-bold text-[var(--color-text)]">
+      <h1 className="text-2xl font-bold text-text">
         {t('ui.route.charts.title')}
       </h1>
       <div

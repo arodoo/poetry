@@ -1,57 +1,65 @@
 /*
  * File: AccessLogsRawDataView.tsx
- * Purpose: Extracts the DataTable raw access logs out of the details view to keep file sizes within 80 lines.
+ * Purpose: DataTable showing raw recent access-log entries using themed
+ * tokens for the surrounding card. Column headers are sourced from the
+ * i18n catalog so the table is fully localized.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { useMemo, type ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
 import { DataTable } from '../../../ui'
-import type { DashboardMetrics } from '../model/ChartsSchemas'
 
-type LogRow = NonNullable<DashboardMetrics['recentAccessLogs']>[number]
+interface LogRow {
+  id: number | string
+  userName: string
+  email: string
+  timestamp: string
+}
 
 export function AccessLogsRawDataView({
   logs,
 }: {
-  logs: LogRow[]
+  logs: unknown[]
 }): ReactElement {
   const t = useT()
-
-  const columns = useMemo(() => {
-    return [
-      { key: 'id', header: 'ID', accessor: (row: LogRow) => row.id },
+  const rows = logs as LogRow[]
+  const title = t('ui.charts.details.rawDataTop').replace('{count}', '50')
+  const columns = useMemo(
+    () => [
+      {
+        key: 'id',
+        header: t('ui.charts.details.id'),
+        accessor: (row: LogRow): string => String(row.id),
+      },
       {
         key: 'userName',
         header: t('ui.common.name'),
-        accessor: (row: LogRow) => row.userName,
+        accessor: (row: LogRow): string => row.userName,
       },
       {
         key: 'email',
         header: t('ui.common.email'),
-        accessor: (row: LogRow) => row.email,
+        accessor: (row: LogRow): string => row.email,
       },
       {
         key: 'timestamp',
         header: t('ui.charts.details.time'),
-        accessor: (row: LogRow) => new Date(row.timestamp).toLocaleString(),
+        accessor: (row: LogRow): string =>
+          new Date(row.timestamp).toLocaleString(),
       },
-    ]
-  }, [t])
-
+    ],
+    [t]
+  )
   return (
-    <div className="bg-surface rounded-xl border border-divider shadow-sm overflow-hidden mt-4">
-      <div className="p-5 border-b border-divider bg-surface-hover">
-        <h3 className="text-lg font-medium text-text">
-          {t('ui.charts.details.rawData')} (Top 50)
-        </h3>
+    <div className="mt-4 overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
+      <div className="border-b border-border bg-background p-5">
+        <h3 className="text-lg font-semibold text-text">{title}</h3>
       </div>
-      <div className="p-0">
-        <DataTable
-          columns={columns}
-          data={logs}
-          keyExtractor={(item: LogRow) => item.id.toString()}
-        />
-      </div>
+      <DataTable
+        columns={columns}
+        data={rows}
+        keyExtractor={(item: LogRow): string => String(item.id)}
+      />
     </div>
   )
 }

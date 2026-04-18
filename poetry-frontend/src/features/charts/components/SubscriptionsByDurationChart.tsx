@@ -1,8 +1,11 @@
 /*
  * File: SubscriptionsByDurationChart.tsx
- * Purpose: Bar chart showing number of subscriptions by duration.
+ * Purpose: Vertical bar chart displaying number of subscriptions per
+ * duration bucket using the shared ChartCard, themed axes, grid and
+ * a palette-driven warning-colored fill.
  * All Rights Reserved. Arodi Emmanuel
  */
+import type { ReactElement } from 'react'
 import {
   Bar,
   BarChart,
@@ -12,11 +15,12 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { CHART_COLORS, formatBarData } from './chartUtils'
-import type { ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Button } from '../../../ui'
+import { formatBarData } from './chartUtils'
+import { pickColor } from './shared/chartTheme'
+import { AXIS_BASE, GRID_BASE, TOOLTIP_CURSOR } from './shared/chartAxisProps'
+import { ChartCard } from './shared/ChartCard'
+import { ChartTooltip } from './shared/ChartTooltip'
 
 export function SubscriptionsByDurationChart({
   data,
@@ -24,63 +28,30 @@ export function SubscriptionsByDurationChart({
   data: Record<string, number> | undefined
 }): ReactElement | null {
   const t = useT()
-  const { locale } = useParams()
-  const navigate = useNavigate()
   if (!data) return null
   const chartData = formatBarData(data, 'duration', 'count')
-
   return (
-    <div className="flex h-full flex-col rounded-xl border border-[var(--color-divider)] bg-[var(--color-surface)] p-4 shadow-sm">
-      <h3 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
-        {t('ui.charts.subscriptionsByDuration')}
-      </h3>
-      <div className="flex-1">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={chartData}
-            margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-          >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              vertical={false}
-              stroke="var(--color-divider)"
-            />
-            <XAxis
-              dataKey="duration"
-              tick={{ fill: 'var(--color-text-muted)', fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <YAxis
-              tick={{ fill: 'var(--color-text-muted)', fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <Tooltip
-              cursor={{ fill: 'var(--color-divider)', opacity: 0.4 }}
-              contentStyle={{
-                borderRadius: '8px',
-                border: 'none',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              }}
-            />
-            <Bar dataKey="count" fill={CHART_COLORS[3]} radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="mt-4 flex justify-end">
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => {
-            void navigate(
-              `/${locale ?? 'en'}/charts/details/subscriptionsByDuration`
-            )
-          }}
+    <ChartCard
+      title={t('ui.charts.subscriptionsByDuration')}
+      detailsId="subscriptionsByDuration"
+    >
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={chartData}
+          margin={{ top: 8, right: 8, left: -18, bottom: 0 }}
         >
-          {t('ui.charts.viewMore')}
-        </Button>
-      </div>
-    </div>
+          <CartesianGrid {...GRID_BASE} />
+          <XAxis dataKey="duration" {...AXIS_BASE} />
+          <YAxis {...AXIS_BASE} allowDecimals={false} />
+          <Tooltip content={<ChartTooltip />} cursor={TOOLTIP_CURSOR} />
+          <Bar
+            dataKey="count"
+            fill={pickColor(2)}
+            radius={[4, 4, 0, 0]}
+            maxBarSize={48}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartCard>
   )
 }
