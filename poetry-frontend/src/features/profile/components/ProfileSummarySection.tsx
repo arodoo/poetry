@@ -1,58 +1,21 @@
 /* File: ProfileSummarySection.tsx
- * Purpose: Present and edit profile summary information within a card.
+ * Purpose: Present read-only profile summary information within a card.
  * All Rights Reserved. Arodi Emmanuel
  */
-import { useEffect, useState, type FormEvent, type ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import { Card } from '../../../ui/Card/Card'
 import { Stack } from '../../../ui/Stack/Stack'
 import { Heading } from '../../../ui/Heading/Heading'
 import type { useT } from '../../../shared/i18n/useT'
 import type { ProfileSummary } from '../model/ProfileSchemas'
-import type { ProfileSummaryUpdateInput } from '../model/ProfileSchemas'
 import { ProfileMeta } from './ProfileMeta'
-import { ProfileUsernameForm } from './ProfileUsernameForm'
 export interface ProfileSummarySectionProps {
   readonly profile: ProfileSummary
-  readonly onSubmit: (input: ProfileSummaryUpdateInput) => void
-  readonly isSubmitting: boolean
   readonly t: ReturnType<typeof useT>
 }
 export function ProfileSummarySection(
   props: ProfileSummarySectionProps
 ): ReactElement {
-  // Keep safe fallbacks to satisfy runtime and TS guarantees
-  const [username, setUsername] = useState(props.profile.username ?? '')
-  useEffect((): void => {
-    setUsername(props.profile.username ?? '')
-    return undefined
-  }, [props.profile.username])
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-    event.preventDefault()
-    // compute version deterministically and avoid unnecessary coercions
-    let versionValue: number
-    if (typeof props.profile.version === 'number') {
-      versionValue = props.profile.version
-    } else if (typeof props.profile.version === 'string') {
-      // parse string versions, fallback to 0 on NaN
-      const parsed = Number(props.profile.version)
-      versionValue = Number.isFinite(parsed) ? parsed : 0
-    } else {
-      versionValue = 0
-    }
-
-    props.onSubmit({
-      username: username,
-      email: props.profile.email ?? '',
-      locale: props.profile.locale ?? 'en',
-      version: versionValue,
-    })
-  }
-
-  function onSubmitWrapper(e: unknown): void {
-    handleSubmit(e as FormEvent<HTMLFormElement>)
-  }
-
   return (
     <Card padding="lg" radius="lg" shadow>
       <Stack as="section" gap="md" data-testid="profile-summary">
@@ -64,14 +27,6 @@ export function ProfileSummarySection(
         </Stack>
 
         <ProfileMeta profile={props.profile} t={props.t} />
-
-        <ProfileUsernameForm
-          username={username}
-          setUsername={setUsername}
-          isSubmitting={props.isSubmitting}
-          onSubmit={onSubmitWrapper}
-          t={props.t}
-        />
       </Stack>
     </Card>
   )

@@ -5,7 +5,6 @@
   "ui.publicLogin.password.label": "Password",
   "ui.publicLogin.submit.label": "Sign in",
   "ui.publicLogin.submit.pending": "Loading…",
-  "ui.publicLogin.forgotLink": "Forgot your password?",
   "ui.publicLogin.error": "Sign in failed. Check your credentials.",
   "ui.publicLogin.errors.username": "Enter your username.",
   "ui.publicLogin.errors.password": "Enter your password.",

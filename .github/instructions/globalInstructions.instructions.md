@@ -8,7 +8,7 @@ applyTo: '**'
 
 ## Global Considerations
 
-- Backend, Frontend and Mobile are always running in default ports and the three
+- Backend, Frontend are always running in default ports and the two
   run with hot-reload
 - backend has update at startup, so db persists each time
 - backend endpoints require authentication

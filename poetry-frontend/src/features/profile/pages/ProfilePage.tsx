@@ -9,18 +9,12 @@ import { Text } from '../../../ui/Text/Text'
 import ProfilePasswordSection from '../components/ProfilePasswordSection'
 import { useT } from '../../../shared/i18n/useT'
 import { ProfileSummarySection } from '../components/ProfileSummarySection'
-import {
-  useProfileSummaryMutation,
-  useProfileSummaryQuery,
-} from '../hooks/useProfileQueries'
-import type { ProfileSummaryUpdateInput } from '../model/ProfileSchemas'
+import { useProfileSummaryQuery } from '../hooks/useProfileQueries'
 
 export default function ProfilePage(): ReactElement {
   const t: ReturnType<typeof useT> = useT()
   const summaryQuery: ReturnType<typeof useProfileSummaryQuery> =
     useProfileSummaryQuery()
-  const summaryMutation: ReturnType<typeof useProfileSummaryMutation> =
-    useProfileSummaryMutation()
   const isLoading: boolean = summaryQuery.isLoading
   const isError: boolean = summaryQuery.isError
   const profile: ReturnType<typeof useProfileSummaryQuery>['data'] =
@@ -43,14 +37,7 @@ export default function ProfilePage(): ReactElement {
           {t('ui.profile.summary.error')}
         </Text>
       ) : profile ? (
-        <ProfileSummarySection
-          profile={profile}
-          onSubmit={(input: ProfileSummaryUpdateInput): void => {
-            summaryMutation.mutate(input)
-          }}
-          isSubmitting={summaryMutation.isPending}
-          t={t}
-        />
+        <ProfileSummarySection profile={profile} t={t} />
       ) : (
         <Text data-testid="profile-summary-empty">
           {t('ui.profile.summary.empty')}

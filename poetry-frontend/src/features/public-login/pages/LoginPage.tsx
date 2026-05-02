@@ -5,8 +5,6 @@
  * from the URL for immediate i18n. All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
-import { useLocale } from '../../../shared/i18n/hooks/useLocale'
 import { PublicLoginForm } from '../components/PublicLoginForm'
 import { DancerSvg } from '../components/DancerSvg'
 import { LoginLayout } from '../components/LoginLayout'
@@ -15,8 +13,6 @@ import { useLoginPage } from '../hooks/useLoginPage'
 export default function LoginPage(): ReactElement {
   const { t, form, setForm, onSubmit, isLoading, error, fieldErrors } =
     useLoginPage()
-  const { locale } = useLocale()
-  const forgotPath = `/${locale}/forgot-password`
 
   function setUsername(v: string): void {
     setForm((p) => ({ ...p, username: v }))
@@ -56,9 +52,6 @@ export default function LoginPage(): ReactElement {
         pendingLabel={t('ui.publicLogin.submit.pending')}
         errorMessage={error ?? undefined}
       />
-      <p className="mt-4 text-purple-200 text-sm">
-        <Link to={forgotPath}>{t('ui.publicLogin.forgotLink')}</Link>
-      </p>
     </>
   )
 

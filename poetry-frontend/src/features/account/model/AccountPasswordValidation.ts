@@ -1,11 +1,12 @@
 /*
  * File: AccountPasswordValidation.ts
- * Purpose: Validate account password form values and produce trimmed data.
+ * Purpose: Validates account password form values.
+ * It produces trimmed data for the mutation boundary.
+ * It mirrors shared password policy feedback in the form.
  * All Rights Reserved. Arodi Emmanuel
  */
 import {
-  MAX_PASSWORD_LENGTH,
-  MIN_PASSWORD_LENGTH,
+  isPasswordPolicyValid,
 } from '../../../shared/security/passwordPolicy'
 import {
   type AccountPasswordFieldErrors,
@@ -33,21 +34,23 @@ export function validateAccountPasswordForm(
     confirmPassword: input.values.confirmPassword.trim(),
   }
   const errors: AccountPasswordFieldErrors = {}
+  const passwordsMatch =
+    trimmed.newPassword === trimmed.confirmPassword
   if (trimmed.currentPassword.length === 0) {
     errors.currentPassword = input.requiredMessage
   }
   if (trimmed.newPassword.length === 0) {
     errors.newPassword = input.requiredMessage
   } else if (
-    trimmed.newPassword.length < MIN_PASSWORD_LENGTH ||
-    trimmed.newPassword.length > MAX_PASSWORD_LENGTH
+    !isPasswordPolicyValid(trimmed.newPassword)
   ) {
     errors.newPassword = input.policyMessage
   }
   if (trimmed.confirmPassword.length === 0) {
     errors.confirmPassword = input.requiredMessage
-  } else if (trimmed.newPassword !== trimmed.confirmPassword) {
-    errors.confirmPassword = input.mismatchMessage
+  } else if (!passwordsMatch) {
+    errors.confirmPassword =
+      input.mismatchMessage
   }
   return { trimmed, errors }
 }

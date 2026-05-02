@@ -15,7 +15,6 @@ export const DashboardMetricsSchema = z.object({
   subscriptionsByDuration: StringToNumberMapSchema,
 
   sellerCodesByStatus: StringToNumberMapSchema,
-  scheduledEventsByStatus: StringToNumberMapSchema.optional().catch(() => ({})),
   birthdaysThisMonth: StringToNumberMapSchema,
   activeHours: StringToNumberMapSchema,
   populatedRegions: StringToNumberMapSchema,

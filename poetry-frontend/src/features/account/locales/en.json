@@ -12,7 +12,7 @@
   "ui.account.security.password.current.label": "Current password",
   "ui.account.security.password.new.label": "New password",
   "ui.account.security.password.confirm.label": "Confirm new password",
-  "ui.account.security.password.policy": "Password length must be between {{min}} and {{max}} characters.",
+  "ui.account.security.password.policy": "Password length must be between {{min}} and {{max}} characters, with uppercase, lowercase, number, symbol, and no common or repeated patterns.",
   "ui.account.security.password.toggle.show": "Show password",
   "ui.account.security.password.toggle.hide": "Hide password",
   "ui.account.security.password.submit.label": "Save password",

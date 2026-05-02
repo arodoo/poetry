@@ -7,10 +7,10 @@
   "ui.charts.subscriptionsByDuration": "Subscriptions Duration",
 
   "ui.charts.sellerCodesByStatus": "Seller Codes",
-  "ui.charts.scheduledEventsByStatus": "Scheduled Events",
   "ui.charts.birthdaysThisMonth": "Birthdays This Month",
   "ui.charts.events.refresh.issue": "Refresh Issued",
   "ui.charts.events.login.success": "Login Success",
+  "ui.charts.events.refresh.logout": "Refresh Logout",
   "ui.charts.events.refresh.rotate": "Refresh Rotated",
   "ui.charts.events.register": "Register",
   "ui.charts.activeHours": "Most Active Hours",

@@ -1,21 +1,26 @@
 /*
  * File: AccountSchemas.ts
- * Purpose: Zod schemas and types describing account-related payloads.
- * Uses generated LocaleDto and PasswordChangeRequest as foundation.
+ * Purpose: Defines account Zod schemas and payload types.
+ * It uses generated SDK DTOs as the source boundary.
+ * It keeps password validation aligned with shared policy.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { z } from 'zod'
-import type { LocaleDto, PasswordChangeRequest } from '../../../api/generated'
+import type {
+  LocaleDto,
+  PasswordChangeRequest,
+} from '../../../api/generated'
 import {
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH,
+  isPasswordPolicyValid,
 } from '../../../shared/security/passwordPolicy'
 
 /**
- * Account schemas aligned with generated types from OpenAPI.
+ * Account schemas aligned with OpenAPI types.
  *
- * @see {LocaleDto} from api/generated - OpenAPI source of truth
- * @see {PasswordChangeRequest} from api/generated - OpenAPI source of truth
+ * @see LocaleDto from api/generated.
+ * @see PasswordChangeRequest from api/generated.
  */
 
 export type { LocaleDto, PasswordChangeRequest }
@@ -28,10 +33,15 @@ export const AccountLocaleSchema: z.ZodType<LocaleDto> = z
   })
   .readonly() as z.ZodType<LocaleDto>
 
-export const AccountPasswordChangeSchema: z.ZodType<PasswordChangeRequest> = z
+export const AccountPasswordChangeSchema:
+  z.ZodType<PasswordChangeRequest> = z
   .object({
     currentPassword: z.string().min(1),
-    newPassword: z.string().min(MIN_PASSWORD_LENGTH).max(MAX_PASSWORD_LENGTH),
+    newPassword: z
+      .string()
+      .min(MIN_PASSWORD_LENGTH)
+      .max(MAX_PASSWORD_LENGTH)
+      .refine(isPasswordPolicyValid),
   })
   .readonly()
 

@@ -28,19 +28,33 @@ describe('accountApi', () => {
 
   it('validates password payload before calling sdk', async () => {
     const spy = vi.spyOn(generatedSdk, 'changePassword').mockResolvedValue({
-      data: undefined,
+      data: {},
       request: new Request('http://localhost/api/v1/account/password'),
       response: new Response(),
     })
     await updatePassword({
       currentPassword: 'current-secret',
-      newPassword: 'new-secret-value',
+      newPassword: 'NewSecret123!',
     })
     expect(spy).toHaveBeenCalledWith({
       body: {
         currentPassword: 'current-secret',
-        newPassword: 'new-secret-value',
+        newPassword: 'NewSecret123!',
       },
     })
+  })
+
+  it('throws when password update returns sdk error', async () => {
+    vi.spyOn(generatedSdk, 'changePassword').mockResolvedValue({
+      error: {},
+      request: new Request('http://localhost/api/v1/account/password'),
+      response: new Response(null, { status: 403 }),
+    })
+    await expect(
+      updatePassword({
+        currentPassword: 'bad-current-secret',
+        newPassword: 'BetterSecret1!',
+      })
+    ).rejects.toThrow('HTTP 403')
   })
 })

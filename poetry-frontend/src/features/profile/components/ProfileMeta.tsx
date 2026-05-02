@@ -18,6 +18,14 @@ export function ProfileMeta({
     <dl className="grid grid-cols-2 gap-4" data-testid="profile-meta">
       <div>
         <dt className="text-xs text-[var(--color-textMuted)]">
+          {t('ui.profile.summary.username')}
+        </dt>
+        <dd className="text-sm font-medium" data-testid="profile-username">
+          {profile.username}
+        </dd>
+      </div>
+      <div>
+        <dt className="text-xs text-[var(--color-textMuted)]">
           {t('ui.profile.summary.email')}
         </dt>
         <dd className="text-sm font-medium">{profile.email}</dd>

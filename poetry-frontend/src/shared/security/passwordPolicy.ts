@@ -1,28 +1,52 @@
 /*
  * File: passwordPolicy.ts
- * Purpose: Centralized password policy constants and validation helpers.
+ * Purpose: Centralizes frontend password rules.
+ * It mirrors backend checks when client data is enough.
+ * It keeps account form validation consistent.
  * All Rights Reserved. Arodi Emmanuel
  */
-export const MIN_PASSWORD_LENGTH = 6
-export const MAX_PASSWORD_LENGTH = 72 // bcrypt typical safe upper bound
+export const MIN_PASSWORD_LENGTH = 12
+export const MAX_PASSWORD_LENGTH = 72
 
-export function isPasswordLengthValid(candidate: string): boolean {
+const UPPERCASE = /[A-Z]/
+const LOWERCASE = /[a-z]/
+const DIGIT = /[0-9]/
+const SYMBOL = /[^A-Za-z0-9]/
+const REPEAT_4 = /(.)\1{3,}/
+const BLACKLIST = new Set([
+  'Password123!',
+  'Welcome2024!',
+  'ChangeMe!1',
+])
+const POLICY_ERROR_KEY = 'error.password.policy.invalid'
+
+export function isPasswordLengthValid(
+  candidate: string
+): boolean {
   return (
     candidate.length >= MIN_PASSWORD_LENGTH &&
     candidate.length <= MAX_PASSWORD_LENGTH
   )
 }
 
-export function assertPasswordValid(candidate: string): void {
-  if (!isPasswordLengthValid(candidate)) {
-    throw new Error('error.password.length.invalid')
-  }
+export function isPasswordPolicyValid(
+  candidate: string
+): boolean {
+  return (
+    isPasswordLengthValid(candidate) &&
+    UPPERCASE.test(candidate) &&
+    LOWERCASE.test(candidate) &&
+    DIGIT.test(candidate) &&
+    SYMBOL.test(candidate) &&
+    !REPEAT_4.test(candidate) &&
+    !BLACKLIST.has(candidate)
+  )
 }
 
-const passwordPolicyDescriptionSegments: readonly string[] = [
-  `Password length must be between ${String(MIN_PASSWORD_LENGTH)}`,
-  `and ${String(MAX_PASSWORD_LENGTH)} characters.`,
-]
-
-export const passwordPolicyDescription: string =
-  passwordPolicyDescriptionSegments.join(' ')
+export function assertPasswordValid(
+  candidate: string
+): void {
+  if (!isPasswordPolicyValid(candidate)) {
+    throw new Error(POLICY_ERROR_KEY)
+  }
+}

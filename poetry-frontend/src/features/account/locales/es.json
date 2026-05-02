@@ -12,7 +12,7 @@
   "ui.account.security.password.current.label": "Contraseña actual",
   "ui.account.security.password.new.label": "Nueva contraseña",
   "ui.account.security.password.confirm.label": "Confirmar nueva contraseña",
-  "ui.account.security.password.policy": "La contraseña debe tener entre {{min}} y {{max}} caracteres.",
+  "ui.account.security.password.policy": "La contraseña debe tener entre {{min}} y {{max}} caracteres, mayúscula, minúscula, número, símbolo, y no usar patrones comunes o repetidos.",
   "ui.account.security.password.toggle.show": "Mostrar contraseña",
   "ui.account.security.password.toggle.hide": "Ocultar contraseña",
   "ui.account.security.password.submit.label": "Guardar contraseña",

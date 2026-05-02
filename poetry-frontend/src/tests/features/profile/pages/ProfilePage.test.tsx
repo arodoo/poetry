@@ -20,10 +20,11 @@ vi.mock('../../../../features/profile/hooks/useProfileQueries', () => ({
 }))
 
 describe('ProfilePage', () => {
-  it('renders profile summary metrics', () => {
+  it('renders read-only profile summary metrics', () => {
     primeProfileHooks(mocks)
     render(withProfileProviders(createElement(ProfilePage)))
     expect(screen.getByTestId('profile-summary')).toBeInTheDocument()
-    expect(screen.getByTestId('profile-username-input')).toHaveValue('aurora')
+    expect(screen.getByTestId('profile-username')).toHaveTextContent('aurora')
+    expect(screen.queryByTestId('profile-username-input')).toBeNull()
   })
 })

@@ -1,21 +1,28 @@
 /*
  * File: passwordPolicy.test.ts
- * Purpose: Ensure password policy constant enforced at 6 chars.
+ * Purpose: Verifies frontend password policy helpers.
+ * It keeps minimum length aligned with the backend rule.
+ * It checks complexity rules enforced before submission.
  * All Rights Reserved. Arodi Emmanuel
  */
 import { describe, it, expect } from 'vitest'
-import { z } from 'zod'
-import { MIN_PASSWORD_LENGTH } from '../../../shared/security/passwordPolicy'
-
-const Schema = z.object({ pw: z.string().min(MIN_PASSWORD_LENGTH) })
+import {
+  isPasswordPolicyValid,
+} from '../../../shared/security/passwordPolicy'
 
 describe('password policy', () => {
-  it('accepts length 6', () => {
-    const r = Schema.safeParse({ pw: 'a'.repeat(6) })
-    expect(r.success).toBe(true)
+  it('accepts valid backend-compatible passwords', () => {
+    const result = isPasswordPolicyValid('ValidPass123!')
+    expect(result).toBe(true)
   })
-  it('rejects length 5', () => {
-    const r = Schema.safeParse({ pw: 'a'.repeat(5) })
-    expect(r.success).toBe(false)
+
+  it('rejects missing complexity', () => {
+    const result = isPasswordPolicyValid('lowercaseonly')
+    expect(result).toBe(false)
+  })
+
+  it('rejects repeated characters', () => {
+    const result = isPasswordPolicyValid('Valid1111Pass!')
+    expect(result).toBe(false)
   })
 })

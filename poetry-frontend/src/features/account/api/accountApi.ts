@@ -25,10 +25,14 @@ export async function updatePassword(
 ): Promise<void> {
   const payload: AccountPasswordChangeRequest =
     AccountPasswordChangeSchema.parse(body)
-  await changePasswordSdk({
+  const response = await changePasswordSdk({
     body: {
       currentPassword: payload.currentPassword,
       newPassword: payload.newPassword,
     },
   })
+  if (response.error) {
+    const status = String(response.response.status)
+    throw new Error(`HTTP ${status}`)
+  }
 }

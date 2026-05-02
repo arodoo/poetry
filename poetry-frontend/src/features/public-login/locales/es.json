@@ -5,7 +5,6 @@
   "ui.publicLogin.password.label": "Contraseña",
   "ui.publicLogin.submit.label": "Iniciar sesión",
   "ui.publicLogin.submit.pending": "Cargando…",
-  "ui.publicLogin.forgotLink": "¿Olvidaste tu contraseña?",
   "ui.publicLogin.error": "Fallo al iniciar sesión. Verifica tus datos.",
   "ui.publicLogin.errors.username": "Ingresa tu usuario.",
   "ui.publicLogin.errors.password": "Ingresa tu contraseña.",
