@@ -7,45 +7,41 @@
  */
 import { useMemo, type ReactElement } from 'react'
 import { useT } from '../../../shared/i18n/useT'
+import { formatDateTime } from '../../../shared/utils/dateUtils'
 import { DataTable } from '../../../ui'
-
-interface LogRow {
-  id: number | string
-  userName: string
-  email: string
-  timestamp: string
-}
+import type { AccessLogRecord } from '../model/ChartsSchemas'
 
 export function AccessLogsRawDataView({
   logs,
 }: {
-  logs: unknown[]
+  logs: AccessLogRecord[]
 }): ReactElement {
   const t = useT()
-  const rows = logs as LogRow[]
-  const title = t('ui.charts.details.rawDataTop').replace('{count}', '50')
+  const rows = logs
+  const title = t('ui.charts.details.rawDataTop')
+    .replace('{count}', '50')
   const columns = useMemo(
     () => [
       {
         key: 'id',
         header: t('ui.charts.details.id'),
-        accessor: (row: LogRow): string => String(row.id),
+        accessor: (row: AccessLogRecord): string => String(row.id),
       },
       {
         key: 'userName',
         header: t('ui.common.name'),
-        accessor: (row: LogRow): string => row.userName,
+        accessor: (row: AccessLogRecord): string => row.userName,
       },
       {
         key: 'email',
         header: t('ui.common.email'),
-        accessor: (row: LogRow): string => row.email,
+        accessor: (row: AccessLogRecord): string => row.email,
       },
       {
         key: 'timestamp',
         header: t('ui.charts.details.time'),
-        accessor: (row: LogRow): string =>
-          new Date(row.timestamp).toLocaleString(),
+        accessor: (row: AccessLogRecord): string =>
+          formatDateTime(row.timestamp),
       },
     ],
     [t]
@@ -58,7 +54,7 @@ export function AccessLogsRawDataView({
       <DataTable
         columns={columns}
         data={rows}
-        keyExtractor={(item: LogRow): string => String(item.id)}
+        keyExtractor={(item: AccessLogRecord): string => String(item.id)}
       />
     </div>
   )

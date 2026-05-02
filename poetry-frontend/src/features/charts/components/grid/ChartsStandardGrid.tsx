@@ -1,16 +1,19 @@
 /*
  * File: ChartsStandardGrid.tsx
- * Purpose: Renders secondary chart tile groups.
+ * Purpose: Renders secondary user chart groups.
  * It keeps the main grid component small.
- * Group files own the metric-specific chart lists.
+ * People and activity cards own their own rendering.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
-import { ChartsBusinessGrid } from './ChartsBusinessGrid'
+import {
+  RecentUserActivityCard,
+} from '../admin/RecentUserActivityCard'
 import type {
   ChartsGridDataProps,
 } from './ChartsGridDataProps'
 import { ChartsPeopleGrid } from './ChartsPeopleGrid'
+import { ChartTile } from './ChartTile'
 
 export function ChartsStandardGrid(
   props: ChartsGridDataProps
@@ -18,7 +21,11 @@ export function ChartsStandardGrid(
   return (
     <>
       <ChartsPeopleGrid data={props.data} />
-      <ChartsBusinessGrid data={props.data} />
+      <ChartTile wide>
+        <RecentUserActivityCard
+          logs={props.data?.recentAccessLogs ?? []}
+        />
+      </ChartTile>
     </>
   )
 }

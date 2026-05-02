@@ -1,15 +1,15 @@
 /*
  * File: ChartsPeopleGrid.tsx
- * Purpose: Renders people-focused chart tiles.
- * It groups identity and regional metrics together.
+ * Purpose: Renders user-focused chart tiles.
+ * It groups identity, membership and regional metrics.
  * Each tile keeps a stable height for Recharts.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import { UsersByStatusChart } from '../UsersByStatusChart'
 import {
-  FingerprintsOverTimeChart,
-} from '../FingerprintsOverTimeChart'
+  MembershipsByStatusChart,
+} from '../MembershipsByStatusChart'
 import {
   BirthdaysThisMonthChart,
 } from '../BirthdaysThisMonthChart'
@@ -29,8 +29,8 @@ export function ChartsPeopleGrid({
     data?.birthdaysThisMonth ?? {}
   const populatedRegions =
     data?.populatedRegions ?? {}
-  const enrollmentsOverTime =
-    data?.enrollmentsOverTime ?? {}
+  const membershipsByStatus =
+    data?.membershipsByStatus ?? {}
 
   return (
     <>
@@ -38,8 +38,8 @@ export function ChartsPeopleGrid({
         <UsersByStatusChart data={usersByStatus} />
       </ChartTile>
       <ChartTile>
-        <BirthdaysThisMonthChart
-          data={birthdaysThisMonth}
+        <MembershipsByStatusChart
+          data={membershipsByStatus}
         />
       </ChartTile>
       <ChartTile>
@@ -48,8 +48,8 @@ export function ChartsPeopleGrid({
         />
       </ChartTile>
       <ChartTile>
-        <FingerprintsOverTimeChart
-          data={enrollmentsOverTime}
+        <BirthdaysThisMonthChart
+          data={birthdaysThisMonth}
         />
       </ChartTile>
     </>

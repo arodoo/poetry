@@ -1,14 +1,14 @@
 /*
  * File: ChartsFeatured.tsx
- * Purpose: Renders the primary chart in a wide tile.
+ * Purpose: Renders the primary growth chart in a wide tile.
  * It isolates the first-row layout from the charts page.
  * The metric component still owns chart-specific rendering.
  * All Rights Reserved. Arodi Emmanuel
  */
 import type { ReactElement } from 'react'
 import {
-  MostActiveHoursChart,
-} from '../MostActiveHoursChart'
+  FingerprintsOverTimeChart,
+} from '../FingerprintsOverTimeChart'
 import { ChartTile } from './ChartTile'
 import type {
   ChartsGridDataProps,
@@ -19,9 +19,8 @@ export function ChartsFeatured({
 }: ChartsGridDataProps): ReactElement {
   return (
     <ChartTile wide>
-      <MostActiveHoursChart
-        data={data?.activeHours ?? {}}
-        daysData={data?.activeDaysOfWeek ?? {}}
+      <FingerprintsOverTimeChart
+        data={data?.enrollmentsOverTime ?? {}}
       />
     </ChartTile>
   )
