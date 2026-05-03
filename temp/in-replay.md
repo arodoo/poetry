@@ -1,1 +1,0 @@
-in replay to your last question, follow global instructions at '- When offering a solution, pick the one that considers scalable architecture and long term maintenance, and offer me to implement it with a simple 'GO'

@@ -52,6 +52,7 @@ test-results/
 *.tmp
 *.swp
 *.swo
+temp/
 # Ignorar repo antiguo
 oldRepo/
 01tesis/
